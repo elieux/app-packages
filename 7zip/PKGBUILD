@@ -1,0 +1,41 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=7zip
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=9.20
+pkgrel=1
+pkgdesc="A free file archiver for extremely high compression"
+url="http://sourceforge.net/projects/sevenzip/"
+arch=('any')
+license=('LGPL2')
+makedepends=()
+source=("http://sourceforge.net/projects/sevenzip/files/7-Zip/9.20/7z920.msi"
+        "http://sourceforge.net/projects/sevenzip/files/7-Zip/9.20/7z920-x64.msi")
+md5sums=('9bd44a22bffe0e4e0b71b8b4cf3a80e2'
+         'cac92727c33bec0a79965c61bbb1c82f')
+
+prepare() {
+    msiexec -a 7z920.msi TARGETDIR=$(cygpath -w "${srcdir}/msi32") -qn
+    msiexec -a 7z920-x64.msi TARGETDIR=$(cygpath -w "${srcdir}/msi64") -qn
+}
+
+build() {
+    true
+}
+
+package_app-i686-7zip() {
+  arch=32
+  mkdir -p "${pkgdir}/docs${arch}/${_realname}"
+  mv "${srcdir}"/msi${arch}/Files/7-Zip/*.{chm,txt,ion} "${pkgdir}/docs${arch}/${_realname}"
+  mkdir -p "${pkgdir}/apps${arch}/${_realname}"
+  cp -R "${srcdir}"/msi${arch}/Files/7-Zip/* "${pkgdir}/apps${arch}/${_realname}"
+}
+
+package_app-x86_64-7zip() {
+  arch=64
+  mkdir -p "${pkgdir}/docs${arch}/${_realname}"
+  mv "${srcdir}"/msi${arch}/Files/7-Zip/*.{chm,txt,ion} "${pkgdir}/docs${arch}/${_realname}"
+  mkdir -p "${pkgdir}/apps${arch}/${_realname}"
+  cp -R "${srcdir}"/msi${arch}/Files/7-Zip/* "${pkgdir}/apps${arch}/${_realname}"
+}

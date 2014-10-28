@@ -3,39 +3,43 @@
 _realname=7zip
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=9.20
+pkgver=9.22
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="http://sourceforge.net/projects/sevenzip/"
 arch=('any')
 license=('LGPL2')
-makedepends=()
-source=("http://sourceforge.net/projects/sevenzip/files/7-Zip/9.20/7z920.msi"
-        "http://sourceforge.net/projects/sevenzip/files/7-Zip/9.20/7z920-x64.msi")
-md5sums=('9bd44a22bffe0e4e0b71b8b4cf3a80e2'
-         'cac92727c33bec0a79965c61bbb1c82f')
-
-prepare() {
-    msiexec -a 7z920.msi TARGETDIR=$(cygpath -w "${srcdir}/msi32") -qn
-    msiexec -a 7z920-x64.msi TARGETDIR=$(cygpath -w "${srcdir}/msi64") -qn
-}
+makedepends=("p7zip")
+source=("7z32.msi::http://sourceforge.net/projects/sevenzip/files/7-Zip/${pkgver}/7z922.msi"
+        "7z64.msi::http://sourceforge.net/projects/sevenzip/files/7-Zip/${pkgver}/7z922-x64.msi"
+        "http://sourceforge.net/projects/sevenzip/files/7-Zip/${pkgver}/7z922_extra.7z")
+md5sums=('c4217c54ee6e927478367a1a2797db05'
+         '5670ad185cd6c7609046e436e6603aa5'
+         'f6e704bad4e0441789d6afcd0078dfb5')
 
 build() {
-    true
+    apparch=32
+    msiexec -a "7z${apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${apparch}")" -qn
+    apparch=64
+    msiexec -a "7z${apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${apparch}")" -qn
 }
 
 package_app-i686-7zip() {
-  arch=32
-  mkdir -p "${pkgdir}/docs${arch}/${_realname}"
-  mv "${srcdir}"/msi${arch}/Files/7-Zip/*.{chm,txt,ion} "${pkgdir}/docs${arch}/${_realname}"
-  mkdir -p "${pkgdir}/apps${arch}/${_realname}"
-  cp -R "${srcdir}"/msi${arch}/Files/7-Zip/* "${pkgdir}/apps${arch}/${_realname}"
+    apparch=32
+    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
+    cp "${srcdir}"/*.{dll,exe} "${pkgdir}/apps${apparch}/${_realname}"
+    #cp "${srcdir}"/*.{chm,txt} "${pkgdir}/docs${apparch}/${_realname}"
+    cp -R "${srcdir}/msi${apparch}/Files/7-Zip"/* "${pkgdir}/apps${apparch}/${_realname}"
+    mv "${pkgdir}/apps${apparch}/${_realname}"/*.{chm,txt,ion} "${pkgdir}/docs${apparch}/${_realname}"
 }
 
 package_app-x86_64-7zip() {
-  arch=64
-  mkdir -p "${pkgdir}/docs${arch}/${_realname}"
-  mv "${srcdir}"/msi${arch}/Files/7-Zip/*.{chm,txt,ion} "${pkgdir}/docs${arch}/${_realname}"
-  mkdir -p "${pkgdir}/apps${arch}/${_realname}"
-  cp -R "${srcdir}"/msi${arch}/Files/7-Zip/* "${pkgdir}/apps${arch}/${_realname}"
+    apparch=64
+    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
+    cp "${srcdir}/x64"/*.dll "${pkgdir}/apps${apparch}/${_realname}"
+    #cp "${srcdir}"/*.{chm,txt} "${pkgdir}/docs${apparch}/${_realname}"
+    cp -R "${srcdir}/msi${apparch}/Files/7-Zip"/* "${pkgdir}/apps${apparch}/${_realname}"
+    mv "${pkgdir}/apps${apparch}/${_realname}"/*.{chm,txt,ion} "${pkgdir}/docs${apparch}/${_realname}"
 }

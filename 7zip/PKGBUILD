@@ -6,9 +6,9 @@ pkgname=("app-i686-${_realname}"
 pkgver=9.22
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
-url="http://sourceforge.net/projects/sevenzip/"
+url="http://www.7-zip.org/"
 arch=('any')
-license=('LGPL2')
+license=('LGPL2' 'custom')
 makedepends=("p7zip")
 source=("7z32.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z922.msi"
         "7z64.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z922-x64.msi"

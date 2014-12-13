@@ -11,6 +11,7 @@ license=('GPL2')
 makedepends=("unzip")
 source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip"
         "KeePass2-TrlUtil.zip::http://keepass.info/download/v2_trlutil/TrlUtil-${pkgver}.zip"
+        "KPScript.zip::http://keepass.info/extensions/v2/kpscript/KPScript-${pkgver}.zip"
         "KeePass.config.xml"
 
         # translations
@@ -54,6 +55,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
 )
 md5sums=('88cb9d695c284e0cd75b2cbc854525d6'
          'dc9a4c4ff037c8817dafd2ae0c7cb59b'
+         '26f7c943737dcffbd632f15d1e4d8bb8'
          'ac0f1e104f82d295c27646bfff39fecc'
          '2fb05649e558467121f75328664abbc7'
          'c2c0d91a19c859793b679e72f3e78c33'

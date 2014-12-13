@@ -10,9 +10,9 @@ url="http://sourceforge.net/projects/sevenzip/"
 arch=('any')
 license=('LGPL2')
 makedepends=("p7zip")
-source=("7z32.msi::http://sourceforge.net/projects/sevenzip/files/7-Zip/${pkgver}/7z922.msi"
-        "7z64.msi::http://sourceforge.net/projects/sevenzip/files/7-Zip/${pkgver}/7z922-x64.msi"
-        "http://sourceforge.net/projects/sevenzip/files/7-Zip/${pkgver}/7z922_extra.7z")
+source=("7z32.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z922.msi"
+        "7z64.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z922-x64.msi"
+        "7zextra.7z::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z922_extra.7z")
 md5sums=('c4217c54ee6e927478367a1a2797db05'
          '5670ad185cd6c7609046e436e6603aa5'
          'f6e704bad4e0441789d6afcd0078dfb5')

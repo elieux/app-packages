@@ -38,8 +38,9 @@ package_app-i686-7zip() {
     apparch=32
     mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
     mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${apparch}/${_realname}-extra"
     cp "${srcdir}"/*.{dll,exe} "${pkgdir}/apps${apparch}/${_realname}"
-    #cp "${srcdir}"/*.{chm,txt} "${pkgdir}/docs${apparch}/${_realname}"
+    cp "${srcdir}"/*.txt "${pkgdir}/docs${apparch}/${_realname}-extra"
     cp -R "${srcdir}/msi${apparch}/Files/7-Zip"/* "${pkgdir}/apps${apparch}/${_realname}"
     mv "${pkgdir}/apps${apparch}/${_realname}"/*.{chm,txt,ion} "${pkgdir}/docs${apparch}/${_realname}"
 }
@@ -48,8 +49,9 @@ package_app-x86_64-7zip() {
     apparch=64
     mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
     mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
-    cp "${srcdir}/x64"/*.dll "${pkgdir}/apps${apparch}/${_realname}"
-    #cp "${srcdir}"/*.{chm,txt} "${pkgdir}/docs${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${apparch}/${_realname}-extra"
+    cp "${srcdir}/x64"/*.{dll,exe} "${pkgdir}/apps${apparch}/${_realname}"
+    cp "${srcdir}"/*.txt "${pkgdir}/docs${apparch}/${_realname}-extra"
     cp -R "${srcdir}/msi${apparch}/Files/7-Zip"/* "${pkgdir}/apps${apparch}/${_realname}"
     mv "${pkgdir}/apps${apparch}/${_realname}"/*.{chm,txt,ion} "${pkgdir}/docs${apparch}/${_realname}"
 }

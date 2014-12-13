@@ -3,19 +3,19 @@
 _realname=7zip
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=9.22
+pkgver=9.35
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="http://www.7-zip.org/"
 arch=('any')
 license=('LGPL2' 'custom')
 makedepends=("p7zip")
-source=("7z32.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z922.msi"
-        "7z64.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z922-x64.msi"
-        "7zextra.7z::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z922_extra.7z")
-md5sums=('c4217c54ee6e927478367a1a2797db05'
-         '5670ad185cd6c7609046e436e6603aa5'
-         'f6e704bad4e0441789d6afcd0078dfb5')
+source=("7z32.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z935.msi"
+        "7z64.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z935-x64.msi"
+        "7zextra.7z::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z935-extra.7z")
+md5sums=('6e28279ffd51190467401607deff5b6e'
+         'b729f98844fff758003d35f4ab5e65e5'
+         '9dd5be9eb29302850fa14c9354ea0617')
 
 build() {
     for apparch in 32 64

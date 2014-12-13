@@ -18,10 +18,20 @@ md5sums=('c4217c54ee6e927478367a1a2797db05'
          'f6e704bad4e0441789d6afcd0078dfb5')
 
 build() {
-    apparch=32
-    msiexec -a "7z${apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${apparch}")" -qn
-    apparch=64
-    msiexec -a "7z${apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${apparch}")" -qn
+    for apparch in 32 64
+    do
+        cd "${srcdir}"
+        msiexec -a "7z${apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${apparch}")" -qn
+        cd "${srcdir}/msi${apparch}/Files/7-Zip"
+        for f in *
+        do
+            n=$(echo "${f}" | tr 'A-Z' 'a-z')
+            if test "${f}" != "${n}"
+            then
+                mv "${f}" "${n}"
+            fi
+        done
+    done
 }
 
 package_app-i686-7zip() {

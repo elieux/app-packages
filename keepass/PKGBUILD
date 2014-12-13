@@ -1,0 +1,102 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass
+pkgname=("app-i686-${_realname}")
+pkgver=2.28
+pkgrel=1
+pkgdesc="Light-weight and easy-to-use password manager"
+url="http://keepass.info/"
+arch=('any')
+license=('GPL2')
+makedepends=("unzip")
+source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip"
+        "KeePass2-TrlUtil.zip::http://keepass.info/download/v2_trlutil/TrlUtil-${pkgver}.zip"
+        "KeePass.config.xml"
+
+        # translations
+        "KeePass2-Czech.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Czech.zip"
+        "KeePass2-Danish.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Danish.zip"
+        "KeePass2-Dutch.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Dutch.zip"
+        "KeePass2-French-b.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-French-b.zip"
+        "KeePass2-French.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-French.zip"
+        "KeePass2-German.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-German.zip"
+        "KeePass2-Hungarian.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Hungarian.zip"
+        "KeePass2-Chinese_Simplified.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Chinese_Simplified.zip"
+        "KeePass2-Chinese_Traditional.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Chinese_Traditional.zip"
+        "KeePass2-Italian.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Italian.zip"
+        "KeePass2-Japanese.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Japanese.zip"
+        "KeePass2-Korean.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Korean.zip"
+        "KeePass2-Latin.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Latin.zip"
+        "KeePass2-Lithuanian.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Lithuanian.zip"
+        "KeePass2-Norwegian_NB.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Norwegian_NB.zip"
+        "KeePass2-Polish.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Polish.zip"
+        "KeePass2-Portuguese_BR.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Portuguese_BR.zip"
+        "KeePass2-Portuguese_PT.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Portuguese_PT.zip"
+        "KeePass2-Russian.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Russian.zip"
+        "KeePass2-Slovak.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Slovak.zip"
+        "KeePass2-Spanish.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Spanish.zip"
+        "KeePass2-Swedish.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Swedish.zip"
+        "KeePass2-Turkish.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Turkish.zip"
+        "KeePass2-Ukrainian.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Ukrainian.zip"
+        "KeePass2-Vietnamese.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Vietnamese.zip"
+
+        # out of date translations
+        "KeePass2-Bulgarian.zip::http://downloads.sourceforge.net/keepass/Bulgarian-2.10.zip"
+        "KeePass2-Burmese.zip::http://downloads.sourceforge.net/keepass/Burmese-2.19.zip"
+        "KeePass2-Croatian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.26-Croatian.zip"
+        "KeePass2-Finnish.zip::http://downloads.sourceforge.net/keepass/Finnish-2.18.zip"
+        "KeePass2-Greek.zip::http://downloads.sourceforge.net/keepass/KeePass-2.21-Greek.zip"
+        "KeePass2-Indonesian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.23-Indonesian.zip"
+        "KeePass2-Persian.zip::http://downloads.sourceforge.net/keepass/Persian-2.08.zip"
+        "KeePass2-Romanian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.22-Romanian.zip"
+        "KeePass2-Serbian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.23-Serbian.zip"
+        "KeePass2-Slovenian.zip::http://downloads.sourceforge.net/keepass/Slovenian-2.07.zip"
+)
+md5sums=('88cb9d695c284e0cd75b2cbc854525d6'
+         'dc9a4c4ff037c8817dafd2ae0c7cb59b'
+         'ac0f1e104f82d295c27646bfff39fecc'
+         '2fb05649e558467121f75328664abbc7'
+         'c2c0d91a19c859793b679e72f3e78c33'
+         '7325f055eb4b0061764140c207128bb5'
+         'b96de8826086cad2b1f3db0cd869df5d'
+         '6134320999eecd3006809bcb776e99c9'
+         'a9204dc49c26b2731a256bcac6a5e7d3'
+         '88806ac876d9f1ceb6381cc0984127fa'
+         '4f12b5d06e597a2678b918a3fdeb7838'
+         'f6fff1186183fbaa2d6c377494d7bac5'
+         '9a2e32ebc57bfd2a1a8e3e520fba9356'
+         '8f460db830641f3b15d5a003b79cafb0'
+         '67a69aef649f4450ae72815c551120dc'
+         '79c76848ee59bc15f9e255f3ad98fe16'
+         'ca3705d35281721f6aaaa5b45592ae61'
+         '6fcf98c08cd76f96a683f45da64e9ebc'
+         'f8daa82a4fdb6c79f261bb2e7c2a97c4'
+         '50c4ce3103d9bf35b061b5569f1a6c26'
+         '07dffe34f51d805d7d80ef60e6a98300'
+         '5b2f6c53507d3b6800bdfa37783a5b18'
+         '74485dbabeae9747a8be59480e97f452'
+         '4343c9d3d6a675391dcf3fe981275900'
+         'c5c76d2b95b72c95ee81a994383ee9fd'
+         'bceeee716b6b12bb3dead46e5aca5b34'
+         '54d9252e03eda13bfeeb5922218746b9'
+         'f3f6c94222b0d89a0be303af56c1c673'
+         '26138bb070035de02e04f62ae592e1f3'
+         '1d0672b626bc7ba577c5ef40471c6884'
+         '0d6628a9974d1e31cae437384b25e661'
+         'dc284751a01eb3e12e7d100e96deed7b'
+         'b4129b1d4c37fa33d3804a17a7576fad'
+         '5de5de415f5d4948a2f132301e49e1a2'
+         '3172ba110fd730ca4c894f9e52f09930'
+         '1d14dda46ccb4f6c921055a58080f0fe'
+         'e4b2091d66e182811d3af9bf6d189f31'
+         'fc2424e22acea3f423dd8b9667bea582')
+
+package() {
+    apparch=32
+    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
+    cp "${srcdir}"/KeePass.config.xml "${pkgdir}/apps${apparch}/${_realname}/"
+    cp "${srcdir}"/*.{exe,exe.config,dll,lngx} "${pkgdir}/apps${apparch}/${_realname}/"
+    cp -R "${srcdir}"/XSL "${pkgdir}/apps${apparch}/${_realname}/"
+    cp "${srcdir}"/*.{chm,txt} "${pkgdir}/docs${apparch}/${_realname}/"
+}

@@ -17,6 +17,18 @@ md5sums=('6e28279ffd51190467401607deff5b6e'
          'b729f98844fff758003d35f4ab5e65e5'
          '9dd5be9eb29302850fa14c9354ea0617')
 
+prepare() {
+    cd "${srcdir}"
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
 build() {
     for apparch in 32 64
     do

@@ -9,7 +9,7 @@ url="http://technet.microsoft.com/en-us/sysinternals/bb545021.aspx"
 arch=('any')
 license=('custom')
 makedepends=("unzip")
-options=(!strip)
+options=(!strip) # digital signatures
 source=("http://download.sysinternals.com/files/SysinternalsSuite.zip"
         "http://download.sysinternals.com/files/BlueScreen.zip")
 md5sums=('5aab88840d3f3cbb3d631bd317bf423d'

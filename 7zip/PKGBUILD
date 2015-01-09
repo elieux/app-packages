@@ -3,7 +3,7 @@
 _realname=7zip
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=9.36
+pkgver=9.38
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="http://www.7-zip.org/"
@@ -13,9 +13,9 @@ makedepends=("p7zip")
 source=("7z32.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z${pkgver//./}.msi"
         "7z64.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z${pkgver//./}-x64.msi"
         "7zextra.7z::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z${pkgver//./}-extra.7z")
-md5sums=('8fe4b155dcf748ba229bace1a66643d2'
-         '5062d38f5d2fa63eec68024bd0139ed2'
-         'eacff1bcbd33a4df84ec3acb564febf7')
+md5sums=('8e8e360994cfddcc2504fa473c977272'
+         '9f4efa767708af6badca6f60ad2006ae'
+         '3b95291e4a5db4f0dc1907462e9a5b57')
 
 prepare() {
     cd "${srcdir}"

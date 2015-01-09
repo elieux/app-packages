@@ -1,0 +1,43 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=davmail
+_realver=4.5.1-2303
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=${_realver//-/.}
+pkgrel=1
+pkgdesc="A gateway allowing usage of any mail/calendar client with an Exchange server"
+url="http://davmail.sourceforge.net/"
+arch=('any')
+license=('GPL2')
+makedepends=("unzip")
+source=("davmail-windows-noinstall.zip::http://downloads.sourceforge.net/${_realname}/${_realname}/${_realver%%-*}/${_realname}-${_realver}-windows-noinstall.zip")
+md5sums=('4cd69cd4a8ed81c1d65a954ff487d2f3')
+
+package() {
+    cd "${srcdir}"
+    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
+    cp -R lib "${pkgdir}/apps${apparch}/${_realname}/"
+    cp davmail.jar "${pkgdir}/apps${apparch}/${_realname}/"
+    cp davmailconsole.exe "${pkgdir}/apps${apparch}/${_realname}/"
+
+    for file in davmail davmailservice
+    do
+        case $apparch in
+        32)
+            cp "${srcdir}/${file}.exe" "${pkgdir}/apps${apparch}/${_realname}/"
+            ;;
+        64)
+            cp "${srcdir}/${file}64.exe" "${pkgdir}/apps${apparch}/${_realname}/${file}.exe"
+            ;;
+        esac
+    done
+}
+
+package_app-i686-davmail() {
+    apparch=32 package
+}
+
+package_app-x86_64-davmail() {
+    apparch=64 package
+}

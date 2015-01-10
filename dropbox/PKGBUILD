@@ -3,11 +3,11 @@
 _realname=dropbox
 pkgname=("app-i686-${_realname}")
 pkgver=3.0.5
-pkgrel=1
+pkgrel=2
 pkgdesc="The Dropbox synchronization tool"
 url="http://www.google.com/drive/"
 arch=('any')
-license=('LGPL2' 'custom')
+license=('custom')
 makedepends=("p7zip")
 options=(!strip) # embedded data, digital signatures
 source=("Dropbox.exe::https://www.dropbox.com/download?full=1&plat=win")

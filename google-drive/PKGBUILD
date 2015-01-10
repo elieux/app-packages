@@ -1,0 +1,26 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=google-drive
+pkgname=("app-i686-${_realname}")
+pkgver=1.19.8268.4572
+pkgrel=1
+pkgdesc="The Google Drive synchronization tool"
+url="http://www.google.com/drive/"
+arch=('any')
+license=('LGPL2' 'custom')
+options=(!strip) # embedded data
+source=("http://dl.google.com/drive/${pkgver}/gsync.msi")
+md5sums=('1556e4e4f13a64a5f8ccfc68f7221386')
+
+build() {
+    apparch=32
+    cd "${srcdir}"
+    msiexec -a "gsync.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${apparch}")" -qn
+}
+
+package() {
+    apparch=32
+    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
+    cp "${srcdir}/msi${apparch}/Google/Drive"/*.{dll,exe} "${pkgdir}/apps${apparch}/${_realname}"
+    cp -R "${srcdir}/msi${apparch}/Google/Drive/Languages" "${pkgdir}/apps${apparch}/${_realname}/"
+}

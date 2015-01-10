@@ -3,11 +3,11 @@
 _realname=google-drive
 pkgname=("app-i686-${_realname}")
 pkgver=1.19.8268.4572
-pkgrel=1
+pkgrel=2
 pkgdesc="The Google Drive synchronization tool"
 url="http://www.google.com/drive/"
 arch=('any')
-license=('LGPL2' 'custom')
+license=('custom')
 options=(!strip) # embedded data
 source=("http://dl.google.com/drive/${pkgver}/gsync.msi")
 md5sums=('1556e4e4f13a64a5f8ccfc68f7221386')

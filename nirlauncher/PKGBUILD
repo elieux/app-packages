@@ -1,0 +1,59 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=nirlauncher
+pkgname=("app-i686-${_realname}")
+pkgver=1.19.16
+pkgrel=1
+pkgdesc="A launcher for freeware utilities by Nir Sofer"
+url="http://launcher.nirsoft.net/"
+arch=('any')
+license=('custom')
+makedepends=("unzip" "wget")
+options=(!strip) # digital signatures
+source=("http://download.nirsoft.net/sysinternals3.nlp"
+        "http://download.nirsoft.net/joeware.nlp"
+        "http://download.nirsoft.net/piriform.nlp"
+        "http://download.nirsoft.net/ntcore.nlp"
+        "http://download.nirsoft.net/mitec.nlp"
+)
+md5sums=('a28df594001bf5b26fdea216ce8b2c69'
+         '15f4ed225130dea22d7202bd0cd907df'
+         '772f3b6e8621cb42a6d80b49da867005'
+         'f6f9a4b55fb67296f7114c0a4f29665e'
+         '71e098b216c5ceae133faf81a877724e')
+noextract=("${source[@]##*/}")
+
+source_extra=("nirsoft_package.zip::http://download.nirsoft.net/nirsoft_package_${pkgver}.zip")
+md5sums_extra=('e56fbaeaeb8990a3e1a84e9eeff74aff')
+
+prepare() {
+    apparch=32
+    cd "${srcdir}"
+    
+    for (( idx = 0; idx < ${#source_extra[*]}; idx++ ))
+    do
+        file="${source_extra[idx]%%::*}"
+        url="${source_extra[idx]#*::}"
+        wget -nv "${url}" -O "${file}" --referer="http://launcher.nirsoft.net/"
+        echo "${md5sums_extra[idx]}" '*'"${file}" | md5sum -c -
+        unzip -o "${file}"
+    done
+    
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+package() {
+    apparch=32
+    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
+    
+    cp "${srcdir}/nirlauncher.{cfg,exe}" "${pkgdir}/apps${apparch}/${_realname}"
+    cp "${srcdir}/NirSoft/nirsoft.nlp" "${pkgdir}/apps${apparch}/${_realname}"
+    cp "${srcdir}/*.nlp" "${pkgdir}/apps${apparch}/${_realname}"
+}

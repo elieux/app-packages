@@ -1,0 +1,713 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=nirsoft
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2015.01.11
+pkgrel=1
+pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
+url="http://www.nirsoft.net/"
+arch=('any')
+license=('custom')
+makedepends=("unzip" "wget")
+options=(!strip) # upx
+source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
+        "http://www.nirsoft.net/dot_net_tools/snremove.zip"
+        
+        "http://www.nirsoft.net/utils/accesspv.zip"
+        "http://www.nirsoft.net/utils/acm.zip"
+        "http://www.nirsoft.net/utils/addrview.zip"
+        "http://www.nirsoft.net/utils/alternatestreamview.zip"
+        "http://www.nirsoft.net/utils/alternatestreamview-x64.zip"
+        "http://www.nirsoft.net/utils/altstreamdump.zip"
+        "http://www.nirsoft.net/utils/anup.zip"
+        "http://www.nirsoft.net/utils/appcrashview.zip"
+        "http://www.nirsoft.net/utils/asterie.zip"
+        "http://www.nirsoft.net/utils/atnow.zip"
+        "http://www.nirsoft.net/utils/awatch.zip"
+        "http://www.nirsoft.net/utils/axhelper.zip"
+        "http://www.nirsoft.net/utils/batteryinfoview.zip"
+        "http://www.nirsoft.net/utils/bluescreenview.zip"
+        "http://www.nirsoft.net/utils/bluescreenview-x64.zip"
+        "http://www.nirsoft.net/utils/bluetoothcl.zip"
+        "http://www.nirsoft.net/utils/bluetoothlogview.zip"
+        "http://www.nirsoft.net/utils/bluetoothview.zip"
+        "http://www.nirsoft.net/utils/browsinghistoryview.zip"
+        "http://www.nirsoft.net/utils/browsinghistoryview-x64.zip"
+        "http://www.nirsoft.net/utils/bulkfilechanger.zip"
+        "http://www.nirsoft.net/utils/bulkfilechanger-x64.zip"
+        "http://www.nirsoft.net/utils/bulletspassview.zip"
+        "http://www.nirsoft.net/utils/bulletspassview-x64.zip"
+        "http://www.nirsoft.net/utils/chromecacheview.zip"
+        "http://www.nirsoft.net/utils/chromecookiesview.zip"
+        "http://www.nirsoft.net/utils/chromehistoryview.zip"
+        "http://www.nirsoft.net/utils/cleanafterme.zip"
+        "http://www.nirsoft.net/utils/clipboardic.zip"
+        "http://www.nirsoft.net/utils/conadvpass.zip"
+        "http://www.nirsoft.net/utils/countrytraceroute.zip"
+        "http://www.nirsoft.net/utils/cports.zip"
+        "http://www.nirsoft.net/utils/cports-x64.zip"
+        "http://www.nirsoft.net/utils/cprocess.zip"
+        "http://www.nirsoft.net/utils/csvfileview.zip"
+        "http://www.nirsoft.net/utils/ctie.zip"
+        "http://www.nirsoft.net/utils/customexplorertoolbar.zip"
+        "http://www.nirsoft.net/utils/deviceioview.zip"
+        "http://www.nirsoft.net/utils/deviceioview-x64.zip"
+        "http://www.nirsoft.net/utils/devmanview.zip"
+        "http://www.nirsoft.net/utils/devmanview-x64.zip"
+        "http://www.nirsoft.net/utils/diskcountersview.zip"
+        "http://www.nirsoft.net/utils/disksmartview.zip"
+        "http://www.nirsoft.net/utils/dllexp.zip"
+        "http://www.nirsoft.net/utils/dllexp-x64.zip"
+        "http://www.nirsoft.net/utils/dnsdataview.zip"
+        "http://www.nirsoft.net/utils/dnsquerysniffer.zip"
+        "http://www.nirsoft.net/utils/dnsquerysniffer-x64.zip"
+        "http://www.nirsoft.net/utils/domainhostingview.zip"
+        "http://www.nirsoft.net/utils/dotnetresourcesextract.zip"
+        "http://www.nirsoft.net/utils/downtester.zip"
+        "http://www.nirsoft.net/utils/driveletterview.zip"
+        "http://www.nirsoft.net/utils/driverview.zip"
+        "http://www.nirsoft.net/utils/driverview-x64.zip"
+        "http://www.nirsoft.net/utils/dumpedid.zip"
+        "http://www.nirsoft.net/utils/empv.zip"
+        "http://www.nirsoft.net/utils/esedatabaseview.zip"
+        "http://www.nirsoft.net/utils/eventlogsourcesview.zip"
+        "http://www.nirsoft.net/utils/eventlogsourcesview-x64.zip"
+        "http://www.nirsoft.net/utils/executedprogramslist.zip"
+        "http://www.nirsoft.net/utils/exeinfo.zip"
+        "http://www.nirsoft.net/utils/exifdataview.zip"
+        "http://www.nirsoft.net/utils/explorestart.zip"
+        "http://www.nirsoft.net/utils/fastresolver.zip"
+        "http://www.nirsoft.net/utils/faview.zip"
+        "http://www.nirsoft.net/utils/fbcacheview.zip"
+        "http://www.nirsoft.net/utils/filetypesman.zip"
+        "http://www.nirsoft.net/utils/filetypesman-x64.zip"
+        "http://www.nirsoft.net/utils/firefoxdownloadsview.zip"
+        "http://www.nirsoft.net/utils/flashcookiesview.zip"
+        "http://www.nirsoft.net/utils/folderchangesview.zip"
+        "http://www.nirsoft.net/utils/foldertimeupdate.zip"
+        "http://www.nirsoft.net/utils/foldertimeupdate-x64.zip"
+        "http://www.nirsoft.net/utils/folrep.zip"
+        "http://www.nirsoft.net/utils/gdiview.zip"
+        "http://www.nirsoft.net/utils/gdiview-x64.zip"
+        "http://www.nirsoft.net/utils/grank.zip"
+        "http://www.nirsoft.net/utils/hashmyfiles.zip"
+        "http://www.nirsoft.net/utils/hashmyfiles-x64.zip"
+        "http://www.nirsoft.net/utils/heapmemview.zip"
+        "http://www.nirsoft.net/utils/heapmemview-x64.zip"
+        "http://www.nirsoft.net/utils/htmlastext.zip"
+        "http://www.nirsoft.net/utils/htmldocedit.zip"
+        "http://www.nirsoft.net/utils/httpnetworksniffer.zip"
+        "http://www.nirsoft.net/utils/httpnetworksniffer-x64.zip"
+        "http://www.nirsoft.net/utils/iconsext.zip"
+        "http://www.nirsoft.net/utils/idenswitch.zip"
+        "http://www.nirsoft.net/utils/iecacheview.zip"
+        "http://www.nirsoft.net/utils/iecompo.zip"
+        "http://www.nirsoft.net/utils/iecv.zip"
+        "http://www.nirsoft.net/utils/iedesignmode.zip"
+        "http://www.nirsoft.net/utils/iehv.zip"
+        "http://www.nirsoft.net/utils/imagecacheviewer.zip"
+        "http://www.nirsoft.net/utils/injecteddll.zip"
+        "http://www.nirsoft.net/utils/insideclipboard.zip"
+        "http://www.nirsoft.net/utils/installedcodec.zip"
+        "http://www.nirsoft.net/utils/installedcodec-x64.zip"
+        "http://www.nirsoft.net/utils/installeddriverslist.zip"
+        "http://www.nirsoft.net/utils/installeddriverslist-x64.zip"
+        "http://www.nirsoft.net/utils/ipinfooffline.zip"
+        "http://www.nirsoft.net/utils/ipnetinfo.zip"
+        "http://www.nirsoft.net/utils/jrview.zip"
+        "http://www.nirsoft.net/utils/jsae.zip"
+        "http://www.nirsoft.net/utils/jumplistsview.zip"
+        "http://www.nirsoft.net/utils/lastactivityview.zip"
+        "http://www.nirsoft.net/utils/livecontactsview.zip"
+        "http://www.nirsoft.net/utils/macaddressview.zip"
+        "http://www.nirsoft.net/utils/mimeview.zip"
+        "http://www.nirsoft.net/utils/monitorinfoview.zip"
+        "http://www.nirsoft.net/utils/mozillacacheview.zip"
+        "http://www.nirsoft.net/utils/mozillahistoryview.zip"
+        "http://www.nirsoft.net/utils/muicacheview.zip"
+        "http://www.nirsoft.net/utils/multimonitortool.zip"
+        "http://www.nirsoft.net/utils/multimonitortool-x64.zip"
+        "http://www.nirsoft.net/utils/mweather.zip"
+        "http://www.nirsoft.net/utils/myeventviewer.zip"
+        "http://www.nirsoft.net/utils/myeventviewer-x64.zip"
+        "http://www.nirsoft.net/utils/mylastsearch.zip"
+        "http://www.nirsoft.net/utils/myuninst.zip"
+        "http://www.nirsoft.net/utils/mzcv.zip"
+        "http://www.nirsoft.net/utils/netbscanner.zip"
+        "http://www.nirsoft.net/utils/netconnectchoose.zip"
+        "http://www.nirsoft.net/utils/netresview.zip"
+        "http://www.nirsoft.net/utils/netrouteview.zip"
+        "http://www.nirsoft.net/utils/netscapass.zip"
+        "http://www.nirsoft.net/utils/networkconnectlog.zip"
+        "http://www.nirsoft.net/utils/networkinterfacesview.zip"
+        "http://www.nirsoft.net/utils/networklatencyview.zip"
+        "http://www.nirsoft.net/utils/networklatencyview-x64.zip"
+        "http://www.nirsoft.net/utils/networktrafficview.zip"
+        "http://www.nirsoft.net/utils/networktrafficview-x64.zip"
+        "http://www.nirsoft.net/utils/nircmd.zip"
+        "http://www.nirsoft.net/utils/nircmd-x64.zip"
+        "http://www.nirsoft.net/utils/nirext.zip"
+        "http://www.nirsoft.net/utils/nk2edit.zip"
+        "http://www.nirsoft.net/utils/nk2edit-x64.zip"
+        "http://www.nirsoft.net/utils/nk2view.zip"
+        "http://www.nirsoft.net/utils/ntfslinksview.zip"
+        "http://www.nirsoft.net/utils/ntfslinksview-x64.zip"
+        "http://www.nirsoft.net/utils/officeins.zip"
+        "http://www.nirsoft.net/utils/officeins-x64.zip"
+        "http://www.nirsoft.net/utils/ofview.zip"
+        "http://www.nirsoft.net/utils/ofview-x64.zip"
+        "http://www.nirsoft.net/utils/opensavefilesview.zip"
+        "http://www.nirsoft.net/utils/opensavefilesview-x64.zip"
+        "http://www.nirsoft.net/utils/openwithview.zip"
+        "http://www.nirsoft.net/utils/operacacheview.zip"
+        "http://www.nirsoft.net/utils/outlookaddressbookview.zip"
+        "http://www.nirsoft.net/utils/outlookaddressbookview-x64.zip"
+        "http://www.nirsoft.net/utils/outlookattachview.zip"
+        "http://www.nirsoft.net/utils/outlookattachview-x64.zip"
+        "http://www.nirsoft.net/utils/outlookstatview.zip"
+        "http://www.nirsoft.net/utils/outlookstatview-x64.zip"
+        "http://www.nirsoft.net/utils/passwordscan.zip"
+        "http://www.nirsoft.net/utils/pcanypass.zip"
+        "http://www.nirsoft.net/utils/pcanyscan.zip"
+        "http://www.nirsoft.net/utils/pinginfoview.zip"
+        "http://www.nirsoft.net/utils/processactivityview.zip"
+        "http://www.nirsoft.net/utils/processactivityview-x64.zip"
+        "http://www.nirsoft.net/utils/processthreadsview.zip"
+        "http://www.nirsoft.net/utils/processthreadsview-x64.zip"
+        "http://www.nirsoft.net/utils/produkey.zip"
+        "http://www.nirsoft.net/utils/produkey-x64.zip"
+        "http://www.nirsoft.net/utils/psapi.zip"
+        "http://www.nirsoft.net/utils/quicksetdns.zip"
+        "http://www.nirsoft.net/utils/recentfilesview.zip"
+        "http://www.nirsoft.net/utils/regdllview.zip"
+        "http://www.nirsoft.net/utils/regdllview-x64.zip"
+        "http://www.nirsoft.net/utils/regfileexport.zip"
+        "http://www.nirsoft.net/utils/regfromapp.zip"
+        "http://www.nirsoft.net/utils/regfromapp-x64.zip"
+        "http://www.nirsoft.net/utils/regscanner.zip"
+        "http://www.nirsoft.net/utils/regscanner-x64.zip"
+        "http://www.nirsoft.net/utils/resourcesextract.zip"
+        "http://www.nirsoft.net/utils/resourcesextract-x64.zip"
+        "http://www.nirsoft.net/utils/rtmpdumphelper.zip"
+        "http://www.nirsoft.net/utils/rtmpdumphelper-x64.zip"
+        "http://www.nirsoft.net/utils/runasdate.zip"
+        "http://www.nirsoft.net/utils/runasdate-x64.zip"
+        "http://www.nirsoft.net/utils/runfromprocess.zip"
+        "http://www.nirsoft.net/utils/safaricacheview.zip"
+        "http://www.nirsoft.net/utils/safarihistoryview.zip"
+        "http://www.nirsoft.net/utils/searchfilterview.zip"
+        "http://www.nirsoft.net/utils/searchmyfiles.zip"
+        "http://www.nirsoft.net/utils/searchmyfiles-x64.zip"
+        "http://www.nirsoft.net/utils/seqdownload.zip"
+        "http://www.nirsoft.net/utils/serviwin.zip"
+        "http://www.nirsoft.net/utils/shellbagsview.zip"
+        "http://www.nirsoft.net/utils/shellmenunew.zip"
+        "http://www.nirsoft.net/utils/shexview.zip"
+        "http://www.nirsoft.net/utils/shexview-x64.zip"
+        "http://www.nirsoft.net/utils/shman.zip"
+        "http://www.nirsoft.net/utils/shman-x64.zip"
+        "http://www.nirsoft.net/utils/shmnview.zip"
+        "http://www.nirsoft.net/utils/shmnview-x64.zip"
+        "http://www.nirsoft.net/utils/simpleprogramdebugger.zip"
+        "http://www.nirsoft.net/utils/simpleprogramdebugger-x64.zip"
+        "http://www.nirsoft.net/utils/siteshoter.zip"
+        "http://www.nirsoft.net/utils/skypecontactsview.zip"
+        "http://www.nirsoft.net/utils/skypelogview.zip"
+        "http://www.nirsoft.net/utils/smsniff.zip"
+        "http://www.nirsoft.net/utils/smsniff-x64.zip"
+        "http://www.nirsoft.net/utils/socketsniff.zip"
+        "http://www.nirsoft.net/utils/soundvolumeview.zip"
+        "http://www.nirsoft.net/utils/soundvolumeview-x64.zip"
+        "http://www.nirsoft.net/utils/specialfoldersview.zip"
+        "http://www.nirsoft.net/utils/specialfoldersview-x64.zip"
+        "http://www.nirsoft.net/utils/startbluescreen.zip"
+        "http://www.nirsoft.net/utils/sysexp.zip"
+        "http://www.nirsoft.net/utils/sysexp-x64.zip"
+        "http://www.nirsoft.net/utils/tabletextcompare.zip"
+        "http://www.nirsoft.net/utils/tagsrep.zip"
+        "http://www.nirsoft.net/utils/tcplogview.zip"
+        "http://www.nirsoft.net/utils/tcplogview-x64.zip"
+        "http://www.nirsoft.net/utils/tflash.zip"
+        "http://www.nirsoft.net/utils/turnedontimesview.zip"
+        "http://www.nirsoft.net/utils/urlprotocolview.zip"
+        "http://www.nirsoft.net/utils/urlprotocolview_u.zip"
+        "http://www.nirsoft.net/utils/urlstringgrabber.zip"
+        "http://www.nirsoft.net/utils/usbdeview.zip"
+        "http://www.nirsoft.net/utils/usbdeview-x64.zip"
+        "http://www.nirsoft.net/utils/usblogview.zip"
+        "http://www.nirsoft.net/utils/userassistview.zip"
+        "http://www.nirsoft.net/utils/userprofilesview.zip"
+        "http://www.nirsoft.net/utils/videocacheview.zip"
+        "http://www.nirsoft.net/utils/videocacheview-x64.zip"
+        "http://www.nirsoft.net/utils/volumouse.zip"
+        "http://www.nirsoft.net/utils/volumouse-x64.zip"
+        "http://www.nirsoft.net/utils/wakemeonlan.zip"
+        "http://www.nirsoft.net/utils/webcacheimageinfo.zip"
+        "http://www.nirsoft.net/utils/webcamimagesave.zip"
+        "http://www.nirsoft.net/utils/webcookiessniffer.zip"
+        "http://www.nirsoft.net/utils/webcookiessniffer-x64.zip"
+        "http://www.nirsoft.net/utils/websitesniffer.zip"
+        "http://www.nirsoft.net/utils/websitesniffer-x64.zip"
+        "http://www.nirsoft.net/utils/webvideocap.zip"
+        "http://www.nirsoft.net/utils/whatinstartup.zip"
+        "http://www.nirsoft.net/utils/whatinstartup-x64.zip"
+        "http://www.nirsoft.net/utils/whatishang.zip"
+        "http://www.nirsoft.net/utils/whatishang-x64.zip"
+        "http://www.nirsoft.net/utils/whoiscl.zip"
+        "http://www.nirsoft.net/utils/whoisconnectedsniffer.zip"
+        "http://www.nirsoft.net/utils/whoisconnectedsniffer-x64.zip"
+        "http://www.nirsoft.net/utils/whoistd.zip"
+        "http://www.nirsoft.net/utils/whosip.zip"
+        "http://www.nirsoft.net/utils/wifichannelmonitor.zip"
+        "http://www.nirsoft.net/utils/wifichannelmonitor-x64.zip"
+        "http://www.nirsoft.net/utils/wifiinfoview.zip"
+        "http://www.nirsoft.net/utils/wincrashreport.zip"
+        "http://www.nirsoft.net/utils/wincrashreport-x64.zip"
+        "http://www.nirsoft.net/utils/winexp.zip"
+        "http://www.nirsoft.net/utils/winfontsview.zip"
+        "http://www.nirsoft.net/utils/winlister.zip"
+        "http://www.nirsoft.net/utils/winlister-x64.zip"
+        "http://www.nirsoft.net/utils/winlogonview.zip"
+        "http://www.nirsoft.net/utils/winprefetchview.zip"
+        "http://www.nirsoft.net/utils/winprefetchview-x64.zip"
+        "http://www.nirsoft.net/utils/winsockservicesview.zip"
+        "http://www.nirsoft.net/utils/wirelesskeydump.zip"
+        "http://www.nirsoft.net/utils/wirelesskeydump-x64.zip"
+        "http://www.nirsoft.net/utils/wirelessnetconsole.zip"
+        "http://www.nirsoft.net/utils/wirelessnetview.zip"
+        "http://www.nirsoft.net/utils/wnetwatcher.zip"
+        "http://www.nirsoft.net/utils/wul.zip"
+        "http://www.nirsoft.net/utils/zipinst.zip"
+        
+        # sources
+        # "http://www.nirsoft.net/utils/dotnetresourcesextract_src.zip"
+        # "http://www.nirsoft.net/utils/exeinfosrc.zip"
+        # "http://www.nirsoft.net/utils/winexpsrc.zip"
+        # "http://www.nirsoft.net/utils/atnowsrc.zip"
+        
+        "http://www.nirsoft.net/utils/tflash210.zip"
+        
+        # "http://www.nirsoft.net/utils/nk2edit-32-64.zip"
+        
+        # obsolete
+        # "http://www.nirsoft.net/utils/filedatech.zip"
+        
+        # Windows XP
+        # "http://www.nirsoft.net/utils/astlog.zip"
+        # "http://www.nirsoft.net/utils/wmc.zip"
+        # "http://www.nirsoft.net/utils/asterwin120.zip"
+        
+        # Windows 9x
+        # "http://www.nirsoft.net/utils/strun.zip"
+        # "http://www.nirsoft.net/utils/mmview.zip"
+        # "http://www.nirsoft.net/utils/win9xpv.zip"
+        # "http://www.nirsoft.net/utils/filetypesman-98.zip"
+        # "http://www.nirsoft.net/utils/hashmyfiles98.zip"
+        # "http://www.nirsoft.net/utils/operacacheview-98.zip"
+        # "http://www.nirsoft.net/utils/regscanner-98.zip"
+        # "http://www.nirsoft.net/utils/resourcesextract-98.zip"
+        # "http://www.nirsoft.net/utils/specialfoldersview-98.zip"
+)
+md5sums=('ba50129a7d12bbe8004422607eeb6af4'
+         '7daa2cc4540755fe99655f3cc1ba0af4'
+         '6f1655dd3029f5c038b7a43ef0dc83b0'
+         '4548597a73c2c513c24a998ed0c0ff52'
+         'bc087e744fca702e87927ef3dca5c65d'
+         '90c2242af32899f6a42df53c5a91f2b7'
+         'f57e634d4d8156286eb6314f81cb696c'
+         '8d3c1c9ee5f5c6d408a55a78060e514a'
+         'fa04627da582d05e0d02b641c75ff1ca'
+         '1bf0b1b9fa55bfe29a800ec7a2b515de'
+         '7ddb9a74f59d2df7d16da35038f9871a'
+         '4ede6b2ca74df1db462be95808f31a9d'
+         '53220ef082eb7cd7b04ef506afb5eac5'
+         '53c609fe71856f7fee1a6570fcff1af8'
+         'b7b998811ab57cd782511195276b19c9'
+         'c49e4403393707706d2422f61f5f1f92'
+         '6069027ed1f638027ce11223ad991a29'
+         '4c9ebf654277f0003bd3515d2b65fe45'
+         '4b7f5602d8fb940406849496b096d7a4'
+         '82c76b349178d1c7b854dc5ed53c78c0'
+         '7d83f11e43bf024a45ef3dfec21d9e50'
+         '064677f82fe4aacff1c89ea3694d0ef7'
+         '6c0ca79a809079dcc7a450e3cdae48d7'
+         '7c12dd0c012241447e7d71dd112cb504'
+         '3ce298d023050845729c294e21d00843'
+         '778a1144b2610fc2509b19c6b6af29c9'
+         'f6e2db0ac6123165db8a433ff6be061d'
+         '525d1c30b044e716679a19a53c792f98'
+         'cee8d76578b0e3f103c54aeba8f34295'
+         'ca7b2444d6116c377df4f72269823019'
+         'eb49533aa51c90c6f20bc63811ba18f9'
+         '87f421620d1f17e275b0ef7f1a9569c0'
+         '997b967fc98a39f554f03e27d8bc12a6'
+         'fe7112ff0859021e0c5d7b7fec074488'
+         '5af99c907040444a61692830a41c2206'
+         'b57da282aca8ec75f4397586fb1132f0'
+         '646402504672fb24efddde2c58539bdd'
+         'ceda9b0349ed7413b2b5126ac486be62'
+         'e858cad8e4b01aa53e6986dfbe343ee2'
+         '5945984aa365e71975ced095a11da84e'
+         '50f7ecd5b5be959cdc07ee3388efad22'
+         'f0a6dfb3693cce052dfa7850b5fd885b'
+         'ff9393642adc34651b1a8793f4ac27a6'
+         'b5cc7ddef06a10abc994c0438b91c81e'
+         'b9d2f597432b5ad260062047953aeb9d'
+         '82c5bb3e923384b027a3f9f22e972f82'
+         'aa6c82090a5f7ffa27235bf27f3259b6'
+         'ebe43ef30dd57e568293e3f6dadd8f89'
+         'c3f5b1461f117305b651125a9af2c522'
+         '57ac1f0cd4e2790ab662ff38ca9adaf9'
+         'b9874d726624df6e065376431e1f04aa'
+         'eb94dccc4dab7dbf7b5c55a19037b6ab'
+         '4b4bd11cc24b593554e9f693d16fa5b4'
+         '0aa7c941f34ae572bcf4d7bea382a2c5'
+         '8b0707337e0fe2e4a9da1fd5a0cc9a5b'
+         'dee7a44db883c172011fb801d13db9c3'
+         '4c2050761f0fa24b6bb8b3d9795b7477'
+         '49fe7808a3efde462f5a600a3aeebf50'
+         '2fcb9fff98aa9768cf34b2a518710832'
+         'b749009b344e69f6316552047255923a'
+         'ed02aabf58fd59e115a0fc9fd36aead5'
+         'ae3d8de5106ef9808e434838aad982b0'
+         '45b9dc3cdd578b0435ae5619c7324d9f'
+         'eb04abb52ceab9bd403b6181957c9316'
+         '12878c26044cf19d5332f6b0af9dad1e'
+         '760ba69bca00230524e104dbd7a1bfda'
+         'b24a99879946d375c83e0c02186bf435'
+         'a5bed214a16d1dc1a40bad6f3995695c'
+         'bfe8c7a65df9b1f2bf2120608cc7e8c0'
+         'cf0cf2b55d680d789525adee12530838'
+         '3bcc17a0fb990bb9b7c1c709b9d163b3'
+         'd496cc5858f196e048443412390997ea'
+         '90f36faa4310838bc0f480f81d6259ba'
+         'bd1e5d40a4d1f2be1448742359de2351'
+         '8cec5060f2fef963eeacc51ad9736551'
+         '572d8a507fc73735432146da01274e49'
+         '2999c8a81b304d7e5307cc8ac05ad7cd'
+         '132043ff5da4b16f6493cd1d4ef3def3'
+         '35908c6ffd6446473caecf7ae681a357'
+         'a7d4904d0f79240ea5ad2bc3a3d6c757'
+         '216da6e2908837fbb439e2b5ce778627'
+         'cb0fe3daa6a0d0a1581e7f44a3ad9f2a'
+         'eff0992955c44123563d045f3eed2ada'
+         '9e414e5bf72e1228898813719092ccfe'
+         'd299b0240585b9ae11fb85d8c4b167bb'
+         '82332eb9828d48438f7b56b5da0ce6d0'
+         '70f87f16173f9451f129f9e326ae57f0'
+         '4126eb1b8c8380907500fd1b2f9771ab'
+         '58119797f456056dc412e37fd3f939b2'
+         '4c98de34741e3782507fb754d49c3bc2'
+         '1459e955e96fe61c31627e7a3794c1bf'
+         'cfb0f40a9c7da181feb2774d909bf99d'
+         'c1a827ca930992761e6bdda3f45d0270'
+         '9cfdbb0a4dc1d1a2bcafb3af4e087390'
+         'b37c7529a0bef4af6cbe5ffcb71524b9'
+         'a2b4eb3b157fd12bc8e624df46d848fa'
+         '534a2427dd6ac646880ac55f09da9235'
+         '55a422310d9dbc1792b8fc73484a4564'
+         'f68deca5b05d334d5f491e82440e84c6'
+         '2b966175bf5e8019505d651062958504'
+         '0e533fb4a73a80d8b1242982046cbbf6'
+         '774467cfd5ecdf953f6e2a4060991ef8'
+         '640a179cfcb2889d1932c91eef46b94b'
+         'a513723daaed8a79df6f3f524d2e2cc5'
+         '51f2ff3e3d78ed90cd1a20d13e04bde0'
+         'ac2fc2d32c148fa70b3471c648d48ff5'
+         'bde6f9b86f78b5ff2ebf21ee7b8dbe79'
+         'd776107b74cab2ca19cc9aafbb071e68'
+         'f3b4783717cc481e732ef0401299a4e1'
+         'd41a32299704a9d82296ad03ff68792a'
+         'b40760c6865e796de7092ce9b0f7e59b'
+         '84d3b86083ca1772425e62be583f8e79'
+         '3ff9d311b9449bb3686a04552c14af08'
+         '19ee0c4add2f2d04b1adcd54be245c0b'
+         'b535777eacea55770197824d5b6f11ea'
+         'ddf9dabb743f9b74335b6af9f30d119a'
+         '7e09d1141e9b6c6fc50c548e9de1150c'
+         '60cdca647984ec3a4e57c66e4f79edbd'
+         'fef19ef7b7a5980f963abe322edd5464'
+         'b0168c1f175ce15f7554cdc1ac863f5d'
+         'a80a42b085e01be318ca2e227ac22f21'
+         '96828f06781607cc0b76ae0542d686ae'
+         'e2a881a682ba71fa4b8923a986d36a2f'
+         '3dead866b6048c22201867163e2c4d39'
+         '8ad1560d9c07c53546132aa007a32683'
+         'e6f654ad080adcfd13e8cc732375942c'
+         '086b4fab5942c4f6c3c6d37f933c5592'
+         '316c604a107af6ce52b6855b0ff1ce7d'
+         '39f0abb209b3614bdb5e5b306e3e83d6'
+         '88788f89eb6f05a348df024cb355f2e4'
+         'ff464bbb25e10094e83ffc70e6107283'
+         'bbb9ad053d3ac40b8e6c08c7bc7b08fd'
+         '0ec73061e180552ee24dbba608061a65'
+         '414cd4db433b92ae1847053cad40d34e'
+         '82ca9a9f07edf0567d2add91ec69cddc'
+         'b3f8d3d5b1a1c81b16b23d3e6a506c9e'
+         '0921e96e1493cec94a120b9b6f78a101'
+         'd67ce7b3e8b2ed1ad33b51d97d009b29'
+         '585850f6c03635cf0ff2fc866e058afa'
+         '55ba75948f1955221d3efeac04c1a81d'
+         '573052402758d4f310ecb9695a4da45a'
+         'ff3dbd839b19650d634a675d3da2aea8'
+         'b9bd87d625308f2fd44b49ece633f49f'
+         '4ffea94d9e16830a15831c655b3ae995'
+         '74d2617ac5a3b25cf6bc44217827d969'
+         '30c9c5ee1853ec87a95d7cbb03e052de'
+         'dc762e405ec017a231d89ab4d746c36e'
+         'bb17a14d6de94f3a03c55f6d5d19f355'
+         'cdbb974315c26187ed50992657a9e133'
+         '28dcbc163ad7cdf3e9538bb8fd4abcd4'
+         'f20f48bb13f311ca1a8fbb32248a53f5'
+         'a954259c836ce72a6a36e1f946b0cf69'
+         '48ed7a38cf77c28cdd25e5526660221b'
+         '86ad0c6b9b458b778f2ead8c529bdce1'
+         'a25afd5de7b0ac02267b7ac5cc018699'
+         '86da74f23d0c616c77d6890aa7ec5786'
+         '5f3c13e907378c8e573dadfa0d6f61fd'
+         'ecdfe5f6f8930e01421f34147a985833'
+         'ecd5773876a4046214ee020d8c7b07a0'
+         '586cb80e87b646a01d56ca3d065b4007'
+         '91f07bba39e0e6c99a2b51d9c4d2ecb3'
+         '2e7a7b51a20258627a5c51f75fd883d1'
+         'f38112b42252614b8e5cd25811d53bfd'
+         'e0b008b6266131f2dda355c09dfbff00'
+         '14a62d5d9542cd9fc7b3d89b05969fa1'
+         'f8e87f702757bf519ec1a0b20549bd89'
+         'f2ec4a31aa54dbb771f52443eb663d07'
+         'd9f27047b9d21542c2a7721e9a4a69ca'
+         'fa9f99425811990cc26a4318d77436bf'
+         '4c9f2f5cc164313ce3f55c7737d81fb4'
+         'd3986676dde6614b3b445fa046da1cd2'
+         '0420b4d69a669997faa642faf92a1345'
+         'd1e2fa0b79c064e0855ae0673f53fc43'
+         'ba4c15e1a0bbde406507228b907f0400'
+         '969ccb2587976c95e114051810a6511e'
+         '91698a8336d5a6d7b3885737ade80cac'
+         'b63142248234cd687f43bdc20621992b'
+         '3a1896b8085b7b76d52876f45dcd7e53'
+         'ae5591f6b54463b4f6dad3f08c120648'
+         'faeba72d82ab441073061398ddd3b324'
+         '51414b327232d729073d18eef22503fd'
+         'fc78ec7eba6941891bf2398539d4a05d'
+         '1102e6400d443eb1cd45430a1ca6aad7'
+         'cc53a3b9a8f16662004001f3536184d5'
+         '77c9900678dd866ccd3ba86cfe669a85'
+         '5a92e3323baf4d6e0b2c7fa812a0bd7d'
+         'a6a2d9a235c738789ab6f4aab7480fc6'
+         '1d8174fe3aa8f1142eaa97c9009928f7'
+         '67564d4d8277797f465f3698b3f44449'
+         '8e1f3d6217061dc618f869b1366113a1'
+         '787b9d13e4827637c9acfbaeae691c8c'
+         'ee07d99fd8f69807a3a1023ac24b7e7e'
+         '4cd5d3cc3fef22cab73289fd5dc0ba68'
+         'bb3aa1e6bef0374fc1ae5e9f1a5e696c'
+         '02ea14b2d1d7594358cc35d49ccee5e3'
+         '8fe7a8c611386bf0e6f5c701c71cc66b'
+         '488be8d9ae809a13571afde5d71ad18e'
+         '4a5424ce84bd3f9513f56501a400d3ab'
+         '0c9b7740980f98da2b376b564a8ed459'
+         '3e80a79c6cccfdbf6ada1e2207ac3be2'
+         '9a36658826ba6fb066847194e093eee9'
+         'd7ea352ed9a04027703ef56c9cfdc883'
+         '6ec1ea18d142e9a66d009277deb0717d'
+         '9e4e7bf030673d3dee2d1dbc86af697b'
+         '88184139442bbcb9caab1a484902e602'
+         'bcacc67f8fc21ccd155e55bbdc6c4b08'
+         'b615f025e1a3f47e09339bb53046b40d'
+         '8768189418943bacac8bb7068086c138'
+         '25aafcaef5b24f01426dec88bda7d9a6'
+         'd4d3ba22d46cd678f4c0b7d4db3a54ef'
+         '3171a23034de6319573f158b6161ea78'
+         '804c7d42fc2f6cf57f8e6b6f7d0b6878'
+         'be821f775f2297c05aad82abe30a39e5'
+         '3b7a37dc516b735a3a212a33c1f4725a'
+         'eb3cc9ad1d4ab80cf98fb3e8131af79d'
+         'ca0aa0cea7ac714d16b6f88dacbe25ef'
+         'd1624a332e44e60c88e1c44a1b31f8a0'
+         '1ed31015079f832ed2668ee784822e4b'
+         '79bead99bd01acbc965e6a5ae8c36425'
+         '2ef3a08e7b13b9c7d5a6f46bfc6b6c66'
+         'd1b8da6fa4402982cfa96eb007e218b1'
+         '3c882d49a099820a6f9da8ba45e22e0a'
+         'ff22a6fc7363ea3649286ef63d03c13e'
+         '9f747f0d34d05341da18e27f27e34b3b'
+         '835e2d88a162c26298f525fb256214e9'
+         '3210d61611f49458cdc48fdc896c931a'
+         'c022e5350ac20b3ebd45652f410f1156'
+         '38a4cd133c4d56d08cf55478f7938715'
+         'e82f34abda4ea84f1d97fe403f89cd21'
+         '72af58c0635b6679063b6b9e83f87ded'
+         '898caccba350932ada7a7e724c8f3af6'
+         'd71e8972706877fa5a99170c078e778c'
+         'bf350667e8af76518178e36f4385ebb5'
+         'edd5c2a45b7291196095e367aaa268a3'
+         '4ae240cc280433763c99fce8489527c1'
+         '65ba7d43e91c51327073f0dec3c8648b'
+         '5b461aca952ba617025d59db27490e4e'
+         '5c5ab48755f119b31e8e60ba0905ddf3'
+         'a34a249d2be72a823227c02121486e65'
+         '47be1b05943032732040abc8308878c6'
+         'f83fab580f0044c074eeeca8bec2cdac'
+         'b2a96b0aa7894c6e52ab4bf77a00779a'
+         'd9ec1a73add79ae206c984c039ef555f'
+         '4d05b648bbcb1989985c3ef1697e409b'
+         'c7ac90edea1928fedb5afc914b1eac31'
+         '02c247659068ec0a84a9ef4c98c922f7'
+         '1b55113e62771cc6f82764216d13da7d'
+         'f979f16beff764ee3dbc4bcacd5df0b3'
+         'f4c45e61a1de714049e1b530d21b5247'
+         '771500d08f1c89bb671ed632115d8803'
+         '8ed592c70dac699c3011d79bbfe7a694'
+         'c05593ed1c61ad09e855e496c73bf0b4'
+         'c6fa24872a9a14b7036966f8457bc91e'
+         '9ddfe3fb6edab419d31b593244288997'
+         'a949bf7c06e58d9dd68cb097833b72e1'
+         '626bd0550af45ae45515a3effb13891d'
+         '017b6a1013089197572d50f427399228'
+         '560ae5855ffb935f8fc3e4bb50340e14'
+         '5e8cd8aa07339680d395b6aa01c5a7b4'
+         'c0c52ac60a9fb43e33bd645b43d66596'
+         'b53c86edffd2988257bb06ed5614dbfd'
+         '57fc8f4e7349349cffc106aaecdc8549'
+         '951d07e5d529bdaf22799c0c8cd64905'
+         '3370b13d68d593faefc386231f1d1b7c'
+         '45904303131056d8b987a36e13c7dbfc'
+         'a3fe9df909b85b5ce44e7a3f854393fb'
+         'd89d9d2fd4bf96748f1e78909750f61b'
+         '5899fbccf68c95dea45195693d825d8b')
+noextract=("${source[@]##*/}")
+
+source_extra=("chromepass.zip::http://www.nirsoft.net/toolsdownload/chromepass.zip"
+              "dialupass.zip::http://www.nirsoft.net/toolsdownload/dialupass.zip"
+              "iepv.zip::http://www.nirsoft.net/toolsdownload/iepv.zip"
+              "lsasecretsdump.zip::http://www.nirsoft.net/toolsdownload/lsasecretsdump.zip"
+              "lsasecretsdump-x64.zip::http://www.nirsoft.net/toolsdownload/lsasecretsdump-x64.zip"
+              "lsasecretsview.zip::http://www.nirsoft.net/toolsdownload/lsasecretsview.zip"
+              "lsasecretsview-x64.zip::http://www.nirsoft.net/toolsdownload/lsasecretsview-x64.zip"
+              "mailpv.zip::http://www.nirsoft.net/toolsdownload/mailpv.zip"
+              "mspass.zip::http://www.nirsoft.net/toolsdownload/mspass.zip"
+              "netpass.zip::http://www.nirsoft.net/toolsdownload/netpass.zip"
+              "netpass-x64.zip::http://www.nirsoft.net/toolsdownload/netpass-x64.zip"
+              "operapassview.zip::http://www.nirsoft.net/toolsdownload/operapassview.zip"
+              "passwordfox.zip::http://www.nirsoft.net/toolsdownload/passwordfox.zip"
+              "passwordfox-x64.zip::http://www.nirsoft.net/toolsdownload/passwordfox-x64.zip"
+              "pspv.zip::http://www.nirsoft.net/toolsdownload/pspv.zip"
+              "pstpassword.zip::http://www.nirsoft.net/toolsdownload/pstpassword.zip"
+              "rdpv.zip::http://www.nirsoft.net/toolsdownload/rdpv.zip"
+              "routerpassview.zip::http://www.nirsoft.net/toolsdownload/routerpassview.zip"
+              "sniffpass.zip::http://www.nirsoft.net/toolsdownload/sniffpass.zip"
+              "sniffpass-x64.zip::http://www.nirsoft.net/toolsdownload/sniffpass-x64.zip"
+              "vncpassview.zip::http://www.nirsoft.net/toolsdownload/vncpassview.zip"
+              "webbrowserpassview.zip::http://www.nirsoft.net/toolsdownload/webbrowserpassview.zip"
+              "wirelesskeyview.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview.zip"
+              "wirelesskeyview-x64.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview-x64.zip"
+              # "wirelesskeyview-no-command-line.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview-no-command-line.zip"
+)
+md5sums_extra=('0445b333eea2ff3115ef55c837c0483e'
+               'b4389f408811324aaadd5361ff7beabc'
+               '0c6ad5802fffe5ed4934d7993b20aca4'
+               '2ddf9006c0e6d2d889138ca00025f0b1'
+               '1348969720133135217135410d021d67'
+               '16d77fac45a9cea84ebf3199199ead93'
+               '0c997d4f58df1a2b70f7c6296f63b773'
+               '9a4fe92d672484fe55c81fcfb6f41247'
+               '2cbe2a7e5e4064022a7a52a823e51b0a'
+               '60cdfaccf019407d7ecd0f47dea6f935'
+               'b2c9bde5019d7aecfd1fa0fd2c514ea6'
+               'fe9917fd39e0215a5c29fcd71562994b'
+               '6de3e005364993a95bbd3ec5a28dd83b'
+               'af4dc16fe2b793ef6cb8dbb32c05f19b'
+               'ec8038badfc47e984cda87e7c6ee473d'
+               '77540fe77f35d1e9e4c125a979f38ae4'
+               'ba99b3272d57abe8398e37565cfd2e91'
+               '0a6ca460ad350aff2474e12cffa82891'
+               '985eaf17768783e00b7bd3ba86e88aec'
+               '863e8a7b64ed19dfc91e61b52d1c8025'
+               'e588d5d25b471df294540f370fbe81d0'
+               '5499dbf917c96d8146fd8619c8faff47'
+               'a6fc2e2be35581df54089d21a6e6a42e'
+               'fbda64062348f660deaf539a17269084'
+)
+
+prepare() {
+    apparch=32
+    cd "${srcdir}"
+    
+    for (( idx = 0; idx < ${#source_extra[*]}; idx++ ))
+    do
+        file="${source_extra[idx]%%::*}"
+        url="${source_extra[idx]#*::}"
+        wget -nv "${url}" -O "${file}" --referer="http://www.nirsoft.net/"
+        echo "${md5sums_extra[idx]}" '*'"${file}" | md5sum -c -
+    done
+    
+    for util in *.zip
+    do
+        unzip -o "${util}" -d "${util%%.zip}"
+        for f in "${util%%.zip}"/*
+        do
+            n=$(echo "${f}" | tr 'A-Z' 'a-z')
+            if test "${f}" != "${n}"
+            then
+                mv "${f}" "${n}"
+            fi
+        done
+    done
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
+    
+    for dir in "${srcdir}"/*.zip
+    do
+        dir="${dir%%.zip}"
+        util="${dir##*/}"
+        case "${util}" in
+        *x64*)
+            if [ ${apparch} == 32 ]
+            then
+                continue
+            fi
+            util="${util%%-x64}"
+            ;;
+        *)
+            if [ ${apparch} == 64 ]
+            then
+                continue
+            fi
+            ;;
+        esac
+
+        for ext in exe dll frm frx vbp vbw
+        do
+            find "${dir}" -name '*.'"${ext}" -not -name 'regsvr32.exe' -execdir cp "{}" "${pkgdir}/apps${apparch}/${_realname}" \;
+        done
+        for file in "${util}.txt" 'readme.txt'
+        do
+            find "${dir}" -name "${file}" -execdir cp "{}" "${pkgdir}/docs${apparch}/${_realname}/${util}.txt" \;
+        done
+        find "${dir}" -name '*.chm' -execdir cp "{}" "${pkgdir}/docs${apparch}/${_realname}" \;
+        
+        extras=$(find "${dir}" -mindepth 1 -regextype posix-extended -not -regex '.+\.(exe|dll|ocx|frm|frx|vbp|vbw|chm)' -not -name 'readme.txt' -not -name "${util}.txt")
+        for f in ${extras}
+        do
+            mkdir -p "${pkgdir}/docs${apparch}/${_realname}/${util}"
+            cp "${f}" "${pkgdir}/docs${apparch}/${_realname}/${util}"
+        done
+    done
+}
+
+package_app-i686-nirsoft() {
+    apparch=32 package
+    apparch=32
+    rm "${pkgdir}/apps${apparch}/${_realname}/runfromprocess-x64.exe"
+}
+
+package_app-x86_64-nirsoft() {
+    apparch=64 package
+    apparch=64
+    cp "${srcdir}/runfromprocess/runfromprocess-x64.exe" "${pkgdir}/apps${apparch}/${_realname}/runfromprocess.exe"
+}

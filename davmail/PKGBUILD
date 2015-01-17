@@ -15,11 +15,10 @@ source=("davmail-windows-noinstall.zip::http://downloads.sourceforge.net/${_real
 md5sums=('4cd69cd4a8ed81c1d65a954ff487d2f3')
 
 package() {
-    cd "${srcdir}"
     mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
-    cp -R lib "${pkgdir}/apps${apparch}/${_realname}/"
-    cp davmail.jar "${pkgdir}/apps${apparch}/${_realname}/"
-    cp davmailconsole.exe "${pkgdir}/apps${apparch}/${_realname}/"
+    cp -R "${srcdir}/lib" "${pkgdir}/apps${apparch}/${_realname}/"
+    cp "${srcdir}/davmail.jar" "${pkgdir}/apps${apparch}/${_realname}/"
+    cp "${srcdir}/davmailconsole.exe" "${pkgdir}/apps${apparch}/${_realname}/"
 
     for file in davmail davmailservice
     do

@@ -1,0 +1,35 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=teamviewer
+pkgname=("app-i686-${_realname}")
+pkgver=10.0.36897
+pkgrel=1
+pkgdesc="All-in-one software for remote support and online meetings"
+url="http://www.teamviewer.com/"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+options=(!strip) # digital signatures
+source=("http://download.teamviewer.com/download/TeamViewerPortable.zip")
+md5sums=('533109e5eef861eeb690150840579c5e')
+
+prepare() {
+    cd "${srcdir}"
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+package() {
+    apparch=32
+    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
+
+    cp "${srcdir}"/*.{dll,exe,ini} "${pkgdir}/apps${apparch}/${_realname}/"
+    cp "${srcdir}"/*.{txt,inf} "${pkgdir}/docs${apparch}/${_realname}/"
+}

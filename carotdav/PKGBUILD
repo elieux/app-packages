@@ -1,0 +1,37 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=carotdav
+pkgname=("app-i686-${_realname}")
+pkgver=1.11.7
+pkgrel=1
+pkgdesc="A simple WebDAV, FTP, cloud drives and IMAP client"
+url="http://rei.to/carotdav_en.html"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+source=("CarotDAV.portable.zip::http://rei.to/CarotDAV${pkgver}.portable.zip"
+        "installed.txt")
+md5sums=('92271d5fb88e2af2cc97a8ec69893e0c'
+         'ea6667b547144212c03bb2b498fcea8a')
+
+prepare() {
+    cd "${srcdir}/CarotDAV"
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+package() {
+    apparch=32
+    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
+
+    cp "${srcdir}/installed.txt" "${pkgdir}/apps${apparch}/${_realname}/"
+    cp "${srcdir}/CarotDAV"/*.{dll,exe,xml,config} "${pkgdir}/apps${apparch}/${_realname}/"
+    cp "${srcdir}/CarotDAV"/*.txt "${pkgdir}/docs${apparch}/${_realname}/"
+}

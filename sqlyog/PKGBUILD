@@ -1,0 +1,53 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+DLAGENTS=("https::/usr/bin/curl -k -o %o %u")
+
+_realname=sqlyog
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=12.0.4
+pkgrel=1
+pkgdesc="MySQL manager and admin tool"
+url="https://code.google.com/p/sqlyog/"
+arch=('any')
+license=('GPL2')
+makedepends=("p7zip")
+options=(!strip) # embedded data
+source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x86Community.exe"
+        "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x64Community.exe")
+md5sums=('8025cc29ce47c6602aa3fab03c261504'
+         '9d8955cb319495c0051e9c005a4faba5')
+
+prepare() {
+    for _apparch in 32 64
+    do
+        cd "${srcdir}"
+        7z x -ry "SQLyogCommunity${_apparch}.exe" -o"SQLyogCommunity${_apparch}" > /dev/null
+        for f in "SQLyogCommunity${_apparch}"/*
+        do
+            n=$(echo "${f}" | tr 'A-Z' 'a-z')
+            if test "${f}" != "${n}"
+            then
+                mv "${f}" "${n}"
+            fi
+        done
+    done
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+    cp "${srcdir}/SQLyogCommunity${_apparch}"/*.{exe,dll,db} "${pkgdir}/apps${_apparch}/${_realname}"
+    cp "${srcdir}/SQLyogCommunity${_apparch}"/*.{txt,chm} "${pkgdir}/docs${_apparch}/${_realname}"
+    rm "${pkgdir}/apps${_apparch}/${_realname}/uninst.exe"
+}
+
+package_app-i686-sqlyog() {
+    _apparch=32
+    package
+}
+
+package_app-x86_64-sqlyog() {
+    _apparch=64
+    package
+}

@@ -1,6 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=dropbox
+_apparch=32
 pkgname=("app-i686-${_realname}")
 pkgver=3.0.5
 pkgrel=2
@@ -14,17 +15,15 @@ source=("Dropbox.exe::https://www.dropbox.com/download?full=1&plat=win")
 md5sums=('1ab3cb1cf1c2a98b03cf69245a69e291')
 
 prepare() {
-    apparch=32
     cd "${srcdir}"
     7z x -ry "Dropbox.exe" > /dev/null
 }
 
 package() {
-    apparch=32
-    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
-    find "${srcdir}" -name 'DropboxExt*.dll' -execdir cp "{}" "${pkgdir}/apps${apparch}/${_realname}" \;
-    find "${srcdir}" -type d -name 'Qt*' -execdir cp -R "{}" "${pkgdir}/apps${apparch}/${_realname}/" \;
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    find "${srcdir}" -name 'DropboxExt*.dll' -execdir cp "{}" "${pkgdir}/apps${_apparch}/${_realname}" \;
+    find "${srcdir}" -type d -name 'Qt*' -execdir cp -R "{}" "${pkgdir}/apps${_apparch}/${_realname}/" \;
     dir="$(find "${srcdir}" -mindepth 2 -type f -name 'Dropbox.exe' -printf %h)"
-    find "${dir}" -mindepth 1 -maxdepth 1 -not -name 'DropboxUpdateHelper.exe' -not -name 'DropboxUninstaller.exe' -exec cp -R "{}" "${pkgdir}/apps${apparch}/${_realname}/" \;
-    mv "${pkgdir}/apps${apparch}/${_realname}/Dropbox.exe" "${pkgdir}/apps${apparch}/${_realname}/dropbox.exe"
+    find "${dir}" -mindepth 1 -maxdepth 1 -not -name 'DropboxUpdateHelper.exe' -not -name 'DropboxUninstaller.exe' -exec cp -R "{}" "${pkgdir}/apps${_apparch}/${_realname}/" \;
+    mv "${pkgdir}/apps${_apparch}/${_realname}/Dropbox.exe" "${pkgdir}/apps${_apparch}/${_realname}/dropbox.exe"
 }

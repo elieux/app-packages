@@ -1,6 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=teamviewer
+_apparch=32
 pkgname=("app-i686-${_realname}")
 pkgver=10.0.36897
 pkgrel=1
@@ -26,10 +27,9 @@ prepare() {
 }
 
 package() {
-    apparch=32
-    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
 
-    cp "${srcdir}"/*.{dll,exe,ini} "${pkgdir}/apps${apparch}/${_realname}/"
-    cp "${srcdir}"/*.{txt,inf} "${pkgdir}/docs${apparch}/${_realname}/"
+    cp "${srcdir}"/*.{dll,exe,ini} "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp "${srcdir}"/*.{txt,inf} "${pkgdir}/docs${_apparch}/${_realname}/"
 }

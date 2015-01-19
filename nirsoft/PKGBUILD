@@ -632,9 +632,8 @@ md5sums_extra=('0445b333eea2ff3115ef55c837c0483e'
 )
 
 prepare() {
-    apparch=32
     cd "${srcdir}"
-    
+
     for (( idx = 0; idx < ${#source_extra[*]}; idx++ ))
     do
         file="${source_extra[idx]%%::*}"
@@ -642,7 +641,7 @@ prepare() {
         wget -nv "${url}" -O "${file}" --referer="http://www.nirsoft.net/"
         echo "${md5sums_extra[idx]}" '*'"${file}" | md5sum -c -
     done
-    
+
     for util in *.zip
     do
         unzip -o "${util}" -d "${util%%.zip}"
@@ -658,56 +657,44 @@ prepare() {
 }
 
 package() {
-    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
-    
-    for dir in "${srcdir}"/*.zip
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+
+    for dir in $1
     do
         dir="${dir%%.zip}"
         util="${dir##*/}"
-        case "${util}" in
-        *x64*)
-            if [ ${apparch} == 32 ]
-            then
-                continue
-            fi
-            util="${util%%-x64}"
-            ;;
-        *)
-            if [ ${apparch} == 64 ]
-            then
-                continue
-            fi
-            ;;
-        esac
+        util="${util%%-x64}"
 
         for ext in exe dll frm frx vbp vbw
         do
-            find "${dir}" -name '*.'"${ext}" -not -name 'regsvr32.exe' -execdir cp "{}" "${pkgdir}/apps${apparch}/${_realname}" \;
+            find "${dir}" -name '*.'"${ext}" -not -name 'regsvr32.exe' -execdir cp "{}" "${pkgdir}/apps${_apparch}/${_realname}" \;
         done
         for file in "${util}.txt" 'readme.txt'
         do
-            find "${dir}" -name "${file}" -execdir cp "{}" "${pkgdir}/docs${apparch}/${_realname}/${util}.txt" \;
+            find "${dir}" -name "${file}" -execdir cp "{}" "${pkgdir}/docs${_apparch}/${_realname}/${util}.txt" \;
         done
-        find "${dir}" -name '*.chm' -execdir cp "{}" "${pkgdir}/docs${apparch}/${_realname}" \;
-        
+        find "${dir}" -name '*.chm' -execdir cp "{}" "${pkgdir}/docs${_apparch}/${_realname}" \;
+
         extras=$(find "${dir}" -mindepth 1 -regextype posix-extended -not -regex '.+\.(exe|dll|ocx|frm|frx|vbp|vbw|chm)' -not -name 'readme.txt' -not -name "${util}.txt")
         for f in ${extras}
         do
-            mkdir -p "${pkgdir}/docs${apparch}/${_realname}/${util}"
-            cp "${f}" "${pkgdir}/docs${apparch}/${_realname}/${util}"
+            mkdir -p "${pkgdir}/docs${_apparch}/${_realname}/${util}"
+            cp "${f}" "${pkgdir}/docs${_apparch}/${_realname}/${util}"
         done
     done
 }
 
 package_app-i686-nirsoft() {
-    apparch=32 package
-    apparch=32
-    rm "${pkgdir}/apps${apparch}/${_realname}/runfromprocess-x64.exe"
+    _apparch=32
+    files="$(find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.zip' -not -name '*x64*')"
+    package "${files}"
+    rm "${pkgdir}/apps${_apparch}/${_realname}/runfromprocess-x64.exe"
 }
 
 package_app-x86_64-nirsoft() {
-    apparch=64 package
-    apparch=64
-    cp "${srcdir}/runfromprocess/runfromprocess-x64.exe" "${pkgdir}/apps${apparch}/${_realname}/runfromprocess.exe"
+    _apparch=64
+    files="$(find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*x64*.zip')"
+    package "${files}"
+    cp "${srcdir}/runfromprocess/runfromprocess-x64.exe" "${pkgdir}/apps${_apparch}/${_realname}/runfromprocess.exe"
 }

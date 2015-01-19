@@ -1,6 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=carotdav
+_apparch=32
 pkgname=("app-i686-${_realname}")
 pkgver=1.11.7
 pkgrel=1
@@ -27,11 +28,10 @@ prepare() {
 }
 
 package() {
-    apparch=32
-    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
 
-    cp "${srcdir}/installed.txt" "${pkgdir}/apps${apparch}/${_realname}/"
-    cp "${srcdir}/CarotDAV"/*.{dll,exe,xml,config} "${pkgdir}/apps${apparch}/${_realname}/"
-    cp "${srcdir}/CarotDAV"/*.txt "${pkgdir}/docs${apparch}/${_realname}/"
+    cp "${srcdir}/installed.txt" "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp "${srcdir}/CarotDAV"/*.{dll,exe,xml,config} "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp "${srcdir}/CarotDAV"/*.txt "${pkgdir}/docs${_apparch}/${_realname}/"
 }

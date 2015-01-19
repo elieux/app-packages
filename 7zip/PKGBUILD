@@ -30,11 +30,11 @@ prepare() {
 }
 
 build() {
-    for apparch in 32 64
+    for _apparch in 32 64
     do
         cd "${srcdir}"
-        msiexec -a "7z${apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${apparch}")" -qn
-        cd "${srcdir}/msi${apparch}/Files/7-Zip"
+        msiexec -a "7z${_apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
+        cd "${srcdir}/install${_apparch}/Files/7-Zip"
         for f in *
         do
             n=$(echo "${f}" | tr 'A-Z' 'a-z')
@@ -46,24 +46,25 @@ build() {
     done
 }
 
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}-extra"
+
+    cp "${srcdir}"/*.txt "${pkgdir}/docs${_apparch}/${_realname}-extra"
+    cp -R "${srcdir}/install${_apparch}/Files/7-Zip/lang" "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp "${srcdir}/install${_apparch}/Files/7-Zip"/*.{exe,dll,sfx} "${pkgdir}/apps${_apparch}/${_realname}"
+    cp "${srcdir}/install${_apparch}/Files/7-Zip"/*.{chm,txt,ion} "${pkgdir}/docs${_apparch}/${_realname}"
+}
+
 package_app-i686-7zip() {
-    apparch=32
-    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${apparch}/${_realname}-extra"
-    cp "${srcdir}"/*.{dll,exe} "${pkgdir}/apps${apparch}/${_realname}"
-    cp "${srcdir}"/*.txt "${pkgdir}/docs${apparch}/${_realname}-extra"
-    cp -R "${srcdir}/msi${apparch}/Files/7-Zip"/* "${pkgdir}/apps${apparch}/${_realname}"
-    mv "${pkgdir}/apps${apparch}/${_realname}"/*.{chm,txt,ion} "${pkgdir}/docs${apparch}/${_realname}"
+    _apparch=32
+    package
+    cp "${srcdir}"/*.{dll,exe} "${pkgdir}/apps${_apparch}/${_realname}"
 }
 
 package_app-x86_64-7zip() {
-    apparch=64
-    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${apparch}/${_realname}-extra"
-    cp "${srcdir}/x64"/*.{dll,exe} "${pkgdir}/apps${apparch}/${_realname}"
-    cp "${srcdir}"/*.txt "${pkgdir}/docs${apparch}/${_realname}-extra"
-    cp -R "${srcdir}/msi${apparch}/Files/7-Zip"/* "${pkgdir}/apps${apparch}/${_realname}"
-    mv "${pkgdir}/apps${apparch}/${_realname}"/*.{chm,txt,ion} "${pkgdir}/docs${apparch}/${_realname}"
+    _apparch=64
+    package
+    cp "${srcdir}/x64"/*.{dll,exe} "${pkgdir}/apps${_apparch}/${_realname}"
 }

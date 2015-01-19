@@ -1,6 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=google-drive
+_apparch=32
 pkgname=("app-i686-${_realname}")
 pkgver=1.19.8268.4572
 pkgrel=2
@@ -13,14 +14,12 @@ source=("http://dl.google.com/drive/${pkgver}/gsync.msi")
 md5sums=('1556e4e4f13a64a5f8ccfc68f7221386')
 
 build() {
-    apparch=32
     cd "${srcdir}"
-    msiexec -a "gsync.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${apparch}")" -qn
+    msiexec -a "gsync.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${_apparch}")" -qn
 }
 
 package() {
-    apparch=32
-    mkdir -p "${pkgdir}/apps${apparch}/${_realname}"
-    cp "${srcdir}/msi${apparch}/Google/Drive"/*.{dll,exe} "${pkgdir}/apps${apparch}/${_realname}"
-    cp -R "${srcdir}/msi${apparch}/Google/Drive/Languages" "${pkgdir}/apps${apparch}/${_realname}/"
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    cp "${srcdir}/msi${_apparch}/Google/Drive"/*.{dll,exe} "${pkgdir}/apps${_apparch}/${_realname}"
+    cp -R "${srcdir}/msi${_apparch}/Google/Drive/Languages" "${pkgdir}/apps${_apparch}/${_realname}/"
 }

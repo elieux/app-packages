@@ -4,7 +4,7 @@ _realname=google-drive
 _apparch=32
 pkgname=("app-i686-${_realname}")
 pkgver=1.19.8268.4572
-pkgrel=2
+pkgrel=3
 pkgdesc="The Google Drive synchronization tool"
 url="http://www.google.com/drive/"
 arch=('any')
@@ -21,5 +21,5 @@ build() {
 package() {
     mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
     cp "${srcdir}/msi${_apparch}/Google/Drive"/*.{dll,exe} "${pkgdir}/apps${_apparch}/${_realname}"
-    cp -R "${srcdir}/msi${_apparch}/Google/Drive/Languages" "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp -R "${srcdir}/msi${_apparch}/Google/Drive/Languages" "${pkgdir}/apps${_apparch}/${_realname}/languages"
 }

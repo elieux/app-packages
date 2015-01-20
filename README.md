@@ -43,3 +43,5 @@ Guidelines for recipes
 - Include all available localizations.
 - All documentation, examples and help files go into a separate directory.
 - User configuration goes into per-user directories.
+- Do not include auto-updaters and uninstallers.
+- Do not include copies of system libraries, e.g. `msvc*.dll`, `mfc*.dll`, `atl*.dll`.

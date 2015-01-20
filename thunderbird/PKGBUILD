@@ -1,0 +1,156 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=thunderbird
+_apparch=32
+pkgname=("app-i686-${_realname}")
+pkgver=31.4.0
+pkgrel=1
+pkgdesc="Standalone, easy to customize mail/news reader"
+url="http://www.mozilla.org/thunderbird/"
+arch=('any')
+license=('GPL' 'MPL')
+makedepends=("p7zip")
+options=(!strip) # digital signatures
+source=("ThunderbirdSetup.exe::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/en-US/Thunderbird Setup ${pkgver}.exe"
+        "ar.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ar.xpi"
+        "ast.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ast.xpi"
+        "be.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/be.xpi"
+        "bg.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/bg.xpi"
+        "bn-BD.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/bn-BD.xpi"
+        "br.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/br.xpi"
+        "ca.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ca.xpi"
+        "cs.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/cs.xpi"
+        "da.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/da.xpi"
+        "de.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/de.xpi"
+        "el.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/el.xpi"
+        "en-GB.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/en-GB.xpi"
+        "en-US.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/en-US.xpi"
+        "es-AR.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/es-AR.xpi"
+        "es-ES.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/es-ES.xpi"
+        "et.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/et.xpi"
+        "eu.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/eu.xpi"
+        "fi.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/fi.xpi"
+        "fr.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/fr.xpi"
+        "fy-NL.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/fy-NL.xpi"
+        "ga-IE.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ga-IE.xpi"
+        "gd.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/gd.xpi"
+        "gl.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/gl.xpi"
+        "he.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/he.xpi"
+        "hr.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/hr.xpi"
+        "hu.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/hu.xpi"
+        "hy-AM.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/hy-AM.xpi"
+        "id.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/id.xpi"
+        "is.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/is.xpi"
+        "it.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/it.xpi"
+        "ja.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ja.xpi"
+        "ko.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ko.xpi"
+        "lt.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/lt.xpi"
+        "nb-NO.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/nb-NO.xpi"
+        "nl.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/nl.xpi"
+        "nn-NO.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/nn-NO.xpi"
+        "pa-IN.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/pa-IN.xpi"
+        "pl.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/pl.xpi"
+        "pt-BR.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/pt-BR.xpi"
+        "pt-PT.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/pt-PT.xpi"
+        "rm.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/rm.xpi"
+        "ro.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ro.xpi"
+        "ru.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ru.xpi"
+        "si.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/si.xpi"
+        "sk.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/sk.xpi"
+        "sl.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/sl.xpi"
+        "sq.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/sq.xpi"
+        "sr.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/sr.xpi"
+        "sv-SE.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/sv-SE.xpi"
+        "ta-LK.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ta-LK.xpi"
+        "tr.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/tr.xpi"
+        "uk.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/uk.xpi"
+        "vi.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/vi.xpi"
+        "zh-CN.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/zh-CN.xpi"
+        "zh-TW.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/zh-TW.xpi")
+md5sums=('bb5c50649060d786f280e5aaa525f0c7'
+         '8ca983ea2552b39ce8e17ed642db4af6'
+         '03493242a95f099d9c0e6e74c03777de'
+         '4aa154f4da34eb717174a0aa2bf94ea0'
+         '92fd27f12e4d558fa7e0be751787a226'
+         '797ff93958b822b5bf36e89c6deaa1ea'
+         'c190064cc205f53f9fa5f3a5b07168f4'
+         '4337b396f325d16c583bf3c73e94db1f'
+         'd1e69e1fc123cd6b6ccd7ce33d0e8150'
+         '5a2904cea245a633c46a9c5e9bc77d51'
+         '32c1a4dfea7f2981b87a1a8e463fbfe3'
+         '35adc89b7e909cd65de6f6bdfcd70545'
+         '3ebd899bca022030589eb318d2699242'
+         '7749b6a99f93a65a4205e6f4c3516c17'
+         '79f231e88a9562734ccbdd268e487ca5'
+         'eaa06c5144a23e8d1f0ba9dcfbada010'
+         '0f24df651999c9bf3fa8eba7d41361d7'
+         '7a82cfe044145e9eff12690ac53e191a'
+         '2d908302c81afc5169ec567875384b5e'
+         'ba8a5657a6b8066e81c1e2a70f6b170a'
+         '2a96f54c45e8c659dae0ffb8b8246373'
+         'f31f78ceea2b36f0af263732444d2879'
+         '5fc2a4ecb7704346809be48f04fa4ad4'
+         'e6fc82821aa6268fdb831ff13a7cdfdb'
+         '0300df8ccf213a6336eafcfcd7b0012d'
+         '1fad460a3644f48494a0f21e09a32ab0'
+         '74e58aab9a95d9ca25157b3d7a92f981'
+         'b0f3f73ffd1e1755229aeace8334e49d'
+         '8cde4e462500a27b76cfdd5511680a1b'
+         'e471e769038e51ad204d3b0feaad69a8'
+         '27959a6763a43e6d1476364ba5bca690'
+         '007f2c68e4447916a4f0eafeec9aae66'
+         '32c16c761e5386d48cc4489daf9ccc1f'
+         'f7e6ebf634e6eb9db48d23895c854896'
+         'd051db07e35fa8a0d580df3c3149810f'
+         '5e014a7d159907f1b7b36ba9b5800336'
+         '49cf2ef035332e4eaa18c6877819571d'
+         '2498e54adef616554a0043c2b61238c9'
+         '530d6d80eb4e1d207c67f50e18062bd5'
+         'fce6c07f618981566b104bf2a5db49a1'
+         '76d13daf65f14f11e58f8ca91a03216d'
+         '1c55d9cbe7f083c0ed5a2c8fd8db036a'
+         '91d8f199f46e93527337eeb503caf8a3'
+         'c28af5bba138ac044cc00ce9bf387bc0'
+         '68b26e8d96813301d118ee648a178496'
+         '2c3d8946a244d5b08b2cf157d9c65358'
+         'bb9ddd482e380c61f370ffbabfddaf6c'
+         '5b4212bf3527f483f767e5ca97b6e2f3'
+         'dc78ebc56327039b3a41eb290eb59bd9'
+         '0ac580fe276adf8e3420f35229fb2351'
+         'ae19ba227be1f63f6f0405be0fe83a05'
+         'aece59d70b2a76ed9d28f2ae201ba7e3'
+         '7d497cacbb4a5ebb891e7b0a8655a4d2'
+         '8d0e78404a9a1345952c11b742f769b8'
+         '842eb041c71edd0b280b7bd22edb07b4'
+         '4a7c996ebb734705b23426fc96a4ca11')
+noextract=("${source[@]##*/}")
+
+prepare() {
+    cd "${srcdir}"
+    7z x -ry "ThunderbirdSetup.exe" > /dev/null
+    pushd "core"
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+    sed -i '/MSVC[RP]100.dll/d' dependentlibs.list
+    popd
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    cp -R "${srcdir}/core"/* "${pkgdir}/apps${_apparch}/${_realname}/"
+    rm "${pkgdir}/apps${_apparch}/${_realname}/searchplugins"/*
+    rm "${pkgdir}/apps${_apparch}/${_realname}"/{msvcp100.dll,msvcr100.dll}
+    rm "${pkgdir}/apps${_apparch}/${_realname}"/maintenanceservice{.exe,_installer.exe}
+    for f in "${srcdir}"/*.xpi
+    do
+        lang="${f##*/}"
+        lang="${lang%%.xpi}"
+        cp "${srcdir}/${lang}.xpi" "${pkgdir}/apps${_apparch}/${_realname}/extensions/langpack-${lang}@thunderbird.mozilla.org.xpi"
+    done
+}

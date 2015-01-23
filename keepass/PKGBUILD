@@ -4,7 +4,7 @@ _realname=keepass
 _apparch=32
 pkgname=("app-i686-${_realname}")
 pkgver=2.28
-pkgrel=2
+pkgrel=3
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
@@ -94,12 +94,19 @@ md5sums=('88cb9d695c284e0cd75b2cbc854525d6'
          '1d14dda46ccb4f6c921055a58080f0fe'
          'e4b2091d66e182811d3af9bf6d189f31'
          'fc2424e22acea3f423dd8b9667bea582')
+noextract=("KeePass2-TrlUtil.zip")
+
+prepare() {
+    unzip -o "KeePass2-TrlUtil.zip" -d "TrlUtil"
+}
 
 package() {
     mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
-    cp "${srcdir}"/KeePass.config.xml "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp "${srcdir}/KeePass.config.xml" "${pkgdir}/apps${_apparch}/${_realname}/"
     cp "${srcdir}"/*.{exe,exe.config,dll,lngx} "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp -R "${srcdir}/TrlUtil" "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp "${srcdir}/KeePass.config.xml" "${pkgdir}/apps${_apparch}/${_realname}/TrlUtil/"
     cp -R "${srcdir}"/XSL "${pkgdir}/apps${_apparch}/${_realname}/"
     cp "${srcdir}"/*.{chm,txt} "${pkgdir}/docs${_apparch}/${_realname}/"
 }

@@ -1,0 +1,46 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=calibre
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2.17
+pkgrel=1
+pkgdesc="Ebook management application"
+url="http://calibre-ebook.com/"
+arch=('any')
+license=('GPL3')
+makedepends=()
+options=(!strip) # embedded data
+source=("calibre32.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-${pkgver}.0.msi"
+        "calibre64.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-64bit-${pkgver}.0.msi")
+md5sums=('80e2d2e15e130c4c759318f69d5a1c49'
+         '3537394c9213ed57c7974855d8208c51')
+
+build() {
+    for _apparch in 32 64
+    do
+        cd "${srcdir}"
+        msiexec -a "calibre${_apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
+    done
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+
+    cp -R "${srcdir}/install${_apparch}/PFiles/${_dir}"/* "${pkgdir}/apps${_apparch}/${_realname}/"
+    rm -rf "${pkgdir}/apps${_apparch}/${_realname}/Microsoft.VC90.CRT"
+    mv "${pkgdir}/apps${_apparch}/${_realname}/LICENSE" "${pkgdir}/docs${_apparch}/${_realname}"
+}
+
+package_app-i686-calibre() {
+    _apparch=32
+    _dir=calibre
+    package
+}
+
+package_app-x86_64-calibre() {
+    _apparch=64
+    _dir=Calibre2
+    package
+}

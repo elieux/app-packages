@@ -1,0 +1,44 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=skype
+_apparch=32
+pkgname=("app-i686-${_realname}")
+pkgver=7.1.32.105
+pkgrel=1
+pkgdesc="P2P software for high-quality voice communication"
+url="http://www.skype.com/"
+arch=('any')
+license=('custom')
+makedepends=()
+options=(!strip) # digital signatures
+source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
+md5sums=('065dd3114229f5e37c944c1988ec1f52')
+
+build() {
+    cd "${srcdir}"
+    msiexec -a "SkypeSetup.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
+
+    for dir in "Phone" "Redist/Skype" "PFiles/Skype/Browser"
+    do
+        pushd "${srcdir}/install${_apparch}/Program Files/Skype/${dir}"
+        for f in *
+        do
+            n=$(echo "${f}" | tr 'A-Z' 'a-z')
+            if test "${f}" != "${n}"
+            then
+                mv "${f}" "${n}"
+            fi
+        done
+        popd
+    done
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+
+    cp "${srcdir}/install${_apparch}/Program Files/Skype/Phone"/* "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp "${srcdir}/install${_apparch}/Program Files/Skype/PFiles/Skype/Browser/skypebrowserhost.exe" "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp "${srcdir}/install${_apparch}/Program Files/Skype/Redist/Skype/skype4com.dll" "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp "${srcdir}/install${_apparch}/Program Files/Skype/third-party_attributions.txt" "${pkgdir}/docs${_apparch}/${_realname}/"
+}

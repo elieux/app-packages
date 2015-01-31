@@ -17,6 +17,14 @@ md5sums=('211f7cc9c8413907fecc9b8bf6ae0d95')
 prepare() {
     cd "${srcdir}"
     7z x -ry "Opera_Setup.exe" > /dev/null
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
 }
 
 build() {
@@ -28,7 +36,7 @@ build() {
 package() {
     mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
     cp -R * "${pkgdir}/apps${_apparch}/${_realname}"
-    rm -r "${pkgdir}/apps${_apparch}"/${_realname}/{Assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,opera.dll,Opera_Setup.exe,Resources.pri}
+    rm -r "${pkgdir}/apps${_apparch}"/${_realname}/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,opera.dll,opera_setup.exe,resources.pri}
     rm -r "${pkgdir}/apps${_apparch}"/${_realname}/{msvcp100.dll,msvcr100.dll}
     rm -r "${pkgdir}/apps${_apparch}"/${_realname}/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
 }

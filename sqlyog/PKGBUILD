@@ -5,7 +5,7 @@ DLAGENTS=("https::/usr/bin/curl -k -o %o %u")
 _realname=sqlyog
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=12.0.4
+pkgver=12.0.5
 pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://code.google.com/p/sqlyog/"
@@ -15,8 +15,8 @@ makedepends=("p7zip")
 options=(!strip) # embedded data
 source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x86Community.exe"
         "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x64Community.exe")
-md5sums=('8025cc29ce47c6602aa3fab03c261504'
-         '9d8955cb319495c0051e9c005a4faba5')
+md5sums=('0a65ee7c007f6a46ae0ac70019b10516'
+         'e60946f7cb30e8adbdf46f870502f802')
 
 prepare() {
     for _apparch in 32 64

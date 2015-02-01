@@ -3,7 +3,7 @@
 _realname=nirsoft
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2015.01.25
+pkgver=2015.02.01
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="http://www.nirsoft.net/"
@@ -83,6 +83,7 @@ source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
         "http://www.nirsoft.net/utils/filetypesman.zip"
         "http://www.nirsoft.net/utils/filetypesman-x64.zip"
         "http://www.nirsoft.net/utils/firefoxdownloadsview.zip"
+        "http://www.nirsoft.net/utils/firmwaretablesview.zip"
         "http://www.nirsoft.net/utils/flashcookiesview.zip"
         "http://www.nirsoft.net/utils/folderchangesview.zip"
         "http://www.nirsoft.net/utils/foldertimeupdate.zip"
@@ -319,14 +320,14 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'f57e634d4d8156286eb6314f81cb696c'
          '8d3c1c9ee5f5c6d408a55a78060e514a'
          'fa04627da582d05e0d02b641c75ff1ca'
-         '1bf0b1b9fa55bfe29a800ec7a2b515de'
+         'e450d923f100cd8c7f24b316b957d9e1'
          '7ddb9a74f59d2df7d16da35038f9871a'
          '4ede6b2ca74df1db462be95808f31a9d'
          '53220ef082eb7cd7b04ef506afb5eac5'
          '53c609fe71856f7fee1a6570fcff1af8'
          'b7b998811ab57cd782511195276b19c9'
-         'c49e4403393707706d2422f61f5f1f92'
-         '6069027ed1f638027ce11223ad991a29'
+         '4d12df4c9d4af008cf9f5c3114afa41d'
+         'e3a494133b25553b3835397c9adcc502'
          '4c9ebf654277f0003bd3515d2b65fe45'
          '4b7f5602d8fb940406849496b096d7a4'
          '82c76b349178d1c7b854dc5ed53c78c0'
@@ -381,6 +382,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'bfe8c7a65df9b1f2bf2120608cc7e8c0'
          'cf0cf2b55d680d789525adee12530838'
          '3bcc17a0fb990bb9b7c1c709b9d163b3'
+         '1f01c4684036c47ca5c382962210663f'
          'd496cc5858f196e048443412390997ea'
          '8fd9befa0c2a86621f70491b0675a0ab'
          'bd1e5d40a4d1f2be1448742359de2351'
@@ -416,7 +418,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'a513723daaed8a79df6f3f524d2e2cc5'
          '51f2ff3e3d78ed90cd1a20d13e04bde0'
          'ac2fc2d32c148fa70b3471c648d48ff5'
-         'bde6f9b86f78b5ff2ebf21ee7b8dbe79'
+         'b368846d1cc3d21dc4fb07f2bae97405'
          'd776107b74cab2ca19cc9aafbb071e68'
          'f3b4783717cc481e732ef0401299a4e1'
          'd41a32299704a9d82296ad03ff68792a'
@@ -449,8 +451,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '0921e96e1493cec94a120b9b6f78a101'
          'd67ce7b3e8b2ed1ad33b51d97d009b29'
          '585850f6c03635cf0ff2fc866e058afa'
-         '55ba75948f1955221d3efeac04c1a81d'
-         '573052402758d4f310ecb9695a4da45a'
+         '00c26afae061624582342c519f2bee0c'
+         'bd04480966d2c1d12dcd9560f84c881e'
          'ff3dbd839b19650d634a675d3da2aea8'
          'b9bd87d625308f2fd44b49ece633f49f'
          '4ffea94d9e16830a15831c655b3ae995'
@@ -463,8 +465,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '449794d6e2aaced318e961309e8b1372'
          'a954259c836ce72a6a36e1f946b0cf69'
          '48ed7a38cf77c28cdd25e5526660221b'
-         '86ad0c6b9b458b778f2ead8c529bdce1'
-         'a25afd5de7b0ac02267b7ac5cc018699'
+         'b73c6861dd440527c1163f4281f1365e'
+         '88b74ef4fd36fb71f54d22faf3fb3cf0'
          '86da74f23d0c616c77d6890aa7ec5786'
          '5f3c13e907378c8e573dadfa0d6f61fd'
          'ecdfe5f6f8930e01421f34147a985833'
@@ -553,8 +555,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '7775e4f16ed458978b351ee12b58853c'
          '4d5e123b400255602702a0e10c42824a'
          'd9ec1a73add79ae206c984c039ef555f'
-         '4d05b648bbcb1989985c3ef1697e409b'
-         'c7ac90edea1928fedb5afc914b1eac31'
+         'e51acac239005fe7e1ac43e8877b5acf'
+         '3a5e043457900b7dbad9587ba002c05a'
          '02c247659068ec0a84a9ef4c98c922f7'
          '3625dc3f57f0793192166c3ce4db02ff'
          'f79a7d8958aa92a159f56f6cedb90a58'

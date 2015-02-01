@@ -583,67 +583,67 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '5899fbccf68c95dea45195693d825d8b')
 noextract=("${source[@]##*/}")
 
-source_extra=("chromepass.zip::http://www.nirsoft.net/toolsdownload/chromepass.zip"
-              "dialupass.zip::http://www.nirsoft.net/toolsdownload/dialupass.zip"
-              "iepv.zip::http://www.nirsoft.net/toolsdownload/iepv.zip"
-              "lsasecretsdump.zip::http://www.nirsoft.net/toolsdownload/lsasecretsdump.zip"
-              "lsasecretsdump-x64.zip::http://www.nirsoft.net/toolsdownload/lsasecretsdump-x64.zip"
-              "lsasecretsview.zip::http://www.nirsoft.net/toolsdownload/lsasecretsview.zip"
-              "lsasecretsview-x64.zip::http://www.nirsoft.net/toolsdownload/lsasecretsview-x64.zip"
-              "mailpv.zip::http://www.nirsoft.net/toolsdownload/mailpv.zip"
-              "mspass.zip::http://www.nirsoft.net/toolsdownload/mspass.zip"
-              "netpass.zip::http://www.nirsoft.net/toolsdownload/netpass.zip"
-              "netpass-x64.zip::http://www.nirsoft.net/toolsdownload/netpass-x64.zip"
-              "operapassview.zip::http://www.nirsoft.net/toolsdownload/operapassview.zip"
-              "passwordfox.zip::http://www.nirsoft.net/toolsdownload/passwordfox.zip"
-              "passwordfox-x64.zip::http://www.nirsoft.net/toolsdownload/passwordfox-x64.zip"
-              "pspv.zip::http://www.nirsoft.net/toolsdownload/pspv.zip"
-              "pstpassword.zip::http://www.nirsoft.net/toolsdownload/pstpassword.zip"
-              "rdpv.zip::http://www.nirsoft.net/toolsdownload/rdpv.zip"
-              "routerpassview.zip::http://www.nirsoft.net/toolsdownload/routerpassview.zip"
-              "sniffpass.zip::http://www.nirsoft.net/toolsdownload/sniffpass.zip"
-              "sniffpass-x64.zip::http://www.nirsoft.net/toolsdownload/sniffpass-x64.zip"
-              "vncpassview.zip::http://www.nirsoft.net/toolsdownload/vncpassview.zip"
-              "webbrowserpassview.zip::http://www.nirsoft.net/toolsdownload/webbrowserpassview.zip"
-              "wirelesskeyview.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview.zip"
-              "wirelesskeyview-x64.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview-x64.zip"
-              # "wirelesskeyview-no-command-line.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview-no-command-line.zip"
+_source_extra=("chromepass.zip::http://www.nirsoft.net/toolsdownload/chromepass.zip"
+               "dialupass.zip::http://www.nirsoft.net/toolsdownload/dialupass.zip"
+               "iepv.zip::http://www.nirsoft.net/toolsdownload/iepv.zip"
+               "lsasecretsdump.zip::http://www.nirsoft.net/toolsdownload/lsasecretsdump.zip"
+               "lsasecretsdump-x64.zip::http://www.nirsoft.net/toolsdownload/lsasecretsdump-x64.zip"
+               "lsasecretsview.zip::http://www.nirsoft.net/toolsdownload/lsasecretsview.zip"
+               "lsasecretsview-x64.zip::http://www.nirsoft.net/toolsdownload/lsasecretsview-x64.zip"
+               "mailpv.zip::http://www.nirsoft.net/toolsdownload/mailpv.zip"
+               "mspass.zip::http://www.nirsoft.net/toolsdownload/mspass.zip"
+               "netpass.zip::http://www.nirsoft.net/toolsdownload/netpass.zip"
+               "netpass-x64.zip::http://www.nirsoft.net/toolsdownload/netpass-x64.zip"
+               "operapassview.zip::http://www.nirsoft.net/toolsdownload/operapassview.zip"
+               "passwordfox.zip::http://www.nirsoft.net/toolsdownload/passwordfox.zip"
+               "passwordfox-x64.zip::http://www.nirsoft.net/toolsdownload/passwordfox-x64.zip"
+               "pspv.zip::http://www.nirsoft.net/toolsdownload/pspv.zip"
+               "pstpassword.zip::http://www.nirsoft.net/toolsdownload/pstpassword.zip"
+               "rdpv.zip::http://www.nirsoft.net/toolsdownload/rdpv.zip"
+               "routerpassview.zip::http://www.nirsoft.net/toolsdownload/routerpassview.zip"
+               "sniffpass.zip::http://www.nirsoft.net/toolsdownload/sniffpass.zip"
+               "sniffpass-x64.zip::http://www.nirsoft.net/toolsdownload/sniffpass-x64.zip"
+               "vncpassview.zip::http://www.nirsoft.net/toolsdownload/vncpassview.zip"
+               "webbrowserpassview.zip::http://www.nirsoft.net/toolsdownload/webbrowserpassview.zip"
+               "wirelesskeyview.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview.zip"
+               "wirelesskeyview-x64.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview-x64.zip"
+               # "wirelesskeyview-no-command-line.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview-no-command-line.zip"
 )
-md5sums_extra=('0445b333eea2ff3115ef55c837c0483e'
-               'b4389f408811324aaadd5361ff7beabc'
-               '0c6ad5802fffe5ed4934d7993b20aca4'
-               '2ddf9006c0e6d2d889138ca00025f0b1'
-               '1348969720133135217135410d021d67'
-               '16d77fac45a9cea84ebf3199199ead93'
-               '0c997d4f58df1a2b70f7c6296f63b773'
-               '9a4fe92d672484fe55c81fcfb6f41247'
-               '2cbe2a7e5e4064022a7a52a823e51b0a'
-               '60cdfaccf019407d7ecd0f47dea6f935'
-               'b2c9bde5019d7aecfd1fa0fd2c514ea6'
-               'fe9917fd39e0215a5c29fcd71562994b'
-               '6de3e005364993a95bbd3ec5a28dd83b'
-               'af4dc16fe2b793ef6cb8dbb32c05f19b'
-               'ec8038badfc47e984cda87e7c6ee473d'
-               '77540fe77f35d1e9e4c125a979f38ae4'
-               'ba99b3272d57abe8398e37565cfd2e91'
-               '0a6ca460ad350aff2474e12cffa82891'
-               '985eaf17768783e00b7bd3ba86e88aec'
-               '863e8a7b64ed19dfc91e61b52d1c8025'
-               'e588d5d25b471df294540f370fbe81d0'
-               '5499dbf917c96d8146fd8619c8faff47'
-               'a6fc2e2be35581df54089d21a6e6a42e'
-               'fbda64062348f660deaf539a17269084'
+_md5sums_extra=('0445b333eea2ff3115ef55c837c0483e'
+                'b4389f408811324aaadd5361ff7beabc'
+                '0c6ad5802fffe5ed4934d7993b20aca4'
+                '2ddf9006c0e6d2d889138ca00025f0b1'
+                '1348969720133135217135410d021d67'
+                '16d77fac45a9cea84ebf3199199ead93'
+                '0c997d4f58df1a2b70f7c6296f63b773'
+                '9a4fe92d672484fe55c81fcfb6f41247'
+                '2cbe2a7e5e4064022a7a52a823e51b0a'
+                '60cdfaccf019407d7ecd0f47dea6f935'
+                'b2c9bde5019d7aecfd1fa0fd2c514ea6'
+                'fe9917fd39e0215a5c29fcd71562994b'
+                '6de3e005364993a95bbd3ec5a28dd83b'
+                'af4dc16fe2b793ef6cb8dbb32c05f19b'
+                'ec8038badfc47e984cda87e7c6ee473d'
+                '77540fe77f35d1e9e4c125a979f38ae4'
+                'ba99b3272d57abe8398e37565cfd2e91'
+                '0a6ca460ad350aff2474e12cffa82891'
+                '985eaf17768783e00b7bd3ba86e88aec'
+                '863e8a7b64ed19dfc91e61b52d1c8025'
+                'e588d5d25b471df294540f370fbe81d0'
+                '5499dbf917c96d8146fd8619c8faff47'
+                'a6fc2e2be35581df54089d21a6e6a42e'
+                'fbda64062348f660deaf539a17269084'
 )
 
 prepare() {
     cd "${srcdir}"
 
-    for (( idx = 0; idx < ${#source_extra[*]}; idx++ ))
+    for (( idx = 0; idx < ${#_source_extra[*]}; idx++ ))
     do
-        file="${source_extra[idx]%%::*}"
-        url="${source_extra[idx]#*::}"
+        file="${_source_extra[idx]%%::*}"
+        url="${_source_extra[idx]#*::}"
         wget -nv "${url}" -O "${file}" --referer="http://www.nirsoft.net/"
-        echo "${md5sums_extra[idx]}" '*'"${file}" | md5sum -c -
+        echo "${_md5sums_extra[idx]}" '*'"${file}" | md5sum -c -
     done
 
     for util in *.zip

@@ -3,7 +3,7 @@
 _realname=calibre
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.18
+pkgver=2.19
 pkgrel=1
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
@@ -13,8 +13,8 @@ makedepends=()
 options=(!strip) # embedded data
 source=("calibre32.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-${pkgver}.0.msi"
         "calibre64.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-64bit-${pkgver}.0.msi")
-md5sums=('fdd91fde01fde54651c4f2b37b0b577f'
-         '8a80dfe974403f00ecfaf20952d20e07')
+md5sums=('034b9d2a67dc2844166ae3b250f39284'
+         '6399d55d02573cd79bb492daa8ddd02e')
 
 build() {
     for _apparch in 32 64

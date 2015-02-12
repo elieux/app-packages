@@ -1,22 +1,22 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-DLAGENTS=("https::/usr/bin/curl -k -o %o %u")
+DLAGENTS=('https::/usr/bin/curl -k -qb "" -fLC - -o %o %u')
 
 _realname=sqlyog
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=12.0.7
+pkgver=12.0.8
 pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://code.google.com/p/sqlyog/"
 arch=('any')
 license=('GPL2')
-makedepends=("p7zip")
+makedepends=("p7zip" "curl")
 options=(!strip) # embedded data
 source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x86Community.exe"
         "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x64Community.exe")
-md5sums=('2f9d55a9cf245a4555bd42e0381f86cd'
-         'f65437d00c3a800a7473ba7a0516a47c')
+md5sums=('f3d7df4b46707d188cf8da3acd0c4e36'
+         '0c88f2dc1be03c21bc208cc25781dce4')
 
 prepare() {
     for _apparch in 32 64

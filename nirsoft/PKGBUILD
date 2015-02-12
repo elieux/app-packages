@@ -1,15 +1,17 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.nirsoft.net/" -o %o %u')
+
 _realname=nirsoft
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2015.02.04
+pkgver=2015.02.12
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="http://www.nirsoft.net/"
 arch=('any')
 license=('custom')
-makedepends=("unzip" "wget")
+makedepends=("unzip" "curl")
 options=(!strip) # upx
 source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
         "http://www.nirsoft.net/dot_net_tools/snremove.zip"
@@ -281,25 +283,51 @@ source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
         "http://www.nirsoft.net/utils/wnetwatcher.zip"
         "http://www.nirsoft.net/utils/wul.zip"
         "http://www.nirsoft.net/utils/zipinst.zip"
-        
+
+        "http://www.nirsoft.net/toolsdownload/chromepass.zip"
+        "http://www.nirsoft.net/toolsdownload/dialupass.zip"
+        "http://www.nirsoft.net/toolsdownload/iepv.zip"
+        "http://www.nirsoft.net/toolsdownload/lsasecretsdump.zip"
+        "http://www.nirsoft.net/toolsdownload/lsasecretsdump-x64.zip"
+        "http://www.nirsoft.net/toolsdownload/lsasecretsview.zip"
+        "http://www.nirsoft.net/toolsdownload/lsasecretsview-x64.zip"
+        "http://www.nirsoft.net/toolsdownload/mailpv.zip"
+        "http://www.nirsoft.net/toolsdownload/mspass.zip"
+        "http://www.nirsoft.net/toolsdownload/netpass.zip"
+        "http://www.nirsoft.net/toolsdownload/netpass-x64.zip"
+        "http://www.nirsoft.net/toolsdownload/operapassview.zip"
+        "http://www.nirsoft.net/toolsdownload/passwordfox.zip"
+        "http://www.nirsoft.net/toolsdownload/passwordfox-x64.zip"
+        "http://www.nirsoft.net/toolsdownload/pspv.zip"
+        "http://www.nirsoft.net/toolsdownload/pstpassword.zip"
+        "http://www.nirsoft.net/toolsdownload/rdpv.zip"
+        "http://www.nirsoft.net/toolsdownload/routerpassview.zip"
+        "http://www.nirsoft.net/toolsdownload/sniffpass.zip"
+        "http://www.nirsoft.net/toolsdownload/sniffpass-x64.zip"
+        "http://www.nirsoft.net/toolsdownload/vncpassview.zip"
+        "http://www.nirsoft.net/toolsdownload/webbrowserpassview.zip"
+        "http://www.nirsoft.net/toolsdownload/wirelesskeyview.zip"
+        "http://www.nirsoft.net/toolsdownload/wirelesskeyview-x64.zip"
+        # "http://www.nirsoft.net/toolsdownload/wirelesskeyview-no-command-line.zip"
+
         # sources
         # "http://www.nirsoft.net/utils/dotnetresourcesextract_src.zip"
         # "http://www.nirsoft.net/utils/exeinfosrc.zip"
         # "http://www.nirsoft.net/utils/winexpsrc.zip"
         # "http://www.nirsoft.net/utils/atnowsrc.zip"
-        
+
         "http://www.nirsoft.net/utils/tflash210.zip"
-        
+
         # "http://www.nirsoft.net/utils/nk2edit-32-64.zip"
-        
+
         # obsolete
         # "http://www.nirsoft.net/utils/filedatech.zip"
-        
+
         # Windows XP
         # "http://www.nirsoft.net/utils/astlog.zip"
         # "http://www.nirsoft.net/utils/wmc.zip"
         # "http://www.nirsoft.net/utils/asterwin120.zip"
-        
+
         # Windows 9x
         # "http://www.nirsoft.net/utils/strun.zip"
         # "http://www.nirsoft.net/utils/mmview.zip"
@@ -411,8 +439,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '534a2427dd6ac646880ac55f09da9235'
          '55a422310d9dbc1792b8fc73484a4564'
          'f68deca5b05d334d5f491e82440e84c6'
-         '2b966175bf5e8019505d651062958504'
-         '0e533fb4a73a80d8b1242982046cbbf6'
+         '87902370fae364788d923ff81081e152'
+         '7b5d7913cb7a46a6638f117b12d13db8'
          'e37156c4012901b8dc8522e714fc2209'
          '494c248fb7e4f22050e63aaac241f85e'
          'a513723daaed8a79df6f3f524d2e2cc5'
@@ -441,8 +469,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '086b4fab5942c4f6c3c6d37f933c5592'
          '316c604a107af6ce52b6855b0ff1ce7d'
          '39f0abb209b3614bdb5e5b306e3e83d6'
-         '88788f89eb6f05a348df024cb355f2e4'
-         'ff464bbb25e10094e83ffc70e6107283'
+         '0fb961dcce5784bba1250dce851504e4'
+         'c29a9aca87e6f9dfded055785b13e457'
          'bbb9ad053d3ac40b8e6c08c7bc7b08fd'
          '0ec73061e180552ee24dbba608061a65'
          '414cd4db433b92ae1847053cad40d34e'
@@ -461,8 +489,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'dc762e405ec017a231d89ab4d746c36e'
          'bb17a14d6de94f3a03c55f6d5d19f355'
          'cdbb974315c26187ed50992657a9e133'
-         '68e6e2b9d745ccaffc6d1f39c02c2060'
-         '449794d6e2aaced318e961309e8b1372'
+         '08a6d34ee0dc581baad02751f5c38e31'
+         'a69c8af1113f0dd1e5f33371cf842bda'
          'a954259c836ce72a6a36e1f946b0cf69'
          '48ed7a38cf77c28cdd25e5526660221b'
          'b73c6861dd440527c1163f4281f1365e'
@@ -543,7 +571,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'e82f34abda4ea84f1d97fe403f89cd21'
          '72af58c0635b6679063b6b9e83f87ded'
          '39c75ab7baebdbf68a0777c0f688a49a'
-         'd71e8972706877fa5a99170c078e778c'
+         '497823a8627906443dfe5306d1028520'
          'bf350667e8af76518178e36f4385ebb5'
          'edd5c2a45b7291196095e367aaa268a3'
          '4ae240cc280433763c99fce8489527c1'
@@ -561,7 +589,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '3625dc3f57f0793192166c3ce4db02ff'
          'f79a7d8958aa92a159f56f6cedb90a58'
          '914579f03a7c5df062632f9eb917fd22'
-         '771500d08f1c89bb671ed632115d8803'
+         '93d5e2f442a06ddf6eeab0753262b034'
          '152b589b8027a1bf1cf3a6d8a086211f'
          '8ed592c70dac699c3011d79bbfe7a694'
          'c05593ed1c61ad09e855e496c73bf0b4'
@@ -576,75 +604,39 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'b53c86edffd2988257bb06ed5614dbfd'
          '57fc8f4e7349349cffc106aaecdc8549'
          '951d07e5d529bdaf22799c0c8cd64905'
-         '3370b13d68d593faefc386231f1d1b7c'
-         '45904303131056d8b987a36e13c7dbfc'
+         '4b1cdc99a4d141fb1726e7282afc0494'
+         '453927d0ccd8f3930d803169dbf14947'
          'a3fe9df909b85b5ce44e7a3f854393fb'
          'd89d9d2fd4bf96748f1e78909750f61b'
+         '0445b333eea2ff3115ef55c837c0483e'
+         'b4389f408811324aaadd5361ff7beabc'
+         '0c6ad5802fffe5ed4934d7993b20aca4'
+         '2ddf9006c0e6d2d889138ca00025f0b1'
+         '1348969720133135217135410d021d67'
+         '16d77fac45a9cea84ebf3199199ead93'
+         '0c997d4f58df1a2b70f7c6296f63b773'
+         '9a4fe92d672484fe55c81fcfb6f41247'
+         '2cbe2a7e5e4064022a7a52a823e51b0a'
+         '60cdfaccf019407d7ecd0f47dea6f935'
+         'b2c9bde5019d7aecfd1fa0fd2c514ea6'
+         'fe9917fd39e0215a5c29fcd71562994b'
+         '6de3e005364993a95bbd3ec5a28dd83b'
+         'af4dc16fe2b793ef6cb8dbb32c05f19b'
+         'ec8038badfc47e984cda87e7c6ee473d'
+         '77540fe77f35d1e9e4c125a979f38ae4'
+         'ba99b3272d57abe8398e37565cfd2e91'
+         '0a6ca460ad350aff2474e12cffa82891'
+         '985eaf17768783e00b7bd3ba86e88aec'
+         '863e8a7b64ed19dfc91e61b52d1c8025'
+         'e588d5d25b471df294540f370fbe81d0'
+         '5499dbf917c96d8146fd8619c8faff47'
+         'a6fc2e2be35581df54089d21a6e6a42e'
+         'fbda64062348f660deaf539a17269084'
          '5899fbccf68c95dea45195693d825d8b')
 noextract=("${source[@]##*/}")
 
-_source_extra=("chromepass.zip::http://www.nirsoft.net/toolsdownload/chromepass.zip"
-               "dialupass.zip::http://www.nirsoft.net/toolsdownload/dialupass.zip"
-               "iepv.zip::http://www.nirsoft.net/toolsdownload/iepv.zip"
-               "lsasecretsdump.zip::http://www.nirsoft.net/toolsdownload/lsasecretsdump.zip"
-               "lsasecretsdump-x64.zip::http://www.nirsoft.net/toolsdownload/lsasecretsdump-x64.zip"
-               "lsasecretsview.zip::http://www.nirsoft.net/toolsdownload/lsasecretsview.zip"
-               "lsasecretsview-x64.zip::http://www.nirsoft.net/toolsdownload/lsasecretsview-x64.zip"
-               "mailpv.zip::http://www.nirsoft.net/toolsdownload/mailpv.zip"
-               "mspass.zip::http://www.nirsoft.net/toolsdownload/mspass.zip"
-               "netpass.zip::http://www.nirsoft.net/toolsdownload/netpass.zip"
-               "netpass-x64.zip::http://www.nirsoft.net/toolsdownload/netpass-x64.zip"
-               "operapassview.zip::http://www.nirsoft.net/toolsdownload/operapassview.zip"
-               "passwordfox.zip::http://www.nirsoft.net/toolsdownload/passwordfox.zip"
-               "passwordfox-x64.zip::http://www.nirsoft.net/toolsdownload/passwordfox-x64.zip"
-               "pspv.zip::http://www.nirsoft.net/toolsdownload/pspv.zip"
-               "pstpassword.zip::http://www.nirsoft.net/toolsdownload/pstpassword.zip"
-               "rdpv.zip::http://www.nirsoft.net/toolsdownload/rdpv.zip"
-               "routerpassview.zip::http://www.nirsoft.net/toolsdownload/routerpassview.zip"
-               "sniffpass.zip::http://www.nirsoft.net/toolsdownload/sniffpass.zip"
-               "sniffpass-x64.zip::http://www.nirsoft.net/toolsdownload/sniffpass-x64.zip"
-               "vncpassview.zip::http://www.nirsoft.net/toolsdownload/vncpassview.zip"
-               "webbrowserpassview.zip::http://www.nirsoft.net/toolsdownload/webbrowserpassview.zip"
-               "wirelesskeyview.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview.zip"
-               "wirelesskeyview-x64.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview-x64.zip"
-               # "wirelesskeyview-no-command-line.zip::http://www.nirsoft.net/toolsdownload/wirelesskeyview-no-command-line.zip"
-)
-_md5sums_extra=('0445b333eea2ff3115ef55c837c0483e'
-                'b4389f408811324aaadd5361ff7beabc'
-                '0c6ad5802fffe5ed4934d7993b20aca4'
-                '2ddf9006c0e6d2d889138ca00025f0b1'
-                '1348969720133135217135410d021d67'
-                '16d77fac45a9cea84ebf3199199ead93'
-                '0c997d4f58df1a2b70f7c6296f63b773'
-                '9a4fe92d672484fe55c81fcfb6f41247'
-                '2cbe2a7e5e4064022a7a52a823e51b0a'
-                '60cdfaccf019407d7ecd0f47dea6f935'
-                'b2c9bde5019d7aecfd1fa0fd2c514ea6'
-                'fe9917fd39e0215a5c29fcd71562994b'
-                '6de3e005364993a95bbd3ec5a28dd83b'
-                'af4dc16fe2b793ef6cb8dbb32c05f19b'
-                'ec8038badfc47e984cda87e7c6ee473d'
-                '77540fe77f35d1e9e4c125a979f38ae4'
-                'ba99b3272d57abe8398e37565cfd2e91'
-                '0a6ca460ad350aff2474e12cffa82891'
-                '985eaf17768783e00b7bd3ba86e88aec'
-                '863e8a7b64ed19dfc91e61b52d1c8025'
-                'e588d5d25b471df294540f370fbe81d0'
-                '5499dbf917c96d8146fd8619c8faff47'
-                'a6fc2e2be35581df54089d21a6e6a42e'
-                'fbda64062348f660deaf539a17269084'
-)
-
 prepare() {
     cd "${srcdir}"
-
-    for (( idx = 0; idx < ${#_source_extra[*]}; idx++ ))
-    do
-        file="${_source_extra[idx]%%::*}"
-        url="${_source_extra[idx]#*::}"
-        wget -nv "${url}" -O "${file}" --referer="http://www.nirsoft.net/"
-        echo "${_md5sums_extra[idx]}" '*'"${file}" | md5sum -c -
-    done
 
     for util in *.zip
     do

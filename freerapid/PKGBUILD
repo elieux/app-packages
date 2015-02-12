@@ -2,14 +2,16 @@
 
 _realname=freerapid
 _apparch=32
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=0.9u4
-pkgrel=1
+pkgrel=2
 pkgdesc="A Java-based download manager for Rapidshare and other file sharing archives"
 arch=('any')
 url="http://wordrider.net/freerapid/"
 license=('GPL')
 makedepends=("unzip")
+provides=("${pkgbase}")
 options=(!strip) # upx
 source=("FreeRapid.zip::http://files.kral.hk/frd/FreeRapid-${pkgver}.zip")
 md5sums=('a067ecbd37ac7c83a795c34a3dc6388f')

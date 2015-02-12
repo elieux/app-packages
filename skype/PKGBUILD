@@ -2,14 +2,15 @@
 
 _realname=skype
 _apparch=32
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=7.1.32.105
-pkgrel=1
+pkgrel=2
 pkgdesc="P2P software for high-quality voice communication"
 url="http://www.skype.com/"
 arch=('any')
 license=('custom')
-makedepends=()
+provides=("${pkgbase}")
 options=(!strip) # digital signatures
 source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
 md5sums=('065dd3114229f5e37c944c1988ec1f52')

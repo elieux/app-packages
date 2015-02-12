@@ -1,15 +1,16 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=calibre
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.19
-pkgrel=1
+pkgrel=2
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
 arch=('any')
 license=('GPL3')
-makedepends=()
+provides=("${pkgbase}")
 options=(!strip) # embedded data
 source=("calibre32.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-${pkgver}.0.msi"
         "calibre64.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-64bit-${pkgver}.0.msi")

@@ -3,15 +3,17 @@
 DLAGENTS=('https::/usr/bin/curl -k -qb "" -fLC - -o %o %u')
 
 _realname=sqlyog
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=12.0.8
-pkgrel=1
+pkgrel=2
 pkgdesc="MySQL manager and admin tool"
 url="https://code.google.com/p/sqlyog/"
 arch=('any')
 license=('GPL2')
 makedepends=("p7zip" "curl")
+provides=("${pkgbase}")
 options=(!strip) # embedded data
 source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x86Community.exe"
         "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x64Community.exe")

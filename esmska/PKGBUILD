@@ -2,14 +2,15 @@
 
 _realname=esmska
 _apparch=32
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Program for sending SMS over the Internet"
 url="http://esmska.googlecode.com/"
 arch=('any')
 license=('AGPL' 'custom')
-makedepends=()
+provides=("${pkgbase}")
 source=("esmska.tar.gz::http://ripper.profitux.cz/${_realname}/packages/${_realname}-${pkgver}.tar.gz")
 md5sums=('2de2d0584113ed96caa409adee1c7980')
 

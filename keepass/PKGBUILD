@@ -2,14 +2,16 @@
 
 _realname=keepass
 _apparch=32
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.28
-pkgrel=3
+pkgrel=4
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
 license=('GPL2')
 makedepends=("unzip")
+provides=("${pkgbase}")
 options=(!strip) # manifests
 source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip"
         "KeePass2-TrlUtil.zip::http://keepass.info/download/v2_trlutil/TrlUtil-${pkgver}.zip"

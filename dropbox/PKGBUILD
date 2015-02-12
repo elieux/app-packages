@@ -4,14 +4,16 @@ DLAGENTS=('https::/usr/bin/curl -k -qb "" -fLC - -o %o %u')
 
 _realname=dropbox
 _apparch=32
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=3.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc="The Dropbox synchronization tool"
 url="http://www.google.com/drive/"
 arch=('any')
 license=('custom')
 makedepends=("p7zip" "curl")
+provides=("${pkgbase}")
 options=(!strip) # embedded data, digital signatures
 source=("Dropbox.exe::https://www.dropbox.com/download?full=1&plat=win")
 md5sums=('77dd0e3f9d53f628e71a47432afae446')

@@ -2,15 +2,17 @@
 
 _realname=davmail
 _realver=4.6.0-2331
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=${_realver//-/.}
-pkgrel=1
+pkgrel=2
 pkgdesc="A gateway allowing usage of any mail/calendar client with an Exchange server"
 url="http://davmail.sourceforge.net/"
 arch=('any')
 license=('GPL2')
 makedepends=("unzip")
+provides=("${pkgbase}")
 source=("davmail-windows-noinstall.zip::http://downloads.sourceforge.net/${_realname}/${_realname}/${_realver%%-*}/${_realname}-${_realver}-windows-noinstall.zip")
 md5sums=('b77a79b5b383ab446ee223f24bb715c4')
 

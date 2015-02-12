@@ -2,14 +2,16 @@
 
 _realname=thunderbird
 _apparch=32
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=31.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone, easy to customize mail/news reader"
 url="http://www.mozilla.org/thunderbird/"
 arch=('any')
 license=('GPL' 'MPL')
 makedepends=("p7zip")
+provides=("${pkgbase}")
 options=(!strip) # digital signatures
 source=("ThunderbirdSetup.exe::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/en-US/Thunderbird Setup ${pkgver}.exe"
         "ar.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ar.xpi"

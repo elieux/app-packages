@@ -3,19 +3,21 @@
 DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.nirsoft.net/" -o %o %u')
 
 _realname=nirsoft
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2015.02.12
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="http://www.nirsoft.net/"
 arch=('any')
 license=('custom')
 makedepends=("unzip" "curl")
+provides=("${pkgbase}")
 options=(!strip) # upx
 source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
         "http://www.nirsoft.net/dot_net_tools/snremove.zip"
-        
+
         "http://www.nirsoft.net/utils/accesspv.zip"
         "http://www.nirsoft.net/utils/acm.zip"
         "http://www.nirsoft.net/utils/addrview.zip"

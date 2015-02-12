@@ -2,14 +2,16 @@
 
 _realname=firefox
 _apparch=32
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=35.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone, easy to customize web browser"
 url="http://www.mozilla.org/firefox/"
 arch=('any')
 license=('GPL' 'LGPL', 'MPL')
 makedepends=("p7zip")
+provides=("${pkgbase}")
 options=(!strip) # digital signatures
 source=("FirefoxSetup.exe::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/en-US/Firefox Setup ${pkgver}.exe"
         "ach.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ach.xpi"

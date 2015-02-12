@@ -2,14 +2,16 @@
 
 _realname=opera2
 _apparch=32
+pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=27.0.1689.69
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and free Blink-based web browser"
 url="http://www.opera.com/computer"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
+provides=("${pkgbase}")
 options=(!strip) # digital signatures
 source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=38020&location=395&nothanks=yes&sub=marine")
 md5sums=('4e90426ff1d88920b01fa21fb4154dd3')

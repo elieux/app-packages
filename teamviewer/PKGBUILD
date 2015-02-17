@@ -4,8 +4,8 @@ _realname=teamviewer
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=10.0.38475
-pkgrel=2
+pkgver=10.0.38843
+pkgrel=1
 pkgdesc="All-in-one software for remote support and online meetings"
 url="http://www.teamviewer.com/"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip) # digital signatures
 source=("http://download.teamviewer.com/download/TeamViewerPortable.zip")
-md5sums=('01435b3bca33d9b23a6169f470d6cfe6')
+md5sums=('87fbdf371cad92ef3619264b4cd0949c')
 
 prepare() {
     cd "${srcdir}"

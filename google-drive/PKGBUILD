@@ -4,8 +4,8 @@ _realname=google-drive
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.19.8268.4572
-pkgrel=4
+pkgver=1.19.8406.6504
+pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
 url="http://www.google.com/drive/"
 arch=('any')
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip) # embedded data
 source=("http://dl.google.com/drive/${pkgver}/gsync.msi")
-md5sums=('1556e4e4f13a64a5f8ccfc68f7221386')
+md5sums=('1576bcf64f4692ee71a770a32416fe9e')
 
 build() {
     cd "${srcdir}"

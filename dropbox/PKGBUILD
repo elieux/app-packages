@@ -20,7 +20,7 @@ md5sums=('77dd0e3f9d53f628e71a47432afae446')
 
 prepare() {
     cd "${srcdir}"
-    7z x -ry "Dropbox.exe" > /dev/null
+    7z x -y -bd "Dropbox.exe"
 }
 
 package() {

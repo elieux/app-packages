@@ -24,7 +24,7 @@ prepare() {
     for _apparch in 32 64
     do
         cd "${srcdir}"
-        7z x -ry "SQLyogCommunity${_apparch}.exe" -o"SQLyogCommunity${_apparch}" > /dev/null
+        7z x -y -bd "SQLyogCommunity${_apparch}.exe" -o"SQLyogCommunity${_apparch}"
         for f in "SQLyogCommunity${_apparch}"/*
         do
             n=$(echo "${f}" | tr 'A-Z' 'a-z')

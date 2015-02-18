@@ -18,7 +18,7 @@ md5sums=('4e90426ff1d88920b01fa21fb4154dd3')
 
 prepare() {
     cd "${srcdir}"
-    7z x -ry "Opera_Setup.exe" > /dev/null
+    7z x -y -bd "Opera_Setup.exe"
     for f in *
     do
         n=$(echo "${f}" | tr 'A-Z' 'a-z')

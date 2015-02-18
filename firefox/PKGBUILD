@@ -195,7 +195,7 @@ noextract=("${source[@]##*/}")
 
 prepare() {
     cd "${srcdir}"
-    7z x -ry "FirefoxSetup.exe" > /dev/null
+    7z x -y -bd "FirefoxSetup.exe"
     pushd "core"
     for f in *
     do

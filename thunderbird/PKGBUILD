@@ -129,7 +129,7 @@ noextract=("${source[@]##*/}")
 
 prepare() {
     cd "${srcdir}"
-    7z x -ry "ThunderbirdSetup.exe" > /dev/null
+    7z x -y -bd "ThunderbirdSetup.exe"
     pushd "core"
     for f in *
     do

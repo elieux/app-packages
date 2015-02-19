@@ -1,0 +1,36 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=cpu-z
+_dirname=cpuid
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=1.71.1
+pkgrel=1
+pkgdesc="Gathers information on some of the main devices of your system (CPUID)"
+url="http://www.cpuid.com/softwares/cpu-z.html"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip) # digital signatures
+source=("cpu-z-en.zip::http://www.cpuid.com/medias/files/softwares/${_realname}/${_realname}_${pkgver}-en.zip")
+md5sums=('66e3042439e1fccdd4146be84153ab49')
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_dirname}/${_realname}"
+    cp "${srcdir}/cpuz.ini" "${pkgdir}/apps${_apparch}/${_dirname}/"
+    cp "${srcdir}/cpuz_x${_apparch}.exe" "${pkgdir}/apps${_apparch}/${_dirname}/cpuz.exe"
+    cp "${srcdir}/cpuz_readme.txt" "${pkgdir}/docs${_apparch}/${_dirname}/${_realname}/readme.txt"
+}
+
+package_app-i686-cpu-z() {
+    _apparch=32
+    package
+}
+
+package_app-x86_64-cpu-z() {
+    _apparch=64
+    package
+}

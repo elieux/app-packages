@@ -1,0 +1,46 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=tmonitor
+_dirname=cpuid
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=1.04
+pkgrel=1
+pkgdesc="Monitors processor performance and other values (CPUID)"
+url="http://www.cpuid.com/softwares/tmonitor.html"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip) # digital signatures
+source=("tmonitor.zip::http://www.cpuid.com/medias/files/softwares/${_realname}/${_realname}_${pkgver}.zip")
+md5sums=('0d30f7fc085cfdb93b6fd0e3bc4b98ef')
+
+prepare() {
+    cd "${srcdir}"
+
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
+    cp "${srcdir}/tmonitor_x${_apparch}.exe" "${pkgdir}/apps${_apparch}/${_dirname}/tmonitor.exe"
+}
+
+package_app-i686-tmonitor() {
+    _apparch=32
+    package
+}
+
+package_app-x86_64-tmonitor() {
+    _apparch=64
+    package
+}

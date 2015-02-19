@@ -1,0 +1,35 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=perfmonitor
+_dirname=cpuid
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2.04
+pkgrel=1
+pkgdesc="Monitors processor performance and other values (CPUID)"
+url="http://www.cpuid.com/softwares/perfmonitor-2.html"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip) # digital signatures
+source=("perfmonitor-2.zip::http://www.cpuid.com/medias/files/softwares/${_realname}-2/${_realname}-2_${pkgver}.zip")
+md5sums=('b197964f85c35ba0781c679b967be4c6')
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_dirname}/${_realname}"
+    cp "${srcdir}/perfmonitor2_x${_apparch}.exe" "${pkgdir}/apps${_apparch}/${_dirname}/perfmonitor2.exe"
+    cp "${srcdir}/perfmonitor2.pdf" "${pkgdir}/docs${_apparch}/${_dirname}/${_realname}/readme.pdf"
+}
+
+package_app-i686-perfmonitor() {
+    _apparch=32
+    package
+}
+
+package_app-x86_64-perfmonitor() {
+    _apparch=64
+    package
+}

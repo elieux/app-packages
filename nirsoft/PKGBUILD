@@ -637,6 +637,11 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '5899fbccf68c95dea45195693d825d8b')
 noextract=("${source[@]##*/}")
 
+pkgver() {
+    #find "${srcdir}" -mindepth 2 -maxdepth 2 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
+}
+
 prepare() {
     cd "${srcdir}"
 

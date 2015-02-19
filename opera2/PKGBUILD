@@ -16,6 +16,12 @@ options=(!strip) # digital signatures
 source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=38020&location=395&nothanks=yes&sub=marine")
 md5sums=('4e90426ff1d88920b01fa21fb4154dd3')
 
+pkgver() {
+    b="${srcdir}/Opera_Setup.exe"
+    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+}
+
 prepare() {
     cd "${srcdir}"
     7z x -y -bd "Opera_Setup.exe"

@@ -18,6 +18,12 @@ options=(!strip) # embedded data, digital signatures
 source=("Dropbox.exe::https://www.dropbox.com/download?full=1&plat=win")
 md5sums=('77dd0e3f9d53f628e71a47432afae446')
 
+pkgver() {
+    b="${srcdir}/Dropbox.exe"
+    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+}
+
 prepare() {
     cd "${srcdir}"
     7z x -y -bd "Dropbox.exe"

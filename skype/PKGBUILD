@@ -15,6 +15,17 @@ options=(!strip) # digital signatures
 source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
 md5sums=('065dd3114229f5e37c944c1988ec1f52')
 
+pkgver() {
+    msg "Starting build() to determine package version :("
+    build > /dev/null
+    b="${srcdir}/install${_apparch}/Program Files/Skype/Phone/skype.exe"
+    if [ -f "${b}" ]
+    then
+        b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
+        wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+    fi
+}
+
 build() {
     cd "${srcdir}"
     msiexec -a "SkypeSetup.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn

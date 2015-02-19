@@ -18,6 +18,11 @@ source=("http://download.sysinternals.com/files/SysinternalsSuite.zip"
 md5sums=('5b1d576c3df4b0a7d39d5c006370ad95'
          'e985acdd52b7bccdd6feb85ebd74c722')
 
+pkgver() {
+    #find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
+}
+
 prepare() {
     cd "${srcdir}"
 

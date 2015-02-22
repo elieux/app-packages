@@ -1,0 +1,92 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=wincheater-libraries
+_dirname=wincheater
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=164
+pkgrel=1
+pkgdesc="Video game cheats and guides database viewer"
+url="http://www.cheater.cz/winch/win_uvod.htm"
+arch=('any')
+license=('custom')
+depends=("app-i686-wincheater")
+makedepends=("p7zip" "unrar")
+provides=("${pkgbase}")
+source=("texty.exe::http://www.cheater.cz/download/upd/${pkgver}/texty.exe"
+
+        "Cheaty.exe::http://www.cheater.cz/download/Cheaty.exe"
+        "Navody.exe::http://www.cheater.cz/download/Navody.exe"
+        "Easter_Eggy.exe::http://www.cheater.cz/download/Easter_Eggy.exe"
+        "Vtipy.exe::http://www.cheater.cz/download/Vtipy.exe"
+        "Navody_Plus.exe::http://www.cheater.cz/download/Navody_Plus.exe"
+        "Playstation.exe::http://www.cheater.cz/download/Playstation.exe"
+        "Povidky.exe::http://www.cheater.cz/download/Povidky.exe"
+        "Recenze.exe::http://www.cheater.cz/download/Recenze.exe"
+        "SongBook.exe::http://www.cheater.cz/download/SongBook.exe"
+        "Vtipne_obrazky.exe::http://www.cheater.cz/download/Vtipne_obrazky.exe"
+        "filmy.exe::http://www.cheater.cz/download/filmy.exe"
+        "Xbox.exe::http://www.cheater.cz/download/Xbox.exe"
+        "GC_a_Nin64.exe::http://www.cheater.cz/download/GC_a_Nin64.exe"
+        "GBA_a_GBC.exe::http://www.cheater.cz/download/GBA_a_GBC.exe"
+        "HTML.exe::http://www.cheater.cz/download/HTML.exe"
+        "Internetove_odkazy.exe::http://www.cheater.cz/download/Internetove_odkazy.exe"
+        "mininavody.exe::http://www.cheater.cz/download/mininavody.exe"
+        "Mobile_Eggy.exe::http://www.cheater.cz/download/Mobile_Eggy.exe"
+        "citaty.exe::http://www.cheater.cz/download/citaty.exe"
+        "Mobile_Melodies.exe::http://www.cheater.cz/download/Mobile_Melodies.exe"
+        "cestiny.exe::http://www.cheater.cz/download/cestiny.exe"
+        "internet.exe::http://www.cheater.cz/download/internet.exe"
+        "Scofake.exe::http://www.cheater.cz/download/Scofake.exe"
+        "ScoSoft.exe::http://www.cheater.cz/download/ScoSoft.exe"
+)
+md5sums=('c9d4aa2592c79945f7d2452e49aee057'
+         '4a63f4f984b08208715d3c4439bfa60f'
+         '42caab0d8d78454b1f892e2db6519e70'
+         'bdda2b7605fcb13b4e118f3c34693f63'
+         'dd07c3829adc6800eca258047d5ba21a'
+         '5a0b695e2aad08e31814733b49e9daae'
+         '6161f981b859421af5793748152d5c2b'
+         'f0a9620ab9fd3110e4ea4047fa15a058'
+         'c0779519d9e35bc8bdb53e471a335058'
+         '1476f9f4e452125103c51b9955ff47dc'
+         '37da872d9beb2295ff76a02f81e1873b'
+         '2782959db8f13ea2d6fa4b8770375393'
+         'ff6f84b00a585dc227a4b28f7cf954a8'
+         '974308b48f502cc00e9364102d6af328'
+         '37139ffe1c7cb3c3e0f275878f2120df'
+         '0ed497e4ca4d56ff539c64dba6b91a13'
+         '34e3ee3e7765b3c56c912f966fdab8a1'
+         '61085cb9f1c1e3415939fa13c645f53b'
+         'b055253153c6624fc3245f69224cfc08'
+         '023acd61158184edfdc09ba4079f94d9'
+         'c624a819dcf8c0abb81b6f477a744fbd'
+         'b53b9cc5b522eb674c47b95d7891c450'
+         '1b1f9d704075cc2d2f1296e40a28d9be'
+         '532bb44f12fc5682e5f67506e7089ba7'
+         '5fccc5e8549d3ef1e90df550f2291cfe')
+noextract=("${source[@]##*/}")
+
+prepare() {
+    cd "${srcdir}"
+
+    for f in *.exe
+    do
+        unrar x -idq -o+ "${f}"
+    done
+
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z' | tr ' ' '_')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
+    cp "${srcdir}"/*.{sct,sc2} "${pkgdir}/apps${_apparch}/${_dirname}/"
+}

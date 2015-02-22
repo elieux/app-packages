@@ -1,0 +1,49 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=wincheater
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.07
+pkgrel=1
+pkgdesc="Video game cheats and guides database viewer"
+url="http://www.cheater.cz/winch/win_uvod.htm"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip) # upx
+source=("WinCH2_onlysetup.exe::http://www.cheater.cz/download/WinCH2_onlysetup.exe")
+md5sums=('010edb11b51097259c6827e81ee842dd')
+
+pkgver() {
+    b="${srcdir}/WinCH2_onlysetup.exe"
+    strings -d -e{b,l} "${b}" | grep 'FileDescription' -A 1 | tail -1 | sed -r 's/^Scorpions WinCheater ([0-9]+[.][0-9]+) [(]pouze program[)] Setup/\1/' | tr -d ' '
+}
+
+prepare() {
+    cd "${srcdir}"
+    #7z x -y -bd "WinCH2_onlysetup.exe"
+
+    #strip "WinCH2_onlysetup.exe" -o "exec"
+    #dd if="WinCH2_onlysetup.exe" of="data" bs=1 skip=$(stat -c %s "exec")
+    #7z x -y -bd "data"
+
+    msg "Please, install WinCH2_onlysetup.exe and put 'Scorpions WinCheater' into '${srcdir}' and press Enter."
+    read
+
+    for f in "Scorpions WinCheater"/*
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    cp -r "${srcdir}/Scorpions WinCheater"/* "${pkgdir}/apps${_apparch}/${_realname}/"
+    rm "${pkgdir}/apps${_apparch}/${_realname}"/unins000.{dat,exe}
+}

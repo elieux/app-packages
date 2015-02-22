@@ -1,0 +1,117 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+DLAGENTS=('http::/usr/bin/curl -qb "" -RfLC - -o %o %u')
+
+_realname=ltrdata
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2015.01.24
+pkgrel=1
+pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
+url="http://www.ltr-data.se/"
+arch=('any')
+license=('custom')
+makedepends=("unzip" "curl")
+provides=("${pkgbase}")
+options=(!strip) # digital signatures
+source=("calldll64.zip::http://www.ltr-data.se/files/win64/calldll64.zip"
+        "enumps64.zip::http://www.ltr-data.se/files/win64/enumps64.zip"
+        "exelist64.zip::http://www.ltr-data.se/files/win64/exelist64.zip"
+        "fdf64.zip::http://www.ltr-data.se/files/win64/fdf64.zip"
+        "psmod64.zip::http://www.ltr-data.se/files/win64/psmod64.zip"
+        "rawcopy64.zip::http://www.ltr-data.se/files/win64/rawcopy64.zip"
+        "sizeof64.zip::http://www.ltr-data.se/files/win64/sizeof64.zip"
+        "shortren64.zip::http://www.ltr-data.se/files/win64/shortren64.zip"
+        "swapadd64.zip::http://www.ltr-data.se/files/win64/swapadd64.zip"
+        "strarc64.zip::http://www.ltr-data.se/files/win64/strarc64.zip"
+        "regrepl64.zip::http://www.ltr-data.se/files/win64/regrepl64.zip"
+        "winlogoncfg64.zip::http://www.ltr-data.se/files/win64/winlogoncfg64.zip"
+        "checksum.zip::http://www.ltr-data.se/files/checksum.zip"
+        "coordtool.zip::http://www.ltr-data.se/files/coordtool.zip"
+        "netcheck.zip::http://www.ltr-data.se/files/netcheck.zip"
+        "exefiles.zip::http://www.ltr-data.se/files/exefiles.zip"
+
+        "devio.exe::http://www.ltr-data.se/files/devio.exe"
+
+        # installers
+        # "zerodrv.exe::http://www.ltr-data.se/files/zerodrv.exe"
+        # "imdiskinst.exe::http://www.ltr-data.se/files/imdiskinst.exe"
+        # "ImDiskNet.7z::http://www.ltr-data.se/files/ImDiskNet.7z"
+)
+md5sums=('dcce97554434b485685a75d2269d43c4'
+         'd6b1c8ce9540393c47497f1a9fb0a0ce'
+         '6550f40f6d7503ecc30ac7f4da0357e8'
+         'ffe23e3993f825dd183ed947941b7da1'
+         '7e56b810e239f6369fd74def7ee8a963'
+         'db695459f8a4ea18062447ccb1b8ca60'
+         '7ffa661d37f16395d31af9064f4f3787'
+         'f8e8561277c73d1412d6db2b833c9c7b'
+         '9753f433a7e2614b2aa982db5f3ea422'
+         '0067fca343b71e18c20f9ec4f2aef48f'
+         'f193bc82ccc9b00cc511ce327c5082dd'
+         '0e135bfeb343edb5468bc482d58dff5e'
+         'e1ef3aa0e9f4a261ddc52880aa4539eb'
+         'ede1d9f5ab8a30927738ec6cb71b5b69'
+         '9d08d1b245c2f64513738712e1184e9b'
+         '3e4f1e61867b644f47d476a444b44604'
+         '1cdd6688522345729747daf799372e23')
+noextract=("${source[@]##*/}")
+
+pkgver() {
+    #find "${srcdir}" -mindepth 1 -maxdepth 2 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 3 | tr "-" "."' \; \
+      -o -name '*.exe' -printf '%TY.%Tm.%Td\n' \
+      | sort | tail -1
+}
+
+prepare() {
+    cd "${srcdir}"
+
+    for util in *.zip
+    do
+        unzip -o "${util}" -d "${util%%.zip}"
+        for f in "${util%%.zip}"/*
+        do
+            n=$(echo "${f}" | tr 'A-Z' 'a-z')
+            if test "${f}" != "${n}"
+            then
+                mv "${f}" "${n}"
+            fi
+        done
+    done
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+
+    for dir in $1
+    do
+        dir="${dir%%.zip}"
+        util="${dir##*/}"
+        util="${util%%64}"
+
+        for ext in exe dll exe.config cmd
+        do
+            find "${dir}" -name '*.'"${ext}" -execdir cp "{}" "${pkgdir}/apps${_apparch}/${_realname}/" \;
+        done
+        for ext in txt cnt hlp
+        do
+            find "${dir}" -name '*.'"${ext}" -execdir cp "{}" "${pkgdir}/docs${_apparch}/${_realname}/" \;
+        done
+    done
+}
+
+package_app-i686-ltrdata() {
+    _apparch=32
+    files="$(find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.zip' -not -name '*64*')"
+    package "${files}"
+    cp "${srcdir}/devio.exe" "${pkgdir}/apps${_apparch}/${_realname}/"
+}
+
+package_app-x86_64-ltrdata() {
+    _apparch=64
+    files="$(find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*64*.zip')"
+    package "${files}"
+}

@@ -17,6 +17,19 @@ options=(!strip) # digital signatures
 source=("perfmonitor-2.zip::http://www.cpuid.com/medias/files/softwares/${_realname}-2/${_realname}-2_${pkgver}.zip")
 md5sums=('b197964f85c35ba0781c679b967be4c6')
 
+prepare() {
+    cd "${srcdir}"
+
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
 package() {
     mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
     mkdir -p "${pkgdir}/docs${_apparch}/${_dirname}/${_realname}"

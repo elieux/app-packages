@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.28
-pkgrel=4
+pkgrel=5
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
@@ -34,6 +34,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Latin.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Latin.zip"
         "KeePass2-Lithuanian.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Lithuanian.zip"
         "KeePass2-Norwegian_NB.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Norwegian_NB.zip"
+        "KeePass2-Pashto.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Pashto.zip"
         "KeePass2-Polish.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Polish.zip"
         "KeePass2-Portuguese_BR.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Portuguese_BR.zip"
         "KeePass2-Portuguese_PT.zip::http://downloads.sourceforge.net/${_realname}/Translations%202.x/${pkgver}/KeePass-${pkgver}-Portuguese_PT.zip"
@@ -76,6 +77,7 @@ md5sums=('88cb9d695c284e0cd75b2cbc854525d6'
          '79c76848ee59bc15f9e255f3ad98fe16'
          'ca3705d35281721f6aaaa5b45592ae61'
          '6fcf98c08cd76f96a683f45da64e9ebc'
+         '2f0b83f5eac695787bd9785e86ea4ed7'
          'f8daa82a4fdb6c79f261bb2e7c2a97c4'
          '50c4ce3103d9bf35b061b5569f1a6c26'
          '07dffe34f51d805d7d80ef60e6a98300'

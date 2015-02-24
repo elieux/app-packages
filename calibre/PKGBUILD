@@ -17,11 +17,15 @@ source=("calibre32.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.
 md5sums=('79fb16de26e2ea681c9fc5d494aa5222'
          '5653d15c3836cedaf96a9f2da77ed188')
 
+_build() {
+    cd "${srcdir}"
+    msiexec -a "calibre${_apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
+}
+
 build() {
     for _apparch in 32 64
     do
-        cd "${srcdir}"
-        msiexec -a "calibre${_apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
+        _build()
     done
 }
 

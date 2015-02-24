@@ -31,20 +31,24 @@ prepare() {
     done
 }
 
+_build() {
+    cd "${srcdir}"
+    msiexec -a "7z${_apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
+    cd "${srcdir}/install${_apparch}/Files/7-Zip"
+    for f in *
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
 build() {
     for _apparch in 32 64
     do
-        cd "${srcdir}"
-        msiexec -a "7z${_apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
-        cd "${srcdir}/install${_apparch}/Files/7-Zip"
-        for f in *
-        do
-            n=$(echo "${f}" | tr 'A-Z' 'a-z')
-            if test "${f}" != "${n}"
-            then
-                mv "${f}" "${n}"
-            fi
-        done
+        _build()
     done
 }
 

@@ -20,19 +20,23 @@ source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog
 md5sums=('f3d7df4b46707d188cf8da3acd0c4e36'
          '0c88f2dc1be03c21bc208cc25781dce4')
 
+_prepare() {
+    cd "${srcdir}"
+    7z x -y -bd "SQLyogCommunity${_apparch}.exe" -o"SQLyogCommunity${_apparch}"
+    for f in "SQLyogCommunity${_apparch}"/*
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
 prepare() {
     for _apparch in 32 64
     do
-        cd "${srcdir}"
-        7z x -y -bd "SQLyogCommunity${_apparch}.exe" -o"SQLyogCommunity${_apparch}"
-        for f in "SQLyogCommunity${_apparch}"/*
-        do
-            n=$(echo "${f}" | tr 'A-Z' 'a-z')
-            if test "${f}" != "${n}"
-            then
-                mv "${f}" "${n}"
-            fi
-        done
+        _prepare()
     done
 }
 

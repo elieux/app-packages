@@ -1,0 +1,45 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=viber
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=5.0.0.2821
+pkgrel=1
+pkgdesc="Free messages and calls in any country"
+url="http://www.viber.com/en/products/windows"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip) # digital signatures
+source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.exe")
+md5sums=('2b2a89b2997d0cf26d4718f06d78a9a5')
+
+pkgver() {
+    b="${srcdir}/ViberSetup.exe"
+    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+}
+
+prepare() {
+    cd "${srcdir}"
+    7z x -y -bd "ViberSetup.exe"
+    7z x -y -bd "pack.exe"
+
+    for f in "${pkgver}"/*
+    do
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+package() {
+    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+
+    cp "${srcdir}/viber.exe" "${pkgdir}/apps${_apparch}/${_realname}/"
+    cp -r "${srcdir}/${pkgver}"/* "${pkgdir}/apps${_apparch}/${_realname}/"
+    rm "${pkgdir}/apps${_apparch}/${_realname}"/msvc{p,r}100.dll
+}

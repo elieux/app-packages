@@ -30,18 +30,14 @@ build() {
     cd "${srcdir}"
     msiexec -a "SkypeSetup.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
 
-    for dir in "Phone" "Redist/Skype" "PFiles/Skype/Browser"
+    d="${srcdir}/install${_apparch}/Program Files/Skype/${dir}"
+    for f in "${d}/Phone"/* "${d}/Redist/Skype"/* "${d}/PFiles/Skype/Browser"/*
     do
-        pushd "${srcdir}/install${_apparch}/Program Files/Skype/${dir}"
-        for f in *
-        do
-            n=$(echo "${f}" | tr 'A-Z' 'a-z')
-            if test "${f}" != "${n}"
-            then
-                mv "${f}" "${n}"
-            fi
-        done
-        popd
+        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
     done
 }
 

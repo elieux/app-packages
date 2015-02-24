@@ -196,8 +196,7 @@ noextract=("${source[@]##*/}")
 prepare() {
     cd "${srcdir}"
     7z x -y -bd "FirefoxSetup.exe"
-    pushd "core"
-    for f in *
+    for f in "core"/*
     do
         n=$(echo "${f}" | tr 'A-Z' 'a-z')
         if test "${f}" != "${n}"
@@ -205,8 +204,7 @@ prepare() {
             mv "${f}" "${n}"
         fi
     done
-    sed -i '/MSVC[RP]100.dll/d' dependentlibs.list
-    popd
+    sed -i '/MSVC[RP]100.dll/d' "core/dependentlibs.list"
 }
 
 package() {

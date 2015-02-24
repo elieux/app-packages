@@ -36,8 +36,7 @@ package() {
     _dir="$(find "${srcdir}" -mindepth 2 -type f -name 'Dropbox.exe' -printf %h)"
     find "${_dir}" -mindepth 1 -maxdepth 1 -not -name 'DropboxUpdateHelper.exe' -not -name 'DropboxUninstaller.exe' -exec cp -R "{}" "${pkgdir}/apps${_apparch}/${_realname}/" \;
 
-    pushd "${pkgdir}/apps${_apparch}/${_realname}"
-    for f in *
+    for f in "${pkgdir}/apps${_apparch}/${_realname}"/*
     do
         n=$(echo "${f}" | tr 'A-Z' 'a-z')
         if test "${f}" != "${n}"
@@ -45,5 +44,4 @@ package() {
             mv "${f}" "${n}"
         fi
     done
-    popd
 }

@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.04
-pkgrel=1
+pkgrel=2
 pkgdesc="Monitors processor performance and other values (CPUID)"
 url="http://www.cpuid.com/softwares/perfmonitor-2.html"
 arch=('any')
@@ -17,12 +17,10 @@ options=(!strip) # digital signatures
 source=("perfmonitor-2.zip::http://www.cpuid.com/medias/files/softwares/${_realname}-2/${_realname}-2_${pkgver}.zip")
 md5sums=('b197964f85c35ba0781c679b967be4c6')
 
-prepare() {
-    cd "${srcdir}"
-
-    for f in *
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -30,19 +28,26 @@ prepare() {
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_dirname}/${_realname}"
-    cp "${srcdir}/perfmonitor2_x${_apparch}.exe" "${pkgdir}/apps${_apparch}/${_dirname}/perfmonitor2.exe"
-    cp "${srcdir}/perfmonitor2.pdf" "${pkgdir}/docs${_apparch}/${_dirname}/${_realname}/readme.pdf"
+prepare() {
+    _lc *
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp "perfmonitor2_x${_apparch}.exe" "${a}/perfmonitor2.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}"
+    cp "perfmonitor2.pdf" "${d}"
 }
 
 package_app-i686-perfmonitor() {
     _apparch=32
-    package
+    _package
 }
 
 package_app-x86_64-perfmonitor() {
     _apparch=64
-    package
+    _package
 }

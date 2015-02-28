@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=0.9u4
-pkgrel=2
+pkgrel=3
 pkgdesc="A Java-based download manager for Rapidshare and other file sharing archives"
 arch=('any')
 url="http://wordrider.net/freerapid/"
@@ -16,10 +16,27 @@ options=(!strip) # upx
 source=("FreeRapid.zip::http://files.kral.hk/frd/FreeRapid-${pkgver}.zip")
 md5sums=('a067ecbd37ac7c83a795c34a3dc6388f')
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
 
-    cp -R "${srcdir}"/FreeRapid-${pkgver}/{lib,lookandfeel,search,tools,frd.*,instplgs.dat,objectdb.conf,*.properties} "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp -R "${srcdir}"/FreeRapid-${pkgver}/{doc,copyright,License,readme.txt} "${pkgdir}/docs${_apparch}/${_realname}/"
+prepare() {
+    _lc "FreeRapid-${pkgver}"/*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "FreeRapid-${pkgver}"/{lib,lookandfeel,search,tools,frd.*,instplgs.dat,objectdb.conf,*.properties} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp -r "FreeRapid-${pkgver}"/{doc,copyright,license,readme.txt} "${d}"
 }

@@ -7,7 +7,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=3.2.6
-pkgrel=2
+pkgrel=3
 pkgdesc="The Dropbox synchronization tool"
 url="http://www.google.com/drive/"
 arch=('any')
@@ -18,30 +18,30 @@ options=(!strip) # embedded data, digital signatures
 source=("Dropbox.exe::https://www.dropbox.com/download?full=1&plat=win")
 md5sums=('77dd0e3f9d53f628e71a47432afae446')
 
-pkgver() {
-    b="${srcdir}/Dropbox.exe"
-    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
-}
-
-prepare() {
-    cd "${srcdir}"
-    7z x -y -bd "Dropbox.exe"
-}
-
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    find "${srcdir}" -name 'DropboxExt*.dll' -execdir cp "{}" "${pkgdir}/apps${_apparch}/${_realname}" \;
-    find "${srcdir}" -type d -name 'Qt*' -execdir cp -R "{}" "${pkgdir}/apps${_apparch}/${_realname}/" \;
-    _dir="$(find "${srcdir}" -mindepth 2 -type f -name 'Dropbox.exe' -printf %h)"
-    find "${_dir}" -mindepth 1 -maxdepth 1 -not -name 'DropboxUpdateHelper.exe' -not -name 'DropboxUninstaller.exe' -exec cp -R "{}" "${pkgdir}/apps${_apparch}/${_realname}/" \;
-
-    for f in "${pkgdir}/apps${_apparch}/${_realname}"/*
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
         fi
     done
+}
+
+pkgver() {
+    b="$(cygpath -wa "Dropbox.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+}
+
+prepare() {
+    7z x -y -bd "Dropbox.exe"
+    _lc '$0'/* '$APPDATA/Dropbox/bin/$0'/* *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r dropboxext*.dll '$0'/* '$APPDATA/Dropbox/bin/$0'/* "${a}"
+    rm -r "${a}/microsoft.vc90.crt" "${a}/dropboxupdatehelper.exe"
 }

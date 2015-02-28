@@ -7,7 +7,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=12.0.8
-pkgrel=2
+pkgrel=3
 pkgdesc="MySQL manager and admin tool"
 url="https://code.google.com/p/sqlyog/"
 arch=('any')
@@ -20,12 +20,10 @@ source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog
 md5sums=('f3d7df4b46707d188cf8da3acd0c4e36'
          '0c88f2dc1be03c21bc208cc25781dce4')
 
-_prepare() {
-    cd "${srcdir}"
-    7z x -y -bd "SQLyogCommunity${_apparch}.exe" -o"SQLyogCommunity${_apparch}"
-    for f in "SQLyogCommunity${_apparch}"/*
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -33,27 +31,36 @@ _prepare() {
     done
 }
 
+_prepare() {
+    7z x -y -bd "SQLyogCommunity${_apparch}.exe" -o"SQLyogCommunity${_apparch}"
+    _lc "SQLyogCommunity${_apparch}"/*
+}
+
 prepare() {
     for _apparch in 32 64
     do
-        _prepare()
+        _prepare
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
-    cp "${srcdir}/SQLyogCommunity${_apparch}"/*.{exe,dll,db} "${pkgdir}/apps${_apparch}/${_realname}"
-    cp "${srcdir}/SQLyogCommunity${_apparch}"/*.txt "${pkgdir}/docs${_apparch}/${_realname}"
-    rm "${pkgdir}/apps${_apparch}/${_realname}/uninst.exe"
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp "SQLyogCommunity${_apparch}"/*.{exe,dll,db} "${a}"
+    rm "${a}/uninst.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp "SQLyogCommunity${_apparch}"/*.txt "${d}"
+    mv "${d}/[license].txt" "${d}/license.txt"
 }
 
 package_app-i686-sqlyog() {
     _apparch=32
-    package
+    _package
 }
 
 package_app-x86_64-sqlyog() {
     _apparch=64
-    package
+    _package
 }

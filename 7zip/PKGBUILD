@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=9.38
-pkgrel=2
+pkgrel=3
 pkgdesc="A free file archiver for extremely high compression"
 url="http://www.7-zip.org/"
 arch=('any')
@@ -19,11 +19,10 @@ md5sums=('8e8e360994cfddcc2504fa473c977272'
          '9f4efa767708af6badca6f60ad2006ae'
          '3b95291e4a5db4f0dc1907462e9a5b57')
 
-prepare() {
-    cd "${srcdir}"
-    for f in *
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -31,46 +30,41 @@ prepare() {
     done
 }
 
+prepare() {
+    _lc *
+}
+
 _build() {
-    cd "${srcdir}"
-    msiexec -a "7z${_apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
-    cd "${srcdir}/install${_apparch}/Files/7-Zip"
-    for f in *
-    do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
-        if test "${f}" != "${n}"
-        then
-            mv "${f}" "${n}"
-        fi
-    done
+    msiexec -a "7z${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
+    _lc "install${_apparch}/Files/7-Zip"/*
 }
 
 build() {
     for _apparch in 32 64
     do
-        _build()
+        _build
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}-extra"
+_package() {
+    s="install${_apparch}/Files/7-Zip"
 
-    cp "${srcdir}"/*.txt "${pkgdir}/docs${_apparch}/${_realname}-extra"
-    cp -R "${srcdir}/install${_apparch}/Files/7-Zip/lang" "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}/install${_apparch}/Files/7-Zip"/*.{exe,dll,sfx} "${pkgdir}/apps${_apparch}/${_realname}"
-    cp "${srcdir}/install${_apparch}/Files/7-Zip"/*.{chm,txt,ion} "${pkgdir}/docs${_apparch}/${_realname}"
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "${@}" "${s}/lang" "${s}"/*.{exe,dll,sfx} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}" "${d}/extra"
+    cp "${s}"/*.{chm,txt,ion} "${d}"
+    cp *.txt "${d}/extra"
 }
 
 package_app-i686-7zip() {
     _apparch=32
-    package
-    cp "${srcdir}"/*.{dll,exe} "${pkgdir}/apps${_apparch}/${_realname}"
+    _package *.{dll,exe}
 }
 
 package_app-x86_64-7zip() {
     _apparch=64
-    package
-    cp "${srcdir}/x64"/*.{dll,exe} "${pkgdir}/apps${_apparch}/${_realname}"
+    _package "x64"/*.{dll,exe}
 }

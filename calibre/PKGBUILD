@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.20
-pkgrel=1
+pkgrel=2
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
 arch=('any')
@@ -17,35 +17,47 @@ source=("calibre32.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.
 md5sums=('79fb16de26e2ea681c9fc5d494aa5222'
          '5653d15c3836cedaf96a9f2da77ed188')
 
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
 _build() {
-    cd "${srcdir}"
-    msiexec -a "calibre${_apparch}.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
+    msiexec -a "calibre${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
+    _lc "install${_apparch}/PFiles"/*
+    _lc "install${_apparch}/PFiles"/calibre*/*
 }
 
 build() {
     for _apparch in 32 64
     do
-        _build()
+        _build
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "install${_apparch}/PFiles"/calibre*/* "${a}"
+    rm -rf "${a}/microsoft.vc90.crt" # write-protected
 
-    cp -R "${srcdir}/install${_apparch}/PFiles/${_dir}"/* "${pkgdir}/apps${_apparch}/${_realname}/"
-    rm -rf "${pkgdir}/apps${_apparch}/${_realname}/Microsoft.VC90.CRT"
-    mv "${pkgdir}/apps${_apparch}/${_realname}/LICENSE" "${pkgdir}/docs${_apparch}/${_realname}"
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}/license" "${d}"
 }
 
 package_app-i686-calibre() {
     _apparch=32
-    _dir=calibre
-    package
+    _package
 }
 
 package_app-x86_64-calibre() {
     _apparch=64
-    _dir=Calibre2
-    package
+    _package
 }

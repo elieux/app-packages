@@ -17,11 +17,10 @@ source=("CarotDAV.portable.zip::http://rei.to/CarotDAV${pkgver}.portable.zip"
 md5sums=('4b49839783a6495c3bc238a89ebbede7'
          'ea6667b547144212c03bb2b498fcea8a')
 
-prepare() {
-    cd "${srcdir}/CarotDAV"
-    for f in *
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -29,11 +28,16 @@ prepare() {
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+prepare() {
+    _lc "CarotDAV"/*
+}
 
-    cp "${srcdir}/installed.txt" "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}/CarotDAV"/*.{dll,exe,xml,config} "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}/CarotDAV"/*.txt "${pkgdir}/docs${_apparch}/${_realname}/"
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp "installed.txt" "CarotDAV"/*.{dll,exe,xml,config} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp "CarotDAV"/*.txt "${d}"
 }

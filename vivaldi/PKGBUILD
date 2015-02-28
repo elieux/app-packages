@@ -15,14 +15,10 @@ options=(!strip) # digital signatures
 source=("Vivaldi_TP2.exe::https://vivaldi.com/download/Vivaldi_TP2_${pkgver}.exe")
 md5sums=('6121b74d2a3433506ea44a50a8e47fad')
 
-prepare() {
-    cd "${srcdir}"
-    7z x -y -bd "Vivaldi_TP2.exe"
-    7z x -y -bd "vivaldi.7z"
-
-    for f in "Vivaldi-bin"/* "Vivaldi-bin/${pkgver}"/*
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -30,9 +26,14 @@ prepare() {
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+prepare() {
+    7z x -y -bd "Vivaldi_TP2.exe"
+    7z x -y -bd "vivaldi.7z"
+    _lc "Vivaldi-bin"/* "Vivaldi-bin/${pkgver}"/*
+}
 
-    cp "${srcdir}/Vivaldi-bin"/*.exe "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp -r "${srcdir}/Vivaldi-bin/${pkgver}"/* "${pkgdir}/apps${_apparch}/${_realname}/"
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "Vivaldi-bin"/*.exe "Vivaldi-bin/${pkgver}"/* "${a}"
 }

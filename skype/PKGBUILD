@@ -15,10 +15,21 @@ options=(!strip) # digital signatures
 source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
 md5sums=('065dd3114229f5e37c944c1988ec1f52')
 
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
 pkgver() {
     msg "Starting build() to determine package version :("
     build > /dev/null
-    b="${srcdir}/install${_apparch}/Program Files/Skype/Phone/skype.exe"
+    b="install/Program Files/Skype/Phone/skype.exe"
     if [ -f "${b}" ]
     then
         b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
@@ -27,26 +38,20 @@ pkgver() {
 }
 
 build() {
-    cd "${srcdir}"
-    msiexec -a "SkypeSetup.msi" "TARGETDIR=$(cygpath -w "${srcdir}/install${_apparch}")" -qn
+    msiexec -a "SkypeSetup.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
 
-    d="${srcdir}/install${_apparch}/Program Files/Skype/${dir}"
-    for f in "${d}/Phone"/* "${d}/Redist/Skype"/* "${d}/PFiles/Skype/Browser"/*
-    do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
-        if test "${f}" != "${n}"
-        then
-            mv "${f}" "${n}"
-        fi
-    done
+    s="install/Program Files/Skype"
+    _lc "${s}/Phone"/* "${s}/Redist/Skype"/* "${s}/PFiles/Skype/Browser"/*
 }
 
 package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+    s="install/Program Files/Skype"
 
-    cp "${srcdir}/install${_apparch}/Program Files/Skype/Phone"/* "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}/install${_apparch}/Program Files/Skype/PFiles/Skype/Browser/skypebrowserhost.exe" "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}/install${_apparch}/Program Files/Skype/Redist/Skype/skype4com.dll" "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}/install${_apparch}/Program Files/Skype/third-party_attributions.txt" "${pkgdir}/docs${_apparch}/${_realname}/"
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp "${s}/Phone"/* "${s}/PFiles/Skype/Browser/skypebrowserhost.exe" "${s}/Redist/Skype/skype4com.dll" "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp "${s}/third-party_attributions.txt" "${d}"
 }

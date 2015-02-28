@@ -16,18 +16,10 @@ options=(!strip) # digital signatures
 source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=38020&location=395&nothanks=yes&sub=marine")
 md5sums=('4e90426ff1d88920b01fa21fb4154dd3')
 
-pkgver() {
-    b="${srcdir}/Opera_Setup.exe"
-    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
-}
-
-prepare() {
-    cd "${srcdir}"
-    7z x -y -bd "Opera_Setup.exe"
-    for f in *
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -35,16 +27,24 @@ prepare() {
     done
 }
 
+pkgver() {
+    b="$(cygpath -wa "Opera_Setup.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+}
+
+prepare() {
+    7z x -y -bd "Opera_Setup.exe"
+    _lc *
+}
+
 build() {
-    cd "${srcdir}"
-    # Opera_Setup.exe -silent -installfolder="${srcdir}/exe${_apparch}" -allusers=0 -copyonly=1 -setdefaultbrowser=0 -desktopshortcut=0 -startmenushortcut=0 -pintotaskbar=0 -launchopera=0
+    # Opera_Setup.exe -silent -installfolder="$(cygpath -wa "install")" -allusers=0 -copyonly=1 -setdefaultbrowser=0 -desktopshortcut=0 -startmenushortcut=0 -pintotaskbar=0 -launchopera=0
     true
 }
 
 package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    cp -R * "${pkgdir}/apps${_apparch}/${_realname}"
-    rm -r "${pkgdir}/apps${_apparch}"/${_realname}/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,opera.dll,opera_setup.exe,resources.pri}
-    rm -r "${pkgdir}/apps${_apparch}"/${_realname}/{msvcp100.dll,msvcr100.dll}
-    rm -r "${pkgdir}/apps${_apparch}"/${_realname}/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r * "${a}"
+    rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,opera.dll,opera_setup.exe,resources.pri} "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
 }

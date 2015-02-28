@@ -17,12 +17,10 @@ options=(!strip) # digital signatures
 source=("pc-wizard.zip::http://www.cpuid.com/medias/files/softwares/${_realname}/${_realname}_${pkgver//.0/.}.zip")
 md5sums=('f0002f6e691ea0edd2760f09ebf69af3')
 
-prepare() {
-    cd "${srcdir}"
-
-    for f in *
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -30,12 +28,18 @@ prepare() {
     done
 }
 
+prepare() {
+    _lc *
+}
+
 package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_dirname}/${_realname}"
-    cp -r "${srcdir}"/{data,extras,language,mark,partner,web} "${pkgdir}/apps${_apparch}/${_dirname}/"
-    cp "${srcdir}/pc wizard.exe" "${pkgdir}/apps${_apparch}/${_dirname}/pc-wizard.exe"
-    cp "${srcdir}"/*.{sys,dll,vxd} "${pkgdir}/apps${_apparch}/${_dirname}/"
-    rm "${pkgdir}/apps${_apparch}/${_dirname}/msvbvm60.dll"
-    cp "${srcdir}"/*.txt "${pkgdir}/docs${_apparch}/${_dirname}/${_realname}/"
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp "pc wizard.exe" "${a}/pc-wizard.exe"
+    cp -r {data,extras,language,mark,partner,web} *.{sys,dll,vxd} "${a}"
+    rm "${a}/msvbvm60.dll"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}/${_realname}"
+    mkdir -p "${d}"
+    cp *.txt "${d}"
 }

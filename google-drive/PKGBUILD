@@ -15,13 +15,25 @@ options=(!strip) # embedded data
 source=("http://dl.google.com/drive/${pkgver}/gsync.msi")
 md5sums=('1576bcf64f4692ee71a770a32416fe9e')
 
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
 build() {
-    cd "${srcdir}"
-    msiexec -a "gsync.msi" "TARGETDIR=$(cygpath -w "${srcdir}/msi${_apparch}")" -qn
+    msiexec -a "gsync.msi" "TARGETDIR=$(cygpath -wa "msi")" -qn
+    _lc "msi/Google/Drive"/*
 }
 
 package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    cp "${srcdir}/msi${_apparch}/Google/Drive"/*.{dll,exe} "${pkgdir}/apps${_apparch}/${_realname}"
-    cp -R "${srcdir}/msi${_apparch}/Google/Drive/Languages" "${pkgdir}/apps${_apparch}/${_realname}/languages"
+    s="msi/Google/Drive"
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "${s}"/*.{dll,exe} "${s}/languages" "${a}"
 }

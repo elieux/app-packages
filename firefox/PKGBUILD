@@ -191,32 +191,34 @@ md5sums=('4ad9b995001ff60f11c51d8d3c3f328d'
          '8c09eef8588cb9a529363c62658fbf49'
          'c13d65d606d14341fddc88bfd2413a4d'
          '93ccdf72a16117aebcc062877ed040d7')
-noextract=("${source[@]##*/}")
+noextract=("${source[@]%%::*}")
 
-prepare() {
-    cd "${srcdir}"
-    7z x -y -bd "FirefoxSetup.exe"
-    for f in "core"/*
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
         fi
     done
+}
+
+prepare() {
+    7z x -y -bd "FirefoxSetup.exe"
+    _lc "core"/*
     sed -i '/MSVC[RP]100.dll/d' "core/dependentlibs.list"
 }
 
 package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    cp -R "${srcdir}/core"/* "${pkgdir}/apps${_apparch}/${_realname}/"
-    rm "${pkgdir}/apps${_apparch}/${_realname}/browser/searchplugins"/*
-    rm "${pkgdir}/apps${_apparch}/${_realname}"/{msvcp100.dll,msvcr100.dll}
-    rm "${pkgdir}/apps${_apparch}/${_realname}"/maintenanceservice{.exe,_installer.exe}
-    for f in "${srcdir}"/*.xpi
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "core"/* "${a}"
+    rm "${a}/browser/searchplugins"/* "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/maintenanceservice{.exe,_installer.exe}
+    for f in *.xpi
     do
-        lang="${f##*/}"
-        lang="${lang%%.xpi}"
-        cp "${srcdir}/${lang}.xpi" "${pkgdir}/apps${_apparch}/${_realname}/browser/extensions/langpack-${lang}@firefox.mozilla.org.xpi"
+        f="${f##*/}"
+        f="${f%%.xpi}"
+        cp "${f}.xpi" "${a}/browser/extensions/langpack-${f}@firefox.mozilla.org.xpi"
     done
 }

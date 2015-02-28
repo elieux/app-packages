@@ -18,17 +18,10 @@ source=("http://download.sysinternals.com/files/SysinternalsSuite.zip"
 md5sums=('5b1d576c3df4b0a7d39d5c006370ad95'
          'e985acdd52b7bccdd6feb85ebd74c722')
 
-pkgver() {
-    #find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
-}
-
-prepare() {
-    cd "${srcdir}"
-
-    for f in *
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -36,9 +29,21 @@ prepare() {
     done
 }
 
+pkgver() {
+    #find . -mindepth 1 -maxdepth 1 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
+}
+
+prepare() {
+    _lc *
+}
+
 package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
-    cp "${srcdir}"/*.{exe,sys,scr} "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}"/*.{chm,txt,hlp} "${pkgdir}/docs${_apparch}/${_realname}/"
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp *.{exe,sys,scr} "${pkgdir}/apps${_apparch}/${_realname}/"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp *.{chm,txt,hlp} "${pkgdir}/docs${_apparch}/${_realname}/"
 }

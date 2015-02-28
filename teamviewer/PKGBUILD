@@ -16,17 +16,10 @@ options=(!strip) # digital signatures
 source=("http://download.teamviewer.com/download/TeamViewerPortable.zip")
 md5sums=('c333dc1cdcb34a594631ae3f8704e080')
 
-pkgver() {
-    b="${srcdir}/TeamViewer.exe"
-    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
-}
-
-prepare() {
-    cd "${srcdir}"
-    for f in *
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -34,10 +27,21 @@ prepare() {
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+pkgver() {
+    b="$(cygpath -wa "TeamViewer.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+}
 
-    cp "${srcdir}"/*.{dll,exe,ini} "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}"/*.{txt,inf} "${pkgdir}/docs${_apparch}/${_realname}/"
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp *.{dll,exe,ini} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp *.{txt,inf} "${d}"
 }

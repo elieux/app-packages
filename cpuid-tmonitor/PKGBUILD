@@ -17,12 +17,10 @@ options=(!strip) # digital signatures
 source=("tmonitor.zip::http://www.cpuid.com/medias/files/softwares/${_realname}/${_realname}_${pkgver}.zip")
 md5sums=('0d30f7fc085cfdb93b6fd0e3bc4b98ef')
 
-prepare() {
-    cd "${srcdir}"
-
-    for f in *
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -30,17 +28,22 @@ prepare() {
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
-    cp "${srcdir}/tmonitor_x${_apparch}.exe" "${pkgdir}/apps${_apparch}/${_dirname}/tmonitor.exe"
+prepare() {
+    _lc *
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp "tmonitor_x${_apparch}.exe" "${a}/tmonitor.exe"
 }
 
 package_app-i686-tmonitor() {
     _apparch=32
-    package
+    _package
 }
 
 package_app-x86_64-tmonitor() {
     _apparch=64
-    package
+    _package
 }

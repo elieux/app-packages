@@ -15,9 +15,11 @@ source=("esmska.tar.gz::http://ripper.profitux.cz/${_realname}/packages/${_realn
 md5sums=('2de2d0584113ed96caa409adee1c7980')
 
 package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "esmska-${pkgver}"/{gateways,icons,lib,esmska.*} "${a}"
 
-    cp -R "${srcdir}"/esmska-${pkgver}/{gateways,icons,lib,esmska.*} "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp -R "${srcdir}"/esmska-${pkgver}/{license,readme.txt} "${pkgdir}/docs${_apparch}/${_realname}/"
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp -r "esmska-${pkgver}"/{license,readme.txt} "${d}"
 }

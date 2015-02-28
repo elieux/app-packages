@@ -15,20 +15,10 @@ options=(!strip) # digital signatures
 source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.exe")
 md5sums=('2b2a89b2997d0cf26d4718f06d78a9a5')
 
-pkgver() {
-    b="${srcdir}/ViberSetup.exe"
-    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
-}
-
-prepare() {
-    cd "${srcdir}"
-    7z x -y -bd "ViberSetup.exe"
-    7z x -y -bd "pack.exe"
-
-    for f in "${pkgver}"/*
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -36,10 +26,20 @@ prepare() {
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
+pkgver() {
+    b="$(cygpath -wa "ViberSetup.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+}
 
-    cp "${srcdir}/viber.exe" "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp -r "${srcdir}/${pkgver}"/* "${pkgdir}/apps${_apparch}/${_realname}/"
-    rm "${pkgdir}/apps${_apparch}/${_realname}"/msvc{p,r}100.dll
+prepare() {
+    7z x -y -bd "ViberSetup.exe"
+    7z x -y -bd "pack.exe"
+    _lc * "${pkgver}"/*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "viber.exe" "${pkgver}"/* "${a}"
+    rm "${a}"/msvc{p,r}100.dll
 }

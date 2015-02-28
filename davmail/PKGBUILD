@@ -16,28 +16,22 @@ provides=("${pkgbase}")
 source=("davmail-windows-noinstall.zip::http://downloads.sourceforge.net/${_realname}/${_realname}/${_realver%%-*}/${_realname}-${_realver}-windows-noinstall.zip")
 md5sums=('ab970cb0ee0bae2b4384c4e943ad46f6')
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-
-    cp -R "${srcdir}/lib" "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}/davmail.jar" "${pkgdir}/apps${_apparch}/${_realname}/"
-    cp "${srcdir}/davmailconsole.exe" "${pkgdir}/apps${_apparch}/${_realname}/"
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "lib" "davmail.jar" "davmailconsole.exe" "${a}"
+    for f in "davmail" "davmailservice"
+    do
+        cp "${f}${1}.exe" "${a}/${f}.exe"
+    done
 }
 
 package_app-i686-davmail() {
     _apparch=32
-    package
-    for file in "davmail" "davmailservice"
-    do
-        cp "${srcdir}/${file}.exe" "${pkgdir}/apps${_apparch}/${_realname}/"
-    done
+    _package ""
 }
 
 package_app-x86_64-davmail() {
     _apparch=64
-    package
-    for file in "davmail" "davmailservice"
-    do
-        cp "${srcdir}/${file}64.exe" "${pkgdir}/apps${_apparch}/${_realname}/${file}.exe"
-    done
+    _package "64"
 }

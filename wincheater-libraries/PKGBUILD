@@ -5,18 +5,15 @@ _dirname=wincheater
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=164
+pkgver=2015.02.07
 pkgrel=1
-pkgdesc="Video game cheats and guides database viewer"
-url="http://www.cheater.cz/winch/win_uvod.htm"
+pkgdesc="Video game cheats and guides databases for WinCheater"
+url="http://www.cheater.cz/winch/win_download_knihovny.htm"
 arch=('any')
 license=('custom')
-depends=("app-i686-wincheater")
 makedepends=("p7zip" "unrar")
 provides=("${pkgbase}")
-source=("texty.exe::http://www.cheater.cz/download/upd/${pkgver}/texty.exe"
-
-        "Cheaty.exe::http://www.cheater.cz/download/Cheaty.exe"
+source=("Cheaty.exe::http://www.cheater.cz/download/Cheaty.exe"
         "Navody.exe::http://www.cheater.cz/download/Navody.exe"
         "Easter_Eggy.exe::http://www.cheater.cz/download/Easter_Eggy.exe"
         "Vtipy.exe::http://www.cheater.cz/download/Vtipy.exe"
@@ -41,8 +38,7 @@ source=("texty.exe::http://www.cheater.cz/download/upd/${pkgver}/texty.exe"
         "Scofake.exe::http://www.cheater.cz/download/Scofake.exe"
         "ScoSoft.exe::http://www.cheater.cz/download/ScoSoft.exe"
 )
-md5sums=('c9d4aa2592c79945f7d2452e49aee057'
-         '4a63f4f984b08208715d3c4439bfa60f'
+md5sums=('4a63f4f984b08208715d3c4439bfa60f'
          '42caab0d8d78454b1f892e2db6519e70'
          'bdda2b7605fcb13b4e118f3c34693f63'
          'dd07c3829adc6800eca258047d5ba21a'
@@ -66,19 +62,17 @@ md5sums=('c9d4aa2592c79945f7d2452e49aee057'
          '1b1f9d704075cc2d2f1296e40a28d9be'
          '532bb44f12fc5682e5f67506e7089ba7'
          '5fccc5e8549d3ef1e90df550f2291cfe')
-noextract=("${source[@]##*/}")
+noextract=("${source[@]%%::*}") # "Parsing filters is unsupported"
 
-prepare() {
-    cd "${srcdir}"
+pkgver() {
+    #find . -mindepth 1 -maxdepth 1 -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -mindepth 1 -maxdepth 1 -name '*.exe' -execdir bash -c 'unrar l "{}" | sed "/^;/d" | sed "/^$/d" | tail -n +6 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 4 | sed -r "s/^([0-9][0-9])-([0-9][0-9])-([0-9][0-9])$/20\3.\2.\1/"' \; | sort | tail -1
+}
 
-    for f in *.exe
+_lc() {
+    for f in "${@}"
     do
-        unrar x -idq -o+ "${f}"
-    done
-
-    for f in *
-    do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z' | tr ' ' '_')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -86,7 +80,21 @@ prepare() {
     done
 }
 
+prepare() {
+    for f in *.exe
+    do
+        unrar x -idq -tsm -o+ "${f}"
+    done
+    _lc *
+    for f in *" "*
+    do
+        n="$(echo "${f}" | tr ' ' '_')"
+        mv "${f}" "${n}"
+    done
+}
+
 package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
-    cp "${srcdir}"/*.{sct,sc2} "${pkgdir}/apps${_apparch}/${_dirname}/"
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp *.sc2 "${a}"
 }

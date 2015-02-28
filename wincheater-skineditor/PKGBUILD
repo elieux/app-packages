@@ -6,30 +6,21 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.02
-pkgrel=1
+pkgrel=2
 pkgdesc="Skin designer for WinCheater"
-url="http://www.cheater.cz/winch/win_uvod.htm"
+url="http://www.cheater.cz/winch/skin2_uvod.htm"
 arch=('any')
 license=('custom')
-depends=("app-i686-wincheater")
-makedepends=("p7zip" "upx")
+makedepends=("upx")
 provides=("${pkgbase}")
 options=(!strip) # upx
 source=("SkinEditor2.exe::http://www.cheater.cz/download/SkinEditor2.exe")
 md5sums=('04beff1faf50e8ae7feeb0047083d80e')
 
-pkgver() {
-    b="${srcdir}/SkinEditor2.exe"
-    upx -q -f -o "${b}.unpx" -d "${b}" > /dev/null
-    strings -d -eS "${b}.unpx" | grep -A 1 Caption | grep "pro WinCheater 2" | sed -r 's/SkinEditor ([0-9]+[.][0-9]+) pro WinCheater 2/\1/' | tr -d ' '
-}
-
-prepare() {
-    cd "${srcdir}"
-
-    for f in *
+_lc() {
+    for f in "${@}"
     do
-        n=$(echo "${f}" | tr 'A-Z' 'a-z')
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
             mv "${f}" "${n}"
@@ -37,7 +28,17 @@ prepare() {
     done
 }
 
+pkgver() {
+    upx -q -f -o "unpx" -d "SkinEditor2.exe" > /dev/null
+    strings -d -eS "unpx" | grep -A 1 Caption | grep "pro WinCheater 2" | sed -r 's/SkinEditor ([0-9]+[.][0-9]+) pro WinCheater 2/\1/' | tr -d ' '
+}
+
+prepare() {
+    _lc *
+}
+
 package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_dirname}"
-    cp "${srcdir}/skineditor2.exe" "${pkgdir}/apps${_apparch}/${_dirname}/"
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp "skineditor2.exe" "${a}"
 }

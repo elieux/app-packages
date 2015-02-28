@@ -1,0 +1,23 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=wincheater-data
+_dirname=wincheater
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=164
+pkgrel=1
+pkgdesc="Texts for WinCheater"
+url="http://www.cheater.cz/winch/win_download_knihovny.htm"
+arch=('any')
+license=('custom')
+makedepends=("p7zip" "unrar")
+provides=("${pkgbase}")
+source=("texty.exe::http://www.cheater.cz/download/upd/${pkgver}/texty.exe")
+md5sums=('c9d4aa2592c79945f7d2452e49aee057')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp *.sct "${a}"
+}

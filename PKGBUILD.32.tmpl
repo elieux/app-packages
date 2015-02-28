@@ -1,0 +1,43 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=<customize>
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=<customize>
+pkgrel=1
+pkgdesc="<customize>"
+url="<customize>"
+arch=('any')
+license=('<customize>')
+depends=("<customize>")
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("<customize>::<customize>")
+md5sums=('<customize>')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r *.{exe,dll} "${a}"
+
+    a="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r *.{txt,chm} "${a}"
+}

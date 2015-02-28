@@ -6,7 +6,7 @@ _realname=nirsoft
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2015.02.21
+pkgver=2015.02.27
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="http://www.nirsoft.net/"
@@ -444,7 +444,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '87902370fae364788d923ff81081e152'
          '7b5d7913cb7a46a6638f117b12d13db8'
          'e37156c4012901b8dc8522e714fc2209'
-         '494c248fb7e4f22050e63aaac241f85e'
+         '3151bea2c3d36d55f52cfe78b18bd188'
          'a513723daaed8a79df6f3f524d2e2cc5'
          '51f2ff3e3d78ed90cd1a20d13e04bde0'
          'ac2fc2d32c148fa70b3471c648d48ff5'
@@ -456,8 +456,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '84d3b86083ca1772425e62be583f8e79'
          '3ff9d311b9449bb3686a04552c14af08'
          '19ee0c4add2f2d04b1adcd54be245c0b'
-         'f1d645aaf78e223c40ceb7996ba92132'
-         '2968c39faacf0c55905b2dcc9720d1b8'
+         '420a2996aa10bf7639000fcd5c6ccf4e'
+         'cbc1911e586172a958239ad90231351c'
          '7e09d1141e9b6c6fc50c548e9de1150c'
          '60cdca647984ec3a4e57c66e4f79edbd'
          'fef19ef7b7a5980f963abe322edd5464'
@@ -487,8 +487,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'b9bd87d625308f2fd44b49ece633f49f'
          '4ffea94d9e16830a15831c655b3ae995'
          '74d2617ac5a3b25cf6bc44217827d969'
-         '30c9c5ee1853ec87a95d7cbb03e052de'
-         'dc762e405ec017a231d89ab4d746c36e'
+         'fa22563270643db4ebefbd0d1bebcaad'
+         '9f569f208c035530d726863e925e23a4'
          'bb17a14d6de94f3a03c55f6d5d19f355'
          'cdbb974315c26187ed50992657a9e133'
          '08a6d34ee0dc581baad02751f5c38e31'
@@ -515,8 +515,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'd3986676dde6614b3b445fa046da1cd2'
          '0420b4d69a669997faa642faf92a1345'
          'd1e2fa0b79c064e0855ae0673f53fc43'
-         'ba4c15e1a0bbde406507228b907f0400'
-         '969ccb2587976c95e114051810a6511e'
+         '64055b69b197aad4bd02c628842f1287'
+         'ce19357eeec17dce44252919df7f3112'
          '91698a8336d5a6d7b3885737ade80cac'
          'b63142248234cd687f43bdc20621992b'
          '3a1896b8085b7b76d52876f45dcd7e53'
@@ -527,8 +527,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '1102e6400d443eb1cd45430a1ca6aad7'
          'cc53a3b9a8f16662004001f3536184d5'
          '77c9900678dd866ccd3ba86cfe669a85'
-         '5a92e3323baf4d6e0b2c7fa812a0bd7d'
-         'a6a2d9a235c738789ab6f4aab7480fc6'
+         '7ce55d5b1f32fe1b57b259b6c7b3414d'
+         '19e013087483bab05ad18678912630b7'
          '1d8174fe3aa8f1142eaa97c9009928f7'
          '67564d4d8277797f465f3698b3f44449'
          '8e1f3d6217061dc618f869b1366113a1'
@@ -591,7 +591,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '3625dc3f57f0793192166c3ce4db02ff'
          'f79a7d8958aa92a159f56f6cedb90a58'
          '914579f03a7c5df062632f9eb917fd22'
-         '93d5e2f442a06ddf6eeab0753262b034'
+         'a873d7f5fd06dfa397bace816db00888'
          '152b589b8027a1bf1cf3a6d8a086211f'
          '8ed592c70dac699c3011d79bbfe7a694'
          'c05593ed1c61ad09e855e496c73bf0b4'
@@ -637,67 +637,64 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '5899fbccf68c95dea45195693d825d8b')
 noextract=("${source[@]##*/}")
 
-pkgver() {
-    #find "${srcdir}" -mindepth 2 -maxdepth 2 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
-}
-
-prepare() {
-    cd "${srcdir}"
-
-    for util in *.zip
+_lc() {
+    for f in "${@}"
     do
-        unzip -o "${util}" -d "${util%%.zip}"
-        for f in "${util%%.zip}"/*
-        do
-            n=$(echo "${f}" | tr 'A-Z' 'a-z')
-            if test "${f}" != "${n}"
-            then
-                mv "${f}" "${n}"
-            fi
-        done
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
     done
 }
 
-package() {
-    mkdir -p "${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${pkgdir}/docs${_apparch}/${_realname}"
+pkgver() {
+    #find . -mindepth 2 -maxdepth 2 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
+}
 
-    for dir in $1
+prepare() {
+    for f in *.zip
     do
-        dir="${dir%%.zip}"
-        util="${dir##*/}"
-        util="${util%%-x64}"
+        unzip -o "${f}" -d "${f%%.zip}"
+        _lc "${f%%.zip}"/*
+    done
+}
 
-        for ext in exe dll frm frx vbp vbw
-        do
-            find "${dir}" -name '*.'"${ext}" -not -name 'regsvr32.exe' -execdir cp "{}" "${pkgdir}/apps${_apparch}/${_realname}" \;
-        done
-        for file in "${util}.txt" 'readme.txt'
-        do
-            find "${dir}" -name "${file}" -execdir cp "{}" "${pkgdir}/docs${_apparch}/${_realname}/${util}.txt" \;
-        done
-        find "${dir}" -name '*.chm' -execdir cp "{}" "${pkgdir}/docs${_apparch}/${_realname}" \;
-
-        extras=$(find "${dir}" -mindepth 1 -regextype posix-extended -not -regex '.+\.(exe|dll|ocx|frm|frx|vbp|vbw|chm)' -not -name 'readme.txt' -not -name "${util}.txt")
-        for f in ${extras}
-        do
-            mkdir -p "${pkgdir}/docs${_apparch}/${_realname}/${util}"
-            cp "${f}" "${pkgdir}/docs${_apparch}/${_realname}/${util}"
-        done
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    for s in $1
+    do
+        s="${s%%.zip}"
+        u="${s##*/}"
+        u="${u%%-x64}"
+        echo "${u}"
+        mkdir "${d}/${u}"
+        cp "${s}"/* "${d}/${u}"
+        find "${d}/${u}" -regextype posix-extended -regex '.+\.(exe|dll|ocx|frm|frx|vbp|vbw)' -print0 | xargs -0 mv -t "${a}"
+        find "${d}/${u}" -name '*.chm' -print0 -o -name 'readme.txt' -print0 -o -name "${u}.txt" -print0 | xargs -0r mv -t "${d}"
+        if test -f "${d}/readme.txt"
+        then
+            mv "${d}/readme.txt" "${d}/${u}.txt"
+        fi
+        if test -z "$(find "${d}/${u}" -type f)"
+        then
+            rm -d "${d}/${u}"
+        fi
     done
 }
 
 package_app-i686-nirsoft() {
     _apparch=32
-    files="$(find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*.zip' -not -name '*x64*')"
-    package "${files}"
-    rm "${pkgdir}/apps${_apparch}/${_realname}/runfromprocess-x64.exe"
+    _package "$(find . -mindepth 1 -maxdepth 1 -name '*.zip' -not -name '*x64*')"
+    rm "${pkgdir}/apps${_apparch}/${_realname}"/{runfromprocess-x64.exe,regsvr32.exe,mswinsck.ocx}
 }
 
 package_app-x86_64-nirsoft() {
     _apparch=64
-    files="$(find "${srcdir}" -mindepth 1 -maxdepth 1 -name '*x64*.zip')"
-    package "${files}"
-    cp "${srcdir}/runfromprocess/runfromprocess-x64.exe" "${pkgdir}/apps${_apparch}/${_realname}/runfromprocess.exe"
+    _package "$(find . -mindepth 1 -maxdepth 1 -name '*x64*.zip')"
+    cp "runfromprocess/runfromprocess-x64.exe" "${pkgdir}/apps${_apparch}/${_realname}/runfromprocess.exe"
 }

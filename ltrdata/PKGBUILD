@@ -14,7 +14,7 @@ arch=('any')
 license=('custom')
 makedepends=("unzip" "curl")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("calldll64.zip::http://www.ltr-data.se/files/win64/calldll64.zip"
         "enumps64.zip::http://www.ltr-data.se/files/win64/enumps64.zip"
         "exelist64.zip::http://www.ltr-data.se/files/win64/exelist64.zip"

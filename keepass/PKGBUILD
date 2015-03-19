@@ -12,7 +12,7 @@ arch=('any')
 license=('GPL2')
 makedepends=("unzip")
 provides=("${pkgbase}")
-options=(!strip) # manifests
+options=(!strip)
 source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip"
         "KeePass2-TrlUtil.zip::http://keepass.info/download/v2_trlutil/TrlUtil-${pkgver}.zip"
         "KPScript.zip::http://keepass.info/extensions/v2/kpscript/KPScript-${pkgver}.zip"

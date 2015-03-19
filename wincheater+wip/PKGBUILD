@@ -13,7 +13,7 @@ license=('custom')
 depends=("app-i686-wincheater-data")
 makedepends=("p7zip")
 provides=("${pkgbase}")
-options=(!strip) # upx
+options=(!strip)
 source=("WinCH2_onlysetup.exe::http://www.cheater.cz/download/WinCH2_onlysetup.exe")
 md5sums=('010edb11b51097259c6827e81ee842dd')
 

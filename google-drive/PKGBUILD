@@ -11,7 +11,7 @@ url="http://www.google.com/drive/"
 arch=('any')
 license=('custom')
 provides=("${pkgbase}")
-options=(!strip) # embedded data
+options=(!strip)
 source=("http://dl.google.com/drive/${pkgver}/gsync.msi")
 md5sums=('ffe54b06e6264eed0ce262a12d5aafdc')
 

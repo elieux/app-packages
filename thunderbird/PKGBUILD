@@ -12,7 +12,7 @@ arch=('any')
 license=('GPL' 'MPL')
 makedepends=("p7zip")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("ThunderbirdSetup.exe::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/en-US/Thunderbird Setup ${pkgver}.exe"
         "ar.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ar.xpi"
         "ast.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ast.xpi"

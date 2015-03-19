@@ -12,7 +12,7 @@ arch=('any')
 license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("http://download.sysinternals.com/files/SysinternalsSuite.zip"
         "http://download.sysinternals.com/files/BlueScreen.zip")
 md5sums=('e8a9023590a9b59726da860c6023dc71'

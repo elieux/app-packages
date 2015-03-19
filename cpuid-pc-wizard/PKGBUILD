@@ -13,7 +13,7 @@ arch=('any')
 license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("pc-wizard.zip::http://www.cpuid.com/medias/files/softwares/${_realname}/${_realname}_${pkgver//.0/.}.zip")
 md5sums=('f0002f6e691ea0edd2760f09ebf69af3')
 

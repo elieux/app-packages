@@ -14,7 +14,7 @@ arch=('any')
 license=('GPL2')
 makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
-options=(!strip) # embedded data
+options=(!strip)
 source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x86Community.exe"
         "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x64Community.exe")
 md5sums=('c02e6f79fd564319cc38ef99144d825f'

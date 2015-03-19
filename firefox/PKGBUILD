@@ -12,7 +12,7 @@ arch=('any')
 license=('GPL' 'LGPL', 'MPL')
 makedepends=("p7zip")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("FirefoxSetup.exe::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/en-US/Firefox Setup ${pkgver}.exe"
         "ach.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ach.xpi"
         "af.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/af.xpi"

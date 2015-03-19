@@ -11,7 +11,7 @@ url="http://www.viber.com/en/products/windows"
 arch=('any')
 license=('custom')
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.exe")
 md5sums=('6f269a83afcab3ea6980d85dad878892')
 

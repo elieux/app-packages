@@ -11,7 +11,7 @@ arch=('any')
 url="http://www.techpowerup.com/downloads/2463/techpowerup-gpu-z-v0-8-2/"
 license=('custom')
 provides=("${pkgbase}")
-options=(!strip) # upx
+options=(!strip)
 source=("GPU-Z.exe::http://www.techpowerup.com/downloads/2463/techpowerup-gpu-z-v${pkgver//./-}/start?server=6")
 md5sums=('b129a871141c45c77721b298bb3d7a21')
 

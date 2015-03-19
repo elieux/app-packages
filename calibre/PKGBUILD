@@ -11,7 +11,7 @@ url="http://calibre-ebook.com/"
 arch=('any')
 license=('GPL3')
 provides=("${pkgbase}")
-options=(!strip) # embedded data
+options=(!strip)
 source=("calibre32.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-${pkgver}.0.msi"
         "calibre64.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-64bit-${pkgver}.0.msi")
 md5sums=('0396c9012e877be522f08387b5e78eac'

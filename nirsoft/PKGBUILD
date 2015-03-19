@@ -14,7 +14,7 @@ arch=('any')
 license=('custom')
 makedepends=("unzip" "curl")
 provides=("${pkgbase}")
-options=(!strip) # upx
+options=(!strip)
 source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
         "http://www.nirsoft.net/dot_net_tools/snremove.zip"
 

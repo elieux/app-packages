@@ -6,13 +6,14 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2015.03.09
-pkgrel=1
+pkgrel=2
 pkgdesc="Video game cheats and guides databases for WinCheater"
 url="http://www.cheater.cz/winch/win_download_knihovny.htm"
 arch=('any')
 license=('custom')
 makedepends=("p7zip" "unrar")
 provides=("${pkgbase}")
+options=(!strip)
 source=("Cheaty.exe::http://www.cheater.cz/download/Cheaty.exe"
         "Navody.exe::http://www.cheater.cz/download/Navody.exe"
         "Easter_Eggy.exe::http://www.cheater.cz/download/Easter_Eggy.exe"

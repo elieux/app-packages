@@ -13,7 +13,7 @@ arch=('any')
 license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("perfmonitor-2.zip::http://www.cpuid.com/medias/files/softwares/${_realname}-2/${_realname}-2_${pkgver}.zip")
 md5sums=('b197964f85c35ba0781c679b967be4c6')
 

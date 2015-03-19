@@ -12,7 +12,7 @@ arch=('any')
 license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("xmplay.zip::http://us.un4seen.com/files/xmplay38.zip")
 md5sums=('416a1dfd03186892ca4e11a04e7df8db')
 

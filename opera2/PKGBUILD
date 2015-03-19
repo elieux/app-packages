@@ -12,7 +12,7 @@ arch=('any')
 license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=38198&location=395&nothanks=yes&sub=marine")
 md5sums=('68632f105a087da1de419102ccd0ea87')
 

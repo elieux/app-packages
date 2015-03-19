@@ -14,7 +14,7 @@ arch=('any')
 license=('custom')
 makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
-options=(!strip) # embedded data, digital signatures
+options=(!strip)
 source=("Dropbox.exe::https://www.dropbox.com/download?full=1&plat=win")
 md5sums=('54f13eb20db977787bf954553611db62')
 

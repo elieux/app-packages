@@ -12,7 +12,7 @@ arch=('any')
 license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("http://download.teamviewer.com/download/TeamViewerPortable.zip")
 md5sums=('c333dc1cdcb34a594631ae3f8704e080')
 

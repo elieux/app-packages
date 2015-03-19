@@ -12,7 +12,7 @@ arch=('any')
 license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
-options=(!strip) # digital signatures
+options=(!strip)
 source=("http://www.froggie.sk/download/Vistalizator.exe"
         "http://www.froggie.sk/download/Languages.zip")
 md5sums=('5def875c32d7ae0c18390afd32f04701'

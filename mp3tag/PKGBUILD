@@ -12,7 +12,7 @@ url="http://mp3tag.de/en/index.html"
 license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
-options=(!strip) # upx
+options=(!strip)
 source=("mp3tagsetup.exe::http://download.mp3tag.de/mp3tagv${pkgver//./}setup.exe")
 md5sums=('ffba0c17b5310260460b7f35d759e22c')
 

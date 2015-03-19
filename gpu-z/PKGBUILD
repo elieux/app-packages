@@ -1,0 +1,37 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=gpu-z
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=0.8.2
+pkgrel=1
+pkgdesc="Lightweight utility providing GPU and graphics card information"
+arch=('any')
+url="http://www.techpowerup.com/downloads/2463/techpowerup-gpu-z-v0-8-2/"
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip) # upx
+source=("GPU-Z.exe::http://www.techpowerup.com/downloads/2463/techpowerup-gpu-z-v${pkgver//./-}/start?server=6")
+md5sums=('b129a871141c45c77721b298bb3d7a21')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r *.exe "${a}"
+}

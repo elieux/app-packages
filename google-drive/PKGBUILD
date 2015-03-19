@@ -4,7 +4,7 @@ _realname=google-drive
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.19.8406.6504
+pkgver=1.20.8672.3137
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
 url="http://www.google.com/drive/"
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip) # embedded data
 source=("http://dl.google.com/drive/${pkgver}/gsync.msi")
-md5sums=('1576bcf64f4692ee71a770a32416fe9e')
+md5sums=('ffe54b06e6264eed0ce262a12d5aafdc')
 
 _lc() {
     for f in "${@}"

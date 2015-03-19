@@ -1,0 +1,74 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=far
+_realver=30b4242-20150117
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver="$(echo -n "${_realver}" | sed -r 's/^([0-9])([0-9])b([0-9]+)-[0-9]+$/\1.\2.\3/')"
+pkgrel=1
+pkgdesc="Extensible text mode file manager"
+url="http://farmanager.com/"
+arch=('any')
+license=('GPL2' 'BSD' 'custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Far.x86.7z::http://farmanager.com/files/Far${_realver%%-*}.x86.${_realver##*-}.7z"
+        "Far.x64.7z::http://farmanager.com/files/Far${_realver%%-*}.x64.${_realver##*-}.7z")
+md5sums=('1571f96060d9a8885d497466556f11f5'
+         'f3bc60013d71972374697255a1c15397')
+noextract=("${source[@]%%::*}")
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    for f in *.7z
+    do
+        7z x -y -bd "${f}" -o"${f%%.7z}"
+        _lc "${f%%.7z}"/*
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "Far.x${1}"/*.{exe,lng,hlf,dll,cmd} "Far.x${1}"/{addons,pluginsdk} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp -r "Far.x${1}"/*.{ini,diz,map} "Far.x${1}"/changelog{,_eng} "Far.x${1}"/{documentation,encyclopedia} "${d}"
+
+    mkdir -p "${a}/plugins" "${d}/plugins"
+    for f in "Far.x${1}/plugins"/*
+    do
+        p="${f##*/}"
+        echo "${p}"
+        mkdir -p "${a}/plugins/${p}" "${d}/plugins/${p}"
+        cp -r "${f}"/* "${a}/plugins/${p}"
+        find "${a}/plugins/${p}" -regextype posix-extended -maxdepth 1 -regex '.+([.](txt|md)|LICENSE|changelog.*)' -print0 | xargs -0r mv -t "${d}/plugins/${p}"
+        if test -z "$(find "${d}/plugins/${p}" -type f)"
+        then
+            rm -d "${d}/plugins/${p}"
+        fi
+    done
+}
+
+package_app-i686-far() {
+    _apparch=32
+    _package "86"
+}
+
+package_app-x86_64-far() {
+    _apparch=64
+    _package "64"
+}

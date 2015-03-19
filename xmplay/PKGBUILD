@@ -1,0 +1,32 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=xmplay
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=3.8.1.2
+pkgrel=1
+pkgdesc="Light weight, pluggable audio player"
+url="http://www.un4seen.com/xmplay.html"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip) # digital signatures
+source=("xmplay.zip::http://us.un4seen.com/files/xmplay38.zip")
+md5sums=('416a1dfd03186892ca4e11a04e7df8db')
+
+pkgver() {
+    b="$(cygpath -wa "xmplay.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r *.{dll,exe} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp -r *.txt "${d}"
+}

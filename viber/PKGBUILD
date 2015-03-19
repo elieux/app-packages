@@ -4,7 +4,7 @@ _realname=viber
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=5.0.0.2821
+pkgver=5.0.1.42
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
 url="http://www.viber.com/en/products/windows"
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip) # digital signatures
 source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.exe")
-md5sums=('2b2a89b2997d0cf26d4718f06d78a9a5')
+md5sums=('6f269a83afcab3ea6980d85dad878892')
 
 _lc() {
     for f in "${@}"
@@ -28,7 +28,7 @@ _lc() {
 
 pkgver() {
     b="$(cygpath -wa "ViberSetup.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
 }
 
 prepare() {

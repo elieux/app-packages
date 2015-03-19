@@ -1,0 +1,50 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=mp3tag
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.69
+pkgrel=1
+pkgdesc="Powerful audio metadata editor"
+arch=('any')
+url="http://mp3tag.de/en/index.html"
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip) # upx
+source=("mp3tagsetup.exe::http://download.mp3tag.de/mp3tagv${pkgver//./}setup.exe")
+md5sums=('ffba0c17b5310260460b7f35d759e22c')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    w="*license*.txt"
+    7z x -y -bd -x!"${w}" "mp3tagsetup.exe"
+    for f in $(7z l -y -bd -i!"${w}" "mp3tagsetup.exe" | grep 'license.*txt' | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's/^.*\\//')
+    do
+        7z e -y -bd -so -i!"*${f}" "mp3tagsetup.exe" > "${f}"
+    done
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}" "${a}/help"
+    cp -r "data" "export" "lang" *.{exe,dll} "${a}"
+    touch "${a}/help/helpmap.idx"
+    rm "${a}/mp3tagsetup.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp -r "help" *.txt "${d}"
+}

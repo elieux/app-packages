@@ -1,0 +1,45 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=vistalizator
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.63
+pkgrel=1
+pkgdesc="Tool for changing display language in all Windows editions"
+url="http://www.froggie.sk/index.html"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip) # digital signatures
+source=("http://www.froggie.sk/download/Vistalizator.exe"
+        "http://www.froggie.sk/download/Languages.zip")
+md5sums=('5def875c32d7ae0c18390afd32f04701'
+         '60b66f346962e391ff284d1b905db429')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    b="$(cygpath -wa "Vistalizator.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r *.exe "languages" "${a}"
+}

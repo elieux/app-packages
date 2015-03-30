@@ -86,7 +86,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - epsxecutor
 - exact-audio-copy
 - f.lux
-- far
 - fasm
 - fdtray
 - filezilla
@@ -108,7 +107,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - getgnuwin32
 - ghc
 - ghostscript
-- git
 - gmer
 - gnuplot
 - gnuwin32
@@ -116,7 +114,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - godfather
 - gog-downloader
 - golly
-- gpu-z
 - graphviz
 - groovy
 - gspot
@@ -175,7 +172,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - miles-sound-tools
 - mono
 - mono-migration-analyzer
-- mp3tag
 - mpd
 - mplayer
 - multi-threaded-tcp-port-scanner
@@ -200,9 +196,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - openmcdf-explorer
 - openmpt
 - openvpn
-- opera
-- opera-mail
-- opera-mobile-emulator
 - package-this
 - pactester
 - paint.net
@@ -295,7 +288,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - tftpd32
 - thumbnail-database-viewer
 - thunderbird-dictionaries
-- tightvnc
 - toad-mysql
 - tor
 - tora
@@ -324,7 +316,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - virtual-disk-driver
 - virtual-floppy-drive
 - virtual-vcr
-- vistalizator
 - visual-subst
 - vklay
 - vlite
@@ -352,7 +343,8 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - xdoc2txt
 - xenu
 - xming
-- xmplay
+- xmplay-plugins
+- xmplay-skin-editor
 - xn-resource-editor
 - xnview
 - xpinfo
@@ -377,7 +369,6 @@ These are already present in `mingw-packages` in some form or other, so they're 
 - mpv
 - ffmpeg
 - gimp
-- gnupg
 - chromium
 - cmake
 - conemu

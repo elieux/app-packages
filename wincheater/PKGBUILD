@@ -11,7 +11,7 @@ url="http://www.cheater.cz/winch/win_uvod.htm"
 arch=('any')
 license=('custom')
 depends=("app-i686-wincheater-data")
-makedepends=("p7zip")
+makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("WinCH2_onlysetup.exe::http://www.cheater.cz/download/WinCH2_onlysetup.exe")
@@ -33,21 +33,13 @@ pkgver() {
 }
 
 prepare() {
-    #7z x -y -bd "WinCH2_onlysetup.exe"
-
-    #strip "WinCH2_onlysetup.exe" -o "exec"
-    #dd if="WinCH2_onlysetup.exe" of="data" bs=1 skip="$(stat -c %s "exec")"
-    #7z x -y -bd "data"
-
-    msg "Please, install WinCH2_onlysetup.exe and put 'Scorpions WinCheater' into '${srcdir}' and press Enter."
-    read
-
-    _lc "Scorpions WinCheater"/*
+    /apps32/innounp/innounp -x -q -m -a -y "WinCH2_onlysetup.exe"
+    _lc "{app}"/*
 }
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "Scorpions WinCheater"/* "${a}"
-    rm "${a}"/unins000.{dat,exe} "${a}/texty.sct"
+    cp -r "{app}"/* "${a}"
+    rm "${a}/texty.sct"
 }

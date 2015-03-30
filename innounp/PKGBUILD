@@ -1,0 +1,33 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=innounp
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=0.41
+pkgrel=1
+pkgdesc="Inno Setup unpacker"
+url="http://innounp.sourceforge.net/"
+arch=('any')
+license=('GPL')
+makedepends=("unrar")
+provides=("${pkgbase}")
+options=(!strip)
+source=("innounp.rar::http://downloads.sourceforge.net/${_realname}/${_realname}/${_realname}%20${pkgver}/${_realname}${pkgver//./}.rar")
+md5sums=('906d74f362365aa423b0f26653cf0acf')
+noextract=("${source[@]%%::*}") # "Parsing filters is unsupported"
+
+prepare() {
+    unrar x -idq -tsm -o+ "innounp.rar"
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp *.exe "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp *.htm "${d}"
+}
+

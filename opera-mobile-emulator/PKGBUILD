@@ -1,0 +1,49 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=opera-mobile-emulator
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=12.10.46154
+pkgrel=1
+pkgdesc="Mobile Opera Classic debugging on the desktop"
+url="http://www.opera.com/developer/mobile-emulator"
+arch=('any')
+license=('custom')
+makedepends=("app-i686-innounp")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Opera_Mobile_Emulator_Windows.exe::http://www.opera.com/download/get/?id=35131&location=360&nothanks=yes&sub=marine")
+md5sums=('ecbb1c6efae7f2b4e3b4bb8647c0e055')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    /apps32/innounp/innounp -e -q -m -a -y "Opera_Mobile_Emulator_Windows.exe" "OperaMobileEmu.exe" > /dev/null
+    strings -d -es "OperaMobileEmu.exe" | grep 'Opera Mobile/' | tail -1 | sed -r 's~^Opera Mobile/~~' | tr -d ' '
+}
+
+prepare() {
+    /apps32/innounp/innounp -x -q -m -a -y "Opera_Mobile_Emulator_Windows.exe"
+    _lc "{app}"/*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "{app}"/* "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}" "${d}/opera/gstreamer"
+    mv "${a}"/*.html "${d}"
+    mv "${a}/opera/gstreamer"/*.txt "${d}/opera/gstreamer"
+}

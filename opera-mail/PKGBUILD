@@ -1,0 +1,51 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=opera-mail
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.0.1040
+pkgrel=1
+pkgdesc="A lightweight, customizable mail client"
+url="http://www.opera.com/computer/mail"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Opera-Mail.i386.exe::http://www.opera.com/download/get/?id=35800&location=360&nothanks=yes&sub=marine")
+md5sums=('c7691d6a6d86fd60a1c63911362fe7cc')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    7z e -y -bd "Opera-Mail.i386.exe" "operamail.exe" > /dev/null
+    b="$(cygpath -wa "operamail.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
+}
+
+prepare() {
+    7z x -y -bd "Opera-Mail.i386.exe"
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r * "${a}"
+    rm -r "${a}/updatechecker" "${a}"/files* "${a}/opera-mail.i386.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}" "${d}/gstreamer"
+    mv "${a}/help" "${d}"
+    mv "${a}/gstreamer"/*.txt "${d}/gstreamer"
+}

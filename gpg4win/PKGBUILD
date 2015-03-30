@@ -1,0 +1,49 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=gpg4win
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.2.4
+pkgrel=1
+pkgdesc=""
+url="http://www.gpg4win.org/index.html"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("gpg4win.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${pkgver}_${_reldate}.exe")
+md5sums=('8a37b33de5d87438d12f959a2109bf57')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -y -bd "gpg4win.exe"
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r * "${a}"
+    find "${a}" -iname '*.tmp' -delete
+    rm -r "${a}/gpg4win.exe" "${a}"/*.nsi{,s} "${a}"/'$'*
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}" "${d}/share" "${d}/share/gnupg"
+    mv "${a}/[license].txt" "${d}/LICENSE.txt"
+    mv "${a}"/*.pdf "${d}"
+    mv "${a}/share/doc" "${d}/share/doc"
+    mv "${a}/share/gnupg"/*.{man,txt} "${d}/share/gnupg"
+    mv "${a}/share/gpg4win" "${d}/share/gpg4win"
+}

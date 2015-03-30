@@ -1,0 +1,34 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=gnupg
+_realver=2.1.1_20141216
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=${_realver%%_*}
+pkgrel=1
+pkgdesc="Complete and free implementation of the OpenPGP standard"
+url="http://www.gnupg.org/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("gnupg-w32.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${_realver}.exe")
+md5sums=('185e8283de9ba0da1b8b348d47fdf19d')
+
+prepare() {
+    7z x -y -bd "gnupg-w32.exe"
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r bin etc include lib share "${a}"
+    find "${a}" -iname '*.tmp' -delete
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp -r "[LICENSE].txt" "${d}/LICENSE.txt"
+    cp -r "readme.txt" "${d}"
+}

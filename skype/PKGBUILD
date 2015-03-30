@@ -4,8 +4,8 @@ _realname=skype
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=7.1.32.105
-pkgrel=2
+pkgver=7.2.32.103
+pkgrel=1
 pkgdesc="P2P software for high-quality voice communication"
 url="http://www.skype.com/"
 arch=('any')
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
-md5sums=('065dd3114229f5e37c944c1988ec1f52')
+md5sums=('913ebbf257b73fa6c8ba4fb7c97ad4e8')
 
 _lc() {
     for f in "${@}"

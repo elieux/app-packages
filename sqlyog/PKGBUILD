@@ -6,7 +6,7 @@ _realname=sqlyog
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=12.0.9
+pkgver=12.1.0
 pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://code.google.com/p/sqlyog/"
@@ -15,10 +15,10 @@ license=('GPL2')
 makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x86Community.exe"
-        "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver%.*}${pkgver##*.}/SQLyog-${pkgver}-0.x64Community.exe")
-md5sums=('c02e6f79fd564319cc38ef99144d825f'
-         'f3ac4a5ce36568c0a36e72822217f89b')
+source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQlyog+${pkgver}/SQLyog-${pkgver}-0.x86Community.exe"
+        "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQlyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
+md5sums=('e9d0f2fc6931893efceaef5b92339520'
+         'fab53b6fc41683bc20dec9094bc60952')
 
 _lc() {
     for f in "${@}"

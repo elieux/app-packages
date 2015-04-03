@@ -4,7 +4,7 @@ _realname=calibre
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.22
+pkgver=2.23
 pkgrel=1
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
@@ -14,8 +14,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("calibre32.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-${pkgver}.0.msi"
         "calibre64.msi::http://downloads.sourceforge.net/${_realname}/${pkgver}.0/${_realname}-64bit-${pkgver}.0.msi")
-md5sums=('c628361575b915468d4c1b1bc04e320d'
-         '62fc63a26acd54b993247f8495d89bee')
+md5sums=('46b5d5c4e5f0961e5e9e8fca5fc8f960'
+         '37d596e5185edb726f3d5682084be397')
 
 _lc() {
     for f in "${@}"

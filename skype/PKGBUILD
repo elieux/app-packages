@@ -4,7 +4,7 @@ _realname=skype
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=7.2.32.103
+pkgver=7.3.32.101
 pkgrel=1
 pkgdesc="P2P software for high-quality voice communication"
 url="http://www.skype.com/"
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
-md5sums=('913ebbf257b73fa6c8ba4fb7c97ad4e8')
+md5sums=('3c953f12979b367fd8dec64287d49b51')
 
 _lc() {
     for f in "${@}"
@@ -41,7 +41,7 @@ build() {
     msiexec -a "SkypeSetup.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
 
     s="install/Program Files/Skype"
-    _lc "${s}/Phone"/* "${s}/Redist/Skype"/* "${s}/PFiles/Skype/Browser"/*
+    _lc "${s}/Phone"/* "${s}/Perfmon"/* "${s}/Redist/Skype"/* "${s}/PFiles/Skype/Browser"/*
 }
 
 package() {
@@ -49,7 +49,7 @@ package() {
 
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp "${s}/Phone"/* "${s}/PFiles/Skype/Browser/skypebrowserhost.exe" "${s}/Redist/Skype/skype4com.dll" "${a}"
+    cp "${s}/Phone"/* "${s}/Perfmon/performancecounters.mam" "${s}/PFiles/Skype/Browser/skypebrowserhost.exe" "${s}/Redist/Skype/skype4com.dll" "${a}"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

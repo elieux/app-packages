@@ -1,0 +1,70 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+# there are apparently multiple back-end servers some of which don't work well
+DLAGENTS=('http::/usr/bin/curl -qb "oraclelicense=accept-securebackup-cookie" -fLC - -o %o %u')
+
+_realname=jdk
+_realver=8u45-b14
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=${_realver%-*}
+pkgrel=1
+pkgdesc="Oracle Java Development Kit"
+url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
+arch=('any')
+license=('custom')
+makedepends=("p7zip" "unzip" "curl")
+provides=("${pkgbase}")
+options=(!strip)
+source=("jdk-windows32.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-i586.exe"
+        "jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-x64.exe")
+md5sums=('8d9bade03f9d25a648c5618b032bdf1e'
+         '6e7d7ae3ea834a54afbab09376fee190')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+_prepare() {
+    7z x -y -bd "jdk-windows${_apparch}.exe"
+    mv "tools.zip" "tools${_apparch}.zip"
+    unzip -o "tools${_apparch}.zip" -d "tools${_apparch}"
+    _lc "tools${_apparch}"/*
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+}
+
+_package() {
+    s="tools${_apparch}"
+
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "${s}"/{bin,db,include,jre,lib} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp "${s}"/*.{html,txt,zip} "${s}"/{license,release} "${d}"
+}
+
+package_app-i686-jdk() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-jdk() {
+    _apparch=64
+    _package
+}

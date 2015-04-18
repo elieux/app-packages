@@ -1,0 +1,30 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-tray-totp
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.0.0.5
+pkgrel=1
+pkgdesc="A KeePass plugin that adds TOTP to tray menu, entry list and Auto-Type"
+url="http://sourceforge.net/projects/traytotp-kp2/"
+arch=('any')
+license=('GPL3')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("TrayTotp.plgx::http://downloads.sourceforge.net/traytotp-kp2/Tray%20TOTP%20v.%20${pkgver}/TrayTotp.plgx"
+        "Readme.txt::http://downloads.sourceforge.net/traytotp-kp2/Tray%20TOTP%20v.%20${pkgver}/Tray%20TOTP%20v.%20${pkgver}%20Readme.txt")
+md5sums=('f354808d24ed9ba250e595249fd66dfa'
+         '2289bbca2dc7fd71b741d361b71a074e')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/plugins/tray-totp"
+    cp *.txt "${d}/plugins/tray-totp"
+}

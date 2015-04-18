@@ -1,0 +1,28 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-otpkeyprov
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.3
+pkgrel=1
+pkgdesc="A KeePass plugin that allows using OTP codes for master key"
+url="http://keepass.info/plugins.html#otpkeyprov"
+arch=('any')
+license=('unknown')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("OtpKeyProv.zip::http://keepass.info/extensions/v2/otpkeyprov/OtpKeyProv-${pkgver}.zip")
+md5sums=('c4f23782b3772a1db40ac4f3c96c080f')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/plugins/otpkeyprov"
+    cp *.html "${d}/plugins/otpkeyprov"
+}

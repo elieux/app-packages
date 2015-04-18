@@ -1,0 +1,29 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-keeotp
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.3.6
+pkgrel=1
+pkgdesc="A KeePass plugin that calculates TOTP codes"
+url="http://bitbucket.org/devinmartin/keeotp"
+arch=('any')
+license=('MIT')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("KeeOtp.zip::http://bitbucket.org/devinmartin/keeotp/downloads/KeeOtp-${pkgver}.zip")
+md5sums=('be7e16386f4271d480157e6c8884564d')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp "dlls"/*.dll "${a}"
+    cp *.plgx "${a}/plugins"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/plugins/keeotp"
+    cp *.txt "${d}/plugins/keeotp"
+}

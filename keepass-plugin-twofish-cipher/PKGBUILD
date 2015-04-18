@@ -1,0 +1,28 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-twofish-cipher
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.3
+pkgrel=1
+pkgdesc="A KeePass plugin that enables to encrypt databases using the Twofish algorithm"
+url="http://gogogadgetscott.info/keepass/twofishcipher/"
+arch=('any')
+license=('GPL3')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("TwofishCipher.zip::http://gogogadgetscott.info/keepass/twofishcipher/TwofishCipher-${pkgver}.zip")
+md5sums=('34ff62b6d8fb1b0440c013873576cec8')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/plugins/twofish-cipher"
+    cp *.txt "${d}/plugins/twofish-cipher"
+}

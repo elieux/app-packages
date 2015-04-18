@@ -1,0 +1,24 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-enhanced-listview
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=0.9.3.0
+pkgrel=1
+pkgdesc="A KeePass plugin that extends the listview"
+url="http://code.google.com/p/kpenhancedlistview/"
+arch=('any')
+license=('GPL2')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("KPEnhancedListview.zip::http://kpenhancedlistview.googlecode.com/files/KPEnhancedListview_${pkgver//./_}.zip")
+md5sums=('71571d5f80a918cd8ca2d888183bff21')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+}

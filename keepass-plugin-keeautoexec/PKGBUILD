@@ -1,0 +1,28 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-keeautoexec
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.8
+pkgrel=1
+pkgdesc="A KeePass plugin that opens additional databases when opening a database"
+url="http://keepass.info/plugins.html#keeautoexec"
+arch=('any')
+license=('unknown')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("KeeAutoExec.zip::http://keepass.info/extensions/v2/keeautoexec/KeeAutoExec-${pkgver}.zip")
+md5sums=('eb1a2ee11efcbead99a9653c24ccc673')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/plugins/keeautoexec"
+    cp *.html "${d}/plugins/keeautoexec"
+}

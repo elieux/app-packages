@@ -1,0 +1,28 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-entry-templates
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=6.01
+pkgrel=1
+pkgdesc="A KeePass plugin that provides templating support"
+url="http://sourceforge.net/projects/kpetemplates/"
+arch=('any')
+license=('unknown')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("KPEntryTemplates.zip::http://downloads.sourceforge.net/kpetemplates/KPEntryTemplates-${pkgver}.zip")
+md5sums=('548f657c89c8330d6813581f17038eb2')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/plugins/entry-templates"
+    cp *.txt "${d}/plugins/entry-templates"
+}

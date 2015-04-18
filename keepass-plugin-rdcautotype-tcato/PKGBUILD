@@ -1,0 +1,24 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-rdcautotype-tcato
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=0.6.2
+pkgrel=1
+pkgdesc="A KeePass plugin that provides customization of Auto-Type based on destination program"
+url="http://rdc-keepass-plugin.appspot.com/"
+arch=('any')
+license=('unknown')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("RDCAutoTypeAndTCATO.plgx::http://rdc-keepass-plugin.appspot.com/get?v=${pkgver#0//./}")
+md5sums=('5b07f6d96144f4a4aaa92126828f72f1')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+}

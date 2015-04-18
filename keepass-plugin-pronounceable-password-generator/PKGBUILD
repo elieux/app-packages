@@ -1,0 +1,29 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-pronounceable-password-generator
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.0.4b
+pkgrel=1
+pkgdesc="A KeePass plugin that generates pronounceable passwords"
+url="http://sourceforge.net/projects/pronouncepwgen/"
+arch=('any')
+license=('GPL3')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("PronouncePwGen.zip::http://downloads.sourceforge.net/pronouncepwgen/pronouncepwgen/${pkgver}/PronouncePwGen-${pkgver}.zip")
+md5sums=('e7f1134a543afd1fd76bb06a81d1880a')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+    cp -r "ppgsub" "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/plugins/pronounceable-password-generator"
+    cp *.txt "${d}/plugins/pronounceable-password-generator"
+}

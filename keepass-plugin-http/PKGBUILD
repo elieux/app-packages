@@ -1,0 +1,30 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-http
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.8.4.0
+pkgrel=1
+pkgdesc="A KeePass plugin to expose password entries securely over HTTP"
+url=""
+arch=('any')
+license=('unknown')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("KeePassHttp.plgx::http://github.com/pfn/keepasshttp/blob/${pkgver}/KeePassHttp.plgx"
+        "README.md::http://github.com/pfn/keepasshttp/blob/${pkgver}/README.md")
+md5sums=('0898392b38f158036eaf219ddb27f8b5'
+         'b07371f9516aa4a00249f4e9ebfe2618')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/plugins/http"
+    cp *.md "${d}/plugins/http"
+}

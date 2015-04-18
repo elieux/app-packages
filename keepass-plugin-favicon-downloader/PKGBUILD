@@ -1,0 +1,24 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-favicon-downloader
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.9.0
+pkgrel=1
+pkgdesc="A KeePass plugin that downloads and stores favicons"
+url="http://sourceforge.net/projects/keepass-favicon/"
+arch=('any')
+license=('GPL2')
+depends=("app-i686-keepass")
+provides=("${pkgbase}")
+options=(!strip)
+source=("KeePassFaviconDownloader.plgx::http://downloads.sourceforge.net/keepass-favicon/${pkgver}/KeePassFaviconDownloader.plgx")
+md5sums=('7b9bbc3196a31213403e2d0eafb1ef0a')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+}

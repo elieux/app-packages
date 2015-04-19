@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=gnupg
-_realver=2.1.1_20141216
+_realver=2.1.3_20150413
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gnupg-w32.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${_realver}.exe")
-md5sums=('185e8283de9ba0da1b8b348d47fdf19d')
+md5sums=('51b93005f1e9ad45bd65c332870e9cba')
 
 prepare() {
     7z x -y -bd "gnupg-w32.exe"
@@ -24,11 +24,11 @@ prepare() {
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r bin etc include lib share "${a}"
+    cp -r "bin" "include" "lib" "share" "${a}"
     find "${a}" -iname '*.tmp' -delete
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
     cp -r "[LICENSE].txt" "${d}/LICENSE.txt"
-    cp -r "readme.txt" "${d}"
+    cp -r "README.txt" "${d}"
 }

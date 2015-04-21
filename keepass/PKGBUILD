@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.29
-pkgrel=1
+pkgrel=2
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
@@ -96,27 +96,16 @@ md5sums=('edf6ddc24346a6181a898e78db1d352c'
          'c96ba09d4508939be336744d2e9751c6')
 noextract=("KeePass2-TrlUtil.zip")
 
-_lc() {
-    for f in "${@}"
-    do
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${f}" "${n}"
-        fi
-    done
-}
-
 prepare() {
-    unzip -o "KeePass2-TrlUtil.zip" -d "trlutil"
-    _lc * "trlutil"/*
+    unzip -o "KeePass2-TrlUtil.zip" -d "TrlUtil"
+    # when KPScript.exe is lowercased, it fails to load, so let's just keep everything as is
 }
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r *.{exe,exe.config,dll,lngx} "keepass.config.xml" "trlutil" "xsl" "${a}"
-    cp "keepass.config.xml" "${a}/trlutil"
+    cp -r *.{exe,exe.config,dll,lngx} "KeePass.config.xml" "TrlUtil" "XSL" "${a}"
+    cp "KeePass.config.xml" "${a}/TrlUtil"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

@@ -12,6 +12,7 @@ url="http://sourceforge.net/projects/kpetemplates/"
 arch=('any')
 license=('unknown')
 depends=("app-i686-keepass")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KPEntryTemplates.zip::http://downloads.sourceforge.net/kpetemplates/KPEntryTemplates-${pkgver}.zip")

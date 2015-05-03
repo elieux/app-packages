@@ -11,6 +11,7 @@ pkgdesc="Views and manages processes, services and more"
 url="http://processhacker.sourceforge.net/"
 arch=('any')
 license=('GPL2' 'GPL3')
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("processhacker-bin.zip::http://downloads.sourceforge.net/${_realname}/${_realname}2/${_realname}-${pkgver}-bin.zip")

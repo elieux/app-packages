@@ -12,6 +12,7 @@ url="http://keepass.info/plugins.html#keeautoexec"
 arch=('any')
 license=('unknown')
 depends=("app-i686-keepass")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeAutoExec.zip::http://keepass.info/extensions/v2/keeautoexec/KeeAutoExec-${pkgver}.zip")

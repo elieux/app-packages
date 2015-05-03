@@ -12,6 +12,7 @@ url="http://code.google.com/p/kpenhancedlistview/"
 arch=('any')
 license=('GPL2')
 depends=("app-i686-keepass")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KPEnhancedListview.zip::http://kpenhancedlistview.googlecode.com/files/KPEnhancedListview_${pkgver//./_}.zip")

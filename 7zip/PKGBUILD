@@ -10,6 +10,7 @@ pkgdesc="A free file archiver for extremely high compression"
 url="http://www.7-zip.org/"
 arch=('any')
 license=('LGPL2' 'custom')
+makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("7z32.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z${pkgver//./}.msi"

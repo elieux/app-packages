@@ -12,6 +12,7 @@ url="http://sourceforge.net/projects/pronouncepwgen/"
 arch=('any')
 license=('GPL3')
 depends=("app-i686-keepass")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("PronouncePwGen.zip::http://downloads.sourceforge.net/pronouncepwgen/pronouncepwgen/${pkgver}/PronouncePwGen-${pkgver}.zip")

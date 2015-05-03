@@ -12,6 +12,7 @@ url="http://gogogadgetscott.info/keepass/twofishcipher/"
 arch=('any')
 license=('GPL3')
 depends=("app-i686-keepass")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TwofishCipher.zip::http://gogogadgetscott.info/keepass/twofishcipher/TwofishCipher-${pkgver}.zip")

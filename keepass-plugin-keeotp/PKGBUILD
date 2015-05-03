@@ -12,6 +12,7 @@ url="http://bitbucket.org/devinmartin/keeotp"
 arch=('any')
 license=('MIT')
 depends=("app-i686-keepass")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeOtp.zip::http://bitbucket.org/devinmartin/keeotp/downloads/KeeOtp-${pkgver}.zip")

@@ -12,6 +12,7 @@ url="http://keepass.info/plugins.html#otpkeyprov"
 arch=('any')
 license=('unknown')
 depends=("app-i686-keepass")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("OtpKeyProv.zip::http://keepass.info/extensions/v2/otpkeyprov/OtpKeyProv-${pkgver}.zip")

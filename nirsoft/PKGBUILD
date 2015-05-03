@@ -6,7 +6,7 @@ _realname=nirsoft
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2015.04.18
+pkgver=2015.04.24
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="http://www.nirsoft.net/"
@@ -202,6 +202,7 @@ source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
         "http://www.nirsoft.net/utils/runfromprocess.zip"
         "http://www.nirsoft.net/utils/safaricacheview.zip"
         "http://www.nirsoft.net/utils/safarihistoryview.zip"
+        "http://www.nirsoft.net/utils/securitysoftview.zip"
         "http://www.nirsoft.net/utils/searchfilterview.zip"
         "http://www.nirsoft.net/utils/searchmyfiles.zip"
         "http://www.nirsoft.net/utils/searchmyfiles-x64.zip"
@@ -236,7 +237,6 @@ source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
         "http://www.nirsoft.net/utils/tcplogview-x64.zip"
         "http://www.nirsoft.net/utils/tflash.zip"
         "http://www.nirsoft.net/utils/turnedontimesview.zip"
-        "http://www.nirsoft.net/utils/urlprotocolview.zip"
         "http://www.nirsoft.net/utils/urlprotocolview_u.zip"
         "http://www.nirsoft.net/utils/urlstringgrabber.zip"
         "http://www.nirsoft.net/utils/usbdeview.zip"
@@ -332,6 +332,7 @@ source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
         # "http://www.nirsoft.net/utils/asterwin120.zip"
 
         # Windows 9x
+        # "http://www.nirsoft.net/utils/urlprotocolview.zip"
         # "http://www.nirsoft.net/utils/strun.zip"
         # "http://www.nirsoft.net/utils/mmview.zip"
         # "http://www.nirsoft.net/utils/win9xpv.zip"
@@ -386,7 +387,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'f0a6dfb3693cce052dfa7850b5fd885b'
          'ff9393642adc34651b1a8793f4ac27a6'
          'b5cc7ddef06a10abc994c0438b91c81e'
-         'b9d2f597432b5ad260062047953aeb9d'
+         '3e0bfcb3502dd0414a7f0cbb3adf6855'
          '82c5bb3e923384b027a3f9f22e972f82'
          'aa6c82090a5f7ffa27235bf27f3259b6'
          'ebe43ef30dd57e568293e3f6dadd8f89'
@@ -452,7 +453,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'ac2fc2d32c148fa70b3471c648d48ff5'
          'b368846d1cc3d21dc4fb07f2bae97405'
          'd776107b74cab2ca19cc9aafbb071e68'
-         'f3b4783717cc481e732ef0401299a4e1'
+         'b4d02c7a118649d06d82ea4867ad2327'
          'd41a32299704a9d82296ad03ff68792a'
          '9333f17cdc0b1f7fa2e2a30dad1c661f'
          '0fdf004560caabba294f4e9bcdf4e5ef'
@@ -517,8 +518,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'd3986676dde6614b3b445fa046da1cd2'
          '0420b4d69a669997faa642faf92a1345'
          'd1e2fa0b79c064e0855ae0673f53fc43'
-         '64055b69b197aad4bd02c628842f1287'
-         'ce19357eeec17dce44252919df7f3112'
+         '9a17004939b1b422e93bc71208154054'
+         '02d2613c3aa50bd30b9ca1db41967b9e'
          '91698a8336d5a6d7b3885737ade80cac'
          'b63142248234cd687f43bdc20621992b'
          '3a1896b8085b7b76d52876f45dcd7e53'
@@ -528,6 +529,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'fc78ec7eba6941891bf2398539d4a05d'
          '1102e6400d443eb1cd45430a1ca6aad7'
          'cc53a3b9a8f16662004001f3536184d5'
+         'eac872a4eed38340ac37909824598096'
          '77c9900678dd866ccd3ba86cfe669a85'
          '7ce55d5b1f32fe1b57b259b6c7b3414d'
          '19e013087483bab05ad18678912630b7'
@@ -561,7 +563,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '67ef7cbde931e5db5a5d247d2d27f403'
          '6452b4ab497cb5f843da1ceb8c02f38a'
          'd1624a332e44e60c88e1c44a1b31f8a0'
-         '1ed31015079f832ed2668ee784822e4b'
+         '60215365ad0cc0e09f47f08c4cbedd10'
          '79bead99bd01acbc965e6a5ae8c36425'
          '2ef3a08e7b13b9c7d5a6f46bfc6b6c66'
          'd1b8da6fa4402982cfa96eb007e218b1'
@@ -608,8 +610,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'b53c86edffd2988257bb06ed5614dbfd'
          '57fc8f4e7349349cffc106aaecdc8549'
          '951d07e5d529bdaf22799c0c8cd64905'
-         'f9b468202aca614305706cf9b1e26af8'
-         'cdb24100b0dd79a8c24d234100a8084b'
+         '2781cae3541e223d39e944c0e29de9d3'
+         'f988f86049d4e72fcfb6d1624ea7f2ba'
          'a3fe9df909b85b5ce44e7a3f854393fb'
          'd89d9d2fd4bf96748f1e78909750f61b'
          '94e5537a9207ac3998553bdf4cbb1402'
@@ -661,6 +663,7 @@ prepare() {
         unzip -o "${f}" -d "${f%%.zip}"
         _lc "${f%%.zip}"/*
     done
+    mv "urlprotocolview_u" "urlprotocolview"
 }
 
 _package() {

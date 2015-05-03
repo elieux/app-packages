@@ -13,7 +13,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - amd-clock
 - amd-cpuid
 - android-sdk
-- ansicon
 - ant
 - api-monitor
 - appnimi
@@ -32,7 +31,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - bazaar
 - bcc
 - bind
-- blender
 - blueftp
 - bluntrl
 - bochs
@@ -47,7 +45,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - cerberus
 - chocolatey
 - cint
-- clink
 - clipboard
 - clipboardfusion
 - clipbrd
@@ -104,12 +101,9 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - ftpdrive
 - ftpuse
 - game-audio-player
-- getgnuwin32
 - ghc
-- ghostscript
 - gmer
 - gnuplot
-- gnuwin32
 - gocr
 - godfather
 - gog-downloader
@@ -133,7 +127,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - i2p
 - icesword
 - ilspy
-- imagemagick
 - imule
 - infrarecorder
 - intelburntest
@@ -152,7 +145,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - lessmsi
 - libreoffice
 - linuxlive-usb-creator
-- llvm
 - ln
 - magical-jelly-bean-keyfinder
 - magical-jelly-bean-keyfinder-v1.5.1
@@ -165,14 +157,12 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - media-player-classic
 - memcached
 - mercurial
-- microsoft-terminal-services-client
 - miktex
 - miles-sound-tools
 - mono
 - mono-migration-analyzer
 - mpd
 - mplayer
-- multi-threaded-tcp-port-scanner
 - mumble
 - mv2player
 - mysql
@@ -209,19 +199,16 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - pixel-persistence-analyzer
 - plist-pad
 - png-analyzer
-- pngcrush
 - polipo
 - polsedit
 - poweroff
 - prefetch-parser
-- processhacker
 - processlasso
 - processtamer
 - psc
 - pspad
 - psubst
 - psx
-- qemu
 - quickres
 - rad-video-tools
 - ranish
@@ -240,7 +227,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - rthdribl
 - runassvc
 - salamander
-- sandboxie-portable
 - scala
 - screenbright
 - scriptcs
@@ -287,7 +273,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - thumbnail-database-viewer
 - thunderbird-dictionaries
 - toad-mysql
-- tor
 - tora
 - tor-browser
 - tppatch
@@ -309,7 +294,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - v8
 - ventrilo
 - ventrilo-server
-- vidalia
 - virtmemtest
 - virtual-disk-driver
 - virtual-floppy-drive
@@ -389,3 +373,14 @@ These are already present in `mingw-packages` in some form or other, so they're 
 - unbound
 - vlc
 - yasm
+- qemu
+- pngcrush
+- multi-threaded-tcp-port-scanner
+- llvm
+- imagemagick
+- gnuwin32
+- ghostscript
+- getgnuwin32
+- clink
+- blender
+- ansicon

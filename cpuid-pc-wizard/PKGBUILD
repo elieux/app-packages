@@ -6,7 +6,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2014.02.13
-pkgrel=1
+pkgrel=2
 pkgdesc="Analyzes and benchmarks your computer system (CPUID)"
 url="http://www.cpuid.com/softwares/pc-wizard.html"
 arch=('any')
@@ -37,7 +37,7 @@ package() {
     mkdir -p "${a}"
     cp "pc wizard.exe" "${a}/pc-wizard.exe"
     cp -r {data,extras,language,mark,partner,web} *.{sys,dll,vxd} "${a}"
-    rm "${a}/msvbvm60.dll"
+    rm "${a}/msvbvm60.dll" "${a}/mark"/{msvcr100,vcomp100}.dll
 
     d="${pkgdir}/docs${_apparch}/${_dirname}/${_realname}"
     mkdir -p "${d}"

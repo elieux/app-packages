@@ -1,0 +1,39 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=tor
+_realver=4.5/0.2.6.7
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=${_realver#*/}
+pkgrel=1
+pkgdesc="Anonymizing overlay network"
+url="http://www.torproject.org/"
+arch=('any')
+license=('BSD')
+makedepends=("curl" "unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("tor-win32.zip::https://dist.torproject.org/torbrowser/${_realver%/*}/tor-win32-${pkgver}.zip")
+md5sums=('25a5b149ccfdb260c7253699d1c25c19')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc "data"/* *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "data" "tor" "${a}"
+}

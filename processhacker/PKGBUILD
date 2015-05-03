@@ -1,0 +1,52 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=processhacker
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2.34
+pkgrel=1
+pkgdesc="Views and manages processes, services and more"
+url="http://processhacker.sourceforge.net/"
+arch=('any')
+license=('GPL2' 'GPL3')
+provides=("${pkgbase}")
+options=(!strip)
+source=("processhacker-bin.zip::http://downloads.sourceforge.net/${_realname}/${_realname}2/${_realname}-${pkgver}-bin.zip")
+md5sums=('6b4b27eb58becc32ed90de20ee0bd9d7')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc "x86"/* "x64"/* *
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "${1}"/* "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp -r *.txt "${d}"
+}
+
+package_app-i686-processhacker() {
+    _apparch=32
+    _package "x86"
+}
+
+package_app-x86_64-processhacker() {
+    _apparch=64
+    _package "x64"
+}

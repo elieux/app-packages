@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-# there are apparently multiple back-end servers some of which don't work well
-DLAGENTS=('http::/usr/bin/curl -qb "oraclelicense=accept-securebackup-cookie" -fLC - -o %o %u')
+# adding quotes around the cookie value makes the download fail
+DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC - -o %o %u')
 
 _realname=jdk
 _realver=8u45-b14
@@ -9,7 +9,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=${_realver%-*}
-pkgrel=1
+pkgrel=2
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 arch=('any')
@@ -53,6 +53,7 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/{bin,db,include,jre,lib} "${a}"
+    rm "${a}"/{bin,jre/bin,jre/bin/plugin2}/msvcr100.dll
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

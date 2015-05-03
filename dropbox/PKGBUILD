@@ -6,7 +6,7 @@ _realname=dropbox
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=3.4.3
+pkgver=3.4.4
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="http://www.google.com/drive/"
@@ -16,7 +16,7 @@ makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Dropbox.exe::https://www.dropbox.com/download?full=1&plat=win")
-md5sums=('01f5100638d6aae7ed8904058a92bdad')
+md5sums=('bf072ec5f1bfbf90c8bfd110bcd02d4e')
 
 _lc() {
     for f in "${@}"
@@ -43,5 +43,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r dropboxext*.dll '$0'/* '$APPDATA/Dropbox/bin/$0'/* "${a}"
-    rm -r "${a}/microsoft.vc90.crt" "${a}/dropboxupdatehelper.exe"
+    rm -r "${a}/microsoft.vc90.crt" "${a}/dropboxupdatehelper.exe" "${a}"/msvc{m,p,r}90.dll
 }

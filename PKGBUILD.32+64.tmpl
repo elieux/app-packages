@@ -32,7 +32,7 @@ prepare() {
     _lc *
 }
 
-package() {
+_package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r *.{exe,dll} "${a}"
@@ -44,10 +44,10 @@ package() {
 
 package_app-i686-<customize>() {
     _apparch=32
-    package
+    _package
 }
 
 package_app-x86_64-<customize>() {
     _apparch=64
-    package
+    _package
 }

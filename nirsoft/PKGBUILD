@@ -6,7 +6,7 @@ _realname=nirsoft
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2015.04.24
+pkgver=2015.05.04
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="http://www.nirsoft.net/"
@@ -352,7 +352,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '1d08d271bc0e7958f916cc5a9f003dd0'
          '8d3c1c9ee5f5c6d408a55a78060e514a'
          'fa04627da582d05e0d02b641c75ff1ca'
-         'e450d923f100cd8c7f24b316b957d9e1'
+         '277f1d40f3d55e8e91e15facec2555c4'
          '7ddb9a74f59d2df7d16da35038f9871a'
          '4ede6b2ca74df1db462be95808f31a9d'
          '53220ef082eb7cd7b04ef506afb5eac5'
@@ -393,7 +393,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'ebe43ef30dd57e568293e3f6dadd8f89'
          'c3f5b1461f117305b651125a9af2c522'
          '57ac1f0cd4e2790ab662ff38ca9adaf9'
-         'cf08e29b6725202d9aa7d098d42ab6a1'
+         'c72bff809fec7c402f7a05760f23d73f'
          'eb94dccc4dab7dbf7b5c55a19037b6ab'
          '4b4bd11cc24b593554e9f693d16fa5b4'
          '0aa7c941f34ae572bcf4d7bea382a2c5'
@@ -416,7 +416,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '3bcc17a0fb990bb9b7c1c709b9d163b3'
          '1f01c4684036c47ca5c382962210663f'
          'd496cc5858f196e048443412390997ea'
-         '4d6f81bae7af311d994911e1312d7b6a'
+         '10b69271a822678fa4d5f104e312718a'
          'bd1e5d40a4d1f2be1448742359de2351'
          '8cec5060f2fef963eeacc51ad9736551'
          '572d8a507fc73735432146da01274e49'
@@ -446,7 +446,7 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'f68deca5b05d334d5f491e82440e84c6'
          '87902370fae364788d923ff81081e152'
          '7b5d7913cb7a46a6638f117b12d13db8'
-         '79d5b5806a38334f22984651c65d35ae'
+         'bc2ec4ff5a928fb2654a59260062ca6b'
          '3151bea2c3d36d55f52cfe78b18bd188'
          'a513723daaed8a79df6f3f524d2e2cc5'
          '51f2ff3e3d78ed90cd1a20d13e04bde0'
@@ -474,8 +474,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '086b4fab5942c4f6c3c6d37f933c5592'
          '316c604a107af6ce52b6855b0ff1ce7d'
          '39f0abb209b3614bdb5e5b306e3e83d6'
-         '0fb961dcce5784bba1250dce851504e4'
-         'c29a9aca87e6f9dfded055785b13e457'
+         '429759dd46286c64c9feb905e725740d'
+         '5d2e23fee741264e137c7fc99bb47bf7'
          'bbb9ad053d3ac40b8e6c08c7bc7b08fd'
          '0ec73061e180552ee24dbba608061a65'
          '414cd4db433b92ae1847053cad40d34e'
@@ -498,9 +498,9 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          'd9589a9b26ba1d4e88d12f3dacc9b84a'
          'ea939d98b0ec4902acccf53968d9a50e'
          '840c36b3bf1e1f00e8415514a273c951'
-         'b73c6861dd440527c1163f4281f1365e'
-         '88b74ef4fd36fb71f54d22faf3fb3cf0'
-         'a6d307e20e108320f7518be5884e4d64'
+         'e5375ed7a65f3ed9c7a19716904f9f99'
+         'f640bbe6d34d2613479bf5e137d332d0'
+         '2fb76b3692ca24d42ba4254ee10614fa'
          '5f3c13e907378c8e573dadfa0d6f61fd'
          'ecdfe5f6f8930e01421f34147a985833'
          '0496b7216bc0df8ad9aeac0146a1088a'
@@ -548,8 +548,8 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '3e80a79c6cccfdbf6ada1e2207ac3be2'
          '9a36658826ba6fb066847194e093eee9'
          'd7ea352ed9a04027703ef56c9cfdc883'
-         '00edf4aae544f8c9119e5a86a76b4b4b'
-         'e8173d7cae2e96599b02e6eec1fd1b20'
+         'fe6e18dd9367e83a1600a10371bd2690'
+         'ba4e57688ca5359ef2d3534f6c10d99b'
          '88184139442bbcb9caab1a484902e602'
          '47595e8fd2c39bc13865eb253964f08c'
          'fa448b3e981332d1dde021186723fa94'
@@ -564,16 +564,15 @@ md5sums=('ba50129a7d12bbe8004422607eeb6af4'
          '6452b4ab497cb5f843da1ceb8c02f38a'
          'd1624a332e44e60c88e1c44a1b31f8a0'
          '60215365ad0cc0e09f47f08c4cbedd10'
-         '79bead99bd01acbc965e6a5ae8c36425'
          '2ef3a08e7b13b9c7d5a6f46bfc6b6c66'
          'd1b8da6fa4402982cfa96eb007e218b1'
          '8cf7dc3bcb315b9f51144e03bffb720b'
          '353610471971c45ecc898b1a3ef66762'
-         '9f747f0d34d05341da18e27f27e34b3b'
+         '59236d360ff72523104396dd39024954'
          '835e2d88a162c26298f525fb256214e9'
          '3210d61611f49458cdc48fdc896c931a'
-         'e092361b40f1b5cd0378cadbb693e987'
-         '12f6a13d55d9fda03ab8481bc1d8e36e'
+         'ef05ef3af469a7ba99aec9c1410f144d'
+         '1bc008158d7e8509d66cfe0fe80c037c'
          'e82f34abda4ea84f1d97fe403f89cd21'
          '72af58c0635b6679063b6b9e83f87ded'
          'e62a61968773e24af45f2b3361729e99'
@@ -658,12 +657,12 @@ pkgver() {
 }
 
 prepare() {
+    mv "urlprotocolview_u.zip" "urlprotocolview.zip"
     for f in *.zip
     do
         unzip -o "${f}" -d "${f%%.zip}"
         _lc "${f%%.zip}"/*
     done
-    mv "urlprotocolview_u" "urlprotocolview"
 }
 
 _package() {

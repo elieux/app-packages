@@ -1,0 +1,25 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-truecryptmount
+_dirname=keepass
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.3
+pkgrel=1
+pkgdesc="A KeePass plugin that makes it easier to mount TrueCrypt volumes"
+url="https://bitbucket.org/schalpat/keepasstruecryptmount"
+arch=('any')
+license=('unknown')
+depends=("app-i686-keepass")
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("KeepassTrueCryptMount.plgx.7z::https://bitbucket.org/schalpat/keepasstruecryptmount/downloads/KeepassTrueCryptMount_v${pkgver}.plgx.7z")
+md5sums=('eadb0b1268e5f0d3144be894e755fba3')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}/plugins"
+    cp *.plgx "${a}/plugins"
+}

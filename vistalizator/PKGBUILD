@@ -4,7 +4,7 @@ _realname=vistalizator
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.63
+pkgver=2.65
 pkgrel=1
 pkgdesc="Tool for changing display language in all Windows editions"
 url="http://www.froggie.sk/index.html"
@@ -13,9 +13,9 @@ license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("http://www.froggie.sk/download/Vistalizator.exe"
-        "http://www.froggie.sk/download/Languages.zip")
-md5sums=('5def875c32d7ae0c18390afd32f04701'
+source=("Vistalizator.exe::http://www.froggie.sk/download/Vistalizator.exe"
+        "Languages.zip::http://www.froggie.sk/download/Languages.zip")
+md5sums=('1ca101595766af97a23c90be2f4e9ac2'
          '60b66f346962e391ff284d1b905db429')
 
 _lc() {

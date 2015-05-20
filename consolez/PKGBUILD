@@ -1,0 +1,60 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=consolez
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=1.13.0.15044
+pkgrel=1
+pkgdesc="A console wrapper with tabs, easy copy-pasting and pretty visuals"
+url="http://github.com/cbucher/console"
+arch=('any')
+license=('GPL2')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("ConsoleZ32.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x86.${pkgver}.zip"
+        "ConsoleZ64.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x64.${pkgver}.zip")
+md5sums=('4f20dbdac26d5069bae90c6c84007eaf'
+         '8b21d2b0add357bfbe5035e92dc3c613')
+noextract=("ConsoleZ32.zip"
+           "ConsoleZ64.zip")
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        unzip -o "ConsoleZ${_apparch}.zip" -d "consolez${_apparch}"
+        _lc "consolez${_apparch}"/*
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp "consolez${_apparch}"/*.{exe,dll} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp "consolez${_apparch}"/*.chm "${d}"
+}
+
+package_app-i686-consolez() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-consolez() {
+    _apparch=64
+    _package
+}

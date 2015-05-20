@@ -1,0 +1,49 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=slack
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.0.6
+pkgrel=1
+pkgdesc="Client for the Slack team communication platform"
+url="http://www.slack.com/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip" "unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("SlackSetup.exe::https://slack.com/ssb/download-win")
+md5sums=('aa0303333b5718734bfcf93d053e2390')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    b="$(cygpath -wa "SlackSetup.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
+}
+
+prepare() {
+    7z x -y -bd "SlackSetup.exe"
+    unzip -o "slack-${pkgver}-full.nupkg"
+    _lc * "lib/net45"/*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "lib/net45"/* "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}/resources/app/resources/win/plugins"/*.pdf "${d}"
+}

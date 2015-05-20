@@ -10,6 +10,7 @@ pkgdesc="A new browser for our friends"
 url="https://vivaldi.com/"
 arch=('any')
 license=('custom')
+makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Vivaldi_TP2.exe::https://vivaldi.com/download/Vivaldi_TP2.${pkgver}.exe")

@@ -1,0 +1,61 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=bind
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=9.10.2
+pkgrel=1
+pkgdesc="The ISC BIND nameserver"
+url="https://www.isc.org/downloads/bind/"
+arch=('any')
+license=('custom:ISC')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("BIND32.zip::ftp://ftp.isc.org/isc/bind9/${pkgver}/BIND${pkgver}.x86.zip"
+        "BIND64.zip::ftp://ftp.isc.org/isc/bind9/${pkgver}/BIND${pkgver}.x64.zip")
+md5sums=('77f05996a14ac6cc67ad0fb042d6ed53'
+         '0e93fdd34095be7e95195cb69cad0bb4')
+noextract=("BIND32.zip"
+           "BIND64.zip")
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        unzip -o "BIND${_apparch}.zip" -d "bind${_apparch}"
+        _lc "bind${_apparch}"/*
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp "bind${_apparch}"/*.{exe,dll} "${a}"
+    rm "${a}"/vcredist*.exe "${a}/bindinstall.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp "bind${_apparch}"/*.{html,pdf,txt} "bind${_apparch}"/{changes,copyright,faq,history,migration,migration-4to9,openssl-license,readme,sha256} "${d}"
+}
+
+package_app-i686-bind() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-bind() {
+    _apparch=64
+    _package
+}

@@ -10,6 +10,7 @@ pkgdesc="Free messages and calls in any country"
 url="http://www.viber.com/en/products/windows"
 arch=('any')
 license=('custom')
+makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.exe")

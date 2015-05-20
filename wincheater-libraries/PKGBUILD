@@ -5,13 +5,13 @@ _dirname=wincheater
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2015.03.09
-pkgrel=2
+pkgver=2015.05.01
+pkgrel=1
 pkgdesc="Video game cheats and guides databases for WinCheater"
 url="http://www.cheater.cz/winch/win_download_knihovny.htm"
 arch=('any')
 license=('custom')
-makedepends=("p7zip" "unrar")
+makedepends=("unrar")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Cheaty.exe::http://www.cheater.cz/download/Cheaty.exe"
@@ -39,10 +39,10 @@ source=("Cheaty.exe::http://www.cheater.cz/download/Cheaty.exe"
         "Scofake.exe::http://www.cheater.cz/download/Scofake.exe"
         "ScoSoft.exe::http://www.cheater.cz/download/ScoSoft.exe"
 )
-md5sums=('21f12bbbdcac87e834ae4bf90577d4c3'
+md5sums=('4cfc095f0449f7b4579bacfe3677cf5f'
          '7a11d9909337d4950086ad26aced517e'
          'bdda2b7605fcb13b4e118f3c34693f63'
-         'e714ff2def117eafc19afa359635b212'
+         'f0ae0038f395b4efed0b4269816d08b3'
          'aac285b980066d3e0cc463a1525f29e7'
          '6161f981b859421af5793748152d5c2b'
          'f0a9620ab9fd3110e4ea4047fa15a058'
@@ -50,7 +50,7 @@ md5sums=('21f12bbbdcac87e834ae4bf90577d4c3'
          '1476f9f4e452125103c51b9955ff47dc'
          '37da872d9beb2295ff76a02f81e1873b'
          '2782959db8f13ea2d6fa4b8770375393'
-         '3c2cc1a1f8b5c3f3f90c728008955a4e'
+         '4aa470bccc1ed161732b14b6d03df85a'
          '974308b48f502cc00e9364102d6af328'
          '37139ffe1c7cb3c3e0f275878f2120df'
          '0ed497e4ca4d56ff539c64dba6b91a13'
@@ -67,7 +67,7 @@ noextract=("${source[@]%%::*}") # "Parsing filters is unsupported"
 
 pkgver() {
     #find . -mindepth 1 -maxdepth 1 -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find . -mindepth 1 -maxdepth 1 -name '*.exe' -execdir bash -c 'unrar l "{}" | sed "/^;/d" | sed "/^$/d" | tail -n +6 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 4 | sed -r "s/^([0-9][0-9])-([0-9][0-9])-([0-9][0-9])$/20\3.\2.\1/"' \; | sort | tail -1
+    find . -mindepth 1 -maxdepth 1 -name '*.exe' -execdir bash -c 'unrar l -c- "{}" | sed "/^;/d" | sed "/^$/d" | tail -n +6 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 4 | sed -r "s/^([0-9][0-9])-([0-9][0-9])-([0-9][0-9])$/20\3.\2.\1/"' \; | sort | tail -1
 }
 
 _lc() {

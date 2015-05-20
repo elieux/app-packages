@@ -4,7 +4,7 @@ _realname=opera2
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=29.0.1795.47
+pkgver=29.0.1795.60
 pkgrel=1
 pkgdesc="A fast and free Blink-based web browser"
 url="http://www.opera.com/computer"
@@ -13,8 +13,8 @@ license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=38290&location=395&nothanks=yes&sub=marine")
-md5sums=('938e114ca6c1f29cd059b263a7492064')
+source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=38335&location=395&nothanks=yes&sub=marine")
+md5sums=('9ed3676483fccf7f49b78f0309584ca9')
 
 _lc() {
     for f in "${@}"

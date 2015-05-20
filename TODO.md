@@ -30,7 +30,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - battery-status
 - bazaar
 - bcc
-- bind
 - blueftp
 - bluntrl
 - bochs
@@ -50,8 +49,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - clipbrd
 - clipspy
 - composer
-- console2
-- consolez
 - coretemp
 - crystal
 - cuetools
@@ -143,7 +140,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - kliu
 - kmplayer
 - lessmsi
-- libreoffice
 - linuxlive-usb-creator
 - ln
 - magical-jelly-bean-keyfinder
@@ -319,9 +315,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - wpkg
 - xdc
 - xdebugclient
-- xdebugclient-v0.7.3
-- xdebugclient-v0.8.0
-- xdebugclient-v0.9.0
 - xdoc2txt
 - xenu
 - xming

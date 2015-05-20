@@ -6,7 +6,7 @@ _realname=dropbox
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=3.4.4
+pkgver=3.4.6
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="http://www.google.com/drive/"
@@ -16,7 +16,7 @@ makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Dropbox.exe::https://www.dropbox.com/download?full=1&plat=win")
-md5sums=('bf072ec5f1bfbf90c8bfd110bcd02d4e')
+md5sums=('62acb05dd79906f76017bd849bfcc56c')
 
 _lc() {
     for f in "${@}"

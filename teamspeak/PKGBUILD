@@ -1,0 +1,66 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=teamspeak
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=3.0.16
+pkgrel=1
+pkgdesc="Quality voice communication via the Internet"
+url="http://www.teamspeak.com/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("TeamSpeak3-Client-win32.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win32-${pkgver}.exe"
+        "TeamSpeak3-Client-win64.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe"
+        # "pluginsdk.zip::http://dl.4players.de/ts/client/pluginsdk/pluginsdk_${pkgver}.zip"
+)
+md5sums=('23deac9fbe97193cec07942b6115ce31'
+         '891dccc5e78e2bb3ca6100480138fbab')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+_prepare() {
+    7z x -y -bd "TeamSpeak3-Client-win${_apparch}.exe" -o"TeamSpeak3-Client-win${_apparch}"
+    _lc "TeamSpeak3-Client-win${_apparch}"/*
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "TeamSpeak3-Client-win${_apparch}"/* "${a}"
+    rm -r "${a}/update.exe" "${a}"/msvc{p,r}110.dll "${a}/uninstall.exe.nsis" "${a}/[nsis].nsi" "${a}/overwolfteamspeakinstaller.exe" "${a}"/'$pluginsdir'
+    mv "${a}/ts3client_win${_apparch}.exe" "${a}/ts3client.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/*.{txt,html} "${a}/news" "${d}"
+}
+
+package_app-i686-teamspeak() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-teamspeak() {
+    _apparch=64
+    _package
+}

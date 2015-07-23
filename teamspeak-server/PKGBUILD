@@ -1,0 +1,42 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=teamspeak-server
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=3.0.11.3
+pkgrel=1
+pkgdesc="A proprietary VoIP conference software"
+url="http://www.teamspeak.com/"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("teamspeak3-server_win32.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win32-${pkgver}.zip"
+        "teamspeak3-server_win64.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win64-${pkgver}.zip")
+md5sums=('ca40529b71cf45de175e5ab229276d46'
+         'a6a2f9876d6829a78e0b7a042c0f4725')
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "teamspeak3-server_win${_apparch}/redist/libmariadb.dll" "teamspeak3-server_win${_apparch}/tsdns/tsdnsserver_win${_apparch}.exe" "teamspeak3-server_win${_apparch}"/*.{exe,dll} "${a}"
+    mv "${a}/ts3server_win${_apparch}.exe" "${a}/ts3server.exe"
+    mv "${a}/tsdnsserver_win${_apparch}.exe" "${a}/tsdnsserver.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}" "${d}/tsdns"
+    cp -r "teamspeak3-server_win${_apparch}"/*.txt "teamspeak3-server_win${_apparch}"/{doc,sql,serverquerydocs} "${d}"
+    cp "teamspeak3-server_win${_apparch}/tsdns"/*.{txt,sample} "${d}/tsdns"
+}
+
+package_app-i686-teamspeak-server() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-teamspeak-server() {
+    _apparch=64
+    _package
+}

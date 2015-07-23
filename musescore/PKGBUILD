@@ -1,0 +1,46 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=musescore
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.0.2
+pkgrel=1
+pkgdesc="Create, play and print beautiful sheet music"
+url="http://musescore.org/"
+arch=('any')
+license=('GPL')
+provides=("${pkgbase}")
+options=(!strip)
+source=("MuseScore.msi::ftp://ftp.osuosl.org/pub/musescore/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.msi")
+md5sums=('c4645db1906ca7b836bd4e53769b645f')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+build() {
+    msiexec -a "MuseScore.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
+
+    s="install/MuseScore 2"
+    _lc "${s}/bin"/*
+}
+
+package() {
+    s="install/MuseScore 2"
+
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "${s}"/* "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/{demos,manual} "${a}/sound/FluidR3Mono_License.md" "${d}"
+}

@@ -1,0 +1,67 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=autoit
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=3.3.14.0
+pkgrel=1
+pkgdesc="A free BASIC-like scripting language for automating Windows GUIs"
+url="http://www.autoitscript.com/"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("autoit.zip::http://www.autoitscript.com/files/autoit3/autoit-v3.zip")
+md5sums=('6ca0a9429b3ff3c5d652fd1a0429bdc2')
+
+pkgver() {
+    b="install/Au3Check.exe"
+    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d '\000 '
+}
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc "install/Aut2Exe/Icons"/* "install/Aut2Exe"/* "install/AutoItX/Examples" "install/AutoItX/AutoItX.chm" "install/Icons"/* "install/Extras/Au3Record"/* "install"/*
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "install"/{include,icons} "install/aut2exe/icons" "install/extras/Au3Record"/* "install"/au3check.* "install/autoitx"/*.psd1 "install/autoitx"/AutoItX3{_DLL.h,.Assembly.dll,.Assembly.xml,.PowerShell.dll} "install/autoitx/AutoItX3${1}.dll" "install/autoitx/AutoItX3${1}_DLL.lib" "install/aut2exe/aut2exe${1}.exe" "install/au3info${1}.exe" "install/autoit3${1}.exe" "${a}"
+    if [ "${1}" != "" ]
+    then
+        for f in "${a}"/*${1}*
+        do
+            mv "${f}" "$(echo "${f}" | sed "s/${1}//")"
+        done
+    fi
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}" "${d}/extras/Editors/SciTE"
+    cp -r "install"/{examples,autoitx/examples,extras} "install/autoitx"/*.chm "install"/*.{chm,url} "install/autoit3help.exe" "${d}"
+    cp -r "install/scite"/*.properties "install/scite/api" "${d}/extras/editors/SciTE"
+    rm -r "${d}/extras/au3record"
+}
+
+package_app-i686-autoit() {
+    _apparch=32
+    _package ""
+}
+
+package_app-x86_64-autoit() {
+    _apparch=64
+    _package "_x64"
+}

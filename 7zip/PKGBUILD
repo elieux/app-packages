@@ -13,9 +13,9 @@ license=('LGPL2' 'custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("7z32.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z${pkgver//./}.msi"
-        "7z64.msi::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z${pkgver//./}-x64.msi"
-        "7zextra.7z::http://downloads.sourceforge.net/sevenzip/7-Zip/${pkgver}/7z${pkgver//./}-extra.7z")
+source=("7z32.msi::http://7-zip.org/a/7z${pkgver//./}.msi"
+        "7z64.msi::http://7-zip.org/a/7z${pkgver//./}-x64.msi"
+        "7zextra.7z::http://7-zip.org/a/7z${pkgver//./}-extra.7z")
 md5sums=('8e8e360994cfddcc2504fa473c977272'
          '9f4efa767708af6badca6f60ad2006ae'
          '3b95291e4a5db4f0dc1907462e9a5b57')

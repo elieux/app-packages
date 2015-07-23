@@ -4,7 +4,7 @@ _realname=thunderbird
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=31.7.0
+pkgver=38.1.0
 pkgrel=1
 pkgdesc="Standalone, easy to customize mail/news reader"
 url="http://www.mozilla.org/thunderbird/"
@@ -69,62 +69,62 @@ source=("ThunderbirdSetup.exe::ftp://ftp.mozilla.org/pub/${_realname}/releases/$
         "vi.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/vi.xpi"
         "zh-CN.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/zh-CN.xpi"
         "zh-TW.xpi::ftp://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/zh-TW.xpi")
-md5sums=('c6e0eee461e74ba917f071b0f2bdbf24'
-         'd3328e7c6bfaed11d2e2716b0485ea63'
-         '57a2c3ebb5cb9a2ecde13914bbffdd97'
-         'd2d4770039084f7363880aa3fa5168be'
-         'ace38ae821b456225ea8f190b1315101'
-         '2eec8549b8c144eebba909bcd8f0b3d9'
-         'b11c5521789543dd13385005cd2324b8'
-         '112bed5f079b00f8ec369ab9b1eba96b'
-         '82d403c534f538611b09466eae832839'
-         'de0f84f17f1c37cd31d94182b9c61d3f'
-         'a42434ea7f0aaaef4b62226c415bca83'
-         '8ca33f0a836df3b0103afd23b286801c'
-         '544ec344ccee9f340b6e547384678cb0'
-         '60956c8a45edf21eb5f7bc0387253b80'
-         'e15af24197fd3d773f98f044b0a0054b'
-         '77febd15f22183a217f04a3b91c206c5'
-         'a5cdfa7fbf4ee0055a6c0107f97a95f9'
-         '404f3473f5f0d2658d84648952bcf1f1'
-         '010cfb976329661da52e509c13e103a9'
-         '1ab5db8c7ebdaa86b37ba97844b479dc'
-         '86791290af7992047fea70389c47ecd4'
-         '10b34ef66b759cc818e8d44dc5b4a3b2'
-         '149bdca3c42fb67570260b13ee6b204e'
-         '8864eab93af2bb2882d3604065284d8a'
-         '9151d039dbb66517d11d8f7ab60ed37f'
-         '31ea1519dbb62212448b873ee1a49163'
-         'd2797bc11a1e53e4207c629b1f3532e5'
-         '56e32c91f57aee6bc8ef622df60afb77'
-         'a886c18ce50812dda8911fcff46ef72d'
-         '2e6e9cee885854c4258c432fc6fdc68d'
-         '80ffcb4360744d02d45ec72c58b10601'
-         '33204a7935aa4843c936ad51b0529fa9'
-         'f53473e7e622dca82db6dfafbdca49da'
-         '862b7ddb82e63c8792ed04e656bfe583'
-         'deb158abe3864a7525a9b0a8e419ae4c'
-         'd83bcf4ab641b1b6263a3e25fd4b05f7'
-         'ab291e200cfa4d60d220170592b0570d'
-         'ceb165d064d00bbed986f2f1ec39d769'
-         '996686ebfb1b282d7c132f518ae9317a'
-         'd38803d353c6c2d04419e791f797e663'
-         '573ebc628c02ede7f7114663063a9cc9'
-         'cbc0eca11494aa57a5c67567b7c2e579'
-         '6d87f1065e117748f6dc46a922ce8bf1'
-         '7fca5a8d178a49c2efa1ce071f6a1da8'
-         '4d5f9802da3d6a2bf7206443cd8b42a7'
-         'c80df1dbb95562e1c1db89b8af7db78c'
-         '38c053bd5ce74dbb3604515d0558a772'
-         'ec79c6dfaec7dbc8da848a0830e21674'
-         '08cbf4810f973b7a30488e52f827ea28'
-         'ab87235f4a0ccbaa64b6a663847fe21c'
-         '131fc7ac5619683591afe6b3f4bfb952'
-         'f023bb4466b6d3e7348bc01ecb45f417'
-         '95339600d61f86437db630302862aa1f'
-         '55508bf6ee0b8dd981f3f5cbff6d0da3'
-         '8701ab62d5851af23a6e0baf64f57cd2'
-         'ae6e556e032cce8b617dd7eb931a73f4')
+md5sums=('35e08903e5543240297f4ec7f07d0137'
+         'b07d3f9907e048b0e7ffa0e1e943c72b'
+         'cb3ef22d737fa0c41a11640d7891f879'
+         '77fc8702272688accd4f69af6f25aa1c'
+         '5522c681f1a9a29abb038d600e790c17'
+         'e2699b6c34e536d876191f842ea87475'
+         '2954caefd55386157f14ac6c33c02b61'
+         '18061fcd828e94040dfbdd5dab8cb01d'
+         'c863dc7451098a621b83c825e83b112d'
+         'c9684674f02e27903ef9570db21d395f'
+         '356654804a8c5adb4b15360cda46ed9d'
+         '6515248f68cde4e1b7488237d3aa6ee8'
+         '19fc1e9142fb6bce924fadf416591168'
+         '272db6891af770149c853726f95616d7'
+         '329992b8c498790313b08dd8d3101b3f'
+         '4b58fd400d81af7e56f17b554c0bfbc0'
+         '3498138ddce3af9e3f0b14d5b40d09a7'
+         'b63ef6d31c733f4e05aeed4f77491dc8'
+         '5bd198f517b6a72d62b9947a57b2bf23'
+         'f93dcb606f3fe7e7d382d7e5640b4f6b'
+         '0d7f2d8f17c93840452f4f4e4f61d3ed'
+         '09382b9831bb5e282ac92105d4bbfb7d'
+         '334fe2025ebcfe4344afe280b485cd93'
+         '7ed50fe798940a50fd9ada6bb894b6d6'
+         '5c85f18190c44fe4cf44b60b7d0acd8b'
+         'ccdb4811c2881bebe98e86017d1eb9c8'
+         '50cad220704c68847943459407523efa'
+         'acec886e2e91a7ab1fc5a9931c768e9b'
+         '5c63b48519be4efd375e3a5c5a3ee12d'
+         '04bc81ea99de7f2cd4a629c784ebb6bb'
+         '445d07205ca76a84384a0044af1fdaf5'
+         '4f14a8fb600820cadd56e194243f6322'
+         'ef206250a3e80d16b5432ba183c07666'
+         '3773f897c56400f198dd0119d8df1910'
+         '7a24eda386dfdae4556375a99eeb4d48'
+         '668528e62ea3c6ce7e49a5e41c6aadc2'
+         'c0ff7ba6531dc85351587870a56fe38f'
+         '47fb1c818d00eba2461f3c3b78bc75e0'
+         '3339588bd8836808381edaf5dcb9f47d'
+         '88f8b7ee995fdd237f3a77ae38159bdb'
+         '8ceb0be0929611665b4d1e6ba3f1c43f'
+         '3f5495cc0efd48e8a9860bd32c68d641'
+         '48baa2babbecb3e4cff993b68209e102'
+         'd844565b75364d24e9d4f7c89d4d6b95'
+         '9b82c799edaf50d54120c456999839a8'
+         '40f63bcd553b9d76a8d8ac3db23d2a8f'
+         '9ca4d6f0a9d08878ce24572b85d98ea1'
+         '84476f1996c0fb91844082e62bbaf1c1'
+         '29817974eddaacab1bbed7b662724e12'
+         '6f9be4bc88dde97137134709902fbdb2'
+         '59ec1fffa2be388901d70bf113cdf888'
+         '248b911a51a8f1b3bb5331cfc81c9c62'
+         '7da5fa3cf30f0be19f69d2651ab8bf02'
+         '913f72d6bdff69d449e93f097c5d6310'
+         '009826aec931660685f9c656a8ae8e7b'
+         '353a378147fce53113830b7e3926557a')
 noextract=("${source[@]%%::*}")
 
 _lc() {
@@ -141,14 +141,14 @@ _lc() {
 prepare() {
     7z x -y -bd "ThunderbirdSetup.exe"
     _lc "core"/*
-    sed -i '/MSVC[RP]100.dll/d' "core/dependentlibs.list"
+    sed -i '/MSVC[RP]120.dll/d' "core/dependentlibs.list"
 }
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "core"/* "${a}"
-    rm "${a}/searchplugins"/* "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/maintenanceservice{.exe,_installer.exe}
+    rm "${a}/searchplugins"/* "${a}"/msvc{p,r}120.dll "${a}"/maintenanceservice{.exe,_installer.exe}
     for f in *.xpi
     do
         f="${f##*/}"

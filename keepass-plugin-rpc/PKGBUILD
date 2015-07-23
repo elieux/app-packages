@@ -5,7 +5,7 @@ _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.4.7
+pkgver=1.4.4
 pkgrel=1
 pkgdesc="A KeePass plugin that provides a RPC server for KeeFox"
 url="http://keefox.org/"
@@ -14,8 +14,16 @@ license=('unknown')
 depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("keefox-tb+fx-windows.xpi::https://addons.mozilla.org/firefox/downloads/file/302890/keefox-${pkgver}-tb+fx-windows.xpi")
-md5sums=('da79e07aabf6fb3faf38a374caac7701')
+source=("keefox-tb+fx-windows.xpi::https://addons.mozilla.org/firefox/downloads/file/318704/keefox-1.4.8-tb+fx-windows.xpi")
+md5sums=('788a1b2a1d4afcae36c1a700c28eebb8')
+
+pkgver() {
+    v="$(dd if="CertKeyProviderPlugin.plgx" bs=1 skip=67 count=20 2> /dev/null)"
+    if [ "${v}" != '2014-10-05T18:09:51Z' ]
+    then
+        echo "Timestamp has changed. Fix version number."
+    fi
+}
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

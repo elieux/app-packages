@@ -4,7 +4,7 @@ _realname=gpg4win
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.2.4
+pkgver=2.2.5
 pkgrel=1
 pkgdesc=""
 url="http://www.gpg4win.org/index.html"
@@ -13,8 +13,8 @@ license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("gpg4win.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${pkgver}_${_reldate}.exe")
-md5sums=('8a37b33de5d87438d12f959a2109bf57')
+source=("gpg4win.exe::http://files.gpg4win.org/gpg4win-${pkgver}.exe")
+md5sums=('67a4f35cae2896e3922f6f4ab5966e2b')
 
 _lc() {
     for f in "${@}"

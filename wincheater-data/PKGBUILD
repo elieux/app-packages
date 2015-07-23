@@ -5,17 +5,27 @@ _dirname=wincheater
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=167
+pkgver=169
 pkgrel=1
 pkgdesc="Texts for WinCheater"
 url="http://www.cheater.cz/winch/win_download_knihovny.htm"
 arch=('any')
 license=('custom')
-makedepends=("p7zip" "unrar")
+makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("texty.exe::http://www.cheater.cz/download/upd/${pkgver}/texty.exe")
-md5sums=('41f5138d9b33193023c8293a963ecb12')
+md5sums=('c11aa9c35776b95a104e521f618aff34')
+noextract=("texty.exe")
+
+prepare() {
+    # 7z x -y -bd "texty.exe" # unsupported method
+    true
+}
+
+build() {
+    "./texty.exe" -d. -s
+}
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

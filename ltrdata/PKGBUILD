@@ -6,7 +6,7 @@ _realname=ltrdata
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2015.04.09
+pkgver=2015.05.21
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
 url="http://www.ltr-data.se/"
@@ -39,23 +39,23 @@ source=("calldll64.zip::http://www.ltr-data.se/files/win64/calldll64.zip"
         # "imdiskinst.exe::http://www.ltr-data.se/files/imdiskinst.exe"
         # "ImDiskNet.7z::http://www.ltr-data.se/files/ImDiskNet.7z"
 )
-md5sums=('026243a85ffca4d0e5e4a0854892ebde'
-         '587db6edfbb73ff8417d9153ca7c3628'
-         '6446c185e5e8436bada6d60acf0fc458'
+md5sums=('af55111254ce0dd0002454d34afd3060'
+         'eb7fd925762341a4aa8946d864705062'
+         '15f30c33cc1d65124db9971ffe0adbb3'
          'ffe23e3993f825dd183ed947941b7da1'
-         '6e6e99c07ac9bb1bf593019a5f87f862'
-         '6e352e14a91ae63f76116eac58998831'
-         '821d4b4952923f798a01865770c72be9'
-         '5d8b67f6ecfab3252358fc4a6a65228c'
-         'b7a9c87130309402ae526edf70d67121'
+         'ebd6edb5ab1e83ce0fe4159b962a957a'
+         '3b46c3153c066a461b843e10cb673b9f'
+         'b4aa5197d608e7dba538dba6a5d7b0d2'
+         'e9effb2f305b993c6f002a18b58a1a8d'
+         'd93567f0db03861fd5e99f1b2e438ee1'
          '0b18b1545cfecf73adb745c20eaf0171'
          'f193bc82ccc9b00cc511ce327c5082dd'
          '0e135bfeb343edb5468bc482d58dff5e'
          '866b2d82b75294c7eec74ebd2c6ea87c'
          'ede1d9f5ab8a30927738ec6cb71b5b69'
          '9d08d1b245c2f64513738712e1184e9b'
-         '3bba4f1ed8a3f67b5bf6fabbdf30fbaa'
-         '1cdd6688522345729747daf799372e23')
+         'ac591b492479e50eb0d4cce06d511c74'
+         '559be47e87aaf422a5d1cc6c693a904c')
 noextract=("${source[@]##*/}")
 
 _lc() {

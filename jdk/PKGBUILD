@@ -4,12 +4,12 @@
 DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC - -o %o %u')
 
 _realname=jdk
-_realver=8u45-b14
+_realver=8u51-b16
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=${_realver%-*}
-pkgrel=2
+pkgrel=1
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 arch=('any')
@@ -19,8 +19,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("jdk-windows32.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-i586.exe"
         "jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-x64.exe")
-md5sums=('8d9bade03f9d25a648c5618b032bdf1e'
-         '6e7d7ae3ea834a54afbab09376fee190')
+md5sums=('6764c96b08cce10ff1debeb735996cf1'
+         'd90777f4743c62f994ecc7a88f784d5e')
 
 _lc() {
     for f in "${@}"

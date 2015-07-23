@@ -1,10 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=bind
+_realver=9.10.2-P2
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=9.10.2
+pkgver=${_realver//-/.}
 pkgrel=1
 pkgdesc="The ISC BIND nameserver"
 url="https://www.isc.org/downloads/bind/"
@@ -13,10 +14,10 @@ license=('custom:ISC')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("BIND32.zip::ftp://ftp.isc.org/isc/bind9/${pkgver}/BIND${pkgver}.x86.zip"
-        "BIND64.zip::ftp://ftp.isc.org/isc/bind9/${pkgver}/BIND${pkgver}.x64.zip")
-md5sums=('77f05996a14ac6cc67ad0fb042d6ed53'
-         '0e93fdd34095be7e95195cb69cad0bb4')
+source=("BIND32.zip::ftp://ftp.isc.org/isc/bind9/${_realver}/BIND${_realver}.x86.zip"
+        "BIND64.zip::ftp://ftp.isc.org/isc/bind9/${_realver}/BIND${_realver}.x64.zip")
+md5sums=('4e98d58603d37b2325d438b15c4b369a'
+         'b40f0e2926cbf039b1027d461a9b0b53')
 noextract=("BIND32.zip"
            "BIND64.zip")
 

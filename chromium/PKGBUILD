@@ -1,0 +1,59 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=chromium
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=46.0.2464.0
+pkgrel=1
+pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
+url="http://www.chromium.org/Home"
+arch=('any')
+license=('BSD')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("chrome-win32.zip::https://storage.googleapis.com/chromium-browser-continuous/Win/340050/chrome-win32.zip"
+        "chrome-win64.zip::https://storage.googleapis.com/chromium-browser-continuous/Win_x64/340050/chrome-win32.zip")
+md5sums=('268f8f36f354bb5f561524b5f63ac576'
+         'bb0cfc0125951468041ff8c400c9c148')
+noextract=("chrome-win32.zip"
+           "chrome-win64.zip")
+
+pkgver() {
+    for _apparch in 32 64
+    do
+        eval _ver${_apparch}="$(unzip -l "chrome-win${_apparch}.zip" | tail -n +4 | head -n -2 | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's~^chrome-win32/~~' | sed 's~.manifest$~~' | grep -P '[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+' | sort | tail -1)"
+    done
+    if [ "${_ver32}" != "${_ver64}" ]
+    then
+        echo "32-bit version number is different from 64-bit."
+    else
+        echo "${_ver32}"
+    fi
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        unzip -o "chrome-win${_apparch}.zip" -d "chromium${_apparch}"
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "chromium${_apparch}/chrome-win32"/* "${a}"
+    rm "${a}"/*.manifest "${a}/interactive_ui_tests.exe"
+    cp "chromium${_apparch}/chrome-win32/${pkgver}.manifest" "${a}"
+}
+
+package_app-i686-chromium() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-chromium() {
+    _apparch=64
+    _package
+}

@@ -4,7 +4,7 @@ _realname=viber
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=5.0.1.42
+pkgver=5.2.0.2529
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
 url="http://www.viber.com/en/products/windows"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.exe")
-md5sums=('6f269a83afcab3ea6980d85dad878892')
+md5sums=('9049ff632545928bed87d4760fc6dd09')
 
 _lc() {
     for f in "${@}"
@@ -34,13 +34,13 @@ pkgver() {
 
 prepare() {
     7z x -y -bd "ViberSetup.exe"
-    7z x -y -bd "pack.exe"
-    _lc * "${pkgver}"/*
+    7z x -y -bd "pack.exe" -o"pack"
+    _lc * "pack"/*
 }
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "viber.exe" "${pkgver}"/* "${a}"
-    rm "${a}"/msvc{p,r}100.dll
+    cp -r "pack"/* "${a}"
+    rm "${a}"/msvc{p,r}120.dll
 }

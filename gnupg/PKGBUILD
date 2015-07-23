@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=gnupg
-_realver=2.1.3_20150413
+_realver=2.1.6_20150701
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gnupg-w32.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${_realver}.exe")
-md5sums=('51b93005f1e9ad45bd65c332870e9cba')
+md5sums=('343ddcd2de3d2f51a7b793da1471b79f')
 
 prepare() {
     7z x -y -bd "gnupg-w32.exe"

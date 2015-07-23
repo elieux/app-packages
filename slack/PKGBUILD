@@ -4,7 +4,7 @@ _realname=slack
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.0.6
+pkgver=1.1.5
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
@@ -14,7 +14,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("SlackSetup.exe::https://slack.com/ssb/download-win")
-md5sums=('aa0303333b5718734bfcf93d053e2390')
+md5sums=('cfc46c4a8e2c213863dba89d83fb411d')
 
 _lc() {
     for f in "${@}"
@@ -42,8 +42,9 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "lib/net45"/* "${a}"
+    rm "${a}"/msvc{p,r}120.dll "${a}"/vccorlib120.dll
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    mv "${a}/resources/app/resources/win/plugins"/*.pdf "${d}"
+    mv "${a}/license" "${d}"
 }

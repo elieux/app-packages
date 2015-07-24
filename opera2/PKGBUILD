@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=30.0.1835.125
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and free Blink-based web browser"
 url="http://www.opera.com/computer"
 arch=('any')
@@ -46,5 +46,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r * "${a}"
-    rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,opera.dll,opera_setup.exe,resources.pri} "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
+    rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,opera_setup.exe,resources.pri} "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
 }

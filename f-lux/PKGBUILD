@@ -1,0 +1,37 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=f-lux
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=3.10.0.1
+pkgrel=1
+pkgdesc="Changes the display color temperature according to the time of the day"
+url="http://justgetflux.com/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("flux-setup.exe::https://justgetflux.com/flux-setup.exe")
+md5sums=('097aa1113bf9c60994c2425c7547b760')
+
+pkgver() {
+    7z x -y -bd "flux-setup.exe" "flux.exe" > /dev/null
+    b="$(cygpath -wa "flux.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+}
+
+prepare() {
+    7z x -y -bd "flux-setup.exe"
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "flux.exe" "runtime" "${a}"
+
+    d="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp '[LICENSE].txt' "${d}/license.txt"
+}

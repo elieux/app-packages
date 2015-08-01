@@ -1,0 +1,64 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=crystalsysinfo
+_dirname=crystal
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=1.0.0.452
+pkgrel=1
+pkgdesc="A system inspection driver (Crystal Dew World)"
+url="http://crystalmark.info/?lang=en"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("CrystalCPUID32.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID415.zip"
+        "CrystalCPUID64.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID415x64.zip"
+        "CrystalMark.zip::http://crystalmark.info/download/archive/CrystalMark/CrystalMark2004R3.zip") # order is important
+md5sums=('674b253bd57a8369d12a2295d0f35b6b'
+         'f454574da3ccdae06bd51a0f2197e7a1'
+         '3632ec74a25ba36811347b153b30a534')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    b="$(cygpath -wa "SysInfo.dll" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
+}
+
+prepare() {
+    _lc *
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp -r "data" *sysinfo*.{dll,sys,vxd} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}" "${d}/sysinfo"
+    cp *sysinfo*.txt "${d}/sysinfo"
+}
+
+package_app-i686-crystalsysinfo() {
+    _apparch=32
+    _package
+    rm "${a}/sysinfox64.dll"
+}
+
+package_app-x86_64-crystalsysinfo() {
+    _apparch=64
+    _package
+    rm "${a}/sysinfont4.sys" "${a}"/sysinfo.*
+}

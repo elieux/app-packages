@@ -1,0 +1,45 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=crystalmark
+_dirname=crystal
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2004R3
+pkgrel=1
+pkgdesc="A benchmarking software (Crystal Dew World)"
+url="http://crystalmark.info/software/CrystalMark/index-e.html"
+arch=('any')
+license=('custom')
+depends=("app-i686-crystalsysinfo")
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("CrystalMark.zip::http://crystalmark.info/download/archive/CrystalMark/CrystalMark${pkgver}.zip")
+md5sums=('3632ec74a25ba36811347b153b30a534')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+    rm -r "data" *sysinfo*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp -r "template" *.{dll,ini,exe,gld,gc2} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/mark"
+    cp *.txt "${d}/mark"
+}

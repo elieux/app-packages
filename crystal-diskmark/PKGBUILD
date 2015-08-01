@@ -1,0 +1,52 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=crystaldiskmark
+_dirname=crystal
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=5.0.2
+pkgrel=1
+pkgdesc="A disk benchmarking software (Crystal Dew World)"
+url="http://crystalmark.info/software/CrystalDiskMark/index-e.html"
+arch=('any')
+license=('MIT')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("CrystalDiskMark.zip::http://osdn.jp/frs/redir.php?f=%2Fcrystaldiskmark%2F63617%2FCrystalDiskMark${pkgver//./_}.zip")
+md5sums=('3009b68672def1bc6515ac0c145f06b8')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp "diskmark${_apparch}.exe" "${a}/crystaldiskmark.exe"
+    cp -r "cdmresource" "${a}"
+    rm "${a}/cdmresource/diskspd"/*
+    cp "cdmresource/diskspd/diskspd${_apparch}.exe" "${a}/cdmresource/diskspd"
+}
+
+package_app-i686-crystaldiskmark() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-crystaldiskmark() {
+    _apparch=64
+    _package
+}

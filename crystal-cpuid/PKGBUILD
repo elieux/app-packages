@@ -1,0 +1,58 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=crystalcpuid
+_dirname=crystal
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=4.1.5
+pkgrel=1
+pkgdesc="A CPU utility (Crystal Dew World)"
+url="http://crystalmark.info/software/CrystalCPUID/index-e.html"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("CrystalCPUID32.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID${pkgver//./}.zip"
+        "CrystalCPUID64.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID${pkgver//./}x64.zip")
+md5sums=('674b253bd57a8369d12a2295d0f35b6b'
+         'f454574da3ccdae06bd51a0f2197e7a1')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+    rm -r "data" *sysinfo*
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp "crystalcpuid${1}.exe" "${a}/crystalcpuid.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/cpuid"
+    cp -r *.txt "${d}/cpuid"
+}
+
+package_app-i686-crystalcpuid() {
+    _apparch=32
+    depends=("app-i686-crystalsysinfo")
+    _package ""
+}
+
+package_app-x86_64-crystalcpuid() {
+    _apparch=64
+    depends=("app-x86_64-crystalsysinfo")
+    _package "x64"
+}

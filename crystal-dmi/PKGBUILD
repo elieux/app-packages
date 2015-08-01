@@ -1,0 +1,49 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=crystaldmi
+_dirname=crystal
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.06
+pkgrel=1
+pkgdesc="A DMI utility (Crystal Dew World)"
+url="http://crystalmark.info/software/CrystalDMI/index-e.html"
+arch=('any')
+license=('BSD')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("CrystalDMI.zip::http://crystalmark.info/download/archive/CrystalDMI/CrystalDMI.zip")
+md5sums=('813d45af7b94ae5e2a733b1509748716')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    b="$(cygpath -wa "CrystalDMI.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp "crystaldmi.exe" "${a}/crystaldmi.exe"
+    cp *.{dll,vxd,sys} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}/dmi"
+    cp -r *.txt "${d}/dmi"
+}

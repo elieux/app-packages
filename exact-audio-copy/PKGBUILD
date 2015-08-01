@@ -1,0 +1,48 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=exact-audio-copy
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.1
+pkgrel=1
+pkgdesc="A very accurate CD audio grabber"
+url="http://www.exactaudiocopy.de/en/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("eac.exe::http://www.exactaudiocopy.de/eac-1.1.exe")
+md5sums=('2b33ac0762b56cd4881063ef6bb4e31d')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    # msys2 7z reports "Data Error" for CDRDAO/cygwin1.dll
+    7z x -y -bd "eac.exe" -xr!"CDRDAO"
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r * "${a}"
+    rm -r "${a}"/*.nsi "${a}"/'$pluginsdir' "${a}/microsoft.vc80.crt" "${a}/uninst.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    # mv "${a}/cdrdao/GPL license.txt "${d}/cdrdao-license.txt"
+    mv "${a}"/'[LICENSE].rtf' "${d}/license.rtf"
+    mv "${a}"/*.rtf "${a}/documentation"/* "${d}"
+    rm -r "${a}/documentation"
+}

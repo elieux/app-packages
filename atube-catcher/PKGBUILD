@@ -1,0 +1,50 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=atube-catcher
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=3.8.0.9000
+pkgrel=1
+pkgdesc="Downloads videos from the Internet"
+url="http://www.atube.me/"
+arch=('any')
+license=('custom')
+makedepends=("app-i686-innounp")
+provides=("${pkgbase}")
+options=(!strip)
+source=("aTubeCatcher.exe::http://files3.dsnetwb.com/aTubeCatcher.exe")
+md5sums=('2c76f4584cd9b92ea39a356609a8cec8')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    /apps32/innounp/innounp -e -q -m -a -y "aTubeCatcher.exe" "yct.exe" > /dev/null
+    b="$(cygpath -wa "yct.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+}
+
+prepare() {
+    /apps32/innounp/innounp -x -q -m -a -y "aTubeCatcher.exe"
+    _lc "{app}"/*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "{app}"/* "${a}"
+    rm "${a}/Offercast36_ATU3_.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/*.txt "${d}"
+}

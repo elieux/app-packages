@@ -1,0 +1,43 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=filezilla-server
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=0.9.53
+pkgrel=1
+pkgdesc="A popular FTP server"
+url="http://filezilla-project.org/"
+arch=('any')
+license=('GPL')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("FileZilla_Server.exe::http://downloads.sourceforge.net/filezilla/FileZilla%20Server/${pkgver}/FileZilla_Server-${pkgver//./_}.exe")
+md5sums=('fa4f0f83a7fb490aacfb8018a4389fa0')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -y -bd "FileZilla_Server.exe"
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "filezilla server.exe" "filezilla server interface.exe" *.dll "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp -r "license.txt" *.htm "${d}"
+}

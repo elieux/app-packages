@@ -1,0 +1,48 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=filezilla
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=3.12.0.2
+pkgrel=1
+pkgdesc="Fast and reliable FTP, FTPS and SFTP client"
+url="http://filezilla-project.org/"
+arch=('any')
+license=('GPL')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("FileZilla_win32.zip::http://downloads.sourceforge.net/${_realname}/FileZilla_Client/${pkgver}/FileZilla_${pkgver}_win32.zip"
+        "FileZilla_win64.zip::http://downloads.sourceforge.net/${_realname}/FileZilla_Client/${pkgver}/FileZilla_${pkgver}_win64.zip")
+md5sums=('734b3c38c460528af7c4597a54c3dcd6'
+         '32ca7c471b162a1f889b498dc42c0856')
+noextract=("FileZilla_win32.zip"
+           "FileZilla_win64.zip")
+
+prepare() {
+    for _apparch in 32 64
+    do
+        unzip -o "FileZilla_win${_apparch}.zip" -d "filezilla${_apparch}"
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "filezilla${_apparch}/FileZilla-${pkgver}"/* "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}/docs" "${a}/AUTHORS" "${a}/NEWS" "${a}/GPL.html" "${d}"
+}
+
+package_app-i686-filezilla() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-filezilla() {
+    _apparch=64
+    _package
+}

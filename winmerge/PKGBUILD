@@ -1,0 +1,48 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=winmerge
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.14.0
+pkgrel=1
+pkgdesc="A differencing and merging tool"
+url="http://winmerge.org/"
+arch=('any')
+license=('GPL')
+makedepends=("unzip" "app-i686-innounp")
+provides=("${pkgbase}")
+options=(!strip)
+source=("WinMerge-Setup.exe::http://downloads.sourceforge.net/${_realname}/WinMerge-${pkgver}-Setup.exe"
+        "WinMerge-exe.zip::http://downloads.sourceforge.net/${_realname}/WinMerge-${pkgver}-exe.zip")
+md5sums=('12cf016ed04fe123a831d77806b4f11e'
+         'dabf07149e6b859b9c9cb7d46abdafb3')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    /apps32/innounp/innounp -x -q -m -a -y "WinMerge-Setup.exe"
+    cp -r "{app}"/* "WinMerge-${pkgver}-exe"
+    _lc "WinMerge-${pkgver}-exe"/* "WinMerge-${pkgver}-exe"/*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "WinMerge-${pkgver}-exe"/* "${a}"
+    rm "${a}/readme.txt"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/*.txt "${a}/docs"/* "${d}"
+    rm -r "${a}/docs"
+}

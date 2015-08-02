@@ -1,0 +1,40 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=winmerge-plugin-7z
+_dirname=winmerge
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=0028.465.920
+pkgrel=1
+pkgdesc="A WinMerge plugin for 7-zip support"
+url="http://winmerge.org/downloads/plugins.php"
+arch=('any')
+license=('custom')
+depends=("app-i686-winmerge")
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Merge7z.7z::http://downloads.sourceforge.net/winmerge/Merge7z${pkgver//./-}.7z")
+md5sums=('f4972c5c29169cf15ed1d97f6fc758ab')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp -r "lang" "7z.dll" "7zip_pad.xml" "merge7z920u.dll" "${a}"
+}

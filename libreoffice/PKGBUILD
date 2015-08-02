@@ -4,7 +4,7 @@ _realname=libreoffice
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=4.4.4
+pkgver=4.4.5
 pkgrel=1
 pkgdesc="The free office suite"
 url="https://www.libreoffice.org/"
@@ -13,7 +13,7 @@ license=('LGPL3' 'custom:Apache')
 provides=("${pkgbase}")
 options=(!strip)
 source=("LibreOffice_Win_x86.msi::http://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86/LibreOffice_${pkgver}_Win_x86.msi")
-md5sums=('70047ec3c33102ad4c54a1637a406cb5')
+md5sums=('fcea53a0d8217048c3f03939d9715ce2')
 
 _lc() {
     for f in "${@}"
@@ -35,7 +35,7 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "msi"/* "${a}"
-    rm -r "${a}"/{Fonts,Win} "${a}"/*.msi "${a}/program"/msvc{p,r}80.dll
+    rm -r "${a}"/{Fonts,Win} "${a}"/*.msi "${a}/program"/msvc{p,r}80.dll "${a}/program/shlxthdl"/msvc{p,r}110.dll
     echo -n "ure" > "${a}/ure-link"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"

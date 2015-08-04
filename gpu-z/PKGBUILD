@@ -4,7 +4,7 @@ _realname=gpu-z
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=0.8.4
+pkgver=0.8.5
 pkgrel=1
 pkgdesc="Lightweight utility providing GPU and graphics card information"
 arch=('any')
@@ -12,8 +12,8 @@ url="http://www.techpowerup.com/gpuz/"
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("GPU-Z.exe::http://www.techpowerup.com/downloads/2506/techpowerup-gpu-z-v${pkgver//./-}/start?server=6")
-md5sums=('6163d5c76052dffd00182fa1ae0491d9')
+source=("GPU-Z.exe::http://www.techpowerup.com/downloads/2524/techpowerup-gpu-z-v${pkgver//./-}/start?server=6")
+md5sums=('513d1606fd1216cbe56fb1e2dc8d38a2')
 
 _lc() {
     for f in "${@}"

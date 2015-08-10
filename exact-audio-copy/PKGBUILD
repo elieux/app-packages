@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A very accurate CD audio grabber"
 url="http://www.exactaudiocopy.de/en/"
 arch=('any')
@@ -28,20 +28,19 @@ _lc() {
 }
 
 prepare() {
-    # msys2 7z reports "Data Error" for CDRDAO/cygwin1.dll
-    7z x -y -bd "eac.exe" -xr!"CDRDAO"
-    _lc *
+    7z x -y -bd "eac.exe" -o"eac"
+    _lc "eac"/*
 }
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r * "${a}"
+    cp -r "eac"/* "${a}"
     rm -r "${a}"/*.nsi "${a}"/'$pluginsdir' "${a}/microsoft.vc80.crt" "${a}/uninst.exe"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    # mv "${a}/cdrdao/GPL license.txt "${d}/cdrdao-license.txt"
+    mv "${a}/cdrdao/GPL license.txt" "${d}/cdrdao-license.txt"
     mv "${a}"/'[LICENSE].rtf' "${d}/license.rtf"
     mv "${a}"/*.rtf "${a}/documentation"/* "${d}"
     rm -r "${a}/documentation"

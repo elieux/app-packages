@@ -1,10 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=libreoffice
-_apparch=32
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-pkgver=4.4.5
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=5.0.0
 pkgrel=1
 pkgdesc="The free office suite"
 url="https://www.libreoffice.org/"
@@ -12,8 +12,10 @@ arch=('any')
 license=('LGPL3' 'custom:Apache')
 provides=("${pkgbase}")
 options=(!strip)
-source=("LibreOffice_Win_x86.msi::http://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86/LibreOffice_${pkgver}_Win_x86.msi")
-md5sums=('fcea53a0d8217048c3f03939d9715ce2')
+source=("LibreOffice_Win32.msi::http://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86/LibreOffice_${pkgver}_Win_x86.msi"
+        "LibreOffice_Win64.msi::http://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86_64/LibreOffice_${pkgver}_Win_x64.msi")
+md5sums=('3d158ed14a3cc35f4bab49b586f4c55f'
+         'a3ec701e939392dd3fa74f78a359a062')
 
 _lc() {
     for f in "${@}"
@@ -26,19 +28,36 @@ _lc() {
     done
 }
 
-build() {
-    msiexec -a "LibreOffice_Win_x86.msi" "TARGETDIR=$(cygpath -wa "msi")" -qn
-    _lc "msi"/*
+_build() {
+    msiexec -a "LibreOffice_Win${_apparch}.msi" "TARGETDIR=$(cygpath -wa "msi${_apparch}")" -qn
+    _lc "msi${_apparch}"/*
 }
 
-package() {
+build() {
+    for _apparch in 32 64
+    do
+        _build
+    done
+}
+
+_package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "msi"/* "${a}"
-    rm -r "${a}"/{Fonts,Win} "${a}"/*.msi "${a}/program"/msvc{p,r}80.dll "${a}/program/shlxthdl"/msvc{p,r}110.dll
-    echo -n "ure" > "${a}/ure-link"
+    cp -r "msi${_apparch}"/* "${a}"
+    rm -r "${a}"/{fonts,system$1} "${a}"/*.msi
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
     mv "${a}/readmes" "${a}/notice" "${a}"/*.{html,txt} "${d}"
+}
+
+package_app-i686-libreoffice() {
+    _apparch=32
+    _package ""
+    rm -r "${pkgdir}/apps${_apparch}/${_realname}/program"/{msvc{p,r}80,shlxthdl/msvc{p,r}120}.dll
+}
+
+package_app-x86_64-libreoffice() {
+    _apparch=64
+    _package "64"
 }

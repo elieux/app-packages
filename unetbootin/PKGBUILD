@@ -1,0 +1,22 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=unetbootin
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=613
+pkgrel=1
+pkgdesc="Create bootable Live USB drives"
+arch=('any')
+url="https://unetbootin.github.io/"
+license=('GPL')
+provides=("${pkgbase}")
+options=(!strip)
+source=("unetbootin-windows.exe::http://launchpad.net/unetbootin/trunk/${pkgver}/+download/unetbootin-windows-${pkgver}.exe")
+md5sums=('d726f73b46dbe2160c0fa10476bc0389')
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp unetbootin-windows.exe "${a}/unetbootin.exe"
+}

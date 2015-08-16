@@ -1,0 +1,49 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=winscp
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=5.7.5
+pkgrel=1
+pkgdesc="An open source two-pane SFTP/FTP/WebDAV/SCP client"
+url="http://www.un4seen.com/xmplay.html"
+arch=('any')
+license=('custom')
+makedepends=("app-i686-innounp"
+             "unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("winscpsetup.exe::http://download.sourceforge.net/winscp/WinSCP/${pkgver}/winscp${pkgver//./}setup.exe"
+        "winscp.zip::http://download.sourceforge.net/winscp/WinSCP/${pkgver}/winscp${pkgver//./}.zip"
+        "winscpautomation.zip::http://download.sourceforge.net/winscp/WinSCP/${pkgver}/winscp${pkgver//./}automation.zip")
+md5sums=('236fd3c83f5635c0c428ac8ff2134831'
+         'c5347f90a09d894c9f021ecdaf474fa2'
+         'ed93d94275a0b80e91ebbeba3c9bd404')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    /apps32/innounp/innounp -x -q -m -a -y "winscpsetup.exe"
+    _lc '{app}'/* *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp "winscpnet.dll" '{app}'/dragext*.dll '{app}'/winscp.* "${a}"
+    rm "${a}/winscp.map"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp *.txt "${d}"
+}

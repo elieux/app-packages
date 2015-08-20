@@ -14,7 +14,7 @@ license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("tmonitor.zip::http://www.cpuid.com/medias/files/softwares/${_realname}/${_realname}_${pkgver}.zip")
+source=("tmonitor.zip::http://download.cpuid.com/${_realname}/${_realname}_${pkgver}.zip")
 md5sums=('0d30f7fc085cfdb93b6fd0e3bc4b98ef')
 
 _lc() {

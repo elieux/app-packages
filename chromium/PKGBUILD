@@ -4,7 +4,7 @@ _realname=chromium
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=46.0.2464.0
+pkgver=46.0.2488.0
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="http://www.chromium.org/Home"
@@ -13,10 +13,10 @@ license=('BSD')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("chrome-win32.zip::https://storage.googleapis.com/chromium-browser-continuous/Win/340050/chrome-win32.zip"
-        "chrome-win64.zip::https://storage.googleapis.com/chromium-browser-continuous/Win_x64/340050/chrome-win32.zip")
-md5sums=('268f8f36f354bb5f561524b5f63ac576'
-         'bb0cfc0125951468041ff8c400c9c148')
+source=("chrome-win32.zip::https://storage.googleapis.com/chromium-browser-continuous/Win/344384/chrome-win32.zip"
+        "chrome-win64.zip::https://storage.googleapis.com/chromium-browser-continuous/Win_x64/344384/chrome-win32.zip")
+md5sums=('9545b0a4a82290151f3ca2517849508e'
+         '64184b1d9aec94ae03e774b82b458477')
 noextract=("chrome-win32.zip"
            "chrome-win64.zip")
 

@@ -4,7 +4,7 @@ _realname=teamspeak
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=3.0.16
+pkgver=3.0.17
 pkgrel=1
 pkgdesc="Quality voice communication via the Internet"
 url="http://www.teamspeak.com/"
@@ -17,8 +17,8 @@ source=("TeamSpeak3-Client-win32.exe::http://dl.4players.de/ts/releases/${pkgver
         "TeamSpeak3-Client-win64.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe"
         # "pluginsdk.zip::http://dl.4players.de/ts/client/pluginsdk/pluginsdk_${pkgver}.zip"
 )
-md5sums=('23deac9fbe97193cec07942b6115ce31'
-         '891dccc5e78e2bb3ca6100480138fbab')
+md5sums=('de05f0b38ade77613027ee440f3a77de'
+         '3c428c4eec7aa55bbe682d93da78e4b5')
 
 _lc() {
     for f in "${@}"
@@ -32,8 +32,13 @@ _lc() {
 }
 
 _prepare() {
-    7z x -y -bd "TeamSpeak3-Client-win${_apparch}.exe" -o"TeamSpeak3-Client-win${_apparch}"
-    _lc "TeamSpeak3-Client-win${_apparch}"/*
+    w="*license*.rtf"
+    7z x -y -bd -x!"${w}" "TeamSpeak3-Client-win${_apparch}.exe" -o"win${_apparch}"
+    for f in $(7z l -y -bd -i!"${w}" "TeamSpeak3-Client-win${_apparch}.exe" | grep 'license.*rtf' | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's/^.*\\//')
+    do
+        7z e -y -bd -so -i!"*${f}" "TeamSpeak3-Client-win${_apparch}.exe" > "win${_apparch}/${f}"
+    done
+    _lc "win${_apparch}"/*
 }
 
 prepare() {
@@ -46,13 +51,13 @@ prepare() {
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "TeamSpeak3-Client-win${_apparch}"/* "${a}"
-    rm -r "${a}/update.exe" "${a}"/msvc{p,r}110.dll "${a}/uninstall.exe.nsis" "${a}/[nsis].nsi" "${a}/overwolfteamspeakinstaller.exe" "${a}"/'$pluginsdir'
+    cp -r "win${_apparch}"/* "${a}"
+    rm -r "${a}/update.exe" "${a}"/msvc{p,r}120.dll "${a}/uninstall.exe.nsis" "${a}/[nsis].nsi" "${a}/overwolfteamspeakinstaller.exe" "${a}"/'$pluginsdir'
     mv "${a}/ts3client_win${_apparch}.exe" "${a}/ts3client.exe"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    mv "${a}"/*.{txt,html} "${a}/news" "${d}"
+    mv "${a}"/*.{txt,html,rtf} "${a}/news" "${d}"
 }
 
 package_app-i686-teamspeak() {

@@ -4,7 +4,7 @@
 DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC - -o %o %u')
 
 _realname=jdk
-_realver=8u51-b16
+_realver=8u60-b27
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
@@ -19,8 +19,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("jdk-windows32.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-i586.exe"
         "jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-x64.exe")
-md5sums=('6764c96b08cce10ff1debeb735996cf1'
-         'd90777f4743c62f994ecc7a88f784d5e')
+md5sums=('0936c6d4d7643e2df69abdade59b14ea'
+         '07af23059897f9f64eaa332cc06a58c8')
 
 _lc() {
     for f in "${@}"
@@ -53,7 +53,7 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/{bin,db,include,jre,lib} "${a}"
-    rm "${a}"/{bin,jre/bin,jre/bin/plugin2}/msvcr100.dll
+    rm "${a}"/{bin,jre/bin,jre/bin/plugin2}/msvcr100.dll "${a}/jre/bin"/msvc{r,p}120.dll
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

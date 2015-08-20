@@ -5,7 +5,7 @@ _dirname=cpuid
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=1.72.1
+pkgver=1.73
 pkgrel=1
 pkgdesc="Gathers information on some of the main devices of your system (CPUID)"
 url="http://www.cpuid.com/softwares/cpu-z.html"
@@ -14,8 +14,8 @@ license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("cpu-z-en.zip::http://www.cpuid.com/medias/files/softwares/${_realname}/${_realname}_${pkgver}-en.zip")
-md5sums=('9f7acb23f92f095c0cc1a63ef65f5972')
+source=("cpu-z-en.zip::http://download.cpuid.com/${_realname}/${_realname}_${pkgver}-en.zip")
+md5sums=('fd25d4d9f5ef12e6cce735f4db600cb2')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

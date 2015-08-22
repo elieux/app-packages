@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.30
-pkgrel=1
+pkgrel=2
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
@@ -29,7 +29,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Danish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Danish.zip"
         "KeePass2-Dutch.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Dutch.zip"
         "KeePass2-Finnish.zip::http://downloads.sourceforge.net/keepass/Finnish-2.18.zip"
-        "KeePass2-French.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-French.zip"
+        "KeePass2-French.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-French.zip"
         "KeePass2-German.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-German.zip"
         "KeePass2-Greek.zip::http://downloads.sourceforge.net/keepass/KeePass-2.21-Greek.zip"
         "KeePass2-Hungarian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Hungarian.zip"
@@ -38,7 +38,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Japanese.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Japanese.zip"
         "KeePass2-Korean.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Korean.zip"
         "KeePass2-Latin.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Latin.zip"
-        "KeePass2-Lithuanian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Lithuanian.zip"
+        "KeePass2-Lithuanian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Lithuanian.zip"
         "KeePass2-Norwegian_NB.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Norwegian_NB.zip"
         "KeePass2-Pashto.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Pashto.zip"
         "KeePass2-Persian.zip::http://downloads.sourceforge.net/keepass/Persian-2.08.zip"
@@ -69,7 +69,7 @@ md5sums=('b73b9fc520e47f47c517be1048be7aec'
          'f75703e8a0bb7f24ccfb3cb034efb6db'
          'f9188970cc2a71092776c98804aaf055'
          'dc284751a01eb3e12e7d100e96deed7b'
-         '43204029213dee42d2ef82b2332ac5fe'
+         '7e329ac4fd706c84e88992b713940c09'
          '261c4ccffd2b0e83491a5100cbbb5100'
          'b4129b1d4c37fa33d3804a17a7576fad'
          'a3efefd5086151fe2020eeaebcf493da'
@@ -78,7 +78,7 @@ md5sums=('b73b9fc520e47f47c517be1048be7aec'
          '1944335dbe1ae483c5be16728d0dacf2'
          'b743da6cdd130d661de435f44cc4ad89'
          '8b0a0d045f368a1f09bd452dd7df72b5'
-         '18796d380af78202e8af827f0c113864'
+         '3fa68d977072ed42cb65ecbe1abb998b'
          '5d7c39922bb9a612dabad000344b8200'
          '31ecbdcb817c24a6725af7d101676b6a'
          '3172ba110fd730ca4c894f9e52f09930'

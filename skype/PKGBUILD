@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=7.8.32.102
-pkgrel=1
+pkgrel=2
 pkgdesc="P2P software for high-quality voice communication"
 url="http://www.skype.com/"
 arch=('any')
@@ -39,7 +39,7 @@ pkgver() {
 
 build() {
     msiexec -a "SkypeSetup.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
-
+    attrib -r //s
     s="install/Program Files/Skype"
     _lc "${s}/Phone"/* "${s}/Perfmon"/* "${s}/Redist/Skype"/* "${s}/PFiles/Skype/Browser"/*
 }

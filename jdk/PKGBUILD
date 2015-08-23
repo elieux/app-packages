@@ -9,7 +9,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=${_realver%-*}
-pkgrel=1
+pkgrel=2
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 arch=('any')
@@ -37,6 +37,7 @@ _prepare() {
     7z x -y -bd "jdk-windows${_apparch}.exe"
     mv "tools.zip" "tools${_apparch}.zip"
     unzip -o "tools${_apparch}.zip" -d "tools${_apparch}"
+    attrib -r //s
     _lc "tools${_apparch}"/*
 }
 

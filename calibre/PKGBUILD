@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.35
-pkgrel=1
+pkgrel=2
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
 arch=('any')
@@ -30,6 +30,7 @@ _lc() {
 
 _build() {
     msiexec -a "calibre${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
+    attrib -r //s
     _lc "install${_apparch}/PFiles"/*
     _lc "install${_apparch}/PFiles"/calibre*/*
 }

@@ -4,7 +4,7 @@ _realname=slack
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.1.5
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
@@ -14,7 +14,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("SlackSetup.exe::https://slack.com/ssb/download-win")
-md5sums=('cfc46c4a8e2c213863dba89d83fb411d')
+md5sums=('2ed141c59cca99c29a3ca54837095a48')
 
 _lc() {
     for f in "${@}"

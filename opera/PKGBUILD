@@ -1,22 +1,23 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=opera
+_realver=38710
+_apparch=32
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
-pkgver=12.17.1863
+pkgname=("app-i686-${_realname}")
+pkgver=32.0.1948.69
 pkgrel=1
-pkgdesc="Fast and secure Presto-based web browser and Internet suite"
-url="http://www.opera.com/download/guide/?os=windows&ver=12.17&local=y"
+pkgdesc="A fast and free Blink-based web browser"
+url="http://www.opera.com/computer"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
+replaces=("app-i686-opera2")
+conflicts=("app-i686-${_realname}<15")
 options=(!strip)
-source=("Opera_int_Setup32.exe::http://www.opera.com/download/get/?id=36923&location=360&nothanks=yes&sub=marine"
-        "Opera_int_Setup64.exe::http://www.opera.com/download/get/?id=36925&location=360&nothanks=yes&sub=marine")
-md5sums=('1375a1b25fccbd71a682aa69c63cc350'
-         '23fc0ec7fce7598595a31157ce116000')
+source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=${_realver}&location=395&nothanks=yes&sub=marine")
+md5sums=('a25510bf3ecc286f73031ac5a7dab333')
 
 _lc() {
     for f in "${@}"
@@ -30,40 +31,23 @@ _lc() {
 }
 
 pkgver() {
-    7z e -y -bd "Opera_int_Setup32.exe" "opera.exe" > /dev/null
-    b="$(cygpath -wa "opera.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
-}
-
-_prepare() {
-    7z x -y -bd "Opera_int_Setup${_apparch}.exe" -o"Opera_int${_apparch}"
-    _lc "Opera_int${_apparch}"/*
+    b="$(cygpath -wa "Opera_Setup.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
 }
 
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    7z x -y -bd "Opera_Setup.exe"
+    _lc *
 }
 
-_package() {
+build() {
+    # Opera_Setup.exe -silent -installfolder="$(cygpath -wa "install")" -allusers=0 -copyonly=1 -setdefaultbrowser=0 -desktopshortcut=0 -startmenushortcut=0 -pintotaskbar=0 -launchopera=0
+    true
+}
+
+package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "Opera_int${_apparch}"/* "${a}"
-    rm -r "${a}/updatechecker" "${a}"/files*
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}" "${d}/gstreamer"
-    mv "${a}/gstreamer"/*.txt "${d}/gstreamer"
-}
-
-package_app-i686-opera() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-opera() {
-    _apparch=64
-    _package
+    cp -r * "${a}"
+    rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,opera_setup.exe,resources.pri} "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
 }

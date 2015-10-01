@@ -1,0 +1,71 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=opera-classic
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=12.17.1863
+pkgrel=1
+pkgdesc="Fast and secure Presto-based web browser and Internet suite"
+url="http://www.opera.com/download/guide/?os=windows&ver=12.17&local=y"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Opera_int_Setup32.exe::http://www.opera.com/download/get/?id=36923&location=360&nothanks=yes&sub=marine"
+        "Opera_int_Setup64.exe::http://www.opera.com/download/get/?id=36925&location=360&nothanks=yes&sub=marine")
+md5sums=('1375a1b25fccbd71a682aa69c63cc350'
+         '23fc0ec7fce7598595a31157ce116000')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    7z e -y -bd "Opera_int_Setup32.exe" "opera.exe" > /dev/null
+    b="$(cygpath -wa "opera.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
+}
+
+_prepare() {
+    7z x -y -bd "Opera_int_Setup${_apparch}.exe" -o"Opera_int${_apparch}"
+    _lc "Opera_int${_apparch}"/*
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "Opera_int${_apparch}"/* "${a}"
+    rm -r "${a}/updatechecker" "${a}"/files*
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}" "${d}/gstreamer"
+    mv "${a}/gstreamer"/*.txt "${d}/gstreamer"
+}
+
+package_app-i686-opera-classic() {
+    replaces=("app-i686-opera<15")
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-opera-classic() {
+    replaces=("app-x86_64-opera<15")
+    _apparch=64
+    _package
+}

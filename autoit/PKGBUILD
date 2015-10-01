@@ -4,7 +4,7 @@ _realname=autoit
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=3.3.14.0
+pkgver=3.3.14.2
 pkgrel=1
 pkgdesc="A free BASIC-like scripting language for automating Windows GUIs"
 url="http://www.autoitscript.com/"
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("autoit.zip::http://www.autoitscript.com/files/autoit3/autoit-v3.zip")
-md5sums=('6ca0a9429b3ff3c5d652fd1a0429bdc2')
+md5sums=('dd05a73ea361037181ad28aeb692647f')
 
 pkgver() {
     b="install/Au3Check.exe"
@@ -34,13 +34,13 @@ _lc() {
 }
 
 prepare() {
-    _lc "install/Aut2Exe/Icons"/* "install/Aut2Exe"/* "install/AutoItX/Examples" "install/AutoItX/AutoItX.chm" "install/Icons"/* "install/Extras/Au3Record"/* "install"/*
+    _lc "install/Aut2Exe/Icons"/* "install/Aut2Exe"/* "install/AutoItX/Examples" "install/AutoItX/AutoItX.chm" "install/Icons"/* "install"/*
 }
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "install"/{include,icons} "install/aut2exe/icons" "install/extras/Au3Record"/* "install"/au3check.* "install/autoitx"/*.psd1 "install/autoitx"/AutoItX3{_DLL.h,.Assembly.dll,.Assembly.xml,.PowerShell.dll} "install/autoitx/AutoItX3${1}.dll" "install/autoitx/AutoItX3${1}_DLL.lib" "install/aut2exe/aut2exe${1}.exe" "install/au3info${1}.exe" "install/autoit3${1}.exe" "${a}"
+    cp -r "install"/{include,icons} "install/aut2exe/icons" "install"/au3check.* "install/autoitx"/*.psd1 "install/autoitx"/AutoItX3{_DLL.h,.Assembly.dll,.Assembly.xml,.PowerShell.dll} "install/autoitx/AutoItX3${1}.dll" "install/autoitx/AutoItX3${1}_DLL.lib" "install/aut2exe/aut2exe${1}.exe" "install/au3info${1}.exe" "install/autoit3${1}.exe" "${a}"
     if [ "${1}" != "" ]
     then
         for f in "${a}"/*${1}*
@@ -53,7 +53,6 @@ _package() {
     mkdir -p "${d}" "${d}/extras/Editors/SciTE"
     cp -r "install"/{examples,autoitx/examples,extras} "install/autoitx"/*.chm "install"/*.{chm,url} "install/autoit3help.exe" "${d}"
     cp -r "install/scite"/*.properties "install/scite/api" "${d}/extras/editors/SciTE"
-    rm -r "${d}/extras/au3record"
 }
 
 package_app-i686-autoit() {

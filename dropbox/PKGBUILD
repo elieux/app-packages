@@ -6,8 +6,8 @@ _realname=dropbox
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=3.4.6
-pkgrel=2
+pkgver=3.10.6
+pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="http://www.dropbox.com/"
 arch=('any')
@@ -15,8 +15,8 @@ license=('custom')
 makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Dropbox.exe::https://www.dropbox.com/download?full=1&plat=win")
-md5sums=('62acb05dd79906f76017bd849bfcc56c')
+source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
+md5sums=('cdc36a652756cbb04f9b440d18e5aed5')
 
 _lc() {
     for f in "${@}"
@@ -30,18 +30,20 @@ _lc() {
 }
 
 pkgver() {
-    b="$(cygpath -wa "Dropbox.exe" | sed 's/\\/\\\\/g')"
+    7z x -y -bd "DropboxOfflineInstaller.exe" > /dev/null
+    b="$(cygpath -wa "Installer.exe".* | sed 's/\\/\\\\/g')"
     wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
 }
 
 prepare() {
-    7z x -y -bd "Dropbox.exe"
-    _lc '$0'/* '$APPDATA/Dropbox/bin/$0'/* *
+    7z x -y -bd "DropboxOfflineInstaller.exe"
+    7z x -y -bd "Installer.exe".*
+    _lc '$0'/*
 }
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r dropboxext*.dll '$0'/* '$APPDATA/Dropbox/bin/$0'/* "${a}"
-    rm -r "${a}/microsoft.vc90.crt" "${a}/dropboxupdatehelper.exe" "${a}"/msvc{m,p,r}90.dll
+    cp -r '$0'/* "${a}"
+    rm -r "${a}/dropboxuninstaller.exe" "${a}/gdiplus.dll" "${a}"/msvc{p,r}120.dll "${a}"/{msvcp,vccorlib,vcruntime}140.dll
 }

@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.2.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
 arch=('any')
@@ -13,8 +13,12 @@ license=('custom')
 makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SlackSetup.exe::https://slack.com/ssb/download-win")
-md5sums=('a2eeedf797796ee298980f49416aa26b')
+source=("SlackSetup.exe::https://slack.com/ssb/download-win"
+        "en_US.dic::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.dic"
+        "en_US.aff::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.aff")
+md5sums=('a2eeedf797796ee298980f49416aa26b'
+         '4515fbb1b055337dfd1b95a92c1b7e4f'
+         '948412697f6fe862d4bc17517011f46e')
 
 _lc() {
     for f in "${@}"
@@ -35,16 +39,17 @@ pkgver() {
 prepare() {
     7z x -y -bd "SlackSetup.exe"
     unzip -o "slack-${pkgver}-full.nupkg"
-    _lc * "lib/net45"/*
+    _lc "lib/net45"/*
 }
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${a}"
-    cp -r "lib/net45"/* "${a}"
-    rm "${a}"/msvc{p,r}120.dll "${a}"/vccorlib120.dll
+    mkdir -p "${a}" "${a}/app" "${a}/dictionaries"
+    cp -r "lib/net45"/* "${a}/app"
+    rm "${a}/app"/msvc{p,r}120.dll "${a}/app/vccorlib120.dll"
+    cp en_US.* "${a}/dictionaries"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    mv "${a}/license" "${d}"
+    mv "${a}/app/license" "${d}"
 }

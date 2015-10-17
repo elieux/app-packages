@@ -1,0 +1,54 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=notepad++
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=6.8.4
+pkgrel=1
+pkgdesc="A free Scintilla-based editor with plugin support"
+url=""
+arch=('any')
+license=('GPL')
+makedepends=("p7zip" "unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("npp.Installer.exe::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.Installer.exe"
+        "npp.bin.zip::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.zip")
+md5sums=('9488bed96021a5bf8247ef0c72da6751'
+         '6b7122fc5760208a267b1922ab93d8f9')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    rm -f NppShell_06*.dll
+    echo u | 7z x -bd -i!"NppShell_06.dll" "npp.Installer.exe"
+    _lc *
+    for f in nppshell_06*.dll
+    do
+        case $(file "${f}") in
+        *80386*) mv "${f}" "nppshell_06.32.dll" ;;
+        *x86-64*) mv "${f}" "nppshell_06.64.dll" ;;
+        esac
+    done
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r * "${a}"
+    rm "${a}/dolocalconf.xml" "${a}"/npp.{installer.exe,bin.zip}
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/*.{log,txt} "${d}"
+}

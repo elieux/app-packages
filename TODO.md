@@ -114,7 +114,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - hstart
 - html-help-workshop
 - httpd
-- hxd
 - i2p
 - icesword
 - ilspy
@@ -138,7 +137,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - ln
 - magical-jelly-bean-keyfinder
 - magical-jelly-bean-keyfinder-v1.5.1
-- mariadb
 - mathematics
 - maven
 - mbrfix
@@ -155,7 +153,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - mplayer
 - mumble
 - mv2player
-- mysql
 - nbuexplorer
 - nero-toolkit
 - networkminer
@@ -350,7 +347,6 @@ These are already present in `mingw-packages` in some form or other, so they're 
 - scite
 - sqlite
 - tesseract
-- unbound
 - vlc
 - yasm
 - qemu

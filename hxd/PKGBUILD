@@ -1,0 +1,42 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=hxd
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.7.7.0
+pkgrel=1
+pkgdesc="Freeware hex editor and disk editor"
+arch=('any')
+url="http://mh-nexus.de/en/hxd/"
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("HxDen.zip::ftp://wa651f2:anonymous@mh-nexus.de/HxDen.zip")
+md5sums=('4960d81100db5e2587529abff86273bb')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp *.exe "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp *.txt "${d}"
+}

@@ -1,0 +1,42 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=unbound
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.5.5
+pkgrel=1
+pkgdesc="Validating, recursive, and caching DNS resolver"
+arch=('any')
+url="http://unbound.net/"
+license=('custom:BSD')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("unbound.zip::https://www.unbound.net/downloads/unbound-${pkgver}.zip")
+md5sums=('117c252f6144129ff47ab64564c806c1')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp *.{exe,cmd} "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp *.{txt,conf,url} "license" "${d}"
+}

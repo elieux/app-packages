@@ -1,0 +1,42 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=mariadb
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=10.1.8
+pkgrel=1
+pkgdesc="Fast SQL database server, drop-in replacement for MySQL"
+url="http://mariadb.org/"
+arch=('any')
+license=('GPL')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("mariadb-win32.zip::https://downloads.mariadb.org/f/mariadb-${pkgver}/win32-packages/mariadb-${pkgver}-win32.zip"
+        "mariadb-winx64.zip::https://downloads.mariadb.org/f/mariadb-${pkgver}/winx64-packages/mariadb-${pkgver}-winx64.zip")
+md5sums=('9391e85eb57080fb2cc2918f04b131fc'
+         'd93cf7fe415f235e37d2f073f801fbfc')
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "mariadb-${pkgver}-win${1}"/* "${a}"
+    rm -r "${a}"/{data,mysql-test,sql-bench}
+    find "${a}" -name '*.pdb' -delete
+    find "${a}" -name '*.lib' -delete
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/COPYING* "${a}"/*.ini "${a}"/{CREDITS,EXCEPTIONS-CLIENT,README} "${d}"
+}
+
+package_app-i686-mariadb() {
+    _apparch=32
+    _package "32"
+}
+
+package_app-x86_64-mariadb() {
+    _apparch=64
+    _package "x64"
+}

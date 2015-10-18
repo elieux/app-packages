@@ -1,0 +1,43 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=mysql
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=5.6.27
+pkgrel=1
+pkgdesc="Fast SQL database server, community edition"
+url="https://www.mysql.com/products/community/"
+arch=('any')
+license=('GPL')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("mysql-win32.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-win32.zip"
+        "mysql-winx64.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-winx64.zip")
+md5sums=('39ce080496752219f1b5da0ac62876b7'
+         '4ad1b36c8156d4e5bba15937074a12ba')
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "mysql-${pkgver}-win${1}"/* "${a}"
+    rm -r "${a}"/{data,mysql-test,sql-bench}
+    find "${a}" -name 'debug' -exec rm -r '{}' \; -prune
+    find "${a}" -name '*.pdb' -delete
+    find "${a}" -name '*.lib' -delete
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/{docs,COPYING,README} "${a}"/*.ini "${d}"
+}
+
+package_app-i686-mysql() {
+    _apparch=32
+    _package "32"
+}
+
+package_app-x86_64-mysql() {
+    _apparch=64
+    _package "x64"
+}

@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=chromium
-_realver=351402
+_realver=354670
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=47.0.2523.0
+pkgver=48.0.2539.0
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="http://www.chromium.org/Home"
@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("chrome-win32.zip::https://storage.googleapis.com/chromium-browser-continuous/Win/${_realver}/chrome-win32.zip"
         "chrome-win64.zip::https://storage.googleapis.com/chromium-browser-continuous/Win_x64/${_realver}/chrome-win32.zip")
-md5sums=('9e20269342dafd539dfeec4e1e1b50d3'
-         '89d9c0d644409d22f51dba91fb5c8a52')
+md5sums=('59b48a119d1c229bfa5085ac8e2f56eb'
+         'd0bde98bd80b669b5773cadf6ef8eea4')
 noextract=("chrome-win32.zip"
            "chrome-win64.zip")
 

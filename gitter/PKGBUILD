@@ -1,0 +1,43 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=gitter
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.4.0
+pkgrel=1
+pkgdesc="Client for the Gitter communication platform"
+url="http://gitter.im/"
+arch=('any')
+license=('custom')
+makedepends=("app-i686-innounp")
+provides=("${pkgbase}")
+options=(!strip)
+source=("GitterSetup.exe::https://update.gitter.im/win/GitterSetup-${pkgver}.exe")
+md5sums=('6a30106b5b32daa74bf007937b0c0d26')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    /apps32/innounp/innounp -x -q -m -a -y "GitterSetup.exe"
+    _lc "{app}"/*
+    for f in "{app}"/gitter*.exe
+    do
+        mv -f "${f}" "{app}/gitter.exe"
+    done
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "{app}"/* "${a}"
+}

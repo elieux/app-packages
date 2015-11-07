@@ -1,6 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=keepass-plugin-rpc
+_realver=2014-10-05T18:09:51Z
 _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
@@ -14,14 +15,16 @@ license=('unknown')
 depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("keefox-tb+fx-windows.xpi::https://addons.mozilla.org/firefox/downloads/file/318704/keefox-1.4.8-tb+fx-windows.xpi")
-md5sums=('788a1b2a1d4afcae36c1a700c28eebb8')
+source=("keefox-tb+fx-windows.xpi::https://addons.mozilla.org/firefox/downloads/file/306880/keefox-1.5.3-tb+fx-windows.xpi")
+md5sums=('482c5cc46f132f5b90001e4f469cb614')
 
 pkgver() {
-    v="$(dd if="CertKeyProviderPlugin.plgx" bs=1 skip=67 count=20 2> /dev/null)"
-    if [ "${v}" != '2014-10-05T18:09:51Z' ]
+    v="$(dd if="deps/KeePassRPC.plgx" bs=1 skip=56 count=20 status=none)"
+    if [ "${v}" == "${_realver}" ]
     then
-        echo "Timestamp has changed. Fix version number."
+        echo "${pkgver}"
+    else
+        warning "Timestamp has changed. Fix version number."
     fi
 }
 

@@ -1,6 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=keepass-plugin-readable-passphrase-generator
+_realver=2014-10-24T11:25:58Z
 _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
@@ -18,9 +19,11 @@ source=("ReadablePassphrase.plgx::http://download-codeplex.sec.s-msft.com/Downlo
 md5sums=('41cc9ef80e5774db9f6e366f7933275d')
 
 pkgver() {
-    v="$(dd if="ReadablePassphrase.plgx" bs=1 skip=71 count=20 2> /dev/null)"
-    if [ "${v}" != '2014-10-24T11:25:58Z' ]
+    v="$(dd if="ReadablePassphrase.plgx" bs=1 skip=71 count=20 status=none)"
+    if [ "${v}" == "${_realver}" ]
     then
+        echo "${pkgver}"
+    else
         echo "Timestamp has changed. Fix version number."
     fi
 }

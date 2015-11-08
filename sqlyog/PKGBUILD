@@ -6,7 +6,7 @@ _realname=sqlyog
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=12.1.5
+pkgver=12.1.6
 pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://code.google.com/p/sqlyog/"
@@ -17,8 +17,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x86Community.exe"
         "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
-md5sums=('f96a35695e4a3d2b881d6e0c3d2416bb'
-         'ba3b9d617d504841ae0cb0747d769656')
+md5sums=('24079f51e204437c8b1659c7c4e82fbb'
+         '76d18a9d0ac2dab2fd2c9793884b1c00')
 
 _lc() {
     for f in "${@}"

@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.30
-pkgrel=2
+pkgrel=3
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
@@ -30,6 +30,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Dutch.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Dutch.zip"
         "KeePass2-Finnish.zip::http://downloads.sourceforge.net/keepass/Finnish-2.18.zip"
         "KeePass2-French.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-French.zip"
+        # "KeePass2-French-b.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-French-b.zip"
         "KeePass2-German.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-German.zip"
         "KeePass2-Greek.zip::http://downloads.sourceforge.net/keepass/KeePass-2.21-Greek.zip"
         "KeePass2-Hungarian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Hungarian.zip"
@@ -49,7 +50,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Russian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Russian.zip"
         "KeePass2-Serbian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.23-Serbian.zip"
         "KeePass2-Slovak.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Slovak.zip"
-        "KeePass2-Slovenian.zip::http://downloads.sourceforge.net/keepass/Slovenian-2.07.zip"
+        "KeePass2-Slovenian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Slovenian.zip"
         "KeePass2-Spanish.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Spanish.zip"
         "KeePass2-Swedish.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Swedish.zip"
         "KeePass2-Turkish.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Turkish.zip"
@@ -89,7 +90,7 @@ md5sums=('b73b9fc520e47f47c517be1048be7aec'
          '7dfe3d8ef064462c719b65e7ecd44853'
          'e4b2091d66e182811d3af9bf6d189f31'
          '2f446e6cd5c2b0fbfec98cb4be42527a'
-         'fc2424e22acea3f423dd8b9667bea582'
+         '7bbd5f29a8a7f9a2edf573158e6793fb'
          'd6667924ae50805ebd6631bbb5e86abd'
          '96b783595dad3ae1b79428074df8dc7d'
          '1883051818203c4991a28f927a99ae63'

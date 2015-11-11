@@ -5,7 +5,7 @@ _dirname=crystal
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=5.0.2
+pkgver=5.0.3
 pkgrel=1
 pkgdesc="A disk benchmarking software (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDiskMark/index-e.html"
@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CrystalDiskMark.zip::http://osdn.jp/frs/redir.php?f=%2Fcrystaldiskmark%2F63617%2FCrystalDiskMark${pkgver//./_}.zip")
-md5sums=('3009b68672def1bc6515ac0c145f06b8')
+md5sums=('80e61c2cafca24a10e1564eb0673e947')
 
 _lc() {
     for f in "${@}"

@@ -4,7 +4,7 @@ _realname=vivaldi
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.0.219.50
+pkgver=1.0.303.52
 pkgrel=1
 pkgdesc="A new browser for our friends"
 url="https://vivaldi.com/"
@@ -13,8 +13,8 @@ license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Vivaldi.exe::https://vivaldi.com/download/Vivaldi_TP4.${pkgver}.exe")
-md5sums=('12b2bdb39d7bdab6145dc7c0e3766dfc')
+source=("Vivaldi.exe::https://vivaldi.com/download/Vivaldi_Beta.${pkgver}.exe")
+md5sums=('682a6f0de5af657440a1965d7359c78a')
 
 _lc() {
     for f in "${@}"

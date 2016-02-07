@@ -4,12 +4,12 @@
 DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC - -o %o %u')
 
 _realname=jdk
-_realver=8u65-b17
+_realver=8u74-b02
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=${_realver%-*}
-pkgrel=2
+pkgrel=1
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 arch=('any')
@@ -19,8 +19,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("jdk-windows32.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-i586.exe"
         "jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-x64.exe")
-md5sums=('3e49f4f5645449a40da06336dbc10cff'
-         'c497b2e943ab0c5486ec40becf9d7d96')
+md5sums=('ea884540141c5115b89622d89223e3cd'
+         'fc45cc22ae7b45a80de176cf40c1cf61')
 
 _lc() {
     for f in "${@}"
@@ -39,6 +39,11 @@ _prepare() {
     unzip -o "tools${_apparch}.zip" -d "tools${_apparch}"
     attrib -r //s
     _lc "tools${_apparch}"/*
+    for f in $(find "tools${_apparch}" -iname '*.pack')
+    do
+        "tools${_apparch}/bin/unpack200" "${f}" "${f%.pack}.jar"
+        rm "${f}"
+    done
 }
 
 prepare() {

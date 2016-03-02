@@ -5,8 +5,8 @@ _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.3.6
-pkgrel=2
+pkgver=1.3.9
+pkgrel=1
 pkgdesc="A KeePass plugin that calculates TOTP codes"
 url="http://bitbucket.org/devinmartin/keeotp"
 arch=('any')
@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeOtp.zip::http://bitbucket.org/devinmartin/keeotp/downloads/KeeOtp-${pkgver}.zip")
-md5sums=('be7e16386f4271d480157e6c8884564d')
+md5sums=('a3bc96066151d93eb43e9e240a76d6a0')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

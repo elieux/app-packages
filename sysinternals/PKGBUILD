@@ -4,7 +4,7 @@ _realname=sysinternals
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2015.10.30
+pkgver=2016.02.05
 pkgrel=1
 pkgdesc="Advanced system utilities for Windows"
 url="http://technet.microsoft.com/en-us/sysinternals/bb545021.aspx"
@@ -15,7 +15,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("http://download.sysinternals.com/files/SysinternalsSuite.zip"
         "http://download.sysinternals.com/files/BlueScreen.zip")
-md5sums=('78a8d4b20b78a1edac5b47c085473ffb'
+md5sums=('9fc520b8ee16c4fda567ec23367e2543'
          'e985acdd52b7bccdd6feb85ebd74c722')
 
 _lc() {

@@ -1,10 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=gpu-z
+_realver=2627
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=0.8.5
+pkgver=0.8.7
 pkgrel=1
 pkgdesc="Lightweight utility providing GPU and graphics card information"
 arch=('any')
@@ -12,8 +13,8 @@ url="http://www.techpowerup.com/gpuz/"
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("GPU-Z.exe::http://www.techpowerup.com/downloads/2524/techpowerup-gpu-z-v${pkgver//./-}/start?server=6")
-md5sums=('513d1606fd1216cbe56fb1e2dc8d38a2')
+source=("GPU-Z.exe::http://www.techpowerup.com/downloads/${_realver}/techpowerup-gpu-z-v${pkgver//./-}/start?server=6")
+md5sums=('0cff2bd10c8f4f9457c9eba3999c7445')
 
 _lc() {
     for f in "${@}"

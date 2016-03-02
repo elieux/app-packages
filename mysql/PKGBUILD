@@ -4,7 +4,7 @@ _realname=mysql
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=5.6.27
+pkgver=5.7.11
 pkgrel=1
 pkgdesc="Fast SQL database server, community edition"
 url="https://www.mysql.com/products/community/"
@@ -15,14 +15,13 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("mysql-win32.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-win32.zip"
         "mysql-winx64.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-winx64.zip")
-md5sums=('39ce080496752219f1b5da0ac62876b7'
-         '4ad1b36c8156d4e5bba15937074a12ba')
+md5sums=('710b588c8df3134c87818f765118329a'
+         '9805750100ab3e2411f4887eb5f4cb77')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "mysql-${pkgver}-win${1}"/* "${a}"
-    rm -r "${a}"/{data,mysql-test,sql-bench}
     find "${a}" -name 'debug' -exec rm -r '{}' \; -prune
     find "${a}" -name '*.pdb' -delete
     find "${a}" -name '*.lib' -delete

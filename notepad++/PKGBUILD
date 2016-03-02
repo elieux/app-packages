@@ -4,10 +4,10 @@ _realname=notepad++
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=6.8.4
+pkgver=6.9
 pkgrel=1
 pkgdesc="A free Scintilla-based editor with plugin support"
-url=""
+url="https://notepad-plus-plus.org/"
 arch=('any')
 license=('GPL')
 makedepends=("p7zip" "unzip")
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("npp.Installer.exe::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.Installer.exe"
         "npp.bin.zip::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.zip")
-md5sums=('9488bed96021a5bf8247ef0c72da6751'
-         '6b7122fc5760208a267b1922ab93d8f9')
+md5sums=('39fe82567016b3c890ed856b5791b60f'
+         'd03b5a2d276589880d6ecb1c7cba4242')
 
 _lc() {
     for f in "${@}"

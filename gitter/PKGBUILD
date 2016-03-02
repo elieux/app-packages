@@ -4,7 +4,7 @@ _realname=gitter
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.4.0
+pkgver=3.0.3
 pkgrel=1
 pkgdesc="Client for the Gitter communication platform"
 url="http://gitter.im/"
@@ -14,7 +14,7 @@ makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("GitterSetup.exe::https://update.gitter.im/win/GitterSetup-${pkgver}.exe")
-md5sums=('6a30106b5b32daa74bf007937b0c0d26')
+md5sums=('f84265cbafbf6f6efa639dda800cfbeb')
 
 _lc() {
     for f in "${@}"

@@ -6,32 +6,24 @@ _realname=ltrdata
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2015.08.17
+pkgver=2016.02.26
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
-url="http://www.ltr-data.se/"
+url="http://www.ltr-data.se/opencode.html"
 arch=('any')
 license=('custom')
 makedepends=("unzip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=("calldll64.zip::http://www.ltr-data.se/files/win64/calldll64.zip"
-        "enumps64.zip::http://www.ltr-data.se/files/win64/enumps64.zip"
-        "exelist64.zip::http://www.ltr-data.se/files/win64/exelist64.zip"
-        "fdf64.zip::http://www.ltr-data.se/files/win64/fdf64.zip"
-        "psmod64.zip::http://www.ltr-data.se/files/win64/psmod64.zip"
-        "rawcopy64.zip::http://www.ltr-data.se/files/win64/rawcopy64.zip"
-        "sizeof64.zip::http://www.ltr-data.se/files/win64/sizeof64.zip"
-        "shortren64.zip::http://www.ltr-data.se/files/win64/shortren64.zip"
-        "swapadd64.zip::http://www.ltr-data.se/files/win64/swapadd64.zip"
-        "strarc64.zip::http://www.ltr-data.se/files/win64/strarc64.zip"
-        "regrepl64.zip::http://www.ltr-data.se/files/win64/regrepl64.zip"
-        "winlogoncfg64.zip::http://www.ltr-data.se/files/win64/winlogoncfg64.zip"
+source=("exefiles.zip::http://www.ltr-data.se/files/exefiles.zip"
+        "exefiles64.zip::http://www.ltr-data.se/files/win64/exefiles.zip"
+        "scripts.zip::http://ltr-data.se/files/scripts.zip"
+        "scripts64.zip::http://ltr-data.se/files/scripts.zip"
+
         "checksum.zip::http://www.ltr-data.se/files/checksum.zip"
         "coordtool.zip::http://www.ltr-data.se/files/coordtool.zip"
         "netcheck.zip::http://www.ltr-data.se/files/netcheck.zip"
-        "exefiles.zip::http://www.ltr-data.se/files/exefiles.zip"
-
+        
         "devio.exe::http://www.ltr-data.se/files/devio.exe"
 
         # installers
@@ -39,23 +31,14 @@ source=("calldll64.zip::http://www.ltr-data.se/files/win64/calldll64.zip"
         # "imdiskinst.exe::http://www.ltr-data.se/files/imdiskinst.exe"
         # "ImDiskNet.7z::http://www.ltr-data.se/files/ImDiskNet.7z"
 )
-md5sums=('ec97f56f20cd09a57eba438355342966'
-         '739533769e288f830dcf29fe3315b69d'
-         'ca1b1754e4971c454f8b27acdb511b57'
-         'ffe23e3993f825dd183ed947941b7da1'
-         '812f732d247b317b4f540088a4e7fd3a'
-         '3d3f975f1c0288eec1e4c91707e9f7a4'
-         '79aff21f4217500e12e9ff4ef89a6d37'
-         '47562dba442b2fc188e299e1052d4921'
-         '42cebc3a75ba0c2549062759d795e911'
-         '2ee066737c733d2588bfe581862cce22'
-         'f193bc82ccc9b00cc511ce327c5082dd'
-         '0e135bfeb343edb5468bc482d58dff5e'
+md5sums=('a1fee96e07b5c047ec6660860417d6e1'
+         '33c6b5dcd67ea81b30c86c24eab00227'
+         'a007910bb85b614021fe9d493bc3cf48'
+         'a007910bb85b614021fe9d493bc3cf48'
          '866b2d82b75294c7eec74ebd2c6ea87c'
          'ede1d9f5ab8a30927738ec6cb71b5b69'
          '9d08d1b245c2f64513738712e1184e9b'
-         'ea047bdb3051957c08cea071515906eb'
-         '559be47e87aaf422a5d1cc6c693a904c')
+         '1e56d5235adaaaa03638971efa016b9d')
 noextract=("${source[@]##*/}")
 
 _lc() {
@@ -95,7 +78,7 @@ _package() {
         u="${s##*/}"
         u="${u%%64}"
         echo "${u}"
-        find "${s}" -regextype posix-extended -regex ".+\.(exe|dll|exe\.config|cmd)" -print0 | xargs -0 cp -t "${a}"
+        find "${s}" -regextype posix-extended -regex ".+\.(exe|dll|exe\.config|cmd|vbs|ps1)" -print0 | xargs -0 cp -t "${a}"
         find "${s}" -regextype posix-extended -regex ".+\.(txt|cnt|hlp)" -print0 | xargs -0r cp -t "${d}"
     done
 }

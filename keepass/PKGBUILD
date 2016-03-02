@@ -4,8 +4,8 @@ _realname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.30
-pkgrel=3
+pkgver=2.31
+pkgrel=1
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
@@ -40,7 +40,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Korean.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Korean.zip"
         "KeePass2-Latin.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Latin.zip"
         "KeePass2-Lithuanian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Lithuanian.zip"
-        "KeePass2-Norwegian_NB.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Norwegian_NB.zip"
+        "KeePass2-Norwegian_NB.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Norwegian_NB.zip"
         "KeePass2-Pashto.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Pashto.zip"
         "KeePass2-Persian.zip::http://downloads.sourceforge.net/keepass/Persian-2.08.zip"
         "KeePass2-Polish.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Polish.zip"
@@ -52,50 +52,50 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Slovak.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Slovak.zip"
         "KeePass2-Slovenian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Slovenian.zip"
         "KeePass2-Spanish.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Spanish.zip"
-        "KeePass2-Swedish.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Swedish.zip"
+        "KeePass2-Swedish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.30-Swedish.zip"
         "KeePass2-Turkish.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Turkish.zip"
-        "KeePass2-Ukrainian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Ukrainian.zip"
+        "KeePass2-Ukrainian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Ukrainian.zip"
         "KeePass2-Vietnamese.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Vietnamese.zip"
 )
-md5sums=('b73b9fc520e47f47c517be1048be7aec'
-         '616a73c4e9431550f39e430989588774'
-         '26aa0a32851cebb9532413b1bc2f8513'
+md5sums=('7e3c31cd76eea49fc0f7a2319c1fb07b'
+         'da66d128e7e7d767fef64b9f4e151082'
+         '36665841c495ccf1c7a84f3f329be381'
          'ac0f1e104f82d295c27646bfff39fecc'
          '26138bb070035de02e04f62ae592e1f3'
          '1d0672b626bc7ba577c5ef40471c6884'
-         'cd99c3628180066768cc5a537d3cbc3b'
-         '3a208c1fe6cd6cadba98030a1ad6a531'
+         '0b9cbe0900be2dff566e275c3d9c5eb6'
+         '6218837c8a292cba0ac1cd0bc6cec718'
          '77495b8b2dffcd733809e92ff7340bd6'
-         '20255349c03d956887663134af0168bd'
+         '9ba6813596327e52f748c0558d1d2231'
          'f75703e8a0bb7f24ccfb3cb034efb6db'
-         'f9188970cc2a71092776c98804aaf055'
+         'b0b04ac412168cd8dbb33314af21e36c'
          'dc284751a01eb3e12e7d100e96deed7b'
-         '7e329ac4fd706c84e88992b713940c09'
-         '261c4ccffd2b0e83491a5100cbbb5100'
+         'ac52b41f19211e1d74ff5fe57445c925'
+         'aae8f81171419f2d96cfad43645d875e'
          'b4129b1d4c37fa33d3804a17a7576fad'
-         'a3efefd5086151fe2020eeaebcf493da'
+         '95f1cddd1c3c1e73b2fa8673cf41b19b'
          '5de5de415f5d4948a2f132301e49e1a2'
-         'bce8cb30612b43fe702bc826f6513012'
-         '1944335dbe1ae483c5be16728d0dacf2'
-         'b743da6cdd130d661de435f44cc4ad89'
+         '845f89051aa856381a1479b17646d08c'
+         '613e724cb9eedf8615c4ace7cc27aeca'
+         'ffe83a2434f1b4c039a9ddfdc5d759ac'
          '8b0a0d045f368a1f09bd452dd7df72b5'
-         '3fa68d977072ed42cb65ecbe1abb998b'
-         '5d7c39922bb9a612dabad000344b8200'
+         '7483953e924df38ebf41464d0ba0ca13'
+         '5e5d4c8acb1c8f43a15e4e5c3ce29eda'
          '31ecbdcb817c24a6725af7d101676b6a'
          '3172ba110fd730ca4c894f9e52f09930'
-         '5663781a8ff4e12257c8497d4de1575f'
-         '21c31a26e1cfdf14a7c1c8edc370a59d'
-         '25eefd1f75e8958d80b1fb91b597930d'
+         'b993ca69e4ba65ab1b27de2f8f6c5793'
+         '1bf960170782d7225bb9c0190eca008c'
+         '4da2b3503c93e3eec4f22b0f55d75d4f'
          '1d14dda46ccb4f6c921055a58080f0fe'
-         '7dfe3d8ef064462c719b65e7ecd44853'
+         '4bd5a297d723c7a8dd61150fc3d80d5d'
          'e4b2091d66e182811d3af9bf6d189f31'
-         '2f446e6cd5c2b0fbfec98cb4be42527a'
-         '7bbd5f29a8a7f9a2edf573158e6793fb'
-         'd6667924ae50805ebd6631bbb5e86abd'
+         'b22ea084d12a41ed956e76242de25d0d'
+         'be787cbd5e00e2601af1b591aba16f30'
+         '6fa05fc799bdf2b371ed6c15ceb9145c'
          '96b783595dad3ae1b79428074df8dc7d'
-         '1883051818203c4991a28f927a99ae63'
-         '3dc3f16a897100e782beabaa33182b3d'
-         '6001dffd67dacad018db67f5998dfcfc')
+         'ec82420b8a3b326e135b81acdc2afb90'
+         'f31f3605ec4650607289d978aa10d60e'
+         '41a4418e42e51e421a08f673af62a715')
 noextract=("KeePass2-TrlUtil.zip"
            "KeePass2-Portuguese_BR.zip" # bsdtar: Unsupported ZIP compression method (??); unzip: `LZMA' method not supported
 )

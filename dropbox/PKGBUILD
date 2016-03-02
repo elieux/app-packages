@@ -6,7 +6,7 @@ _realname=dropbox
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=3.10.11
+pkgver=3.14.7
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="http://www.dropbox.com/"
@@ -16,7 +16,7 @@ makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
-md5sums=('799f94cc512e97c40995fd9cabd0e735')
+md5sums=('8104a6a03d9dfa42a5ccdfa93e38cbe2')
 
 _lc() {
     for f in "${@}"
@@ -45,5 +45,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r '$0'/* "${a}"
-    rm -r "${a}/dropboxuninstaller.exe" "${a}/gdiplus.dll" "${a}"/msvc{p,r}120.dll "${a}"/{msvcp,vccorlib,vcruntime}140.dll
+    rm -r "${a}/dropboxuninstaller.exe" "${a}"/msvc{p,r}120.dll "${a}"/{msvcp,vccorlib,vcruntime}140.dll
 }

@@ -1,11 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=crystaldiskinfo
+_realver=64532
 _dirname=crystal
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=6.5.2
+pkgver=6.7.5
 pkgrel=1
 pkgdesc="A disk utility (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDiskInfo/index-e.html"
@@ -14,8 +15,8 @@ license=('MIT')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("CrystalDiskInfo.zip::http://osdn.jp/frs/redir.php?f=%2Fcrystaldiskinfo%2F63423%2FCrystalDiskInfo${pkgver//./_}.zip")
-md5sums=('cad30c22088f01e912329c371e8f0fc5')
+source=("CrystalDiskInfo.zip::http://osdn.jp/frs/redir.php?f=%2Fcrystaldiskinfo%2F${_realver}%2FCrystalDiskInfo${pkgver//./_}.zip")
+md5sums=('70da02b13e01c82d27cbcf5f6acf0f46')
 
 _lc() {
     for f in "${@}"

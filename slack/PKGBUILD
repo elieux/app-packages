@@ -4,8 +4,8 @@ _realname=slack
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.2.2
-pkgrel=2
+pkgver=2.0.0
+pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
 arch=('any')
@@ -16,7 +16,7 @@ options=(!strip)
 source=("SlackSetup.exe::https://slack.com/ssb/download-win"
         "en_US.dic::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.dic"
         "en_US.aff::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.aff")
-md5sums=('a2eeedf797796ee298980f49416aa26b'
+md5sums=('b4679c73e2300bd7439504c7dc4108e9'
          '4515fbb1b055337dfd1b95a92c1b7e4f'
          '948412697f6fe862d4bc17517011f46e')
 

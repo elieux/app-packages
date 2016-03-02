@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.36
+pkgver=2.38
 pkgrel=1
 pkgdesc="Views and manages processes, services and more"
 url="http://processhacker.sourceforge.net/"
@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("processhacker-bin.zip::http://downloads.sourceforge.net/${_realname}/${_realname}2/${_realname}-${pkgver}-bin.zip")
-md5sums=('a1fc07e6d2268adebb32ea4f638c4859')
+md5sums=('8dd71039bb7fb960ddf187f11f089601')
 
 _lc() {
     for f in "${@}"

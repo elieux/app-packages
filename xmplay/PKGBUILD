@@ -4,7 +4,7 @@ _realname=xmplay
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=3.8.1.12
+pkgver=3.8.2.3
 pkgrel=1
 pkgdesc="Light weight, pluggable audio player"
 url="http://www.un4seen.com/xmplay.html"
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("xmplay.zip::http://us.un4seen.com/files/xmplay38.zip")
-md5sums=('f00d12db6f5d2c80586579a3d17447d8')
+md5sums=('44b852d7c51c389be9d5c26bec5f359f')
 
 pkgver() {
     b="$(cygpath -wa "xmplay.exe" | sed 's/\\/\\\\/g')"

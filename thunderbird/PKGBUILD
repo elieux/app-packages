@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=38.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone, easy to customize mail/news reader"
 url="http://www.mozilla.org/thunderbird/"
 arch=('any')
@@ -22,8 +22,10 @@ source=("ThunderbirdSetup.exe::http://ftp.mozilla.org/pub/${_realname}/releases/
         "br.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/br.xpi"
         "ca.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/ca.xpi"
         "cs.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/cs.xpi"
+        "cy.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/cy.xpi"
         "da.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/da.xpi"
         "de.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/de.xpi"
+        "dsb.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/dsb.xpi"
         "el.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/el.xpi"
         "en-GB.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/en-GB.xpi"
         "en-US.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/en-US.xpi"
@@ -39,6 +41,7 @@ source=("ThunderbirdSetup.exe::http://ftp.mozilla.org/pub/${_realname}/releases/
         "gl.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/gl.xpi"
         "he.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/he.xpi"
         "hr.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/hr.xpi"
+        "hsb.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/hsb.xpi"
         "hu.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/hu.xpi"
         "hy-AM.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/hy-AM.xpi"
         "id.xpi::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/xpi/id.xpi"
@@ -78,8 +81,10 @@ md5sums=('36e9213b0b3e8d86b970de5f055f3a52'
          '917bf37280b0f15dc05e5e1861141b63'
          '895af90cca2905420e2b83edb31b322a'
          '017b8ebb576754384589389398d44aa2'
+         '1cb0793253af90eddcc14d3e46056ade'
          'e96a93d68b83f2a8cb037a6d7080238f'
          '9574e91b79c2991e8aae81f6f677be0e'
+         '6a77892b60efb0a76d00c9bfd50c2093'
          'ca0e4ddbeac05e08ce27cf20e07b7095'
          '5a641a7d95cf77f977fb0c0289fe6f3f'
          'd27321d7cb9c686783f05bea881b46bb'
@@ -95,6 +100,7 @@ md5sums=('36e9213b0b3e8d86b970de5f055f3a52'
          '3e6a8ee7d461bcf2c7cd46b49881d7db'
          '08c81f03e06d42529200847453d5b951'
          '9283bfb41cd45cb46503a323b5a63f73'
+         '068e91ac73f207072eb9ac7c2f087a5b'
          '65f087d3ffc58cead831fb75e4be9726'
          'e98faae8e3205eb675b53d86a605e4bc'
          'bcd90930be63280efbb74975c4ab66a5'

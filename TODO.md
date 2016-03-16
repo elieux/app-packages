@@ -1,7 +1,9 @@
 To do
 =====
 
-It'd be good to have recipes for these packages. In case of FOSS, it's better to make recipes for `mingw-packages`, but until that package is done and equally good as official distribution, it can be here.
+Add `updpkgsrc` to recipes where the list of sources is long and tedious to update (languages for keepass for example).
+
+It'd be good to have recipes the following packages. In case of FOSS, it's better to make recipes for `mingw-packages`, but until that package is done and equally good as official distribution, it can be here.
 
 - abyss
 - activation-backup-and-recovery
@@ -79,7 +81,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - fdtray
 - finddupe
 - firefox-addon-sdk
-- firefox-dictionaries
 - flare
 - foxit-reader
 - fpc
@@ -160,7 +161,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - nhancer
 - nightingale
 - nlite
-- notepad++
 - nssm
 - oci
 - ocrimagetoascii
@@ -257,7 +257,6 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - test-screens
 - tftpd32
 - thumbnail-database-viewer
-- thunderbird-dictionaries
 - toad-mysql
 - tora
 - tor-browser
@@ -316,7 +315,7 @@ It'd be good to have recipes for these packages. In case of FOSS, it's better to
 - zeal
 - zonescreen
 
-These are already present in `mingw-packages` in some form or other, so they're lower priority.
+These are already present in `mingw-packages` in some form or other, so they're lower (possibly anti-)priority.
 
 - aria2
 - aria2rpc

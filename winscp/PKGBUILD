@@ -4,7 +4,7 @@ _realname=winscp
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=5.7.6
+pkgver=5.7.7
 pkgrel=1
 pkgdesc="An open source two-pane SFTP/FTP/WebDAV/SCP client"
 url="http://winscp.net/"
@@ -17,9 +17,9 @@ options=(!strip)
 source=("winscpsetup.exe::http://download.sourceforge.net/winscp/WinSCP/${pkgver}/winscp${pkgver//./}setup.exe"
         "winscp.zip::http://download.sourceforge.net/winscp/WinSCP/${pkgver}/winscp${pkgver//./}.zip"
         "winscpautomation.zip::http://download.sourceforge.net/winscp/WinSCP/${pkgver}/winscp${pkgver//./}automation.zip")
-md5sums=('fd01b552fc471d4e13b0838784bebef6'
-         'fe3f413a44cb7b606cd937b293009031'
-         'ce80fba3bfbaeaf4e8731fc765276b96')
+md5sums=('42b7efdd3ed236c17ad516686ff6c790'
+         '9a5db45c40cd60b48526989b30784a85'
+         '3870309bb6505a106e111a20b6ec547e')
 
 _lc() {
     for f in "${@}"

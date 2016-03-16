@@ -4,7 +4,7 @@ _realname=consolez
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=1.16.0.16038
+pkgver=1.16.1.16068
 pkgrel=1
 pkgdesc="A console wrapper with tabs, easy copy-pasting and pretty visuals"
 url="http://github.com/cbucher/console"
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("ConsoleZ32.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x86.${pkgver}.zip"
         "ConsoleZ64.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x64.${pkgver}.zip")
-md5sums=('2ee6efeabc47e6d6985f9670962da293'
-         'dd0f4ae74bc69d02ae36319e9d475ff9')
+md5sums=('e717e23426800a4473b314dc3f9c8359'
+         '170ebeb65e10da11ae1284d6fab13d1b')
 noextract=("ConsoleZ32.zip"
            "ConsoleZ64.zip")
 

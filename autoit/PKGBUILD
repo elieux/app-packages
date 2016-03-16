@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("autoit.zip::http://www.autoitscript.com/files/autoit3/autoit-v3.zip")
-md5sums=('dd05a73ea361037181ad28aeb692647f')
+sha512sums=('d9b962c69260963953e9012990018ce63efd432ea0573a0ca44f6cbcf10cfb9c0fc50fe85d28b98e42d528c643d8c6999f37431cc83cc5d5c19c61f2b885cfb2')
 
 pkgver() {
     b="install/Au3Check.exe"

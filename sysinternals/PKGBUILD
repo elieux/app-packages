@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("http://download.sysinternals.com/files/SysinternalsSuite.zip"
         "http://download.sysinternals.com/files/BlueScreen.zip")
-md5sums=('9fc520b8ee16c4fda567ec23367e2543'
-         'e985acdd52b7bccdd6feb85ebd74c722')
+sha512sums=('68167fb3bb2b117fe49e0cdbea78ba37e9181923b2050d513108fba11afcdd3235b12b7aee455f486d305719172d26fd07a2bce525ba681ad899cc55623e8900'
+            '2e39c4b36e9928851fc86d9fc541956c3079a1ded09cca5ee677fbe1b3c9272b87651b65e53279cede3c4ed37028fcbae0823c4ee25180d5bc132cef8d155507')
 
 _lc() {
     for f in "${@}"

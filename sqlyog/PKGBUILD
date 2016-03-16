@@ -17,8 +17,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x86Community.exe"
         "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
-md5sums=('3d7f8a3fcf8a9e0a6287e600400407e2'
-         '8b81d9f55328555c6b6bcda89803a880')
+sha512sums=('aeaf5f60cc0d100c2d4bf2d7fa15663a38baff6b547eb85acdf8dd1026ad9f50330eeebde15d2565fb242eed8b1f8487630eab62dadfed2080eb0334530ab41f'
+            '9bcea1235c3b6ed2e10b4d45d709c05c209d3c4f38643dd56476b7bb20e5f4aee264506fe145ef7659f9b4602af6746a94c217aab9e427bd8d0fed6696ca8158')
 
 _lc() {
     for f in "${@}"

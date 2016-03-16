@@ -14,7 +14,7 @@ makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Opera_Mobile_Emulator_Windows.exe::http://www.opera.com/download/get/?id=35131&location=360&nothanks=yes&sub=marine")
-md5sums=('ecbb1c6efae7f2b4e3b4bb8647c0e055')
+sha512sums=('c64619a2b68bfc57f1da89d800a5ea3ca2a2df271d422720edfc424729407e1e1ebd53e1ab21e7367a8f3b903b799fbe2fbd501675320086333ca8faa7686302')
 
 _lc() {
     for f in "${@}"

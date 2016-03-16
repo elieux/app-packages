@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("teamspeak3-server_win32.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win32-${pkgver}.zip"
         "teamspeak3-server_win64.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win64-${pkgver}.zip")
-md5sums=('a74a2ad3f6d046000bf8d0e74f92ca29'
-         'a5f7dddcd669674a716f102dd605ccbf')
+sha512sums=('eb8766671ddce7d4cefb56d92754af6d600ccece836402edb94f8066709fa716fbd0a3b7038294dfff5c1df44a8d958603a7e7021e6e96e45dbbc7a351a0d119'
+            'd5fb6dd8602cc9963103bce91ec0159fbb9c2c6a4ded61bc1ff01f9bd91a980a23d6e8f05f84dd5733a54d6a09db945dba016a0e298e119ab352f4b79be38305')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"

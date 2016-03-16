@@ -13,7 +13,7 @@ license=('GPL')
 provides=("${pkgbase}")
 options=(!strip)
 source=("MuseScore.msi::ftp://ftp.osuosl.org/pub/musescore/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.msi")
-md5sums=('c4645db1906ca7b836bd4e53769b645f')
+sha512sums=('c67dd2ec8d1a4706f130666627a7f5a789707defaee99858f103d2e1e5032f56bd539bc158e6dd474db05f65075a2be55cf2c04c2aec4e2e6bcdab49d602bcf1')
 
 _lc() {
     for f in "${@}"

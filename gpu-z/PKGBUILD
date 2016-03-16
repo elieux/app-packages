@@ -14,7 +14,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("GPU-Z.exe::http://www.techpowerup.com/downloads/${_realver}/techpowerup-gpu-z-v${pkgver//./-}/start?server=6")
-md5sums=('0cff2bd10c8f4f9457c9eba3999c7445')
+sha512sums=('980a9ddd3815179534a26af6af1e4f0668363ec3cd6de4d1d1ac8387b186312b5f13e5d405d00e54adee972bbb4546c71fbf269ecc2c960850580424349ec59f')
 
 _lc() {
     for f in "${@}"

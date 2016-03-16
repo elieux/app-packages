@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("mariadb-win32.zip::https://downloads.mariadb.org/f/mariadb-${pkgver}/win32-packages/mariadb-${pkgver}-win32.zip"
         "mariadb-winx64.zip::https://downloads.mariadb.org/f/mariadb-${pkgver}/winx64-packages/mariadb-${pkgver}-winx64.zip")
-md5sums=('af6fa6e2f4be4585113df6d5a59a2e6f'
-         'a8ecfcdda725e19edc8aadf7a14ef87d')
+sha512sums=('48437e7a0acedaa90eee600292916df61b9bd75be99298b99a0c9a451a5833759bff8a7174025880164f311b61b352579a1aae3e102c6f12a559777243907eb8'
+            'e51a51929793084d7f0026c27a7461f572b3bd3d9965df69e40d05d15c6cca175c8b533acb530fd40f683514f5845df96b787410cc74257a4a06cabd50efb266')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"

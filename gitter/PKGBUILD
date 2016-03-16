@@ -14,7 +14,7 @@ makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("GitterSetup.exe::https://update.gitter.im/win/GitterSetup-${pkgver}.exe")
-md5sums=('f84265cbafbf6f6efa639dda800cfbeb')
+sha512sums=('05dbbef37436851436a67994c011b978459ebf1c26d8f5fa232e75e63e5b098ffc145f12ed0e33b3c415733e09c1bee24dca20d3b8fb278fab8042456861efbb')
 
 _lc() {
     for f in "${@}"

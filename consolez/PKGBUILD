@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("ConsoleZ32.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x86.${pkgver}.zip"
         "ConsoleZ64.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x64.${pkgver}.zip")
-md5sums=('e717e23426800a4473b314dc3f9c8359'
-         '170ebeb65e10da11ae1284d6fab13d1b')
+sha512sums=('e246027413f42118d2a34724c0d21afcf4aaa8d12398cb4101dcca93c4eb9f2c5259369a3d6126fe5af925c130ec399b4ec9d52ab420aa577a6f792b6edc4b27'
+            '737d3daaadc39b79e012b9e82435950a735e3eff59faeb31be837ccf255f696158ed32bdf757c2453ca3d312e4ae2b81f58d2e713a69d0c814e63e9a0b568df8')
 noextract=("ConsoleZ32.zip"
            "ConsoleZ64.zip")
 

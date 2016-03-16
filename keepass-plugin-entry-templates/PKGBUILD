@@ -15,7 +15,7 @@ depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KPEntryTemplates.plgx::https://github.com/mitchcapper/KPEntryTemplates/releases/download/${pkgver}/KPEntryTemplates.plgx")
-md5sums=('44ee25a1d7f3d9810e215d92209ffb36')
+sha512sums=('b3dc004da5f62614089c199b2d6a84e41a67f661a2fe239e63e01da09e6570e7d5c599d9955e2db55abc271fadec0e2d9830fe1993e4bce81ead5675832b52c2')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

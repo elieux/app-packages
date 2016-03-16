@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gpg4win.exe::http://files.gpg4win.org/gpg4win-${pkgver}.exe")
-md5sums=('5aee38ad533614f3738da8fd1bf078ca')
+sha512sums=('b1c48d84d041055db3d3e3cbd22ef2f3300728b06c76660b9b78ececf56b7ccbc80addb39a64c0a4eb68bf3463ceb6d254dedda047049ce680e9d543dd8a9af9')
 
 _lc() {
     for f in "${@}"

@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("TrayTotp.plgx::http://downloads.sourceforge.net/traytotp-kp2/Tray%20TOTP%20v.%20${pkgver}/TrayTotp.plgx"
         "Readme.txt::http://downloads.sourceforge.net/traytotp-kp2/Tray%20TOTP%20v.%20${pkgver}/Tray%20TOTP%20v.%20${pkgver}%20Readme.txt")
-md5sums=('f354808d24ed9ba250e595249fd66dfa'
-         '2289bbca2dc7fd71b741d361b71a074e')
+sha512sums=('b897c49413a94f35a7f5d92c3c43215bd41da1ae7f9f2694cb17ab611b59286a75a20f6586c94b41f17a77786440fdb4ecb5655761ed14c8bef83e858755f8cf'
+            'b897c49413a94f35a7f5d92c3c43215bd41da1ae7f9f2694cb17ab611b59286a75a20f6586c94b41f17a77786440fdb4ecb5655761ed14c8bef83e858755f8cf')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

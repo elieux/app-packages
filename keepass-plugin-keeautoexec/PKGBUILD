@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeAutoExec.zip::http://keepass.info/extensions/v2/keeautoexec/KeeAutoExec-${pkgver}.zip")
-md5sums=('eb1a2ee11efcbead99a9653c24ccc673')
+sha512sums=('b816c7cce91e2d4f94736d6cb3f4888dd7f894b612da8163f7bfab0628c8535dc0ddd90d976bf10c0588d28741181faffb04185647999c1ba8a15383b4bac206')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("gsync.msi::http://dl.google.com/drive/${pkgver}/gsync.msi")
-md5sums=('ca38faa7d71921c4678a722cb14aa5f2')
+sha512sums=('38565f3dbab1b2572e7d46a1983361edda0aea5a631f1f91a329726288a1883576ef7c7f06b48e8cd848d814a3be168cfc4ac48b9234c733a8ad17919ec6eb81')
 
 _lc() {
     for f in "${@}"

@@ -15,7 +15,7 @@ makedepends=("curl" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("tor-win32.zip::https://dist.torproject.org/torbrowser/${_realver%/*}/tor-win32-${pkgver}.zip")
-md5sums=('391e7b1506bfd9a79f63744715d4d28d')
+sha512sums=('06a786051c59fceeab18532bc2908ddc42031c4c1d2e3de8a88133c369fcef82546a125c3e646001c3b2e6dfa4c3187f6aff847c66c8dae06db77a97fa9a597e')
 
 _lc() {
     for f in "${@}"

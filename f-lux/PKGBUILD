@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("flux-setup.exe::https://justgetflux.com/flux-setup.exe")
-md5sums=('097aa1113bf9c60994c2425c7547b760')
+sha512sums=('e405842f73a27df9d2a071657ecbe742ebb370dbba8b3a64761ccb8109f1ae3dcda15a5000ebc0323f2c6e82abc7b9aeac9de83c0b7386973491d051e20e1b27')
 
 pkgver() {
     7z x -y -bd "flux-setup.exe" "flux.exe" > /dev/null

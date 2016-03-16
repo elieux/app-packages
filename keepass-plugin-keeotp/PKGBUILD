@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeOtp.zip::http://bitbucket.org/devinmartin/keeotp/downloads/KeeOtp-${pkgver}.zip")
-md5sums=('a3bc96066151d93eb43e9e240a76d6a0')
+sha512sums=('51d9101d92a11b17a6b048a7c37feddeeb148141878ab5831dca532418a1050a2867a31c992a3fcfdf4c58a5e470f021f27ad7069c787478f9bfb54f0f72bf03')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

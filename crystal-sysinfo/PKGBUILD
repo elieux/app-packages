@@ -17,9 +17,9 @@ options=(!strip)
 source=("CrystalCPUID32.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID415.zip"
         "CrystalCPUID64.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID415x64.zip"
         "CrystalMark.zip::http://crystalmark.info/download/archive/CrystalMark/CrystalMark2004R3.zip") # order is important
-md5sums=('674b253bd57a8369d12a2295d0f35b6b'
-         'f454574da3ccdae06bd51a0f2197e7a1'
-         '3632ec74a25ba36811347b153b30a534')
+sha512sums=('c947ba7dde617d7cf33676a8f9be2059b3ba825936804a73f28ea1f85652f976d7c907d913bb1e0c25300e2fcc403d61a9e99257ec15089ace2e322aefec376d'
+            '955a7f19b4ec651a7d07e5e800e2b40a1735056dfe2ed72d12ac93b75530d5b9973c707607a2015bc970c4904a34048d3f1c637c49599247a938d827fcf13d67'
+            'f837bee1b4cd8cd5d53b1304505382a7826cc8c4159cbed941db0c3aef335ff3b8988b28417a104dae978e0b2f484033d7383a9e3f9ad73c9f0986bd30eb001e')
 
 _lc() {
     for f in "${@}"

@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CrystalDiskMark.zip::http://osdn.jp/frs/redir.php?f=%2Fcrystaldiskmark%2F${_realver}%2FCrystalDiskMark${pkgver//./_}.zip")
-md5sums=('a95468147148de8c4ccd666e6439aa98')
+sha512sums=('2dd9af9b03e0f679a92eed546c76cec94ea5364e615c806dfd55cf8b26e53e298c16bb722f765dff212785954fac4542518449c195bd72ae6e78c2925a6a8857')
 
 _lc() {
     for f in "${@}"

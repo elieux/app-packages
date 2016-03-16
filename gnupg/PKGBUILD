@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gnupg-w32.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${_realver}.exe")
-md5sums=('4731b552e29cb6ea8adddefef47754de')
+sha512sums=('df5a6c9ed669764ba3cb836e21dfabfffb95b4d29f89fb765e092875c47d262f6bffe7e7567c83180b14ec5b67e59b679384fbf752044be008ce64f50a65a484')
 
 prepare() {
     7z x -y -bd "gnupg-w32.exe"

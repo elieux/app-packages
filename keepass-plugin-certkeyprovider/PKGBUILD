@@ -16,7 +16,7 @@ depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CertKeyProviderPlugin.plgx::http://dl.getdropbox.com/u/1457829/CertKeyProviderPlugin.plgx")
-md5sums=('0872898df426452634e9eba96291c021')
+sha512sums=('b6430c3f5f0d2029f5d52b3b3fdbddab752c7fd7aedc10b9360e0fdbcdd3a747a881e00cf74a015cf4cecbce932f14456f3aa6ab6a9f23de69758edebf56f1d0')
 
 pkgver() {
     v="$(dd if="CertKeyProviderPlugin.plgx" bs=1 skip=67 count=20 status=none)"

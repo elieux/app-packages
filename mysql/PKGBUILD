@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("mysql-win32.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-win32.zip"
         "mysql-winx64.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-winx64.zip")
-md5sums=('710b588c8df3134c87818f765118329a'
-         '9805750100ab3e2411f4887eb5f4cb77')
+sha512sums=('65a08694fa5c5ffdcb5e8b9fd19c46de1a96c291ecf05b258b82459b40ce06a72d562aefe219f560456b3ba7d8cbd8fe1abbe070c635617222b5cc47efda1bdd'
+            '470fa1ab668eb11ff00f285514c56dc24f40bb2d36f43393ae84dfb3bff00be4e94411b49726a4f8c1ce06aee25ab72a617c1fd7809596c7b604af7a43a597af')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"

@@ -16,7 +16,7 @@ depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ReadablePassphrase.plgx::http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=readablepassphrase&DownloadId=1500723&FileTime=130899836329970000&Build=21031")
-md5sums=('97e4a0f234203fa0ac7a025dae42eba3')
+sha512sums=('bd34ac49c5ff8443f0de626f306b28386cc2aa65f24941f08b6f2f5ea0169c524f753fc59aa98bd95e26b9a8ea9ab2c66c69bc764f49a13f1fce5711a61ac4e2')
 
 pkgver() {
     v="$(dd if="ReadablePassphrase.plgx" bs=1 skip=71 count=20 status=none)"

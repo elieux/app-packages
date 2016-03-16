@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("HxDen.zip::ftp://wa651f2:anonymous@mh-nexus.de/HxDen.zip")
-md5sums=('4960d81100db5e2587529abff86273bb')
+sha512sums=('65be4f09f972b07b10081ee7c453fd15c61e3d22fdc55fc8cf9eecb9347b12b0165c5a58db73e6248b7642bc35796aed32f578ee2e26ded4f726a004558af097')
 
 _lc() {
     for f in "${@}"

@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("npp.Installer.exe::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.Installer.exe"
         "npp.bin.zip::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.zip")
-md5sums=('39fe82567016b3c890ed856b5791b60f'
-         'd03b5a2d276589880d6ecb1c7cba4242')
+sha512sums=('844a13e3d841b4327d89a7b236ffbdfc8636898b764d130aed45390ce1cd964af079d33f0909185a2fb44b4aab0e6b3fb87cadff950d84d148e4b32bbce1b7d1'
+            'c3ba79a68167137b79c504cf552262a9d0c58028b6032e393447f78dc305837ddd17ed3e9c428425605ef94944a0b007114df402d527b87e50076a53a37190a7')
 
 _lc() {
     for f in "${@}"

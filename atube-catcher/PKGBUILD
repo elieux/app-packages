@@ -14,7 +14,7 @@ makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("aTubeCatcher.exe::http://files3.dsnetwb.com/aTubeCatcher.exe")
-md5sums=('2c76f4584cd9b92ea39a356609a8cec8')
+sha512sums=('edc4759a6547e88a78ee8b6af5be0b181d29609b9fc3a4305b3d18306af041ec03c47a32ef3f7b292144db8b3ea82cc775033c19266b053eb3527a9fd5f7e0e4')
 
 _lc() {
     for f in "${@}"

@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("WinKee.zip::http://keepass.info/extensions/v2/winkee/WinKee-${pkgver}.zip")
-md5sums=('110d20f2c30c5698fe438d89e4aab034')
+sha512sums=('7ec17bf2455ea22b75437b6427d2d0f14188cd97f7b82fed9a47ed18f6657862569efa995f9a7d7b51c0f6fbc0cf9928da6e7cd8017958a2da5fbe9ad6e73b3e')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

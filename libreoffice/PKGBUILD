@@ -14,8 +14,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("LibreOffice_Win32.msi::http://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86/LibreOffice_${pkgver}_Win_x86.msi"
         "LibreOffice_Win64.msi::http://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86_64/LibreOffice_${pkgver}_Win_x64.msi")
-md5sums=('2fe9e24065de1ff2baa41c50cd6827a9'
-         '06ae824c21689dee5b1b5b042832dc2c')
+sha512sums=('265908aefb53cb5078ddbf4cf09b2393abdd23e559c056366dfb95a8c0a8dc0bf8847c71349440de4053dc054a9199af67d7137ef417b80734f45841686034fd'
+            '6104ee1c4e9a77d428a1d9c0976bb6d8426f28d099caf8e58a1b14fa0d194a19f258b69973102d8958bbf415b93bf91ea2c946228bda2463634b2110128d9739')
 
 _lc() {
     for f in "${@}"

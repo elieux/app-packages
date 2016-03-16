@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("eac.exe::http://www.exactaudiocopy.de/eac-1.1.exe")
-md5sums=('2b33ac0762b56cd4881063ef6bb4e31d')
+sha512sums=('401c4eb70428dca9b65e0fdcee43afff441296be9e37a9f80fa6b95b0678339b9d98358298add4583009b471b9c8ed3bfaa4c948de4e0fb34b1d0382a0f37781')
 
 _lc() {
     for f in "${@}"

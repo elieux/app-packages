@@ -14,7 +14,7 @@ makedepends=("unrar")
 provides=("${pkgbase}")
 options=(!strip)
 source=("innounp.rar::http://downloads.sourceforge.net/${_realname}/${_realname}/${_realname}%20${pkgver}/${_realname}${pkgver//./}.rar")
-md5sums=('6c7212c341ac7b7115e43ca51ec6a566')
+sha512sums=('33ade973785b074292f877253c7bc898bd1d4b258a1f8f5e1e6b372529e783d2e2981b9eaeacf4861be06f4bc55c3ed0492d96ce627d567a8c8ed9a4698b90b0')
 noextract=("${source[@]%%::*}") # "Parsing filters is unsupported"
 
 prepare() {

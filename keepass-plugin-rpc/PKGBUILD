@@ -16,7 +16,7 @@ depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("keefox-tb+fx-windows.xpi::https://addons.mozilla.org/firefox/downloads/file/374447/keefox-${pkgver}-tb+fx-windows.xpi")
-md5sums=('20d5acb887d866022808a68d7b8a401b')
+sha512sums=('2d715b4519f1162294c3d27ade70adfacf116db41dc83642cb4c52439cb86a40393a778f4c984ae83a10e308a1fb6be99b3de04a4cb47d728a2831f614c43fd0')
 
 pkgver() {
     v="$(dd if="deps/KeePassRPC.plgx" bs=1 skip=56 count=20 status=none)"

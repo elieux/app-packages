@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TwofishCipher.zip::http://gogogadgetscott.info/keepass/twofishcipher/TwofishCipher-${pkgver}.zip")
-md5sums=('34ff62b6d8fb1b0440c013873576cec8')
+sha512sums=('a9ec7b5d1cd38e791ea590d2dfe7ec5aef8777d7f59a1900097736bc5d2c4478e3cfe6d71473bf38d0bef90e6546641f925b0aaa55f014a4ebfde71dc2875d99')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

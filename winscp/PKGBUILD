@@ -17,9 +17,9 @@ options=(!strip)
 source=("winscpsetup.exe::http://download.sourceforge.net/winscp/WinSCP/${pkgver}/winscp${pkgver//./}setup.exe"
         "winscp.zip::http://download.sourceforge.net/winscp/WinSCP/${pkgver}/winscp${pkgver//./}.zip"
         "winscpautomation.zip::http://download.sourceforge.net/winscp/WinSCP/${pkgver}/winscp${pkgver//./}automation.zip")
-md5sums=('42b7efdd3ed236c17ad516686ff6c790'
-         '9a5db45c40cd60b48526989b30784a85'
-         '3870309bb6505a106e111a20b6ec547e')
+sha512sums=('e09495fa4f0335ddfc96ea059dd657da9f9599174d74a2e7f08ab62b0d44a1daeb33da369b9885f81696e9ca930b834d957d5668332b84dd86094a32c69d7e8f'
+            '5be6f29d0afaa2655940b840687c0b40fa89d886bb8c3668a3c2162cbb79894ec1eb7c21341aef7cbae309a35eebac0de97764324ec24a2699272474eef0cfb3'
+            'fe6eb0e658940a4b1483b167300f29d82e32ee4e49d0775954ce8afc5812296579b27d9715a6454123e29ba9758a4db923cf27ae562266ad54e60c1ea552ecd1')
 
 _lc() {
     for f in "${@}"

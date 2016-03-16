@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("CrystalCPUID32.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID${pkgver//./}.zip"
         "CrystalCPUID64.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID${pkgver//./}x64.zip")
-md5sums=('674b253bd57a8369d12a2295d0f35b6b'
-         'f454574da3ccdae06bd51a0f2197e7a1')
+sha512sums=('c947ba7dde617d7cf33676a8f9be2059b3ba825936804a73f28ea1f85652f976d7c907d913bb1e0c25300e2fcc403d61a9e99257ec15089ace2e322aefec376d'
+            '955a7f19b4ec651a7d07e5e800e2b40a1735056dfe2ed72d12ac93b75530d5b9973c707607a2015bc970c4904a34048d3f1c637c49599247a938d827fcf13d67')
 
 _lc() {
     for f in "${@}"

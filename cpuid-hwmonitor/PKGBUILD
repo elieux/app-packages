@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("hwmonitor.zip::http://download.cpuid.com/${_realname}/${_realname}_${pkgver}.zip")
-md5sums=('f3432c007c82e5615d4326f6ded8d9ad')
+sha512sums=('77725d637e109a3e25f865117a04893cabaaf9e5152e9f8a29220b077a00409dc6371ef698c7bbd69ac87fdcf3dfda949772145bb24460f3bfa00fae1de57611')
 
 _lc() {
     for f in "${@}"

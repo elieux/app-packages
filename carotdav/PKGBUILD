@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("CarotDAV.portable.zip::http://rei.to/CarotDAV${pkgver}.portable.zip"
         "installed.txt")
-md5sums=('a221d15687cb847b6d9f93b535b3b10c'
-         'ea6667b547144212c03bb2b498fcea8a')
+sha512sums=('2a983f45f1702072cb5a9bd1f73a6dc7e6f6fd6cf7cc7b05999927cd37de1dddcf948f6957c2fa15d69cade83a7ef108e659eca4efca87e93a0b87799ff2264c'
+            'd9263cc4a54c6ac861cb02126ef86f4c7d2d3a7b2cdcb6bcb80978dfd1e81597788e2c8bee16c1038ebf5e892ccbdd3cd2c0ee92a87e494560dfbc7b7c46ab0b')
 
 _lc() {
     for f in "${@}"

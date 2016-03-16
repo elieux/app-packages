@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("davmail-windows-noinstall.zip::http://downloads.sourceforge.net/${_realname}/${_realname}/${_realver%%-*}/${_realname}-${_realver}-windows-noinstall.zip")
-md5sums=('bba5106328de4912806c5957c8d81466')
+sha512sums=('b14f49d31b459d0980f52625b217778f307cf42d3a51a10013a03025dbe28531a0a85bb04ad7066aed3b5f9d8cb9d2f4e4263d9a896472cc685b5b38bfecea57')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"

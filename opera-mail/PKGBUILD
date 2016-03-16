@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Opera-Mail.i386.exe::http://www.opera.com/download/get/?id=35800&location=360&nothanks=yes&sub=marine")
-md5sums=('c7691d6a6d86fd60a1c63911362fe7cc')
+sha512sums=('50e598e735300dcd9458d2c3a0deabec03d2c82184f47066cb1379008f82281a105543fdc50c813a79122f01822261da749f315e73be589d31c59e6c41f667a0')
 
 _lc() {
     for f in "${@}"

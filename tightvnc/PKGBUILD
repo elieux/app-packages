@@ -14,8 +14,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("tightvnc-setup-64bit.msi::http://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-setup-64bit.msi"
         "tightvnc-setup-32bit.msi::http://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-setup-32bit.msi")
-md5sums=('349575dc788c24c6c726356d55d3cbaa'
-         '9f5e660c6bad014c8a0ce5eddf4bb50b')
+sha512sums=('2eee6968fa627508d83c4b1f16fc274602e593e3dea65eedf333fd8f061247f081c8b68d48406cd1a261c772272a608c44bed498f085b63e3ea42c7b1c691252'
+            '5d8974aeb07ef6f9189e6369048f4a83bb934d04b282f7ba4c7c0083c89bc4593c8dfc7e358cb532f20575dfbfcdc59105feabbfcd8d44ea6480cff1b4003335')
 
 _lc() {
     for f in "${@}"

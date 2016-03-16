@@ -17,7 +17,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KPEnhancedListview.zip::http://kpenhancedlistview.googlecode.com/files/KPEnhancedListview_${pkgver//./_}.zip")
-md5sums=('71571d5f80a918cd8ca2d888183bff21')
+sha512sums=('201f21d151b99cb29af61029fb6d96176da0e19cbaf50589923a7697060abca4870b4bcda25d69a70bd5366e0f2e5b07d88b44660521c7211276aefdf8e6a2b3')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

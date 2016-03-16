@@ -15,7 +15,7 @@ makedepends=("upx")
 provides=("${pkgbase}")
 options=(!strip)
 source=("SkinEditor2.exe::http://www.cheater.cz/download/SkinEditor2.exe")
-md5sums=('04beff1faf50e8ae7feeb0047083d80e')
+sha512sums=('85c5537d596de07847697cd7a1592a473bbd86e5affe9a5272ac90bace26ed558d0cd2e05e57edd6bf8f16367f46e46f770d16972e520d6b0802e29fc5af80f3')
 
 _lc() {
     for f in "${@}"

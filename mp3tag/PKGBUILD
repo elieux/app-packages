@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("mp3tagsetup.exe::http://download.mp3tag.de/mp3tagv${pkgver//./}setup.exe")
-md5sums=('0f3f83c543b4950ab2b5273953d10e2b')
+sha512sums=('16b1f46369362fd585e918a1b02a32ca29062980826f649242d4340f0a341fb9b18c470965630d4549f7c90c88fbb13fc0095a9d632e2c320b2aa696524e3673')
 
 _lc() {
     for f in "${@}"

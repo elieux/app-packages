@@ -19,8 +19,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("jdk-windows32.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-i586.exe"
         "jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-x64.exe")
-md5sums=('ea884540141c5115b89622d89223e3cd'
-         'fc45cc22ae7b45a80de176cf40c1cf61')
+sha512sums=('ea5a90b68ff08a79665b3918bf4abf9a6a6767cf48e7210f0dedeace81113226c0daabf6ca7040852cf961986af2a587233fa020d9e6825d9fd01ca6220b161c'
+            'fdaac414f3d82f0fa1042c860403be5e5598a96523ca6b949fd97dbde409d80208cefafac6a9a46513105cb0b9eb2a6bd2bfe989a061f3b9c210c2a001dd66d9')
 
 _lc() {
     for f in "${@}"

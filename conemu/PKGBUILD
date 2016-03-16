@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ConEmuPack.7z::https://github.com/Maximus5/ConEmu/releases/download/v${pkgver}/ConEmuPack.${pkgver//./}.7z")
-md5sums=('26ef16fd7da3aa4f322ae720e88afdee')
+sha512sums=('931eac5109008f1cd8db0e90a2448f31b3c24c75db4fd443afb2c8e1e791e60dc14c5ab198a853efad706234050ab1452fd1bd0da9418a83ee8a88aa9823d328')
 
 _lc() {
     for f in "${@}"

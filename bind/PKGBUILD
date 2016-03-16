@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("BIND32.zip::ftp://ftp.isc.org/isc/bind9/${_realver}/BIND${_realver}.x86.zip"
         "BIND64.zip::ftp://ftp.isc.org/isc/bind9/${_realver}/BIND${_realver}.x64.zip")
-md5sums=('9113df983faa87cc3d1a7b56fb186b12'
-         '4ef25209ed135a3ce63ecdf757fe6566')
+sha512sums=('ad85eeff4ae1ef7db2400f88906423a50b4066232e10f0050cceacbc7196af2e57591dc0ea5c736f557d7bcf2668b4c898f25ecb7651274f2db07811e0828537'
+            '3939d7ed183d4ea58402c127a641c66f33a94576c3089c1c0d4a61354d8ab3455a3af91e34d356f6bcd38d8cd1764b2173341b41c8b9e321ef538728ee72d5cc')
 noextract=("BIND32.zip"
            "BIND64.zip")
 

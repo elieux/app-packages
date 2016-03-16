@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("MessengerSetup.exe::https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v${pkgver}/MessengerSetup.exe")
-md5sums=('967cf0e5204e309ab45510724249bc6f')
+sha512sums=('5026b834628b22564e12edc44bd40dc5cb6a47aa9c8785ac4df9f40f817b419ba797f1dc88588b5202a713ec2d4000622378ffde23195ce22db521c29185d566')
 
 _lc() {
     for f in "${@}"

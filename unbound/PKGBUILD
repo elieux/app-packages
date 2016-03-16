@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("unbound.zip::https://www.unbound.net/downloads/unbound-${pkgver}.zip")
-md5sums=('7a949f6b963a87848e8efcf8cc78f253')
+sha512sums=('f778b0e63894fce9bfe0250e210535513a6d546e06a2957f2b7a5bd8ac7f8a4626a3bd2e751a118d01bab30b219199a359cca49b39d8b9cdd0d29582060d9d4f')
 
 _lc() {
     for f in "${@}"

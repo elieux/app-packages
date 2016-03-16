@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Vistalizator.exe::http://www.froggie.sk/download/Vistalizator.exe"
         "Languages.zip::http://www.froggie.sk/download/Languages.zip")
-md5sums=('464acb36ba6249ffb5e26bc4757dba4a'
-         '2a74ea2b40b19db178c4b3f05d6c938c')
+sha512sums=('d4bcb92fcb61150a7c4b2116e8766d5d1196d30d097441bebcb4246905da1aa9b9c15f937d41c6e0a696fcaac6cb299fc9bc83c9d5a951233e3e6aaf812d258b'
+            '5f2d87a16a8f5880bedc3e7430c8a1c71f7fd1e3ad7e82dbabb855cf34d41cfce7a3344bec05d5a5649cff5d6278300bb56cb5e37b70fd8a61272ba8a06aa01c')
 
 _lc() {
     for f in "${@}"

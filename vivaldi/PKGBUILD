@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Vivaldi.exe::https://vivaldi.com/download/stable/Vivaldi.${pkgver}.exe")
-md5sums=('16cf7a18a63a473d9e8d9976c65245a3')
+sha512sums=('f44c76dacee9ed3c5d35c8796c6a4b0f0e4744eaeddfbfaa6917667e312db35ce3a0d21978481864b2d0dbe4cb91214b2507b76e62bd156d9aa30d1c2f7608f8')
 
 _lc() {
     for f in "${@}"

@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("OtpKeyProv.zip::http://keepass.info/extensions/v2/otpkeyprov/OtpKeyProv-${pkgver}.zip")
-md5sums=('ace50edbd0155302e33b5ed46dab7c75')
+sha512sums=('a63721e5d2ae81786d4e64d316799d066459a53e911fc71558f354aaa67d8199ef2cca1172bfdff86aedfab895ce872e0a06cef4eb2e34ecec69ebaf5639cf86')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

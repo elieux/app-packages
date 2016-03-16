@@ -13,7 +13,7 @@ license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
 source=("wincachegrind.zip::https://github.com/ceefour/wincachegrind/releases/download/${pkgver}/wincachegrind-${pkgver}.zip")
-md5sums=('1212683d8376a51f663d0453c8789340')
+sha512sums=('07886b5a6056320e492a52e4ca1f050f21136db438b941744fc80e5978365060f15cf7f4d79964084d68d4261cc5097a27475d8dcb8f12437ddc5a9c55c4e30f')
 
 _lc() {
     for f in "${@}"

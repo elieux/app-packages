@@ -16,7 +16,7 @@ makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
-md5sums=('887009cf482005194e7746bdc1ad63b9')
+sha512sums=('fb1e458166ac979696b79eb2498f3aff412cf5e3be6a5d230dc614a64b0f2feac22bb8123582385bce76bda65b6a331b139f673bd25b0328db926c20bff0bdb1')
 
 _lc() {
     for f in "${@}"

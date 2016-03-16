@@ -16,9 +16,9 @@ options=(!strip)
 source=("SlackSetup.exe::https://slack.com/ssb/download-win"
         "en_US.dic::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.dic"
         "en_US.aff::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.aff")
-md5sums=('b4679c73e2300bd7439504c7dc4108e9'
-         '4515fbb1b055337dfd1b95a92c1b7e4f'
-         '948412697f6fe862d4bc17517011f46e')
+sha512sums=('68e266f750ef31060a16d154cbce0f2d9a9f57738541bb0d06bfd2a1cdb4254de1dd92e4d1f94575f97cb3346404d7e6618197b84689a057ec50ba4153496c71'
+            'ebc0b25da54868590cdbc6e283a4d4d38f6d76efbaac9e5fa31b5ef86fc4d9970fa895f4313cfaa4693fec1f2c3ad7afb5393139ee3b367f1ae888f6fd2d6eca'
+            '9c7122a026698ee12b8581cd1a5e520b86ef65899fd834dc116ad13d4b8af5465c99440f86b20440208cb94eac06841654f5c8295b4e8757e9420fe37093a1ba')
 
 _lc() {
     for f in "${@}"

@@ -18,7 +18,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeAgent.zip::http://lechnology.com/wp-content/uploads/2015/04/KeeAgent_v${pkgver}.zip")
-md5sums=('9098f98ec87cce2ffb345c74ab0ceeaa')
+sha512sums=('22fa181f6b09276a3b85cd8b5cdbc01d5ed014303357c6c26521e6ee6c239bfeafbeeca5f1ee068cca3771c2ae54e201c61ddb3e89c2fbf29185fb34e642fadc')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

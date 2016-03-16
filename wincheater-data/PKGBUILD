@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("texty.exe::http://www.cheater.cz/download/upd/${pkgver}/texty.exe")
-md5sums=('a621d5311df893761a64a05af7709f21')
+sha512sums=('8ca9d6044f0db3a96a396563f83caf17c4463a56c5fdaabc2230c8bb283f15153bc97415d02acefc7e264d154c4f780d6d472ac5f7313bb6674d1683bd434d08')
 noextract=("texty.exe")
 
 prepare() {

@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TeamViewerPortable.zip::http://download.teamviewer.com/download/TeamViewerPortable.zip")
-md5sums=('e011e4e9984af32ddbb829ffaa993c89')
+sha512sums=('9161f7c832c64c0fa038a30d346bef1532bca16c62ade98053bd79f1fb8323a51034c8f2a2e462290c9bb1ef583cfad3a17eda693e3e74464907762bc63127fc')
 
 _lc() {
     for f in "${@}"

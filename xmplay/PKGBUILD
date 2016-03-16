@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("xmplay.zip::http://us.un4seen.com/files/xmplay38.zip")
-md5sums=('44b852d7c51c389be9d5c26bec5f359f')
+sha512sums=('c1a4875874004d9efe32f54b004f60607a4a5b11a43af709c1d3a2c48ae6d2b08f93e0fcbe58a4032bbbf0909e3c1af46c7084d92f5c43b94ec6ac48e9cc7fc6')
 
 pkgver() {
     b="$(cygpath -wa "xmplay.exe" | sed 's/\\/\\\\/g')"

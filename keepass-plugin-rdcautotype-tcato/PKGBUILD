@@ -15,7 +15,7 @@ depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("RDCAutoTypeAndTCATO.plgx::http://rdc-keepass-plugin.appspot.com/get?v=${pkgver#0//./}")
-md5sums=('5b07f6d96144f4a4aaa92126828f72f1')
+sha512sums=('a2e7a39fce832d0f3e395e7e867a95346c331bf716a0ebd5bc5c1f74ee655a985cae595e87750f8288aa2e792cce687326e3dd5b000ac61e9cb073e02f0b3fc3')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

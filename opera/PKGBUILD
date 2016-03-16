@@ -17,7 +17,7 @@ replaces=("app-i686-opera2")
 conflicts=("app-i686-${_realname}<15")
 options=(!strip)
 source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=${_realver//+*}&location=${_realver##*+}&nothanks=yes&sub=marine")
-md5sums=('71c9f80f4bf5c2d18202cdf479f55170')
+sha512sums=('925ec1ed7986bb62c3d45c615a48df408807fcbb13391d95a94877857327678e8b3e5d28b5757bf00c6570b557eea8eaecf835fe9571a788debdaf38a208914d')
 
 _lc() {
     for f in "${@}"

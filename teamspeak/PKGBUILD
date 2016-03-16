@@ -17,8 +17,8 @@ source=("TeamSpeak3-Client-win32.exe::http://dl.4players.de/ts/releases/${pkgver
         "TeamSpeak3-Client-win64.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe"
         # "pluginsdk.zip::http://dl.4players.de/ts/client/pluginsdk/pluginsdk_${pkgver}.zip"
 )
-md5sums=('1eb56f7a816dd3a4b5a207aa1060252a'
-         'c5d3fae9a7615d393b5078c6610b8cde')
+sha512sums=('d6ef5902643cab7c43ca31fcab0a978299acfd9bff7f1c8ecd1ec29a970beb538fc3c329728b13474eaf80eb50096afbccb22251ecf616d750af9f70d89b12f2'
+            'dfdbeb6fb6ba7181427be451c317923cf1db2872d6f53a401fa29287a03af06e85a2a4a1705c0a9a1c20f1cba59ce62da64cb4256d240805a5a0f943a57d878d')
 
 _lc() {
     for f in "${@}"

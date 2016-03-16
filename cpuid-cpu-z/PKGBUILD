@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("cpu-z-en.zip::http://download.cpuid.com/${_realname}/${_realname}_${pkgver}-en.zip")
-md5sums=('382c3f671dc1a200d5ca7dd2b604b6ee')
+sha512sums=('b782ae973854c531eef553c93f8f3fa73f3fc66eda919966c9990ad0f7fbfa9df8ed5409daf0e62edf04833794558b85ce8d56351f67643701b9d1cfe64ba064')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

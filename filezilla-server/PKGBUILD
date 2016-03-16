@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("FileZilla_Server.exe::http://downloads.sourceforge.net/filezilla/FileZilla%20Server/${pkgver}/FileZilla_Server-${pkgver//./_}.exe")
-md5sums=('9f302f8a0924b1074425c0054f61cb70')
+sha512sums=('482e770c75bb8654dc9d913ad092227b28544b0a7291c0e5bc92eebd6c13faa1e4c107fa8474fb41e58062336b0cf7762128e419762cd07b47e9ec7e00335f53')
 
 _lc() {
     for f in "${@}"

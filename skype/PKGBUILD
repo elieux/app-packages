@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
-md5sums=('ff1878db99dfb804254d208a9ff917d7')
+sha512sums=('5f935f45a5724c31a6cf3323c13963f404c762a3da4cd6e3b94daa41715b9c3d25ad05a135316a1f97c36e00d58a1994bf84f5383991cc7a27f64e7984105b08')
 
 _lc() {
     for f in "${@}"

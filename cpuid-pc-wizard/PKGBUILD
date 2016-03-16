@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("pc-wizard.zip::http://download.cpuid.com/${_realname}/${_realname}_${pkgver//.0/.}.zip")
-md5sums=('f0002f6e691ea0edd2760f09ebf69af3')
+sha512sums=('07d462b3f96416576ecf1e41c2ec6e165c640e687215a09ac308ab71f75fe21ae49ec3de052a952541fcb7eddd63f63f54f502c81f3f072c1b415fddacce37c9')
 
 _lc() {
     for f in "${@}"

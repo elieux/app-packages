@@ -5,13 +5,14 @@ _dirname=wincheater
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2016.02.05
+pkgver=2016.03.04
 pkgrel=1
 pkgdesc="Video game cheats and guides databases for WinCheater"
 url="http://www.cheater.cz/winch/win_download_knihovny.htm"
 arch=('any')
 license=('custom')
 makedepends=("unrar")
+depends=("app-i686-wincheater")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Cheaty.exe::http://www.cheater.cz/download/Cheaty.exe"
@@ -37,12 +38,11 @@ source=("Cheaty.exe::http://www.cheater.cz/download/Cheaty.exe"
         "cestiny.exe::http://www.cheater.cz/download/cestiny.exe"
         "internet.exe::http://www.cheater.cz/download/internet.exe"
         "Scofake.exe::http://www.cheater.cz/download/Scofake.exe"
-        "ScoSoft.exe::http://www.cheater.cz/download/ScoSoft.exe"
-)
-md5sums=('ebf017e671ff69a8a116208e329bf984'
+        "ScoSoft.exe::http://www.cheater.cz/download/ScoSoft.exe")
+md5sums=('d705bc1955cecc9b6baf01b86eb4b0cf'
          'ff8fb94592b3eaaccba4e9e5d96bd3e7'
          'bdda2b7605fcb13b4e118f3c34693f63'
-         '7d5af64e5cc78aa6bbd3eee8a72e2693'
+         '790171a8f0e2bb19dfa48880f0488365'
          '5190cec9649eb28c2a689fdcac93cff1'
          '6161f981b859421af5793748152d5c2b'
          'f0a9620ab9fd3110e4ea4047fa15a058'
@@ -50,7 +50,7 @@ md5sums=('ebf017e671ff69a8a116208e329bf984'
          '1476f9f4e452125103c51b9955ff47dc'
          '37da872d9beb2295ff76a02f81e1873b'
          '2782959db8f13ea2d6fa4b8770375393'
-         'e37c17de0514b843241ffe315ed47211'
+         '579d2dc9e959a8080d49cebf01b924e0'
          '974308b48f502cc00e9364102d6af328'
          '37139ffe1c7cb3c3e0f275878f2120df'
          '0ed497e4ca4d56ff539c64dba6b91a13'

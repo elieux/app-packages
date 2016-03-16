@@ -4,7 +4,7 @@ _realname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.31
+pkgver=2.32
 pkgrel=1
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
@@ -33,7 +33,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         # "KeePass2-French-b.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-French-b.zip"
         "KeePass2-German.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-German.zip"
         "KeePass2-Greek.zip::http://downloads.sourceforge.net/keepass/KeePass-2.21-Greek.zip"
-        "KeePass2-Hungarian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Hungarian.zip"
+        "KeePass2-Hungarian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.31-Hungarian.zip"
         "KeePass2-Indonesian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.23-Indonesian.zip"
         "KeePass2-Italian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Italian.zip"
         "KeePass2-Japanese.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Japanese.zip"
@@ -57,45 +57,45 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Ukrainian.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Ukrainian.zip"
         "KeePass2-Vietnamese.zip::http://downloads.sourceforge.net/keepass/KeePass-${pkgver}-Vietnamese.zip"
 )
-md5sums=('7e3c31cd76eea49fc0f7a2319c1fb07b'
-         'da66d128e7e7d767fef64b9f4e151082'
-         '36665841c495ccf1c7a84f3f329be381'
+md5sums=('b4aeb4ad09d62173e40720e18a35d8bc'
+         '94d0e5e15e9628088f01a1f8d1cb30a5'
+         '7e86d60e40e9cfff2551e36fae579ff7'
          'ac0f1e104f82d295c27646bfff39fecc'
          '26138bb070035de02e04f62ae592e1f3'
          '1d0672b626bc7ba577c5ef40471c6884'
-         '0b9cbe0900be2dff566e275c3d9c5eb6'
-         '6218837c8a292cba0ac1cd0bc6cec718'
+         '1a7b550c3e8292ecc6c8125101f92fb2'
+         'ece4704d65df94717bb84cfa497b0422'
          '77495b8b2dffcd733809e92ff7340bd6'
-         '9ba6813596327e52f748c0558d1d2231'
+         '2ebe0cf19df4394e36230bf050344406'
          'f75703e8a0bb7f24ccfb3cb034efb6db'
-         'b0b04ac412168cd8dbb33314af21e36c'
+         '74830360ab434cd57e95d821a01f923b'
          'dc284751a01eb3e12e7d100e96deed7b'
-         'ac52b41f19211e1d74ff5fe57445c925'
-         'aae8f81171419f2d96cfad43645d875e'
+         '72346e92711b141de6614cc21b9dd18c'
+         'bb210706c6ecef383dbb1c436ea39f8e'
          'b4129b1d4c37fa33d3804a17a7576fad'
          '95f1cddd1c3c1e73b2fa8673cf41b19b'
          '5de5de415f5d4948a2f132301e49e1a2'
-         '845f89051aa856381a1479b17646d08c'
-         '613e724cb9eedf8615c4ace7cc27aeca'
-         'ffe83a2434f1b4c039a9ddfdc5d759ac'
+         '0f713b9d8c6a1c2db9afbeb9e9173e26'
+         'a3aea80c73ab5a2d88e7fcb4cd68f45a'
+         'bd46dc75fc152ec31cc2a15e1f7430b3'
          '8b0a0d045f368a1f09bd452dd7df72b5'
-         '7483953e924df38ebf41464d0ba0ca13'
-         '5e5d4c8acb1c8f43a15e4e5c3ce29eda'
+         '8a78626af74f916d703af1e2bdeac7e1'
+         '8522b8d1c03d085c27e3137bc08e6b68'
          '31ecbdcb817c24a6725af7d101676b6a'
          '3172ba110fd730ca4c894f9e52f09930'
-         'b993ca69e4ba65ab1b27de2f8f6c5793'
-         '1bf960170782d7225bb9c0190eca008c'
-         '4da2b3503c93e3eec4f22b0f55d75d4f'
+         'ed660fe59e7b634d5243ac4afc1f6fdc'
+         '2b49978a80a5d1bf582666b12e662cb9'
+         '6049ecc71cb161fc7ba6d07e3fb818db'
          '1d14dda46ccb4f6c921055a58080f0fe'
-         '4bd5a297d723c7a8dd61150fc3d80d5d'
+         '0dc7b5389f32875bba51abbfac945fdf'
          'e4b2091d66e182811d3af9bf6d189f31'
-         'b22ea084d12a41ed956e76242de25d0d'
-         'be787cbd5e00e2601af1b591aba16f30'
-         '6fa05fc799bdf2b371ed6c15ceb9145c'
+         '20b55d4a3675f9462cb7b5c5fbd812be'
+         '8beafffa4f29c540bd7f226cfc51f66a'
+         'b69b0c02529b74c9221835ec10a8d782'
          '96b783595dad3ae1b79428074df8dc7d'
-         'ec82420b8a3b326e135b81acdc2afb90'
-         'f31f3605ec4650607289d978aa10d60e'
-         '41a4418e42e51e421a08f673af62a715')
+         '933a72ab473980f6dded2e80fbe0a182'
+         '852517658a2e4a8e205a8a2a74fbfea7'
+         '8e54e7dc05500f156b7dfb26d6f6a61b')
 noextract=("KeePass2-TrlUtil.zip"
            "KeePass2-Portuguese_BR.zip" # bsdtar: Unsupported ZIP compression method (??); unzip: `LZMA' method not supported
 )

@@ -1,0 +1,38 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=ketarin
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=1.8.5
+pkgrel=1
+pkgdesc="A small application which automatically updates setup packages"
+url="https://ketarin.org"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Ketarin.zip::https://ketarin.org/downloads/Ketarin/Ketarin-${pkgver}.zip?noredirect")
+sha512sums=('33335a1a42d9bbfcedede4b7890b188a86d64baaac177b2d72112a437d5690cbd190dd99154ead0a6ae2ce6a44eac6b73bf2dcf2346991e8804be3e7ddd034f4')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp *.{exe,dll,config} "${a}"
+}

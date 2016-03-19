@@ -33,8 +33,17 @@ _lc() {
 }
 
 pkgver() {
-    b="$(cygpath -wa "SysInfo.dll" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
+    for _apparch in 32 64
+    do
+        b="$(cygpath -wa "SysInfox${_apparch}.dll" | sed 's/\\/\\\\/g' | sed 's/x32//')"
+        eval _ver${_apparch}="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/')"
+    done
+    if [ "${_ver32}" != "${_ver64}" ]
+    then
+        echo "32-bit version number is different from 64-bit."
+    else
+        echo "${_ver32}"
+    fi
 }
 
 prepare() {

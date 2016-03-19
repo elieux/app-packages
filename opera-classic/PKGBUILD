@@ -4,19 +4,19 @@ _realname=opera-classic
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=12.17.1863
+pkgver=12.18
 pkgrel=1
 pkgdesc="Fast and secure Presto-based web browser and Internet suite"
-url="http://www.opera.com/download/guide/?os=windows&ver=12.17&local=y"
+url="http://www.opera.com/download/guide/?os=windows&ver=12.18&local=y"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Opera_int_Setup32.exe::http://www.opera.com/download/get/?id=36923&location=360&nothanks=yes&sub=marine"
-        "Opera_int_Setup64.exe::http://www.opera.com/download/get/?id=36925&location=360&nothanks=yes&sub=marine")
-sha512sums=('0476f20bff5ba4cd29bf1ce1bcfe195081ff5972c2a8aa8fb13f3cb281dbf48eebdeed10b3ea62806bcf12316d1f1ff1905422e42b0b62984cd7698ba2a940f4'
-            '691679341e568d17a2fb93b6f1fc98f3d54ee3f741c0be510bd03ccccb45587600e2aacff659d168dac0f4315e5f9d5ee4b1410228b7401ae5fd0a4003768689')
+source=("Opera_int_Setup32.exe::http://www.opera.com/download/get/?id=39129&location=360&nothanks=yes&sub=marine"
+        "Opera_int_Setup64.exe::http://www.opera.com/download/get/?id=39131&location=360&nothanks=yes&sub=marine")
+sha512sums=('5a40c440b52b61d66a143d4e38050c8898769fe383ea192410fca4da541502a49032ee68b115deaa47769a3dcbfe8467a5a16b7daff4a806855459f157c619ce'
+            '450fcbff79a4777703b532bff21444b67ede88145e08ea9ad1a59b803a25f53d919c1b8beaa1e86c5f7ee616f43684379be0e60cb55994f98722a9c0f1112439')
 
 _lc() {
     for f in "${@}"
@@ -30,9 +30,18 @@ _lc() {
 }
 
 pkgver() {
-    7z e -y -bd "Opera_int_Setup32.exe" "opera.exe" > /dev/null
-    b="$(cygpath -wa "opera.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
+    for _apparch in 32 64
+    do
+        7z e -y -bd "Opera_int_Setup${_apparch}.exe" "opera.exe" > /dev/null
+        b="$(cygpath -wa "opera.exe" | sed 's/\\/\\\\/g')"
+        eval _ver${_apparch}="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+)[.][0-9]+[.]0+$/\1/')"
+    done
+    if [ "${_ver32}" != "${_ver64}" ]
+    then
+        echo "32-bit version number is different from 64-bit."
+    else
+        echo "${_ver32}"
+    fi
 }
 
 _prepare() {

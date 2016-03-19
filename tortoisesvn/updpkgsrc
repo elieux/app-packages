@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+// no error handling yet
+
+$list = file_get_contents("https://tortoisesvn.net/downloads.html");
+preg_match_all("~LanguagePack_[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+-(win32|x64)-([a-zA-Z_-]+)[.]msi~", $list, $packs, PREG_SET_ORDER);
+preg_match_all("~Tortoise(SVN|Merge)-[0-9]+[.][0-9]+[.][0-9]+-([a-zA-Z_-]+)[.]pdf~", $list, $pdfs, PREG_SET_ORDER);
+
+$srclist = [];
+$srclist[] = 'TortoiseSVN-win32.msi::http://downloads.sourceforge.net/${_realname}/TortoiseSVN-${pkgver}-win32-svn-${pkgver%.*}.msi';
+$srclist[] = 'TortoiseSVN-win64.msi::http://downloads.sourceforge.net/${_realname}/TortoiseSVN-${pkgver}-x64-svn-${pkgver%.*}.msi';
+
+foreach ($packs as $pack) {
+	list($plat, $lang) = array_slice($pack, 1);
+	$arch = str_replace('x64', 'win64', $plat);
+	echo "Found: LanguagePack-{$arch}-{$lang}.msi\n";
+	$srclist[] = "LanguagePack-{$arch}-{$lang}.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_\${pkgver}-{$plat}-{$lang}.msi";
+}
+foreach ($pdfs as $pdf) {
+	list($app, $lang) = array_slice($pdf, 1);
+	echo "Found: Tortoise{$app}-{$lang}.pdf\n";
+	$srclist[] = "Tortoise{$app}-{$lang}.pdf::http://downloads.sourceforge.net/tortoisesvn/Tortoise{$app}-\${pkgver%.*}-{$lang}.pdf";
+}
+
+$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+$pkgbuild = file_get_contents('PKGBUILD');
+$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
+rename('PKGBUILD', 'PKGBUILD.old');
+file_put_contents('PKGBUILD', $pkgbuild);

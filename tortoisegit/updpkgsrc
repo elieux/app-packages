@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+// no error handling yet
+
+$list = file_get_contents("https://tortoisegit.org/download/");
+preg_match_all("~TortoiseGit-LanguagePack-[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+-(32|64)bit-([a-zA-Z_-]+)[.]msi~", $list, $packs, PREG_SET_ORDER);
+
+$srclist = [];
+$srclist[] = 'TortoiseGit-32bit.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-${pkgver}-32bit.msi';
+$srclist[] = 'TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-${pkgver}-64bit.msi';
+
+foreach ($packs as $pack) {
+	list($arch, $lang) = array_slice($pack, 1);
+	echo "Found: TortoiseGit-LanguagePack-{$arch}bit-{$lang}.msi\n";
+	$srclist[] = "TortoiseGit-LanguagePack-{$arch}bit-{$lang}.msi::https://download.tortoisegit.org/tgit/\${pkgver}/TortoiseGit-LanguagePack-\${pkgver}-{$arch}bit-{$lang}.msi";
+}
+
+$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+$pkgbuild = file_get_contents('PKGBUILD');
+$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
+rename('PKGBUILD', 'PKGBUILD.old');
+file_put_contents('PKGBUILD', $pkgbuild);

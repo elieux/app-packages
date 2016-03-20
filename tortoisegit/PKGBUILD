@@ -1,0 +1,175 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=tortoisegit
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2.0.0.0
+pkgrel=1
+pkgdesc="Git client implemented as a Windows shell extension"
+url="https://tortoisegit.org"
+arch=('any')
+license=('GPL2')
+provides=("${pkgbase}")
+options=(!strip)
+source=("TortoiseGit-32bit.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-${pkgver}-32bit.msi"
+        "TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-${pkgver}-64bit.msi"
+        "TortoiseGit-LanguagePack-32bit-bg.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-bg.msi"
+        "TortoiseGit-LanguagePack-64bit-bg.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-bg.msi"
+        "TortoiseGit-LanguagePack-32bit-ca.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ca.msi"
+        "TortoiseGit-LanguagePack-64bit-ca.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ca.msi"
+        "TortoiseGit-LanguagePack-32bit-zh_CN.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-zh_CN.msi"
+        "TortoiseGit-LanguagePack-64bit-zh_CN.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-zh_CN.msi"
+        "TortoiseGit-LanguagePack-32bit-zh_TW.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-zh_TW.msi"
+        "TortoiseGit-LanguagePack-64bit-zh_TW.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-zh_TW.msi"
+        "TortoiseGit-LanguagePack-32bit-cs.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-cs.msi"
+        "TortoiseGit-LanguagePack-64bit-cs.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-cs.msi"
+        "TortoiseGit-LanguagePack-32bit-da.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-da.msi"
+        "TortoiseGit-LanguagePack-64bit-da.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-da.msi"
+        "TortoiseGit-LanguagePack-32bit-nl.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-nl.msi"
+        "TortoiseGit-LanguagePack-64bit-nl.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-nl.msi"
+        "TortoiseGit-LanguagePack-32bit-fi.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-fi.msi"
+        "TortoiseGit-LanguagePack-64bit-fi.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-fi.msi"
+        "TortoiseGit-LanguagePack-32bit-fr.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-fr.msi"
+        "TortoiseGit-LanguagePack-64bit-fr.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-fr.msi"
+        "TortoiseGit-LanguagePack-32bit-de.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-de.msi"
+        "TortoiseGit-LanguagePack-64bit-de.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-de.msi"
+        "TortoiseGit-LanguagePack-32bit-hu.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-hu.msi"
+        "TortoiseGit-LanguagePack-64bit-hu.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-hu.msi"
+        "TortoiseGit-LanguagePack-32bit-id.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-id.msi"
+        "TortoiseGit-LanguagePack-64bit-id.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-id.msi"
+        "TortoiseGit-LanguagePack-32bit-it.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-it.msi"
+        "TortoiseGit-LanguagePack-64bit-it.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-it.msi"
+        "TortoiseGit-LanguagePack-32bit-ja.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ja.msi"
+        "TortoiseGit-LanguagePack-64bit-ja.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ja.msi"
+        "TortoiseGit-LanguagePack-32bit-ko.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ko.msi"
+        "TortoiseGit-LanguagePack-64bit-ko.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ko.msi"
+        "TortoiseGit-LanguagePack-32bit-pl.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-pl.msi"
+        "TortoiseGit-LanguagePack-64bit-pl.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-pl.msi"
+        "TortoiseGit-LanguagePack-32bit-pt_BR.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-pt_BR.msi"
+        "TortoiseGit-LanguagePack-64bit-pt_BR.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-pt_BR.msi"
+        "TortoiseGit-LanguagePack-32bit-pt_PT.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-pt_PT.msi"
+        "TortoiseGit-LanguagePack-64bit-pt_PT.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-pt_PT.msi"
+        "TortoiseGit-LanguagePack-32bit-ro.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ro.msi"
+        "TortoiseGit-LanguagePack-64bit-ro.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ro.msi"
+        "TortoiseGit-LanguagePack-32bit-ru.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ru.msi"
+        "TortoiseGit-LanguagePack-64bit-ru.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ru.msi"
+        "TortoiseGit-LanguagePack-32bit-sr-latin.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-sr-latin.msi"
+        "TortoiseGit-LanguagePack-64bit-sr-latin.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-sr-latin.msi"
+        "TortoiseGit-LanguagePack-32bit-sk.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-sk.msi"
+        "TortoiseGit-LanguagePack-64bit-sk.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-sk.msi"
+        "TortoiseGit-LanguagePack-32bit-es.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-es.msi"
+        "TortoiseGit-LanguagePack-64bit-es.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-es.msi"
+        "TortoiseGit-LanguagePack-32bit-sv.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-sv.msi"
+        "TortoiseGit-LanguagePack-64bit-sv.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-sv.msi"
+        "TortoiseGit-LanguagePack-32bit-tr.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-tr.msi"
+        "TortoiseGit-LanguagePack-64bit-tr.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-tr.msi"
+        "TortoiseGit-LanguagePack-32bit-uk.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-uk.msi"
+        "TortoiseGit-LanguagePack-64bit-uk.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-uk.msi"
+        "TortoiseGit-LanguagePack-32bit-vi.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-vi.msi"
+        "TortoiseGit-LanguagePack-64bit-vi.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-vi.msi")
+sha512sums=('ec7dc30804fb94d0f9b1be129303b15201f2a57d13270f645b9e03397716c8f3919fc7dccffc46cbc20238e1695ae2e80caf436510ffa2469b568270fdc72ed5'
+            '707aa899212a5eed0a4a7130d617dca05f4dd67e0d82fa17f19f6d3fe1e452cb0871ca171e1ebd5ad86eebd2e3c354842fa7c25955d77d5f4dcde6fbe03cf176'
+            'a203cdd3e00df969502b942bb26e0157eae1131652d00334a8fd1b101325130cf53acb13a24c1fd9ee09ed4b43e800a0948dc629351dd23ec364bb3260198937'
+            '2764eb3333ec7a71b6b67806722089dedb0de4522289f779496c68e4a63d7854e8901c6bd204bc8786ff283a89389d0c0b5f42608763b1bf4d844599d547eeb3'
+            '59bb4b577cd8afdae7069f767b5b615b5e2926595c9bb72d17595c12e0c01d1a710ab664bb713d09321de53134165ce8f60304aca07ccad415ebd82ff98bcb57'
+            'e9cb51fef90368630062cba5c8d6770f70f30a71968fa12bb6ba67d8ea3019ad26eee4d1e07b02e4df94f5c1540b9d04cd1c5d22ce11a880fbcd72fc87da8db1'
+            'e78f68b4620f9ad5c67a26185aa724c9187e4038862fb889ed5852ac6ff3437f09022abc4c617abd7a6972ca4ca6a8f487a3a01c2ace6464e7a88a521ecf57ac'
+            'b03538478bbae18ada0776af292bb25a6cf89e9ce008897bedb563a9abb4bdc3a4eb679b9b01db909005646d6d368ee11d2fa260275e2bd2efb5ef77859f1100'
+            '3b389081f6366bc993cc54e5aca234ab347154c96bbc768cdf8a0f1305253e2fbf8c33244dfeb9cf7db15e9e0b3d8c4c8bdf9988749b2dabacee3f2558494bee'
+            '5cd3ce02f93c8ebad49b619840fe86649c79b4145489c8ad2356b28ba3cddff515c9f807d0ce72a2ff560f12b50bf0f3580aab3c04fb62cec9a6a0facfde1dc7'
+            'de042398f0a2482184828eaf8ed2ac43e84283e230cc21aa5fae558b92df1691ce7d627ef11f51480bdcdaef8266108642d87308526292dd3e89123c46c88c7a'
+            '5c7af5ed1890d379252fca59025bd5afe7cedcc5b8257b53b74e45a78ea004dfcafec2849acb88150717f76dcdedc320ca63bc46602a09b838f6b23cec16ec3b'
+            '71fda807381045135059d98148c4a782977bdeb7db995e4175c9e9d6d2ed5a519f968efffc3f509e52eb3804cdb1c1947797f0ba567331209b021c89fcf8e6a2'
+            '80f45bd439568e60853a11b5a8d383c4876b8b3b97731fee84b95a1a3af58e19292e79f9edd6f8e41144d28e3e0d9a414f96ee329ea32d24117c32234f305e0a'
+            'e4154cbca59a2338821e50000e029aa536a410e753f5321a42a4f93314e017b4eabfd3ba4f03e806d3c96d4e9443258dfe43a67c2e19d96653b245acaf4f0aba'
+            'e211d2f495af0c56df656aeb8dbf4e18f9c40b35e6b71361ec13d03d071a6cb3b6fea1148aac157d505b0f97b377ac069a16111a05c735e0dbb1cd7200499e27'
+            'f3afbb86aac5563a69ffac094f7840b9ac5a8e95ecfe49f8f54a5b8fc71113484b78a58fe0e1059dcba973cee7a8ea353d1f8342ca703be4327b0a040e0cb124'
+            'f679917d38b21aab3730605d5d7221a275d835ca464578f6ecb4dda29fc6c59b6abe4c20e5e6a7220be02864a7229dc06740ec33c0c3521b88b2185d97cdb7f4'
+            'd4f234d2bd2889245dd59c757bb2604084c4e498c5abc0fc9f69ab059361cf1101f0ab8bf2cdb568e2e907093b5202878b75c8ec4b5983f7cf9b5102022dfe85'
+            'e01da68a538c8e865e3ac785d9d3acfcb20ac1f7e2e323e66e4f76fbdd039a661db5fce57a519bce435790fa150a5b16929d8055f40b30a6054214465a841639'
+            'c48a23343d96843e4e4f13b2677c8f5a0149b8a0abcd9a4d6a959be783e8fe39788584afbf39e4c3fc94a3a49181c4aac2eed240277417f110a3a00ba5f15232'
+            'f1d12dab9e986a1038bc0f1d9a9d5c783af4608889a1a3f649d37de69600b444682b1be6750bdccd435917735db5f7d4dd3368837b52330f487ab97cf0cbb648'
+            '9e76ec46c22c78982892e3ee6b3f1717873727b8c8a5725304401409774b608f4e32f51cd22cb8bb3b3aefc4ddbe28e4e013abad0d83178f0de1b3f093fa69bc'
+            '7d3437974b3ced77efd150790aac67a2ce96cff8aed386ad889015837ff738819750e8f7c566350324bfada99af55e65f9f2f5140736f3adadec3a32268f3178'
+            'f62cf4aeba645ba39a47ac6ab70b8e0a4044334288e40a8dfa458565dc14b02b5a1cdb8c1055ba40849afc99721f458c7728e9cab77416e0da3045c33cd06173'
+            '64a6312d421cf82be5ae81259cae7b69259b556dc6a004ab0d9a5f688dfb2f8eb322f737c9c754d1cb63992888fb5ed31e5163f3b60ccf482e154fa4c68e94d3'
+            '4a50c2849c822dda211f1e3565edaeafd114a0f6f8fa4b4ad61b8151a9f229ed5010d083688c3e354fc8029146afa00d66f0a0c4ea037165558a92888b014e48'
+            '62cecbcfbd9c8ad97bfad0c48494292fc7eb534ad09ad3d956feb4e9dbad29e26ec0f294d0136cdeb01903dad17d214a7d2b39dd21dcf0b2f8db7e3c64b73645'
+            'dd9b20e3255adc7f8009d3cd849be4a96d09683b5a96925401ca9dacebc2dcfde0f5e56eed20c6c90c1aa2f62a49bfc8c65f649416bc14736931579e282530c7'
+            '6d24658a728ff13e6ceb8bf16a9dc4b11d2a60b5d459272e66b2ffa3315e82957dbf2a19593d94742178efb38cbb7eeab89ace516f65c098be6b99f6067c4035'
+            '4a43f466d01589920db32449da4f65c61eddc214e529fd14874a4e163c5e34db20b2ffb6ba269ec1b29f9dce03a4ffbe25feeb6ae532f2af380fbfcd96daa895'
+            '53f665759935c9b332d1ac5c9fa57e0344066853b34e903becc848f3feadc6343c70d0597c3c113b83edbaedf718cf5a847ba2ac34c79748d5fba3e40bbff538'
+            'ba2d2c8a3dfd3843e39b44d9aeb64b55da90e8cc6d289bed235ecab183f52854a88ecb6d80b919b6903fa5121caa0bff5507454f82377827f736494226973ad5'
+            '3d11cd87967618d30f983cb9aa54969f1260d014beb92e5c2054b85ddc82e184930fb9491e2c2bff0444057e0f1db640368384faa870b628e01d86bc90d1193d'
+            'e7f8014259beafedc9f79e06a0c92366226a7a3e085e05ff06f402a3048b46e623132af02bb3425bce673d359821d407b5bc9afe7b40b1ac0c41e40abc2f4362'
+            'da744e2e2e7f33fbef0c2c6056ebd6c353becb61a30e643cfd164c3cf6cd0b510177a568bf8267e2fbbc144530d8f1672e0aabdb9c055a982f9c5428b9870da6'
+            '20253f544d274dead1c31ff195cfd872c13a2f80a4cbcc3d62b7964ec74359ec058ed9c14df3a29c22b67855bd72a66043eea183f58487b0b2be78620f621aec'
+            '27bf92ee82e8565a0a8ce28e797cd5f362bdf335ccb8e9d5817d854a96fb6d5ca1f05e4b5d17735ced89f7bb166a987553e0b3bd83e0f12be0b9af5e6b90a15a'
+            'b94704772af4b6fe4cb46de2198c96abb6dbbdc2357995ddf0f392a0a13f858a4a1d4a717d11b7da1dad71947051c5e8db9f17a0bb11d772399621ebea426de5'
+            '76c0bfb36285c33b981538d3a8f2f97a2475f03a7a327f9c8f012b72387c1f4c2882fb24e197f6f96c5509325307b54bf14904c924e1f6158d321994b017d76c'
+            '1c976b11df0e1f1eddf8871f1a2960bb30b230f6e9130c0bf28e6be71b39de10d201400201e0e07abddca06f182e37a8ba9b82a39b599bf8f828b790a7fe622d'
+            '688383a0f28930b86e52c8dd0d1a5375e69cc4f778425b3f403eea886cb2621925c185f9722fc7283df13dd49b8799a192b20abdbaa8718de935952159422d21'
+            'f76f075fc8f6742daea31e1eb92cfa3c68f8ba3824d7e03127670e8fbdce9d9a01bd0001012b872458fe3950d5692b0a89c83d7923a023a26ea3b636fce627e4'
+            'af2d8ff44292bf4c164490f4160ee353f7e5bccb7a0c992df9749b45084c0a5e8e494fc617009370391e9d59ba30373cfbb3063622c2c39a8bcf072dea4f3294'
+            '6095564660fe8f92d2b165d19f93132348cd48f13bee251bfe4d69ae034d591561e653d16220c6aa3e9702a96e1fbb917260f663057ce3b4ce1477a0a11aff69'
+            '08d73bc82916f8928995720789b7d0f7278aec087f70c911f3bafd49863bd4d8c17742185e3125f341d44533b73944124267fd303a693598620018471240f01f'
+            'c8583f2aa1f7b65364ae8df57e356ad8423ca9baf4324bb118c7a901d603e2896aa15afebf3e524fe31aba936bbb5d9b7749d0aef2493a7b42b35c553aeffd54'
+            '6f423491a6442d5b3e52d0448e5cf2c2bf7fb041849c72e8c6b2c5d1deb5a4c78138523d4ab895105b38ba2f74bd5922a66dcac952740402164a3e99fa9bddcc'
+            '80231131a8402f0a3aaca519e1e875874acc86ad538c24d4b917a201d18efdba7e4ad083cc8babd0afb92ff288110eab6b1d8ecf9d5d52f2a90f62402d848dc7'
+            'd678eac24c04d1c3cb2dbba9e737061d0f73142bf7c805bd83f239a6b6f92a70dddf53b8870365253e7dd6f88ef014e7f05458aa5a9d13caf09211d65dce008d'
+            'eef463eb8acd9fde1952eff764fcc61ce832decda0724de2ccf7e4923ccb1ac58240209ea62c0fa4eb57ead029542a9358b9a0f01f2494eef550ff630445f60b'
+            '9d576858a5c3c55fc6c26fbd9ec74152ecb8fbbcfed897c9b96b953ab708bf7d7b49ea2d5727203d53d5bacfec835eac5f95cecb53ce089811cac6f19de2963a'
+            'ac6a5be2f1adf41a13b2bc514e5c50020b2bf534d7a3ac4abc193e9ea01e0b806a930559ccfbc3187b565668c09267bca6d9658d1b54b417e649a2b6e7bd4b5f'
+            '2e914e0edec58627d9bc61d7a65c85eb98cce9ddc69d3c5ebb74b12324e7f9d71289557de22ce56387f99f0c46234fefa986e1f01c3011317541d10973da8dec'
+            '153077e1e1be960b36874408321951ad674a23b4b0e2b9fac9bb8453651f9449dbac83ae0102bf9e451b6f409ef429ba3db5a1ca4d9b8555d10a3d83333ca35d'
+            '82d9787f49e1a1a572c32470dbd6598470c4c0ee0b195c57d088628ac605a0eeff766f840c1412f8e4a6144a984b65cbacff57e1a224bbbf81a97166183f2e2d')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+_build() {
+    for f in *${_apparch}bit*.msi
+    do
+        msiexec -a "${f}" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
+    done
+    _lc "install${_apparch}/Program Files/TortoiseGit"/*
+}
+
+build() {
+    for _apparch in 32 64
+    do
+        _build
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}" "${a}/overlays"
+    cp -r "install${_apparch}/Program Files/TortoiseGit"/* "${a}"
+    mv "${a}/common/TortoiseOverlays"/* "${a}/overlays"
+    rm -r "${a}/common" "${a}/system"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/*.txt "${a}/bin"/*.chm "${d}"
+    mv "${a}/overlays/License.txt" "${d}/tortoiseoverlays license.txt"
+}
+
+package_app-i686-tortoisegit() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-tortoisegit() {
+    _apparch=64
+    _package
+}

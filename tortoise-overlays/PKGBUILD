@@ -1,0 +1,82 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=tortoise-overlays
+_realver=2.0.0.0
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=1.1.4.26626
+pkgrel=1
+pkgdesc="Overlays component for Tortoise tools"
+url="https://tortoisesvn.net"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("TortoiseGit-32bit.msi::https://download.tortoisegit.org/tgit/${_realver}/TortoiseGit-${_realver}-32bit.msi" # TGit seems to have a greater choice of icon sets
+        "TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${_realver}/TortoiseGit-${_realver}-64bit.msi")
+sha512sums=('ec7dc30804fb94d0f9b1be129303b15201f2a57d13270f645b9e03397716c8f3919fc7dccffc46cbc20238e1695ae2e80caf436510ffa2469b568270fdc72ed5'
+            '707aa899212a5eed0a4a7130d617dca05f4dd67e0d82fa17f19f6d3fe1e452cb0871ca171e1ebd5ad86eebd2e3c354842fa7c25955d77d5f4dcde6fbe03cf176')
+
+pkgver() {
+    7z e -y -bd "TortoiseGit-32bit.msi" "F__overlaydll.9D3DBC93_494B_45A8_88D7_430AB5568B0F" > /dev/null
+    b="$(cygpath -wa "F__overlaydll.9D3DBC93_494B_45A8_88D7_430AB5568B0F" | sed 's/\\/\\\\/g')"
+    _ver32="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)$/\1/')"
+    7z e -y -bd "TortoiseGit-64bit.msi" "F__overlaydll.3C89127D_F335_46EB_8720_CAFE0C0FEB7E" > /dev/null
+    b="$(cygpath -wa "F__overlaydll.3C89127D_F335_46EB_8720_CAFE0C0FEB7E" | sed 's/\\/\\\\/g')"
+    _ver64="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)$/\1/')"
+    if [ "${_ver32}" != "${_ver64}" ]
+    then
+        echo "32-bit version number is different from 64-bit."
+    else
+        echo "${_ver32}"
+    fi
+}
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+_build() {
+    for f in *${_apparch}bit*.msi
+    do
+        msiexec -a "${f}" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
+    done
+    _lc "install${_apparch}/Program Files/TortoiseGit/Common/TortoiseOverlays"/*
+}
+
+build() {
+    for _apparch in 32 64
+    do
+        _build
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "install${_apparch}/Program Files/TortoiseGit/Common/TortoiseOverlays"/* "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/*.txt "${d}"
+}
+
+package_app-i686-tortoise-overlays() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-tortoise-overlays() {
+    _apparch=64
+    _package
+    cp -r "install32/Program Files/TortoiseGit/Common/TortoiseOverlays/tortoiseoverlays.dll" "${a}/tortoiseoverlays32.dll"
+}

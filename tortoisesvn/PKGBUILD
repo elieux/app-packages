@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=1.9.3.27038
-pkgrel=1
+pkgrel=2
 pkgdesc="Subversion client implemented as a Windows shell extension"
 url="https://tortoisesvn.net"
 arch=('any')
@@ -274,25 +274,25 @@ build() {
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${a}" "${a}/overlays"
+    mkdir -p "${a}"
     cp -r "install${_apparch}/PFiles/TortoiseSVN"/* "install${_apparch}/Program Files/TortoiseSVN"/* "${a}"
-    mv "${a}/common/TortoiseOverlays"/* "${a}/overlays"
     rm -r "${a}/common"
     rm "${a}/bin"/api-ms-win-*.dll "${a}/bin"/mfc*140*.dll "${a}/bin/ucrtbase.dll" "${a}/bin"/{concrt,msvcp,vcamp,vccorlib,vcomp,vcruntime}140.dll
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
     mv "${a}"/*.txt "${a}/bin"/*.{url,chm} "${a}/languages"/*.chm "${d}"
-    mv "${a}/overlays/License.txt" "${d}/tortoiseoverlays license.txt"
     cp *.pdf "${d}"
 }
 
 package_app-i686-tortoisesvn() {
+    depends=("app-i686-tortoise-overlays")
     _apparch=32
     _package
 }
 
 package_app-x86_64-tortoisesvn() {
+    depends=("app-x86_64-tortoise-overlays")
     _apparch=64
     _package
 }

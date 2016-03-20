@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.0.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Git client implemented as a Windows shell extension"
 url="https://tortoisegit.org"
 arch=('any')
@@ -153,23 +153,24 @@ build() {
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${a}" "${a}/overlays"
+    mkdir -p "${a}"
     cp -r "install${_apparch}/Program Files/TortoiseGit"/* "${a}"
-    mv "${a}/common/TortoiseOverlays"/* "${a}/overlays"
     rm -r "${a}/common" "${a}/system"
+    rm -rf "${a}/system64" # Only in 64-bit variant
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
     mv "${a}"/*.txt "${a}/bin"/*.chm "${d}"
-    mv "${a}/overlays/License.txt" "${d}/tortoiseoverlays license.txt"
 }
 
 package_app-i686-tortoisegit() {
+    depends=("app-i686-tortoise-overlays")
     _apparch=32
     _package
 }
 
 package_app-x86_64-tortoisegit() {
+    depends=("app-x86_64-tortoise-overlays")
     _apparch=64
     _package
 }

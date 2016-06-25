@@ -5,10 +5,10 @@ _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.8.4.0
-pkgrel=2
+pkgver=1.8.4.1
+pkgrel=1
 pkgdesc="A KeePass plugin to expose password entries securely over HTTP"
-url=""
+url="https://github.com/pfn/keepasshttp"
 arch=('any')
 license=('unknown')
 depends=("app-i686-keepass")
@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("KeePassHttp.plgx::http://github.com/pfn/keepasshttp/raw/${pkgver}/KeePassHttp.plgx"
         "README.md::http://github.com/pfn/keepasshttp/raw/${pkgver}/README.md")
-sha512sums=('1fe71c0363e2cbbb1f8d0f668be326876088f128d5945a81124fd419e7ddba87a8eb762aa80c91944d0dcaa072d2cf6012d186380817456d8e307878e768ad0c'
-            '867ac4ac041608c0e18b9eba6de54320a9b4916d17a6ce9b0c4e83b21cfce3027e5a3ba732764874ff1db37dd4d3d4cf03fc8c6f322549b606eec5f2937ef930')
+sha512sums=('1bb208a76908f0b78b13bee59eb02312e27642bd027c44e5eede9e6b69f7d22e8cd4a590cc68f8b4337142bb94f3a395e45e3947d347ea3f8c31ac405b912770'
+            'eb8e7e98db9168f01f413e027c4602241c274a393a58c4337250f756b43829c4fa81b2c51f74d5d5f8d4966bffc2764788f7049432e2aa8ebadb44ff3d4d6b9d')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

@@ -4,7 +4,7 @@ _realname=innounp
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=0.45
+pkgver=0.46
 pkgrel=1
 pkgdesc="Inno Setup unpacker"
 url="http://innounp.sourceforge.net/"
@@ -14,7 +14,7 @@ makedepends=("unrar")
 provides=("${pkgbase}")
 options=(!strip)
 source=("innounp.rar::http://downloads.sourceforge.net/${_realname}/${_realname}/${_realname}%20${pkgver}/${_realname}${pkgver//./}.rar")
-sha512sums=('33ade973785b074292f877253c7bc898bd1d4b258a1f8f5e1e6b372529e783d2e2981b9eaeacf4861be06f4bc55c3ed0492d96ce627d567a8c8ed9a4698b90b0')
+sha512sums=('8a22373522fa1eb4fd3ebd3e60c7300d6cd69ee0c250141f7378234b3cd92ea155b19d1a3ba0424dfbce1aee530f5071c972a722bb9c16027f0cec8a6b3e58b3')
 noextract=("${source[@]%%::*}") # "Parsing filters is unsupported"
 
 prepare() {

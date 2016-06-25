@@ -1,10 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=opera-mail
+_realver=39133
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.0.1040
+pkgver=1.0.1044
 pkgrel=1
 pkgdesc="A lightweight, customizable mail client"
 url="http://www.opera.com/computer/mail"
@@ -13,8 +14,8 @@ license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Opera-Mail.i386.exe::http://www.opera.com/download/get/?id=35800&location=360&nothanks=yes&sub=marine")
-sha512sums=('50e598e735300dcd9458d2c3a0deabec03d2c82184f47066cb1379008f82281a105543fdc50c813a79122f01822261da749f315e73be589d31c59e6c41f667a0')
+source=("Opera-Mail.i386.exe::http://www.opera.com/download/get/?id=${_realver}&location=360&nothanks=yes&sub=marine")
+sha512sums=('9048a51fecda9a8694bfc00936eda758d20cbd7fb342f43118f73be86920cf59da062cf00f23bef50382ba87841e6592051fca05b4fad55a855ef4ff02765e92')
 
 _lc() {
     for f in "${@}"
@@ -28,13 +29,15 @@ _lc() {
 }
 
 pkgver() {
-    7z e -y -bd "Opera-Mail.i386.exe" "operamail.exe" > /dev/null
+    _lc *
+    7z e -y -bd "opera-mail.i386.exe" "operamail.exe" > /dev/null
     b="$(cygpath -wa "operamail.exe" | sed 's/\\/\\\\/g')"
     wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
 }
 
 prepare() {
-    7z x -y -bd "Opera-Mail.i386.exe"
+    _lc *
+    7z x -y -bd "opera-mail.i386.exe"
     _lc *
 }
 

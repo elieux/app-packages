@@ -4,7 +4,7 @@ _realname=processhacker
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.38
+pkgver=2.39
 pkgrel=1
 pkgdesc="Views and manages processes, services and more"
 url="http://processhacker.sourceforge.net/"
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("processhacker-bin.zip::http://downloads.sourceforge.net/${_realname}/${_realname}2/${_realname}-${pkgver}-bin.zip")
-sha512sums=('1562a9bdcf306beee3c13378bdbfa36b16cbce1aa83f961aa59cda65ac59500ed312732d265681c0ce817d8f7785561d1038b41f1b8294061621b7292b55c748')
+sha512sums=('915b9f7c0b1374ce52fa9653ba1084741d15ff79dbb7c04d2a0f41eea8262b2f556d451bf9eefbd2d32831289908b6a1b39ce2cbcafbbfc4ae6e71d701b1aa81')
 
 _lc() {
     for f in "${@}"

@@ -4,7 +4,7 @@ _realname=unetbootin
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=613
+pkgver=625
 pkgrel=1
 pkgdesc="Create bootable Live USB drives"
 arch=('any')
@@ -13,7 +13,7 @@ license=('GPL')
 provides=("${pkgbase}")
 options=(!strip)
 source=("unetbootin-windows.exe::http://launchpad.net/unetbootin/trunk/${pkgver}/+download/unetbootin-windows-${pkgver}.exe")
-sha512sums=('89d76e8eb3a16519fe08cdc8e7fd88b3b0b084426bc844da8681653246a314f9c3f9d05264a1c17939472c45dc67425fa150afbf389bfc79bb2f7dbef3d68f0e')
+sha512sums=('5d234bcc2231a78844228f414c8cd5a337212902e65253ecd40abc6285aa9270c0aa52e3091e30ef6c631a50df92fb6f6f0c18f89365ebf0b853117ea82dfec1')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"

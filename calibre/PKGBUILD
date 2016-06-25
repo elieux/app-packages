@@ -4,7 +4,7 @@ _realname=calibre
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.53
+pkgver=2.60.0
 pkgrel=1
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
@@ -12,10 +12,10 @@ arch=('any')
 license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("calibre32.msi::http://download.calibre-ebook.com/${pkgver}.0/${_realname}-${pkgver}.0.msi"
-        "calibre64.msi::http://download.calibre-ebook.com/${pkgver}.0/${_realname}-64bit-${pkgver}.0.msi")
-sha512sums=('3ca155cc5c1c59374b8d6c660715130beb637e22015602f72dc957c7853b3a894f38ebd3802eae314d643a3c8f33188b4912173ea2e5ffe7031a1e58886990c0'
-            '31e600e2ac0cb8c871fb8ca4172888622efee51c5a9ee11eaa47194d8aab732fb5d3de0ae6ed16856b52481116d2819d38b0602203420ea827b918020a9508bb')
+source=("calibre32.msi::http://download.calibre-ebook.com/${pkgver}/${_realname}-${pkgver}.msi"
+        "calibre64.msi::http://download.calibre-ebook.com/${pkgver}/${_realname}-64bit-${pkgver}.msi")
+sha512sums=('fe7c96d5e839389e1aec8093ec1fb20cdb6456e16b8b19ad13ebc7b8db3884f9a4c8f82a73044a45f953323c351440d6bbef6979a9e4231b96d1e6e9250052ca'
+            '185be52489c97d3dace81b66b513b888b0e83983c668f1c0a65022ef92e183fc5acf59ed3de76d10237d496eeef422d5d492a856fe039fe04f6d57d31688987e')
 
 _lc() {
     for f in "${@}"

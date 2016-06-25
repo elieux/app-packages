@@ -4,8 +4,8 @@ _realname=7zip
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=9.38
-pkgrel=4
+pkgver=16.02
+pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="http://www.7-zip.org/"
 arch=('any')
@@ -13,12 +13,12 @@ license=('LGPL2' 'custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("7z32.msi::http://7-zip.org/a/7z${pkgver//./}.msi"
-        "7z64.msi::http://7-zip.org/a/7z${pkgver//./}-x64.msi"
+source=("7z32.exe::http://7-zip.org/a/7z${pkgver//./}.exe"
+        "7z64.exe::http://7-zip.org/a/7z${pkgver//./}-x64.exe"
         "7zextra.7z::http://7-zip.org/a/7z${pkgver//./}-extra.7z")
-sha512sums=('eb079ca091ac70f4c0cc173e6138ae795b1e562db24e9f637df8a9b522c4e769855a774a385c63796d3d281a2fe9e717ed7f5e297021ce25f7fd9fe107cc96ed'
-            'd8a5514236e599384e96d62eb5920334e65b7c02d43a26582479c159591873e41b3af406b952f7574ffeadcfd5aa3de79d44f945bee26072ce99afd39bf11b32'
-            '6bcf3235ebf50887a8f17240401ac40a5e37664295a4fb61189f91a4819bcdee17be28ea355375f93b8d0094a275e97385479acb0f06f9cd45eac0498542c62e')
+sha512sums=('bd4388c951f12f472da5ea8e2f0415974fab402c0e7cbe5719d67f10f18bff0726fef4037588006179f89097b8fc0a66970f2f1f70d8f0855f7f685f3be031b6'
+            '9b2dd5ea68f17b8d361441f9384b80f43463de2f0c682b83dcb96cec473430ffee7797a62366d6137782b1e752044fbbdc2fc82fe259b589b96202ecc3c80365'
+            '1d5ea7357bbc27da99203905647af8c063b01a804900d8e6054decde14df6bc562ae48f5b2751e66e2c896bfd229d4ebcb5ccd2d4e21a0394733470d8a25dfb2')
 
 _lc() {
     for f in "${@}"
@@ -31,38 +31,35 @@ _lc() {
     done
 }
 
+_prepare() {
+    7z x -y -bd "7z${_apparch}.exe" -o"7z${_apparch}"
+    _lc "7z${_apparch}"/*
+}
+
 prepare() {
     _lc *
-}
-
-_build() {
-    msiexec -a "7z${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
-    _lc "install${_apparch}/Files/7-Zip"/*
-}
-
-build() {
     for _apparch in 32 64
     do
-        _build
+        _prepare
     done
 }
 
 _package() {
-    s="install${_apparch}/Files/7-Zip"
-
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "${@}" "${s}/lang" "${s}"/*.{exe,dll,sfx} "${a}"
+    cp -r "${@}" "7z${_apparch}/lang" "7z${_apparch}"/*.{exe,dll,sfx} "${a}"
+    rm "${a}/uninstall.exe"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}" "${d}/extra"
-    cp "${s}"/*.{chm,txt,ion} "${d}"
+    cp "7z${_apparch}"/*.{chm,txt,ion} "${d}"
     cp *.txt "${d}/extra"
 }
 
 package_app-i686-7zip() {
     _apparch=32
     _package *.{dll,exe}
+    rm "${a}"/7z{32,64}.exe
 }
 
 package_app-x86_64-7zip() {

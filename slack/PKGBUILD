@@ -4,7 +4,7 @@ _realname=slack
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.0.0
+pkgver=2.0.6
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
@@ -16,7 +16,7 @@ options=(!strip)
 source=("SlackSetup.exe::https://slack.com/ssb/download-win"
         "en_US.dic::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.dic"
         "en_US.aff::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.aff")
-sha512sums=('68e266f750ef31060a16d154cbce0f2d9a9f57738541bb0d06bfd2a1cdb4254de1dd92e4d1f94575f97cb3346404d7e6618197b84689a057ec50ba4153496c71'
+sha512sums=('63d76d03cdc2a7002c5d3c75eefadb378c747ecfddf16e6b6243b8e3f31843ccb0fb72009e7ff0087fc0ba9d3c73aba413d5d60a182dcd2857a7774edf87a4c8'
             'ebc0b25da54868590cdbc6e283a4d4d38f6d76efbaac9e5fa31b5ef86fc4d9970fa895f4313cfaa4693fec1f2c3ad7afb5393139ee3b367f1ae888f6fd2d6eca'
             '9c7122a026698ee12b8581cd1a5e520b86ef65899fd834dc116ad13d4b8af5465c99440f86b20440208cb94eac06841654f5c8295b4e8757e9420fe37093a1ba')
 
@@ -37,8 +37,9 @@ pkgver() {
 }
 
 prepare() {
+    rm -f "slack"-*-"full.nupkg"
     7z x -y -bd "SlackSetup.exe"
-    unzip -o "slack-${pkgver}-full.nupkg"
+    unzip -o "slack"-*-"full.nupkg"
     _lc "lib/net45"/*
 }
 

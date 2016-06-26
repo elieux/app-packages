@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=crystaldiskinfo
-_realver=64532
+_realver=65980
 _dirname=crystal
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=6.7.5
+pkgver=7.0.0
 pkgrel=1
 pkgdesc="A disk utility (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDiskInfo/index-e.html"
@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CrystalDiskInfo.zip::http://osdn.jp/frs/redir.php?f=%2Fcrystaldiskinfo%2F${_realver}%2FCrystalDiskInfo${pkgver//./_}.zip")
-sha512sums=('a1ff41219f554e407b0b2c4a79a18fd931bb2e5ce8f67f5b416878ce02f369d24266488ddb24e6046ea305c37e318a24bcdbb1ca9b1ff662c34586e675c8f9a1')
+sha512sums=('e1ee24c0ea088767ab192eb9d620e521dc497cdee482e7dfb0151d1a6a94047fdd7adedb811d0d215307cf533a5b3a51eb97b8210d905f0c4b27a73e4e7e7bc3')
 
 _lc() {
     for f in "${@}"
@@ -36,7 +36,7 @@ prepare() {
 _package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
     mkdir -p "${a}"
-    cp "diskinfo${1}.exe" "${a}/crystaldiskinfo.exe"
+    cp "diskinfo${_apparch}.exe" "${a}/crystaldiskinfo.exe"
     cp -r "cdiresource" "${a}"
 
     d="${pkgdir}/docs${_apparch}/${_dirname}"
@@ -46,10 +46,10 @@ _package() {
 
 package_app-i686-crystaldiskinfo() {
     _apparch=32
-    _package ""
+    _package
 }
 
 package_app-x86_64-crystaldiskinfo() {
     _apparch=64
-    _package "X64"
+    _package
 }

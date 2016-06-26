@@ -4,7 +4,7 @@ _realname=musescore
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.0.2
+pkgver=2.0.3
 pkgrel=1
 pkgdesc="Create, play and print beautiful sheet music"
 url="http://musescore.org/"
@@ -13,7 +13,7 @@ license=('GPL')
 provides=("${pkgbase}")
 options=(!strip)
 source=("MuseScore.msi::ftp://ftp.osuosl.org/pub/musescore/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.msi")
-sha512sums=('c67dd2ec8d1a4706f130666627a7f5a789707defaee99858f103d2e1e5032f56bd539bc158e6dd474db05f65075a2be55cf2c04c2aec4e2e6bcdab49d602bcf1')
+sha512sums=('cc649408b67aef23905419d24fec82dc3e1c8f5665adfa1f119265c671cf92a8ff2000d448c5ef3562845fbbeb1343978aaa8377f5dceefb43709187095d2069')
 
 _lc() {
     for f in "${@}"

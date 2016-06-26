@@ -1,34 +1,124 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_realname=wincheater-data
+DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.cheater.cz/" -o %o %u')
+
+_status=("broken" "timed-download-links")
 _dirname=wincheater
 _apparch=32
-pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-pkgver=176
+pkgbase="app-wincheater-data"
+pkgname=("app-i686-wincheater-data-base"
+         "app-i686-wincheater-data-libs")
+pkgver=2016.05.07
 pkgrel=1
+epoch=1
 pkgdesc="Texts for WinCheater"
 url="http://www.cheater.cz/winch/win_download_knihovny.htm"
 arch=('any')
 license=('custom')
-makedepends=("p7zip")
-provides=("${pkgbase}")
+makedepends=("unrar")
 options=(!strip)
-source=("texty.exe::http://www.cheater.cz/download/upd/${pkgver}/texty.exe")
-sha512sums=('8ca9d6044f0db3a96a396563f83caf17c4463a56c5fdaabc2230c8bb283f15153bc97415d02acefc7e264d154c4f780d6d472ac5f7313bb6674d1683bd434d08')
-noextract=("texty.exe")
+source=("Cheaty.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "Navody.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "texty.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "vtipy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "Navody_Plus.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "Xbox.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "easter_eggy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "GBA_a_GBC.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "playstation.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "povidky.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "recenze.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "songbook.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "vtipne_obrazky.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "filmy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "gc_a_nin64.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "webdesign.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "mobile_melodies.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "mininavody.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "mobile_eggy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "citaty.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "internetove_odkazy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "scofake.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
+        "scosoft.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________")
+sha512sums=('________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________'
+            '________________________________________________________________________________________________________________________________')
+noextract=("${source[@]%%::*}") # "Parsing filters is unsupported"
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    #find . -mindepth 1 -maxdepth 1 -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -mindepth 1 -maxdepth 1 -name '*.exe' -execdir bash -c 'unrar l -c- "{}" | sed "/^;/d" | sed "/^$/d" | tail -n +6 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 4 | sed -r "s/^([0-9][0-9])-([0-9][0-9])-([0-9][0-9])$/20\3-\2-\1/" | tr "-" "."' \; | sort | tail -1
+}
 
 prepare() {
-    # 7z x -y -bd "texty.exe" # unsupported method
-    true
+    for f in *.exe
+    do
+        unrar x -idq -tsm -o+ "${f}"
+    done
+    _lc *
+    for f in *" "*
+    do
+        n="$(echo "${f}" | tr ' ' '_')"
+        mv "${f}" "${n}"
+    done
 }
 
-build() {
-    "./texty.exe" -d. -s
-}
-
-package() {
+package_wincheater-data-base() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
     mkdir -p "${a}"
     cp *.sct "${a}"
+}
+
+package_wincheater-data-libs() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp *.sc2 "${a}"
+}
+
+package_app-i686-wincheater-data-base() {
+    provides=("app-wincheater-data-base")
+    replaces=("app-i686-wincheater-data")
+    conflicts=("app-i686-wincheater-data")
+
+    package_wincheater-data-base
+}
+
+package_app-i686-wincheater-data-libs() {
+    provides=("app-wincheater-data-libs")
+    replaces=("app-i686-wincheater-libraries")
+    conflicts=("app-i686-wincheater-libraries")
+    depends=("app-i686-wincheater")
+
+    package_wincheater-data-libs
 }

@@ -1,16 +1,18 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_status=("broken" "dependencies")
 _realname=wincheater
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.07
-pkgrel=2
+pkgrel=3
 pkgdesc="Video game cheats and guides database viewer"
 url="http://www.cheater.cz/winch/win_uvod.htm"
 arch=('any')
 license=('custom')
-depends=("app-i686-wincheater-data")
+depends=("app-i686-wincheater-data-base")
+optdepends=("app-i686-wincheater-data-libs: Databases")
 makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)

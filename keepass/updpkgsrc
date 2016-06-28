@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+// no error handling yet
+
+$list = file_get_contents("http://keepass.info/translations.html");
+preg_match_all("~http://downloads.sourceforge.net/keepass/((?:KeePass-)?(?:2[.][0-9]+-)?([A-Za-z0-9_-]+?)(?:-2[.][0-9]+)?).zip~", $list, $packs, PREG_SET_ORDER);
+
+$srclist = [];
+$srclist[] = 'KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip';
+$srclist[] = 'KeePass2-TrlUtil.zip::http://keepass.info/download/v2_trlutil/TrlUtil-${pkgver}.zip';
+$srclist[] = 'KPScript.zip::http://keepass.info/extensions/v2/kpscript/KPScript-${pkgver}.zip';
+$srclist[] = 'KeePass.config.xml';
+
+foreach ($packs as $pack) {
+	list($name, $lang) = array_slice($pack, 1);
+	echo "Found: KeePass2-{$lang}.zip\n";
+	$srclist[] = "KeePass2-{$lang}.zip::http://downloads.sourceforge.net/keepass/{$name}.zip";
+}
+
+$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+$pkgbuild = file_get_contents('PKGBUILD');
+$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
+rename('PKGBUILD', 'PKGBUILD.old');
+file_put_contents('PKGBUILD', $pkgbuild);

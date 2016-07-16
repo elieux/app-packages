@@ -1,0 +1,93 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=pspad
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=4.6.1
+pkgrel=1
+pkgdesc="Freeware programmer's editor"
+arch=('any')
+url="http://www.pspad.com/en/"
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("pspaden.zip::http://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip"
+        "en_dic.cab::http://www.pspad.com/files/dic/en_dic.cab"
+        "bp_dic.cab::http://www.pspad.com/files/dic/bp_dic.cab"
+        "bg_dic.cab::http://www.pspad.com/files/dic/bg_dic.cab"
+        "cz_dic.cab::http://www.pspad.com/files/dic/cz_dic.cab"
+        "da_dic.cab::http://www.pspad.com/files/dic/da_dic.cab"
+        "fr_dic.cab::http://www.pspad.com/files/dic/fr_dic.cab"
+        "id_dic.cab::http://www.pspad.com/files/dic/id_dic.cab"
+        "it_dic.cab::http://www.pspad.com/files/dic/it_dic.cab"
+        "cat_dic.cab::http://www.pspad.com/files/dic/cat_dic.cab"
+        "hu_dic.cab::http://www.pspad.com/files/dic/hu_dic.cab"
+        "de_dic.cab::http://www.pspad.com/files/dic/de_dic.cab"
+        "po_dic.cab::http://www.pspad.com/files/dic/po_dic.cab"
+        "pt_dic.cab::http://www.pspad.com/files/dic/pt_dic.cab"
+        "ro_dic.cab::http://www.pspad.com/files/dic/ro_dic.cab"
+        "ru_dic.cab::http://www.pspad.com/files/dic/ru_dic.cab"
+        "gr_dic.cab::http://www.pspad.com/files/dic/gr_dic.cab"
+        "sk_dic.cab::http://www.pspad.com/files/dic/sk_dic.cab"
+        "sv_dic.cab::http://www.pspad.com/files/dic/sv_dic.cab"
+        "es_dic.cab::http://www.pspad.com/files/dic/es_dic.cab")
+sha512sums=('0f5f8b0db1cdfede18ab5f8b90e814df2cd130271949a2b4591d53eb175168734c17ee1747313d7e7496e47b3b4b2b96de28c5e430b6a0bd2f10b837478655da'
+            '96d0392307db5d107896fdbbb412769a4721da6c54b695019ab52055c9ba5ce2b5b74312e2f721d162df18053c6ff84ffa3136c972ad22e4f6f62aeb38af3deb'
+            '6bb8e11f5393a6134940bd93a20068b6398dbc76f404a75ff6dd3f22c4b75639d584a758a21d5264242394c215a71b1b940bcacfe3ac71f759ef5bc06c4bac55'
+            'deeeec196bf229973170d85b12af13964e09cf072a21bd486919a158fb2d708c1cd9529c8226a704f1263fb0b22d66080511577a07443cbd1d015182bb7ab53c'
+            '6ae38686308a1a4d907e8c661bbb3ddf572b5f90f0bd5904d3d2b046f44a49aea20bbc61e7b94ffbab6367a66741607515205bf73b0758bc3f6e15f8ff95f25a'
+            '56019cfd1c0c8e494702177d6ae55c723c2b98d7aaab731555644efc4bd1d91ad0a0f717e41326940dcba8b550374c78baf895703973fb0bfbc67224cc0c4a34'
+            '47b8ed29756698d1bd57eaa154da56455cc3fc6e882e82531d23ed5e5308866adde84fb6ba8d301d265c1bd7544414f46772a733348c8acd532fec6619f3bab4'
+            '922d217b26641fe2177ef8d0c3e750314865379d4fdb8821249f36303ccbad9aa38ef49885fa2fb16dffc5a40a7cbd486d6f38d9f813611559132bc4f80dc232'
+            '3318bf0804b5e3aea6565b0fa9729b4e69961da291fe50ad6d75e63f5ab6f7406a9ede31528acf66f07fdabfed546ea3e52af2dcff90397c883837ed51d3967b'
+            'a163e1a881ebe67bcc8c493858f08b9cdde2044da8500d749112f6b8cc0e9af434abcc5ac4a972702889b5cc455b8acd4c184664022d81470900377111979f3c'
+            '7377e1b57a59f49b029ab2b664229452e13cf3a069525c1f37c5f5a16d9cada5d99c6d9e55949a37875d849825bb4fc794cb6a85abe3554e236e854d4a150eb6'
+            'fe03debd14e109f3ae7089dc47d1dee5e76c47736cda8520cf8755987a8e7eed8fd23f45ed7cfb3f4fe098b1bb0fe2e8569d78397c332612260c275ff84f8d14'
+            '16f462367469c651e6810b348e205e359883e24e76d3b4b057e2d1e7438af4294e94f7ef308c738cdd458182130037d170057922c03f19ec97ea1bac057a61c7'
+            '25514dac80861f0966a613dd39c0ee711cab32bb0d2ec40ac34e4063c67ce82c72b919f761224400b8b384e87890aa7bb2bb406d905af2477392c67ed86bef2b'
+            'e71642eeba705a65d992448d07e1a44a9abaeb1943a68ca1f4bd6489e26b442d9a06958e5f5e6ea472d531b4efe78566a02f632dd907e4a8db21ad69c69307bc'
+            'db2bf7458024a4cd0116aefffa43704bf9539b3563248157d3a903452496c1e10411426f647981b25b6cec9da1d21fef0b4cc3714095855eab3a28284293d3f3'
+            '1cbd35cbd62b82ec339dce7f0da9e9ed770dc988e9c0ef4b4bcf864db9dd84ccd6a75784c36e54913471367b4c9c2a9e432b33256b326d33824f739415dbf6b1'
+            'ba6d610e121cc460455ebc78145ccf1545e3d2d86ea73a9ef502f4725c1b37fed515fdbda7ce8f0fb9517f4d4c31ac9d80f6777dc3ea1a667062209fbaf11da3'
+            '5f0bdb89d9adef595a2f9dbf399e361060933d4528910431554ca002fa79aa2fc2dcebbcf04d3ad443c43bd818183b4842f6dc1e2f4f82280712d51119666892'
+            'b3f189d08a8565945d3481af667f43151ed4c81d3e0d53f6a32ee8a0c9dc52d1baeabd5f2124e472c0c81e1334120454f3c009fb7f07d45cbd4207e8b1fe8612')
+noextract=("pspaden.zip")
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    unzip -o "pspaden.zip" -d "pspaden"
+
+    _lc "pspaden"/* *
+    for f in "pspaden"/{colors,context,convert,syntax}/*
+    do
+        n="${f%.*}.$(echo ${f##*.} | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "pspaden"/* "${a}"
+    cp *.dic "${a}/spell"
+    rm "${a}/msvcr71.dll"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/*.{txt,chm,rtf} "${d}"
+}

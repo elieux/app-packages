@@ -3,11 +3,12 @@
 DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -A "makepkg" -o %o %u')
 
 _realname=keepass-plugin-keeagent
+_realver=2016/07
 _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=0.6.3
+pkgver=0.8.1
 pkgrel=1
 pkgdesc="A KeePass plugin that acts as a SSH authentication agent"
 url="http://lechnology.com/software/keeagent/"
@@ -17,8 +18,8 @@ depends=("app-i686-keepass")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("KeeAgent.zip::http://lechnology.com/wp-content/uploads/2015/04/KeeAgent_v${pkgver}.zip")
-sha512sums=('22fa181f6b09276a3b85cd8b5cdbc01d5ed014303357c6c26521e6ee6c239bfeafbeeca5f1ee068cca3771c2ae54e201c61ddb3e89c2fbf29185fb34e642fadc')
+source=("KeeAgent.zip::http://lechnology.com/wp-content/uploads/${_realver}/KeeAgent_v${pkgver}.zip")
+sha512sums=('433341b7d2bd5de5f9d4dd81ee7347acd6e5ef43c979416db877e9b824179753d9cdca12294d72645ec559425bec549a381818f0795c6d77e8b06f5d00106dcd')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

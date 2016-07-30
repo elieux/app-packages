@@ -1,10 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=sysinternals
-_apparch=32
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-pkgver=2016.04.28
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2016.07.24
 pkgrel=1
 pkgdesc="Advanced system utilities for Windows"
 url="http://technet.microsoft.com/en-us/sysinternals/bb545021.aspx"
@@ -15,7 +15,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("http://download.sysinternals.com/files/SysinternalsSuite.zip"
         "http://download.sysinternals.com/files/BlueScreen.zip")
-sha512sums=('0eabd4ef7356ea5e0573a25a493da78fe7d67e5d150e422f1145d80f382ca96cf2fa8a8d2b2a3427349f3c5fe4a7d3baf0135527381688eab5c941c2f5004540'
+sha512sums=('2e31d2637fbc8f034ff41b9cd57ddecea3397e3613df8c6ec424809ca8568f579057d278bd8b86a686eec299f4752e52eab1c6d1892e8e8f25113d08499c3257'
             '2e39c4b36e9928851fc86d9fc541956c3079a1ded09cca5ee677fbe1b3c9272b87651b65e53279cede3c4ed37028fcbae0823c4ee25180d5bc132cef8d155507')
 
 _lc() {
@@ -38,12 +38,36 @@ prepare() {
     _lc *
 }
 
-package() {
+_package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp *.{exe,sys,scr} "${pkgdir}/apps${_apparch}/${_realname}/"
-
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    cp *.{chm,txt,hlp} "${pkgdir}/docs${_apparch}/${_realname}/"
+    for f in "${@}"
+    do
+        n="${f##*/}"
+        n="${n/64/}"
+        case "${n}" in
+        *.exe|*.sys|*.scr)
+            cp "${f}" "${a}/${n}"
+            ;;
+        *.chm|*.txt|*.hlp)
+            cp "${f}" "${d}/${n}"
+            ;;
+        esac
+    done
+    if test -z "$(find "${d}" -type f)"
+    then
+        rm -d "${d}"
+    fi
+}
+
+package_app-i686-sysinternals() {
+    _apparch=32
+    _package $(find . -mindepth 1 -maxdepth 1 -not -name '*64*')
+}
+
+package_app-x86_64-sysinternals() {
+    _apparch=64
+    _package $(find . -mindepth 1 -maxdepth 1 -name '*64*') *.txt
 }

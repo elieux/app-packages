@@ -4,7 +4,7 @@ _realname=mysql
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=5.7.13
+pkgver=5.7.14
 pkgrel=1
 pkgdesc="Fast SQL database server, community edition"
 url="https://www.mysql.com/products/community/"
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("mysql-win32.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-win32.zip"
         "mysql-winx64.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-winx64.zip")
-sha512sums=('36e24613b77ec0fc9e946ea444086de4920f5dab2bc18749e8750947bc881d86bba5fad265f659507654e728b3c1ebfac9a58c6cb22b85f8f1a5994f1ce52d7b'
-            'b539606da045561797723c85d719352723209070a803359762c91dbc8ab7fd2205320f51cc42247664dd069408a573fb7f9f7c804254c356badaee95c1d492b4')
+sha512sums=('6853ef64f0d2357b8cdac27efca0433efd680ce9dec6c53f859227c881cde14e7b28e12695621fcbb5cd45d13ea0c1254e64906c667ba59427642ba58dc2a24d'
+            '66d4cb7289f5acd3bfda449db30a76eef22da16bb54d19411ba939f7022f8a984ace878568c61d2f74bb2f5def003291afb27e2f9c116f188f57f5cd23475385')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"

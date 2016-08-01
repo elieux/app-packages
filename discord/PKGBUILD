@@ -1,0 +1,46 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=discord
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=0.0.294
+pkgrel=1
+pkgdesc="All-in-one voice and text chat for gamers"
+url="https://www.discordapp.com/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip" "unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("DiscordSetup.exe::https://discordapp.com/api/download?platform=win")
+sha512sums=('c28602646f6b9898a401fe91e5cb78afe86f0f1de6ee3fc7ff3fd938399068798e7d15247569abc66fb6fd2f5ae6f78709d5450aa53d9f987de1e6c018910d0f')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+pkgver() {
+    b="$(cygpath -wa "DiscordSetup.exe" | sed 's/\\/\\\\/g')"
+    powershell -command '(Get-Item "DiscordSetup.exe").VersionInfo.ProductVersion'
+}
+
+prepare() {
+    rm -f "Discord"-*-"full.nupkg"
+    7z x -y -bd "DiscordSetup.exe"
+    unzip -o "Discord"-*-"full.nupkg"
+    _lc "lib/net45"/*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "lib/net45"/* "${a}"
+}

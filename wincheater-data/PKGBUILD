@@ -2,68 +2,22 @@
 
 DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.cheater.cz/" -o %o %u')
 
-_status=("broken" "timed-download-links")
 _dirname=wincheater
 _apparch=32
 pkgbase="app-wincheater-data"
 pkgname=("app-i686-wincheater-data-base"
          "app-i686-wincheater-data-libs")
-pkgver=2016.05.07
+pkgver=2016.05.06
 pkgrel=1
 epoch=1
 pkgdesc="Texts for WinCheater"
-url="http://www.cheater.cz/winch/win_download_knihovny.htm"
+url="http://www.cheater.cz/wincheater2/download-knihovny/"
 arch=('any')
 license=('custom')
 makedepends=("unrar")
 options=(!strip)
-source=("Cheaty.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "Navody.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "texty.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "vtipy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "Navody_Plus.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "Xbox.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "easter_eggy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "GBA_a_GBC.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "playstation.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "povidky.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "recenze.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "songbook.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "vtipne_obrazky.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "filmy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "gc_a_nin64.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "webdesign.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "mobile_melodies.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "mininavody.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "mobile_eggy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "citaty.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "internetove_odkazy.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "scofake.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________"
-        "scosoft.exe::http://www.cheater.cz/download/download-file.php?hash=__________________________________________________")
-sha512sums=('________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________'
-            '________________________________________________________________________________________________________________________________')
-noextract=("${source[@]%%::*}") # "Parsing filters is unsupported"
+source=("download-knihovny.html::${url}")
+sha512sums=('ccbfa58d6101268c87cfc905194f648292ce5cced1a984cf7150341a66049590c34ae647791f28446985a79e5b5a1ddcece1b727ca4b91b84382e1a2297f044b')
 
 _lc() {
     for f in "${@}"
@@ -76,12 +30,43 @@ _lc() {
     done
 }
 
+_dl() {
+    pushd "${SRCDEST}" &> /dev/null
+    download_file "${1}"
+    popd &> /dev/null
+}
+
+_dlread() {
+    tmp=".tmp"
+
+    rm -f "${SRCDEST}/${tmp}"
+    _dl "${tmp}::${1}" &> /dev/null
+    cat "${SRCDEST}/${tmp}"
+    rm "${SRCDEST}/${tmp}"
+}
+
 pkgver() {
     #find . -mindepth 1 -maxdepth 1 -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
     find . -mindepth 1 -maxdepth 1 -name '*.exe' -execdir bash -c 'unrar l -c- "{}" | sed "/^;/d" | sed "/^$/d" | tail -n +6 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 4 | sed -r "s/^([0-9][0-9])-([0-9][0-9])-([0-9][0-9])$/20\3-\2-\1/" | tr "-" "."' \; | sort | tail -1
 }
 
 prepare() {
+    source=()
+    noextract=()
+    for n in $(cat "download-knihovny.html" | grep 'onclick="downloadx' | sed -r "s/.*downloadx\('(.*?)'\).*/\1/")
+    do
+        f="$(_dlread "http://www.cheater.cz/download/get-name.php?soubor=${n}")"
+        h="$(_dlread "http://www.cheater.cz/download/get-link.php?soubor=${n}" | sed -r 's/.*hash=([a-z0-9]+).*/\1/')"
+        if [ "${f}" = "????" ]
+        then
+            f="${i}.exe"
+        fi
+        _dl "${f}::http://www.cheater.cz/download/download-file.php?hash=${h}"
+        source+=("${f}")
+        noextract+=("${f}")
+    done
+    extract_sources
+
     for f in *.exe
     do
         unrar x -idq -tsm -o+ "${f}"

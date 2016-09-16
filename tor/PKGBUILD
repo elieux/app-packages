@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=tor
-_realver=5.5.2/0.2.7.6
+_realver=6.0.4/0.2.8.6
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -11,11 +11,11 @@ pkgdesc="Anonymizing overlay network"
 url="http://www.torproject.org/"
 arch=('any')
 license=('BSD')
-makedepends=("curl" "unzip")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("tor-win32.zip::https://dist.torproject.org/torbrowser/${_realver%/*}/tor-win32-${pkgver}.zip")
-sha512sums=('06a786051c59fceeab18532bc2908ddc42031c4c1d2e3de8a88133c369fcef82546a125c3e646001c3b2e6dfa4c3187f6aff847c66c8dae06db77a97fa9a597e')
+sha512sums=('cc210cff85807d0b4f3ebf18a23034c381e7bf7ca5b0b5016736c1a13e2a8cb0e364af0df449c8762de2c27644f8a1c9183071ee697aa6ea3dc6c92264ffc849')
 
 _lc() {
     for f in "${@}"

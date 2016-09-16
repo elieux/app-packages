@@ -4,7 +4,7 @@ _realname=atube-catcher
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=3.8.0.9003
+pkgver=3.8.0.9032
 pkgrel=1
 pkgdesc="Downloads videos from the Internet"
 url="http://www.atube.me/"
@@ -14,7 +14,7 @@ makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("aTubeCatcher.exe::http://files3.dsnetwb.com/aTubeCatcher.exe")
-sha512sums=('11945678acfa0b0864119ee7959877a4d89a5bccaffd0d1a0c33d61eb1e52804c2d99eb5335cba05796c4ef9c55a6589e3798062fd3db731d7675b51ad491bef')
+sha512sums=('108968fbe52153bd07d486d3bdfb70503c10e39363a30d199d0c154869e94a20ada464fd01598b373e6440e7303c9aa698a1b1463c054f7b9c5e09939b851a1e')
 
 _lc() {
     for f in "${@}"
@@ -42,7 +42,7 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "{app}"/* "${a}"
-    rm "${a}/offercast391_atu3_.exe"
+    rm "${a}"/offercast*_atu3_.exe
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

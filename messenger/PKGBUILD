@@ -4,17 +4,17 @@ _realname=messenger
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.4.3
+pkgver=2.0.1
 pkgrel=1
 pkgdesc="Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications."
 url="http://messengerfordesktop.com/"
 arch=('any')
 license=('MIT')
-makedepends=("p7zip")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("MessengerSetup.exe::https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v${pkgver}/MessengerSetup.exe")
-sha512sums=('5026b834628b22564e12edc44bd40dc5cb6a47aa9c8785ac4df9f40f817b419ba797f1dc88588b5202a713ec2d4000622378ffde23195ce22db521c29185d566')
+source=("messengerfordesktop-win32-portable.zip::https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v${pkgver}/messengerfordesktop-${pkgver}-win32-portable.zip")
+sha512sums=('de00dace2f79e5fd2c051f982592ecef04867995a674a385657e4270306d04f25a3551fb27dddb10d0794c6279ab66fffc159ab828a4762e4f90f0f3746c8ca7')
 
 _lc() {
     for f in "${@}"
@@ -28,7 +28,6 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "MessengerSetup.exe"
     _lc *
 }
 
@@ -36,5 +35,10 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r * "${a}"
-    rm -r "${a}"/*.nsi "${a}/messengersetup.exe" "${a}/uninstall messenger for desktop.exe" "${a}"/'$PLUGINSDIR'
+    mv "${a}/messenger for desktop.exe" "${a}/messenger.exe"
+    rm "${a}/messengerfordesktop-win32-portable.zip"
+    
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}/LICENSE" "${a}"/*.html "${d}"
 }

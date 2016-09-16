@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+// no error handling yet
+
+$list = file_get_contents("https://addons.mozilla.org/en-US/firefox/addon/keefox/versions/");
+preg_match("~https://addons.mozilla.org/firefox/downloads/file/([0-9]+)/keefox-([0-9.]+)-fx[+]tb-windows.xpi~", $list, $version);
+
+$srclist = [];
+list($fileid, $version) = array_slice($version, 1);
+echo "Found: keefox-{$version}-tb+fx-windows.xpi\n";
+$srclist[] = "keefox-tb+fx-windows.xpi::https://addons.mozilla.org/firefox/downloads/file/{$fileid}/keefox-\${pkgver}-tb+fx-windows.xpi";
+
+$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+$pkgbuild = file_get_contents('PKGBUILD');
+$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
+$pkgbuild = preg_replace("~pkgver=.*$~m", "pkgver={$version}", $pkgbuild);
+rename('PKGBUILD', 'PKGBUILD.old');
+file_put_contents('PKGBUILD', $pkgbuild);

@@ -4,8 +4,8 @@ _realname=exact-audio-copy
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.1
-pkgrel=2
+pkgver=1.2
+pkgrel=1
 pkgdesc="A very accurate CD audio grabber"
 url="http://www.exactaudiocopy.de/en/"
 arch=('any')
@@ -13,8 +13,8 @@ license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("eac.exe::http://www.exactaudiocopy.de/eac-1.1.exe")
-sha512sums=('401c4eb70428dca9b65e0fdcee43afff441296be9e37a9f80fa6b95b0678339b9d98358298add4583009b471b9c8ed3bfaa4c948de4e0fb34b1d0382a0f37781')
+source=("eac.exe::http://www.exactaudiocopy.de/eac-${pkgver}.exe")
+sha512sums=('e2b98b0c827f97b31ff26a28208c829b6c230746d27c4dcb5767f95ec4bf6fd389e51b5d03bd4e4cd7b93623f4eef760d7bc16e42be5ea5386b1a605423a1af5')
 
 _lc() {
     for f in "${@}"
@@ -36,7 +36,7 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "eac"/* "${a}"
-    rm -r "${a}"/*.nsi "${a}"/'$pluginsdir' "${a}/microsoft.vc80.crt" "${a}/uninst.exe"
+    rm -r "${a}"/*.nsi "${a}"/'$pluginsdir' "${a}/microsoft.vc80.crt" "${a}/uninst.exe.nsis"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

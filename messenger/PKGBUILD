@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications."
 url="http://messengerfordesktop.com/"
 arch=('any')
@@ -13,8 +13,8 @@ license=('MIT')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("messengerfordesktop-win32-portable.zip::https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v${pkgver}/messengerfordesktop-${pkgver}-win32-portable.zip")
-sha512sums=('de00dace2f79e5fd2c051f982592ecef04867995a674a385657e4270306d04f25a3551fb27dddb10d0794c6279ab66fffc159ab828a4762e4f90f0f3746c8ca7')
+source=("messengerfordesktop-full.nupkg::https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v${pkgver}/messengerfordesktop-${pkgver}-full.nupkg")
+sha512sums=('7753a70988dbe315ce6a33a40681c3cb2766a9c934a19df4cb906d3f6ce50cf1c22189e068e42ca6787c449c18dc75d2c71fb8b5ecd1df75820c7f1e6a42c275')
 
 _lc() {
     for f in "${@}"
@@ -28,17 +28,16 @@ _lc() {
 }
 
 prepare() {
-    _lc *
+    _lc "lib/net45"/*
 }
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r * "${a}"
-    mv "${a}/messenger for desktop.exe" "${a}/messenger.exe"
-    rm "${a}/messengerfordesktop-win32-portable.zip"
-    
+    cp -r "lib/net45"/* "${a}"
+    mv "${a}/messenger%20for%20desktop.exe" "${a}/messenger.exe"
+
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    mv "${a}/LICENSE" "${a}"/*.html "${d}"
+    mv "${a}/LICENSE" "${d}"
 }

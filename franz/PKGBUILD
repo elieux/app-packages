@@ -1,0 +1,59 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=franz
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=4.0.4
+pkgrel=1
+pkgdesc="Franz is a free messaging app and combines chat & messaging services into one application"
+url="http://meetfranz.com/"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Franz-win32-x32-full.nupkg::https://github.com/meetfranz/franz-app/releases/download/${pkgver}/Franz-win32-ia32-${pkgver}-full.nupkg"
+        "Franz-win32-x64-full.nupkg::https://github.com/meetfranz/franz-app/releases/download/${pkgver}/Franz-win32-x64-${pkgver}-full.nupkg")
+sha512sums=('68f6de761523befc753e1df95b234b18fb8fda130a863fce03da720b25925ad53d71e3c799811987ad67555a7afd42d55ef76ed03bad24fb6552c1f3a54a393b'
+            '6b7b04accbb774ac2812b858327d65d042cc8b32e6eff66c9cdd83a531058dd7499cc2f2061f58b93e4ea3d0a94105341711be3dac3beeb77155bfda35760ddb')
+noextract=("${source[@]%%::*}")
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        unzip -o "Franz-win32-x${_apparch}-full.nupkg" -d "franz${_apparch}"
+        _lc "franz${_apparch}/lib/net45"/*
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "franz${_apparch}/lib/net45"/* "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}/LICENSE" "${d}"
+}
+
+package_app-i686-franz() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-franz() {
+    _apparch=64
+    _package
+}

@@ -4,7 +4,7 @@ _realname=slack
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.1.2
+pkgver=2.2.1
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
@@ -13,12 +13,8 @@ license=('custom')
 makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SlackSetup.exe::https://slack.com/ssb/download-win"
-        "en_US.dic::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.dic"
-        "en_US.aff::http://slack-ssb-updates.s3.amazonaws.com/dictionaries/en_US.aff")
-sha512sums=('7a9de4abebfb761fa234d7c3cabe4827b7cb295da97cdc7d79de07503cc2e01579404f1771a78e5ca9b5ee6516ce769f9d1cfd349c607f06f846d57d4f5c8201'
-            'ebc0b25da54868590cdbc6e283a4d4d38f6d76efbaac9e5fa31b5ef86fc4d9970fa895f4313cfaa4693fec1f2c3ad7afb5393139ee3b367f1ae888f6fd2d6eca'
-            '9c7122a026698ee12b8581cd1a5e520b86ef65899fd834dc116ad13d4b8af5465c99440f86b20440208cb94eac06841654f5c8295b4e8757e9420fe37093a1ba')
+source=("SlackSetup.exe::https://slack.com/ssb/download-win")
+sha512sums=('451351886f3d4b701e66cac7a4cfe226b7761416b440730dfc05e495ec63217917ec17a959673ecfaa069bf7daf6c363dbae6b1f5c3f9b451dad6040c682f367')
 
 _lc() {
     for f in "${@}"
@@ -45,12 +41,11 @@ prepare() {
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${a}" "${a}/app" "${a}/dictionaries"
-    cp -r "lib/net45"/* "${a}/app"
-    rm "${a}/app"/{vccorlib,msvc{p,r}}120.dll "${a}/app/resources/app.asar.unpacked/node_modules/edge-atom-shell/build/Release"/{vccorlib,msvc{p,r}}120.dll
-    cp en_US.* "${a}/dictionaries"
+    mkdir -p "${a}"
+    cp -r "lib/net45"/* "${a}"
+    rm "${a}"/{,resources/app.asar.unpacked/node_modules/edge-atom-shell/build/Release}/{{vccorlib,vcruntime,msvcp,concrt}140,ucrtbase}.dll "${a}"/{,resources/app.asar.unpacked/node_modules/edge-atom-shell/build/Release}/api-ms-win-*.dll
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    mv "${a}/app/license" "${d}"
+    mv "${a}/license" "${d}"
 }

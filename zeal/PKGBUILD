@@ -1,0 +1,42 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=zeal
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=0.2.1
+pkgrel=1
+pkgdesc="An offline documentation browser for software developers"
+url="https://zealdocs.org/"
+arch=('any')
+license=('GPL3')
+provides=("${pkgbase}")
+options=(!strip)
+source=("zeal-windows-x86.msi::https://bintray.com/artifact/download/zealdocs/windows/zeal-${pkgver}-windows-x86.msi")
+sha512sums=('6db2d7ccf437e6b07e4262271458e94de70196c3e407c986eb5f328e814941a9948cb9a83b079aa2d5772d6496f1d05d6ee2c583ded9781a48526604237e27d9')
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
+
+build() {
+    msiexec -a "zeal-windows-x86.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
+    attrib -r //s
+    s="install/PFiles/Zeal"
+    _lc "${s}"/*
+}
+
+package() {
+    s="install/PFiles/Zeal"
+
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "${s}"/* "${a}"
+}

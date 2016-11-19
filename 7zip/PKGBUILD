@@ -4,7 +4,7 @@ _realname=7zip
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=16.02
+pkgver=16.04
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="http://www.7-zip.org/"
@@ -16,9 +16,9 @@ options=(!strip)
 source=("7z32.exe::http://7-zip.org/a/7z${pkgver//./}.exe"
         "7z64.exe::http://7-zip.org/a/7z${pkgver//./}-x64.exe"
         "7zextra.7z::http://7-zip.org/a/7z${pkgver//./}-extra.7z")
-sha512sums=('bd4388c951f12f472da5ea8e2f0415974fab402c0e7cbe5719d67f10f18bff0726fef4037588006179f89097b8fc0a66970f2f1f70d8f0855f7f685f3be031b6'
-            '9b2dd5ea68f17b8d361441f9384b80f43463de2f0c682b83dcb96cec473430ffee7797a62366d6137782b1e752044fbbdc2fc82fe259b589b96202ecc3c80365'
-            '1d5ea7357bbc27da99203905647af8c063b01a804900d8e6054decde14df6bc562ae48f5b2751e66e2c896bfd229d4ebcb5ccd2d4e21a0394733470d8a25dfb2')
+sha512sums=('939869d9a60571c2f380ffe29ec40e7930d47e8295a2995e9ec56143319584b809fddd39a6e9df6e4b7c5e29b4925f588ca483e3c6f6758c5db54e13e2a3388c'
+            'c5ec75c033970fefe0183285e35360308caa6094ded453bc5542761cd2b569a176183ca357bbdad764fa55ff42ed1d2f58f4bfec0be35b544becf32f427eb6ff'
+            '8d2ffa07f21d5355f683573a114bfb4e4fc8dd95a4f6b07ca3cdd769fcc7aaadb7f3b6cd4b4e283007084ddb67632f0db3f77102870d700e43388febd78657d2')
 
 _lc() {
     for f in "${@}"

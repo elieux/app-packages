@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=tor
-_realver=6.0.4/0.2.8.6
+_realver=6.0.6/0.2.8.9
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("tor-win32.zip::https://dist.torproject.org/torbrowser/${_realver%/*}/tor-win32-${pkgver}.zip")
-sha512sums=('cc210cff85807d0b4f3ebf18a23034c381e7bf7ca5b0b5016736c1a13e2a8cb0e364af0df449c8762de2c27644f8a1c9183071ee697aa6ea3dc6c92264ffc849')
+sha512sums=('606e4dc86913f1f66b413da0dbe6e2d9e3436c879c353a7fc58b01f781e6c0425063a85d956b5359d984c4c804424e4268410fdae023fe29aba33edcd5ce8a70')
 
 _lc() {
     for f in "${@}"

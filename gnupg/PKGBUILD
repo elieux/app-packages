@@ -1,8 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_status=("broken" "v2.1.11" "nsis")
 _realname=gnupg
-_realver=2.1.8_20150910
+_realver=2.1.16_20161118
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -16,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gnupg-w32.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${_realver}.exe")
-sha512sums=('df5a6c9ed669764ba3cb836e21dfabfffb95b4d29f89fb765e092875c47d262f6bffe7e7567c83180b14ec5b67e59b679384fbf752044be008ce64f50a65a484')
+sha512sums=('6d17107d4d0bd87631e34a1e196d24b0d7e5854b8cce2eab0a5279a7a18f4ca4321235e9030f37495a5fa30b318dc472c3590b23aa16cd5930f32e4b144a80a1')
 
 prepare() {
     7z x -y -bd "gnupg-w32.exe"

@@ -4,7 +4,7 @@ _realname=ketarin
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.8.5
+pkgver=1.8.7
 pkgrel=1
 pkgdesc="A small application which automatically updates setup packages"
 url="https://ketarin.org"
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Ketarin.zip::https://ketarin.org/downloads/Ketarin/Ketarin-${pkgver}.zip?noredirect")
-sha512sums=('33335a1a42d9bbfcedede4b7890b188a86d64baaac177b2d72112a437d5690cbd190dd99154ead0a6ae2ce6a44eac6b73bf2dcf2346991e8804be3e7ddd034f4')
+sha512sums=('06675b13c439b8a2fc2faafec9239162f2d9213c059bcdb179f65e4864da3f8747f4a0b32014cd241094ee01db2a55009a88de30cfdcd6a5e9a911a25a5c2d01')
 
 _lc() {
     for f in "${@}"

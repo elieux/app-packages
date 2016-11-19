@@ -5,7 +5,7 @@ _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.8
+pkgver=1.9
 pkgrel=1
 pkgdesc="A KeePass plugin that opens additional databases when opening a database"
 url="http://keepass.info/plugins.html#keeautoexec"
@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeAutoExec.zip::http://keepass.info/extensions/v2/keeautoexec/KeeAutoExec-${pkgver}.zip")
-sha512sums=('b816c7cce91e2d4f94736d6cb3f4888dd7f894b612da8163f7bfab0628c8535dc0ddd90d976bf10c0588d28741181faffb04185647999c1ba8a15383b4bac206')
+sha512sums=('d9cbf90cb9428752a37206e5f491d9d9ef3f1c531fdb635287197066695bcd22a551d00267129a5841f0e9e1707442f869921c8c2526e513fc47c8a63b274971')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

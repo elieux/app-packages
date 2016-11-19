@@ -4,7 +4,7 @@
 DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC - -o %o %u')
 
 _realname=jdk
-_realver=8u102-b14
+_realver=8u112-b15
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
@@ -19,8 +19,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("jdk-windows32.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-i586.exe"
         "jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-x64.exe")
-sha512sums=('32e80bd1c6ba049ef66dc6f9b3ee76b2f776906c0437e98fe480c2b3943944fb5a6cb6d17c2c7af4b3e949abd7d6cc84282e27620530f68311a98733357459e1'
-            'c8a2552df3e393a2712195a131d5d34a739d1487b226c3653b6bf3c6759d14761476e067699d1797f0d43b69d6d577949809dae0cac14f0f15663b612dab5d4f')
+sha512sums=('5be3f8c1b2b71350a00dc2935e6feccc7205e23bd3206635b7392a61ad4ea966be3afd13767fcf82cd21b364931f84af90b6eddc8ac4b0ffc3e8bf08c84a3d6d'
+            '56c93725c3aeccd6d4f8872c0813f2185a54880dd3b7bd8d0643181404e79ff689dbe9ed9ddd49a956c22a40808fa90bdfed7c10659f90dce3e14680988f24e0')
 
 _lc() {
     for f in "${@}"

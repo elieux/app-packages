@@ -1,11 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_status=("broken" "v2.3.0" "nsis")
 _realname=gpg4win
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.2.6
+pkgver=2.3.3
 pkgrel=1
 pkgdesc="A secure solution for file and email encryption"
 url="http://www.gpg4win.org/index.html"
@@ -15,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gpg4win.exe::http://files.gpg4win.org/gpg4win-${pkgver}.exe")
-sha512sums=('b1c48d84d041055db3d3e3cbd22ef2f3300728b06c76660b9b78ececf56b7ccbc80addb39a64c0a4eb68bf3463ceb6d254dedda047049ce680e9d543dd8a9af9')
+sha512sums=('fdc40d4f7f011f5ba4c63572967ef648b704f1d09fcc28a7b49e9dd3339cfd3945f6ab57fe5f75b6cb975a9429666b79326fa9211146efc02bd9f14c0168f480')
 
 _lc() {
     for f in "${@}"
@@ -31,6 +30,7 @@ _lc() {
 prepare() {
     7z x -y -bd "gpg4win.exe"
     _lc *
+    rm "pinentry.exe"
 }
 
 package() {
@@ -38,7 +38,8 @@ package() {
     mkdir -p "${a}"
     cp -r * "${a}"
     find "${a}" -iname '*.tmp' -delete
-    rm -r "${a}/gpg4win.exe" "${a}"/*.nsi{,s} "${a}"/'$'*
+    rm -r "${a}/gpg4win.exe" "${a}"/*.nsi "${a}"/'$'*
+    cp "${a}/pinentry-w32.exe" "${a}/pinentry.exe"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}" "${d}/gnupg"

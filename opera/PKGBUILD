@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=opera
-_realver=39994
+_realver=40289
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=39.0.2256.71
+pkgver=41.0.2353.56
 pkgrel=1
 pkgdesc="A fast and free Blink-based web browser"
 url="http://www.opera.com/computer"
@@ -17,7 +17,7 @@ replaces=("app-i686-opera2")
 conflicts=("app-i686-${_realname}<15")
 options=(!strip)
 source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=${_realver}&location=410&nothanks=yes&sub=marine")
-sha512sums=('ce3ce249ce2fb24d5a186e31fca172639b6d5f523e46b26c0531a84b04d7165dbc2aa5749bd811e5e0e8c5c90c761f7815cb88c5b77264846cd24a65ae8f7260')
+sha512sums=('f357f9412763f1502bf1dbd59530106fc8bb149fbca61c3e7c484a062fbdddd9fce84c205d4a8c65f15211968075947995a26181884e7f39f8ea9d8b284e8a33')
 
 _lc() {
     for f in "${@}"
@@ -50,4 +50,5 @@ package() {
     mkdir -p "${a}"
     cp -r * "${a}"
     rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,opera_setup.exe,resources.pri} "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
+    rm "${a}"/{msvcp,pgort,vccorlib,vcruntime}140.dll "${a}/ucrtbase.dll"
 }

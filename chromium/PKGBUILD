@@ -1,11 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=chromium
-_realver=419136
+_realver=414607
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=55.0.2863.0
+epoch=1
+pkgver=54.0.2840.99
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="http://www.chromium.org/Home"
@@ -14,12 +15,23 @@ license=('BSD')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("chrome-win32.zip::https://storage.googleapis.com/chromium-browser-snapshots/Win/${_realver}/chrome-win32.zip"
-        "chrome-win64.zip::https://storage.googleapis.com/chromium-browser-snapshots/Win_x64/${_realver}/chrome-win32.zip")
-sha512sums=('e506beea81d34049bc1f44f5a21ae6fde59278d437ffbdb90ec1d4348eb5d32a7540b7d74d3c4b03524dd6c6c7ded5b7f062717ef3c2e52e2097ab525fbe2627'
-            '356d3668b334b7b0fc97fa8e9ba791096e220d0fc755cd0f7782ad3f8d277042adcd58dc3462ff0ee44a6f1afe0da32aa670a7e4199c9fbb68ec234493ae6dbe')
+source=("chrome-win32.zip::https://github.com/henrypp/chromium/releases/download/v${pkgver}-r${_realver}-win32/chromium-sync.zip"
+        "chrome-win64.zip::https://github.com/henrypp/chromium/releases/download/v${pkgver}-r${_realver}-win64/chromium-sync.zip")
+sha512sums=('36dbfed051b0d1accc0deeeb9de0ef14dd6df1cad0a6c7586410bbbe4cb1be4b36d684d7b5fc46760d4f1153e4fdf07fa16b8ebe7f41b29b4d15ae2b2f043571'
+            'b896104b7e4ddf61cac085c341c5b2e9bebf036cc15c32e976ab138ad9841c2f03246125ddcce0a471474e1eb08ee446c92c9b58e06ce263c491c0964d59a3dc')
 noextract=("chrome-win32.zip"
            "chrome-win64.zip")
+
+_lc() {
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${f}" "${n}"
+        fi
+    done
+}
 
 pkgver() {
     for _apparch in 32 64
@@ -38,6 +50,7 @@ prepare() {
     for _apparch in 32 64
     do
         unzip -o "chrome-win${_apparch}.zip" -d "chromium${_apparch}"
+        _lc "chromium${_apparch}"/*
     done
 }
 
@@ -45,8 +58,6 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "chromium${_apparch}/chrome-win32"/* "${a}"
-    rm "${a}"/*.manifest "${a}/interactive_ui_tests.exe"
-    cp "chromium${_apparch}/chrome-win32/${pkgver}.manifest" "${a}"
 }
 
 package_app-i686-chromium() {

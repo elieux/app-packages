@@ -4,7 +4,7 @@ _realname=tightvnc
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.7.10
+pkgver=2.8.5
 pkgrel=1
 pkgdesc="Light weight VNC implementation"
 url="http://www.tightvnc.com/"
@@ -12,10 +12,10 @@ arch=('any')
 license=('GPL2')
 provides=("${pkgbase}")
 options=(!strip)
-source=("tightvnc-setup-64bit.msi::http://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-setup-64bit.msi"
-        "tightvnc-setup-32bit.msi::http://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-setup-32bit.msi")
-sha512sums=('2eee6968fa627508d83c4b1f16fc274602e593e3dea65eedf333fd8f061247f081c8b68d48406cd1a261c772272a608c44bed498f085b63e3ea42c7b1c691252'
-            '5d8974aeb07ef6f9189e6369048f4a83bb934d04b282f7ba4c7c0083c89bc4593c8dfc7e358cb532f20575dfbfcdc59105feabbfcd8d44ea6480cff1b4003335')
+source=("tightvnc-setup-64bit.msi::http://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-gpl-setup-64bit.msi"
+        "tightvnc-setup-32bit.msi::http://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-gpl-setup-32bit.msi")
+sha512sums=('0e5a213ce0a161d6706184d036d7bf421f5a49fa5edd09692c66a317cc4e9bd7557bcf0775759756729da9d2d1134d4f02ef33cfbb015823d0128e4c5293fdb2'
+            '79abd88ac2786ed2242520fa1f65fb6f8683bcb095e23021adbede54bf3a5fd24d3edfee23f09b219748b4a7bc0a44c4a6ea1e79991476ead18ed1886b507a0e')
 
 _lc() {
     for f in "${@}"

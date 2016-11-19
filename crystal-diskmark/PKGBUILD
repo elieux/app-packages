@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=crystaldiskmark
-_realver=64531
+_realver=66553
 _dirname=crystal
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=5.1.2
+pkgver=5.2.0
 pkgrel=1
 pkgdesc="A disk benchmarking software (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDiskMark/index-e.html"
@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CrystalDiskMark.zip::http://osdn.jp/frs/redir.php?f=%2Fcrystaldiskmark%2F${_realver}%2FCrystalDiskMark${pkgver//./_}.zip")
-sha512sums=('2dd9af9b03e0f679a92eed546c76cec94ea5364e615c806dfd55cf8b26e53e298c16bb722f765dff212785954fac4542518449c195bd72ae6e78c2925a6a8857')
+sha512sums=('9d99d6412e7c0235f4ab14352d13cdfe1e585452d56d87b2fa81b0c9c752a2bfc797ffc4899951838068cb8439879851fbd702792365d269f0686286775065d1')
 
 _lc() {
     for f in "${@}"

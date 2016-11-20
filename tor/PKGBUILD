@@ -18,12 +18,16 @@ source=("tor-win32.zip::https://dist.torproject.org/torbrowser/${_realver%/*}/to
 sha512sums=('606e4dc86913f1f66b413da0dbe6e2d9e3436c879c353a7fc58b01f781e6c0425063a85d956b5359d984c4c804424e4268410fdae023fe29aba33edcd5ce8a70')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

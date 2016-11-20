@@ -17,12 +17,16 @@ source=("Opera_Mobile_Emulator_Windows.exe::http://www.opera.com/download/get/?i
 sha512sums=('c64619a2b68bfc57f1da89d800a5ea3ca2a2df271d422720edfc424729407e1e1ebd53e1ab21e7367a8f3b903b799fbe2fbd501675320086333ca8faa7686302')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

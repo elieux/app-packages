@@ -18,12 +18,16 @@ source=("Opera-Mail.i386.exe::http://www.opera.com/download/get/?id=${_realver}&
 sha512sums=('9048a51fecda9a8694bfc00936eda758d20cbd7fb342f43118f73be86920cf59da062cf00f23bef50382ba87841e6592051fca05b4fad55a855ef4ff02765e92')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

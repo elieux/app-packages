@@ -17,12 +17,16 @@ source=("eac.exe::http://www.exactaudiocopy.de/eac-${pkgver}.exe")
 sha512sums=('e2b98b0c827f97b31ff26a28208c829b6c230746d27c4dcb5767f95ec4bf6fd389e51b5d03bd4e4cd7b93623f4eef760d7bc16e42be5ea5386b1a605423a1af5')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

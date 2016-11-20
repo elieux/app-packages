@@ -18,12 +18,16 @@ source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.ex
 sha512sums=('353f3dc1c29cfe5a2df5d040275affc84067d5a240444d7388b8c5579f05d8b69d3d33282df9fdb48fc944f2beb7ab33f7394b989f82f5b11ffdfb66acac873f')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

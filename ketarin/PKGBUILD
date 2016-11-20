@@ -17,12 +17,16 @@ source=("Ketarin.zip::https://ketarin.org/downloads/Ketarin/Ketarin-${pkgver}.zi
 sha512sums=('06675b13c439b8a2fc2faafec9239162f2d9213c059bcdb179f65e4864da3f8747f4a0b32014cd241094ee01db2a55009a88de30cfdcd6a5e9a911a25a5c2d01')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

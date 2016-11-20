@@ -20,12 +20,16 @@ source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=${_realver}&loca
 sha512sums=('f357f9412763f1502bf1dbd59530106fc8bb149fbca61c3e7c484a062fbdddd9fce84c205d4a8c65f15211968075947995a26181884e7f39f8ea9d8b284e8a33')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

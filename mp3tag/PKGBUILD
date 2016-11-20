@@ -17,12 +17,16 @@ source=("mp3tagsetup.exe::http://download.mp3tag.de/mp3tagv${pkgver//./}setup.ex
 sha512sums=('1cec2e2d67c18c0590f9bcf595e0879b7207a482efe3a670bf87d5e78e311d8e8369c04697faffd248cced5e058eab12807bf54e2be1d703b084f98934910895')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

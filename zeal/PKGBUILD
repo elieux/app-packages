@@ -16,12 +16,16 @@ source=("zeal-windows-x86.msi::https://bintray.com/artifact/download/zealdocs/wi
 sha512sums=('cf151a8e1efabff4ea9d1a6ee1db79024ed06d0830630257322ceccdd9902cdc78c03a7d8a70dc368d3cc33740e076cfddd693bee006b5f1d0d2d8655e329b9b')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

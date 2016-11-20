@@ -17,12 +17,16 @@ source=("Vivaldi.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.exe
 sha512sums=('3e6086178a34fcd0237120bededf81014d2e078d8fa66bdaa646d17e5fadbddc52c6d5345f5a40fce17162b836c05fa4ee5421a1c5d1786edfc59e5497cc2b8e')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

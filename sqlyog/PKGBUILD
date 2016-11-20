@@ -21,12 +21,16 @@ sha512sums=('4429b6b409871fc67ea884b11f6cd8a92f2e079a992621310750095f1b52cdfb9cb
             '481e12aaea63d52386b4e986ac8609347ec8b04c6d290cfb6dfd2c6e25d5f7af6ca7ea4862ce2c76097c4e9e6a1f610df2cf00c61d6812ef112fbb07fd24a863')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

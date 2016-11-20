@@ -17,12 +17,16 @@ source=("FileZilla_Server.exe::http://downloads.sourceforge.net/filezilla/FileZi
 sha512sums=('5221a6b9a0aa7c1636216abdb71d4d5c66a815877102234920b269e739c954f6501af6c2faaa6801ca2037804ee8edf284f35d689f765a6fb3442e8d09d846ed')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

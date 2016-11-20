@@ -19,12 +19,16 @@ source=("Merge7z.7z::http://downloads.sourceforge.net/winmerge/Merge7z${pkgver//
 sha512sums=('e868dc578f5c6b29ee58101f9d223ce4f707eee23c74be1c3724e1cb80e6030a40ceaa20e4b42fb2c0055eded0247402a7b746e29340e33dca3828c8e97532c4')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

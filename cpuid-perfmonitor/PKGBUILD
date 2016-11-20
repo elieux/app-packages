@@ -18,12 +18,16 @@ source=("perfmonitor-2.zip::http://download.cpuid.com/${_realname}-2/${_realname
 sha512sums=('0688224b3ccf87ff3ef90ea5bc8dc615b581fec29ec9a2c8683ebf45f44a58207b29aa663d8f36edecb768d6a7f617265ad59de4466974fa89870f25bdee9630')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

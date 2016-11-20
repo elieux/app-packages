@@ -20,12 +20,16 @@ source=("download-knihovny.html::${url}")
 sha512sums=('ccbfa58d6101268c87cfc905194f648292ce5cced1a984cf7150341a66049590c34ae647791f28446985a79e5b5a1ddcece1b727ca4b91b84382e1a2297f044b')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

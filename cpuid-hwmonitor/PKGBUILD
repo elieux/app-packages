@@ -18,12 +18,16 @@ source=("hwmonitor.zip::http://download.cpuid.com/${_realname}/${_realname}_${pk
 sha512sums=('c8271e5a3a467f5f79b6304e15cc6d3108c799dc6ff4599a943a6ce5fc616809b510301a95c928ee820fd5371e91025aefdbd568c8fd0c9e4726ddca59fe573d')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

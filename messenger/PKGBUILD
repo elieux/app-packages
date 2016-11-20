@@ -17,12 +17,16 @@ source=("messengerfordesktop-full.nupkg::https://github.com/Aluxian/Facebook-Mes
 sha512sums=('7753a70988dbe315ce6a33a40681c3cb2766a9c934a19df4cb906d3f6ce50cf1c22189e068e42ca6787c449c18dc75d2c71fb8b5ecd1df75820c7f1e6a42c275')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

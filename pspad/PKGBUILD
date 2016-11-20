@@ -56,12 +56,16 @@ sha512sums=('0f5f8b0db1cdfede18ab5f8b90e814df2cd130271949a2b4591d53eb175168734c1
 noextract=("pspaden.zip")
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

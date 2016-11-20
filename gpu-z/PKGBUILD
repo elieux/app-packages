@@ -17,12 +17,16 @@ source=("GPU-Z.exe::http://www.techpowerup.com/downloads/${_realver}/techpowerup
 sha512sums=('4205d82365a78f2d7542b64c56175e4e95028f77540455222a27b00d35e33a77782906b6f9652f86b02b6136b1fb143a02d7281fb70cf513e2a89baf799b99a6')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

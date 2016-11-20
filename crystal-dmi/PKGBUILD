@@ -18,12 +18,16 @@ source=("CrystalDMI.zip::http://crystalmark.info/download/archive/CrystalDMI/Cry
 sha512sums=('6f5de3bae8eb8d924f718a5bea90cd5f90439ec4cfaaadc4d1e92da5fd4eabdb4d970c66bf0d9a5211a6639b0f2b0869978537c5c208b186a22aafb288cea477')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

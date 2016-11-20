@@ -17,12 +17,16 @@ source=("aTubeCatcher.exe::http://files3.dsnetwb.com/aTubeCatcher.exe")
 sha512sums=('108968fbe52153bd07d486d3bdfb70503c10e39363a30d199d0c154869e94a20ada464fd01598b373e6440e7303c9aa698a1b1463c054f7b9c5e09939b851a1e')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

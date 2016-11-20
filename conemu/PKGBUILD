@@ -17,12 +17,16 @@ source=("ConEmuPack.7z::https://github.com/Maximus5/ConEmu/releases/download/v${
 sha512sums=('e3591e10b58e5398156d8701215b06fe1720d0f5d33e40ef38ed21bfb23ce59b99453d1886acddd5281c2ed20b3eafd35001bc8a35e533aac7c043b767cb6a7e')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

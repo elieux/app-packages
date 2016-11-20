@@ -17,12 +17,16 @@ source=("GitterSetup.exe::https://update.gitter.im/win/GitterSetup-${pkgver}.exe
 sha512sums=('3aa73f35e3cc675b41f3b5f685fa822ca87d5a358f389e423761313ccb106a72be3999204f725ff51c16775c5ef822d860eaa739557a12e9b12d91336c118154')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

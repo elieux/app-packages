@@ -17,12 +17,16 @@ source=("unbound.zip::https://www.unbound.net/downloads/unbound-${pkgver}.zip")
 sha512sums=('3eed6beb6ceb6db5027f4a314bfb8ff77718aea8eb80a1599c384b4fa1f4ff13fd15ee87bfc39f337137f42a268ac8d7bdb30afe6ed12da07e81677afe775f3c')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

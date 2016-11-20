@@ -18,12 +18,16 @@ source=("pc-wizard.zip::http://download.cpuid.com/${_realname}/${_realname}_${pk
 sha512sums=('07d462b3f96416576ecf1e41c2ec6e165c640e687215a09ac308ab71f75fe21ae49ec3de052a952541fcb7eddd63f63f54f502c81f3f072c1b415fddacce37c9')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

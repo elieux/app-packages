@@ -17,12 +17,16 @@ source=("TeamViewerPortable.zip::http://download.teamviewer.com/download/TeamVie
 sha512sums=('7984172f332862dafdc2d8522bf44239c9d9eb6708fea36bd3eb385fa07a1f0360e3c52dc6247e9f951212a39270303e37bd6f5df99777ba3b81855d0c2a03e8')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

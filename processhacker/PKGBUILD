@@ -17,12 +17,16 @@ source=("processhacker-bin.zip::http://downloads.sourceforge.net/${_realname}/${
 sha512sums=('915b9f7c0b1374ce52fa9653ba1084741d15ff79dbb7c04d2a0f41eea8262b2f556d451bf9eefbd2d32831289908b6a1b39ce2cbcafbbfc4ae6e71d701b1aa81')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

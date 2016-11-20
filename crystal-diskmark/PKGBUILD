@@ -19,12 +19,16 @@ source=("CrystalDiskMark.zip::http://osdn.jp/frs/redir.php?f=%2Fcrystaldiskmark%
 sha512sums=('9d99d6412e7c0235f4ab14352d13cdfe1e585452d56d87b2fa81b0c9c752a2bfc797ffc4899951838068cb8439879851fbd702792365d269f0686286775065d1')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

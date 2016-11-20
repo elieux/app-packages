@@ -20,12 +20,16 @@ source=("WinCH2_onlysetup.exe::http://www.cheater.cz/download/WinCH2_onlysetup.e
 sha512sums=('0f79ab4e2a7767b293b667c5f43b8e00f50795e21b7ec39b1a71971d56e16c359a0619056ef4a1e68a31402d1a2b348b683a67741d8fdab8363ced0382b46e67')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

@@ -16,12 +16,16 @@ source=("wincachegrind.zip::https://github.com/ceefour/wincachegrind/releases/do
 sha512sums=('07886b5a6056320e492a52e4ca1f050f21136db438b941744fc80e5978365060f15cf7f4d79964084d68d4261cc5097a27475d8dcb8f12437ddc5a9c55c4e30f')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

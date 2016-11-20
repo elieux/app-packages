@@ -16,12 +16,16 @@ source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
 sha512sums=('0416c837e4ff84f63c7fb0be13c618424c9ea9013ddd3cbb101c9bdd4295750228ec258ae136fd90180863084a54b9b1adc4de5be401e8440de9b53004ed6e76')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

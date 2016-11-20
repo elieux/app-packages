@@ -17,12 +17,16 @@ source=("FreeRapid.zip::http://files.kral.hk/frd/FreeRapid-${pkgver}.zip")
 sha512sums=('dc770d55d79a72b10bba3b0612e4c6c3cb1dd79071a35c55028664c67340cdef4c067a18fa637f588cc4c37dd02f18638a872b99441762a8733c152c21275da9')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

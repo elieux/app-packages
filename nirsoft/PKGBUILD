@@ -695,12 +695,16 @@ sha512sums=('60bc25d5fc6cbed75de395e71dd8a41a55d5908692741145f08358eb94ad8143188
 noextract=("${source[@]##*/}")
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

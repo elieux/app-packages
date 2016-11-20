@@ -17,12 +17,16 @@ source=("gpg4win.exe::http://files.gpg4win.org/gpg4win-${pkgver}.exe")
 sha512sums=('fdc40d4f7f011f5ba4c63572967ef648b704f1d09fcc28a7b49e9dd3339cfd3945f6ab57fe5f75b6cb975a9429666b79326fa9211146efc02bd9f14c0168f480')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

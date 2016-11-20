@@ -17,12 +17,16 @@ source=("HxDen.zip::ftp://wa651f2:anonymous@mh-nexus.de/HxDen.zip")
 sha512sums=('65be4f09f972b07b10081ee7c453fd15c61e3d22fdc55fc8cf9eecb9347b12b0165c5a58db73e6248b7642bc35796aed32f578ee2e26ded4f726a004558af097')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

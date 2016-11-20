@@ -17,12 +17,16 @@ source=("SlackSetup.exe::https://slack.com/ssb/download-win")
 sha512sums=('a85c68d063cf607476c0e059f2f3c9ac0816b8d98c2ba84815dfae0e628c05efce2cd185e7cad0dce511594afcd74a76857c92ce5106031a8db2d906b46bcff7')
 
 _lc() {
+    local d f n
+
     for f in "${@}"
     do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${f}" "${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }

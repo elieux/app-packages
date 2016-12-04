@@ -1,13 +1,13 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=keepass-plugin-rpc
-_realver=2016-01-24T10:56:21Z
+_realver=2016-11-16T23:19:07Z
 _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.6.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that provides a RPC server for KeeFox"
 url="http://keefox.org/"
 arch=('any')
@@ -16,7 +16,7 @@ depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("keefox-tb+fx-windows.xpi::https://addons.mozilla.org/firefox/downloads/file/539989/keefox-${pkgver}-tb+fx-windows.xpi")
-sha512sums=('3efc6e5e4e40f7c03eec49bd1a9e15749c410b4eef51660fa4a7c0b5620652236fb87a850820de66a42db7c5639358227352a5d35574637de108ce6cc97df2f2')
+sha512sums=('1f91d47b4b82350cc7a7e62eef9b0fc858e1426c0ebfe580c0b47a8eead95d828402983b79415812fce30d44185d026bbbd8cd1d419fabd794876c1729bc2355')
 
 pkgver() {
     v="$(dd if="deps/KeePassRPC.plgx" bs=1 skip=56 count=20 status=none)"

@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=chromium
-_realver=414607
+_realver=423768
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 epoch=1
-pkgver=54.0.2840.99
+pkgver=55.0.2883.87
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="http://www.chromium.org/Home"
@@ -17,8 +17,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("chrome-win32.zip::https://github.com/henrypp/chromium/releases/download/v${pkgver}-r${_realver}-win32/chromium-sync.zip"
         "chrome-win64.zip::https://github.com/henrypp/chromium/releases/download/v${pkgver}-r${_realver}-win64/chromium-sync.zip")
-sha512sums=('36dbfed051b0d1accc0deeeb9de0ef14dd6df1cad0a6c7586410bbbe4cb1be4b36d684d7b5fc46760d4f1153e4fdf07fa16b8ebe7f41b29b4d15ae2b2f043571'
-            'b896104b7e4ddf61cac085c341c5b2e9bebf036cc15c32e976ab138ad9841c2f03246125ddcce0a471474e1eb08ee446c92c9b58e06ce263c491c0964d59a3dc')
+sha512sums=('5a5d17354c063509d7c2de35ad7838d3d2b969bd9046aecfed39db98ccf22a485cd9fb42b34bc893e97cfb59ffd86cc7a46da0c8601cb54d48580574c153daec'
+            'c569fbc911de482a9fa7d17b08dc2e7b0b49142cfee13375a0c26e3297c5cbe53aaf05a51061424815388879339e37c945ecd61742eeffd51a75efc2af1b7e8f')
 noextract=("chrome-win32.zip"
            "chrome-win64.zip")
 
@@ -54,7 +54,7 @@ prepare() {
     for _apparch in 32 64
     do
         unzip -o "chrome-win${_apparch}.zip" -d "chromium${_apparch}"
-        _lc "chromium${_apparch}"/*
+        _lc "chromium${_apparch}/chrome-win32"/*
     done
 }
 

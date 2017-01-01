@@ -49,7 +49,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - clipbrd
 - clipspy
 - composer
-- coretemp
 - cuetools
 - dart
 - dbshell
@@ -295,7 +294,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - winregsh
 - winspector
 - winswup
-- wireshark
 - wpkg
 - xdc
 - xdebugclient
@@ -309,7 +307,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - xpinfo
 - xtra-windows-stability
 - yapm
-- ytube-player
 - yumi
 - zeal
 - zonescreen

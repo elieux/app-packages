@@ -1,0 +1,68 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=wireshark
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2.2.3
+pkgrel=1
+pkgdesc="A free network protocol analyzer"
+url="https://www.wireshark.org/"
+arch=('any')
+license=('GPL2')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Wireshark-win32.exe::https://1.eu.dl.wireshark.org/win32/Wireshark-win32-${pkgver}.exe"
+        "Wireshark-win64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-win64-${pkgver}.exe")
+sha512sums=('eb0e279e01e8aa3a6bada73059f113c886918b6410b7ba87316898b3c341a158054fad12716299369ec85ed600e63a0166f510f8a78a6b22375ca169460c9049'
+            '7f83641c5e560db27dce2649b2cb46ec92c024d6965bce5b571d28306cc42257028071ea166260958c921c10e30b170c3b9331928bc59f61f972f9eec9020df7')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_prepare() {
+    7z x -y -bd "Wireshark-win${_apparch}.exe" -o"Wireshark-win${_apparch}"
+    _lc "Wireshark-win${_apparch}"/*
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "Wireshark-win${_apparch}"/* "${a}"
+    rm -r "${a}"/*.nsi "${a}"/winpcap_*.exe "${a}"/usbpcap*.exe "${a}/vcredist_${1}.exe" "${a}/uninstall.exe" "${a}"/'$pluginsdir'
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}/help" "${a}"/*.{txt,chm,html,css} "${d}"
+    mv "${d}/[license].txt" "${d}/license.txt"
+}
+
+package_app-i686-wireshark() {
+    _apparch=32
+    _package "x86"
+}
+
+package_app-x86_64-wireshark() {
+    _apparch=64
+    _package "x64"
+}

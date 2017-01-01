@@ -1,0 +1,87 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=coretemp
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=1.5.1
+pkgrel=1
+pkgdesc="A compact program to monitor processor temperature"
+arch=('any')
+url="http://www.alcpu.com/CoreTemp/"
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("CoreTemp32.zip::http://www.alcpu.com/CoreTemp/CoreTemp32.zip"
+        "CoreTemp64.zip::http://www.alcpu.com/CoreTemp/CoreTemp64.zip"
+        "CoreTempTranslator.zip::http://www.alcpu.com/CoreTemp/CoreTempTranslator.zip")
+sha512sums=('eb8e5662d9a80b59738422e0b4ba79d8e0161df0a8b663719a09a9d099800df63637a54d377d1e911ed4d09b381f871b0e901cbce265283a31946c5f60dbb379'
+            '4067ecbfcda00ea09aec8b40623e70e0a97b82143fb11406e9ea702a411a5a3ba3d2793095051bb0bf321e30345201707ea95cd18a842207f29e5b0ce6f35e3b'
+            'f9e3481edcf582292553cd351aaa78c36aa2236fef4e4c5a700b921f7fbab42d3f5f479516c13bde3f1caff39fcad4f099c0e9a38d1c094cf1f364976fdf80a9')
+noextract=("CoreTemp32.zip"
+           "CoreTemp64.zip")
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+pkgver() {
+    for _apparch in 32 64
+    do
+        b="$(cygpath -wa "coretemp${_apparch}/core temp.exe" | sed 's/\\/\\\\/g')"
+        eval _ver${_apparch}="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/')"
+    done
+    if [ "${_ver32}" != "${_ver64}" ]
+    then
+        echo "32-bit version number is different from 64-bit."
+    else
+        echo "${_ver32}"
+    fi
+}
+
+_prepare() {
+    unzip -o "CoreTemp${_apparch}.zip" -d "CoreTemp${_apparch}"
+    _lc "CoreTemp${_apparch}"/*
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+    _lc "languages"/* *
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r *.{dll,exe,lng} "languages" "coretemp${_apparch}"/*.exe "${a}"
+    mv "${a}/core temp.exe" "${a}/coretemp.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}" "${d}/translator"
+    cp "coretemp${_apparch}"/*.{url,txt} "${d}"
+    cp *.{txt,png} "${d}/translator"
+}
+
+package_app-i686-coretemp() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-coretemp() {
+    _apparch=64
+    _package
+}

@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=opera
-_realver=40289
+_realver=40489
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=41.0.2353.56
+pkgver=42.0.2393.94
 pkgrel=1
 pkgdesc="A fast and free Blink-based web browser"
 url="http://www.opera.com/computer"
@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 replaces=("app-i686-opera2")
 conflicts=("app-i686-${_realname}<15")
 options=(!strip)
-source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=${_realver}&location=410&nothanks=yes&sub=marine")
-sha512sums=('f357f9412763f1502bf1dbd59530106fc8bb149fbca61c3e7c484a062fbdddd9fce84c205d4a8c65f15211968075947995a26181884e7f39f8ea9d8b284e8a33')
+source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=${_realver}&location=414&nothanks=yes&sub=marine")
+sha512sums=('ffa83902bfe0d5f0315b040d753da7188cd9a74867b8980f9dc4f213a9f62532d36b1a8758d0b492c04b5e6fc06357b575a497a5d17423715d5f70fad2d61d78')
 
 _lc() {
     local d f n

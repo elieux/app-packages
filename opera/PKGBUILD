@@ -1,23 +1,22 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=opera
-_realver=40489
-_apparch=32
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
 pkgver=42.0.2393.94
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and free Blink-based web browser"
 url="http://www.opera.com/computer"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
-replaces=("app-i686-opera2")
-conflicts=("app-i686-${_realname}<15")
 options=(!strip)
-source=("Opera_Setup.exe::http://www.opera.com/download/get/?id=${_realver}&location=414&nothanks=yes&sub=marine")
-sha512sums=('ffa83902bfe0d5f0315b040d753da7188cd9a74867b8980f9dc4f213a9f62532d36b1a8758d0b492c04b5e6fc06357b575a497a5d17423715d5f70fad2d61d78')
+source=("Opera_Setup_x32.exe::http://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup.exe"
+        "Opera_Setup_x64.exe::http://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup_x64.exe")
+sha512sums=('ffa83902bfe0d5f0315b040d753da7188cd9a74867b8980f9dc4f213a9f62532d36b1a8758d0b492c04b5e6fc06357b575a497a5d17423715d5f70fad2d61d78'
+            '0e548fa5f61f473e599240978d8d041ea430dc5194de27758563a25add6d1edcfec878cf5e7d90536194fee057044d904517e5aa23132b560e45a45e015bd374')
 
 _lc() {
     local d f n
@@ -34,25 +33,36 @@ _lc() {
     done
 }
 
-pkgver() {
-    b="$(cygpath -wa "Opera_Setup.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+_prepare() {
+    7z x -y -bd "Opera_Setup_x${_apparch}.exe" -o"Opera${_apparch}"
+    _lc "Opera${_apparch}"/*
 }
 
 prepare() {
-    7z x -y -bd "Opera_Setup.exe"
-    _lc *
+    for _apparch in 32 64
+    do
+        _prepare
+    done
 }
 
-build() {
-    # Opera_Setup.exe -silent -installfolder="$(cygpath -wa "install")" -allusers=0 -copyonly=1 -setdefaultbrowser=0 -desktopshortcut=0 -startmenushortcut=0 -pintotaskbar=0 -launchopera=0
-    true
-}
-
-package() {
+_package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r * "${a}"
-    rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,opera_setup.exe,resources.pri} "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
+    cp -r "Opera${_apparch}"/* "${a}"
+    rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,resources.pri} "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
     rm "${a}"/{msvcp,pgort,vccorlib,vcruntime}140.dll "${a}/ucrtbase.dll"
+}
+
+package_app-i686-opera() {
+    replaces=("app-i686-opera2")
+    conflicts=("app-i686-${_realname}<15")
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-opera() {
+    replaces=("app-x86_64-opera2")
+    conflicts=("app-x86_64-${_realname}<15")
+    _apparch=64
+    _package
 }

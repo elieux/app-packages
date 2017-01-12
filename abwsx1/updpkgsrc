@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+// no error handling yet
+
+$list = file_get_contents("http://aprelium.com/abyssws/languages/");
+preg_match_all('~"([a-z])/([a-zA-Z-]+).lng"~', $list, $packs, PREG_SET_ORDER);
+
+$srclist = [];
+$srclist[] = 'abwsx1.exe::http://aprelium.com/data/abwsx1.exe';
+
+foreach ($packs as $pack) {
+	list($set, $lang) = array_slice($pack, 1);
+	$name = $set === 'a' ? $lang : "{$lang}-{$set}";
+	echo "Found: {$name}.lng\n";
+	$srclist[] = "{$name}.lng::http://aprelium.com/abyssws/languages/{$set}/{$lang}.lng";
+}
+
+$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+$pkgbuild = file_get_contents('PKGBUILD');
+$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
+rename('PKGBUILD', 'PKGBUILD.old');
+file_put_contents('PKGBUILD', $pkgbuild);

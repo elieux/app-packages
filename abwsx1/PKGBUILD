@@ -1,0 +1,133 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=abwsx1
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2.9.3.6
+pkgrel=1
+pkgdesc="A compact multi-platform web server"
+url="http://aprelium.com/abyssws/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("abwsx1.exe::http://aprelium.com/data/abwsx1.exe"
+        "ar.lng::http://aprelium.com/abyssws/languages/a/ar.lng"
+        "bg.lng::http://aprelium.com/abyssws/languages/a/bg.lng"
+        "cz.lng::http://aprelium.com/abyssws/languages/a/cz.lng"
+        "cz-b.lng::http://aprelium.com/abyssws/languages/b/cz.lng"
+        "dk.lng::http://aprelium.com/abyssws/languages/a/dk.lng"
+        "de.lng::http://aprelium.com/abyssws/languages/a/de.lng"
+        "es.lng::http://aprelium.com/abyssws/languages/a/es.lng"
+        "fr.lng::http://aprelium.com/abyssws/languages/a/fr.lng"
+        "gr.lng::http://aprelium.com/abyssws/languages/a/gr.lng"
+        "hr.lng::http://aprelium.com/abyssws/languages/a/hr.lng"
+        "hu.lng::http://aprelium.com/abyssws/languages/a/hu.lng"
+        "id.lng::http://aprelium.com/abyssws/languages/a/id.lng"
+        "it.lng::http://aprelium.com/abyssws/languages/a/it.lng"
+        "jp.lng::http://aprelium.com/abyssws/languages/a/jp.lng"
+        "mk.lng::http://aprelium.com/abyssws/languages/a/mk.lng"
+        "ms.lng::http://aprelium.com/abyssws/languages/a/ms.lng"
+        "nl.lng::http://aprelium.com/abyssws/languages/a/nl.lng"
+        "no.lng::http://aprelium.com/abyssws/languages/a/no.lng"
+        "nn-no.lng::http://aprelium.com/abyssws/languages/a/nn-no.lng"
+        "pl.lng::http://aprelium.com/abyssws/languages/a/pl.lng"
+        "pl-b.lng::http://aprelium.com/abyssws/languages/b/pl.lng"
+        "pt.lng::http://aprelium.com/abyssws/languages/a/pt.lng"
+        "pt-br.lng::http://aprelium.com/abyssws/languages/a/pt-br.lng"
+        "ru.lng::http://aprelium.com/abyssws/languages/a/ru.lng"
+        "sl.lng::http://aprelium.com/abyssws/languages/a/sl.lng"
+        "sv.lng::http://aprelium.com/abyssws/languages/a/sv.lng"
+        "tr.lng::http://aprelium.com/abyssws/languages/a/tr.lng"
+        "zh-cn-b.lng::http://aprelium.com/abyssws/languages/b/zh-cn.lng"
+        "zh-tw.lng::http://aprelium.com/abyssws/languages/a/zh-tw.lng")
+sha512sums=('f67d973de3224b6319f485db9fe53d2552b9a56b47643dd1d8816fbe2973974f3132210a6c09f880fa444eec28308d8bd0c04c10cbec8d2438438669270165a1'
+            '1841d7e4fe18394cc6f0fef7c06a9f7e76f59981f8a97b017e60598a0ce2dab5f16dd621d6b49f6d5eb0f63323bc9c289149cbf5247aa222c06fd6422cae2bef'
+            '9776fb8747d6eceee444ba9316410fd9bf44cce6d53894da7bbab6c152c87bb1f7ce21ad116ca1fc600528dc34d96a88db90f9716e50219c13f9c8f4162c0393'
+            '963be72bc348984105cd556b745ef653ff34a5deb2b7ab980ab61ea033792a156f4b144f9e86ad8981e6faa938175f4f3bc0510489c03db82ae417864271fdb3'
+            'bc55329d0fcf147081f8beb68173d329a6dc7b195568cccb1629a56e2dfb93ce3af8c00c9d261a040286155d28fc7eda1ffefc3416342ef9968b28b2e6edfdfd'
+            '314a1885df0e64a164a61f225504cb7beaf63d33a9d9d22fd433479042fac5b0a3c5d1829151f99a25bbac753dd311963d4cb9ca6334d38b8ba65478673bdc90'
+            '398ac6279e9f30e639692498fe7bae8b166299821e33bbe42dd0eb3cc3d3e439f6386d45ff5b188d78d26c67116fd1cdc096eaeb605f19a9f0ad1938d04d3af7'
+            'd0b057496c4b94fc8617246b27be845f131bd2d1735bc5cf4667c2519b096e5ef3493f6fcd4147112ae10a980da5d7704b021fc538d1d98d30fe52bbf4bdad93'
+            'aa43c795872b3464e2f6a40f6a219d700f7f747d6183e744d157b7a38d95976125b3e34ffbaf3105623bd4c77276087828d968c49f259655c6196faac388224a'
+            'fc961e0c9af87964031d93013c15833bcbfb751905655278e6dadd559ebb7f3ebb7e3899114df58f266c2a918d1cf375338dda001e597b40b63b4da1f06c5b51'
+            '6480d2c2e61bc4d80256f1f3d8aa81c46d6ac987283beb588ebf02368736c6f43ac356b9c125dbda403b74def0d67c07432310104bf8a729c11c52c6e6964d1b'
+            '6a87a9f85535f42acddcdd46c473624c91e6a46ca457b78f59328be6180d9cb82c9a52da54b9aa6cefabf326fe05c5cfffca2bc7ea3670d51350a2cb3a323412'
+            'e1d1a22c6d4efbe5d52c46256ccc03a30002f1ce1c6a4993e3e3419803563f194cf377af4c767893436438dfd45b7f02cfb869974ea2f8e2dfd5cf581c655a30'
+            '7c8def9a9b3988757c6182934befd6c355f83b7e313dd2c63689fcc17556a464c69e1e2eeb2dd3c2dbdf2e2bd9c4394da576ef3988ee7f69d7cb746b8baa4906'
+            '4fa1bd5f0cb576bee7b99f849236f5696da85d28c793ba7746a67ef1f94384b9c9c48509fb5d92deb4f5ac904ee2825ad4b70a64402c7cd64429827949abd904'
+            '6d3e6e7566d838d795f6483195747026c6d8e896744d3bbe55d97947ab243a55b8e3ae6fa4da954e69e62ce6ad9b137de19c40fe3074c2ed9c65b17f534c8833'
+            'd0c8993bff5adbdce8e4968b88a2dc30831ef2e4f29754b61989cfb1142af06a5b997f109acf23411a602f4e244604da97e817dc9fc7e07510b2a41ff011233c'
+            '318c34c0005aa47288cc92269493c0b4f8280cd0dc5c6748b0e6beb9ee577e2c41815ea36799977f7addb249af8645dd942ee19810cd087f7d5451db7cb1d7a9'
+            '88a99264be65d672e0854af2a5462cec20bbf20447c9acef425158b1f6f3df52011f54d1bf5955aa8e869c00782ba7d330cdecf895bc99c203514fb238887e04'
+            'bf39e41405a9fa754ff65870587c66d64b6020e5e9ee7b8e749ae71dd97945d6dbe91e40dce830f74593c1758bc410b462893f149242fe041c1cbbf03d9ad7b1'
+            '1bba2647f900197bbb60067da64c6e0e33ff22171eff23fd5c154a4f91c99b86c616d6c994bbc20a4552644a45b60d3774f782712a11b2699f308da4ea125cdb'
+            '998bcb7695959dabb4f9fd7656174a39f74c5604fe9666b717b499caf9f44a93f85d0fa00a5aa0b440d3f0c7234ebba62ff8480582172401d2048a31ad514705'
+            '0b180f7b31adf41796663e4f12e6fbd45861f51fe12ee171c29a6f178d1800a6c6cf2a2dbe0a9ea6f5242ab859477e03eba35dcc6f1b6d5140707684fafee44f'
+            '3b7f8f95853dd44fa34822b00870032b47258a9a6ee33acea40cddcaa4780a3bcae24afe206220d3d02e4515beea873ec72801466d836699122738c2da9fd255'
+            '1ea2a5f36d7d704f3165a7cee8b633117e2287ebe9d191b685760f698bd46d1453ada7feb64f8b1f0416fca3c5e8b2cc5c8ea97eb1383758598e6d3a59eee928'
+            'c8144747392af2ea9b57ebcdeb0f2292b4d36543b50b9dbc469a570d299ac23eaf1cee860aac52a0503861d5c4ebc60fc9f592ea17e7fe13b29989ec3f5bdc7b'
+            '7622ccfd22889f3e34f408c8b0f43c0eeabeab9a721cf41cb35cde67a0682a1d0d1a84e027ecbd6ed928187646a34725e4dea1ae6257929a8143b239e010428c'
+            '9144f12e71f5fe9f238833c0db11ab3f20fc0a0d7ef50c66fd1cdf6291203e4c93cabf87aacd7378bc10bb2f08395d49319a36f4de937e6cc654e68548603732'
+            'baaa6c91bc2f4c706bca007e2a84c61bcf37885f61f542aa688a3f0d4b74ebd8ff146c0dd6a5a6ff640a7c3ee393239a9bcf46d8567a51abd14ebf66ee08f7b5'
+            'e7e3c12a6e4992d53265a74c600f98c3c4288c7a895e713b6376c363cd7cfa36899e84855caa52b19ada0f8d2cebea7be78d764eaf9fe8d5ebadeb7b0dd465cf')
+
+pkgver() {
+    rm -f abyssws*.exe
+    echo u | 7z e -bd "abwsx1.exe" "abyssws.exe" > /dev/null
+    for f in abyssws*.exe
+    do
+        b="$(cygpath -wa "${f}" | sed 's/\\/\\\\/g')"
+        _ver2="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ')"
+        if [ -n "${_ver}" -a "${_ver}" != "${_ver2}" ]
+        then
+            echo "32-bit version number is different from 64-bit."
+        fi
+        _ver="${_ver2}"
+    done
+    echo "${_ver}"
+}
+
+prepare() {
+    rm -rf "dir"
+    echo u | 7z x -bd -x!"*license-1033.txt" -o"dir" "abwsx1.exe"
+    7z x -bd -i!"*license-1033.txt" -so "abwsx1.exe" > "dir/license.txt"
+    for f in "dir"/*.{exe,dll} "dir/adn"/adnregister*.exe
+    do
+        n="$(basename "${f/_1/}")"
+        case "$(file "${f}")" in
+        *80386*) mv -f "${f}" "${n}.32" ;;
+        *x86-64*) mv -f "${f}" "${n}.64" ;;
+        esac
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "dir"/* "${a}"
+    cp -f *.lng "${a}/lang"
+    for f in *.{exe,dll}."${_apparch}"
+    do
+        cp "${f}" "${a}/${f%.${_apparch}}"
+    done
+    mv "${a}/adnregister.exe" "${a}/adn/adnregister.exe"
+    rm -r "${a}"/'$PLUGINSDIR' "${a}"/*.nsi
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/{htdocs,doc} "${a}/license.txt" "${d}"
+}
+
+package_app-i686-abwsx1() {
+    _apparch=32
+    _package
+    rm "${a}/uninstall.exe"
+}
+
+package_app-x86_64-abwsx1() {
+    _apparch=64
+    _package
+}

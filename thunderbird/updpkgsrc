@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+// no error handling yet
+
+$product = basename(__DIR__);
+preg_match('~^pkgver=([0-9.]+)$~m', file_get_contents('PKGBUILD'), $match);
+$version = $match[1];
+$srclist = [];
+$srclist[] = 'ThunderbirdSetup.exe::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/en-US/Thunderbird%20Setup%20${pkgver}.exe';
+
+$list = file_get_contents("http://ftp.mozilla.org/pub/{$product}/releases/{$version}/win32/xpi/");
+preg_match_all("~xpi/([a-zA-Z-]+)[.]xpi~", $list, $matches);
+foreach ($matches[1] as $lang) {
+    $file = "{$lang}.xpi";
+    echo "Found: {$file}\n";
+    $srclist[] = "{$file}::http://ftp.mozilla.org/pub/\${_realname}/releases/\${pkgver}/win32/xpi/{$lang}.xpi";
+}
+
+$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+$pkgbuild = file_get_contents('PKGBUILD');
+$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
+rename('PKGBUILD', 'PKGBUILD.old');
+file_put_contents('PKGBUILD', $pkgbuild);

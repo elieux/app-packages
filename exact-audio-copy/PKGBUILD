@@ -4,7 +4,7 @@ _realname=exact-audio-copy
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.2
+pkgver=1.3
 pkgrel=1
 pkgdesc="A very accurate CD audio grabber"
 url="http://www.exactaudiocopy.de/en/"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("eac.exe::http://www.exactaudiocopy.de/eac-${pkgver}.exe")
-sha512sums=('e2b98b0c827f97b31ff26a28208c829b6c230746d27c4dcb5767f95ec4bf6fd389e51b5d03bd4e4cd7b93623f4eef760d7bc16e42be5ea5386b1a605423a1af5')
+sha512sums=('2eb30132e8abd7b4cf628e2ae6465bba9f4059f868a688da395aa467f3009fac0e6e4b337f73c3b344083231cbbabf959c9fd3e0d24794c0d22f7215ed358503')
 
 _lc() {
     local d f n

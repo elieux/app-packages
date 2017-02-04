@@ -1,10 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=vivaldi
-_apparch=32
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-pkgver=1.4.589.38
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=1.6.689.40
 pkgrel=1
 pkgdesc="A new browser for our friends"
 url="https://vivaldi.com/"
@@ -13,8 +13,10 @@ license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Vivaldi.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.exe")
-sha512sums=('3e6086178a34fcd0237120bededf81014d2e078d8fa66bdaa646d17e5fadbddc52c6d5345f5a40fce17162b836c05fa4ee5421a1c5d1786edfc59e5497cc2b8e')
+source=("Vivaldi.x32.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.exe"
+        "Vivaldi.x64.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.x64.exe")
+sha512sums=('56cc610e33343a34cf1a5eb57b88214b4155c7fe33936eff94dbe45a2ba80d1926e622bf6ef0207e0a362c5e94b4c45b2d4916796ee221787ab918eb94d56f38'
+            'b68d5a6752482890f7c4f303d9b57c5c5f8220308b4e20e3e5f18b1bfc09d87280720b0bf5581a8352e02bd61af9b00fa48b0ee9fcb0ba66ee6bdcdc720f307f')
 
 _lc() {
     local d f n
@@ -31,14 +33,34 @@ _lc() {
     done
 }
 
-prepare() {
-    7z x -y -bd "Vivaldi.exe"
+_prepare() {
+    7z x -y -bd "Vivaldi.x${_apparch}.exe"
     7z x -y -bd "vivaldi.7z"
+    rm "vivaldi.7z"
     _lc "Vivaldi-bin"/* "Vivaldi-bin/${pkgver}"/*
+    mv "Vivaldi-bin" "vivaldi-bin.x${_apparch}"
 }
 
-package() {
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+}
+
+_package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "Vivaldi-bin"/*.exe "Vivaldi-bin/${pkgver}"/* "${a}"
+    cp -r "vivaldi-bin.x${_apparch}"/*.exe "vivaldi-bin.x${_apparch}/${pkgver}"/* "${a}"
 }
+
+package_app-i686-vivaldi() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-vivaldi() {
+    _apparch=64
+    _package
+}
+

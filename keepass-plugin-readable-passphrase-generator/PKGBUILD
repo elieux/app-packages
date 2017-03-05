@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=keepass-plugin-readable-passphrase-generator
-_realver=2016-06-11T05:19:54Z
+_realver=2017-03-03T01:35:05Z
 _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=0.16
+pkgver=0.17
 pkgrel=1
 pkgdesc="A KeePass plugin that generates gramatically correct passphrases"
 url="http://readablepassphrase.codeplex.com/"
@@ -15,8 +15,8 @@ license=('Apache 2.0')
 depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("ReadablePassphrase.plgx::http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=readablepassphrase&DownloadId=1580806&FileTime=131100972353270000&Build=21031")
-sha512sums=('11c724d644f774a6ae073b3ed1d1e3f96bb3dca6e2cef300e0baa41941f2562a63ff91e6e5fba52c574e1d42049a75ab166fa26bc219fa6048d76dd84b7b39f3')
+source=("ReadablePassphrase.plgx::http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=readablepassphrase&DownloadId=1644115&FileTime=131330078235200000&Build=21040")
+sha512sums=('4d36ebcdfcbf648bdeb8ba0e4fd195c7c0384269e1e5c8182cec0a9a9abfbc296ed3461d2c5488dbd884916d683dbc0a38b45b7b1e0420e4dddcfc1dd903cdb8')
 
 pkgver() {
     v="$(dd if="ReadablePassphrase.plgx" bs=1 skip=71 count=20 status=none)"

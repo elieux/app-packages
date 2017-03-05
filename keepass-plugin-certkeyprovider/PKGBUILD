@@ -24,7 +24,7 @@ pkgver() {
     then
         echo "${pkgver}"
     else
-        echo "Timestamp has changed. Fix version number."
+        warning "Timestamp has changed. Actual: ${v} Expected: ${_realver}."
     fi
 }
 

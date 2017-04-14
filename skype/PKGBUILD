@@ -4,7 +4,7 @@ _realname=skype
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=7.33.32.104
+pkgver=7.35.32.101
 pkgrel=1
 pkgdesc="P2P software for high-quality voice communication"
 url="http://www.skype.com/"
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
-sha512sums=('8b7d4e6ce0027bfdf89ae907f404be26fa357c1aad9602d8a9706ce215b45d6168b87cd47895fc83c02a58189ad11d719398232aeaa87fa6b38b804b2eed5c02')
+sha512sums=('fe02ee34fc00b93f86b515017f1ceaaf582f90377e64b504e984c56ee9f5417f86ffe949c90fa0f7b61b1e088e6e2b1f6ea418c98ce440dc9aeeb2f26da4e556')
 
 _lc() {
     local d f n
@@ -54,6 +54,7 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp "${s}/Phone"/* "${s}/Perfmon/performancecounters.mam" "${s}/PFiles/Skype/Browser/skypebrowserhost.exe" "${s}/Redist/Skype/skype4com.dll" "${a}"
+    rm "${a}"/{vccorlib,vcruntime,msvcp,concrt}140.dll "${a}"/api-ms-win-*.dll "${a}/ucrtbase.dll"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

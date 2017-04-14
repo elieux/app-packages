@@ -1,7 +1,6 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=keepass-plugin-readable-passphrase-generator
-_realver=2017-03-03T01:35:05Z
 _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
@@ -9,24 +8,14 @@ pkgname=("app-i686-${_realname}")
 pkgver=0.17
 pkgrel=1
 pkgdesc="A KeePass plugin that generates gramatically correct passphrases"
-url="http://readablepassphrase.codeplex.com/"
+url="https://bitbucket.org/ligos/readablepassphrasegenerator"
 arch=('any')
 license=('Apache 2.0')
 depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("ReadablePassphrase.plgx::http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=readablepassphrase&DownloadId=1644115&FileTime=131330078235200000&Build=21040")
+source=("ReadablePassphrase.plgx::https://bitbucket.org/ligos/readablepassphrasegenerator/downloads/ReadablePassphrase%20${pkgver}.0.plgx")
 sha512sums=('4d36ebcdfcbf648bdeb8ba0e4fd195c7c0384269e1e5c8182cec0a9a9abfbc296ed3461d2c5488dbd884916d683dbc0a38b45b7b1e0420e4dddcfc1dd903cdb8')
-
-pkgver() {
-    v="$(dd if="ReadablePassphrase.plgx" bs=1 skip=71 count=20 status=none)"
-    if [ "${v}" == "${_realver}" ]
-    then
-        echo "${pkgver}"
-    else
-        warning "Timestamp has changed. Actual: ${v} Expected: ${_realver}."
-    fi
-}
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

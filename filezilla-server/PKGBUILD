@@ -4,7 +4,7 @@ _realname=filezilla-server
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=0.9.59
+pkgver=0.9.60.2
 pkgrel=1
 pkgdesc="A popular FTP server"
 url="http://filezilla-project.org/"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("FileZilla_Server.exe::http://downloads.sourceforge.net/filezilla/FileZilla%20Server/${pkgver}/FileZilla_Server-${pkgver//./_}.exe")
-sha512sums=('5221a6b9a0aa7c1636216abdb71d4d5c66a815877102234920b269e739c954f6501af6c2faaa6801ca2037804ee8edf284f35d689f765a6fb3442e8d09d846ed')
+sha512sums=('0e0a92f3693d31d09341354ce212f42e1941743cf5f49bffe58b0c05cbc04865470e96c145ae0ffeea060a86d618da2a7de78a38946a9c3a2dcb956d0f2b3cfa')
 
 _lc() {
     local d f n

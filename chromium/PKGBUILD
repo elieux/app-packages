@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=chromium
-_realver=433059
+_realver=444943
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 epoch=1
-pkgver=56.0.2924.76
+pkgver=57.0.2987.133
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="http://www.chromium.org/Home"
@@ -17,10 +17,23 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("chrome-win32.zip::https://github.com/henrypp/chromium/releases/download/v${pkgver}-r${_realver}-win32/chromium-sync.zip"
         "chrome-win64.zip::https://github.com/henrypp/chromium/releases/download/v${pkgver}-r${_realver}-win64/chromium-sync.zip")
-sha512sums=('c6f765018fb751514785fd2471d11d58e2019c325441a209ace64ac054c8af5a59d033d601d246b41f41bfcca91927ef1ff77642844480c935ca926b10f7985c'
-            '926df2c3fbf546fe18c09a845f1311fcb079376828d5b5a8192814468eb169f4e3d015c2c5b7c8bd50d75f1ba72d74aaa354bbe10a5ea7bed31bc5792499aa98')
+sha512sums=('af09e209a78599b93d0c19f859cde8e27ed4a178d0062659dac3eb8d8f1459c94c434532ea5a5edfa095dd557e635c170c17a913a3af4ae7ed21ae5ad6673727'
+            'b0f29163aef72d8e59c7552ea2656bc01498cef6228307b0f82eb0c39847f0b846ffeae8fdac663427033c2ce709050e9a5b3bd64806f551ccc519c925266d09')
 noextract=("chrome-win32.zip"
            "chrome-win64.zip")
+
+_eqver() {
+    local r v
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
 
 _lc() {
     local d f n
@@ -38,16 +51,13 @@ _lc() {
 }
 
 pkgver() {
-    for _apparch in 32 64
-    do
-        eval _ver${_apparch}="$(unzip -l "chrome-win${_apparch}.zip" | tail -n +4 | head -n -2 | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's~^chrome-win32/~~' | sed 's~.manifest$~~' | grep -P '[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+' | sort | tail -1)"
-    done
-    if [ "${_ver32}" != "${_ver64}" ]
-    then
-        echo "32-bit version number is different from 64-bit."
-    else
-        echo "${_ver32}"
-    fi
+    _vers=( $(
+        for _apparch in 32 64
+        do
+            unzip -l "chrome-win${_apparch}.zip" | tail -n +4 | head -n -2 | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's~^chrome-win32/~~' | sed 's~.manifest$~~' | grep -P '[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+' | sort | tail -1
+        done
+    ) )
+    _eqver "${_vers[@]}"
 }
 
 prepare() {

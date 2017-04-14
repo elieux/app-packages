@@ -4,7 +4,7 @@ _realname=coretemp
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=1.5.1
+pkgver=1.7.0
 pkgrel=1
 pkgdesc="A compact program to monitor processor temperature"
 arch=('any')
@@ -16,11 +16,24 @@ options=(!strip)
 source=("CoreTemp32.zip::http://www.alcpu.com/CoreTemp/CoreTemp32.zip"
         "CoreTemp64.zip::http://www.alcpu.com/CoreTemp/CoreTemp64.zip"
         "CoreTempTranslator.zip::http://www.alcpu.com/CoreTemp/CoreTempTranslator.zip")
-sha512sums=('eb8e5662d9a80b59738422e0b4ba79d8e0161df0a8b663719a09a9d099800df63637a54d377d1e911ed4d09b381f871b0e901cbce265283a31946c5f60dbb379'
-            '4067ecbfcda00ea09aec8b40623e70e0a97b82143fb11406e9ea702a411a5a3ba3d2793095051bb0bf321e30345201707ea95cd18a842207f29e5b0ce6f35e3b'
-            'f9e3481edcf582292553cd351aaa78c36aa2236fef4e4c5a700b921f7fbab42d3f5f479516c13bde3f1caff39fcad4f099c0e9a38d1c094cf1f364976fdf80a9')
+sha512sums=('b642bc811081ea4dfede03c2f11d012887996636772d1f3cb9d6ff53916bfb8797a639f8432899ea2f874dc0fcaeaadaf780453c0d915d6e9c14a7eea19d7695'
+            '6506c6c2f9fa06f0011b8260cad69827fb368da24c08afd3e5c51a766f80a7074d5577595c7a1dba72ad26b7ba86bafdf621573a025662be64404c277321db92'
+            'b158538ad7b184b9dc8853d2c48a0d0d89780e792b73ab29099374d87aa871d90fcd02035d1c8764f378442c485edafff1c50e73a74c1b34f5b0c8a55b89f291')
 noextract=("CoreTemp32.zip"
            "CoreTemp64.zip")
+
+_eqver() {
+    local r v
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
 
 _lc() {
     local d f n
@@ -38,17 +51,14 @@ _lc() {
 }
 
 pkgver() {
-    for _apparch in 32 64
-    do
-        b="$(cygpath -wa "coretemp${_apparch}/core temp.exe" | sed 's/\\/\\\\/g')"
-        eval _ver${_apparch}="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/')"
-    done
-    if [ "${_ver32}" != "${_ver64}" ]
-    then
-        echo "32-bit version number is different from 64-bit."
-    else
-        echo "${_ver32}"
-    fi
+    _vers=( $(
+        for _apparch in 32 64
+        do
+            b="$(cygpath -wa "coretemp${_apparch}/core temp.exe" | sed 's/\\/\\\\/g')"
+            wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+        done
+    ) )
+    _eqver "${_vers[@]}"
 }
 
 _prepare() {

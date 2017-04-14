@@ -21,6 +21,19 @@ sha512sums=('c947ba7dde617d7cf33676a8f9be2059b3ba825936804a73f28ea1f85652f976d7c
             '955a7f19b4ec651a7d07e5e800e2b40a1735056dfe2ed72d12ac93b75530d5b9973c707607a2015bc970c4904a34048d3f1c637c49599247a938d827fcf13d67'
             'f837bee1b4cd8cd5d53b1304505382a7826cc8c4159cbed941db0c3aef335ff3b8988b28417a104dae978e0b2f484033d7383a9e3f9ad73c9f0986bd30eb001e')
 
+_eqver() {
+    local r v
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
+
 _lc() {
     local d f n
 
@@ -37,17 +50,14 @@ _lc() {
 }
 
 pkgver() {
-    for _apparch in 32 64
-    do
-        b="$(cygpath -wa "SysInfox${_apparch}.dll" | sed 's/\\/\\\\/g' | sed 's/x32//')"
-        eval _ver${_apparch}="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/')"
-    done
-    if [ "${_ver32}" != "${_ver64}" ]
-    then
-        echo "32-bit version number is different from 64-bit."
-    else
-        echo "${_ver32}"
-    fi
+    _vers=( $(
+        for _apparch in 32 64
+        do
+            b="$(cygpath -wa "SysInfox${_apparch}.dll" | sed 's/\\/\\\\/g' | sed 's/x32//')"
+            wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
+        done
+    ) )
+    _eqver "${_vers[@]}"
 }
 
 prepare() {

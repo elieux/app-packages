@@ -1,14 +1,14 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=far
-_realver=30b4774-20160902
+_realver=30b4900-20170221
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver="$(echo -n "${_realver}" | sed -r 's/^([0-9])([0-9])b([0-9]+)-[0-9]+$/\1.\2.\3/')"
 pkgrel=1
 pkgdesc="Extensible text mode file manager"
-url="http://farmanager.com/"
+url="http://farmanager.com/index.php?l=en"
 arch=('any')
 license=('GPL2' 'BSD' 'custom')
 makedepends=("p7zip")
@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Far.x86.7z::http://farmanager.com/files/Far${_realver%%-*}.x86.${_realver##*-}.7z"
         "Far.x64.7z::http://farmanager.com/files/Far${_realver%%-*}.x64.${_realver##*-}.7z")
-sha512sums=('943674519bbaf1083f8fd0b8bf3affa8f0b3a2705cc0aa7784560f68309f8705b8ad2ac8632da7994643150786aa845b25fafa4d3deda1a7df74215110b6dc03'
-            '2fa9a40990599cc688fc1cca5241de18c46c107347ff6d62341c078985d1e1ff0fbf948c60e5b05bd94816d69e298c1742d06af275b487bdb301405f68b5b3c0')
+sha512sums=('64f82fdf21191142a051ed066aa85032710efc0fe93ff551622f1c4ad00aec8edde62d778c7e6ff7ddd9c56be0ba1b00c8de2daa775b78b7af5d21a9e9c2481d'
+            'c72029a30530a484a15a8c3ca7fd36d6c547b7bca65230daffc3ec2a0d364ee7d7b573206b21713dfadc145206a670e9c4f770c4a4a62e6e19a16e08a6e51026')
 noextract=("${source[@]%%::*}")
 
 _lc() {

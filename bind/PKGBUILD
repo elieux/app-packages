@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=bind
-_realver=9.10.4-P4
+_realver=9.10.4-P8
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("BIND32.zip::ftp://ftp.isc.org/isc/bind9/${_realver}/BIND${_realver}.x86.zip"
         "BIND64.zip::ftp://ftp.isc.org/isc/bind9/${_realver}/BIND${_realver}.x64.zip")
-sha512sums=('fde76e5f952800747933f8fef09be95e93d36672506bb866275502a9769677436519aef6e2748086ebf7d4eed46556ecb7fbb903986fa7c33d272546d00a32e1'
-            '287141fdc796af9f305444ffa7656147984e2d147d993e839ce25144433b6f2771e6e249e4f14bf19027658cc4e70791f7d284d8dacafae6bbb8375dbf002d0e')
+sha512sums=('24e9b6050bfa60d855478ae22c83465ccce4585eaddb4d9d70c60b590571f20b0270a6d6c9b7c4fd5700c0e52c8cb42066e246ed45a54f07081fc1e6e3c1d187'
+            '4656a0acee169a1f9f8f7380b4da5165e0522b7b85785a9700beb174e33a1d7be6fc3dc8cffd4d9660a027a392f4a39a2a1813c235b91d3dd47f527bb06a6f2f')
 noextract=("BIND32.zip"
            "BIND64.zip")
 

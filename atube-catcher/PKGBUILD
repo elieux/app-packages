@@ -4,7 +4,7 @@ _realname=atube-catcher
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=3.8.0.9032
+pkgver=3.8.0.9149
 pkgrel=1
 pkgdesc="Downloads videos from the Internet"
 url="http://www.atube.me/"
@@ -13,8 +13,8 @@ license=('custom')
 makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)
-source=("aTubeCatcher.exe::http://files3.dsnetwb.com/aTubeCatcher.exe")
-sha512sums=('108968fbe52153bd07d486d3bdfb70503c10e39363a30d199d0c154869e94a20ada464fd01598b373e6440e7303c9aa698a1b1463c054f7b9c5e09939b851a1e')
+source=("aTubeCatcher.exe::http://files.dsnetwb.com/aTube_Catcher.exe")
+sha512sums=('482f00112e97a96c02889804a5c93f1331118e95a3fb169b9eef194937ac75935307fca228712b0ea903e8d45d2c69a93b4568eaf07cdd20c27da0c4c959e431')
 
 _lc() {
     local d f n

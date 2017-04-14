@@ -4,7 +4,7 @@ _realname=abwsx1
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.9.3.6
+pkgver=2.11.2.0
 pkgrel=1
 pkgdesc="A compact multi-platform web server"
 url="http://aprelium.com/abyssws/"
@@ -43,7 +43,7 @@ source=("abwsx1.exe::http://aprelium.com/data/abwsx1.exe"
         "tr.lng::http://aprelium.com/abyssws/languages/a/tr.lng"
         "zh-cn-b.lng::http://aprelium.com/abyssws/languages/b/zh-cn.lng"
         "zh-tw.lng::http://aprelium.com/abyssws/languages/a/zh-tw.lng")
-sha512sums=('f67d973de3224b6319f485db9fe53d2552b9a56b47643dd1d8816fbe2973974f3132210a6c09f880fa444eec28308d8bd0c04c10cbec8d2438438669270165a1'
+sha512sums=('02cd3f217754b0f88c605c1fe0861a2ad3a37b99d8f6e92d86c256a61df515b410c376d838f0fd2479cdbbf7a309eaec234d2975997dc492e514ba6c01040d91'
             '1841d7e4fe18394cc6f0fef7c06a9f7e76f59981f8a97b017e60598a0ce2dab5f16dd621d6b49f6d5eb0f63323bc9c289149cbf5247aa222c06fd6422cae2bef'
             '9776fb8747d6eceee444ba9316410fd9bf44cce6d53894da7bbab6c152c87bb1f7ce21ad116ca1fc600528dc34d96a88db90f9716e50219c13f9c8f4162c0393'
             '963be72bc348984105cd556b745ef653ff34a5deb2b7ab980ab61ea033792a156f4b144f9e86ad8981e6faa938175f4f3bc0510489c03db82ae417864271fdb3'
@@ -74,20 +74,30 @@ sha512sums=('f67d973de3224b6319f485db9fe53d2552b9a56b47643dd1d8816fbe2973974f313
             'baaa6c91bc2f4c706bca007e2a84c61bcf37885f61f542aa688a3f0d4b74ebd8ff146c0dd6a5a6ff640a7c3ee393239a9bcf46d8567a51abd14ebf66ee08f7b5'
             'e7e3c12a6e4992d53265a74c600f98c3c4288c7a895e713b6376c363cd7cfa36899e84855caa52b19ada0f8d2cebea7be78d764eaf9fe8d5ebadeb7b0dd465cf')
 
+_eqver() {
+    local r v
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
+
 pkgver() {
     rm -f abyssws*.exe
     echo u | 7z e -bd "abwsx1.exe" "abyssws.exe" > /dev/null
-    for f in abyssws*.exe
-    do
-        b="$(cygpath -wa "${f}" | sed 's/\\/\\\\/g')"
-        _ver2="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ')"
-        if [ -n "${_ver}" -a "${_ver}" != "${_ver2}" ]
-        then
-            echo "32-bit version number is different from 64-bit."
-        fi
-        _ver="${_ver2}"
-    done
-    echo "${_ver}"
+    _vers=( $(
+        for f in abyssws*.exe
+        do
+            b="$(cygpath -wa "${f}" | sed 's/\\/\\\\/g')"
+            wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+        done
+    ) )
+    _eqver "${_vers[@]}"
 }
 
 prepare() {
@@ -124,7 +134,6 @@ _package() {
 package_app-i686-abwsx1() {
     _apparch=32
     _package
-    rm "${a}/uninstall.exe"
 }
 
 package_app-x86_64-abwsx1() {

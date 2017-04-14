@@ -1,10 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=slack
-_apparch=32
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-pkgver=2.4.1
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=2.5.2
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
@@ -13,8 +13,23 @@ license=('custom')
 makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SlackSetup.exe::https://slack.com/ssb/download-win")
-sha512sums=('aa4a6b957688fac329a565278ce3a2b591cb16eed056eb710ceec6a5e1532f907242faa0607c947cffe99f978eda630a887bfe746bfcf137caa2c28083e1a054')
+source=("SlackSetup32.exe::https://slack.com/ssb/download-win"
+        "SlackSetup64.exe::https://slack.com/ssb/download-win64")
+sha512sums=('a449deb66d50b4e92f2b389a9f0a6e3172fb5b729c4de7e6fc30d7b6a9b2fd9cdce2cb1e76bcea01444e4d112c7c946ba32eea612b81ecf06856fe76b76dfc69'
+            '72b0b80b19e1d35c52ddde011ea6cab8c482f4198f2d1b43cc7bd6bb62b8195c69a2d35bae0e4a1dd7d9b5ff6059560bc4d13dc2d3672db876d4fcfe4a84b726')
+
+_eqver() {
+    local r v
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
 
 _lc() {
     local d f n
@@ -32,24 +47,44 @@ _lc() {
 }
 
 pkgver() {
-    b="$(cygpath -wa "SlackSetup.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
+    _vers=( $(
+        b="$(cygpath -wa "SlackSetup${_apparch}.exe" | sed 's/\\/\\\\/g')"
+        wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
+    ) )
+    _eqver "${_vers[@]}"
 }
 
-prepare() {
-    rm -f "slack"-*-"full.nupkg"
-    7z x -y -bd "SlackSetup.exe"
-    unzip -o "slack"-*-"full.nupkg"
+_prepare() {
+    find -name 'slack-*-full.nupkg' -delete
+    7z x -y -bd "SlackSetup${_apparch}.exe" -o"SlackSetup${_apparch}"
+    unzip -o "SlackSetup${_apparch}/slack"-*-"full.nupkg" -d "SlackSetup${_apparch}"
     _lc "lib/net45"/*
 }
 
-package() {
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+}
+
+_package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "lib/net45"/* "${a}"
+    cp -r "SlackSetup${_apparch}/lib/net45"/* "${a}"
     rm "${a}"/{,resources/app.asar.unpacked/node_modules/edge-atom-shell/build/Release}/{{vccorlib,vcruntime,msvcp,concrt}140,ucrtbase}.dll "${a}"/{,resources/app.asar.unpacked/node_modules/edge-atom-shell/build/Release}/api-ms-win-*.dll
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
     mv "${a}/license" "${d}"
+}
+
+package_app-i686-slack() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-slack() {
+    _apparch=64
+    _package
 }

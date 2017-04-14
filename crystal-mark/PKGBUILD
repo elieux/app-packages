@@ -5,7 +5,7 @@ _dirname=crystal
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2004R3
+pkgver=2004R7
 pkgrel=1
 pkgdesc="A benchmarking software (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalMark/index-e.html"
@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CrystalMark.zip::http://crystalmark.info/download/archive/CrystalMark/CrystalMark${pkgver}.zip")
-sha512sums=('f837bee1b4cd8cd5d53b1304505382a7826cc8c4159cbed941db0c3aef335ff3b8988b28417a104dae978e0b2f484033d7383a9e3f9ad73c9f0986bd30eb001e')
+sha512sums=('2a1eb4ba35e3238dc67617db7e7af83089f5d26b542891ff02b11a44049b6c8bedc2256868cc605ee7953fece14020b79445c420524363c95b0c6d177696a894')
 
 _lc() {
     local d f n
@@ -41,7 +41,7 @@ prepare() {
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
     mkdir -p "${a}"
-    cp -r "template" *.{dll,ini,exe,gld,gc2} "${a}"
+    cp -r "template" *.{dll,exe,gld,gc2} "${a}"
 
     d="${pkgdir}/docs${_apparch}/${_dirname}"
     mkdir -p "${d}/mark"

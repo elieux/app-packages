@@ -4,7 +4,7 @@ _realname=teamspeak
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=3.0.19.4
+pkgver=3.1.4
 pkgrel=1
 pkgdesc="Quality voice communication via the Internet"
 url="http://www.teamspeak.com/"
@@ -17,8 +17,8 @@ source=("TeamSpeak3-Client-win32.exe::http://dl.4players.de/ts/releases/${pkgver
         "TeamSpeak3-Client-win64.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe"
         # "pluginsdk.zip::http://dl.4players.de/ts/client/pluginsdk/pluginsdk_${pkgver}.zip"
 )
-sha512sums=('2badc917847c6cad3c56e8361748fa58904d39266bab3e1c36d911a771657aebdb6c0800a4245e2fd0f86617f7cf9708533551407a3be12ad830f057d1980221'
-            'da2814bc7b9870bf5958edc77c61678c672f306f348bf48b03ec36de99045245ec4f10212b792db6268a1c00585515ff0a0997089c33088343d070435eaa12a0')
+sha512sums=('af5f03449dd16f965f6afa629fa23e344e21cdb15a5077801a370d7cf5a515623131494dae2638009baef97b77f3c0394db275b92e5158268965ea9ee8a79e90'
+            '8fa496a63ceb7430e646ea6f76fc990a64827750e511ad417f41b147a8bbab0650203b186a6a7a4c7488525edbb4d1077b278433992e7ec84f34e803b960004d')
 
 _lc() {
     local d f n
@@ -56,12 +56,12 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "win${_apparch}"/* "${a}"
-    rm -r "${a}/update.exe" "${a}"/msvc{p,r}120.dll "${a}/uninstall.exe.nsis" "${a}/[nsis].nsi" "${a}"/'$pluginsdir'
+    rm -r "${a}/update.exe" "${a}/uninstall.exe.nsis" "${a}/[nsis].nsi" "${a}"/'$pluginsdir'
     mv "${a}/ts3client_win${_apparch}.exe" "${a}/ts3client.exe"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    mv "${a}"/*.{txt,html,rtf} "${a}/news" "${d}"
+    mv "${a}"/*.{txt,rtf} "${a}/html" "${d}"
 }
 
 package_app-i686-teamspeak() {

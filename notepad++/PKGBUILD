@@ -71,12 +71,14 @@ _package() {
     mv "${a}"/*.{log,txt} "${d}"
 }
 
-package_app-i686-notepad++() {
+# space before () required
+package_app-i686-notepad++ () {
     _apparch=32
     _package
 }
 
-package_app-x86_64-notepad++() {
+# space before () required
+package_app-x86_64-notepad++ () {
     _apparch=64
     _package
 }

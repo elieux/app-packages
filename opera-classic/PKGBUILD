@@ -18,6 +18,19 @@ source=("Opera_int_Setup32.exe::http://www.opera.com/download/get/?id=39129&loca
 sha512sums=('5a40c440b52b61d66a143d4e38050c8898769fe383ea192410fca4da541502a49032ee68b115deaa47769a3dcbfe8467a5a16b7daff4a806855459f157c619ce'
             '450fcbff79a4777703b532bff21444b67ede88145e08ea9ad1a59b803a25f53d919c1b8beaa1e86c5f7ee616f43684379be0e60cb55994f98722a9c0f1112439')
 
+_eqver() {
+    local r v
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
+
 _lc() {
     local d f n
 
@@ -34,18 +47,15 @@ _lc() {
 }
 
 pkgver() {
-    for _apparch in 32 64
-    do
-        7z e -y -bd "Opera_int_Setup${_apparch}.exe" "opera.exe" > /dev/null
-        b="$(cygpath -wa "opera.exe" | sed 's/\\/\\\\/g')"
-        eval _ver${_apparch}="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+)[.][0-9]+[.]0+$/\1/')"
-    done
-    if [ "${_ver32}" != "${_ver64}" ]
-    then
-        echo "32-bit version number is different from 64-bit."
-    else
-        echo "${_ver32}"
-    fi
+    _vers=( $(
+        for _apparch in 32 64
+        do
+            7z e -y -bd "Opera_int_Setup${_apparch}.exe" "opera.exe" > /dev/null
+            b="$(cygpath -wa "opera.exe" | sed 's/\\/\\\\/g')"
+            wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+)[.][0-9]+[.]0+$/\1/'
+        done
+    ) )
+    _eqver "${_vers[@]}"
 }
 
 _prepare() {

@@ -35,14 +35,16 @@ _lc() {
 }
 
 _dl() {
-    pushd "${SRCDEST}" &> /dev/null
-    download_file "${1}"
-    popd &> /dev/null
+    (
+        cd "${SRCDEST}"
+        download_file "${1}"
+    )
 }
 
 _dlread() {
-    tmp=".tmp"
+    local tmp
 
+    tmp=".tmp"
     rm -f "${SRCDEST}/${tmp}"
     _dl "${tmp}::${1}" &> /dev/null
     cat "${SRCDEST}/${tmp}"

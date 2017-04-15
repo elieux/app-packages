@@ -1,0 +1,30 @@
+#!/usr/bin/env php
+<?php
+// no error handling yet
+
+$funcregex = "~\b(_[a-z]+)[(][)] ([{]\n.*?\n[}]\n)~s";
+
+$allfuncs = file_get_contents("functions.sh");
+preg_match_all($funcregex, $allfuncs, $funcmatches, PREG_SET_ORDER);
+$funcs = [];
+foreach ($funcmatches as $func) {
+	list($name, $body) = array_slice($func, 1);
+	$funcs[$name] = $body;
+}
+$updatefunc = function($func) use($funcs) {
+	list($name, $body) = array_slice($func, 1);
+	if (!in_array($name, [ '_prepare', '_build', '_package' ])) {
+		$body = $funcs[$name];
+	}
+	return "{$name}() {$body}";
+};
+
+$pkgbuildnames = glob('*/PKGBUILD');
+foreach ($pkgbuildnames as $pkgbuildname) {
+	$pkgbuild = file_get_contents($pkgbuildname);
+	$newpkgbuild = preg_replace_callback($funcregex, $updatefunc, $pkgbuild);
+	if ($newpkgbuild !== $pkgbuild) {
+		rename($pkgbuildname, "{$pkgbuildname}.old");
+		file_put_contents($pkgbuildname, $newpkgbuild);
+	}
+}

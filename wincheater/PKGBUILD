@@ -1,6 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_status=("broken" "dependencies")
+DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.cheater.cz/" -o %o %u')
+
 _realname=wincheater
 _apparch=32
 pkgbase="app-${_realname}"
@@ -8,7 +9,7 @@ pkgname=("app-i686-${_realname}")
 pkgver=2.07
 pkgrel=3
 pkgdesc="Video game cheats and guides database viewer"
-url="http://www.cheater.cz/winch/win_uvod.htm"
+url="http://www.cheater.cz/wincheater2/info/"
 arch=('any')
 license=('custom')
 depends=("app-i686-wincheater-data-base")
@@ -16,8 +17,8 @@ optdepends=("app-i686-wincheater-data-libs: Databases")
 makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)
-source=("WinCH2_onlysetup.exe::http://www.cheater.cz/download/WinCH2_onlysetup.exe")
-sha512sums=('0f79ab4e2a7767b293b667c5f43b8e00f50795e21b7ec39b1a71971d56e16c359a0619056ef4a1e68a31402d1a2b348b683a67741d8fdab8363ced0382b46e67')
+source=()
+
 
 _lc() {
     local d f n
@@ -34,12 +35,39 @@ _lc() {
     done
 }
 
+_dl() {
+    pushd "${SRCDEST}" &> /dev/null
+    download_file "${1}"
+    popd &> /dev/null
+}
+
+_dlread() {
+    tmp=".tmp"
+
+    rm -f "${SRCDEST}/${tmp}"
+    _dl "${tmp}::${1}" &> /dev/null
+    cat "${SRCDEST}/${tmp}"
+    rm "${SRCDEST}/${tmp}"
+}
+
 pkgver() {
-    strings -d -e{b,l} "WinCH2_onlysetup.exe" | grep 'FileDescription' -A 1 | tail -1 | sed -r 's/^Scorpions WinCheater ([0-9]+[.][0-9]+) [(]pouze program[)] Setup/\1/' | tr -d ' '
+    powershell -command '(Get-Item "WinCheater2_setup.exe").VersionInfo.FileDescription' | sed -r 's/^Scorpions WinCheater ([0-9]+[.][0-9]+)/\1/' | cut -d' ' -f1
 }
 
 prepare() {
-    /apps32/innounp/innounp -x -q -m -a -y "WinCH2_onlysetup.exe"
+    n="winch2-setup"
+    f="$(_dlread "http://www.cheater.cz/download/get-name.php?soubor=${n}")"
+    h="$(_dlread "http://www.cheater.cz/download/get-link.php?soubor=${n}" | sed -r 's/.*hash=([a-z0-9]+).*/\1/')"
+    if [ "${f}" = "????" ]
+    then
+        f="${i}.exe"
+    fi
+    _dl "${f}::http://www.cheater.cz/download/download-file.php?hash=${h}"
+    source+=("${f}")
+    noextract+=("${f}")
+    extract_sources
+
+    /apps32/innounp/innounp -x -q -m -a -y "WinCheater2_setup.exe"
     _lc "{app}"/*
 }
 
@@ -47,5 +75,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "{app}"/* "${a}"
-    rm "${a}/texty.sct"
+    rm "${a}/texty.sct" "${a}"/*.sc2
 }

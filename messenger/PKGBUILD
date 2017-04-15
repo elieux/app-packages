@@ -4,7 +4,7 @@ _realname=messenger
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.0.4
+pkgver=2.0.9
 pkgrel=1
 pkgdesc="Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications."
 url="http://messengerfordesktop.com/"
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("messengerfordesktop-full.nupkg::https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v${pkgver}/messengerfordesktop-${pkgver}-full.nupkg")
-sha512sums=('98855906b60f517507ef8c0c2c511492ecdccbe90ceabf8b36ba996c159f0af5ec8c20a877ef59b89315d683a624871b04d822b9837cb5afd9e01d6f592d9375')
+sha512sums=('4288e4a24ff6776890eac8b4810f94f11a90ee67a5b16b92c06834731f7ee9b449e66cb736b6063c0e02448183f105d4922b004ab8e779569d28a6729a4b6d52')
 
 _lc() {
     local d f n

@@ -172,7 +172,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - openvpn
 - package-this
 - pactester
-- paint.net
 - pcc
 - pebuilder
 - phantomjs

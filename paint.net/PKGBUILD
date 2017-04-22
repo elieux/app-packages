@@ -1,0 +1,72 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -k -o %o %u')
+
+_realname=paint.net
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=4.0.16
+pkgrel=1
+pkgdesc="A free image and photo editing software"
+url="https://www.getpaint.net"
+arch=('any')
+license=('custom')
+makedepends=("unzip" "p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("paint.net.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip")
+sha512sums=('ef04fd8799b68d47436103e45cdf8087b7c968590e3f684ca0fc0a86138306346ac7807740b63c235924a041852a9b5af863f2a038775d7c0fd50b0b68b92b90')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -y -bd "paint.net.${pkgver}.install.exe"
+    mv -f "PaintDotNet_x86.msi" "PaintDotNet_x32.msi"
+}
+
+_build() {
+    msiexec -a "PaintDotNet_x${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
+    _lc "install${_apparch}"/*
+}
+
+build() {
+    for _apparch in 32 64
+    do
+        _build
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "install${_apparch}"/* "${a}"
+    rm -r "${a}/sxs" "${a}"/*.{msi,pdb}
+    mkdir "${a}"/{effects,filetypes,shapes}
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/*.txt "${d}"
+}
+
+package_app-i686-paint.net() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-paint.net() {
+    _apparch=64
+    _package
+}

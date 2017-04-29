@@ -4,7 +4,7 @@ _realname=winscp
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=5.9.4
+pkgver=5.9.5
 pkgrel=1
 pkgdesc="An open source two-pane SFTP/FTP/WebDAV/SCP client"
 url="http://winscp.net/"
@@ -17,9 +17,9 @@ options=(!strip)
 source=("winscpsetup.exe::http://download.sourceforge.net/winscp/WinSCP-${pkgver}-Setup.exe"
         "winscp.zip::http://download.sourceforge.net/winscp/WinSCP-${pkgver}-Portable.zip"
         "winscpautomation.zip::http://download.sourceforge.net/winscp/WinSCP-${pkgver}-Automation.zip")
-sha512sums=('a997bf33efd85c4642103f56a2632971aa475da8169eba2d3ae41c0342eaecbb74ac5207235a7ddcb5093c91a2d4445602e93bf44638231757701220b9fa99a5'
-            '3feefdbd8c6766a013d6f89b3fa190da804e0aff9cc391d456e0588cd32def0106cc75a7f92e3bb75443a0c7a8afad917ce6a55a2d57285084c0e33a6ab6d9b9'
-            '76bc350fe847857885f9fa3e1c369ea6204310df5bf7b5f0ec5b8a342ad43c5e40df5db2d12df0b1b5e69769d808f419c9ce9bc8e32de372021750629af893d0')
+sha512sums=('48bf991e148b2e6beb3205b1cc4c85b08d33a2afd42af1c5815e470db4759dd8f1e7fdfc6e4f130164ffcadf974b58bd9ae98a6fcd33f791033cb96e8e5b580d'
+            '7f2278ec0321585a0c4414085213899932b6871df9fab5d483d2859cd83333b8e71f565ca4c5108e20608272df99047a64520862f4b4b3618dc2100c8d5cf29f'
+            'c9d6dd8a74bd7de24bf9810ea81a58e24583cc884cc376700640628e72fd8b3d6bab3c9a1954bc08f23c1ea12f92d042b63cfd41fae4959b059da749cc350a8a')
 
 _lc() {
     local d f n

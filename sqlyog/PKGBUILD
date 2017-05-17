@@ -6,7 +6,7 @@ _realname=sqlyog
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=12.4.1
+pkgver=12.4.2
 pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://github.com/webyog/sqlyog-community"
@@ -17,8 +17,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x86Community.exe"
         "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
-sha512sums=('c7ca77ad6a131ffc6234e039e745faef5b855c1c146cb8fca8415413a98c2e6a6b877363104b7b961623a0e83cee97de419fdf2bcbf861a657b3d58a7adf941f'
-            '403689bb550bbabb3f2ad2849de19bf215f0f88a9b3355951ec28389f0a9dc6db21a1a515855ef1bc0edafae9df617af8910e3a6ca514bf63f0639320778853d')
+sha512sums=('73c5c53f98ea4aa6ac18f9955bafcc98d97eb0ebb7a8b43bc0b113462067bf8048b56693c5982740df7e5c9a99ce9a70f3d9f39a4bafa49f794fdb7f2775e044'
+            'c48e7e1472b37aee2b81a0316de0a897ae626a84e55c5b2c8634897ee84eab019b481306af9630c9cf44cf1c1ddd9ec18c22a4ceefebbd96bed99f7234f6f358')
 
 _lc() {
     local d f n

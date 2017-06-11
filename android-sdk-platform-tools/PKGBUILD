@@ -1,0 +1,52 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_apparch=32
+_dirname=android-sdk
+_realname=android-sdk-platform-tools
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=26.0.0
+pkgrel=1
+pkgdesc="Platform-Tools for Google Android SDK (adb and fastboot)"
+url="https://developer.android.com/studio/releases/platform-tools.html"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("platform-tools-latest-windows.zip::https://dl.google.com/android/repository/platform-tools-latest-windows.zip")
+sha512sums=('5e8abc598079ac2223072a34c27fd2f86a428f2cc6497bedee375ab2c48062effa947834abf6da17788f84850817bff727231e415e5fa6a08b611f24237d45a2')
+
+pkgver() {
+    unzip -p "platform-tools-latest-windows.zip" "platform-tools/source.properties" | grep "^Pkg.Revision" | cut -d= -f2
+}
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc "platform-tools"/*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp -r "platform-tools" "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}" "${d}/platform-tools" "${d}/platform-tools/systrace"
+    mv "${a}/platform-tools"/*.{properties,txt} "${d}/platform-tools"
+    mv "${a}/platform-tools/systrace/NOTICE" "${d}/platform-tools/systrace"
+}

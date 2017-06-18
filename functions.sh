@@ -47,13 +47,13 @@ _dlread() {
 _rmmsdll() {
     local ms
 
-    ms=("msvbvm[0-9]+[.]dll"
-        "ucrtbase.dll"
-        "mfcm?[0-9]+[a-z]+[.]dll"
-        "msvc[rp][0-9]+[.]dll"
-        "vc([ao]mp|corlib|runtime)[0-9]+[.]dll"
-        "concrt[0-9]+[.]dll"
-        "pgort[0-9]+[.]dll"
-        "api-ms-win-[0-9a-z-]+[.]dll")
-    # find "${1}" -iname '*.dll' | grep -Exf <(for m in "${ms[@]}"; do echo "${m}"; done) | xargs -r rm
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }

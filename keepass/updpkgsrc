@@ -7,7 +7,7 @@ preg_match_all("~http://downloads.sourceforge.net/keepass/((?:KeePass-)?(?:2[.][
 
 $srclist = [];
 $srclist[] = 'KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip';
-$srclist[] = 'KeePass2-TrlUtil.zip::http://keepass.info/download/v2_trlutil/TrlUtil-${pkgver}.zip';
+$srclist[] = 'KeePass2-TrlUtil.zip::http://keepass.info/download/v2_trlutil_2/TrlUtil-${pkgver}.zip';
 $srclist[] = 'KPScript.zip::http://keepass.info/extensions/v2/kpscript/KPScript-${pkgver}.zip';
 $srclist[] = 'KeePass.config.xml';
 

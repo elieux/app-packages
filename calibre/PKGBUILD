@@ -4,7 +4,7 @@ _realname=calibre
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.82.0
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
@@ -14,8 +14,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("calibre32.msi::http://download.calibre-ebook.com/${pkgver}/${_realname}-${pkgver}.msi"
         "calibre64.msi::http://download.calibre-ebook.com/${pkgver}/${_realname}-64bit-${pkgver}.msi")
-sha512sums=('6555648484ce012b9ac5933fd4c14ee15137ea0c5c64e02dc0d8743309ec87fec749a706d8de7c233131114d530faa8c156b665189f11ffd255c40eddd53bb9d'
-            '9a6a17aea8f50e3ef6a211fa19a9de31554b11812cb7be7e2100d5ccca02eabdf6c4a588ac09b4315f6b72db55d8c9e2ab8d5812541fc79bb01208ec8ecdc4d9')
+sha512sums=('0d6651324c9e06b8a4603227a050b6c5b5ff15ffb0bc525a74b3ef135dd6e800ebd72295e3a27f8be12659c2b826e10f405f253ed59fa9af2fb972767697fa81'
+            '35dbbd2c0600790c377a6c0929fca180d87f1b39f9142830bbc5ea9f63b72b51fcb84af328a3f84a44b14580158f49981a89e8c6dd50a1ef7495a92f8a804be2')
 
 _lc() {
     local d f n
@@ -30,6 +30,20 @@ _lc() {
             mv "${d}/${f}" "${d}/${n}"
         fi
     done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
 _build() {
@@ -50,7 +64,7 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "install${_apparch}/PFiles"/calibre*/* "${a}"
-    rm -rf "${a}/microsoft.vc90.crt" # write-protected
+    _rmmsdll "${a}"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

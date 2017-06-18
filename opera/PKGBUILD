@@ -4,7 +4,7 @@ _realname=opera
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=44.0.2510.1449
+pkgver=45.0.2552.898
 pkgrel=1
 pkgdesc="A fast and free Blink-based web browser"
 url="http://www.opera.com/computer"
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Opera_Setup_x32.exe::http://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup.exe"
         "Opera_Setup_x64.exe::http://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup_x64.exe")
-sha512sums=('f36ec8dab53a887de289b83e2e8621c90341d3ad0cd4e7332b606ad5e88ee2cb4d504dd28f73b48d78ee6aac18973aa17f0557f8b2b46fcaa5c8d5aae919c928'
-            '2b738057c14b3899228993bfff75f3532f7135abb7c948badd389b61418e6a9fdb4cb418c8073c25be06710c32df54cfd33de12dcc1c9a9a4a681223c60a5909')
+sha512sums=('fb943c8301aef3d5012951c57aa7fde4ae4425ca7b29e7d2d617b0ff37bf8904a9a6ebb721a2f0f46e6b76c086d1115bc1eee8a2103329a0b3547f475f6a774a'
+            '97e64b64479aca2ee56df4a2a370c6481705d1f2d17cc8e17dd6736d493c061eb4f0af4dc939a1ed54585fa97ed9255a8c423206e5e54970fb26d76fad752dbe')
 
 _lc() {
     local d f n
@@ -31,6 +31,20 @@ _lc() {
             mv "${d}/${f}" "${d}/${n}"
         fi
     done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
 _prepare() {
@@ -49,8 +63,8 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "Opera${_apparch}"/* "${a}"
-    rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,resources.pri} "${a}"/{msvcp100.dll,msvcr100.dll} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
-    rm "${a}"/{msvcp,pgort,vccorlib,vcruntime}140.dll "${a}/ucrtbase.dll"
+    rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,resources.pri} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
+    _rmmsdll "${a}"
 }
 
 package_app-i686-opera() {

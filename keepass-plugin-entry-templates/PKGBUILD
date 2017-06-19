@@ -5,7 +5,7 @@ _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=7.3
+pkgver=7.6
 pkgrel=1
 pkgdesc="A KeePass plugin that provides templating support"
 url="https://github.com/mitchcapper/KPEntryTemplates"
@@ -15,7 +15,7 @@ depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KPEntryTemplates.plgx::https://github.com/mitchcapper/KPEntryTemplates/releases/download/${pkgver}/KPEntryTemplates.plgx")
-sha512sums=('bb07a910cd563f08da19b5f24b1eebeb647c890f5bca353a15a3b781ed96f2292e097e37cbd5f1dd3b28ecc1e32177f516794858168bb3428b4477a08f496a55')
+sha512sums=('0bf860e8fa77f3c87461d8534b6e30f325e1cfd4fc5d18378113bfc0651f9925d131f09299a7376da94d8e2a43ac895d5a038231b9e1b7420793fd59065b2e73')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

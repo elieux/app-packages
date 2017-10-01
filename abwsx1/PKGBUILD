@@ -125,7 +125,7 @@ _package() {
         cp "${f}" "${a}/${f%.${_apparch}}"
     done
     mv "${a}/adnregister.exe" "${a}/adn/adnregister.exe"
-    rm -r "${a}"/'$PLUGINSDIR' "${a}"/*.nsi
+    rm -r "${a}"/'$PLUGINSDIR'
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

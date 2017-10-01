@@ -4,7 +4,7 @@ _realname=f-lux
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=3.12.0.1
+pkgver=4.47.0.1
 pkgrel=1
 pkgdesc="Changes the display color temperature according to the time of the day"
 url="http://justgetflux.com/"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("flux-setup.exe::https://justgetflux.com/flux-setup.exe")
-sha512sums=('0e183271de63020c0b1cabe1ed92e866c9f19d2370de268fb49a3e91e46e313807caf455030d6770f3a8b9ad7ca31ef9f616fa313c1a90b578960cf7bae0d9f9')
+sha512sums=('e497ffe997775a8e511fe8bbe8ef5addeeec66da8805a86090600c36f388adbbe7cc55c576dd4d4b1b760cde926485a2e3e49ba80d2a14e4448366405503ebec')
 
 pkgver() {
     7z x -y -bd "flux-setup.exe" "flux.exe" > /dev/null
@@ -30,8 +30,4 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "flux.exe" "runtime" "${a}"
-
-    d="${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp '[LICENSE].txt' "${d}/license.txt"
 }

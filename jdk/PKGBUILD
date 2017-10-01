@@ -3,12 +3,12 @@
 # adding quotes around the cookie value makes the download fail
 DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC - -o %o %u')
 
+_apparch=64
 _realname=jdk
-_realver=8u121-b13/e9e7ea248e2c4826b92b3f075a80e441
+_realver=9+181
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
-pkgver=${_realver%-*}
+pkgname=("app-x86_64-${_realname}")
+pkgver=${_realver%+*}u0
 pkgrel=1
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
@@ -17,10 +17,8 @@ license=('custom')
 makedepends=("p7zip" "unzip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=("jdk-windows32.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-i586.exe"
-        "jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-x64.exe")
-sha512sums=('a13c45473ffab6cf94dc614d7baf1ec12700c615bc0df15b6352746fa89a34683c1a98633e64f0bc21138e63b46bead13a6c9a25dbca824eec2dc2771311da1c'
-            'd5bc4483dd6fd977bbe3671e43b26dff676cfc14b8f479558aa3fbcfabbc0d3c1ec9817f7a34ec62940672717c2365e5c08b177863d3e12761970f8599591413')
+source=("jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${_realver%+*}_windows-x64_bin.exe")
+sha512sums=('e51628f0b73080a6f444f0f82be46db43055d44f0666f85b149bcb719c69054be17b1082eb6fa8ef4a9ac5af6d48389eac91e61af22a2171338321c3e4a786c5')
 
 _lc() {
     local d f n
@@ -37,48 +35,27 @@ _lc() {
     done
 }
 
-_prepare() {
-    mv "tools.zip" "tools${_apparch}.zip"
-    unzip -o "tools${_apparch}.zip" -d "tools${_apparch}"
+prepare() {
+    7z x -y -bd "jdk-windows${_apparch}.exe"
+    unzip -o "tools.zip" -d "tools${_apparch}"
     attrib -r //s
     _lc "tools${_apparch}"/*
-    for f in $(find "tools${_apparch}" -iname '*.pack')
+    for f in $(find "tools${_apparch}" -iname '*.pack' -type f)
     do
         "tools${_apparch}/bin/unpack200" "${f}" "${f%.pack}.jar"
         rm "${f}"
     done
 }
 
-prepare() {
-    _apparch=32
-    7z x -y -bd "jdk-windows${_apparch}.exe"
-    _prepare
-
-    _apparch=64
-    7z x -y -bd "jdk-windows${_apparch}.exe"
-    7z x -y -bd ".rsrc/1033/JAVA_CAB10/111" -o.
-    _prepare
-}
-
-_package() {
+package() {
     s="tools${_apparch}"
 
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "${s}"/{bin,db,include,jre,lib} "${a}"
-    rm "${a}"/{bin,jre/bin,jre/bin/plugin2}/msvcr100.dll "${a}/jre/bin"/msvc{r,p}120.dll
+    cp -r "${s}"/* "${a}"
+    rm "${a}"/bin{,/plugin2}/msvc{p,r}120.dll
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    cp "${s}"/*.{html,txt,zip} "${s}"/{license,release} "${d}"
-}
-
-package_app-i686-jdk() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-jdk() {
-    _apparch=64
-    _package
+    mv "${a}"/{release,readme.html} "${a}/legal" "${d}"
 }

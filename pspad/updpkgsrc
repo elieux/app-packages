@@ -3,7 +3,7 @@
 // no error handling yet
 
 $list = file_get_contents("http://www.pspad.com/cz/download.php");
-preg_match_all("~http://www.pspad.com/files/dic/([a-z]+)_dic.cab~", $list, $packs, PREG_SET_ORDER);
+preg_match_all("~/files/dic/([a-z]+)_dic.cab~", $list, $packs, PREG_SET_ORDER);
 
 $srclist = [];
 $srclist[] = 'pspaden.zip::http://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip';

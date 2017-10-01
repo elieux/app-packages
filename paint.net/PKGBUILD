@@ -5,7 +5,7 @@ DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -k -o %o %u')
 _realname=paint.net
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=4.0.16
+pkgver=4.0.18
 pkgrel=1
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
@@ -15,7 +15,7 @@ makedepends=("unzip" "p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("paint.net.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip")
-sha512sums=('ef04fd8799b68d47436103e45cdf8087b7c968590e3f684ca0fc0a86138306346ac7807740b63c235924a041852a9b5af863f2a038775d7c0fd50b0b68b92b90')
+sha512sums=('6cc560d5c628e203ee879285f061b3523d6d6defdf340c47bc3ca1d9977811618b1c55f125f568ce0f1429fb5d9cd096b757b5f73e50015fc52f1cbf533e8cf5')
 
 _lc() {
     local d f n

@@ -4,7 +4,7 @@ _realname=filezilla
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=3.26.2
+pkgver=3.28.0
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client"
 url="http://filezilla-project.org/"
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("FileZilla_win32.zip::http://downloads.sourceforge.net/${_realname}/FileZilla_Client/${pkgver}/FileZilla_${pkgver}_win32.zip"
         "FileZilla_win64.zip::http://downloads.sourceforge.net/${_realname}/FileZilla_Client/${pkgver}/FileZilla_${pkgver}_win64.zip")
-sha512sums=('82ed9a35374d388e854f8c8694e2fa977eb405d12e123d8570f14a50200230e6c8432b0a732ed4b29bf7ecfebc12fefc3903b229b2a8b481b516408783462d26'
-            '12e525aadd892da9f5e631ad1d0a5365de12ada6c076245445154241ad58363bcde5f9da8be0c51bb18b626bfd4786bd715c9978dae142d3beec68bf945b54d6')
+sha512sums=('ecbdc7b9e5ae25a78855d9ac05322d590e70dfce09c40bb5e191d0b4391b02f205ab78a7b932ef7540b8f08aa25c75ff6563be76b41cf7bf3d927ad071fa8bb5'
+            'a3e4631ac99077f9d0caa4a01886353b7fdb2837fab4a86362e9879f04b47ee8ff0465162c7f78a002aa71b7c196e660fe08756a070096b7b214613cb507d6d6')
 noextract=("FileZilla_win32.zip"
            "FileZilla_win64.zip")
 

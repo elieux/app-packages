@@ -4,7 +4,7 @@ _realname=gpg4win
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.3.3
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="A secure solution for file and email encryption"
 url="http://www.gpg4win.org/index.html"
@@ -13,8 +13,8 @@ license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("gpg4win.exe::http://files.gpg4win.org/gpg4win-${pkgver}.exe")
-sha512sums=('fdc40d4f7f011f5ba4c63572967ef648b704f1d09fcc28a7b49e9dd3339cfd3945f6ab57fe5f75b6cb975a9429666b79326fa9211146efc02bd9f14c0168f480')
+source=("gpg4win.exe::https://files.gpg4win.org/gpg4win-${pkgver}.exe")
+sha512sums=('46f00ea8adbef4d52d7a51c70f5f472bbe4921036102cb6733df8f5c8487c691b301a42b181637c16ae47cd8632fd5101841cabcfd5f71f29209ebb0cdc205cd')
 
 _lc() {
     local d f n
@@ -34,7 +34,6 @@ _lc() {
 prepare() {
     7z x -y -bd "gpg4win.exe"
     _lc *
-    rm "pinentry.exe"
 }
 
 package() {
@@ -42,14 +41,14 @@ package() {
     mkdir -p "${a}"
     cp -r * "${a}"
     find "${a}" -iname '*.tmp' -delete
-    rm -r "${a}/gpg4win.exe" "${a}"/*.nsi "${a}"/'$'*
-    cp "${a}/pinentry-w32.exe" "${a}/pinentry.exe"
+    rm -r "${a}/gpg4win.exe" "${a}"/'$'*
+    rm "${a}/bin/pinentry.exe"
+    cp "${a}/bin/pinentry-w32.exe" "${a}/bin/pinentry.exe"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}" "${d}/gnupg"
-    mv "${a}/[license].txt" "${d}/LICENSE.txt"
     mv "${a}/share/doc"/* "${d}"
     rm -r "${a}/share/doc"
-    mv "${a}/share/gnupg"/*.{man,txt} "${d}/gnupg"
+    mv "${a}/share/gnupg"/*.man "${d}/gnupg"
     mv "${a}/share/gpg4win" "${d}/gpg4win"
 }

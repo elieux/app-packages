@@ -1,12 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=keepass-plugin-rpc
-_realver=2017-04-27T22:16:16Z
 _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.7.0
+pkgver=1.7.3.1
 pkgrel=1
 pkgdesc="A KeePass plugin that provides a RPC server for KeeFox"
 url="http://keefox.org/"
@@ -15,21 +14,11 @@ license=('unknown')
 depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("keefox-tb+fx-windows.xpi::https://addons.mozilla.org/firefox/downloads/file/659060/keefox-${pkgver}-tb+fx-windows.xpi")
-sha512sums=('9d151e297c8f78d6298686efb1f8e87249d588010506d6c9cc8c7634c1b9e5ff9a1227e1d7629e3c854b3c4c7256a27873772a89393ed070aeab6f02423c035a')
-
-pkgver() {
-    v="$(dd if="deps/KeePassRPC.plgx" bs=1 skip=56 count=20 status=none)"
-    if [ "${v}" == "${_realver}" ]
-    then
-        echo "${pkgver}"
-    else
-        warning "Timestamp has changed. Actual: ${v} Expected: ${_realver}."
-    fi
-}
+source=("KeePassRPC.plgx::https://github.com/kee-org/keepassrpc/releases/download/v${pkgver}/KeePassRPC.plgx")
+sha512sums=('6a1a197fa110417d404fb810c91486931aa390b0e8654e25b8370d1f025c4ddb70b10b87c79fedc32bc47f2090d55f5790f782e72c5802a7f2512fd280a00500')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
     mkdir -p "${a}/plugins"
-    cp "deps"/*.plgx "${a}/plugins"
+    cp *.plgx "${a}/plugins"
 }

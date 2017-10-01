@@ -1,0 +1,70 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=vscode
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=1.16.1
+pkgrel=1
+pkgdesc="Editor for building and debugging modern web and cloud applications"
+arch=('any')
+url="https://code.visualstudio.com/"
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("VSCode-win32.zip::https://vscode-update.azurewebsites.net/${pkgver}/win32-archive/stable"
+        "VSCode-win64.zip::https://vscode-update.azurewebsites.net/${pkgver}/win32-x64-archive/stable")
+sha512sums=('1086eee0ed6bd9eae6bb9c985865fe2d774d4990c9b2443773df21b0f09777d4ae4e7d93dfbdb2892223eb6044c89c3e5e7fe72003c70d3b4bc043d9e9b0c37f'
+            '136629a3693c0de14a165bd047373b43d313202232d23c4cfa0bc65eebd5c9f9cf56485bc0e9e41b145a46771c8119f07a2c81e929698f921bdce2bb3d5892f4')
+noextract=("VSCode-win32.zip"
+           "VSCode-win64.zip")
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_prepare() {
+    unzip -o "VSCode-win${_apparch}.zip" -d "vscode${_apparch}"
+    _lc "vscode${_apparch}"/*
+    rm "vscode${_apparch}/resources/app/node_modules/vscode-ripgrep/bin/rg"
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "vscode${_apparch}"/* "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}/resources/app"/*.{html,txt} "${a}/resources/app/licenses"/* "${d}"
+    rm -r "${a}/resources/app/licenses"
+}
+
+package_app-i686-vscode() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-vscode() {
+    _apparch=64
+    _package
+}

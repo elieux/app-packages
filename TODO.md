@@ -5,7 +5,6 @@ Add `updpkgsrc` to recipes where the list of sources is long and tedious to upda
 
 It'd be good to have recipes the following packages. In case of FOSS, it's better to make recipes for `mingw-packages`, but until that package is done and equally good as official distribution, it can be here.
 
-- abyss
 - activation-backup-and-recovery
 - advanced-process-termination
 - aida32
@@ -14,7 +13,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - altap-translator
 - amd-clock
 - amd-cpuid
-- android-sdk
 - ant
 - api-monitor
 - appnimi
@@ -307,7 +305,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - xtra-windows-stability
 - yapm
 - yumi
-- zeal
 - zonescreen
 
 These are already present in `mingw-packages` in some form or other, so they're lower (possibly anti-)priority.

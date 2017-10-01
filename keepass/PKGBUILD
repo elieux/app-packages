@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.36
-pkgrel=1
+pkgrel=2
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
@@ -27,8 +27,8 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Danish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Danish.zip"
         "KeePass2-Dutch.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Dutch.zip"
         "KeePass2-Estonian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Estonian.zip"
-        "KeePass2-Finnish.zip::http://downloads.sourceforge.net/keepass/Finnish-2.18.zip"
-        "KeePass2-French.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-French.zip"
+        "KeePass2-Finnish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Finnish.zip"
+        "KeePass2-French-g.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-French-g.zip"
         "KeePass2-German.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-German.zip"
         "KeePass2-Greek.zip::http://downloads.sourceforge.net/keepass/KeePass-2.21-Greek.zip"
         "KeePass2-Hebrew-b.zip::http://downloads.sourceforge.net/keepass/KeePass-2.35-Hebrew-b.zip"
@@ -48,7 +48,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Portuguese_BR.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Portuguese_BR.zip"
         "KeePass2-Portuguese_PT.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Portuguese_PT.zip"
         "KeePass2-Romanian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.22-Romanian.zip"
-        "KeePass2-Russian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.35-Russian.zip"
+        "KeePass2-Russian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Russian.zip"
         "KeePass2-Serbian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.23-Serbian.zip"
         "KeePass2-Slovak.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Slovak.zip"
         "KeePass2-Slovenian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Slovenian.zip"
@@ -56,7 +56,7 @@ source=("KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202
         "KeePass2-Swedish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.30-Swedish.zip"
         "KeePass2-Turkish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Turkish.zip"
         "KeePass2-Ukrainian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Ukrainian.zip"
-        "KeePass2-Vietnamese.zip::http://downloads.sourceforge.net/keepass/KeePass-2.35-Vietnamese.zip")
+        "KeePass2-Vietnamese.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Vietnamese.zip")
 sha512sums=('1598020ff4e3e2f4c4dd44186ee50eb5332846f299bafe4c06bd120d1545290a7660bb7d37188a2640507ac118e6e137ee3269aa21c6360a1f398b5087d00125'
             'fcc2feb89486604f94fa23d300d8bfc2132b56cb95cc5c4ba21799b0fe814361dc5288f37e6406bbfb58283a8e9a52ea2afce5888655aff5feb0ef93b3dce9b8'
             '4fd7b05cabeb73d1db05244d94aea87247735817afe5f353c45870f00bd463eb99b4b62c80c86e88e0a086f9dc864860677f344cc8cac428389b21cb9cab6067'
@@ -71,8 +71,8 @@ sha512sums=('1598020ff4e3e2f4c4dd44186ee50eb5332846f299bafe4c06bd120d1545290a766
             '0c5558cdcffdbf9073074439aabc9e89c732a3257514fb7681a376c4c3ded3f8142fc018ecb798339b80b6e3661873642322afc27dedcbb2562b1920db914c3e'
             '6134de90bba1b393b83cd4d7292607a4d29a8fede487fba9703ba0a1d990e11c71ab4f335ddd5ae606f169b1d881cbe47291483c02fd309bf2de708739e8847d'
             '08162aca6fa84c7ccd4f739c4e689e1be7318ac273eb4249ab44ec3bf6cb1b049b00b6a7bd6d9e34ca59ff2169250a698a39ba2940a2b47df77979c5fed87500'
-            '13e8932a8834433c0cd941876ed685eaf960a1ed7cdf76db732c4ff6342ffb9a6287e655edd944b3153e4070a737f0b8a9f281d16e20e2796e18bce14a316ec8'
-            '2be4ef60826d02dde2a736623c357d86e4149e32435ed28f49bd6eca06414446796201ba745259a9b1a036262e7c50ac31ba6de23a71612e9a0eccac405f8f2d'
+            '3d4d66396cc3cd5fd89af1ecfe13cb5ee7643e3850b64a251f34e688d377be3c6094cbc13d7289066f68541b7836255315b42b3cedfc76ff26e8fe7829b198d5'
+            '77e026f301343e46c0869d2d1345bab8e2109ddbc6e8289478a69bfa1f8e749b21d2b02a6ee121d5b5cb91c54ee60e41d1cdf4a99cc339af9a2c0aea06092362'
             '1cc32d7b9d541d671e3c65cf0f4a4973cd0e10643f086391b81e482910baf0910004bc7c508d035b85a26e1011a97cac85a8d12395ad5fc2a2a4053c174f33ef'
             'c26806030b4fa681a781f5fff6fb88fcc4cc25672d163de4f78a81fe70e5d0a54cadda9667756ab8461aaef42a1d3183e5b9baa2dd1654acfa16672238b82173'
             '6330ec5779b877b702badfb813cfb28c32b6bbbe4f6271586f39a7f166eeb10228c31af0d5e4d98e7c0f8de48525d4756663d562f184ff79b2ce8c91dc2bfc9d'
@@ -92,7 +92,7 @@ sha512sums=('1598020ff4e3e2f4c4dd44186ee50eb5332846f299bafe4c06bd120d1545290a766
             '66c137a49de062dbcd4a31d3b8a1d39f7aa751fd71775449f8ed9a8d9a221076715fcd7fd0602f7394dec430c0f299624ee17e71625b981c402a20a19d4af2c4'
             '3acb7176eda598695c8af8181fd9664f1fc83185756099d8dcc79846cae301728da77893c1f911574825d224fd36951034ac89578d14b10473e938f819a4c6a0'
             'c5b393380b0ddbfe22ab48c4175d963a1d0e730afbf1835696708cf542ca30ead26b65d42628cb0b8fcb54ed1a545177ecb4720c21a2f86d8af4b0f3f2bc81e9'
-            '7bb83f8a36489459d2bcab38e63123568f6802367795c8bfd0579c0f5a1cda4c51f1ef10f5c3e831ae8544bdb5ee8bbecef14581454348f3e587effd46b2f504'
+            '642782031b735bd65b6a0bc331fc91982371581ce39c9928b07e1460b3a373ebe9c94b880f6d70e4a3ef5a0f2453fbe506987a543636394a5012f4b53d56bfc6'
             'e5b90aa6dea5a635020b4b6906ec230f894113320be33db5d9b56cb82c27919c9364fbf97c55f7214daa4b69292583b93690470cb0f8fda778fb1043ccd9644e'
             '50c784b6c664f77a0f21f3890603fd9dadba8dc098c0cdcd34c77989d74aa6b70c2c626aa117784b8350091d6715f0711a0ee18ae03fddf80561c12afa56ea30'
             '7185695c0ab78e3008f21e2f025694f06d73fa6df37a02c3e809d7e57fccbb3c6132d8fe6cce54ef2766c2d03d85cd9bd1b480d41f64d0ee201b6cd3bc4be6a2'
@@ -100,7 +100,7 @@ sha512sums=('1598020ff4e3e2f4c4dd44186ee50eb5332846f299bafe4c06bd120d1545290a766
             'e8dc39021d8b66ad14fa839103904a4ffa3b885941857475160ef81079d39cb302b456d54cde9c1db61bfce1f822fad40bddeb0e95b86bd8f7be621c70e352ce'
             'a42f0e01040dc39c1b8b31f0665fe301353afd47560e3ed7c46d665cc0a5b88191875433aeb62217883a7b531271fe43845139d9882adc42b84e98720bc00011'
             '919b46d68379ac2cbb7fdebd85d872999f1b491753f4f80e8d939ce08dfc031b1dce9d809a883038fec1717b55e99bb9691960664534e68276b760b8edd2d908'
-            'ea3267c13a05ac66e419088d7174edb79924996425d437bac631fb426463441a163e2390509a090277a30932729983d003c9f008a93ea871d9f49fdd331b2ff3')
+            'f1166d9e1013c774bf4236f27f3b53b800d656786f22d70e7188ec9fbbdafc253107f0636729021fdb78700322cd31b5ddc870d9160308585380b5b48b2566d6')
 noextract=("KeePass2-TrlUtil.zip")
 
 prepare() {

@@ -2,8 +2,8 @@
 <?php
 // no error handling yet
 
-$list = file_get_contents("http://keepass.info/translations.html");
-preg_match_all("~http://downloads.sourceforge.net/keepass/((?:KeePass-)?(?:2[.][0-9]+-)?([A-Za-z0-9_-]+?)(?:-2[.][0-9]+)?).zip~", $list, $packs, PREG_SET_ORDER);
+$list = file_get_contents("https://keepass.info/translations.html");
+preg_match_all("~https://downloads.sourceforge.net/keepass/((?:KeePass-)?(?:2[.][0-9]+-)?([A-Za-z0-9_-]+?)(?:-2[.][0-9]+)?).zip~", $list, $packs, PREG_SET_ORDER);
 
 $srclist = [];
 $srclist[] = 'KeePass2.zip::http://downloads.sourceforge.net/${_realname}/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip';

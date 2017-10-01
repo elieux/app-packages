@@ -6,16 +6,17 @@ _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.0.9
+epoch=1
+pkgver=2.0.8.3
 pkgrel=1
 pkgdesc="A KeePass plugin that allows to use Windows certificate store as a master key source"
-url="http://keepass.info/plugins.html#certkeyprov"
+url="https://github.com/markbott/CertKeyProvider"
 arch=('any')
 license=('unknown')
 depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("CertKeyProviderPlugin.plgx::https://www.dropbox.com/s/efaeqm88hycybiu/CertKeyProviderPlugin.plgx?dl=0")
+source=("CertKeyProviderPlugin.plgx::https://github.com/markbott/CertKeyProvider/releases/download/1.0.0/CertKeyProviderPlugin.plgx")
 sha512sums=('b6430c3f5f0d2029f5d52b3b3fdbddab752c7fd7aedc10b9360e0fdbcdd3a747a881e00cf74a015cf4cecbce932f14456f3aa6ab6a9f23de69758edebf56f1d0')
 
 pkgver() {

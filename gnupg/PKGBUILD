@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=gnupg
-_realver=2.1.20_20170403
+_realver=2.2.1_20170919
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gnupg-w32.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${_realver}.exe")
-sha512sums=('cbb4cd2b149b0f19e306bcb52d991a19632d522796a068d530b435cf062d5ad043ce0183ee2eaa4bdedd6272261ea803c94e1923db7fb29c6653ac30a8209670')
+sha512sums=('220f33edacc409629c8a64dbd06d93e1fa1316f3ef1560eb06ee4f1a744e8b8cb7866a5e079c6cd82b22fb162af8debbedbfe59e4bbd9867a8a97d35574edc22')
 
 prepare() {
     7z x -y -bd "gnupg-w32.exe"
@@ -29,6 +29,5 @@ package() {
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    cp -r "[LICENSE].txt" "${d}/LICENSE.txt"
     cp -r "README.txt" "${d}"
 }

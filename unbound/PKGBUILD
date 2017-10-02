@@ -4,7 +4,7 @@ _realname=unbound
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.6.2
+pkgver=1.6.6
 pkgrel=1
 pkgdesc="Validating, recursive, and caching DNS resolver"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("unbound.zip::https://www.unbound.net/downloads/unbound-${pkgver}.zip")
-sha512sums=('4fa7fcf4ad4e6ff19411b715c40f9b42a4c703455978e3da7c05c7e9de39f35c6f1c891aea08bb6fb39f75ced50aad468d2bdc8de533386b189a97ec5261f761')
+sha512sums=('671d94ce5077608023152b52de3114908ff05fb1f96521c037022440b37e8af0f3dbe5c4b225ddbc61999d5efd59dcbd9c354d6142dac455616db22e40bca4d4')
 
 _lc() {
     local d f n

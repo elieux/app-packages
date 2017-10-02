@@ -4,7 +4,7 @@ _realname=slack
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.5.2
+pkgver=2.8.1
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("SlackSetup32.exe::https://slack.com/ssb/download-win"
         "SlackSetup64.exe::https://slack.com/ssb/download-win64")
-sha512sums=('a449deb66d50b4e92f2b389a9f0a6e3172fb5b729c4de7e6fc30d7b6a9b2fd9cdce2cb1e76bcea01444e4d112c7c946ba32eea612b81ecf06856fe76b76dfc69'
-            '72b0b80b19e1d35c52ddde011ea6cab8c482f4198f2d1b43cc7bd6bb62b8195c69a2d35bae0e4a1dd7d9b5ff6059560bc4d13dc2d3672db876d4fcfe4a84b726')
+sha512sums=('4a24eb7898abb4fbe0652ab0e0496ef7e6b566d3b26cc2527a2baa5241048b7beb92151a576051cc218083c0e3b149cc8e1df11329228b08b17f60fc46c5bea7'
+            '22981ddccfdfd7e385167dd2213554670cc6b052abb082abe0d6e5fed4bf69e60c219107be754f2f6541a63d183e1e1f4cacb3e0b2c32701843a476dbf4c1f8f')
 
 _eqver() {
     local r v
@@ -47,10 +47,26 @@ _lc() {
     done
 }
 
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
 pkgver() {
     _vers=( $(
-        b="$(cygpath -wa "SlackSetup${_apparch}.exe" | sed 's/\\/\\\\/g')"
-        wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
+        for _apparch in 32 64
+        do
+            "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "SlackSetup'"${_apparch}"'.exe").VersionInfo.ProductVersion' | dos2unix
+        done
     ) )
     _eqver "${_vers[@]}"
 }
@@ -73,7 +89,7 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "SlackSetup${_apparch}/lib/net45"/* "${a}"
-    rm "${a}"/{,resources/app.asar.unpacked/node_modules/edge-atom-shell/build/Release}/{{vccorlib,vcruntime,msvcp,concrt}140,ucrtbase}.dll "${a}"/{,resources/app.asar.unpacked/node_modules/edge-atom-shell/build/Release}/api-ms-win-*.dll
+    _rmmsdll "${a}"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

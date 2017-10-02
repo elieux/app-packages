@@ -4,7 +4,7 @@ _realname=discord
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=0.0.297
+pkgver=0.0.298
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers"
 url="https://www.discordapp.com/"
@@ -14,7 +14,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("DiscordSetup.exe::https://discordapp.com/api/download?platform=win")
-sha512sums=('0115bdadef958736cea06ded096cdad3b66cd9d9cc04281e4bd8f87681a7661661f9199e3725b9db2d93d71ed2d2466a61a9546be0336c7c5669673de16b81ef')
+sha512sums=('e4214acc80c248377b66434a50a145d91d925c3d6e89cbc2397cacd602083d2e1f479397e853d4e812c93414de6db366ba6a83ceb50682ae33d81c475ae47598')
 
 _lc() {
     local d f n
@@ -32,8 +32,7 @@ _lc() {
 }
 
 pkgver() {
-    b="$(cygpath -wa "DiscordSetup.exe" | sed 's/\\/\\\\/g')"
-    powershell -command '(Get-Item "DiscordSetup.exe").VersionInfo.ProductVersion'
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "DiscordSetup.exe").VersionInfo.ProductVersion'
 }
 
 prepare() {

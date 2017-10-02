@@ -1,10 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=zeal
-_apparch=32
+_apparch=64
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-pkgver=0.3.1
+pkgname=("app-x86_64-${_realname}")
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="An offline documentation browser for software developers"
 url="https://zealdocs.org/"
@@ -12,8 +12,8 @@ arch=('any')
 license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("zeal-windows-x86.msi::https://bintray.com/artifact/download/zealdocs/windows/zeal-${pkgver}-windows-x86.msi")
-sha512sums=('cf151a8e1efabff4ea9d1a6ee1db79024ed06d0830630257322ceccdd9902cdc78c03a7d8a70dc368d3cc33740e076cfddd693bee006b5f1d0d2d8655e329b9b')
+source=("zeal-windows-x64.msi::http://dl.bintray.com/zealdocs/windows/zeal-${pkgver}-windows-x64.msi")
+sha512sums=('4ccc5c4f89c7174aa273a6e6100ce61672155b15e7e5d072991bd8fd82b9377bade3f842c069890054735f2e1f8e0b3f3aaeb0693c8b5b90de0bb92fde1c9c58')
 
 _lc() {
     local d f n
@@ -31,14 +31,14 @@ _lc() {
 }
 
 build() {
-    msiexec -a "zeal-windows-x86.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
+    msiexec -a "zeal-windows-x64.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
     attrib -r //s
-    s="install/PFiles/Zeal"
+    s="install/Zeal"
     _lc "${s}"/*
 }
 
 package() {
-    s="install/PFiles/Zeal"
+    s="install/Zeal"
 
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"

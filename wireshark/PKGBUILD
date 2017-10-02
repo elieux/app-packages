@@ -4,7 +4,7 @@ _realname=wireshark
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.2.6
+pkgver=2.4.1
 pkgrel=1
 pkgdesc="A free network protocol analyzer"
 url="https://www.wireshark.org/"
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Wireshark-win32.exe::https://1.eu.dl.wireshark.org/win32/Wireshark-win32-${pkgver}.exe"
         "Wireshark-win64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-win64-${pkgver}.exe")
-sha512sums=('951311277ab60cd208488464ef9bce83eb0c604a8d841ea0317cc5b22ace0c6df5c2efb623a0586711056493bf17b0e12f09c7b433da7679932c527095ee166d'
-            'efa8cf700775db10e0ca4389d96283aa5028b9a4278445e2b4957fbe4c74ff779b6ccd1ebf9d992af77888f774f3f0944231675223eed05ffdf0cf0995d132a0')
+sha512sums=('6809faa40bfa9f0a9636761e4d3ec8f643d209ff6dfcbc0eb8143f4cf75bd16d7fb161d39d7fe4685c7318b7dd08b7641ff4c0086937c9f3bffe3f15937003f6'
+            '915493ba11a12588856d039542229748dd83a21206c91d4a5f977f141ae6aac0b6b9286bc07f733e4eb0b633242d528c06cf78fb861ff1fdf0c6b3d1e30ed7d2')
 
 _lc() {
     local d f n
@@ -49,12 +49,11 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "Wireshark-win${_apparch}"/* "${a}"
-    rm -r "${a}"/*.nsi "${a}"/winpcap_*.exe "${a}"/usbpcap*.exe "${a}/vcredist_${1}.exe" "${a}/uninstall.exe" "${a}"/'$pluginsdir'
+    rm -r "${a}"/winpcap_*.exe "${a}"/usbpcap*.exe "${a}/vcredist_${1}.exe" "${a}/uninstall.exe" "${a}"/'$pluginsdir'
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
     mv "${a}/help" "${a}"/*.{txt,chm,html,css} "${d}"
-    mv "${d}/[license].txt" "${d}/license.txt"
 }
 
 package_app-i686-wireshark() {

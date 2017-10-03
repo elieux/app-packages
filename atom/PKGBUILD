@@ -1,0 +1,67 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=atom
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=1.21.0
+pkgrel=1
+pkgdesc="A hackable text editor for the 21st Century"
+arch=('any')
+url="https://atom.io/"
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("atom-x32-windows.zip::https://github.com/atom/atom/releases/download/v1.21.0/atom-windows.zip"
+        "atom-x64-windows.zip::https://github.com/atom/atom/releases/download/v1.21.0/atom-x64-windows.zip")
+sha512sums=('43a1e4d73ef6810ee856b3011180db78846afb87ce17d42fbe27115780fb0135ce0b741ade6f1821f516af30154d546cb23e7b39924873d25a7f00301de5989b'
+            'ccdc3e563ec169a66057f9e23fde38cfa6f42e5533554303d6b6e561db940ce615d0d2e9c7bc4a42438a4941c6449b54bc38a4ccb9c256719fd7feb256e70125')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_prepare() {
+    _lc "Atom x${_apparch}"/*
+}
+
+prepare() {
+    mv "Atom" "Atom x32"
+
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "Atom x${_apparch}"/* "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/{version,license} "${a}"/*.html "${a}/resources/LICENSE.md" "${d}"
+}
+
+package_app-i686-atom() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-atom() {
+    _apparch=64
+    _package
+}

@@ -311,7 +311,6 @@ These are already present in `mingw-packages` in some form or other, so they're 
 
 - aria2
 - aria2rpc
-- atom
 - badvpn
 - nasm
 - go

@@ -4,9 +4,10 @@ DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -k -o %o %u')
 
 _realname=paint.net
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
 pkgver=4.0.19
-pkgrel=1
+pkgrel=2
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
 arch=('any')
@@ -40,6 +41,7 @@ prepare() {
 _build() {
     msiexec -a "PaintDotNet_x${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
     _lc "install${_apparch}"/*
+    attrib -r //s
 }
 
 build() {

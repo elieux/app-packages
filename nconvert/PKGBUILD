@@ -1,0 +1,93 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_dirname=xnview
+_realname=nconvert
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=7.10
+pkgrel=1
+pkgdesc="A powerful command line multi-platform batch image processor"
+arch=('any')
+url="https://www.xnview.com/en/nconvert/"
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("NConvert-win32.zip::http://download.xnview.com/NConvert-win.zip"
+        "NConvert-win64.zip::http://download.xnview.com/NConvert-win64.zip")
+sha512sums=('87abf149619c7597e7f0ef0efbcebfcc469cfc43a08f368673e91d4f76ef74a661125dc56ffa60c0bd81ec9188517f9615bc01e3054dc1822923d5016a1527fb'
+            'fa21351aa34e23689dd8f1b3a9c9cdf0e2b99e994cdc26e44aa0514fc9b31a84f023e7146c56f9504752021d70d61a40927456d2e555c4bb0f5875ad9b237b63')
+noextract=("NConvert-win32.zip"
+           "NConvert-win64.zip")
+
+_eqver() {
+    local r v
+
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+pkgver() {
+    _vers=( $(
+        for _apparch in 32 64
+        do
+            unzip -p "NConvert-win${_apparch}.zip" "XnView/WhatsNew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
+        done
+    ) )
+    _eqver "${_vers[@]}"
+}
+
+_prepare() {
+    unzip -o -j "NConvert-win${_apparch}.zip" -d "NConvert${_apparch}"
+    _lc "NConvert${_apparch}"/*
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp "NConvert${_apparch}"/*.exe "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}"
+    cp "NConvert${_apparch}"/*.txt "${d}"
+}
+
+package_app-i686-nconvert() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-nconvert() {
+    _apparch=64
+    _package
+}

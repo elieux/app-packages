@@ -4,7 +4,7 @@ _realname=vscode
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=1.16.1
+pkgver=1.17.1
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 arch=('any')
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("VSCode-win32.zip::https://vscode-update.azurewebsites.net/${pkgver}/win32-archive/stable"
         "VSCode-win64.zip::https://vscode-update.azurewebsites.net/${pkgver}/win32-x64-archive/stable")
-sha512sums=('1086eee0ed6bd9eae6bb9c985865fe2d774d4990c9b2443773df21b0f09777d4ae4e7d93dfbdb2892223eb6044c89c3e5e7fe72003c70d3b4bc043d9e9b0c37f'
-            '136629a3693c0de14a165bd047373b43d313202232d23c4cfa0bc65eebd5c9f9cf56485bc0e9e41b145a46771c8119f07a2c81e929698f921bdce2bb3d5892f4')
+sha512sums=('6438fb731bf38e994147b18f7070917c7cf6d9e07a4c37320e730515f399058c9bbff0aed500545d4bef0d7dcb766dd129109969c316026ff551aae245a68e48'
+            'c024bdc732b11b15d12723cd5c49eb8a8693a61d715846b0d56bb614f0b292bb349a1e06d3638a7692c6def494494fdaf00ec1c513801f2ac797cecb430a8c74')
 noextract=("VSCode-win32.zip"
            "VSCode-win64.zip")
 
@@ -33,6 +33,20 @@ _lc() {
             mv "${d}/${f}" "${d}/${n}"
         fi
     done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
 _prepare() {
@@ -52,6 +66,7 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "vscode${_apparch}"/* "${a}"
+    _rmmsdll "${a}"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

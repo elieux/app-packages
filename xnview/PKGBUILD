@@ -1,0 +1,53 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=xnview
+_apparch=32
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+pkgver=2.42
+pkgrel=1
+pkgdesc="An efficient multimedia viewer, browser and converter"
+url="https://www.xnview.com/en/xnview/"
+arch=('any')
+license=('custom')
+depends=("app-i686-nconvert")
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("XnView-win-full.zip::http://download3.xnview.com/XnView-win-full.zip")
+sha512sums=('92bf01b697d6c8f28ccef7bdb37823fb613dc7384a0995bb1e139922d01b4d1d19e66a763604d2ec22e6cc72eddfc51026f1fb7859939f8e2b5df907db753a7e')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "xnview.exe").VersionInfo.ProductVersion'
+}
+
+prepare() {
+    _lc "XnView"/*
+}
+
+package() {
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -R "XnView"/* "${a}"
+    rm -R "${a}/nconvert.exe" "${a}/addon/Microsoft.VC90.CRT"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    mv "${a}"/*.{txt,url} "${a}/addon"/*.txt "${a}/filters"/*.txt "${a}/plugins"/*.txt "${d}"
+    rm "${d}"/{formats,license,plugins,readme,usage,whatsnew}.txt
+}

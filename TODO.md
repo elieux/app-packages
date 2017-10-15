@@ -35,7 +35,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - browser-chooser
 - btprox
 - btsscan
-- bulk-rename
 - calendarpal
 - callinghome
 - cdrtools

@@ -1,0 +1,92 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_dirname=bulk-rename
+_realname=bulk-rename-utility
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=3.0.0.1
+pkgrel=1
+pkgdesc="File renaming software"
+arch=('any')
+url="http://www.bulkrenameutility.co.uk/"
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("BRU_NoInstall.zip::http://www.bulkrenameutility.co.uk/Downloads/BRU_NoInstall.zip")
+sha512sums=('2b10f4f7dc044968fe74cad09f5b0826a74a5fecb30295825bd279629a8038b41477f48c61e8a394de6953209e0f405c5e12d72ab53e41aa9487891e368e85a0')
+
+_eqver() {
+    local r v
+
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+pkgver() {
+    _vers=( $(
+        for _apparch in 32 64
+        do
+            "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "'"${_apparch}-bit/Bulk Rename Utility.exe"'").VersionInfo.ProductVersion' | dos2unix
+        done
+    ) )
+    _eqver "${_vers[@]}"
+}
+
+_prepare() {
+    _lc "${_apparch}-bit"/*
+}
+
+prepare() {
+    for _apparch in 32 64
+    do
+        _prepare
+    done
+    _lc "All"/*
+}
+
+_package() {
+    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    mkdir -p "${a}"
+    cp -R "All/js" "${_apparch}-bit"/*.exe "${a}"
+    mv "${a}/bulk rename utility.exe" "${a}/bru.exe"
+
+    d="${pkgdir}/docs${_apparch}/${_dirname}"
+    mkdir -p "${d}"
+    cp "all"/*.{chm,pdf,txt} "${d}"
+}
+
+package_app-i686-bulk-rename-utility() {
+    _apparch=32
+    _package
+    cp "All/bruhere.dll" "${a}"
+}
+
+package_app-x86_64-bulk-rename-utility() {
+    _apparch=64
+    _package
+    cp "All/bruhere.dll" "All/bruhere64.dll" "${a}"
+}

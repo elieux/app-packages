@@ -1,0 +1,98 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+# adding quotes around the cookie value makes the download fail
+DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC - -o %o %u')
+
+_realname=jdk8
+_realver=8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
+pkgver=${_realver%-*}
+pkgrel=1
+pkgdesc="Oracle Java Development Kit"
+url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
+arch=('any')
+license=('custom')
+makedepends=("p7zip" "unzip" "curl")
+provides=("${pkgbase}")
+options=(!strip)
+source=("jdk-windows32.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-i586.exe"
+        "jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}-windows-x64.exe")
+sha512sums=('557c0f004807a0ffe11c3f5b41a06f49089661e09920163385d2e3794be6fada954a5809e52b78f140791ab8651e0b53a9287ad008525c8e2468004ce44b4474'
+            '554063b5302a72f23e5981957ee582967b07b898ba1e200024a65dcba565fe46bf6d3be3e0b33dd3a89f5a1c1573a5c8c3cf69896e428905b49ac4011d6cfa32')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+_prepare() {
+    mv "tools.zip" "tools${_apparch}.zip"
+    unzip -o "tools${_apparch}.zip" -d "tools${_apparch}"
+    attrib -r //s
+    _lc "tools${_apparch}"/*
+    for f in $(find "tools${_apparch}" -iname '*.pack')
+    do
+        "tools${_apparch}/bin/unpack200" "${f}" "${f%.pack}.jar"
+        rm "${f}"
+    done
+}
+
+prepare() {
+    _apparch=32
+    7z x -y -bd "jdk-windows${_apparch}.exe"
+    _prepare
+
+    _apparch=64
+    7z x -y -bd "jdk-windows${_apparch}.exe"
+    7z x -y -bd ".rsrc/1033/JAVA_CAB10/111" -o.
+    _prepare
+}
+
+_package() {
+    s="tools${_apparch}"
+
+    a="${pkgdir}/apps${_apparch}/${_realname}"
+    mkdir -p "${a}"
+    cp -r "${s}"/{bin,db,include,jre,lib} "${a}"
+    _rmmsdll "${a}"
+
+    d="${pkgdir}/docs${_apparch}/${_realname}"
+    mkdir -p "${d}"
+    cp "${s}"/*.{html,txt,zip} "${s}"/{license,release} "${d}"
+}
+
+package_app-i686-jdk8() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-jdk8() {
+    _apparch=64
+    _package
+}

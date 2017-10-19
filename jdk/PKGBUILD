@@ -5,10 +5,10 @@ DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC
 
 _apparch=64
 _realname=jdk
-_realver=9+181
+_realver=9.0.1+11
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
-pkgver=${_realver%+*}u0
+pkgver=${_realver%+*}
 pkgrel=1
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
@@ -18,7 +18,7 @@ makedepends=("p7zip" "unzip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${_realver%+*}_windows-x64_bin.exe")
-sha512sums=('e51628f0b73080a6f444f0f82be46db43055d44f0666f85b149bcb719c69054be17b1082eb6fa8ef4a9ac5af6d48389eac91e61af22a2171338321c3e4a786c5')
+sha512sums=('4b44b0ad2312309e5bac65feb31f02ef974664b05b203afaa907816b6cfb6d03f5e58c30b09ab2e6e3887df85bd5946fe5299d573c5fb20cd957d944ea694de7')
 
 _lc() {
     local d f n
@@ -33,6 +33,20 @@ _lc() {
             mv "${d}/${f}" "${d}/${n}"
         fi
     done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
 prepare() {
@@ -53,7 +67,7 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/* "${a}"
-    rm "${a}"/bin{,/plugin2}/msvc{p,r}120.dll
+    _rmmsdll "${a}"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"

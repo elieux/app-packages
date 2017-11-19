@@ -4,7 +4,7 @@ _realname=mp3tag
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.84a
+pkgver=2.85
 pkgrel=1
 pkgdesc="Powerful audio metadata editor"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("mp3tagsetup.exe::http://download.mp3tag.de/mp3tagv${pkgver//./}setup.exe")
-sha512sums=('e3291489d6664baf2ed610f7b8fe5a22fa0be3c4ffb44c06c19274a9e12864e1bdf5fa69698e9934318613cbe263b897983bb2b43e01cc76f22c94db9d5ffd00')
+sha512sums=('187c7e51e372ac07ec0f20afb141e1cb3f93a501612bdd2bcbb1fb3144dc2a6d292f74181a86feadc97b2488ca45d8fa4a62d156c621a961df1474a6cdb88a7f')
 
 _lc() {
     local d f n

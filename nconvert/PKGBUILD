@@ -5,7 +5,7 @@ _realname=nconvert
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=7.10
+pkgver=7.12
 pkgrel=1
 pkgdesc="A powerful command line multi-platform batch image processor"
 arch=('any')
@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("NConvert-win32.zip::http://download.xnview.com/NConvert-win.zip"
         "NConvert-win64.zip::http://download.xnview.com/NConvert-win64.zip")
-sha512sums=('87abf149619c7597e7f0ef0efbcebfcc469cfc43a08f368673e91d4f76ef74a661125dc56ffa60c0bd81ec9188517f9615bc01e3054dc1822923d5016a1527fb'
-            'fa21351aa34e23689dd8f1b3a9c9cdf0e2b99e994cdc26e44aa0514fc9b31a84f023e7146c56f9504752021d70d61a40927456d2e555c4bb0f5875ad9b237b63')
+sha512sums=('0b1551b12755a6b9ec960a55002cd8bfd5e7c3afd952504ce881e14dbf1b7b06fce68f4ce5e4e925d73a126045144d865f37fa2e2ce5c4149a0bb3b59156cee1'
+            '535f63f287c123d5861027d242698f801048481ecf7508723113ca4496f7cc588a8317c6845fd2cc55aef189de75be129c4d665eb2371d0260f9c4c0ac5b97dd')
 noextract=("NConvert-win32.zip"
            "NConvert-win64.zip")
 

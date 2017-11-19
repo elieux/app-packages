@@ -5,7 +5,7 @@ _dirname=android-sdk
 _realname=android-sdk-platform-tools
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=26.0.1
+pkgver=26.0.2
 pkgrel=1
 pkgdesc="Platform-Tools for Google Android SDK (adb and fastboot)"
 url="https://developer.android.com/studio/releases/platform-tools.html"
@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("platform-tools-latest-windows.zip::https://dl.google.com/android/repository/platform-tools-latest-windows.zip")
-sha512sums=('15bd54ba08fd869db7389002359d828df3bfd6cdc780d48659649cdcdb67fbad667474476fd89e70ab5485ab4e3936609fb08f6047b2590b64c9add6cb843a27')
+sha512sums=('dae9e8726fbc7154bcb3c5e24deb1422b0d8871257b9a833a96bfd37482aa3a6195cb0aef43ce9447f82cd78ff2f538c851f865ccf216a2afd3305b16bcdd459')
 
 pkgver() {
     unzip -p "platform-tools-latest-windows.zip" "platform-tools/source.properties" | grep "^Pkg.Revision" | cut -d= -f2

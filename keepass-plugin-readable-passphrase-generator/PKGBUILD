@@ -5,7 +5,7 @@ _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc="A KeePass plugin that generates gramatically correct passphrases"
 url="https://bitbucket.org/ligos/readablepassphrasegenerator"
@@ -15,7 +15,7 @@ depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ReadablePassphrase.plgx::https://bitbucket.org/ligos/readablepassphrasegenerator/downloads/ReadablePassphrase%20${pkgver}.0.plgx")
-sha512sums=('6612bf2a88d199ff164e9580315bfa79ca0099adb6fb1627f9bb34ea29c884bd63023de47544fc4eca0d4b77d0bb403a9af339ee9ead6b8d8cfc2408fa872cd9')
+sha512sums=('771dc25a853195234b5b462801253e94ba3e6d23f4427e85da12d322fd060f800061a873d390a8676c41ce994a042037e72025f1422a279316463b460e42167d')
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

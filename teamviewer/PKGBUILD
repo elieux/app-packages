@@ -4,7 +4,7 @@ _realname=teamviewer
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=12.1.22902
+pkgver=13.1.1548
 pkgrel=1
 pkgdesc="All-in-one software for remote support and online meetings"
 url="http://www.teamviewer.com/"
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TeamViewerPortable.zip::http://download.teamviewer.com/download/TeamViewerPortable.zip")
-sha512sums=('02362626c6938d0aa01e42e74043859c31ab1a49d49d3dd6e03fc17a35a68d2ddf3498ccce4d67f80775d04f7dbd40612faa5a16b4619c0ea7c0078eb4e02406')
+sha512sums=('4ac1114a0124a12235ecf4ba0e4b4f5192cb8754192be9bf255183a1d77f08397cdb71ba46a586bdb757920ff004b08bfc41ab2b40ca02439d1992fb56d5b4bb')
 
 _lc() {
     local d f n

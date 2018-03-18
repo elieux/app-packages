@@ -6,17 +6,19 @@ _realname=paint.net
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=4.0.19
-pkgrel=2
+pkgver=4.0.21
+pkgrel=1
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
 arch=('any')
 license=('custom')
-makedepends=("unzip" "p7zip")
+makedepends=("xdelta3" "unzip" "p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("paint.net.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip")
-sha512sums=('71c1a3278c1056ab1973266fdf3bb11f4bc835edc8a934256cc1bfc920df4e6b2c42c4202799b99de5fe424c82db2e7d958d639d728823066835bd33368e0d11')
+source=("paint.net.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip"
+        "0001-use-system-ucrt.xd3")
+sha512sums=('c266c1167cbabe653c3537d2b479681541c523968dd01cb872cd7cee8b3a633ea13216446ae551065569ef539f699cb000ec4fa489659fd14ca76b3e2b99d270'
+            '8455c8d8ee1d61dc2392570e245a70e0fe200ba299ef616d3cee45be7eaca041cbfddd8733dd67b055991399be93bd2bd797695a7d6632d63ef0ca7839edd48a')
 
 _lc() {
     local d f n
@@ -42,6 +44,7 @@ _build() {
     msiexec -a "PaintDotNet_x${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
     _lc "install${_apparch}"/*
     attrib -r //s
+    xdelta3 -f -e -s "install${_apparch}/paintdotnet.systemlayer.dll" 0001-use-system-ucrt.xd3 "install${_apparch}/paintdotnet.systemlayer.dll"
 }
 
 build() {

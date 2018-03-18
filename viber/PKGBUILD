@@ -1,21 +1,20 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_status=("broken")
 _realname=viber
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=5.2.0.2529
+pkgver=8.4.0.5
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
 url="http://www.viber.com/en/products/windows"
 arch=('any')
 license=('custom')
-makedepends=("p7zip")
+makedepends=("p7zip" "app-i686-wix")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.exe")
-sha512sums=('353f3dc1c29cfe5a2df5d040275affc84067d5a240444d7388b8c5579f05d8b69d3d33282df9fdb48fc944f2beb7ab33f7394b989f82f5b11ffdfb66acac873f')
+sha512sums=('21e3c1304c5c25a02a708a68bca39de712e780bc5941ab7e5c0c3a14a7ebf6ac507ae39445594fa21d209fd49c6ef58b4087c54d3f182255436568d363ed3a77')
 
 _lc() {
     local d f n
@@ -32,20 +31,38 @@ _lc() {
     done
 }
 
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
 pkgver() {
     b="$(cygpath -wa "ViberSetup.exe" | sed 's/\\/\\\\/g')"
     wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
 }
 
 prepare() {
-    7z x -y -bd "ViberSetup.exe"
-    7z x -y -bd "pack.exe" -o"pack"
-    _lc * "pack"/*
+    /apps32/wix/dark -x . "ViberSetup.exe"
+    mv "AttachedContainer/ViberSetup.msi" .
+}
+
+build() {
+    msiexec -a "ViberSetup.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
+    _lc "install/viber"/*
 }
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "pack"/* "${a}"
-    rm "${a}"/msvc{p,r}120.dll
+    cp -r "install/viber"/* "${a}"
+    _rmmsdll "${a}"
 }

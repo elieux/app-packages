@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=davmail
-_realver=4.8.0-2479
+_realver=4.8.3-2554
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("davmail-windows-noinstall.zip::http://downloads.sourceforge.net/${_realname}/${_realname}/${_realver%%-*}/${_realname}-${_realver}-windows-noinstall.zip")
-sha512sums=('a191681c66e283973a541f612c8d7b460e98a9bc81390ef12e5b9e563f1d78cc46e36ea6ed8155aa11cedb6d0f5680a33518c5fc5907684648bac31b2e1919e1')
+sha512sums=('7fb6d156d15eabf73954530545e236d0be996424f722bde0f5d5800574d49dca96c90d47b88f40f8c7093c9141d6a783692042e04f4cb7710a397a4f4e772995')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"

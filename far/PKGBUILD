@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=far
-_realver=30b5000-20170807
+_realver=30b5151-20180227
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Far.x86.7z::http://farmanager.com/files/Far${_realver%%-*}.x86.${_realver##*-}.7z"
         "Far.x64.7z::http://farmanager.com/files/Far${_realver%%-*}.x64.${_realver##*-}.7z")
-sha512sums=('dbb777ae36f82b9ba7735607f20eced7b1337b357dcc0ce8f941f9d2bbd1cdcfa131ea8c6be8f659e03ed1b7044fff9bd3d4a696c739ef677761f133fe31a3f5'
-            'f95d4ae8433ae3ca2e3c9ab1f9fa2ef935faf42b7e33543c846c68a2bf110fc342336a2aa71793a5da7be616d8dfcedadff2d810d5aafe7eb669c9acb5ce6553')
+sha512sums=('afd571801d7e50f4516c4a0d710be1a10018ae849725a480f7bf0483c1d89b4f8bc66e82024aa453ba7673ebb2c93fcdd1166bd028f2b077cc7d332e3434ec22'
+            '39c008345c1dea04d74e1d17503187dd06bbb434dc5a16db3380310692741aa8c41c7fb7c2c154b3f32c991aece191f76b3fd162b03369e24a77ada03d664df8')
 noextract=("${source[@]%%::*}")
 
 _lc() {

@@ -4,7 +4,7 @@ _realname=xnview
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=2.43
+pkgver=2.44
 pkgrel=1
 pkgdesc="An efficient multimedia viewer, browser and converter"
 url="https://www.xnview.com/en/xnview/"
@@ -15,7 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("XnView-win-full.zip::http://download3.xnview.com/XnView-win-full.zip")
-sha512sums=('4ba2bd347090a4fe1912f0c7abfb1b290dd72326b54854a2f7906dc0a014d7c95052ca57e5cbfa97b3b9b927a56c827cf155a4ca9463327aa4ca383ca1babd98')
+sha512sums=('89297d4a174eabfd01d10ccbe94b098c4890cf3c37bd1fc4e037463b4dcad1c1583a7e63cc6fd274c77f04d7f2c9c8f6c85085466cfb76104da0b1842ab85768')
 
 _lc() {
     local d f n

@@ -4,7 +4,7 @@ _realname=autoit
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=3.3.14.2
+pkgver=3.3.14.5
 pkgrel=1
 pkgdesc="A free BASIC-like scripting language for automating Windows GUIs"
 url="http://www.autoitscript.com/"
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("autoit.zip::http://www.autoitscript.com/files/autoit3/autoit-v3.zip")
-sha512sums=('d9b962c69260963953e9012990018ce63efd432ea0573a0ca44f6cbcf10cfb9c0fc50fe85d28b98e42d528c643d8c6999f37431cc83cc5d5c19c61f2b885cfb2')
+sha512sums=('eacfc3176c688d3a68f3b7cbf1533a49fc9d2e99ac3fc63480564e61cb007a3382140e46887f63059e7edd5e85e76e733aacfe5938a9fffe3fa902271288498e')
 
 pkgver() {
     b="install/Au3Check.exe"

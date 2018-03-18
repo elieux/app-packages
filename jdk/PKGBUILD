@@ -5,7 +5,7 @@ DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC
 
 _apparch=64
 _realname=jdk
-_realver=9.0.1+11
+_realver=9.0.4+11/c2514751926b4512b076cc82f959763f
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 pkgver=${_realver%+*}
@@ -17,8 +17,8 @@ license=('custom')
 makedepends=("p7zip" "unzip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=("jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${_realver%+*}_windows-x64_bin.exe")
-sha512sums=('4b44b0ad2312309e5bac65feb31f02ef974664b05b203afaa907816b6cfb6d03f5e58c30b09ab2e6e3887df85bd5946fe5299d573c5fb20cd957d944ea694de7')
+source=("jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}_windows-x64_bin.exe")
+sha512sums=('7a43cb0ae50768e78d47b3742d88ad211ca9d4b6de81d26f04176628de40ede59221a3531ac6f314c3a41570b8f00214b9c1909c257cecc1944f23f6ff95e464')
 
 _lc() {
     local d f n

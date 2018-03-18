@@ -4,7 +4,7 @@ _realname=libreoffice
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=5.4.2
+pkgver=6.0.2
 pkgrel=1
 pkgdesc="The free office suite"
 url="https://www.libreoffice.org/"
@@ -14,8 +14,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("LibreOffice_Win32.msi::http://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86/LibreOffice_${pkgver}_Win_x86.msi"
         "LibreOffice_Win64.msi::http://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86_64/LibreOffice_${pkgver}_Win_x64.msi")
-sha512sums=('73627e22216a7126c52a88ec66ef28e62fe5aed3c46b067577527b2af539c758568943224cddd278f223173a88b3517681cc634abf6e1d52a52df3306982612a'
-            '00c4a4c31d0f214e515a739c9e6aa380dc6e6abd4287d2fc3134e1f9b4e5ecb7ac5553d31c99ac2ed82ad7ec3bb7a488d0a538b1f440d6f7f9e12713e6b63958')
+sha512sums=('179dfa9d607fc88bfa87334edcc26460b5878b2facc60357e4c789bf835c1f5e19b5da2467fbcadffc938d1f466ea71ad5b83092c5d85540ed88f403b89fdc20'
+            '2cf5102052995002d1fbafbf21b7edc7bfdbc11d121f4e19e19ef8f2b650b9b45e9915fb50af4c88245db9e66a07fc3c6527eaa65ac34abc8845a3227adef37d')
 
 _lc() {
     local d f n

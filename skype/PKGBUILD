@@ -4,16 +4,17 @@ _realname=skype
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=7.40.32.104
+pkgver=8.17.0.2
 pkgrel=1
 pkgdesc="P2P software for high-quality voice communication"
 url="http://www.skype.com/"
 arch=('any')
 license=('custom')
+makedepends=("app-i686-innounp")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SkypeSetup.msi::http://www.skype.com/go/getskype-msi")
-sha512sums=('ba022a1a8b022bb068b6d2a584e50b68e986122c4ba8fe5aca04f710295d4e9d54289c0f3226e6bd34050b0db811aa8b4b13635737c3a7154e876631c18a21f6')
+source=("Skype.exe::https://get.skype.com/go/getskype-skypeforwindows")
+sha512sums=('92fbc730bcadb7879cd047b23958fcfb59ad58ea0b3687eb921b3e6e2d2a4de87f1f94cf1e00d8f8a0c0d5276eb2ef50508b11b5d83050267a64134dc106a9a7')
 
 _lc() {
     local d f n
@@ -30,33 +31,36 @@ _lc() {
     done
 }
 
-pkgver() {
-    msg2 "Starting build() to determine package version :("
-    build > /dev/null
-    b="install/Program Files/Skype/Phone/skype.exe"
-    if [ -f "${b}" ]
-    then
-        b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
-        wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
-    fi
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-build() {
-    msiexec -a "SkypeSetup.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
-    attrib -r //s
-    s="install/Program Files/Skype"
-    _lc "${s}/Phone"/* "${s}/Perfmon"/* "${s}/Redist/Skype"/* "${s}/PFiles/Skype/Browser"/*
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "Skype.exe").VersionInfo.FileVersion' | dos2unix
+}
+
+prepare() {
+    /apps32/innounp/innounp -x -q -m -a -y "Skype.exe"
+    _lc "{app}"/*
 }
 
 package() {
-    s="install/Program Files/Skype"
-
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp "${s}/Phone"/* "${s}/Perfmon/performancecounters.mam" "${s}/PFiles/Skype/Browser/skypebrowserhost.exe" "${s}/Redist/Skype/skype4com.dll" "${a}"
-    rm "${a}"/{vccorlib,vcruntime,msvcp,concrt}140.dll "${a}"/api-ms-win-*.dll "${a}/ucrtbase.dll"
+    cp -r "{app}"/* "${a}"
+    _rmmsdll "${a}"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    cp "${s}/third-party_attributions.txt" "${d}"
+    mv "${a}"/*.html "${d}"
 }

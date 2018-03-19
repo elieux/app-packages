@@ -4,7 +4,7 @@ _realname=teamspeak-server
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=3.0.13.8
+pkgver=3.1.1
 pkgrel=1
 pkgdesc="A proprietary VoIP conference software"
 url="http://www.teamspeak.com/"
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("teamspeak3-server_win32.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win32-${pkgver}.zip"
         "teamspeak3-server_win64.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win64-${pkgver}.zip")
-sha512sums=('1340bd4c849578e4f229aed14b4102df34ae5c15539804a9d19cbd2c56a609f838ca836e72a3d64c058b989a464df812c1777e716ff2734f6ea4396f9a5cb730'
-            '97c97a5471bbf1cbae07bc980d5ad32a83fb9a3744a7be3a877f1db5a532d9f3efa0ec8cddb515b9b41ea46c778db6926d41057c1a9695b915c83fded1b87a5b')
+sha512sums=('21ac10aee5ead51a6eacd7ce74c81369a709d30b36af78008dee691da9fb80af804728e593af6741bab70265c46176a22f32f589a431dc6a15599bc83029be1a'
+            '9f922bd388778c4601673435e5126c53ee1bbfb85ba693a6edc47c0feb05d5a71d36b70f310fa1ab42940b8362c5fb22c9f0960bfce8e75b0f457d8f8337c760')
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"

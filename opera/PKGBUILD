@@ -4,7 +4,7 @@ _realname=opera
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=49.0.2725.39
+pkgver=51.0.2830.55
 pkgrel=1
 pkgdesc="A fast and free Blink-based web browser"
 url="http://www.opera.com/computer"
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Opera_Setup_x32.exe::http://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup.exe"
         "Opera_Setup_x64.exe::http://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup_x64.exe")
-sha512sums=('4e852c38e38a288579aa0f47e8b9e5f95c8e2b86dfc753601c1a6072e69148b8818ce4e4a250bf1e82910687180bde159553f28e0e7867dd6f9536ec2a12939d'
-            '1077843c67ee360c0e1105fef2d08131d44a77966e672fc7df00ac896d7384344e297ce657d3e615f767bfc822e3942ac3541b89bef75d0f1e18f4bcae8699b0')
+sha512sums=('2649fbb198dc4b9510dfc7d1746ef78012435601a6c247fef1fb03c03cbdb4664e644e9ecff08a23a77fa45bc37f68539eab6a5533d393180df6ea595700cc19'
+            '89d5a2e29e561dd1f4e2c9a2ffa081467d44fb91df4d960d174496d1bfc08f8bdc847113b34a78c561d68d382ee7b7bcdc1566b30401bada577786ee1e4f1437')
 
 _lc() {
     local d f n

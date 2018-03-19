@@ -4,7 +4,7 @@ _realname=wireshark
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=2.4.2
+pkgver=2.4.5
 pkgrel=1
 pkgdesc="A free network protocol analyzer"
 url="https://www.wireshark.org/"
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Wireshark-win32.exe::https://1.eu.dl.wireshark.org/win32/Wireshark-win32-${pkgver}.exe"
         "Wireshark-win64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-win64-${pkgver}.exe")
-sha512sums=('8c5cfeb46c02ff7a8d00fbdf9690035e50194ccb41ce01a3e920854edabe00383db1ceaa9f4da8325e278cd8f65287aa4f6de30110d30425f177ffe46b9789e6'
-            '06a1da4e71b11aadc1582833e35c7c72d39d390bb18d32d13b84549f21d8c7c315248cb9883e710c32889dad4e0cc4ed7c92121927f3199bb842912f57186f18')
+sha512sums=('e8fd400d07ce6cd1e03eece1abf9adfb504ddea58f69e4db3d03ccb81dfa5f220aef424f4a8085bcce03cfd79350ddae2c3c8739d1a2ca59c2b8515dc20d0ef2'
+            'adacac1ed40f5762378f963b06e5e43b792e0859610a1a5cba3b39b7bc1f28e6938299be76f397dee68bda1130bc6b099ed8ffc133062e1e72daba3c16081e66')
 
 _lc() {
     local d f n

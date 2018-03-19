@@ -1,23 +1,33 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=keepass-plugin-enhanced-listview
+_realver=2017-01-29T15:56:27Z
 _dirname=keepass
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=0.9.3.0
+pkgver=1.0.0.0
 pkgrel=1
 pkgdesc="A KeePass plugin that extends the listview"
 url="http://kpenhancedlistview.blogspot.com/"
-url="http://code.google.com/p/kpenhancedlistview/"
+url="https://github.com/betonme/kpenhancedlistview/"
 arch=('any')
 license=('GPL2')
 depends=("app-i686-keepass")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("KPEnhancedListview.zip::http://kpenhancedlistview.googlecode.com/files/KPEnhancedListview_${pkgver//./_}.zip")
-sha512sums=('201f21d151b99cb29af61029fb6d96176da0e19cbaf50589923a7697060abca4870b4bcda25d69a70bd5366e0f2e5b07d88b44660521c7211276aefdf8e6a2b3')
+source=("KPEnhancedListview.plgx::https://github.com/betonme/kpenhancedlistview/raw/master/KPEnhancedListview/Build/Release/KPEnhancedListview.plgx")
+sha512sums=('06cbcb092ea0e41d18062ec656fe44b56213b45cd8f86e49bb5e96d3c6dfe72c5eb511906f395ea5973b45f22c221918b193cb3b5b679815bd090bcca915b858')
+
+pkgver() {
+    v="$(dd if="KPEnhancedListview.plgx" bs=1 skip=64 count=20 status=none)"
+    if [ "${v}" == "${_realver}" ]
+    then
+        echo "${pkgver}"
+    else
+        warning "Timestamp has changed. Actual: ${v} Expected: ${_realver}."
+    fi
+}
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"

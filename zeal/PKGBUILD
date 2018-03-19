@@ -4,7 +4,7 @@ _realname=zeal
 _apparch=64
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
-pkgver=0.4.0
+pkgver=0.5.0
 pkgrel=1
 pkgdesc="An offline documentation browser for software developers"
 url="https://zealdocs.org/"
@@ -13,7 +13,7 @@ license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
 source=("zeal-windows-x64.msi::http://dl.bintray.com/zealdocs/windows/zeal-${pkgver}-windows-x64.msi")
-sha512sums=('4ccc5c4f89c7174aa273a6e6100ce61672155b15e7e5d072991bd8fd82b9377bade3f842c069890054735f2e1f8e0b3f3aaeb0693c8b5b90de0bb92fde1c9c58')
+sha512sums=('5da09ff1bf520485f17a09c52d62124c9839b2b8d6723dddfabb71e87bd747a7d5aa7aff60f6e0e001dca86ea84ab46d11dd16ffacb7661b3e8645e8aa1da31d')
 
 _lc() {
     local d f n

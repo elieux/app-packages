@@ -4,7 +4,7 @@ _realname=teamspeak
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=3.1.6
+pkgver=3.1.8
 pkgrel=1
 pkgdesc="Quality voice communication via the Internet"
 url="http://www.teamspeak.com/"
@@ -17,8 +17,8 @@ source=("TeamSpeak3-Client-win32.exe::http://dl.4players.de/ts/releases/${pkgver
         "TeamSpeak3-Client-win64.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe"
         # "pluginsdk.zip::http://dl.4players.de/ts/client/pluginsdk/pluginsdk_${pkgver}.zip"
 )
-sha512sums=('53715b2c4024d6d1f8bbb6c40571d50a40a45b2aaaaeadcfa3e41a3449fe8879907e7d11c7c8f1d128a69061602d0fecdd65125680f43d63877456b07fb6e575'
-            '5948e3ca7e3ce78d5b06252213ca66b22962a31fae4604baaaf5e60e5169e91c21d8f547c96ab2548a8f6986cad8d3dbe178ddffb4c6f75e942c26d5fd164938')
+sha512sums=('821001b143f47d192548a7fc122c939256589fd497c1e15cac3b60936970eaf3149dc43c0f162d8c97345b9aabf7075dd0d8ae4f9828d0cc0acbf917dc727154'
+            '7bb09c43a822622af7415f68a65f9bbbc40d65192f45c4c034021f40c87402cb249e724b326bdd5e3ba97811e9d1019149f55d07db542c045c4ac70b09f12cbf')
 
 _lc() {
     local d f n

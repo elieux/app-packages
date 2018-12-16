@@ -6,7 +6,7 @@ _realname=dropbox
 _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
-pkgver=55.4.171.0
+pkgver=63.4.107
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="http://www.dropbox.com/"
@@ -16,7 +16,7 @@ makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
-sha512sums=('eea9fee192101774a1ba7307aac38be432e8617f610a5ab802d7b349f13343953b4cdb267c4d73d6b775ec716e9e3a03735ccd1ae64d586ca22fef27157c507d')
+sha512sums=('69d2724c66ccc25dc7cae12b77d9502fb9a381156f562a8057f50d1a48b20e8a5de0da51eecc51ce944c71faa3bfd0f2f7ed5dda89edacc83e9486a0216c3092')
 
 _lc() {
     local d f n
@@ -28,7 +28,7 @@ _lc() {
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${d}/${f}" "${d}/${n}"
+            mv "${d}/${f}" -T "${d}/${n}"
         fi
     done
 }
@@ -65,4 +65,5 @@ package() {
     cp -r '$0'/* "${a}"
     rm -r "${a}/dropboxuninstaller.exe"
     _rmmsdll "${a}"
+    rm "${a}"/msvcp140_{1,2}.dll
 }

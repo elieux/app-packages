@@ -4,20 +4,17 @@ _realname=franz
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=4.0.4
+pkgver=5.1.0
 pkgrel=1
 pkgdesc="Franz is a free messaging app and combines chat & messaging services into one application"
 url="http://meetfranz.com/"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
+makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Franz-win32-x32-full.nupkg::https://github.com/meetfranz/franz-app/releases/download/${pkgver}/Franz-win32-ia32-${pkgver}-full.nupkg"
-        "Franz-win32-x64-full.nupkg::https://github.com/meetfranz/franz-app/releases/download/${pkgver}/Franz-win32-x64-${pkgver}-full.nupkg")
-sha512sums=('68f6de761523befc753e1df95b234b18fb8fda130a863fce03da720b25925ad53d71e3c799811987ad67555a7afd42d55ef76ed03bad24fb6552c1f3a54a393b'
-            '6b7b04accbb774ac2812b858327d65d042cc8b32e6eff66c9cdd83a531058dd7499cc2f2061f58b93e4ea3d0a94105341711be3dac3beeb77155bfda35760ddb')
-noextract=("${source[@]%%::*}")
+source=("franz-setup.exe::https://github.com/meetfranz/franz/releases/download/v${pkgver}/franz-setup-${pkgver}.exe")
+sha512sums=('bf3597281360fc60c23d2640f74a12ef09b094debdf58b1add4c34d48b197a373df3d7b1cf55c15bdca272180b4fda24253f4759f4e18aee2bbf3ab831f43cb7')
 
 _lc() {
     local d f n
@@ -35,21 +32,22 @@ _lc() {
 }
 
 prepare() {
+    7z x -y -bd "franz-setup.exe" > /dev/null
     for _apparch in 32 64
     do
-        unzip -o "Franz-win32-x${_apparch}-full.nupkg" -d "franz${_apparch}"
-        _lc "franz${_apparch}/lib/net45"/*
+         7z x -y -bd '$PLUGINSDIR'/"app-${_apparch}.7z" -o"franz${_apparch}"
+        _lc "franz${_apparch}"/*
     done
 }
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "franz${_apparch}/lib/net45"/* "${a}"
+    cp -r "franz${_apparch}"/* "${a}"
 
     d="${pkgdir}/docs${_apparch}/${_realname}"
     mkdir -p "${d}"
-    mv "${a}/LICENSE" "${d}"
+    mv "${a}/license"* "${d}"
 }
 
 package_app-i686-franz() {

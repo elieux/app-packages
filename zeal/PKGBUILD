@@ -1,9 +1,9 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=zeal
-_apparch=64
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
+pkgname=("app-i686-${_realname}"
+         "app-x86_64-${_realname}")
 pkgver=0.6.1
 pkgrel=1
 pkgdesc="An offline documentation browser for software developers"
@@ -12,8 +12,10 @@ arch=('any')
 license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("zeal-windows-x64.msi::http://dl.bintray.com/zealdocs/windows/zeal-${pkgver}-windows-x64.msi")
-sha512sums=('b05f39c2838eb245654919b4f9bfb3e6f9cbe5aedd49b80dbe0fb1e0e3db0526cc3dc0327be17fc84ec57809a48525acb06c91867948ec6915530358faf2aead')
+source=("zeal-windows-x32.msi::http://dl.bintray.com/zealdocs/windows/zeal-${pkgver}-windows-x86.msi"
+        "zeal-windows-x64.msi::http://dl.bintray.com/zealdocs/windows/zeal-${pkgver}-windows-x64.msi")
+sha512sums=('b4bcff044caa309e20d56b0c7174c52d203e32d3e2e02f2267819f08468419d1e9a24a2c7645529950e9bacab4cf85bbcd6cfa3497c89cc4d5f0402208a8f0a9'
+            'b05f39c2838eb245654919b4f9bfb3e6f9cbe5aedd49b80dbe0fb1e0e3db0526cc3dc0327be17fc84ec57809a48525acb06c91867948ec6915530358faf2aead')
 
 _lc() {
     local d f n
@@ -30,17 +32,34 @@ _lc() {
     done
 }
 
-build() {
-    msiexec -a "zeal-windows-x64.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
+_build() {
+    msiexec -a "zeal-windows-x${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
     attrib -r //s
-    s="install/Zeal"
+    s="install${_apparch}/Zeal"
     _lc "${s}"/*
 }
 
-package() {
-    s="install/Zeal"
+build() {
+    for _apparch in 32 64
+    do
+        _build
+    done
+}
+
+_package() {
+    s="install${_apparch}/Zeal"
 
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/* "${a}"
+}
+
+package_app-i686-zeal() {
+    _apparch=32
+    _package
+}
+
+package_app-x86_64-zeal() {
+    _apparch=64
+    _package
 }

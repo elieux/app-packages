@@ -23,8 +23,8 @@ There will never be a public repository with built packages because many license
 Building
 --------
 
-1. Install [MSYS2](https://msys2.github.io) and upgrade your installation (be sure to follow the [instructions](http://sourceforge.net/p/msys2/wiki/MSYS2%20installation/)).
-2. Clone the app-packages repository (or download a snapshot).
+1. Install [MSYS2](https://msys2.org) and upgrade your installation.
+2. Clone the `app-packages` repository (or download a snapshot).
 3. Run MSYS2 shell. It's better if you clean your `PATH` so it contains only msys (but not mingw) and Windows system directories. You can do it this way:
   1. Open a command prompt.
   2. Run `set PATH=%SystemRoot%\System32;%SystemRoot%;%SystemRoot%\System32\Wbem`.
@@ -57,7 +57,7 @@ References for recipes
 ----------------------
 
 - `man PKGBUILD` in MSYS2 shell
-- [Contributing to MSYS2](http://sourceforge.net/p/msys2/wiki/Contributing%20to%20MSYS2/) on MSYS2 wiki
+- [Creating packages](https://github.com/msys2/msys2/wiki/Creating-packages) on MSYS2 wiki
 - [PKGBUILD](https://wiki.archlinux.org/index.php/PKGBUILD) on ArchWiki
 - [Creating packages](https://wiki.archlinux.org/index.php/Creating_packages) on ArchWiki
 - [Arch packaging standards](https://wiki.archlinux.org/index.php/Arch_packaging_standards) on ArchWiki

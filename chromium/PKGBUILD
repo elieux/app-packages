@@ -1,40 +1,24 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=chromium
-_realver=638880
+_realver=693954
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 epoch=1
-pkgver=74.0.3729.169
+pkgver=78.0.3904.70
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="http://www.chromium.org/Home"
 arch=('any')
 license=('BSD')
-makedepends=("unzip")
+makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("chrome-win32.zip::https://github.com/henrypp/chromium/releases/download/v${pkgver}-r${_realver}-win32/chromium-sync.zip"
-        "chrome-win64.zip::https://github.com/henrypp/chromium/releases/download/v${pkgver}-r${_realver}-win64/chromium-sync.zip")
-sha512sums=('c4b52a5dd30eb9e12edf2b4031fd336b2a65ef3b985e2d03cbc932fa576e3e51dc4eefe4ac28aab66c0610989c45d851718f1e3aff5ff69b0919f308da292497'
-            'bbd57e90a2c4cb83540299095e20735dd3da7448c7a73402d2a02d9a015dee33d24d6da1ca00091e4ce382ec5c503887b0a27778e931337a37f5f67b71d09812')
-noextract=("chrome-win32.zip"
-           "chrome-win64.zip")
-
-_eqver() {
-    local r v
-
-    for v in "${@}"
-    do
-        if [ -n "${r}" -a "${r}" != "${v}" ]
-        then
-            echo "Version mismatch between ${r} and ${v}."
-        fi
-        r="${v}"
-    done
-    echo "${r}"
-}
+source=("Chromium-x86.7z::https://github.com/macchrome/winchrome/releases/download/v${pkgver}-r${_realver}-Win64/Chromium-${pkgver}-x86.7z"
+        "Chromium-x64.7z::https://github.com/macchrome/winchrome/releases/download/v${pkgver}-r${_realver}-Win64/Chromium-${pkgver}-x64.7z")
+sha512sums=('66d93579b2ef79a0dbcbc7fa07d01f2179fdf8e207e5cadb27184d304ce60619140ab740c1c3eba537db92e956646f65ee51d0a907d2aa5fd2a3edc21b8c68d1'
+            '274a354e564a75f4776420fa3946b1d5bb07f909c5fed63eb6699404e0763cb7245707e15d995ae98f704217fd79658e379e23c6b53f3452561e3f2693ab17a8')
 
 _lc() {
     local d f n
@@ -51,36 +35,23 @@ _lc() {
     done
 }
 
-pkgver() {
-    _vers=( $(
-        for _apparch in 32 64
-        do
-            unzip -l "chrome-win${_apparch}.zip" | tail -n +4 | head -n -2 | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's~^chrome-win32/~~' | sed 's~.manifest$~~' | grep -P '[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+' | sort | tail -1
-        done
-    ) )
-    _eqver "${_vers[@]}"
-}
-
 prepare() {
-    for _apparch in 32 64
-    do
-        unzip -o "chrome-win${_apparch}.zip" -d "chromium${_apparch}"
-        _lc "chromium${_apparch}/chrome-win32"/*
-    done
+    _lc "Chromium-${pkgver}-x86"/*
+    _lc "Chromium-${pkgver}-x64"/*
 }
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "chromium${_apparch}/chrome-win32"/* "${a}"
+    cp -r "Chromium-${pkgver}-${1}"/* "${a}"
 }
 
 package_app-i686-chromium() {
     _apparch=32
-    _package
+    _package x86
 }
 
 package_app-x86_64-chromium() {
     _apparch=64
-    _package
+    _package x64
 }

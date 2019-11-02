@@ -6,7 +6,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2004R7
-pkgrel=1
+pkgrel=2
 pkgdesc="A benchmarking software (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalMark/index-e.html"
 arch=('any')
@@ -40,10 +40,7 @@ prepare() {
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${a}"
+    mkdir -p "${a}" "${a}/mark"
     cp -r "template" *.{dll,exe,gld,gc2} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}/mark"
-    cp *.txt "${d}/mark"
+    cp *.txt "${a}/mark"
 }

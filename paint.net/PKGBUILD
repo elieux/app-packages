@@ -7,7 +7,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=4.0.21
-pkgrel=1
+pkgrel=2
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
 arch=('any')
@@ -60,10 +60,6 @@ _package() {
     cp -r "install${_apparch}"/* "${a}"
     rm -r "${a}/sxs" "${a}"/*.{msi,pdb}
     mkdir "${a}"/{effects,filetypes,shapes}
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/*.txt "${d}"
 }
 
 package_app-i686-paint.net() {

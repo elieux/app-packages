@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=5.15.2
-pkgrel=1
+pkgrel=2
 pkgdesc="An open source two-pane SFTP/FTP/WebDAV/SCP client"
 url="http://winscp.net/"
 arch=('any')
@@ -46,8 +46,5 @@ package() {
     mkdir -p "${a}"
     cp -r "winscpnet.dll" '{app}'/dragext*.dll '{app}'/winscp.* '{app}'/"extensions" '{app}'/"translations"  "${a}"
     rm "${a}/winscp.map"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp *.txt "${d}"
+    cp *.txt "${a}"
 }

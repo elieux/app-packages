@@ -35,11 +35,7 @@ prepare() {
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r *.{exe,dll} "${a}"
-
-    a="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${a}"
-    cp -r *.{txt,chm} "${a}"
+    cp -r * "${a}"
 }
 
 package_app-i686-<customize>() {

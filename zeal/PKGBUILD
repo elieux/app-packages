@@ -48,7 +48,6 @@ build() {
 
 _package() {
     s="install${_apparch}/Zeal"
-
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/* "${a}"

@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.6.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Git client implemented as a Windows shell extension"
 url="https://tortoisegit.org"
 arch=('any')
@@ -187,10 +187,6 @@ _package() {
     cp -r "install${_apparch}/Program Files/TortoiseGit"/* "${a}"
     rm -r "${a}/common"
     _rmmsdll "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/*.txt "${a}/bin"/*.chm "${d}"
 }
 
 package_app-i686-tortoisegit() {

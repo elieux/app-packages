@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=7.12
-pkgrel=1
+pkgrel=2
 pkgdesc="A powerful command line multi-platform batch image processor"
 arch=('any')
 url="https://www.xnview.com/en/nconvert/"
@@ -76,10 +76,7 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
     mkdir -p "${a}"
     cp "NConvert${_apparch}"/*.exe "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}"
-    cp "NConvert${_apparch}"/*.txt "${d}"
+    cp "NConvert${_apparch}"/*.txt "${a}"
 }
 
 package_app-i686-nconvert() {

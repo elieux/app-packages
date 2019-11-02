@@ -38,12 +38,9 @@ prepare() {
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${a}"
+    mkdir -p "${a}" "${a}/pc-wizard"
     cp "pc wizard.exe" "${a}/pc-wizard.exe"
     cp -r {data,extras,language,mark,partner,web} *.{sys,dll,vxd} "${a}"
     rm "${a}/msvbvm60.dll" "${a}/mark"/{msvcr100,vcomp100}.dll
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}/${_realname}"
-    mkdir -p "${d}"
-    cp *.txt "${d}"
+    cp *.txt "${a}/pc-wizard"
 }

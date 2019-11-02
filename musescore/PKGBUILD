@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Create, play and print beautiful sheet music"
 url="http://musescore.org/"
 arch=('any')
@@ -39,12 +39,7 @@ build() {
 
 package() {
     s="install/MuseScore 2"
-
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/* "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/{demos,manual} "${a}/sound/FluidR3Mono_License.md" "${d}"
 }

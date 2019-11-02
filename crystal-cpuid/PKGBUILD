@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=4.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A CPU utility (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalCPUID/index-e.html"
 arch=('any')
@@ -41,12 +41,9 @@ prepare() {
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${a}"
+    mkdir -p "${a}" "${a}/cpuid"
     cp "crystalcpuid${1}.exe" "${a}/crystalcpuid.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}/cpuid"
-    cp -r *.txt "${d}/cpuid"
+    cp -r *.txt "${a}/cpuid"
 }
 
 package_app-i686-crystalcpuid() {

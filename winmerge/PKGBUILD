@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A differencing and merging tool"
 url="http://winmerge.org/"
 arch=('any')
@@ -43,10 +43,4 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "WinMerge-${pkgver}-exe"/* "${a}"
-    rm "${a}/readme.txt"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/*.txt "${a}/docs"/* "${d}"
-    rm -r "${a}/docs"
 }

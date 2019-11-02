@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=1.9.7.27907
-pkgrel=1
+pkgrel=2
 pkgdesc="Subversion client implemented as a Windows shell extension"
 url="https://tortoisesvn.net"
 arch=('any')
@@ -282,11 +282,7 @@ _package() {
     cp -r "install${_apparch}/PFiles/TortoiseSVN"/* "install${_apparch}/Program Files/TortoiseSVN"/* "${a}"
     rm -r "${a}/common"
     rm "${a}/bin"/api-ms-win-*.dll "${a}/bin"/mfc*140*.dll "${a}/bin/ucrtbase.dll" "${a}/bin"/{concrt,msvcp,vcamp,vccorlib,vcomp,vcruntime}140.dll
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/*.txt "${a}/bin"/*.{url,chm} "${a}/languages"/*.chm "${d}"
-    cp *.pdf "${d}"
+    cp *.pdf "${a}"
 }
 
 package_app-i686-tortoisesvn() {

@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.86
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful audio metadata editor"
 arch=('any')
 url="http://mp3tag.de/en/index.html"
@@ -47,8 +47,5 @@ package() {
     cp -r "data" "export" "lang" *.{exe,dll} "${a}"
     touch "${a}/help/helpmap.idx"
     rm "${a}/mp3tagsetup.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp -r "help" *.txt "${d}"
+    cp -r "help" *.txt "${a}"
 }

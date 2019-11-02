@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=1.0.0.452
-pkgrel=1
+pkgrel=2
 pkgdesc="A system inspection driver (Crystal Dew World)"
 url="http://crystalmark.info/?lang=en"
 arch=('any')
@@ -67,12 +67,9 @@ prepare() {
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${a}"
+    mkdir -p "${a}" "${a}/sysinfo"
     cp -r "data" *sysinfo*.{dll,sys,vxd} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}" "${d}/sysinfo"
-    cp *sysinfo*.txt "${d}/sysinfo"
+    cp *sysinfo*.txt "${a}/sysinfo"
 }
 
 package_app-i686-crystalsysinfo() {

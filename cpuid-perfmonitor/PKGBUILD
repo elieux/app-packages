@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.04
-pkgrel=2
+pkgrel=3
 pkgdesc="Monitors processor performance and other values (CPUID)"
 url="http://www.cpuid.com/softwares/perfmonitor-2.html"
 arch=('any')
@@ -40,10 +40,7 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
     mkdir -p "${a}"
     cp "perfmonitor2_x${_apparch}.exe" "${a}/perfmonitor2.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}"
-    cp "perfmonitor2.pdf" "${d}"
+    cp "perfmonitor2.pdf" "${a}"
 }
 
 package_app-i686-perfmonitor() {

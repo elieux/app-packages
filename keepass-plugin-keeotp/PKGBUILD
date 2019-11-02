@@ -6,7 +6,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.3.9
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that calculates TOTP codes"
 url="http://bitbucket.org/devinmartin/keeotp"
 arch=('any')
@@ -20,12 +20,9 @@ sha512sums=('51d9101d92a11b17a6b048a7c37feddeeb148141878ab5831dca532418a1050a286
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${a}/plugins"
+    mkdir -p "${a}/plugins" "${a}/plugins/keeotp"
     cp "dlls"/*.dll "${a}"
     cp *.plgx "${a}/plugins"
     rm "${a}/KeeOtp.dll"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}/plugins/keeotp"
-    cp *.txt "${d}/plugins/keeotp"
+    cp *.txt "${a}/plugins/keeotp"
 }

@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=1.25.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A hackable text editor for the 21st Century"
 arch=('any')
 url="https://atom.io/"
@@ -65,10 +65,6 @@ _package() {
     mkdir -p "${a}"
     cp -r "Atom x${_apparch}"/* "${a}"
     _rmmsdll "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/{version,license} "${a}"/*.html "${a}/resources/LICENSE.md" "${d}"
 }
 
 package_app-i686-atom() {

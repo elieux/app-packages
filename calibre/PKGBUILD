@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=3.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
 arch=('any')
@@ -65,10 +65,6 @@ _package() {
     mkdir -p "${a}"
     cp -r "install${_apparch}/PFiles"/calibre*/* "${a}"
     _rmmsdll "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}/license" "${d}"
 }
 
 package_app-i686-calibre() {

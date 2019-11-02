@@ -9,7 +9,7 @@ _realver=9.0.4+11/c2514751926b4512b076cc82f959763f
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 pkgver=${_realver%+*}
-pkgrel=1
+pkgrel=2
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 arch=('any')
@@ -63,13 +63,8 @@ prepare() {
 
 package() {
     s="tools${_apparch}"
-
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/* "${a}"
     _rmmsdll "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/{release,readme.html} "${a}/legal" "${d}"
 }

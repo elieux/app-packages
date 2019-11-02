@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=18.01
-pkgrel=1
+pkgrel=2
 pkgdesc="A free file archiver for extremely high compression"
 url="http://www.7-zip.org/"
 arch=('any')
@@ -50,14 +50,11 @@ prepare() {
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${a}"
+    mkdir -p "${a}" "${a}/extra"
     cp -r "${@}" "7z${_apparch}/lang" "7z${_apparch}"/*.{exe,dll,sfx} "${a}"
     rm "${a}/uninstall.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}" "${d}/extra"
-    cp "7z${_apparch}"/*.{chm,txt,ion} "${d}"
-    cp *.txt "${d}/extra"
+    cp "7z${_apparch}"/*.{chm,txt,ion} "${a}"
+    cp *.txt "${a}/extra"
 }
 
 package_app-i686-7zip() {

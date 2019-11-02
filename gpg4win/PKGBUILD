@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=3.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A secure solution for file and email encryption"
 url="http://www.gpg4win.org/index.html"
 arch=('any')
@@ -44,11 +44,4 @@ package() {
     rm -r "${a}/gpg4win.exe" "${a}"/'$'*
     rm "${a}/bin/pinentry.exe"
     cp "${a}/bin/pinentry-w32.exe" "${a}/bin/pinentry.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}" "${d}/gnupg"
-    mv "${a}/share/doc"/* "${d}"
-    rm -r "${a}/share/doc"
-    mv "${a}/share/gnupg"/*.man "${d}/gnupg"
-    mv "${a}/share/gpg4win" "${d}/gpg4win"
 }

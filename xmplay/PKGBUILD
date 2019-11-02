@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=3.8.3.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Light weight, pluggable audio player"
 url="http://www.un4seen.com/xmplay.html"
 arch=('any')
@@ -25,8 +25,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r *.{dll,exe} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp -r *.txt "${d}"
+    cp -r *.txt "${a}"
 }

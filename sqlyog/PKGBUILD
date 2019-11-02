@@ -7,7 +7,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=12.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="MySQL manager and admin tool"
 url="https://github.com/webyog/sqlyog-community"
 arch=('any')
@@ -52,10 +52,7 @@ _package() {
     mkdir -p "${a}"
     cp "SQLyogCommunity${_apparch}"/*.{exe,dll,db} "${a}"
     rm "${a}/uninst.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp "SQLyogCommunity${_apparch}"/*.txt "${d}"
+    cp "SQLyogCommunity${_apparch}"/*.txt "${a}"
 }
 
 package_app-i686-sqlyog() {

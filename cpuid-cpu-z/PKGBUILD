@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=1.83
-pkgrel=1
+pkgrel=2
 pkgdesc="Gathers information on some of the main devices of your system (CPUID)"
 url="http://www.cpuid.com/softwares/cpu-z.html"
 arch=('any')
@@ -22,10 +22,7 @@ _package() {
     mkdir -p "${a}"
     cp "cpuz_x${_apparch}.exe" "${a}/cpuz.exe"
     cp "cpuz.ini" "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}"
-    cp "cpuz_readme.txt" "${d}/cpuz.txt"
+    cp "cpuz_readme.txt" "${a}/cpuz.txt"
 }
 
 package_app-i686-cpu-z() {

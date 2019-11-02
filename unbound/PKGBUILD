@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Validating, recursive, and caching DNS resolver"
 arch=('any')
 url="http://unbound.net/"
@@ -39,8 +39,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp *.{exe,cmd} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp *.{txt,conf,url} "license" "${d}"
+    cp *.{txt,conf,url} "license" "${a}"
 }

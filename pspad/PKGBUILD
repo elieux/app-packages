@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=4.6.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Freeware programmer's editor"
 arch=('any')
 url="http://www.pspad.com/en/"
@@ -89,8 +89,4 @@ package() {
     mkdir -p "${a}"
     cp -r "pspaden"/* "${a}"
     cp *.dic "${a}/spell"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/*.{txt,chm,rtf} "${d}"
 }

@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=13.1.1548
-pkgrel=1
+pkgrel=2
 pkgdesc="All-in-one software for remote support and online meetings"
 url="http://www.teamviewer.com/"
 arch=('any')
@@ -43,8 +43,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp *.{dll,exe,ini} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp *.{txt,inf} "${d}"
+    cp *.{txt,inf} "${a}"
 }

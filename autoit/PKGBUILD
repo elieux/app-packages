@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=3.3.14.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A free BASIC-like scripting language for automating Windows GUIs"
 url="http://www.autoitscript.com/"
 arch=('any')
@@ -43,7 +43,7 @@ prepare() {
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${a}"
+    mkdir -p "${a}" "${a}/extras/Editors/SciTE"
     cp -r "install"/{include,icons} "install/aut2exe/icons" "install"/au3check.* "install/autoitx"/*.psd1 "install/autoitx"/AutoItX3{_DLL.h,.Assembly.dll,.Assembly.xml,.PowerShell.dll} "install/autoitx/AutoItX3${1}.dll" "install/autoitx/AutoItX3${1}_DLL.lib" "install/aut2exe/aut2exe${1}.exe" "install/au3info${1}.exe" "install/autoit3${1}.exe" "${a}"
     if [ "${1}" != "" ]
     then
@@ -52,11 +52,8 @@ _package() {
             mv "${f}" "$(echo "${f}" | sed "s/${1}//")"
         done
     fi
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}" "${d}/extras/Editors/SciTE"
-    cp -r "install"/{examples,autoitx/examples,extras} "install/autoitx"/*.chm "install"/*.{chm,url} "install/autoit3help.exe" "${d}"
-    cp -r "install/scite"/*.properties "install/scite/api" "${d}/extras/editors/SciTE"
+    cp -r "install"/{examples,autoitx/examples,extras} "install/autoitx"/*.chm "install"/*.{chm,url} "install/autoit3help.exe" "${a}"
+    cp -r "install/scite"/*.properties "install/scite/api" "${a}/extras/editors/SciTE"
 }
 
 package_app-i686-autoit() {

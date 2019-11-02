@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=5.7.21
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast SQL database server, community edition"
 url="https://www.mysql.com/products/community/"
 arch=('any')
@@ -25,10 +25,6 @@ _package() {
     find "${a}" -name 'debug' -exec rm -r '{}' \; -prune
     find "${a}" -name '*.pdb' -delete
     find "${a}" -name '*.lib' -delete
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/{docs,COPYING,README} "${d}"
 }
 
 package_app-i686-mysql() {

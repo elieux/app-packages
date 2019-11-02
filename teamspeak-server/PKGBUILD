@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=3.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A proprietary VoIP conference software"
 url="http://www.teamspeak.com/"
 arch=('any')
@@ -20,13 +20,10 @@ sha512sums=('21ac10aee5ead51a6eacd7ce74c81369a709d30b36af78008dee691da9fb80af804
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${a}"
+    mkdir -p "${a}" "${a}/tsdns"
     cp -r "teamspeak3-server_win${_apparch}/redist/libmariadb.dll" "teamspeak3-server_win${_apparch}/tsdns/tsdnsserver.exe" "teamspeak3-server_win${_apparch}"/*.{exe,dll} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}" "${d}/tsdns"
-    cp -r "teamspeak3-server_win${_apparch}"/*.txt "teamspeak3-server_win${_apparch}"/{doc,sql,serverquerydocs} "${d}"
-    cp "teamspeak3-server_win${_apparch}/tsdns"/*.{txt,sample} "${d}/tsdns"
+    cp -r "teamspeak3-server_win${_apparch}"/*.txt "teamspeak3-server_win${_apparch}"/{doc,sql,serverquerydocs} "${a}"
+    cp "teamspeak3-server_win${_apparch}/tsdns"/*.{txt,sample} "${a}/tsdns"
 }
 
 package_app-i686-teamspeak-server() {

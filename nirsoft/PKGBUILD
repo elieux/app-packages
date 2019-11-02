@@ -7,7 +7,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2018.03.17
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="http://www.nirsoft.net/"
 arch=('any')
@@ -756,25 +756,23 @@ prepare() {
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
     for f in "${@}"
     do
         s="${f%%.zip}"
         u="${s##*/}"
         u="${u%%-x64}"
         echo "${u}"
-        mkdir "${d}/${u}"
-        cp "${s}"/* "${d}/${u}"
-        find "${d}/${u}" -regextype posix-extended -regex '.+\.(exe|dll|ocx|frm|frx|vbp|vbw)' -print0 | xargs -0 mv -t "${a}"
-        find "${d}/${u}" -name '*.chm' -print0 -o -name 'readme.txt' -print0 -o -name "${u}.txt" -print0 | xargs -0r mv -t "${d}"
-        if test -f "${d}/readme.txt"
+        mkdir "${a}/${u}"
+        cp "${s}"/* "${a}/${u}"
+        find "${a}/${u}" -regextype posix-extended -regex '.+\.(exe|dll|ocx|frm|frx|vbp|vbw)' -print0 | xargs -0 mv -t "${a}"
+        find "${a}/${u}" -name '*.chm' -print0 -o -name 'readme.txt' -print0 -o -name "${u}.txt" -print0 | xargs -0r mv -t "${a}"
+        if test -f "${a}/readme.txt"
         then
-            mv "${d}/readme.txt" "${d}/${u}.txt"
+            mv "${a}/readme.txt" "${a}/${u}.txt"
         fi
-        if test -z "$(find "${d}/${u}" -type f)"
+        if test -z "$(find "${a}/${u}" -type f)"
         then
-            rm -d "${d}/${u}"
+            rm -d "${a}/${u}"
         fi
     done
 }

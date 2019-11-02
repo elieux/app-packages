@@ -9,7 +9,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=${_realver%-*}
-pkgrel=1
+pkgrel=2
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 arch=('any')
@@ -76,15 +76,11 @@ prepare() {
 
 _package() {
     s="tools${_apparch}"
-
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/{bin,db,include,jre,lib} "${a}"
     _rmmsdll "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp "${s}"/*.{html,txt,zip} "${s}"/{license,release} "${d}"
+    cp "${s}"/*.{html,txt,zip} "${s}"/{license,release} "${a}"
 }
 
 package_app-i686-jdk8() {

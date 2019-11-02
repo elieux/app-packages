@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=1.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A compact program to monitor processor temperature"
 arch=('any')
 url="http://www.alcpu.com/CoreTemp/"
@@ -77,14 +77,11 @@ prepare() {
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
-    mkdir -p "${a}"
+    mkdir -p "${a}" "${a}/translator"
     cp -r *.{dll,exe,lng} "languages" "coretemp${_apparch}"/*.exe "${a}"
     mv "${a}/core temp.exe" "${a}/coretemp.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}" "${d}/translator"
-    cp "coretemp${_apparch}"/*.{url,txt} "${d}"
-    cp *.{txt,png} "${d}/translator"
+    cp "coretemp${_apparch}"/*.{url,txt} "${a}"
+    cp *.{txt,png} "${a}/translator"
 }
 
 package_app-i686-coretemp() {

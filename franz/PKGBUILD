@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=5.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Franz is a free messaging app and combines chat & messaging services into one application"
 url="http://meetfranz.com/"
 arch=('any')
@@ -44,10 +44,6 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "franz${_apparch}"/* "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}/license"* "${d}"
 }
 
 package_app-i686-franz() {

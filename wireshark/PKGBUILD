@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.4.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A free network protocol analyzer"
 url="https://www.wireshark.org/"
 arch=('any')
@@ -50,10 +50,6 @@ _package() {
     mkdir -p "${a}"
     cp -r "Wireshark-win${_apparch}"/* "${a}"
     rm -r "${a}"/winpcap_*.exe "${a}"/usbpcap*.exe "${a}/vcredist_${1}.exe" "${a}/uninstall.exe" "${a}"/'$pluginsdir'
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}/help" "${a}"/*.{txt,chm,html,css} "${d}"
 }
 
 package_app-i686-wireshark() {

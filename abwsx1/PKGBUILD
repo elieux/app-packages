@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.11.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A compact multi-platform web server"
 url="http://aprelium.com/abyssws/"
 arch=('any')
@@ -126,10 +126,6 @@ _package() {
     done
     mv "${a}/adnregister.exe" "${a}/adn/adnregister.exe"
     rm -r "${a}"/'$PLUGINSDIR'
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/{htdocs,doc} "${a}/license.txt" "${d}"
 }
 
 package_app-i686-abwsx1() {

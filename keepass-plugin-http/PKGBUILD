@@ -7,7 +7,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.8.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin to expose password entries securely over HTTP"
 url="https://github.com/pfn/keepasshttp"
 arch=('any')
@@ -32,10 +32,7 @@ pkgver() {
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${a}/plugins"
+    mkdir -p "${a}/plugins" "${a}/plugins/http"
     cp *.plgx "${a}/plugins"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}/plugins/http"
-    cp *.md "${d}/plugins/http"
+    cp *.md "${a}/plugins/http"
 }

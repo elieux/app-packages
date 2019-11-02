@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=1.18.2.17272
-pkgrel=1
+pkgrel=2
 pkgdesc="A console wrapper with tabs, easy copy-pasting and pretty visuals"
 url="http://github.com/cbucher/console"
 arch=('any')
@@ -47,10 +47,7 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp "consolez${_apparch}"/*.{exe,dll} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp "consolez${_apparch}"/*.chm "${d}"
+    cp "consolez${_apparch}"/*.chm "${a}"
 }
 
 package_app-i686-consolez() {

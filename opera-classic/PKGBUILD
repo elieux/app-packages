@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=12.18
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast and secure Presto-based web browser and Internet suite"
 url="http://www.opera.com/download/guide/?os=windows&ver=12.18&local=y"
 arch=('any')
@@ -76,10 +76,6 @@ _package() {
     mkdir -p "${a}"
     cp -r "Opera_int${_apparch}"/* "${a}"
     rm -r "${a}/updatechecker" "${a}"/files*
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}" "${d}/gstreamer"
-    mv "${a}/gstreamer"/*.txt "${d}/gstreamer"
 }
 
 package_app-i686-opera-classic() {

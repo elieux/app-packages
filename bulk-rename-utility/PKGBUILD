@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=3.0.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="File renaming software"
 arch=('any')
 url="http://www.bulkrenameutility.co.uk/"
@@ -73,10 +73,7 @@ _package() {
     mkdir -p "${a}"
     cp -R "All/js" "${_apparch}-bit"/*.exe "${a}"
     mv "${a}/bulk rename utility.exe" "${a}/bru.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}"
-    cp "all"/*.{chm,pdf,txt} "${d}"
+    cp "All"/*.{chm,pdf,txt} "${a}"
 }
 
 package_app-i686-bulk-rename-utility() {

@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=7.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A disk utility (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDiskInfo/index-e.html"
 arch=('any')
@@ -38,13 +38,10 @@ prepare() {
 
 _package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${a}"
+    mkdir -p "${a}" "${a}/diskinfo"
     cp "diskinfo${_apparch}.exe" "${a}/crystaldiskinfo.exe"
     cp -r "cdiresource" "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}/diskinfo"
-    cp -r "license"/* "${d}/diskinfo"
+    cp -r "license"/* "${a}/diskinfo"
 }
 
 package_app-i686-crystaldiskinfo() {

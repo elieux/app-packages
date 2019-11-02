@@ -6,7 +6,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.0.4b
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that generates pronounceable passwords"
 url="http://sourceforge.net/projects/pronouncepwgen/"
 arch=('any')
@@ -20,11 +20,8 @@ sha512sums=('b897c49413a94f35a7f5d92c3c43215bd41da1ae7f9f2694cb17ab611b59286a75a
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${a}/plugins"
+    mkdir -p "${a}/plugins" "${a}/plugins/pronounceable-password-generator"
     cp *.plgx "${a}/plugins"
     cp -r "ppgsub" "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}/plugins/pronounceable-password-generator"
-    cp *.txt "${d}/plugins/pronounceable-password-generator"
+    cp *.txt "${a}/plugins/pronounceable-password-generator"
 }

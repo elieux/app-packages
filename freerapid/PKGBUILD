@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=0.9u4
-pkgrel=3
+pkgrel=4
 pkgdesc="A Java-based download manager for Rapidshare and other file sharing archives"
 arch=('any')
 url="http://wordrider.net/freerapid/"
@@ -39,8 +39,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "FreeRapid-${pkgver}"/{lib,lookandfeel,search,tools,frd.*,instplgs.dat,objectdb.conf,*.properties} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp -r "FreeRapid-${pkgver}"/{doc,copyright,license,readme.txt} "${d}"
+    cp -r "FreeRapid-${pkgver}"/{doc,copyright,license,readme.txt} "${a}"
 }

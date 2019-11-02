@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=18.03.09
-pkgrel=1
+pkgrel=2
 pkgdesc="A powerful, highly customizable console emulator with tabs"
 url="http://conemu.github.io/"
 arch=('any')
@@ -40,10 +40,6 @@ _package() {
     mkdir -p "${a}"
     cp -r "conemu${1}.exe" "${a}/conemu.exe"
     cp -r "conemu" "plugins" "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}/conemu"/*.txt "${d}"
 }
 
 package_app-i686-conemu() {

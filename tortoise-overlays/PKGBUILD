@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=1.1.4.26626
-pkgrel=1
+pkgrel=2
 pkgdesc="Overlays component for Tortoise tools"
 url="https://tortoisesvn.net"
 arch=('any')
@@ -77,10 +77,6 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "install${_apparch}/Program Files/TortoiseGit/Common/TortoiseOverlays"/* "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/*.txt "${d}"
 }
 
 package_app-i686-tortoise-overlays() {

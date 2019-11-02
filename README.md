@@ -42,7 +42,6 @@ Guidelines for recipes
 - 32-bit and 64-bit package versions are separate and should still work if only one of them is installed.
 - De-duplication takes place only on the level of whole applications, e.g. every package includes its own OpenSSL library, if it needs one, but a TeX editor and a TeX distribution should be separate packages.
 - Include all available localizations.
-- All documentation, examples and help files go into a separate directory.
 - User configuration goes into per-user directories.
 - Do not include auto-updaters and uninstallers.
 - Do not include copies of Microsoft re-distributable libraries, e.g. `msvc*.dll`, `mfc*.dll`, `atl*.dll`. `msvb*.dll`.

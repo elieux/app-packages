@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
 arch=('any')
@@ -90,10 +90,6 @@ _package() {
     mkdir -p "${a}"
     cp -r "SlackSetup${_apparch}/lib/net45"/* "${a}"
     _rmmsdll "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}/license" "${d}"
 }
 
 package_app-i686-slack() {

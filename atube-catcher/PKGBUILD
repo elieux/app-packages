@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=3.8.0.9325
-pkgrel=1
+pkgrel=2
 pkgdesc="Downloads videos from the Internet"
 url="http://www.atube.me/"
 arch=('any')
@@ -46,8 +46,4 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "{app}"/* "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/*.txt "${d}"
 }

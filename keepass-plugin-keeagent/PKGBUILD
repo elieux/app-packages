@@ -9,7 +9,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=0.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that acts as a SSH authentication agent"
 url="http://lechnology.com/software/keeagent/"
 arch=('any')
@@ -23,10 +23,7 @@ sha512sums=('433341b7d2bd5de5f9d4dd81ee7347acd6e5ef43c979416db877e9b824179753d9c
 
 package() {
     a="${pkgdir}/apps${_apparch}/${_dirname}"
-    mkdir -p "${a}/plugins"
+    mkdir -p "${a}/plugins" "${a}/plugins/keeagent"
     cp *.plgx "${a}/plugins"
-
-    d="${pkgdir}/docs${_apparch}/${_dirname}"
-    mkdir -p "${d}/plugins/keeagent"
-    cp *.txt "${d}/plugins/keeagent"
+    cp *.txt "${a}/plugins/keeagent"
 }

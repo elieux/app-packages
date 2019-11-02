@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.8.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Light weight VNC implementation"
 url="http://www.tightvnc.com/"
 arch=('any')
@@ -45,14 +45,10 @@ build() {
 
 _package() {
     s="install${_apparch}/PFiles/TightVNC"
-
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/*.{exe,dll} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp "${s}"/*.{txt,url} "${d}"
+    cp "${s}"/*.{txt,url} "${a}"
 }
 
 package_app-i686-tightvnc() {

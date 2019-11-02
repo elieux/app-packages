@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2.39
-pkgrel=1
+pkgrel=2
 pkgdesc="Views and manages processes, services and more"
 url="http://processhacker.sourceforge.net/"
 arch=('any')
@@ -39,10 +39,7 @@ _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "${1}"/* "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp -r *.txt "${d}"
+    cp -r *.txt "${a}"
 }
 
 package_app-i686-processhacker() {

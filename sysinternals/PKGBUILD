@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2018.02.12
-pkgrel=1
+pkgrel=2
 pkgdesc="Advanced system utilities for Windows"
 url="https://docs.microsoft.com/en-us/sysinternals/"
 arch=('any')
@@ -47,8 +47,6 @@ prepare() {
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
     for f in "${@}"
     do
         n="${f##*/}"
@@ -58,14 +56,10 @@ _package() {
             cp "${f}" "${a}/${n}"
             ;;
         *.chm|*.txt|*.hlp)
-            cp "${f}" "${d}/${n}"
+            cp "${f}" "${a}/${n}"
             ;;
         esac
     done
-    if test -z "$(find "${d}" -type f)"
-    then
-        rm -d "${d}"
-    fi
 }
 
 package_app-i686-sysinternals() {

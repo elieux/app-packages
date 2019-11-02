@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.15.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple WebDAV, FTP, cloud drives and IMAP client"
 url="http://rei.to/carotdav_en.html"
 arch=('any')
@@ -41,8 +41,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp "installed.txt" "CarotDAV"/*.{dll,exe,xml,config} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp "CarotDAV"/*.txt "${d}"
+    cp "CarotDAV"/*.txt "${a}"
 }

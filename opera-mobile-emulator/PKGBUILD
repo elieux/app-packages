@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=12.10.46154
-pkgrel=1
+pkgrel=2
 pkgdesc="Mobile Opera Classic debugging on the desktop"
 url="http://www.opera.com/developer/mobile-emulator"
 arch=('any')
@@ -45,9 +45,4 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "{app}"/* "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}" "${d}/opera/gstreamer"
-    mv "${a}"/*.html "${d}"
-    mv "${a}/opera/gstreamer"/*.txt "${d}/opera/gstreamer"
 }

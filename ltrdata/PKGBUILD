@@ -7,7 +7,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=2017.07.01
-pkgrel=1
+pkgrel=2
 pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
 url="http://www.ltr-data.se/opencode.html"
 arch=('any')
@@ -23,7 +23,7 @@ source=("exefiles.zip::http://www.ltr-data.se/files/exefiles.zip"
         "checksum.zip::http://www.ltr-data.se/files/checksum.zip"
         "coordtool.zip::http://www.ltr-data.se/files/coordtool.zip"
         "netcheck.zip::http://www.ltr-data.se/files/netcheck.zip"
-        
+
         "devio.exe::http://www.ltr-data.se/files/devio.exe"
 
         # installers
@@ -74,8 +74,6 @@ prepare() {
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
     for s in $1
     do
         s="${s%%.zip}"
@@ -83,7 +81,7 @@ _package() {
         u="${u%%64}"
         echo "${u}"
         find "${s}" -regextype posix-extended -regex ".+\.(exe|dll|exe\.config|cmd|vbs|ps1)" -print0 | xargs -0 cp -t "${a}"
-        find "${s}" -regextype posix-extended -regex ".+\.(txt|cnt|hlp)" -print0 | xargs -0r cp -t "${d}"
+        find "${s}" -regextype posix-extended -regex ".+\.(txt|cnt|hlp)" -print0 | xargs -0r cp -t "${a}"
     done
 }
 

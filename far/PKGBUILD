@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver="$(echo -n "${_realver}" | sed -r 's/^([0-9])([0-9])b([0-9]+)-[0-9]+$/\1.\2.\3/')"
-pkgrel=1
+pkgrel=2
 pkgdesc="Extensible text mode file manager"
 url="http://farmanager.com/index.php?l=en"
 arch=('any')
@@ -46,25 +46,8 @@ prepare() {
 _package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
-    cp -r "Far.x${1}"/*.{exe,lng,hlf,dll,cmd} "Far.x${1}"/{addons,pluginsdk} "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp -r "Far.x${1}"/*.{ini,diz,map} "Far.x${1}"/changelog{,_eng} "Far.x${1}"/{documentation,encyclopedia} "${d}"
-
-    mkdir -p "${a}/plugins" "${d}/plugins"
-    for f in "Far.x${1}/plugins"/*
-    do
-        p="${f##*/}"
-        echo "${p}"
-        mkdir -p "${a}/plugins/${p}" "${d}/plugins/${p}"
-        cp -r "${f}"/* "${a}/plugins/${p}"
-        find "${a}/plugins/${p}" -regextype posix-extended -maxdepth 1 -regex '.+([.](txt|md)|LICENSE|changelog.*)' -print0 | xargs -0r mv -t "${d}/plugins/${p}"
-        if test -z "$(find "${d}/plugins/${p}" -type f)"
-        then
-            rm -d "${d}/plugins/${p}"
-        fi
-    done
+    cp -r "Far.x${1}"/*.{exe,lng,hlf,dll,cmd} "Far.x${1}"/{addons,plugins,pluginsdk} "${a}"
+    cp -r "Far.x${1}"/*.{ini,diz,map} "Far.x${1}"/changelog{,_eng} "Far.x${1}"/{documentation,encyclopedia} "${a}"
 }
 
 package_app-i686-far() {

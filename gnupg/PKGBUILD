@@ -6,7 +6,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=${_realver%%_*}
-pkgrel=1
+pkgrel=2
 pkgdesc="Complete and free implementation of the OpenPGP standard"
 url="http://www.gnupg.org/"
 arch=('any')
@@ -26,8 +26,5 @@ package() {
     mkdir -p "${a}"
     cp -r "bin" "include" "lib" "share" "${a}"
     find "${a}" -iname '*.tmp' -delete
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp -r "README.txt" "${d}"
+    cp -r "README.txt" "${a}"
 }

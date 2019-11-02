@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=10.3.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast SQL database server, drop-in replacement for MySQL"
 url="http://mariadb.org/"
 arch=('any')
@@ -26,10 +26,6 @@ _package() {
     find "${a}" -name 'debug' -exec rm -r '{}' \; -prune
     find "${a}" -name '*.pdb' -delete
     find "${a}" -name '*.lib' -delete
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/COPYING* "${a}"/*.ini "${a}"/{CREDITS,EXCEPTIONS-CLIENT,README.md} "${d}"
 }
 
 package_app-i686-mariadb() {

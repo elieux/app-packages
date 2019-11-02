@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=7.5.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A free Scintilla-based editor with plugin support"
 url="https://notepad-plus-plus.org/"
 arch=('any')
@@ -65,10 +65,6 @@ _package() {
     mkdir -p "${a}"
     cp -r "npp${_apparch}"/* "${a}"
     rm "${a}/dolocalconf.xml"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/*.{log,txt} "${d}"
 }
 
 # space before () required

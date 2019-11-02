@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=3.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Quality voice communication via the Internet"
 url="http://www.teamspeak.com/"
 arch=('any')
@@ -58,10 +58,6 @@ _package() {
     cp -r "win${_apparch}"/* "${a}"
     rm -r "${a}/update.exe" "${a}/uninstall.exe.nsis" "${a}"/'$pluginsdir'
     mv "${a}/ts3client_win${_apparch}.exe" "${a}/ts3client.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}"/*.txt "${a}/html" "${d}"
 }
 
 package_app-i686-teamspeak() {

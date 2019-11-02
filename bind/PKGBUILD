@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=${_realver//-/.}
-pkgrel=1
+pkgrel=2
 pkgdesc="The ISC BIND nameserver"
 url="https://www.isc.org/downloads/bind/"
 arch=('any')
@@ -49,10 +49,7 @@ _package() {
     mkdir -p "${a}"
     cp "bind${_apparch}"/*.{exe,dll} "${a}"
     rm "${a}"/vcredist*.exe "${a}/bindinstall.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp "bind${_apparch}"/*.{html,pdf,txt} "bind${_apparch}"/{changes,copyright,history,migration,migration-4to9,openssl-license,readme,sha256} "${d}"
+    cp "bind${_apparch}"/*.{html,pdf,txt} "bind${_apparch}"/{changes,copyright,history,migration,migration-4to9,openssl-license,readme,sha256} "${a}"
 }
 
 package_app-i686-bind() {

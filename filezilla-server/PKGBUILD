@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=0.9.60.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A popular FTP server"
 url="http://filezilla-project.org/"
 arch=('any')
@@ -40,8 +40,5 @@ package() {
     a="${pkgdir}/apps${_apparch}/${_realname}"
     mkdir -p "${a}"
     cp -r "filezilla server.exe" "filezilla server interface.exe" *.dll "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp -r "license.txt" *.htm "${d}"
+    cp -r "license.txt" *.htm "${a}"
 }

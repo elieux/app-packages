@@ -6,7 +6,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=1.0.1044
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight, customizable mail client"
 url="http://www.opera.com/computer/mail"
 arch=('any')
@@ -50,9 +50,4 @@ package() {
     mkdir -p "${a}"
     cp -r * "${a}"
     rm -r "${a}/updatechecker" "${a}"/files* "${a}/opera-mail.i386.exe"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}" "${d}/gstreamer"
-    mv "${a}/help" "${d}"
-    mv "${a}/gstreamer"/*.txt "${d}/gstreamer"
 }

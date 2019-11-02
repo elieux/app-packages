@@ -5,7 +5,7 @@ _apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 pkgver=2.38
-pkgrel=1
+pkgrel=2
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
@@ -115,8 +115,5 @@ package() {
     mkdir -p "${a}"
     cp -r *.{exe,exe.config,dll,lngx} "KeePass.config.xml" "TrlUtil" "XSL" "${a}"
     cp "KeePass.config.xml" "${a}/TrlUtil"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    cp *.{chm,txt} "${d}"
+    cp *.{chm,txt} "${a}"
 }

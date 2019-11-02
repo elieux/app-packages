@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=6.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="The free office suite"
 url="https://www.libreoffice.org/"
 arch=('any')
@@ -49,10 +49,6 @@ _package() {
     mkdir -p "${a}"
     cp -r "msi${_apparch}"/* "${a}"
     rm -r "${a}"/{fonts,system$1} "${a}"/*.msi
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}/readmes" "${a}/notice" "${a}"/*.{html,txt} "${d}"
 }
 
 package_app-i686-libreoffice() {

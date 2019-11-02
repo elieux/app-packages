@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
 pkgver=1.39.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 arch=('any')
 url="https://code.visualstudio.com/"
@@ -66,11 +66,6 @@ _package() {
     mkdir -p "${a}"
     cp -r "vscode${_apparch}"/* "${a}"
     _rmmsdll "${a}"
-
-    d="${pkgdir}/docs${_apparch}/${_realname}"
-    mkdir -p "${d}"
-    mv "${a}/resources/app"/*.{html,txt} "${a}/resources/app/licenses"/* "${d}"
-    rm -r "${a}/resources/app/licenses"
 }
 
 package_app-i686-vscode() {

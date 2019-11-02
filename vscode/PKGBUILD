@@ -4,7 +4,7 @@ _realname=vscode
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}"
          "app-x86_64-${_realname}")
-pkgver=1.38.1
+pkgver=1.39.2
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 arch=('any')
@@ -15,8 +15,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("VSCode-win32.zip::https://vscode-update.azurewebsites.net/${pkgver}/win32-archive/stable"
         "VSCode-win64.zip::https://vscode-update.azurewebsites.net/${pkgver}/win32-x64-archive/stable")
-sha512sums=('565fadde3babf429782c42231044aa13d522b5ec2a5b6d2b1a5a599d3752a1344de6c749d074bf7d5346cc4d8fe6467d4199b4d5256af1a657071f1a28941832'
-            'acadfbeae65fe3dc266b08b0094586d862d0bfe4d8a380c9ea2f01336cd7d78b2254b909aa29e07f4b23ab21ee6ea4ef5461409c4493a9efdbafe37d168426a5')
+sha512sums=('4fed36641217e00e857258f15b28aee455179325d390bbee55c198f7ff38a6324e89f4c57ec8a7d61e67f2436647df80b88755f90ea4e80791c22a4776b8255d'
+            'c58f84ff12a79274202d21597b99622de05d4f9717be2b87f58628b46e48c1209451381a73a8cc7c6ef332d9f6ca29c05fc9228e53a8f0ae9e5800faa767e97e')
 noextract=("VSCode-win32.zip"
            "VSCode-win64.zip")
 

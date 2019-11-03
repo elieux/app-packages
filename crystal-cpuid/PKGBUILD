@@ -6,17 +6,17 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=4.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A CPU utility (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalCPUID/index-e.html"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-depends=("app-x86_64-crystalsysinfo")
+depends=("app-crystalsysinfo")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("CrystalCPUID64.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID${pkgver//./}x64.zip")
+source=("CrystalCPUIDx64.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID${pkgver//./}x64.zip")
 sha512sums=('955a7f19b4ec651a7d07e5e800e2b40a1735056dfe2ed72d12ac93b75530d5b9973c707607a2015bc970c4904a34048d3f1c637c49599247a938d827fcf13d67')
 
 _lc() {
@@ -36,12 +36,12 @@ _lc() {
 
 prepare() {
     _lc *
-    rm -r "data" *sysinfo*
 }
 
 package() {
     a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}" "${a}/cpuid"
+    mkdir -p "${a}"
     cp "crystalcpuidx64.exe" "${a}/crystalcpuid.exe"
-    cp -r *.txt "${a}/cpuid"
+    cp -r *.txt "${a}"
+    rm "${a}"/*sysinfo*
 }

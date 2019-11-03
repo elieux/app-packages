@@ -5,7 +5,7 @@ _dirname=crystal
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.5.2
+pkgver=8.3.1
 pkgrel=1
 pkgdesc="A disk utility (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDiskInfo/index-e.html"
@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CrystalDiskInfo.zip::https://osdn.net/dl/crystaldiskinfo/CrystalDiskInfo${pkgver//./_}.zip")
-sha512sums=('10cc865fd53c9f1070a8e0da3c750f7f97f41f705cb77e0b3175d0ce18c6ee14f9385b6d1d447212b94be32addb04e5a47956c3f6cc66fd9973d9ad5ba012db4')
+sha512sums=('3a896e145cf4c02e81de1d4a422e12fde705f5cd1d58ba50fb808dcf850ce7dda6c928d9fff8191edcd32b61750c7637f3d55452e095429075fcddf1d917ba0b')
 
 _lc() {
     local d f n
@@ -39,8 +39,8 @@ prepare() {
 
 package() {
     a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}" "${a}/diskinfo"
+    mkdir -p "${a}"
     cp "diskinfo64.exe" "${a}/crystaldiskinfo.exe"
     cp -r "cdiresource" "${a}"
-    cp -r "license"/* "${a}/diskinfo"
+    cp -r "license" "${a}/cdilicense"
 }

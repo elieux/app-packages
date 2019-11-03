@@ -4,7 +4,7 @@ _realname=7zip
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=18.01
+pkgver=19.00
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="http://www.7-zip.org/"
@@ -15,9 +15,9 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("7z-x64.exe::http://7-zip.org/a/7z${pkgver//./}-x64.exe"
-        "7zextra.7z::http://7-zip.org/a/7z${pkgver//./}-extra.7z")
-sha512sums=('0a1e8b876ecf4c58801743f6144e47951a60ade274a8bb7c3476ea70874e023b8c4e5e71e5fa25064dc7ec9208d8ea7a5e520107788fe06955fca0f71aa91b63'
-            '9133fc551d76515e37fdd4dd8c1e28d464aea493548246b44565a42bba46715764f41f9cfa14d470d298c3a6e9829d200f8be5168cb67cf8f23d8042fca833bc')
+        "7z-extra.7z::http://7-zip.org/a/7z${pkgver//./}-extra.7z")
+sha512sums=('af8f38679e16c996ffac152cac49369cf4b609abbd2cad07f49a114a82c6b5e564be29630c0fd2418110cf1a3d0ef3c9cc12f9164a69a575c91d9b98ce0df1a9'
+            '17713037504215ae277037ea7e61d78afe2863a1ff3b8b9ff0a0f6af80969c054df35f4f2bf5ba79a35601a29b8600a8b71a16ced23d17e55eeb1cc131d55f65')
 
 _lc() {
     local d f n
@@ -35,15 +35,15 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "7z-x64.exe" -o"7z"
-    _lc * "7z"/*
+    7z x -y -bd "7z-x64.exe" -o"7z-x64"
+    _lc * "7z-x64"/*
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/extra"
-    cp -r "x64"/*.{dll,exe} "7z/lang" "7z"/*.{exe,dll,sfx} "${a}"
+    cp -r "x64"/*.{dll,exe} "7z-x64/lang" "7z-x64"/*.{exe,dll,sfx} "${a}"
     rm "${a}/uninstall.exe"
-    cp "7z"/*.{chm,txt,ion} "${a}"
+    cp "7z-x64"/*.{chm,txt,ion} "${a}"
     cp *.txt "${a}/extra"
 }

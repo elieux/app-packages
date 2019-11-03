@@ -32,13 +32,13 @@ _lc() {
     done
 }
 
+prepare() {
+    _lc *
+}
+
 pkgver() {
     b="$(cygpath -wa "CrystalDMI.exe" | sed 's/\\/\\\\/g')"
     wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
-}
-
-prepare() {
-    _lc *
 }
 
 package() {

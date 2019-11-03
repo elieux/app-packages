@@ -4,7 +4,7 @@ _realname=coretemp
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.11.0
+pkgver=1.15.1
 pkgrel=1
 pkgdesc="A compact program to monitor processor temperature"
 arch=('any')
@@ -16,7 +16,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("CoreTemp64.zip::http://www.alcpu.com/CoreTemp/CoreTemp64.zip"
         "CoreTempTranslator.zip::http://www.alcpu.com/CoreTemp/CoreTempTranslator.zip")
-sha512sums=('b7804c6d48d611a54007140cae94aa107c06e0fbc7fb82731077b899caa4d6e77c5a61b33cec2e85f5b7f56e726423dc281d92e8a2aa03646a547b295f2e2ded'
+sha512sums=('7e79f913b35d0ecf4671acb807de379d8b03ee4f2ebe99f1f7ba5311e5cf851d896c244dd0b5b84d70c34f6f00bceee7fe7fd109927c2a833fe9d34e23656de6'
             'be6a08b8e797dbf662ae88aff592b29d720c3069ad6fcc255446bc41ae15cec8b4755953e1c2b7e00aea982f04c4de7c4930af55d64ab6601819643abe373d81')
 noextract=("CoreTemp64.zip")
 
@@ -35,14 +35,14 @@ _lc() {
     done
 }
 
-pkgver() {
-    b="$(cygpath -wa "coretemp/core temp.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
-}
-
 prepare() {
     unzip -o "CoreTemp64.zip" -d "CoreTemp"
     _lc "CoreTemp"/* "languages"/* *
+}
+
+pkgver() {
+    b="$(cygpath -wa "coretemp/core temp.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
 }
 
 package() {

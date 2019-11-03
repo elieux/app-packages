@@ -2,77 +2,48 @@
 
 _realname=tortoisegit
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=2.6.0.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Git client implemented as a Windows shell extension"
 url="https://tortoisegit.org"
 arch=('any')
 license=('GPL2')
+replaces=("app-i686-${_realname}")
+depends=("app-x86_64-tortoise-overlays")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TortoiseGit-32bit.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-${pkgver}-32bit.msi"
-        "TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-${pkgver}-64bit.msi"
-        "TortoiseGit-LanguagePack-32bit-bg.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-bg.msi"
+source=("TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-${pkgver}-64bit.msi"
         "TortoiseGit-LanguagePack-64bit-bg.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-bg.msi"
-        "TortoiseGit-LanguagePack-32bit-ca.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ca.msi"
         "TortoiseGit-LanguagePack-64bit-ca.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ca.msi"
-        "TortoiseGit-LanguagePack-32bit-zh_CN.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-zh_CN.msi"
         "TortoiseGit-LanguagePack-64bit-zh_CN.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-zh_CN.msi"
-        "TortoiseGit-LanguagePack-32bit-zh_TW.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-zh_TW.msi"
         "TortoiseGit-LanguagePack-64bit-zh_TW.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-zh_TW.msi"
-        "TortoiseGit-LanguagePack-32bit-cs.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-cs.msi"
         "TortoiseGit-LanguagePack-64bit-cs.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-cs.msi"
-        "TortoiseGit-LanguagePack-32bit-da.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-da.msi"
         "TortoiseGit-LanguagePack-64bit-da.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-da.msi"
-        "TortoiseGit-LanguagePack-32bit-nl.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-nl.msi"
         "TortoiseGit-LanguagePack-64bit-nl.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-nl.msi"
-        "TortoiseGit-LanguagePack-32bit-fi.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-fi.msi"
         "TortoiseGit-LanguagePack-64bit-fi.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-fi.msi"
-        "TortoiseGit-LanguagePack-32bit-fr.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-fr.msi"
         "TortoiseGit-LanguagePack-64bit-fr.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-fr.msi"
-        "TortoiseGit-LanguagePack-32bit-de.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-de.msi"
         "TortoiseGit-LanguagePack-64bit-de.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-de.msi"
-        "TortoiseGit-LanguagePack-32bit-el.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-el.msi"
         "TortoiseGit-LanguagePack-64bit-el.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-el.msi"
-        "TortoiseGit-LanguagePack-32bit-hu.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-hu.msi"
         "TortoiseGit-LanguagePack-64bit-hu.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-hu.msi"
-        "TortoiseGit-LanguagePack-32bit-id.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-id.msi"
         "TortoiseGit-LanguagePack-64bit-id.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-id.msi"
-        "TortoiseGit-LanguagePack-32bit-it.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-it.msi"
         "TortoiseGit-LanguagePack-64bit-it.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-it.msi"
-        "TortoiseGit-LanguagePack-32bit-ja.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ja.msi"
         "TortoiseGit-LanguagePack-64bit-ja.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ja.msi"
-        "TortoiseGit-LanguagePack-32bit-ko.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ko.msi"
         "TortoiseGit-LanguagePack-64bit-ko.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ko.msi"
-        "TortoiseGit-LanguagePack-32bit-oc.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-oc.msi"
         "TortoiseGit-LanguagePack-64bit-oc.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-oc.msi"
-        "TortoiseGit-LanguagePack-32bit-fa.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-fa.msi"
         "TortoiseGit-LanguagePack-64bit-fa.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-fa.msi"
-        "TortoiseGit-LanguagePack-32bit-pl.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-pl.msi"
         "TortoiseGit-LanguagePack-64bit-pl.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-pl.msi"
-        "TortoiseGit-LanguagePack-32bit-pt_BR.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-pt_BR.msi"
         "TortoiseGit-LanguagePack-64bit-pt_BR.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-pt_BR.msi"
-        "TortoiseGit-LanguagePack-32bit-pt_PT.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-pt_PT.msi"
         "TortoiseGit-LanguagePack-64bit-pt_PT.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-pt_PT.msi"
-        "TortoiseGit-LanguagePack-32bit-ro.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ro.msi"
         "TortoiseGit-LanguagePack-64bit-ro.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ro.msi"
-        "TortoiseGit-LanguagePack-32bit-ru.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-ru.msi"
         "TortoiseGit-LanguagePack-64bit-ru.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-ru.msi"
-        "TortoiseGit-LanguagePack-32bit-sr-latin.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-sr-latin.msi"
         "TortoiseGit-LanguagePack-64bit-sr-latin.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-sr-latin.msi"
-        "TortoiseGit-LanguagePack-32bit-sk.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-sk.msi"
         "TortoiseGit-LanguagePack-64bit-sk.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-sk.msi"
-        "TortoiseGit-LanguagePack-32bit-es.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-es.msi"
         "TortoiseGit-LanguagePack-64bit-es.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-es.msi"
-        "TortoiseGit-LanguagePack-32bit-sv.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-sv.msi"
         "TortoiseGit-LanguagePack-64bit-sv.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-sv.msi"
-        "TortoiseGit-LanguagePack-32bit-tr.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-tr.msi"
         "TortoiseGit-LanguagePack-64bit-tr.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-tr.msi"
-        "TortoiseGit-LanguagePack-32bit-uk.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-uk.msi"
         "TortoiseGit-LanguagePack-64bit-uk.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-uk.msi"
-        "TortoiseGit-LanguagePack-32bit-vi.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-32bit-vi.msi"
         "TortoiseGit-LanguagePack-64bit-vi.msi::https://download.tortoisegit.org/tgit/${pkgver}/TortoiseGit-LanguagePack-${pkgver}-64bit-vi.msi")
 sha512sums=('37198ee2d005fb66ca428fea575aa72c086e8916a9cf37a0947c4ddbf72ed76f02ca18631f20ef5727208aa739ce4d8999f56a21e72945d84300c31a2f30753c'
             'a35e138734a15e7c891196c2a454c34fffcff7195d53c1fe3d0bd71ebf7a3fef8fc8f5c35c3d99d5bf797a338952f7074603ddfff38a31f83f058c76628309d1'
@@ -166,37 +137,18 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-_build() {
-    for f in *${_apparch}bit*.msi
-    do
-        msiexec -a "${f}" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
-    done
-    _lc "install${_apparch}/Program Files/TortoiseGit"/*
-}
-
 build() {
-    for _apparch in 32 64
+    for f in *64bit*.msi
     do
-        _build
+        msiexec -a "${f}" "TARGETDIR=$(cygpath -wa "install")" -qn
     done
+    _lc "install/Program Files/TortoiseGit"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "install${_apparch}/Program Files/TortoiseGit"/* "${a}"
+    cp -r "install/Program Files/TortoiseGit"/* "${a}"
     rm -r "${a}/common"
     _rmmsdll "${a}"
-}
-
-package_app-i686-tortoisegit() {
-    depends=("app-i686-tortoise-overlays")
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-tortoisegit() {
-    depends=("app-x86_64-tortoise-overlays")
-    _apparch=64
-    _package
 }

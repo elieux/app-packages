@@ -2,11 +2,11 @@
 
 _realname=keepass-plugin-tray-totp
 _dirname=keepass
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.0.0.5
-pkgrel=2
+pkgrel=1
 pkgdesc="A KeePass plugin that adds TOTP to tray menu, entry list and Auto-Type"
 url="http://sourceforge.net/projects/traytotp-kp2/"
 arch=('any')
@@ -20,7 +20,7 @@ sha512sums=('b897c49413a94f35a7f5d92c3c43215bd41da1ae7f9f2694cb17ab611b59286a75a
             'b897c49413a94f35a7f5d92c3c43215bd41da1ae7f9f2694cb17ab611b59286a75a20f6586c94b41f17a77786440fdb4ecb5655761ed14c8bef83e858755f8cf')
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/plugins" "${a}/plugins/tray-totp"
     cp *.plgx "${a}/plugins"
     cp *.txt "${a}/plugins/tray-totp"

@@ -4,14 +4,15 @@ DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -k -o %o %u')
 
 _realname=paint.net
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=4.0.21
-pkgrel=2
+pkgrel=1
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("xdelta3" "unzip" "p7zip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -37,37 +38,19 @@ _lc() {
 
 prepare() {
     7z x -y -bd "paint.net.${pkgver}.install.exe"
-    mv -f "PaintDotNet_x86.msi" "PaintDotNet_x32.msi"
-}
-
-_build() {
-    msiexec -a "PaintDotNet_x${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
-    _lc "install${_apparch}"/*
-    attrib -r //s
-    xdelta3 -f -e -s "install${_apparch}/paintdotnet.systemlayer.dll" 0001-use-system-ucrt.xd3 "install${_apparch}/paintdotnet.systemlayer.dll"
 }
 
 build() {
-    for _apparch in 32 64
-    do
-        _build
-    done
+    msiexec -a "PaintDotNet_x64.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
+    _lc "install"/*
+    attrib -r //s
+    xdelta3 -f -e -s "install/paintdotnet.systemlayer.dll" 0001-use-system-ucrt.xd3 "install/paintdotnet.systemlayer.dll"
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "install${_apparch}"/* "${a}"
+    cp -r "install"/* "${a}"
     rm -r "${a}/sxs" "${a}"/*.{msi,pdb}
     mkdir "${a}"/{effects,filetypes,shapes}
-}
-
-package_app-i686-paint.net() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-paint.net() {
-    _apparch=64
-    _package
 }

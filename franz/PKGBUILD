@@ -2,14 +2,15 @@
 
 _realname=franz
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=5.1.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Franz is a free messaging app and combines chat & messaging services into one application"
 url="http://meetfranz.com/"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -33,25 +34,12 @@ _lc() {
 
 prepare() {
     7z x -y -bd "franz-setup.exe" > /dev/null
-    for _apparch in 32 64
-    do
-         7z x -y -bd '$PLUGINSDIR'/"app-${_apparch}.7z" -o"franz${_apparch}"
-        _lc "franz${_apparch}"/*
-    done
+     7z x -y -bd '$PLUGINSDIR'/"app-64.7z" -o"franz"
+    _lc "franz"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "franz${_apparch}"/* "${a}"
-}
-
-package_app-i686-franz() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-franz() {
-    _apparch=64
-    _package
+    cp -r "franz"/* "${a}"
 }

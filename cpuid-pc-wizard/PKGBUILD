@@ -2,9 +2,9 @@
 
 _realname=pc-wizard
 _dirname=cpuid
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2014.02.13
 pkgrel=2
 pkgdesc="Analyzes and benchmarks your computer system (CPUID)"
@@ -37,7 +37,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}" "${a}/pc-wizard"
     cp "pc wizard.exe" "${a}/pc-wizard.exe"
     cp -r {data,extras,language,mark,partner,web} *.{sys,dll,vxd} "${a}"

@@ -3,36 +3,27 @@
 _realname=davmail
 _realver=4.8.3-2554
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=${_realver//-/.}
 pkgrel=1
 pkgdesc="A gateway allowing usage of any mail/calendar client with an Exchange server"
 url="http://davmail.sourceforge.net/"
 arch=('any')
 license=('GPL2')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("davmail-windows-noinstall.zip::http://downloads.sourceforge.net/${_realname}/${_realname}/${_realver%%-*}/${_realname}-${_realver}-windows-noinstall.zip")
 sha512sums=('7fb6d156d15eabf73954530545e236d0be996424f722bde0f5d5800574d49dca96c90d47b88f40f8c7093c9141d6a783692042e04f4cb7710a397a4f4e772995')
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "lib" "davmail.jar" "davmailconsole.exe" "${a}"
     for f in "davmail" "davmailservice"
     do
-        cp "${f}${1}.exe" "${a}/${f}.exe"
+        cp "${f}64.exe" "${a}/${f}.exe"
     done
-}
-
-package_app-i686-davmail() {
-    _apparch=32
-    _package ""
-}
-
-package_app-x86_64-davmail() {
-    _apparch=64
-    _package "64"
 }

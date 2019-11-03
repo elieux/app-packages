@@ -2,11 +2,11 @@
 
 _realname=opera-mail
 _realver=39133
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=1.0.1044
-pkgrel=2
+pkgrel=1
 pkgdesc="A lightweight, customizable mail client"
 url="http://www.opera.com/computer/mail"
 arch=('any')
@@ -46,7 +46,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r * "${a}"
     rm -r "${a}/updatechecker" "${a}"/files* "${a}/opera-mail.i386.exe"

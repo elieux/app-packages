@@ -3,14 +3,15 @@
 _realname=hwmonitor
 _dirname=cpuid
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.34
 pkgrel=1
 pkgdesc="Reads PC systems main health sensors (CPUID)"
 url="http://www.cpuid.com/softwares/hwmonitor.html"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -36,18 +37,8 @@ prepare() {
     _lc *
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+package() {
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "hwmonitor_x${_apparch}.exe" "${a}/hwmonitor.exe"
-}
-
-package_app-i686-hwmonitor() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-hwmonitor() {
-    _apparch=64
-    _package
+    cp "hwmonitor_x64.exe" "${a}/hwmonitor.exe"
 }

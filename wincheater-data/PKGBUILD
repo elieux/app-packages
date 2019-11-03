@@ -3,13 +3,12 @@
 DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.cheater.cz/" -o %o %u')
 
 _dirname=wincheater
-_apparch=32
 pkgbase="app-wincheater-data"
 pkgname=("app-i686-wincheater-data-base"
          "app-i686-wincheater-data-libs")
-pkgver=2016.05.06
-pkgrel=1
 epoch=1
+pkgver=2016.05.06
+pkgrel=2
 pkgdesc="Texts for WinCheater"
 url="http://www.cheater.cz/wincheater2/download-knihovny/"
 arch=('any')
@@ -86,13 +85,13 @@ prepare() {
 }
 
 package_wincheater-data-base() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
     cp *.sct "${a}"
 }
 
 package_wincheater-data-libs() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
     cp *.sc2 "${a}"
 }

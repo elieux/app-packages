@@ -2,36 +2,25 @@
 
 _realname=teamspeak-server
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=3.1.1
-pkgrel=2
+pkgrel=1
 pkgdesc="A proprietary VoIP conference software"
 url="http://www.teamspeak.com/"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("teamspeak3-server_win32.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win32-${pkgver}.zip"
-        "teamspeak3-server_win64.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win64-${pkgver}.zip")
-sha512sums=('21ac10aee5ead51a6eacd7ce74c81369a709d30b36af78008dee691da9fb80af804728e593af6741bab70265c46176a22f32f589a431dc6a15599bc83029be1a'
-            '9f922bd388778c4601673435e5126c53ee1bbfb85ba693a6edc47c0feb05d5a71d36b70f310fa1ab42940b8362c5fb22c9f0960bfce8e75b0f457d8f8337c760')
+source=("teamspeak3-server_win64.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win64-${pkgver}.zip")
+sha512sums=('9f922bd388778c4601673435e5126c53ee1bbfb85ba693a6edc47c0feb05d5a71d36b70f310fa1ab42940b8362c5fb22c9f0960bfce8e75b0f457d8f8337c760')
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/tsdns"
-    cp -r "teamspeak3-server_win${_apparch}/redist/libmariadb.dll" "teamspeak3-server_win${_apparch}/tsdns/tsdnsserver.exe" "teamspeak3-server_win${_apparch}"/*.{exe,dll} "${a}"
-    cp -r "teamspeak3-server_win${_apparch}"/*.txt "teamspeak3-server_win${_apparch}"/{doc,sql,serverquerydocs} "${a}"
-    cp "teamspeak3-server_win${_apparch}/tsdns"/*.{txt,sample} "${a}/tsdns"
-}
-
-package_app-i686-teamspeak-server() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-teamspeak-server() {
-    _apparch=64
-    _package
+    cp -r "teamspeak3-server_win64/redist/libmariadb.dll" "teamspeak3-server_win64/tsdns/tsdnsserver.exe" "teamspeak3-server_win64"/*.{exe,dll} "${a}"
+    cp -r "teamspeak3-server_win64"/*.txt "teamspeak3-server_win64"/{doc,sql,serverquerydocs} "${a}"
+    cp "teamspeak3-server_win64/tsdns"/*.{txt,sample} "${a}/tsdns"
 }

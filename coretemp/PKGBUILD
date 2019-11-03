@@ -2,39 +2,23 @@
 
 _realname=coretemp
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.11.0
-pkgrel=2
+pkgrel=1
 pkgdesc="A compact program to monitor processor temperature"
 arch=('any')
 url="http://www.alcpu.com/CoreTemp/"
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("CoreTemp32.zip::http://www.alcpu.com/CoreTemp/CoreTemp32.zip"
-        "CoreTemp64.zip::http://www.alcpu.com/CoreTemp/CoreTemp64.zip"
+source=("CoreTemp64.zip::http://www.alcpu.com/CoreTemp/CoreTemp64.zip"
         "CoreTempTranslator.zip::http://www.alcpu.com/CoreTemp/CoreTempTranslator.zip")
-sha512sums=('f9ef7481494ac5ebc482e1af1751e13b3f86cf04cf99a55442a4d9b4a95240b0e7ad0d76a1aca395bcc9f25a42987fc6890bede99afafe1c79dff4dbe368e67d'
-            'b7804c6d48d611a54007140cae94aa107c06e0fbc7fb82731077b899caa4d6e77c5a61b33cec2e85f5b7f56e726423dc281d92e8a2aa03646a547b295f2e2ded'
+sha512sums=('b7804c6d48d611a54007140cae94aa107c06e0fbc7fb82731077b899caa4d6e77c5a61b33cec2e85f5b7f56e726423dc281d92e8a2aa03646a547b295f2e2ded'
             'be6a08b8e797dbf662ae88aff592b29d720c3069ad6fcc255446bc41ae15cec8b4755953e1c2b7e00aea982f04c4de7c4930af55d64ab6601819643abe373d81')
-noextract=("CoreTemp32.zip"
-           "CoreTemp64.zip")
-
-_eqver() {
-    local r v
-
-    for v in "${@}"
-    do
-        if [ -n "${r}" -a "${r}" != "${v}" ]
-        then
-            echo "Version mismatch between ${r} and ${v}."
-        fi
-        r="${v}"
-    done
-    echo "${r}"
-}
+noextract=("CoreTemp64.zip")
 
 _lc() {
     local d f n
@@ -52,44 +36,20 @@ _lc() {
 }
 
 pkgver() {
-    _vers=( $(
-        for _apparch in 32 64
-        do
-            b="$(cygpath -wa "coretemp${_apparch}/core temp.exe" | sed 's/\\/\\\\/g')"
-            wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
-        done
-    ) )
-    _eqver "${_vers[@]}"
-}
-
-_prepare() {
-    unzip -o "CoreTemp${_apparch}.zip" -d "CoreTemp${_apparch}"
-    _lc "CoreTemp${_apparch}"/*
+    b="$(cygpath -wa "coretemp/core temp.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
 }
 
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
-    _lc "languages"/* *
+    unzip -o "CoreTemp64.zip" -d "CoreTemp"
+    _lc "CoreTemp"/* "languages"/* *
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/translator"
-    cp -r *.{dll,exe,lng} "languages" "coretemp${_apparch}"/*.exe "${a}"
+    cp -r *.{dll,exe,lng} "languages" "coretemp"/*.exe "${a}"
     mv "${a}/core temp.exe" "${a}/coretemp.exe"
-    cp "coretemp${_apparch}"/*.{url,txt} "${a}"
+    cp "coretemp"/*.{url,txt} "${a}"
     cp *.{txt,png} "${a}/translator"
-}
-
-package_app-i686-coretemp() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-coretemp() {
-    _apparch=64
-    _package
 }

@@ -2,21 +2,20 @@
 
 _realname=vivaldi
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.14.1077.55
 pkgrel=1
 pkgdesc="A new browser for our friends"
 url="https://vivaldi.com/"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Vivaldi.x32.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.exe"
-        "Vivaldi.x64.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.x64.exe")
-sha512sums=('f42915b217c153ed23f9c356707ade1f95921b179c42a2dd5e6d59b07f62c7705e802c0c426bb7d652a51bc164b05ed196c90c00f8a486e80f7130b8092a5676'
-            '0771b8493763dc95f672cebdd51f9d0950429b0152f1954a7eca410cc4f1382bb6d236f6d40f57a404002b2d8f22a9c4b22d381bbff4b7ddb315970c9bf74a2a')
+source=("Vivaldi.x64.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.x64.exe")
+sha512sums=('0771b8493763dc95f672cebdd51f9d0950429b0152f1954a7eca410cc4f1382bb6d236f6d40f57a404002b2d8f22a9c4b22d381bbff4b7ddb315970c9bf74a2a')
 
 _lc() {
     local d f n
@@ -33,34 +32,15 @@ _lc() {
     done
 }
 
-_prepare() {
-    7z x -y -bd "Vivaldi.x${_apparch}.exe"
+prepare() {
+    7z x -y -bd "Vivaldi.x64.exe"
     7z x -y -bd "vivaldi.7z"
     rm "vivaldi.7z"
     _lc "Vivaldi-bin"/* "Vivaldi-bin/${pkgver}"/*
-    mv "Vivaldi-bin" "vivaldi-bin.x${_apparch}"
 }
 
-prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
-}
-
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "vivaldi-bin.x${_apparch}"/*.exe "vivaldi-bin.x${_apparch}/${pkgver}"/* "${a}"
+    cp -r "vivaldi-bin"/*.exe "vivaldi-bin/${pkgver}"/* "${a}"
 }
-
-package_app-i686-vivaldi() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-vivaldi() {
-    _apparch=64
-    _package
-}
-

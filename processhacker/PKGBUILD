@@ -2,14 +2,15 @@
 
 _realname=processhacker
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=2.39
-pkgrel=2
+pkgrel=1
 pkgdesc="Views and manages processes, services and more"
 url="http://processhacker.sourceforge.net/"
 arch=('any')
 license=('GPL2' 'GPL3')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -32,22 +33,12 @@ _lc() {
 }
 
 prepare() {
-    _lc "x86"/* "x64"/* *
+    _lc "x64"/* *
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "${1}"/* "${a}"
+    cp -r "x64"/* "${a}"
     cp -r *.txt "${a}"
-}
-
-package_app-i686-processhacker() {
-    _apparch=32
-    _package "x86"
-}
-
-package_app-x86_64-processhacker() {
-    _apparch=64
-    _package "x64"
 }

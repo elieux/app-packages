@@ -2,22 +2,21 @@
 
 _realname=7zip
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=18.01
-pkgrel=2
+pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="http://www.7-zip.org/"
 arch=('any')
 license=('LGPL2' 'custom')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("7z32.exe::http://7-zip.org/a/7z${pkgver//./}.exe"
-        "7z64.exe::http://7-zip.org/a/7z${pkgver//./}-x64.exe"
+source=("7z-x64.exe::http://7-zip.org/a/7z${pkgver//./}-x64.exe"
         "7zextra.7z::http://7-zip.org/a/7z${pkgver//./}-extra.7z")
-sha512sums=('4a07d1ebe13953d33d8dcd593badfc65fec4376df1a2274674276869fd5a9e4dee91813bbeab3b654fced480722e1db06402261ff68c7af6ac4cf22472f3565b'
-            '0a1e8b876ecf4c58801743f6144e47951a60ade274a8bb7c3476ea70874e023b8c4e5e71e5fa25064dc7ec9208d8ea7a5e520107788fe06955fca0f71aa91b63'
+sha512sums=('0a1e8b876ecf4c58801743f6144e47951a60ade274a8bb7c3476ea70874e023b8c4e5e71e5fa25064dc7ec9208d8ea7a5e520107788fe06955fca0f71aa91b63'
             '9133fc551d76515e37fdd4dd8c1e28d464aea493548246b44565a42bba46715764f41f9cfa14d470d298c3a6e9829d200f8be5168cb67cf8f23d8042fca833bc')
 
 _lc() {
@@ -35,35 +34,16 @@ _lc() {
     done
 }
 
-_prepare() {
-    7z x -y -bd "7z${_apparch}.exe" -o"7z${_apparch}"
-    _lc "7z${_apparch}"/*
-}
-
 prepare() {
-    _lc *
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    7z x -y -bd "7z-x64.exe" -o"7z"
+    _lc * "7z"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/extra"
-    cp -r "${@}" "7z${_apparch}/lang" "7z${_apparch}"/*.{exe,dll,sfx} "${a}"
+    cp -r "x64"/*.{dll,exe} "7z/lang" "7z"/*.{exe,dll,sfx} "${a}"
     rm "${a}/uninstall.exe"
-    cp "7z${_apparch}"/*.{chm,txt,ion} "${a}"
+    cp "7z"/*.{chm,txt,ion} "${a}"
     cp *.txt "${a}/extra"
-}
-
-package_app-i686-7zip() {
-    _apparch=32
-    _package *.{dll,exe}
-    rm "${a}"/7z{32,64}.exe
-}
-
-package_app-x86_64-7zip() {
-    _apparch=64
-    _package "x64"/*.{dll,exe}
 }

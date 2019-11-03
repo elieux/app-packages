@@ -3,11 +3,11 @@
 _realname=keepass-plugin-http
 _realver=2017-05-24T10:31:29Z
 _dirname=keepass
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=1.8.4.1
-pkgrel=2
+pkgrel=1
 pkgdesc="A KeePass plugin to expose password entries securely over HTTP"
 url="https://github.com/pfn/keepasshttp"
 arch=('any')
@@ -31,7 +31,7 @@ pkgver() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/plugins" "${a}/plugins/http"
     cp *.plgx "${a}/plugins"
     cp *.md "${a}/plugins/http"

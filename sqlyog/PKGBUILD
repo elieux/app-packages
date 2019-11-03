@@ -4,21 +4,20 @@ DLAGENTS=('https::/usr/bin/curl -k -qb "" -fLC - -o %o %u')
 
 _realname=sqlyog
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=12.5.1
-pkgrel=2
+pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://github.com/webyog/sqlyog-community"
 arch=('any')
 license=('GPL2')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SQLyogCommunity32.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x86Community.exe"
-        "SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
-sha512sums=('de08808692c42d92d44bebccf23e2f1641e3a1692bfbb4dbdf56c8e06c605e0d8dba573a6a4eaa6cfd82160d2846500c5ccd76df27fbbd156dc8e969f9cd0e8e'
-            '0bb3236a9e22c6e866d0b7469f3b1a012b5e0d45c99d4c5a53c2037a5fdf2dd208a1f1ed7112852364410f0d9244c9e89796d37ec03daf3b4b4550c4d93ce9ad')
+source=("SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
+sha512sums=('0bb3236a9e22c6e866d0b7469f3b1a012b5e0d45c99d4c5a53c2037a5fdf2dd208a1f1ed7112852364410f0d9244c9e89796d37ec03daf3b4b4550c4d93ce9ad')
 
 _lc() {
     local d f n
@@ -35,32 +34,15 @@ _lc() {
     done
 }
 
-_prepare() {
-    7z x -y -bd "SQLyogCommunity${_apparch}.exe" -o"SQLyogCommunity${_apparch}"
-    _lc "SQLyogCommunity${_apparch}"/*
-}
-
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    7z x -y -bd "SQLyogCommunity64.exe" -o"SQLyogCommunity"
+    _lc "SQLyogCommunity"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp "SQLyogCommunity${_apparch}"/*.{exe,dll,db} "${a}"
+    cp "SQLyogCommunity"/*.{exe,dll,db} "${a}"
     rm "${a}/uninst.exe"
-    cp "SQLyogCommunity${_apparch}"/*.txt "${a}"
-}
-
-package_app-i686-sqlyog() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-sqlyog() {
-    _apparch=64
-    _package
+    cp "SQLyogCommunity"/*.txt "${a}"
 }

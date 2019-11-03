@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=gpg4win
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=3.0.3
-pkgrel=2
+pkgrel=1
 pkgdesc="A secure solution for file and email encryption"
 url="http://www.gpg4win.org/index.html"
 arch=('any')
@@ -37,7 +37,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r * "${a}"
     find "${a}" -iname '*.tmp' -delete

@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=innounp
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=0.49
-pkgrel=2
+pkgrel=1
 pkgdesc="Inno Setup unpacker"
 url="http://innounp.sourceforge.net/"
 arch=('any')
@@ -22,7 +22,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp *.exe "${a}"
     cp *.htm "${a}"

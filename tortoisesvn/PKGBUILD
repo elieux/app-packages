@@ -2,97 +2,58 @@
 
 _realname=tortoisesvn
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.9.7.27907
-pkgrel=2
+pkgrel=1
 pkgdesc="Subversion client implemented as a Windows shell extension"
 url="https://tortoisesvn.net"
 arch=('any')
 license=('GPL2')
+replaces=("app-i686-${_realname}")
+depends=("app-x86_64-tortoise-overlays")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TortoiseSVN-win32.msi::http://downloads.sourceforge.net/${_realname}/TortoiseSVN-${pkgver}-win32-svn-${pkgver%.*}.msi"
-        "TortoiseSVN-win64.msi::http://downloads.sourceforge.net/${_realname}/TortoiseSVN-${pkgver}-x64-svn-${pkgver%.*}.msi"
-        "LanguagePack-win32-sq.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-sq.msi"
+source=("TortoiseSVN-win64.msi::http://downloads.sourceforge.net/${_realname}/TortoiseSVN-${pkgver}-x64-svn-${pkgver%.*}.msi"
         "LanguagePack-win64-sq.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sq.msi"
-        "LanguagePack-win32-ar.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-ar.msi"
         "LanguagePack-win64-ar.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ar.msi"
-        "LanguagePack-win32-bg.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-bg.msi"
         "LanguagePack-win64-bg.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-bg.msi"
-        "LanguagePack-win32-ca.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-ca.msi"
         "LanguagePack-win64-ca.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ca.msi"
-        "LanguagePack-win32-zh_CN.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-zh_CN.msi"
         "LanguagePack-win64-zh_CN.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-zh_CN.msi"
-        "LanguagePack-win32-zh_TW.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-zh_TW.msi"
         "LanguagePack-win64-zh_TW.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-zh_TW.msi"
-        "LanguagePack-win32-hr.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-hr.msi"
         "LanguagePack-win64-hr.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-hr.msi"
-        "LanguagePack-win32-cs.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-cs.msi"
         "LanguagePack-win64-cs.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-cs.msi"
-        "LanguagePack-win32-da.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-da.msi"
         "LanguagePack-win64-da.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-da.msi"
-        "LanguagePack-win32-nl.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-nl.msi"
         "LanguagePack-win64-nl.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-nl.msi"
-        "LanguagePack-win32-fi.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-fi.msi"
         "LanguagePack-win64-fi.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-fi.msi"
-        "LanguagePack-win32-fr.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-fr.msi"
         "LanguagePack-win64-fr.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-fr.msi"
-        "LanguagePack-win32-ka.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-ka.msi"
         "LanguagePack-win64-ka.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ka.msi"
-        "LanguagePack-win32-de.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-de.msi"
         "LanguagePack-win64-de.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-de.msi"
-        "LanguagePack-win32-el.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-el.msi"
         "LanguagePack-win64-el.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-el.msi"
-        "LanguagePack-win32-hu.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-hu.msi"
         "LanguagePack-win64-hu.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-hu.msi"
-        "LanguagePack-win32-id.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-id.msi"
         "LanguagePack-win64-id.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-id.msi"
-        "LanguagePack-win32-it.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-it.msi"
         "LanguagePack-win64-it.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-it.msi"
-        "LanguagePack-win32-ja.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-ja.msi"
         "LanguagePack-win64-ja.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ja.msi"
-        "LanguagePack-win32-ko.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-ko.msi"
         "LanguagePack-win64-ko.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ko.msi"
-        "LanguagePack-win32-lv.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-lv.msi"
         "LanguagePack-win64-lv.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-lv.msi"
-        "LanguagePack-win32-lt.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-lt.msi"
         "LanguagePack-win64-lt.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-lt.msi"
-        "LanguagePack-win32-mk.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-mk.msi"
         "LanguagePack-win64-mk.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-mk.msi"
-        "LanguagePack-win32-ml.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-ml.msi"
         "LanguagePack-win64-ml.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ml.msi"
-        "LanguagePack-win32-nb.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-nb.msi"
         "LanguagePack-win64-nb.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-nb.msi"
-        "LanguagePack-win32-fa.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-fa.msi"
         "LanguagePack-win64-fa.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-fa.msi"
-        "LanguagePack-win32-pl.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-pl.msi"
         "LanguagePack-win64-pl.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-pl.msi"
-        "LanguagePack-win32-pt_BR.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-pt_BR.msi"
         "LanguagePack-win64-pt_BR.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-pt_BR.msi"
-        "LanguagePack-win32-pt.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-pt.msi"
         "LanguagePack-win64-pt.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-pt.msi"
-        "LanguagePack-win32-ro.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-ro.msi"
         "LanguagePack-win64-ro.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ro.msi"
-        "LanguagePack-win32-ru.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-ru.msi"
         "LanguagePack-win64-ru.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ru.msi"
-        "LanguagePack-win32-sr.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-sr.msi"
         "LanguagePack-win64-sr.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sr.msi"
-        "LanguagePack-win32-sk.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-sk.msi"
         "LanguagePack-win64-sk.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sk.msi"
-        "LanguagePack-win32-sl.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-sl.msi"
         "LanguagePack-win64-sl.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sl.msi"
-        "LanguagePack-win32-es.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-es.msi"
         "LanguagePack-win64-es.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-es.msi"
-        "LanguagePack-win32-sv.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-sv.msi"
         "LanguagePack-win64-sv.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sv.msi"
-        "LanguagePack-win32-th.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-th.msi"
         "LanguagePack-win64-th.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-th.msi"
-        "LanguagePack-win32-tr.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-tr.msi"
         "LanguagePack-win64-tr.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-tr.msi"
-        "LanguagePack-win32-uk.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-uk.msi"
         "LanguagePack-win64-uk.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-uk.msi"
-        "LanguagePack-win32-vi.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-win32-vi.msi"
         "LanguagePack-win64-vi.msi::http://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-vi.msi"
         "TortoiseSVN-zh_CN.pdf::http://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-${pkgver%.*}-zh_CN.pdf"
         "TortoiseMerge-zh_CN.pdf::http://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-${pkgver%.*}-zh_CN.pdf"
@@ -128,122 +89,81 @@ source=("TortoiseSVN-win32.msi::http://downloads.sourceforge.net/${_realname}/To
         "TortoiseMerge-es.pdf::http://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-${pkgver%.*}-es.pdf"
         "TortoiseSVN-vi.pdf::http://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-${pkgver%.*}-vi.pdf"
         "TortoiseMerge-vi.pdf::http://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-${pkgver%.*}-vi.pdf")
-sha512sums=('8d85df03eff24c7b35a46840b2abce4401830eabfca9aa6d7550b23c22486fe878cf43056c49e6a6ecf8f92731abf8e9332fdebd08e941092ef29e069d68e9a8'
-            '24f93c2ef3781e8a3542112450c72bd452d3e098aff20afaad736bb0d45a89d50e8350c2fd8b3e4754c8d8949bfd487b01058fa2c735768f4ef300ab3460b56d'
-            '68a5d46818715c02db940b3bfbfb00327436c76f09f03bfb4e83f8bd58b1600921ca3d19b63b6972e4c3bd1c3eb4d5314a016d32fdfdf789c06b946adb731158'
-            '07528ebcdb6d2c03d262949d098b776fee2443a6eef09df61c5d9ed559be77a54b07e6fd8e39677af3804a2bae2483508be49020cbe41dde50e9be50d7ac556c'
-            'af00994f79296feef2d2fb4459d28bc0b91172faf83377c954b346dc8b812a02b188c3e1064cf04555adaedc9f7ff57e8f3737713cb0c5650172898faa9f25e4'
-            '409b6044d978597f1e00984319fd0ec412e1ce314b9d5d01ef16d0b3a2fffa090024b02425fdb995884e568371908660ed8a90e87cf1deb8c33aedfc311c2160'
-            '438ba8c52c2ee105feeb1b58c6019e69cdc79eb90ad50f33246202d610e4f80ae69b427631c8b1573856b36ee4fa1f7ee3b8c429e7507bc29e8ba460b0dc57ca'
-            '4c729ad564dd0991bd5e269a0d120234e8a52d2dd89be04c659e1450a3aefb4197987dbd7af000cb42e3f76627023d6b7f4fe991fde766580bd859166f7cf2ec'
-            '02214c0142b9f2757be6b8458ce8b577a6f9956c82a3e91a1d6b9bcfb434ed9f5d33452df1ff4bdc3395622b79b29941eeca6368dddedffb42e7a6a814852ed3'
-            '6ac89a5db8c366e73b16d9da0b149a4b122b4d3089f6816b6a97bf83b085ec7e66afd30837da0fe8776b2763b644fc846dba4f16a661a31c783a6f419c18e687'
-            'b8ecc0905180183e28bb995b6c81dc7117d5fc45ebfb536bb402993526cc3c77991b0d19bfc0d7cc6720da82a30c1b288e23fc00776ed5db6b541526bf3b5cc6'
-            '21e302d4b3f1aa5cf87e86aca44b486c25fca50a2f2d0c30ae8d0830e515b0e2c23dc5f7b0078d0b30e33ddad90eac0eb4714963dc72e9564145e6cec501d393'
-            '7fb91017c343a62dc8d2120ee4142d0fd8577debb085e0677b429a28b5dec8c7d884e030e81af77b0ba9792771861211422cda48cb0a386912c39765b6dc86cd'
-            'fe9e0c5a5efbd7839864f913eea3c5f61f66042bff0860b1884b97ce55fd85b8ff83767f50ccce524b296026c6c0c18555cc90563f551d363262549d4a73f3c8'
-            '52c342d281a4c5e40cf3683854e5c44ca81d1dc5c04ce93af00cdc4cdb39bdec16fccebc823722880e4e0780d317fff759af01fd1bb66ba44a19495357512d62'
-            '890bdecb27d2de0855dcfc3d2eec34d86dfd96fc06b21184f4d99b3598e85b6fd6ab55d8627225ab05faff03bf75f55cc0e821d507bdcf834f20e90f4e7f98fd'
-            '482259c5d716efc29bb84d9d5dd83ad3fb1a6685daf6f1d5967dfdd7ce6908d1446eb469bcaaeb766f3f05a879040f164166bcd53c7efcfb12bd3cb52ac540f3'
-            '26a42f9112edcf644d762184fdb6a3cb2cd418ee6f0afa1067f7a64f234a5dcb2010e433002e5e2cf5be5f90a9429309883401898ba3a7e0766cfc35d3a49032'
-            '060b6df201e8ef24fab33ddebc61f495d7e06acfc7db4e88e69c4456f99a753580d496ff274f9169436ccae98c843ef4745f50b26f053f4183fde4990f5876b8'
-            '2950fa93d82fdad084541d41361568e7b10eaf508dff9a8bd704ccb5b3643e7401508168e3c79051dd18e70f6685169c46b197ea7dc0e40f26fa326c35b245d5'
-            '3c1a3cdfc59d4b2aea9c9d9924aa81cab3c513b7f16c30d06b058e89fa0dcdd6ab046f64ae548265bb574b7a66407fb8bcdb4c581a3a2fb0805a694daff9b356'
-            'd6c7c5318a5f9008515886750bbc948c4c49ba14634b36fb28f3500ddc361773d6f0d2d7e03d265c3fe7956dd8c4526a4ee7e4b9bb3c002173f8ef946b5d609a'
-            '3fb990ff95344229d6fc0d633dfa6bfd6cbecd3cd0d1b6e14061c300d72d8c0001f29095e2f5950d98ff47e53dec3fee87f00fff5a6cccf740ef25ad962da5da'
-            'a5801493fd2a19aee6e5c6939e4b368dc785b4eec4b6345b7f5435cbe4b26689d9c55f4481abfc6784a83f92d744262216c1d3803fb29c2fd8a775522a349c32'
-            'a5a2451902eb68fb38b2ae9da6aef262cc6e689b2ec868f3b063288b060b886e35c99cc28332526166d24dcfb40de5a1de97c897c87b634c3f7cd6b290e70c76'
-            'c303556d4fe8cddea1f8c03bdff3f9a57739b750e2787df612eb340a068bbce733b333e1099ed5b1dab5fdabd6f2601f0dd1d4166ea55291e83e31090f979d8f'
-            'e39b80dc8287cb84bf473014ccc63deaa1a9d6bf82ce45bb4a829b7ff110cb459beda2feee2e716be736c02d21c40d4b883a19ffde42afcffb26de0e39f4d3c5'
-            '932c96098c7ad1d173cb1b1ef8920302efdef6a364c6222ea40081d84a04144e53867c6e8584794a02b6f012eb5c3f5919dfaf698f09d8c6052ca6ed31259634'
-            'ac4d8554d908342c3948e0679cce573080fa084297cb89d6221dbbc90a3aaaa4c1b48f665bc95030d750f1b1d33adbb274e89e2047a1846e58c7237701642016'
-            '730f3ef1aebac6fda4cceb752f91ebb36e81737a3dc35bc4f60710c7be35ca643bec9c531752ad6483d836e6f0f541b80afaa0a7f370c49164fd7862bde2abda'
-            'aa67b075547be640f02e4638ad8a5427e06895aaa03d48f52686a82f73c11f5ee54f0f428b86b3352db58db88a9f7cb2f51432f7de7384dbe4194cd22cecba85'
-            '5d1529911680e3a05d21c4e2d3a7b1f4bb2246b0102f544ee4429c2e598f9b8f2938a35e712e2322fa000c1780709709fecefb583ed3c91ff04c1a7f97602700'
-            '447f77f31484b2327c69b23671331f7a8ad87ce0740de780b833fee043b5d341e5f043642805fd5b9c04b4f896c031ff66a6b7eec5a1f12ec8bcfa99d4663c00'
-            'e926dec1f8c7cc39d8acf6a7148a0e69e020fc51907c9af6a783e07f3b1cf184364a3a6402378e8210df9bf86ad3663e23d77ab40d27164ed4d9b25b323866b8'
-            'edd1c3616b3f8f31021d180420c3fb70fa32fced630c9239719fefd58fcf5b2114724fcaa23a0b2e53a0f2b42b5b55692e98691e2a00ac3c3adea693bada7102'
-            'dae71e38e771f5977a2ded7b7d89401dc04e8f2a054b9ba87cb41602b8e260135b852ebecb6a76bf23f034653fc6ed135e24a53bf89c789b885a5eabf3b84f52'
-            '0232461b08e2f2f8e568865ad8b2c477b9f4de7f18128ce656c229dddc2a2e277eaa7f4b5e52f194da0306c3e030c131cf540d384cc3d0c4f745781361ec10d2'
-            '9d6e140e65bb2f1bd000722ed67be03b140178ae20085e8500cbfcdc03f04a35061c9e7da44f6725392e534d3eaaa0f7c4bb37aee6f4f5191c4d01002149bcce'
-            '493d9eac5652ae79e2e982d53af35875b2add0772aeafcd24a5ab2098c32ca6bd96b27b11bb098f26425ad9e62790aad7caf77bf778ab847f5ffd1eccc5ee310'
-            '86c9c5afd31531b5c5def78ac687a19d64230cc9706ce8e4fad881045f891fc8369c574097eb2e7dd411f4c9344d156286f2413abf8aed4bbda8e52acbca41a4'
-            '71f3141bab8bf05b99f3d202f86f0918cbc7f859e23585e103f8eb3d74860076d6295fed1667d9e031f0cf05a53732a7f5fb7b9d6e8594804e721ead447cfa1d'
-            '0d3938baebe86b41bfa2d53a6abf3eacd010e37dfd0cd4b325c972ff9459893e59ac05cd81b75e5e360cad826ceb45cba88fd78be07cdb8a1c1c1b81d5b636af'
-            '9045d1e4b253ea665679a5c1dd3ef3ba92858fa504b72238e0c8ad0c54ea5680c0d10c2a139d168d8e2f36c9daba6f7b3ca79b44d77be55060c046dcd028a573'
-            'ea74520d0551fe136e0ff3dac87d59fe753d59a3af9b5385a660d67ce223ad62dc87c3a27e81de47aa3f438ef43afc16dacf31f687b89f74f4ef3c44d2732376'
-            'f64127bfbe2ae5da39d5314164f1900de31ba7b004a6b953be02364d911f6471294bff0b21bf07bc5dae7bd9487759f187d35ec433c81c1d908c8a77753ce574'
-            'ca61fe98651456b9aa9f74f331d5f3b8b77aa08cd8b70d811228b06b2bb6e723d994a02a8d073fde228f753653e73bb7e19b726d5a0661a2f3b5fad6cb865d26'
-            '8e3e607f2b7c77ed59b90938b4970d861962acb7982b307cce1bafa45993b9393153b235fe5c6ca4bdc2fd72b44bf8b3c36ef13fdf5a0155fdb17cd6e406299e'
-            'f77c4c62633a31f007e869f491b557cda408f63a4299169981dc251dc081e858aa021a4a6db417a43fe9ba42957696302fce00e824820893e59d2f3ae79ce0d0'
-            '89a8913e640e621e1703bd8075689a03f251491d8b87dfbdf6cdab22da56e9cc4a94550b34b8e68b3379b3e3674cf388a13269b84972ebbf5dd79ef84ec30868'
-            '27de82e4597724661c3e870b077b74842a4c50df81a57a3cf7cac915744a59d9f1e52ecb27407f711ef914f9c407c0f831c7d0f30ff33d78b9f02df624d11eea'
-            'f2a5d96615f171616b77995c44181b0792f2075b9c3e8104bf71a2a67ce4234f05db56c0e1d3dbde6b46dfa51df5a66783f109eef072b2ee62e2ad0b2abc6763'
-            '565ca5159811fc152385a3c64a0b751f5d822717ebb545aba8adc3684277a8aeaabbb4a34140fd862d1ddd9e8ca2fb6fb927b053914882054a5b93bb85283126'
-            '976fb942f951a9ebc48881c389732a113b6c6181e4f0b8fc326a9f3a1ad877fb306f42d6c18ee350af35a0e44f153fec7c8cd6f448d968bf7040750100b87e07'
-            '183216ef687530d137e2b0971432f5883a8fde009eb75b4796beeb189d62385085de63cb9575ac0911e9a14f2f5c1f1a64228743e502e8831596f010b42ba65e'
-            '1d565e4a15446ac98ecd5918e8a0673db3014d5800ca45249d223e9001a08339e1115394452a54d6ed719d2e46a2c1e51bf7ba557a068d6ca576598120fae5f3'
-            'e8a26ae95618320504fd746473e99cbf1cd2d48f8f26ee1635eb99e300b89fd5f926b546a9e04b35dfce8978d5003c00e3f7aa66cd1de0fb4d0d91c21f3dec82'
-            'c9184ee680ab58f0de1e785c07710da38b6237211d6007c61004c5661b1e2f6e4e982b5f1298ff3e09c651f706cb78644fad5d4cda960066e661eb8bd4c30f0d'
-            'df7ecd166f48a7ab3bbe7b98dc75b99ba9ee1998da251dcf72671b70b19321f84808530e60df4b60526d7bfd351497fafc2569b0c755f755e452ce0a96a1ec2d'
-            'b9658d1f4677bcafe47d8eea512cdbc1bc434fe988df7da5da4daa55d81805b2d0a35049288705781e52ae05e60762d23d3570fd60a32adee05f8a13e19ceaf9'
-            '64626d1fea87d8ea7476502002018ef3ff0f332aa30ba60a46bd1252b2d83a44e61536c0690a9341855ad252d3914e5ed6d8affb361c948e16a053626a74ef10'
-            'd2c2e8dd1d16f97efcf7e82759f5b1b186dff8dc48e4c16fea0feb8f5b585c81d742fe12f7807286edf3e4afc90a226a17f09eb7a81e3e4c6f2650107cec5143'
-            'f8ffe9a0437c234a29431ea757a77d6f18d91e618a8e44769c3ab258687ad14cbad52cfb0b75f07bd03ea9b420679d0e5cb7929fe0ba0c4fa6df42ab0eb0c988'
-            'dc63e89aaff7392112466360d841ed303ecef9cb83a8d4e346a000a2865159c9126518b7dacce0a6cbe9039f642d1cd2e85da5ca2665649091b31a180c001d8d'
-            'bda912dee7adcd39c498bdd71bda2d7feeed6ab5f2985225c29d878cdf6672aa299749e09ef91b3bb3de935730a1d27a87995db7a49e5ca4a920264ff0996bdc'
-            'c9f217f4812f66c586eaf2a9798f2d42e587cb1cba3ab5564c07f89e1fc4d905499e26778e3502b77b647e730baff0281f84fab376e3c0770fdf513ad389a5eb'
-            '73d9cd196007f01a8e3b89a05a3636223339160d1bdc0e7be1078c8c5aaf205fac80e84f64a4b98488d58f1e411a9488bb43df79ab62ca81407f8fb837581733'
-            'fa3129f5c34332edc12077b12aaf8980dfc40646091c7f9ca56a98101afe6c8c4b56421e144a3066cc75417d56cf2f30d2aef863f842b7c123dbf10cbe19be78'
-            'f6ff8743486c37eeafc632d9960d614666d6b5d03d0216188e72ac1e306da6c5ffe8047d4a288abf934230f38c947d5d0d46802b5415e26c8b9840395cc77c4d'
-            'd88dd208afbc731524050361f6ee7a862f48d9df092d12f0227fad6fdb2543a087ca07f0d7cc182969bd232c902df885e66796a055bd59c905e96f14cf2c0c14'
-            'a6c9fc416c2fc7853d05c0f6aee022b8b3a1ed3121ea72c8f81d0d5c738f90747383f9a2bf8563ea340e8c5e07a14926bda39d3952e16d95e184cee2d4782891'
-            '683b28fba5a25e2865d017b6cd1e259affbc8fecf8cd047de1a473b991a12e6c5555b1ca24c67e3c87048554720668488bafb3d052290d95bdf16974d2c4be00'
-            '3cf875566802bcd2f11060df5a8a675a8610d3f34307d6b205aa54664cf0dd28c3e7e58a1583192adab8f74b4021204d070b574e9da725107e1fa515e376c0d2'
-            '5c0adb1297aebcdaf7229b319572d87853acaa95b07516deb2f7d3a3f103ea02c00530d02278250c36b771c93eba3d9e308daafd2c2a33ff574ca4c51dbeefc2'
-            'e2cc49823d54ab9eb1e9b962a8594fc7bc1eed11794e05feaf5f8b9341a6d1310a6f5d4cc7febfda31d7b9d729db12a1347e0ae2b4e67333db7c47cccbc448c0'
-            '9d3ddaa9bbf8e6c8dc9885321f006bc0db6ea806ad77aa58a7607af51369f53ed67ef4d20f37c8b50a1b1d80bbeb27b70ebb7b20b77f06c15b3318a6eac44609'
-            'e3a2ec061fb40260ec3865b69facad092164ee37e15eb8b8fe2dd7fedd27766b8a599775c027e556a27ea5677c020b7cf59ff1ca25d61a6b8d9926baa5f300bc'
-            'f4b562e8dfefb96e57e026866e2f8684636547f6bc7ae27fb9662f6059f8e7d8f18ed1382a613be98fdd1b15956e688cd083a55b938bba4a93ca158e58d714df'
-            '3a8d2683ac1d106821b71b1414279cb917ee2ef8c307cab77aaa3ba20f9df1ff0870778a211dea796422f3b5622dbe71113629164ad22c5d8167b4c015de53e4'
-            '6df3cb7025129fd82fccedfd1aabe8002e4d9307958052d10221c1eea3ce7689e881d4aeb88eacdf864c86c5d7190e0ff0e43cbd77a68af04641431634d6ebd3'
-            '1d9487fe987022f92cf9daa3c6424648271539dc01ebbff4fb3e94fc01f88efec5f18626fed8a5a7f84890e752e37b19edf5541732f508515f5f3136873933e7'
-            '7a509b5bf59e70c5d319051dac4eeea54ede96141bfc93d2ea13d7fee2c1ccd5fd3a956b39ef8158dcf7946381810934b382922db5f59039a976f31d4cade70f'
-            'ceb223101c8b00d0394890d7f8255d799af01cec9f22234c8e41bd9a2a3477704d451a85cebdcc0aa4c298625ddfd0e886ee3fe3f41df70062f71e02ff06b56a'
-            'fb05efca7ae7daf4f45d05dbe9c4817411c7c708f31164162c3e27cd456b02274ae350d55d0e2c603d9cb6e06139e1d1864a0aab6d561193524b538edeafb818'
-            'd8ff4894cfab0a3d8ef18a3c4c212b275bb46ebe77a83359a51985c531c963af26eb560db152c111ae069d066e8c952c6059681437d71d7845d765ecadab1008'
-            '62a342a13fc962c65d40c64265f59a339995f10d6104af3f1bb5d353e566f3905f115e6ddf4ec1e2b5d02eb497e154a02e0c6b8737264b4df6cf466f20c9bb21'
-            'a534e0a0e96553a8a260f02ca36564f865c1d0957c11cda3cdc4609058fd7d2506704950f298442669fadf0f95fda2e9fd34a9cbb48e592b96c152b977b5a5a2'
-            'a2e5a192c3cd24c58fe438fe24f582cec2c7550af539bd7e7a77e1f58fbe16f0df2b06763d7f01dd23cb53f66b647a95e34a158cb04d09b28544adbf46178bb2'
-            '3d1aba2cd331ce77f91ce51b31eea685c4e9bb419fefe02a2e752bec6f6488ae69b75eeb7e848ef5698c7bcd195979ec7fa455c7f16dcdf8fa88b4ebf4ac1848'
-            '66b900ee7dcd11c4067ab6133f90cfd1898eff09a208786530ccfe37e093113dd7fd71b18a2c23aa662ea97d55ff1099effc5f4acbe452b48016d8703f90f041'
-            'de9a74e6f728cfb27437969b6a2da58592537774f26170eb37a898898106f9125b3c050a137c0eace842e5b94d243ef5e05893ca3c3cd4369f39647b4809338d'
-            'd764f293e7a7664d192d08ea814651fdcd4da4c0c8df9262329bdf77870c2e455e14a7ec73977eba9edb30e261831691b4b26e5997414c3057296aea0428fc21'
-            '423fbc200ac08494736a97cdd11ed5b210248df1737213e95a141dd05621856cb6184597a1f6efc168c1fe9ac9214664655994292c3582a0046b7d6292722357'
-            'cdcff3021e490c241bb0e61dca33ce52984e1233b657cac779cc923a5d1c5547be3008915347188277266b64e15fffd754e50b2a8b8fbdb93d3283c2b42493bb'
-            '8b5997ec93c2e4e68a25d36414c52257c0f723d2df561c80f78c71438978e1acd87b3dbee4e8ec1b69a0b587c592234eb05c2b016b0b98250173970db8c29d9d'
-            'a5862b580a136eddb99d0cfb65c8aee29f3e33ecfe140474c14aff9b979e5fc98b232a2e70d6592f9b0312a7cea9257a60d95515b38b435195f17de52b8fdd80'
-            '0dfd0adbcdebe8efb6ea867a45dd228e7b6805cc7ad7840d15039c20f4e9d9f7ab82cb7f7233cee6bf64ea3a7d1e15f999b638174df0150722a966163c7c8420'
-            '3f0fec92b3bd0858e7dc3b5e6129e8d3e89d9b7c29ce29d29b01ca7efa5b7c151c0217d640b7a570a7740f8c96237ad5356613a90f9545fbafaacbb75dde36a2'
-            'd682b5487534238840913093bd155fd923ba969f157b3552f75b1dfa9b621ed727aa3a172ab93554359bd48a88436892940e8a1d3b68bf9a9ea2015c71090621'
-            'a5777f26fd2614923dd7510882c03778bc27f522317b3dfa60abdfbd3fabe445654adee5b7a41d66b703b491f6af067af82b31ccf8722d3e3be79bf2fcf68154'
-            '58f546d882a095b24a3a4ddc48743fda9b85854f0ec87152d632529d4023395fcf6597074a5ba66594b180a5b0ee09ed1a442ae3ab4510d3bd7e46b1cd3a25d0'
-            '8fdd183cdcd02246b408565af5bed5d92eb3eefb615d7dfd03ebd680083c221848bbb650512a65b4d91cc2fb76cb5f3b3d7ce0a8889935d24e2128c059ab2600'
-            '2b0490ce0b57cb93de7dd018794d9411e47e57b26b58749de56741e9306c3ee441494b00049cbaeb8eb828242cbae54de59bddd2e55884a49f2532ffb58eb9fa'
-            'ad4c3ebfb06172104a13650207fc1193e1fdd58addfe08d8f1e916756961f4dd64c1e201538aaedc824ad8ec459d6e0285bf37e348d15e72453a19a22baba90d'
-            '59384293d48e58d8d2804213679f853340b6f2d830f6e3267eeecbc6831bca067db57032ef260384aa99142cf5551d8225b84d5f2003a1ee5019a27d93650537'
-            '8a760f9156b7e01427cb9f39172e14dd0221a046ad108aa5bfac2b55a363f13590b8989d4dfb1abcb7f6242fc5d0c057fd02493c70aa5207efd84c3b4dbc9612'
-            '7e3507033a73a5134399ffd5174325cd3183ffc792452e58c5cc5fcc145a5288e37aef529e74089fd132bdf3f03a9c897340e9e7c9f84c0fa5844eda3dafac2b'
-            'a96abfc380a77aa7e93f603e9d2bd2ddd69502bc215c2ec8074834b905b812a718b0b90c2125c2df682d117264bedff7645b21a956d76e5b0d095942dfdcd07c'
-            '38f97371e417b3b05d250d8e9c4ab12724386aa53869853ce136a24ddb3bb168b5837ea24079d79d65cec6281835a5e81196b0899179c7f1005a039fe5a4c781'
-            '1446ebc4972df3d1ff1f30f83a768d8768bc2b4805c54f32a0a247d003eb21122c44dbd313fa16fcf37923cc03df88e08db7d8b578a154d700210e1d753e92c1'
-            'c7d988b18432869dced8ab332399c3a41a2950b4fbc36a0761b3261ce548d8a2850f6d90778367c23b17b2262452379532b00967be999a35e98cc5433f6a2220'
-            'd0c17f68caca7d3b5c131a3495aa756fdfc8a45710dd725288f47a84750c2bfa761e2679c01ba187c9a0001109c5373d1dfa1b8a7efddc7c1680792ae628e7dc'
-            'e3de07f74d3e96fd01fde82fe87757aecea76e864f3bbbe31ee618259772a730460afc9da5df1aa0179330b2f155f9c9aed7429023aadb5e10f5198039c2910b'
-            '5eb7f1782e15bf6359c017f1fc41090ae39617cf568ca73b4c23168030bcc584e78bd7211e14fc745220fcd20ae3bb6306d51b7a4b71fe9a27db1ba43de30909'
-            '98ae95a35fd9842296cb5c90d25c56692cd5f9a7942874e11456be3f510e80ed2b1434971339ff67fb9770bd5c050a88538fa8f43bfd8e90cabdab637eab63ca'
-            'cb882f032aef1519928b569d205cf55e17317ce56d2503e3b8b73a119f208a9936a16b4e1da3f4d2da7f058ec512721e6150426091cad1e6bc8bd22e6c880cf2'
-            '752a49d85eb41e89faafcc1c661206bc3d2e0979a07db223e6f492be858dbb98d7d6caed58d652d3d551e0300c3d64491b1135227c73d658e025ef03f18c6c65')
+sha512sums=('62cdc95049ccbc3096602034af2dc3cef850c65ef577038088d1d2e884aea3447b759ca4d1a410dc457f548d9961ea56d4edd2c29f59272a54f443218f579129'
+            'd6519f4229447e52e7be895f103b0950408bc1c93f4a6fbe57ed9ca919a95741e38473c381c65f066f9500209aaf84e8ba052b0e2c8ecdfbdbd68c45259bada4'
+            'd691b3c9b0b14c4998dca312fc2381ba8e00c34d653f06cec9458e4ef6d9ab81b5cc5f96c59a8d5a1b083366a83675daceaf84a37eb72e49697bcefe9bd84109'
+            '4a7be3e046457291870b3aead01010f43f8ffe8bdebb69a2fb9cd5414fde0de8b8603064f97544f9f6a0d703d56cf73b2eab94a6bb925d3e218e70397ecffd5e'
+            '9a69677fb0029eebed758d12ed3ea7557cdbcd09f3610a3fa05acf82201a33dda439b68e34696078fe4a189f854493114ea4fff5dc42fc6dc508bfae88e30f29'
+            '9260c7384765dddc2919a168cf1ee973682f5fcef1b738e47524a0e682865184813568661f89ad2a2c2067a75208dd43b991509f082977da4b273a1bc843bab5'
+            '88447a24ef8c713f489e65c26669abf59930ee04d45aec7cb3014b37a037d67645d2e63ea061b46cdaa020cae32c095e65123b57e9dda79126aa1c71b287fe65'
+            'eb3c4960fc52eb356fed1e805813570d5675b950e964db9cc9aeb31ba9307ac18f19a0b9954d211ac9b9ca59d49d5e83639b78d05820dc2b5c6e0e8f6c6910b6'
+            '668bae0e3116b59c99461790c85b17c46ed32f9a998f228ae5fac0369b8af680b4e1ee2f6dad8a74262d0b48a6ab3290e2b729b10720693636d87392a8edfd86'
+            '99cf379021c342eca52692c11a2101360eac904f5cc09a325e7ed374c5ac2b11076c615473eaef7dfbf65792ed596762ab415b1702f2104c242e26882ed239a9'
+            '919ff2d9355b9bc0945bbe6f32dc1b1c20a38470e2674655386d9cfe58a45405ca31d64331eaee6bf414c0961cd1af81882c9e35454d462a8e1a63b35cf18b9b'
+            '0daca4c5cc72069f7c1a5e0180839ed3ad548926f5d4534e4ddbc0594c2002e3fbcb402e9e23e7f433664091bb580cbc6bd4c0fbf7c890ec5e9dee42523ef135'
+            '8f706c2baed14561dc027d787f739207e9b08cc4bcb3dac61d21cb01b7ea54ad95334ee9c8630d9ce01e4009e47c357a12cd79980f224f8e2260eebb09d4367f'
+            '7ca57144be50e2839730eeade7a168556f9ac9954e3994eddcd5ad75d4eb77931f3caad9625cf65046ae0bd8b218a07f99bbe2728712dfc3d7b8ffddc90bbe1b'
+            'ef0ff951176f4a8f0d6d863e87187d498fde55ac457a36729b223d498065e3dfefdf1457d35286c5af04cf5bc766d5783f43d0fe07f7cc108c25c6b520f2823a'
+            'bb6f709dea82e3836c6bbc8facf4e70a7b16bebda03656e15feb073c80cd938de65e50227adc7344781f3f99e21fa31954ed523d4e53a7d24563f0e893ee0818'
+            'f4190ed94ea4a060d0f6cb899acbe0fba832a1f7ba8ab775ba16abe706cd20b9147b412c788dffe02f2f5d106b2246b64a9f7c1980bdd84b7320e6c9596aa37e'
+            '9d109bd1cf70eb9232be34d037d709d76e278fcdf1d05799f8366beebad236e8a53f6b20851981fe9d0e8e3e72ab0deba9a0c8b29dead66b22836a7a4d7da023'
+            'ad05d60a2895a40b89854fd2a434b2c524398cdecf3cdb742d6ae3757f42770935da095d0a59cb454e11bf35fe5348d6ed669601a807bf61ed184e241bddf2d5'
+            'e81ea09a297257c9e7fbe4de82f3429569d6cc68b6f944f5234f712b4790761f5b8f215585d14dfb6734e0d4c47afd2a53a61a041ff3de28609fdd2b517484a2'
+            'd25c5aa67a730b360107e037b7b38ab7296ba298ebf26afb196bf995c4113e6a23e5c9c6d38b3e65c0b8280f401fe53a88dc680ce30eda2b3f4e4a550c192365'
+            'd5cc4c66cfc7865551fdc3836b26975e8ce1338dca8d9864d0d9ecb16fa53c4a0516d12d587058960a90c310f3fa652b8bf4956df87112477027b4733652ecb5'
+            'cd04c9149ba2e245c726e9c39cf6120ab940d2a4bcee3293e6bb56dee10040949fa7d3a013f77d0e32a7774efc98d3b19cc6ebfb8e7e00c0568d92657e9b19c3'
+            'e2dfb581dc3ce859dd1c3ec6a767bcd8d37867b08d255e70c8301fcdfb349ecb64ef927802ea588d8e4688675382561af5ed127ac38e6672bd4e0a0bf0fdd55a'
+            '735cbff44ace5c1f2f3aa38c43d26fe014ffc7a1ff109c6d086655c0f368a251419035aea400794ad526c08fe4894c63447d055ae7c0ae0508e748ebf9e9070a'
+            'cd25c6644ffdd413420d10f61cb2bdecc5de9327ed23b8e3d73ba33f6f446a28745ef0ae9bc8646a4fd8d1af5f3e37d5e6ca8c3aa7a86562523d9231249ebf12'
+            '868c1f341e9e5d0444b8295e0d3b773cc5e9e6c6bf395330f9458b42a58f10c1c815951f76fc4c70c2eb62e392c1d0cee82fae1f1ef6b2dca77775be81983d22'
+            'ecb10e45d95f81fa012795593630b47d249c2bfb8b8d37a04658f88acb68ce1d10038477926af03f0585a092902d85c3a608aabbc03fe42953811a40099c3353'
+            '3bc4281046593d18901434ccdcce06abe4b4442fb31a7331f32ed5fb1c4bd2a0d86eca08ec5572dc45fe45c3058e9a703901da3202a02a931714f9471054ba71'
+            '80d3543f4d9a92b73515e9ea2e9ca5e3ed3e0859feff7537831ab0dd1798d668db3e2a5f1d87332228a1127b7b0f6ffcee61824b14bc4da09ce1dbcb69ef6512'
+            '46228ba71785067e9696c0ea60364de40f5f8f13724185b9a41c799f9f7a333505670a173af5deb053030a09e686a40bfdf0ffbfecc440bc817a177af8b4e746'
+            '35a901239473d4a0fc2090695ee271d616a21c893fae097ed9db3c68d2b502eb41ce57e489d784c049dd83cff8337c052cbc8f4d8fd006e7066e780f3301a154'
+            '98f0faf29515eca84e9b9624156f4db2851a242cf0d90c57a4f44fdfffd2178a408a6bd5aa66f62be9fcd3f1ea1fb737044df7fef97f806b784c9fb3381742c5'
+            '2acdb48ea82a712e89914ecda256b4afc13084b87c358a59c1c7a2ed060e393172ae3c8e06c497c4989ce57ba9822fc737acd515a9aabb9594b165ea29487290'
+            'a6b71f69ce94c30a8dc20743e973e4ee0aa1caa77c4f0b1f2db09f1ae33daabc719d5a035d86880fd43af0388974ddde1cdcad44d408d9aa9fc337cc24389b40'
+            '85243e8e00c9ab9dacf614eb20c792a338e822bc5d4db78d1b0f2724496344953e4dfd6e6c6f2dc0f86f1bcef8af6375e046dbb50073c44b57a87243fd6de90d'
+            'bbc395e712630bd7e8510b0e26baa5473573626b96fae3b9f5dbad6239e666fa8c7ce83cd21992c7a47961be77aab29454c06383491e06f8d9c0fc72c5f1dd14'
+            '65030bfbfffa975f5cef4685f8239d9cfc3407ffad99c5fb98615bac0366da29e03ea6870e035f55baf94ab4dcf45ecee8a9471ca4999ab508f5e5532de3df86'
+            'b86131614369261058c0d8846b159c2fa79eb287eeaea67db76a53bc1cd928f98bad5f956c97c75fd4b51b7b63bc919434bd859583c8faa481015840636e1800'
+            '22c5e7ec7431b60cb6351b00ad5c209545a394146a65daca859d52c4a674c4283eb34ba13b2eacdb20b003d9c7c3178254dfe7a6cb67e4dc1c5b85b28547a56b'
+            'b7eeaa6dec446cc033c410b342d50e2fd9029fce4e13ba01bb56f44621f0be47f04d011a55de4cd9d5eec8dce7522dba2e172bbf4c3701eb4a0f624156217ee3'
+            '7cf424d420315bce74529b4efd20b9589058d0aa8fd14e36e32e2928de284fa773f0a2a1b87084697c0aa3cc3583b128e1af906fe487519447594d8765bbb869'
+            'af46211c94fcbf637f9832886e8f1cc7f11e8724401b1d40a29a598478801b4ef378bb4cdc83591467a22aacfbdd98b913f001895c098ff99660504e5a333202'
+            'a4ec2f49338b2a4f59ddaa84e4d8217d2c7b36403e3ac2e2ec45a77a54ed6c834a45b3562090e2a90a593568f9e11e05077e52618379bd02225f51bc8f19ccb6'
+            'ecf1291563270dd1f10823df5cdfa212f9d59ac224c0aba4bee33d2c796183ce1dd2b74a935dc58438b7b431ea5b0d638712d40f4170fd2eb02920231b5f4a92'
+            '9dbc8369a37d30e6a710387ff21faff1befadeed54e121b9bb1c8f5b60b354b2238b9a18a7c43039acb78d194842509cd1c076afc78b343cb8dd6e98132c1bf6'
+            '3fc7cb65ba59c7650cae0a53aa14b6d8d4079b41f4e0429cf03dc1f7f45645180c3f4f07641d2c8f375bd539c0873bc264b74fa8442a879048053a4d15a53234'
+            '41f4f47c5993af00ebaa3dfb87fd8e402125a056248cd654d212a5c6aae301d50d303c4cf4be0e15b69227f4fc01b3e0c3f417c9de9edd82c347d1241c1cfc73'
+            'edd1f45f247ef0fd497b7f6d2db33c21a019008341c6351f54583496a250cf597ab78d20dfe1f606bf6823ae9ca5b4ba80a10745f2d28c6ddbc6e753a155b53a'
+            'f633dc9b4fd261686535a072515584f2be0d08b22660806de05adeb08c58400d18fe167432239cd62a2f9a1dd795346ea8ef3f3e1454c3fc64aa34d26634d6f1'
+            '932b0a167a0fc36de0324b77ff4e59a9e40c3df4106af875b3e49ff48327467cac170267d067c34722df3585c04df11d9a7d1b75980de14a08ad3863f6247656'
+            '5277a8628ac1c6eb39b7772c56411ca0fe894cd79b53551d09a327281f64d0ff29658e1378598dfef775f1bbb372355fde2126891b5a865c16cd988d90aacebe'
+            'e439441174df01f33faf8e213a888bed04be68418248503f17fb7a1987b1372f8fe92e48e3aa113c9a9841b1ca701d53984bb378a9ad2b373a2695474fe684a6'
+            '709bc9a5afe3f2d469ea213cd71797cfb803d0b5b4982f2fa4c4ca175c2b46f299b3534aeff1c9582b5603a90ca0012af43382f02f3ab5d21d46a881d6aa945c'
+            'db9b0a3b124cb0ed16a8cc3d377276af7f60793bbec15ddc1e4b656bbc3da827e0ffb1b6dc412b497b8a5765ec2edebd2b20182957fff1e027daa936ad6f66a1'
+            '5d32640c587a17be9754df58f71ed22415af1a4324ddccdde7054e6f8bf61d20e0032bcff359e89bc27d7fe16006dd969c16a962a4105a8f3fba7520ffdc4f9d'
+            'ba44e8b14f3359f8086057ab82cc055e0424ec4cfcd9edbd3b54b2bc042374bd8a5f49ba89377271bb5310b597d776661dab6ab668e61e47771f375cba67a11d'
+            '001afd9920713afe20a5753296e00c998e81fca056b2bc40524742cbb62d80f8cdf3286c702cb344b0684f5520774339ac95b3841e6c5ae4059d12a876272b48'
+            '4d170a8d7f24046f9c7f0404f8f45628b838b17e5b01bb3030c36e11dd4c8d4044d7fa0e315974bc2bd52f7934e725c22f68b23371c4b5e7c9039d28a3e1ab61'
+            'fb043869eb6e8583ea60331154b36206e0ec08dce3e4347563dedf6d1cfb3f53cee0a5dd65dafeb415e82769c764859001eeada21686fd20c77924cfcd110240'
+            '9608426440e21127262ce9ed2f28a6784656f9248fee12f17e202190c829a5c793d1000477d3801e9bfe1fa4825b94547761d16d3ba1958a965e24ca95119741'
+            'a5f516d18ce081f164d3865a1f403233235d78eb76846157f03f7653f5e46e4f604c3ea314076713ffb03725c092c7a80f7cfa30d60e629c44cfd8c2a705ff15'
+            '9daf3035ef92a3007f1211b76067ca7776c11b62107adc9b0fbd2d2e3d509c084c158a8daffe76f3bae19c598dc059c8bff31785bfdbbe67816727eee53dd036'
+            '4c9376001b9c6f771dbd8e45a9c3a0766cf16e01b84c086939aefd9189c36103f1c41d0958e74940daf76f62e87fa4ba042ea4a89512a309226d16bb2653c47a'
+            'c202a7462c65beb624b3323f01d8bfaa0d86cfb4a7d9490ee57039b3c0c2e5951eaa4a3de3a07382a1bb7e7da9f83ec6b797e5f56ca99e5ef05a742a644e6259'
+            '37a7cf65680917ed59d15c82c0fc2600055df15c94556990667484b11aefcf6a29d652bad235e528d00cce0d2d566cf6b0122073b67e37ce4a220212959eab31'
+            'fd27d955f0b4db6fc8fcd57dad770bb9c164da2806f241f7f666e3c7fcc5577fa27027bc6d2dd7e850f0f380eb025dd6e69b7cbbbc45af0cd4e7d3b5a6bd98b5'
+            '7e149dab22f462472e43e62a3d94629d369fd02056251c57b10a1c1ac1667031a898dc64ad74244df15d33bf3c0b7ee66f1d6c484ec17553c435edce84256ddd'
+            '80f4a5b8a2b54813018335db37e59210df8cc47cccf606bedfbf9d5914582a454466079715a35252b9c9d5df3670d53ddf08d8dbe38f305e7aadbad2007ce930'
+            '48dda44a4588318dad74d4e362ae25638fddc6178a89a750b879ab677537bedaff3ab08507afedcdc2fad53366744cac33e3715e5c085f9538e8ee71f0db4769'
+            '545c9c59b04fa2658ad45cf70d607edc42e0171d83beaa16a28a65dd5fbbdcb46d44d504cb12e126042ff31f8845bc3fff7485afdbc8c5a80d181b175755885a'
+            '4758b8ecbf04295d1f6c90c5c991bde0bf8114271d13136065a2bbcf1b45bb3164ab704c2f2600cbf381bf7ec7da24680c1742d1070e61fd2e40cb6a244a07f5'
+            'b3131d1cd8fb30950a7a43b24f37bf1d79771167566fbf62b28e383503fa07341e4063cb9cb8ab6e7579d8420119ce48dd0409f53f98ad483b5f8b3fc766b958'
+            'bfb9bcf8f9a86cadeca067c475c3833545fcadbe6620281720afb34335413c10393a0ccc117b7ee83bac11d707904fb4fb5e716817fba7853548d4cce3229d4e'
+            '9794c90f71b1a6e64590c7d0270787d5f83b6da21f64f055e3fec19d32a205cd5521c9d35e633cf1e19852455e1a8bf6752e2aee52587cb093979496825c5572')
 
 _lc() {
     local d f n
@@ -260,39 +180,20 @@ _lc() {
     done
 }
 
-_build() {
-    for f in *win${_apparch}*.msi
-    do
-        msiexec -a "${f}" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
-    done
-    _lc "install${_apparch}/Program Files/TortoiseSVN"/*
-    _lc "install${_apparch}/PFiles/TortoiseSVN"/*
-}
-
 build() {
-    for _apparch in 32 64
+    for f in *win64*.msi
     do
-        _build
+        msiexec -a "${f}" "TARGETDIR=$(cygpath -wa "install")" -qn
     done
+    _lc "install/Program Files/TortoiseSVN"/*
+    _lc "install/PFiles/TortoiseSVN"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "install${_apparch}/PFiles/TortoiseSVN"/* "install${_apparch}/Program Files/TortoiseSVN"/* "${a}"
+    cp -r "install/PFiles/TortoiseSVN"/* "install/Program Files/TortoiseSVN"/* "${a}"
     rm -r "${a}/common"
     rm "${a}/bin"/api-ms-win-*.dll "${a}/bin"/mfc*140*.dll "${a}/bin/ucrtbase.dll" "${a}/bin"/{concrt,msvcp,vcamp,vccorlib,vcomp,vcruntime}140.dll
     cp *.pdf "${a}"
-}
-
-package_app-i686-tortoisesvn() {
-    depends=("app-i686-tortoise-overlays")
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-tortoisesvn() {
-    depends=("app-x86_64-tortoise-overlays")
-    _apparch=64
-    _package
 }

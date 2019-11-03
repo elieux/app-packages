@@ -3,34 +3,25 @@
 _realname=cpu-z
 _dirname=cpuid
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.83
-pkgrel=2
+pkgrel=1
 pkgdesc="Gathers information on some of the main devices of your system (CPUID)"
 url="http://www.cpuid.com/softwares/cpu-z.html"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("cpu-z-en.zip::http://download.cpuid.com/${_realname}/${_realname}_${pkgver}-en.zip")
 sha512sums=('c32988fdfee30766a37a0efe590853c398d490bcc3fba74d79f6c18d20edfed433625c2084741edae2d86d43b80c17ceced601e283a6f083e2180bf6bd1ba503')
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+package() {
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "cpuz_x${_apparch}.exe" "${a}/cpuz.exe"
+    cp "cpuz_x64.exe" "${a}/cpuz.exe"
     cp "cpuz.ini" "${a}"
     cp "cpuz_readme.txt" "${a}/cpuz.txt"
-}
-
-package_app-i686-cpu-z() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-cpu-z() {
-    _apparch=64
-    _package
 }

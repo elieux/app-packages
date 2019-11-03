@@ -2,35 +2,20 @@
 
 _realname=opera-classic
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=12.18
-pkgrel=2
+pkgrel=1
 pkgdesc="Fast and secure Presto-based web browser and Internet suite"
 url="http://www.opera.com/download/guide/?os=windows&ver=12.18&local=y"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}" "app-x86_64-opera<15")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Opera_int_Setup32.exe::http://www.opera.com/download/get/?id=39129&location=360&nothanks=yes&sub=marine"
-        "Opera_int_Setup64.exe::http://www.opera.com/download/get/?id=39131&location=360&nothanks=yes&sub=marine")
-sha512sums=('5a40c440b52b61d66a143d4e38050c8898769fe383ea192410fca4da541502a49032ee68b115deaa47769a3dcbfe8467a5a16b7daff4a806855459f157c619ce'
-            '450fcbff79a4777703b532bff21444b67ede88145e08ea9ad1a59b803a25f53d919c1b8beaa1e86c5f7ee616f43684379be0e60cb55994f98722a9c0f1112439')
-
-_eqver() {
-    local r v
-
-    for v in "${@}"
-    do
-        if [ -n "${r}" -a "${r}" != "${v}" ]
-        then
-            echo "Version mismatch between ${r} and ${v}."
-        fi
-        r="${v}"
-    done
-    echo "${r}"
-}
+source=("Opera_int_Setup64.exe::http://www.opera.com/download/get/?id=39131&location=360&nothanks=yes&sub=marine")
+sha512sums=('450fcbff79a4777703b532bff21444b67ede88145e08ea9ad1a59b803a25f53d919c1b8beaa1e86c5f7ee616f43684379be0e60cb55994f98722a9c0f1112439')
 
 _lc() {
     local d f n
@@ -48,44 +33,19 @@ _lc() {
 }
 
 pkgver() {
-    _vers=( $(
-        for _apparch in 32 64
-        do
-            7z e -y -bd "Opera_int_Setup${_apparch}.exe" "opera.exe" > /dev/null
-            b="$(cygpath -wa "opera.exe" | sed 's/\\/\\\\/g')"
-            wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+)[.][0-9]+[.]0+$/\1/'
-        done
-    ) )
-    _eqver "${_vers[@]}"
-}
-
-_prepare() {
-    7z x -y -bd "Opera_int_Setup${_apparch}.exe" -o"Opera_int${_apparch}"
-    _lc "Opera_int${_apparch}"/*
+    7z e -y -bd "Opera_int_Setup64.exe" "opera.exe" > /dev/null
+    b="$(cygpath -wa "opera.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+)[.][0-9]+[.]0+$/\1/'
 }
 
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    7z x -y -bd "Opera_int_Setup64.exe" -o"Opera_int"
+    _lc "Opera_int"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "Opera_int${_apparch}"/* "${a}"
+    cp -r "Opera_int"/* "${a}"
     rm -r "${a}/updatechecker" "${a}"/files*
-}
-
-package_app-i686-opera-classic() {
-    replaces=("app-i686-opera<15")
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-opera-classic() {
-    replaces=("app-x86_64-opera<15")
-    _apparch=64
-    _package
 }

@@ -2,11 +2,11 @@
 
 _realname=gnupg
 _realver=2.2.5_20180222
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=${_realver%%_*}
-pkgrel=2
+pkgrel=1
 pkgdesc="Complete and free implementation of the OpenPGP standard"
 url="http://www.gnupg.org/"
 arch=('any')
@@ -22,7 +22,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "bin" "include" "lib" "share" "${a}"
     find "${a}" -iname '*.tmp' -delete

@@ -2,23 +2,21 @@
 
 _realname=consolez
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.18.2.17272
-pkgrel=2
+pkgrel=1
 pkgdesc="A console wrapper with tabs, easy copy-pasting and pretty visuals"
 url="http://github.com/cbucher/console"
 arch=('any')
 license=('GPL2')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("ConsoleZ32.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x86.${pkgver}.zip"
-        "ConsoleZ64.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x64.${pkgver}.zip")
-sha512sums=('cd70d64d3a76ed00167cccb6478a6ace42ef8e6a1eaf6ec43ee243714f3ea60e213d0da551e56bbbcd3d9611314bdc7ddfbc936ce1a8a2406418330367a40a61'
-            'adcdab4bd31d8315e67c979ef5c1e806668f12ccf076c3c96ac2812449a8e5fac76af0ccece866901c5ac8ff0f3dfbfbe1c6dc11c353ff69f0f0b8ef4812c545')
-noextract=("ConsoleZ32.zip"
-           "ConsoleZ64.zip")
+source=("ConsoleZ.x64.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x64.${pkgver}.zip")
+sha512sums=('adcdab4bd31d8315e67c979ef5c1e806668f12ccf076c3c96ac2812449a8e5fac76af0ccece866901c5ac8ff0f3dfbfbe1c6dc11c353ff69f0f0b8ef4812c545')
+noextract=("ConsoleZ64.zip")
 
 _lc() {
     local d f n
@@ -36,26 +34,13 @@ _lc() {
 }
 
 prepare() {
-    for _apparch in 32 64
-    do
-        unzip -o "ConsoleZ${_apparch}.zip" -d "consolez${_apparch}"
-        _lc "consolez${_apparch}"/*
-    done
+    unzip -o "ConsoleZ.x64.zip" -d "consolez"
+    _lc "consolez"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp "consolez${_apparch}"/*.{exe,dll} "${a}"
-    cp "consolez${_apparch}"/*.chm "${a}"
-}
-
-package_app-i686-consolez() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-consolez() {
-    _apparch=64
-    _package
+    cp "consolez"/*.{exe,dll} "${a}"
+    cp "consolez"/*.chm "${a}"
 }

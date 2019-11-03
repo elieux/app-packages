@@ -6,17 +6,14 @@ $product = basename(__DIR__);
 preg_match('~^pkgver=([0-9.]+)$~m', file_get_contents('PKGBUILD'), $match);
 $version = $match[1];
 $srclist = [];
-$srclist[] = 'FirefoxSetup32.exe::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win32/en-US/Firefox%20Setup%20${pkgver}.exe';
 $srclist[] = 'FirefoxSetup64.exe::http://ftp.mozilla.org/pub/${_realname}/releases/${pkgver}/win64/en-US/Firefox%20Setup%20${pkgver}.exe';
 
-foreach ([ 32, 64 ] as $architecture) {
-    $list = file_get_contents("http://ftp.mozilla.org/pub/{$product}/releases/{$version}/win{$architecture}/xpi/");
-    preg_match_all("~xpi/([a-zA-Z-]+)[.]xpi~", $list, $matches);
-    foreach ($matches[1] as $lang) {
-        $file = "{$lang}.{$architecture}.xpi";
-        echo "Found: {$file}\n";
-        $srclist[] = "{$file}::http://ftp.mozilla.org/pub/\${_realname}/releases/\${pkgver}/win32/xpi/{$lang}.xpi";
-    }
+$list = file_get_contents("http://ftp.mozilla.org/pub/{$product}/releases/{$version}/win64/xpi/");
+preg_match_all("~xpi/([a-zA-Z-]+)[.]xpi~", $list, $matches);
+foreach ($matches[1] as $lang) {
+    $file = "{$lang}.xpi";
+    echo "Found: {$file}\n";
+    $srclist[] = "{$file}::http://ftp.mozilla.org/pub/\${_realname}/releases/\${pkgver}/win32/xpi/{$lang}.xpi";
 }
 
 $srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));

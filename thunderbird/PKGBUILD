@@ -1,9 +1,9 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=thunderbird
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=52.6.0
 pkgrel=1
 pkgdesc="Standalone, easy to customize mail/news reader"
@@ -156,7 +156,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "core"/* "${a}"
     sed -ri -e '/(VCRUNTIME|MSVCP)140.dll/d' -e '/api-ms-win-[0-9a-z-]+.dll/d' "${a}/dependentlibs.list"

@@ -1,9 +1,9 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=discord
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=0.0.300
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers"
@@ -57,7 +57,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "lib/net45"/* "${a}"
     _rmmsdll "${a}"

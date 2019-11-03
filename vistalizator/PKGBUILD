@@ -1,9 +1,9 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=vistalizator
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.75
 pkgrel=1
 pkgdesc="Tool for changing display language in all Windows editions"
@@ -43,7 +43,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r *.exe "languages" "${a}"
 }

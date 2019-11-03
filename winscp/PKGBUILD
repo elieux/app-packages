@@ -1,17 +1,16 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=winscp
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=5.15.2
-pkgrel=2
+pkgrel=1
 pkgdesc="An open source two-pane SFTP/FTP/WebDAV/SCP client"
 url="http://winscp.net/"
 arch=('any')
 license=('custom')
-makedepends=("app-i686-innounp"
-             "unzip")
+makedepends=("unzip" "app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("winscpsetup.exe::http://download.sourceforge.net/winscp/WinSCP-${pkgver}-Setup.exe"
@@ -37,14 +36,14 @@ _lc() {
 }
 
 prepare() {
-    /apps32/innounp/innounp -x -q -m -a -y "winscpsetup.exe"
+    /apps/innounp/innounp -x -q -m -a -y "winscpsetup.exe"
     _lc '{app}'/* *
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "winscpnet.dll" '{app}'/dragext*.dll '{app}'/winscp.* '{app}'/"extensions" '{app}'/"translations"  "${a}"
+    cp -r "winscpnet.dll" '{app}'/dragext*.dll '{app}'/winscp.* '{app}'/"extensions" '{app}'/"translations" "${a}"
     rm "${a}/winscp.map"
     cp *.txt "${a}"
 }

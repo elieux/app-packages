@@ -3,11 +3,10 @@
 // no error handling yet
 
 $list = file_get_contents("https://tortoisesvn.net/downloads.html");
-preg_match_all("~LanguagePack_[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+-(win32|x64)-([a-zA-Z_-]+)[.]msi~", $list, $packs, PREG_SET_ORDER);
+preg_match_all("~LanguagePack_[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+-(x64)-([a-zA-Z_-]+)[.]msi~", $list, $packs, PREG_SET_ORDER);
 preg_match_all("~Tortoise(SVN|Merge)-[0-9]+[.][0-9]+[.][0-9]+-([a-zA-Z_-]+)[.]pdf~", $list, $pdfs, PREG_SET_ORDER);
 
 $srclist = [];
-$srclist[] = 'TortoiseSVN-win32.msi::http://downloads.sourceforge.net/${_realname}/TortoiseSVN-${pkgver}-win32-svn-${pkgver%.*}.msi';
 $srclist[] = 'TortoiseSVN-win64.msi::http://downloads.sourceforge.net/${_realname}/TortoiseSVN-${pkgver}-x64-svn-${pkgver%.*}.msi';
 
 foreach ($packs as $pack) {

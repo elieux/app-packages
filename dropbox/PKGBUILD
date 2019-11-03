@@ -3,9 +3,9 @@
 DLAGENTS=('https::/usr/bin/curl -k -qb "" -fLC - -o %o %u')
 
 _realname=dropbox
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=70.4.93
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
@@ -60,7 +60,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r '$0'/* "${a}"
     rm -r "${a}/dropboxuninstaller.exe"

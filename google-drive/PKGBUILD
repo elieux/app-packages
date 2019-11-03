@@ -1,9 +1,9 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=google-drive
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.34.5075.1619
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
@@ -37,7 +37,7 @@ build() {
 
 package() {
     s="msi/Google/Drive"
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "${s}"/*.{dll,exe} "${s}/languages" "${a}"
 }

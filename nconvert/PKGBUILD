@@ -3,37 +3,21 @@
 _dirname=xnview
 _realname=nconvert
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=7.12
-pkgrel=2
+pkgrel=1
 pkgdesc="A powerful command line multi-platform batch image processor"
 arch=('any')
 url="https://www.xnview.com/en/nconvert/"
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("NConvert-win32.zip::http://download.xnview.com/NConvert-win.zip"
-        "NConvert-win64.zip::http://download.xnview.com/NConvert-win64.zip")
-sha512sums=('0b1551b12755a6b9ec960a55002cd8bfd5e7c3afd952504ce881e14dbf1b7b06fce68f4ce5e4e925d73a126045144d865f37fa2e2ce5c4149a0bb3b59156cee1'
-            '535f63f287c123d5861027d242698f801048481ecf7508723113ca4496f7cc588a8317c6845fd2cc55aef189de75be129c4d665eb2371d0260f9c4c0ac5b97dd')
-noextract=("NConvert-win32.zip"
-           "NConvert-win64.zip")
-
-_eqver() {
-    local r v
-
-    for v in "${@}"
-    do
-        if [ -n "${r}" -a "${r}" != "${v}" ]
-        then
-            echo "Version mismatch between ${r} and ${v}."
-        fi
-        r="${v}"
-    done
-    echo "${r}"
-}
+source=("NConvert-win64.zip::http://download.xnview.com/NConvert-win64.zip")
+sha512sums=('535f63f287c123d5861027d242698f801048481ecf7508723113ca4496f7cc588a8317c6845fd2cc55aef189de75be129c4d665eb2371d0260f9c4c0ac5b97dd')
+noextract=("NConvert-win64.zip")
 
 _lc() {
     local d f n
@@ -51,40 +35,17 @@ _lc() {
 }
 
 pkgver() {
-    _vers=( $(
-        for _apparch in 32 64
-        do
-            unzip -p "NConvert-win${_apparch}.zip" "XnView/WhatsNew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
-        done
-    ) )
-    _eqver "${_vers[@]}"
-}
-
-_prepare() {
-    unzip -o -j "NConvert-win${_apparch}.zip" -d "NConvert${_apparch}"
-    _lc "NConvert${_apparch}"/*
+    unzip -p "NConvert-win64.zip" "XnView/WhatsNew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
 }
 
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    unzip -o -j "NConvert-win64.zip" -d "NConvert"
+    _lc "NConvert"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+package() {
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "NConvert${_apparch}"/*.exe "${a}"
-    cp "NConvert${_apparch}"/*.txt "${a}"
-}
-
-package_app-i686-nconvert() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-nconvert() {
-    _apparch=64
-    _package
+    cp "NConvert"/*.exe "${a}"
+    cp "NConvert"/*.txt "${a}"
 }

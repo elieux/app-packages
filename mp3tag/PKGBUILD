@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=mp3tag
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.86
-pkgrel=2
+pkgrel=1
 pkgdesc="Powerful audio metadata editor"
 arch=('any')
 url="http://mp3tag.de/en/index.html"
@@ -42,7 +42,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/help"
     cp -r "data" "export" "lang" *.{exe,dll} "${a}"
     touch "${a}/help/helpmap.idx"

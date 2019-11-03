@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=unbound
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=1.7.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Validating, recursive, and caching DNS resolver"
 arch=('any')
 url="http://unbound.net/"
@@ -36,7 +36,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp *.{exe,cmd} "${a}"
     cp *.{txt,conf,url} "license" "${a}"

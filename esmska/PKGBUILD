@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=esmska
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=1.9
-pkgrel=4
+pkgrel=1
 pkgdesc="Program for sending SMS over the Internet"
 url="https://github.com/kparal/esmska"
 arch=('any')
@@ -16,7 +16,7 @@ source=("esmska.tar.gz::http://ripper.profitux.cz/${_realname}/packages/${_realn
 sha512sums=('089ea57342604b6e89bafa3bd557fd179f22dd44b2553fde615543459921ad16f67c860e488cd544617d37b89778897d371ad86b7338e4be4d60ab6d630d745b')
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "esmska-${pkgver}"/{gateways,icons,lib,esmska.*} "${a}"
     cp -r "esmska-${pkgver}"/{license,readme.txt} "${a}"

@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=keepass
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.38
-pkgrel=2
+pkgrel=1
 pkgdesc="Light-weight and easy-to-use password manager"
 url="http://keepass.info/"
 arch=('any')
@@ -111,7 +111,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r *.{exe,exe.config,dll,lngx} "KeePass.config.xml" "TrlUtil" "XSL" "${a}"
     cp "KeePass.config.xml" "${a}/TrlUtil"

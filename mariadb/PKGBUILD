@@ -2,38 +2,27 @@
 
 _realname=mariadb
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=10.3.5
-pkgrel=2
+pkgrel=1
 pkgdesc="Fast SQL database server, drop-in replacement for MySQL"
 url="http://mariadb.org/"
 arch=('any')
 license=('GPL')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("mariadb-win32.zip::https://downloads.mariadb.org/f/mariadb-${pkgver}/win32-packages/mariadb-${pkgver}-win32.zip"
-        "mariadb-winx64.zip::https://downloads.mariadb.org/f/mariadb-${pkgver}/winx64-packages/mariadb-${pkgver}-winx64.zip")
-sha512sums=('17022e7e56b9a5a779c84f1608e69658a26a33b6afb4ef89a4e6f2ac202c96217b3cbad887c967a77a564e9fc509ada859e05a04b6d5e025baa4ffc471156f45'
-            'f9bee1052ab5df3da9c86191f969aa3bd98cf9be9e68d2b87c1cc265f0d62f512a9f4704a8e9c51683ad9402fb602b607a72fda23576858add515d8ddc3511b5')
+source=("mariadb-winx64.zip::https://downloads.mariadb.org/f/mariadb-${pkgver}/winx64-packages/mariadb-${pkgver}-winx64.zip")
+sha512sums=('f9bee1052ab5df3da9c86191f969aa3bd98cf9be9e68d2b87c1cc265f0d62f512a9f4704a8e9c51683ad9402fb602b607a72fda23576858add515d8ddc3511b5')
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "mariadb-${pkgver}-win${1}"/* "${a}"
+    cp -r "mariadb-${pkgver}-winx64"/* "${a}"
     rm -r "${a}/data"
     find "${a}" -name 'debug' -exec rm -r '{}' \; -prune
     find "${a}" -name '*.pdb' -delete
     find "${a}" -name '*.lib' -delete
-}
-
-package_app-i686-mariadb() {
-    _apparch=32
-    _package "32"
-}
-
-package_app-x86_64-mariadb() {
-    _apparch=64
-    _package "x64"
 }

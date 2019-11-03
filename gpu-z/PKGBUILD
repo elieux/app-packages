@@ -5,9 +5,9 @@ _realver=916
 DLAGENTS=("https::/usr/bin/curl -qb '' -fLC - -d id=${_realver}&server_id=8 -o %o %u")
 
 _realname=gpu-z
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.8.0
 pkgrel=1
 pkgdesc="Lightweight utility providing GPU and graphics card information"
@@ -43,7 +43,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r *.exe "${a}"
 }

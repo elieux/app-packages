@@ -1,16 +1,16 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=viber
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=8.4.0.5
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
 url="http://www.viber.com/en/products/windows"
 arch=('any')
 license=('custom')
-makedepends=("p7zip" "app-i686-wix")
+makedepends=("p7zip" "app-wix")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.exe")
@@ -51,7 +51,7 @@ pkgver() {
 }
 
 prepare() {
-    /apps32/wix/dark -x . "ViberSetup.exe"
+    /apps/wix/dark -x . "ViberSetup.exe"
     mv "AttachedContainer/ViberSetup.msi" .
 }
 
@@ -61,7 +61,7 @@ build() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "install/viber"/* "${a}"
     _rmmsdll "${a}"

@@ -1,16 +1,16 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=atube-catcher
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=3.8.0.9325
-pkgrel=2
+pkgrel=1
 pkgdesc="Downloads videos from the Internet"
 url="http://www.atube.me/"
 arch=('any')
 license=('custom')
-makedepends=("app-i686-innounp")
+makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("aTubeCatcher.exe::http://files.dsnetwb.com/aTube_Catcher.exe")
@@ -32,18 +32,18 @@ _lc() {
 }
 
 pkgver() {
-    /apps32/innounp/innounp -e -q -m -a -y "aTubeCatcher.exe" "yct.exe" > /dev/null
+    /apps/innounp/innounp -e -q -m -a -y "aTubeCatcher.exe" "yct.exe" > /dev/null
     b="$(cygpath -wa "yct.exe" | sed 's/\\/\\\\/g')"
     wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
 }
 
 prepare() {
-    /apps32/innounp/innounp -x -q -m -a -y "aTubeCatcher.exe"
+    /apps/innounp/innounp -x -q -m -a -y "aTubeCatcher.exe"
     _lc "{app}"/*
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "{app}"/* "${a}"
 }

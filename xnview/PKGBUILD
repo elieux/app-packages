@@ -1,16 +1,16 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=xnview
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.44
-pkgrel=2
+pkgrel=1
 pkgdesc="An efficient multimedia viewer, browser and converter"
 url="https://www.xnview.com/en/xnview/"
 arch=('any')
 license=('custom')
-depends=("app-i686-nconvert")
+depends=("app-nconvert")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -41,7 +41,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "XnView"/* "${a}"
     rm -R "${a}/nconvert.exe" "${a}/addon/Microsoft.VC90.CRT"

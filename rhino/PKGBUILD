@@ -2,14 +2,15 @@
 
 _realname=rhino
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.7.9
-pkgrel=2
+pkgrel=1
 pkgdesc="Open-source implementation of JavaScript written in Java"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino"
 arch=('any')
 license=('MPL2')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -18,20 +19,10 @@ source=("rhino.zip::https://github.com/mozilla/rhino/releases/download/Rhino${pk
 sha512sums=('a24c36cd69c339a6cdabac4ecc97e9a3a1a25f81edad4cc154ff7de00c1a5a2d3f35fe424ef37439f4f2c8d746d818f72dc46cd99fb980d917afeac523737b43'
             'fa81013a80ff525b3f218e986de7ad1074b8019de65f162c0982aa2edc62e0543d54ca125ab797aade876fbfc1ae6295d42b14fed32abbbb1f11b31352fe6d94')
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp "rhino${pkgver}/lib/rhino-${pkgver}.jar" "${a}/rhino.jar"
     cp "rhino.cmd" "${a}"
     cp -r "rhino${pkgver}/docs"/* "${a}"
-}
-
-package_app-i686-rhino() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-rhino() {
-    _apparch=64
-    _package
 }

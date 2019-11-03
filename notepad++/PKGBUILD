@@ -2,27 +2,23 @@
 
 _realname=notepad++
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=7.5.5
-pkgrel=2
+pkgrel=1
 pkgdesc="A free Scintilla-based editor with plugin support"
 url="https://notepad-plus-plus.org/"
 arch=('any')
 license=('GPL')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("npp.bin32.zip::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.zip"
-        "npp.Installer32.exe::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.Installer.exe"
-        "npp.bin64.zip::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.x64.zip"
+source=("npp.bin64.zip::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.x64.zip"
         "npp.Installer64.exe::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.Installer.x64.exe")
-sha512sums=('52fa726ce7857b9d558d408ceea5c8c18b0da95e60a8faaa372d2fa1ac4e9357b52732666d99d65bdb2cd672ffc5e1cc02bffac1c53caedfcc87175e7f0b7d41'
-            'c4788be6e770825f8d599389daacc544789e178077a78bdf76959efc6401be62482ed33c5b604dd44e8b79264f10e57b18b4369a5b6dd7a5d52a132031147fb3'
-            '9e800c47076d7a92c9e58e900bbd49ab4616d50039c51ea24a5a8cfb9c423d0f2b8082f214a262c5d7dd1b85f2a41b29285fc8a6d1b926429dea168e14b8b8c3'
+sha512sums=('9e800c47076d7a92c9e58e900bbd49ab4616d50039c51ea24a5a8cfb9c423d0f2b8082f214a262c5d7dd1b85f2a41b29285fc8a6d1b926429dea168e14b8b8c3'
             '4ffed4d8db83ca5b85a80b1a7d60acac2122117e3b4f5762702f3e1ce0ee9d4368465ca197da9a8755a4404acea70c781d8fb28c989ece92c7f08840fb2f8f82')
-noextract=("npp.bin32.zip"
-           "npp.bin64.zip")
+noextract=("npp.bin64.zip")
 
 _lc() {
     local d f n
@@ -39,42 +35,23 @@ _lc() {
     done
 }
 
-_prepare() {
-    unzip -o "npp.bin${_apparch}.zip" -d "npp${_apparch}"
-    rm -f "npp${_apparch}/nppshell_06*.dll"
-    echo u | 7z x -bd -i!"NppShell_06.dll" -o"npp${_apparch}" "npp.Installer${_apparch}.exe"
-    _lc "npp${_apparch}"/*
-    for f in "npp${_apparch}"/nppshell_06*.dll
+prepare() {
+    unzip -o "npp.bin64.zip" -d "npp"
+    rm -f "npp/nppshell_06*.dll"
+    echo u | 7z x -bd -i!"NppShell_06.dll" -o"npp" "npp.Installer64.exe"
+    _lc "npp"/*
+    for f in "npp"/nppshell_06*.dll
     do
-        case "${_apparch}:$(file "${f}")" in
-        32:*80386*|64:*x86-64*) mv "${f}" "npp${_apparch}"/"nppshell_06.dll" ;;
-        32:*x86-64*|64:*80386*) rm "${f}" ;;
+        case "$(file "${f}")" in
+        64:*x86-64*) mv "${f}" "npp/nppshell_06.dll" ;;
+        64:*80386*) rm "${f}" ;;
         esac
     done
 }
 
-prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
-}
-
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "npp${_apparch}"/* "${a}"
+    cp -r "npp"/* "${a}"
     rm "${a}/dolocalconf.xml"
-}
-
-# space before () required
-package_app-i686-notepad++ () {
-    _apparch=32
-    _package
-}
-
-# space before () required
-package_app-x86_64-notepad++ () {
-    _apparch=64
-    _package
 }

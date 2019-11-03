@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=freerapid
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=0.9u4
-pkgrel=4
+pkgrel=1
 pkgdesc="A Java-based download manager for Rapidshare and other file sharing archives"
 arch=('any')
 url="http://wordrider.net/freerapid/"
@@ -36,7 +36,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "FreeRapid-${pkgver}"/{lib,lookandfeel,search,tools,frd.*,instplgs.dat,objectdb.conf,*.properties} "${a}"
     cp -r "FreeRapid-${pkgver}"/{doc,copyright,license,readme.txt} "${a}"

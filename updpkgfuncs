@@ -13,9 +13,7 @@ foreach ($funcmatches as $func) {
 }
 $updatefunc = function($func) use($funcs) {
 	list($name, $body) = array_slice($func, 1);
-	if (!in_array($name, [ '_prepare', '_build', '_package' ])) {
-		$body = $funcs[$name];
-	}
+	$body = $funcs[$name];
 	return "{$name}() {$body}";
 };
 

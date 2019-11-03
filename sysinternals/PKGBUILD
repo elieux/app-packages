@@ -2,14 +2,15 @@
 
 _realname=sysinternals
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=2018.02.12
-pkgrel=2
+pkgrel=1
 pkgdesc="Advanced system utilities for Windows"
 url="https://docs.microsoft.com/en-us/sysinternals/"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -44,10 +45,10 @@ prepare() {
     _lc *
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    for f in "${@}"
+    for f in $(find . -mindepth 1 -maxdepth 1)
     do
         n="${f##*/}"
         n="${n/64/}"
@@ -60,14 +61,4 @@ _package() {
             ;;
         esac
     done
-}
-
-package_app-i686-sysinternals() {
-    _apparch=32
-    _package $(find . -mindepth 1 -maxdepth 1 -not -name '*64*')
-}
-
-package_app-x86_64-sysinternals() {
-    _apparch=64
-    _package $(find . -mindepth 1 -maxdepth 1 -name '*64*') *.txt
 }

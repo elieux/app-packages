@@ -2,23 +2,21 @@
 
 _realname=vscode
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.39.2
-pkgrel=2
+pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 arch=('any')
 url="https://code.visualstudio.com/"
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("VSCode-win32.zip::https://vscode-update.azurewebsites.net/${pkgver}/win32-archive/stable"
-        "VSCode-win64.zip::https://vscode-update.azurewebsites.net/${pkgver}/win32-x64-archive/stable")
-sha512sums=('4fed36641217e00e857258f15b28aee455179325d390bbee55c198f7ff38a6324e89f4c57ec8a7d61e67f2436647df80b88755f90ea4e80791c22a4776b8255d'
-            'c58f84ff12a79274202d21597b99622de05d4f9717be2b87f58628b46e48c1209451381a73a8cc7c6ef332d9f6ca29c05fc9228e53a8f0ae9e5800faa767e97e')
-noextract=("VSCode-win32.zip"
-           "VSCode-win64.zip")
+source=("VSCode-win64.zip::https://vscode-update.azurewebsites.net/${pkgver}/win32-x64-archive/stable")
+sha512sums=('c58f84ff12a79274202d21597b99622de05d4f9717be2b87f58628b46e48c1209451381a73a8cc7c6ef332d9f6ca29c05fc9228e53a8f0ae9e5800faa767e97e')
+noextract=("VSCode-win64.zip")
 
 _lc() {
     local d f n
@@ -49,31 +47,14 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-_prepare() {
-    unzip -o "VSCode-win${_apparch}.zip" -d "vscode${_apparch}"
-    _lc "vscode${_apparch}"/*
-}
-
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    unzip -o "VSCode-win64.zip" -d "vscode"
+    _lc "vscode"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "vscode${_apparch}"/* "${a}"
+    cp -r "vscode"/* "${a}"
     _rmmsdll "${a}"
-}
-
-package_app-i686-vscode() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-vscode() {
-    _apparch=64
-    _package
 }

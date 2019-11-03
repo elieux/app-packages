@@ -3,22 +3,20 @@
 _realname=chromium
 _realver=693954
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=78.0.3904.70
-pkgrel=1
+pkgrel=2
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="http://www.chromium.org/Home"
 arch=('any')
 license=('BSD')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Chromium-x86.7z::https://github.com/macchrome/winchrome/releases/download/v${pkgver}-r${_realver}-Win64/Chromium-${pkgver}-x86.7z"
-        "Chromium-x64.7z::https://github.com/macchrome/winchrome/releases/download/v${pkgver}-r${_realver}-Win64/Chromium-${pkgver}-x64.7z")
-sha512sums=('66d93579b2ef79a0dbcbc7fa07d01f2179fdf8e207e5cadb27184d304ce60619140ab740c1c3eba537db92e956646f65ee51d0a907d2aa5fd2a3edc21b8c68d1'
-            '274a354e564a75f4776420fa3946b1d5bb07f909c5fed63eb6699404e0763cb7245707e15d995ae98f704217fd79658e379e23c6b53f3452561e3f2693ab17a8')
+source=("Chromium-x64.7z::https://github.com/macchrome/winchrome/releases/download/v${pkgver}-r${_realver}-Win64/Chromium-${pkgver}-x64.7z")
+sha512sums=('274a354e564a75f4776420fa3946b1d5bb07f909c5fed63eb6699404e0763cb7245707e15d995ae98f704217fd79658e379e23c6b53f3452561e3f2693ab17a8')
 
 _lc() {
     local d f n
@@ -36,22 +34,11 @@ _lc() {
 }
 
 prepare() {
-    _lc "Chromium-${pkgver}-x86"/*
     _lc "Chromium-${pkgver}-x64"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "Chromium-${pkgver}-${1}"/* "${a}"
-}
-
-package_app-i686-chromium() {
-    _apparch=32
-    _package x86
-}
-
-package_app-x86_64-chromium() {
-    _apparch=64
-    _package x64
+    cp -r "Chromium-${pkgver}-x64"/* "${a}"
 }

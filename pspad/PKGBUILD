@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=pspad
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=4.6.2
-pkgrel=3
+pkgrel=1
 pkgdesc="Freeware programmer's editor"
 arch=('any')
 url="http://www.pspad.com/en/"
@@ -85,7 +85,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "pspaden"/* "${a}"
     cp *.dic "${a}/spell"

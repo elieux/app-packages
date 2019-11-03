@@ -3,18 +3,18 @@
 DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.cheater.cz/" -o %o %u')
 
 _realname=wincheater
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.07
-pkgrel=3
+pkgrel=1
 pkgdesc="Video game cheats and guides database viewer"
 url="http://www.cheater.cz/wincheater2/info/"
 arch=('any')
 license=('custom')
 depends=("app-i686-wincheater-data-base")
 optdepends=("app-i686-wincheater-data-libs: Databases")
-makedepends=("app-i686-innounp")
+makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=()
@@ -69,12 +69,12 @@ prepare() {
     noextract+=("${f}")
     extract_sources
 
-    /apps32/innounp/innounp -x -q -m -a -y "WinCheater2_setup.exe"
+    /apps/innounp/innounp -x -q -m -a -y "WinCheater2_setup.exe"
     _lc "{app}"/*
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "{app}"/* "${a}"
     rm "${a}/texty.sct" "${a}"/*.sc2

@@ -2,21 +2,21 @@
 
 _realname=opera
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=60.0.3255.95
 pkgrel=1
 pkgdesc="A fast and free Blink-based web browser"
 url="http://www.opera.com/computer"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}" "app-x86_64-opera2")
+conflicts=("app-x86_64-${_realname}<15")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Opera_Setup_x32.exe::http://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup.exe"
-        "Opera_Setup_x64.exe::http://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup_x64.exe")
-sha512sums=('27e5ae5ca61808502152757d22bf14ad0cb9df6563d93a6153d6c95d2c7f04e2f9b070c495e0783939cac4b70517b2d77e0b0b42adf9040b3f46035c516442c5'
-            '7dee39e4e47bf9b6aa6a9d679e20f6539bf25e06b32903c162a77cf1abc8e5b791bf951641a049b4a8da6758d889859a719f125471cd77c3d5cd0cf9509961c8')
+source=("Opera_Setup_x64.exe::http://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup_x64.exe")
+sha512sums=('7dee39e4e47bf9b6aa6a9d679e20f6539bf25e06b32903c162a77cf1abc8e5b791bf951641a049b4a8da6758d889859a719f125471cd77c3d5cd0cf9509961c8')
 
 _lc() {
     local d f n
@@ -47,36 +47,15 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-_prepare() {
-    7z x -y -bd "Opera_Setup_x${_apparch}.exe" -o"Opera${_apparch}"
-    _lc "Opera${_apparch}"/*
-}
-
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    7z x -y -bd "Opera_Setup_x64.exe" -o"Opera"
+    _lc "Opera"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "Opera${_apparch}"/* "${a}"
+    cp -r "Opera"/* "${a}"
     rm -r "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,resources.pri} "${a}"/{installer.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
     _rmmsdll "${a}"
-}
-
-package_app-i686-opera() {
-    replaces=("app-i686-opera2")
-    conflicts=("app-i686-${_realname}<15")
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-opera() {
-    replaces=("app-x86_64-opera2")
-    conflicts=("app-x86_64-${_realname}<15")
-    _apparch=64
-    _package
 }

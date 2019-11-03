@@ -3,14 +3,15 @@
 _realname=crystaldiskmark
 _dirname=crystal
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=6.0.0
 pkgrel=1
 pkgdesc="A disk benchmarking software (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDiskMark/index-e.html"
 arch=('any')
 license=('MIT')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -36,21 +37,11 @@ prepare() {
     _lc *
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+package() {
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "diskmark${_apparch}.exe" "${a}/crystaldiskmark.exe"
+    cp "diskmark64.exe" "${a}/crystaldiskmark.exe"
     cp -r "cdmresource" "${a}"
     rm "${a}/cdmresource/diskspd"/*
-    cp "cdmresource/diskspd/diskspd${_apparch}.exe" "${a}/cdmresource/diskspd"
-}
-
-package_app-i686-crystaldiskmark() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-crystaldiskmark() {
-    _apparch=64
-    _package
+    cp "cdmresource/diskspd/diskspd64.exe" "${a}/cdmresource/diskspd"
 }

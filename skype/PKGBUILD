@@ -1,16 +1,17 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=skype
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=8.17.0.2
-pkgrel=2
+pkgrel=1
 pkgdesc="P2P software for high-quality voice communication"
 url="http://www.skype.com/"
 arch=('any')
 license=('custom')
-makedepends=("app-i686-innounp")
+replaces=("app-i686-${_realname}")
+makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Skype.exe::https://get.skype.com/go/getskype-skypeforwindows")
@@ -50,12 +51,12 @@ pkgver() {
 }
 
 prepare() {
-    /apps32/innounp/innounp -x -q -m -a -y "Skype.exe"
+    /apps/innounp/innounp -x -q -m -a -y "Skype.exe"
     _lc "{app}"/*
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "{app}"/* "${a}"
     _rmmsdll "${a}"

@@ -3,37 +3,21 @@
 _dirname=bulk-rename
 _realname=bulk-rename-command
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.3.3.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Command-line file renaming software"
 arch=('any')
 url="http://www.bulkrenameutility.co.uk/Command.php"
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("BRC_Unicode_32.zip::http://www.bulkrenameutility.co.uk/Downloads/BRC_Unicode_32.zip"
-        "BRC_Unicode_64.zip::http://www.bulkrenameutility.co.uk/Downloads/BRC_Unicode_64.zip")
-sha512sums=('eb78c68967164e7f5eac3b9594caa226814a23abbcf01c21a51d0d982660249209023806c040f9a1711f2369d0c5e83a3af6f304e6527fcd6416087c4594ef5e'
-            '9f06ec09b04dc7f4582557201664d1280a71966c856a3c750289985805d280f58cb9d4406d27029e921db8b750bff971aa531ed15703b00e9f6b4054464c65d5')
-noextract=("BRC_Unicode_32.zip"
-           "BRC_Unicode_64.zip")
-
-_eqver() {
-    local r v
-
-    for v in "${@}"
-    do
-        if [ -n "${r}" -a "${r}" != "${v}" ]
-        then
-            echo "Version mismatch between ${r} and ${v}."
-        fi
-        r="${v}"
-    done
-    echo "${r}"
-}
+source=("BRC_Unicode_64.zip::http://www.bulkrenameutility.co.uk/Downloads/BRC_Unicode_64.zip")
+sha512sums=('9f06ec09b04dc7f4582557201664d1280a71966c856a3c750289985805d280f58cb9d4406d27029e921db8b750bff971aa531ed15703b00e9f6b4054464c65d5')
+noextract=("BRC_Unicode_64.zip")
 
 _lc() {
     local d f n
@@ -51,42 +35,19 @@ _lc() {
 }
 
 pkgver() {
-    _vers=( $(
-        for _apparch in 32 64
-        do
-            unzip -q -j -o "BRC_Unicode_${_apparch}.zip" "BRC${_apparch}.exe"
-            "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "BRC'"${_apparch}"'.exe").VersionInfo.ProductVersion' | dos2unix | tr -d ' ' | tr ',' '.'
-        done
-    ) )
-    _eqver "${_vers[@]}"
-}
-
-_prepare() {
-    unzip -o "BRC_Unicode_${_apparch}.zip" -d "BRC${_apparch}"
-    _lc "BRC${_apparch}"/*
+    unzip -q -j -o "BRC_Unicode_64.zip" "BRC64.exe"
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "BRC64.exe").VersionInfo.ProductVersion' | dos2unix | tr -d ' ' | tr ',' '.'
 }
 
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    unzip -o "BRC_Unicode_64.zip" -d "BRC"
+    _lc "BRC"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+package() {
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "BRC${_apparch}"/*.{dll,exe} "${a}"
-    mv "${a}/brc${_apparch}.exe" "${a}/brc.exe"
-    cp "BRC${_apparch}"/*.{pdf,chm} "${a}"
-}
-
-package_app-i686-bulk-rename-command() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-bulk-rename-command() {
-    _apparch=64
-    _package
+    cp "BRC"/*.{dll,exe} "${a}"
+    mv "${a}/brc64.exe" "${a}/brc.exe"
+    cp "BRC"/*.{pdf,chm} "${a}"
 }

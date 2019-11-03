@@ -3,14 +3,15 @@
 _realname=crystaldiskinfo
 _dirname=crystal
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=7.5.2
-pkgrel=2
+pkgrel=1
 pkgdesc="A disk utility (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDiskInfo/index-e.html"
 arch=('any')
 license=('MIT')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -36,20 +37,10 @@ prepare() {
     _lc "License"/* *
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+package() {
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}" "${a}/diskinfo"
-    cp "diskinfo${_apparch}.exe" "${a}/crystaldiskinfo.exe"
+    cp "diskinfo64.exe" "${a}/crystaldiskinfo.exe"
     cp -r "cdiresource" "${a}"
     cp -r "license"/* "${a}/diskinfo"
-}
-
-package_app-i686-crystaldiskinfo() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-crystaldiskinfo() {
-    _apparch=64
-    _package
 }

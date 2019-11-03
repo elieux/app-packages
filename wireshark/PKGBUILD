@@ -2,21 +2,20 @@
 
 _realname=wireshark
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=2.4.5
-pkgrel=2
+pkgrel=1
 pkgdesc="A free network protocol analyzer"
 url="https://www.wireshark.org/"
 arch=('any')
 license=('GPL2')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Wireshark-win32.exe::https://1.eu.dl.wireshark.org/win32/Wireshark-win32-${pkgver}.exe"
-        "Wireshark-win64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-win64-${pkgver}.exe")
-sha512sums=('e8fd400d07ce6cd1e03eece1abf9adfb504ddea58f69e4db3d03ccb81dfa5f220aef424f4a8085bcce03cfd79350ddae2c3c8739d1a2ca59c2b8515dc20d0ef2'
-            'adacac1ed40f5762378f963b06e5e43b792e0859610a1a5cba3b39b7bc1f28e6938299be76f397dee68bda1130bc6b099ed8ffc133062e1e72daba3c16081e66')
+source=("Wireshark-win64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-win64-${pkgver}.exe")
+sha512sums=('adacac1ed40f5762378f963b06e5e43b792e0859610a1a5cba3b39b7bc1f28e6938299be76f397dee68bda1130bc6b099ed8ffc133062e1e72daba3c16081e66')
 
 _lc() {
     local d f n
@@ -33,31 +32,14 @@ _lc() {
     done
 }
 
-_prepare() {
-    7z x -y -bd "Wireshark-win${_apparch}.exe" -o"Wireshark-win${_apparch}"
-    _lc "Wireshark-win${_apparch}"/*
-}
-
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    7z x -y -bd "Wireshark-win64.exe" -o"Wireshark-win"
+    _lc "Wireshark-win"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "Wireshark-win${_apparch}"/* "${a}"
-    rm -r "${a}"/winpcap_*.exe "${a}"/usbpcap*.exe "${a}/vcredist_${1}.exe" "${a}/uninstall.exe" "${a}"/'$pluginsdir'
-}
-
-package_app-i686-wireshark() {
-    _apparch=32
-    _package "x86"
-}
-
-package_app-x86_64-wireshark() {
-    _apparch=64
-    _package "x64"
+    cp -r "Wireshark-win"/* "${a}"
+    rm -r "${a}"/winpcap_*.exe "${a}"/usbpcap*.exe "${a}/vcredist_x64.exe" "${a}/uninstall.exe" "${a}"/'$pluginsdir'
 }

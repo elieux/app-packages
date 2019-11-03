@@ -2,11 +2,11 @@
 
 _realname=crystaldmi
 _dirname=crystal
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=1.06
-pkgrel=2
+pkgrel=1
 pkgdesc="A DMI utility (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDMI/index-e.html"
 arch=('any')
@@ -42,7 +42,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}" "${a}/dmi"
     cp "crystaldmi.exe" "${a}/crystaldmi.exe"
     cp *.{dll,vxd,sys} "${a}"

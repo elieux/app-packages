@@ -2,35 +2,20 @@
 
 _realname=slack
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=3.1.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SlackSetup32.exe::https://slack.com/ssb/download-win"
-        "SlackSetup64.exe::https://slack.com/ssb/download-win64")
-sha512sums=('401fe805bce4c4a8f78eac4b9d1b031242863f633647e2fa7b939a5aade2d274a1091a72ccfe451828c22099a472eb68a92c5784713f78dbaaf839c78892ae72'
-            '30852d44a15ba7c7a0365970ea33fabfe53d6a702c160266c74906bb9926e3b13ac6c88f1516461602ca33f78270eebfa93bf7377e5d7bd3d15e3d8ba2176380')
-
-_eqver() {
-    local r v
-
-    for v in "${@}"
-    do
-        if [ -n "${r}" -a "${r}" != "${v}" ]
-        then
-            echo "Version mismatch between ${r} and ${v}."
-        fi
-        r="${v}"
-    done
-    echo "${r}"
-}
+source=("SlackSetup64.exe::https://slack.com/ssb/download-win64")
+sha512sums=('30852d44a15ba7c7a0365970ea33fabfe53d6a702c160266c74906bb9926e3b13ac6c88f1516461602ca33f78270eebfa93bf7377e5d7bd3d15e3d8ba2176380')
 
 _lc() {
     local d f n
@@ -62,42 +47,19 @@ _rmmsdll() {
 }
 
 pkgver() {
-    _vers=( $(
-        for _apparch in 32 64
-        do
-            "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "SlackSetup'"${_apparch}"'.exe").VersionInfo.ProductVersion' | dos2unix
-        done
-    ) )
-    _eqver "${_vers[@]}"
-}
-
-_prepare() {
-    find -name 'slack-*-full.nupkg' -delete
-    7z x -y -bd "SlackSetup${_apparch}.exe" -o"SlackSetup${_apparch}"
-    unzip -o "SlackSetup${_apparch}/slack"-*-"full.nupkg" -d "SlackSetup${_apparch}"
-    _lc "lib/net45"/*
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "SlackSetup64.exe").VersionInfo.ProductVersion' | dos2unix
 }
 
 prepare() {
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    find -name 'slack-*-full.nupkg' -delete
+    7z x -y -bd "SlackSetup64.exe" -o"SlackSetup"
+    unzip -o "SlackSetup/slack"-*-"full.nupkg" -d "SlackSetup"
+    _lc "lib/net45"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "SlackSetup${_apparch}/lib/net45"/* "${a}"
+    cp -r "SlackSetup/lib/net45"/* "${a}"
     _rmmsdll "${a}"
-}
-
-package_app-i686-slack() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-slack() {
-    _apparch=64
-    _package
 }

@@ -2,21 +2,20 @@
 
 _realname=atom
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.25.0
-pkgrel=2
+pkgrel=1
 pkgdesc="A hackable text editor for the 21st Century"
 arch=('any')
 url="https://atom.io/"
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("atom-x32-windows.zip::https://github.com/atom/atom/releases/download/v${pkgver}/atom-windows.zip"
-        "atom-x64-windows.zip::https://github.com/atom/atom/releases/download/v${pkgver}/atom-x64-windows.zip")
-sha512sums=('f9db1e88855cdd0115f7a486c7db38440c3303e17160fc002de948312e81ff57b8b73fc96c0ae9795bff2dc80b71aaf0f3e884434a1c9b1c3b204a1c5c1cea29'
-            'f70a380001a66a8d04db71dbf4339bf972be16bdb452bc1099c3514f1800295ee302db9a6f699dc78fa552379800afca8fbbfd3ea3ffbb74977565e6b95a1f60')
+source=("atom-x64-windows.zip::https://github.com/atom/atom/releases/download/v${pkgver}/atom-x64-windows.zip")
+sha512sums=('f70a380001a66a8d04db71dbf4339bf972be16bdb452bc1099c3514f1800295ee302db9a6f699dc78fa552379800afca8fbbfd3ea3ffbb74977565e6b95a1f60')
 
 _lc() {
     local d f n
@@ -47,32 +46,13 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-_prepare() {
-    _lc "Atom x${_apparch}"/*
-}
-
 prepare() {
-    mv "Atom" "Atom x32"
-
-    for _apparch in 32 64
-    do
-        _prepare
-    done
+    _lc "Atom x64"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "Atom x${_apparch}"/* "${a}"
+    cp -r "Atom x64"/* "${a}"
     _rmmsdll "${a}"
-}
-
-package_app-i686-atom() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-atom() {
-    _apparch=64
-    _package
 }

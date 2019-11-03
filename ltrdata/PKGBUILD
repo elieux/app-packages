@@ -4,14 +4,15 @@ DLAGENTS=('http::/usr/bin/curl -qb "" -RfLC - -o %o %u')
 
 _realname=ltrdata
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=2017.07.01
-pkgrel=2
+pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
 url="http://www.ltr-data.se/opencode.html"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
@@ -71,10 +72,10 @@ prepare() {
     done
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    for s in $1
+    for s in *.zip
     do
         s="${s%%.zip}"
         u="${s##*/}"
@@ -83,15 +84,4 @@ _package() {
         find "${s}" -regextype posix-extended -regex ".+\.(exe|dll|exe\.config|cmd|vbs|ps1)" -print0 | xargs -0 cp -t "${a}"
         find "${s}" -regextype posix-extended -regex ".+\.(txt|cnt|hlp)" -print0 | xargs -0r cp -t "${a}"
     done
-}
-
-package_app-i686-ltrdata() {
-    _apparch=32
-    _package "$(find . -mindepth 1 -maxdepth 1 -name '*.zip' -not -name '*64*')"
-    cp "devio.exe" "${pkgdir}/apps${_apparch}/${_realname}"
-}
-
-package_app-x86_64-ltrdata() {
-    _apparch=64
-    _package "$(find . -mindepth 1 -maxdepth 1 -name '*64*.zip')"
 }

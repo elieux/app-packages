@@ -2,37 +2,26 @@
 
 _realname=mysql
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=5.7.21
-pkgrel=2
+pkgrel=1
 pkgdesc="Fast SQL database server, community edition"
 url="https://www.mysql.com/products/community/"
 arch=('any')
 license=('GPL')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("mysql-win32.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-win32.zip"
-        "mysql-winx64.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-winx64.zip")
-sha512sums=('472f142a7e3c9065bd844d1aa1d5d1aae29b351ccb51113c9744ace182ffe4670d31865ecda262f53177907355372e0f605b6458402346f2d9108a3e911d5ccc'
-            'a9750ecaf7ece4ae2eaa5e66f2359df9fc1ef9f560aaca6f0304db08cc74b4a69ad8404e35463bf33388f1933fe0f868e48161a421d952c8d34760ee6b15dc53')
+source=("mysql-winx64.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-winx64.zip")
+sha512sums=('a9750ecaf7ece4ae2eaa5e66f2359df9fc1ef9f560aaca6f0304db08cc74b4a69ad8404e35463bf33388f1933fe0f868e48161a421d952c8d34760ee6b15dc53')
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "mysql-${pkgver}-win${1}"/* "${a}"
+    cp -r "mysql-${pkgver}-winx64"/* "${a}"
     find "${a}" -name 'debug' -exec rm -r '{}' \; -prune
     find "${a}" -name '*.pdb' -delete
     find "${a}" -name '*.lib' -delete
-}
-
-package_app-i686-mysql() {
-    _apparch=32
-    _package "32"
-}
-
-package_app-x86_64-mysql() {
-    _apparch=64
-    _package "x64"
 }

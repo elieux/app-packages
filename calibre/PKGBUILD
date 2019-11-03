@@ -2,20 +2,19 @@
 
 _realname=calibre
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=3.19.0
-pkgrel=2
+pkgrel=1
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
 arch=('any')
 license=('GPL3')
+replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("calibre32.msi::http://download.calibre-ebook.com/${pkgver}/${_realname}-${pkgver}.msi"
-        "calibre64.msi::http://download.calibre-ebook.com/${pkgver}/${_realname}-64bit-${pkgver}.msi")
-sha512sums=('e76370f3ce5dd29269cade8d95b315a801abf36f163b9e5661a703bac76b4e351f4399d2dffdcc3396a6a7f6051d7fb4f915a6f84d282215f9a6bdc503c9ae9d'
-            'bad732c7e0b2766066f57a2954ccdab03d68d5268bf6e29bded1cedb0a301f540208545b30d919f2875aff45c72087be5e6ce81ca2669bed81d90c3c01ba4d38')
+source=("calibre-64bit.msi::http://download.calibre-ebook.com/${pkgver}/calibre-64bit-${pkgver}.msi")
+sha512sums=('bad732c7e0b2766066f57a2954ccdab03d68d5268bf6e29bded1cedb0a301f540208545b30d919f2875aff45c72087be5e6ce81ca2669bed81d90c3c01ba4d38')
 
 _lc() {
     local d f n
@@ -46,33 +45,16 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-_build() {
-    msiexec -a "calibre${_apparch}.msi" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
-    attrib -r //s
-    _lc "install${_apparch}/PFiles"/*
-    _lc "install${_apparch}/PFiles"/calibre*/*
-}
-
 build() {
-    for _apparch in 32 64
-    do
-        _build
-    done
+    msiexec -a "calibre-64bit.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
+    attrib -r //s
+    _lc "install/PFiles"/*
+    _lc "install/PFiles"/calibre*/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "install${_apparch}/PFiles"/calibre*/* "${a}"
+    cp -r "install/PFiles"/calibre*/* "${a}"
     _rmmsdll "${a}"
-}
-
-package_app-i686-calibre() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-calibre() {
-    _apparch=64
-    _package
 }

@@ -2,14 +2,15 @@
 
 _realname=abwsx1
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=2.11.8.0
-pkgrel=2
+pkgrel=1
 pkgdesc="A compact multi-platform web server"
 url="http://aprelium.com/abyssws/"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -109,31 +110,17 @@ prepare() {
     do
         n="$(basename "${f/_1/}")"
         case "$(file "${f}")" in
-        *80386*) mv -f "${f}" "${n}.32" ;;
-        *x86-64*) mv -f "${f}" "${n}.64" ;;
+        *80386*) rm "${f}" ;;
+        *x86-64*) mv -f "${f}" "${n}" ;;
         esac
     done
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "dir"/* "${a}"
     cp -f *.lng "${a}/lang"
-    for f in *.{exe,dll}."${_apparch}"
-    do
-        cp "${f}" "${a}/${f%.${_apparch}}"
-    done
-    mv "${a}/adnregister.exe" "${a}/adn/adnregister.exe"
+    cp *.{exe,dll} "${a}"
     rm -r "${a}"/'$PLUGINSDIR'
-}
-
-package_app-i686-abwsx1() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-abwsx1() {
-    _apparch=64
-    _package
 }

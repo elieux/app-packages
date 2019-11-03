@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=xmplay
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=3.8.3.4
-pkgrel=2
+pkgrel=1
 pkgdesc="Light weight, pluggable audio player"
 url="http://www.un4seen.com/xmplay.html"
 arch=('any')
@@ -22,7 +22,7 @@ pkgver() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r *.{dll,exe} "${a}"
     cp -r *.txt "${a}"

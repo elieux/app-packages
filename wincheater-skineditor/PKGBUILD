@@ -2,11 +2,11 @@
 
 _realname=wincheater-skineditor
 _dirname=wincheater
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.02
-pkgrel=2
+pkgrel=1
 pkgdesc="Skin designer for WinCheater"
 url="http://www.cheater.cz/wincheater2/download-ostatni/"
 arch=('any')
@@ -42,7 +42,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
     cp "skineditor2.exe" "${a}"
 }

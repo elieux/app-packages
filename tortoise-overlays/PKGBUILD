@@ -3,35 +3,20 @@
 _realname=tortoise-overlays
 _realver=2.0.0.0
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=1.1.4.26626
-pkgrel=2
+pkgrel=1
 pkgdesc="Overlays component for Tortoise tools"
 url="https://tortoisesvn.net"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TortoiseGit-32bit.msi::https://download.tortoisegit.org/tgit/${_realver}/TortoiseGit-${_realver}-32bit.msi" # TGit seems to have a greater choice of icon sets
-        "TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${_realver}/TortoiseGit-${_realver}-64bit.msi")
-sha512sums=('3c4240f6241188e978fc63bfb6d10681be10863b3b212e177873913aaadfc0722a420dd0d793f48fecbd168c307a4979e7a74611fe97e0fbffad6e7f8076c387'
-            '0073ceb7c08fbc0e3c1506abb6c00ba925b6069807eb9a7d7bc4626cec6c0097ace4ebafb24dd0e5ffb47bb76b87aed03014933faf05777ba02ccb808b3cbdd5')
-
-_eqver() {
-    local r v
-
-    for v in "${@}"
-    do
-        if [ -n "${r}" -a "${r}" != "${v}" ]
-        then
-            echo "Version mismatch between ${r} and ${v}."
-        fi
-        r="${v}"
-    done
-    echo "${r}"
-}
+source=("TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${_realver}/TortoiseGit-${_realver}-64bit.msi")
+sha512sums=('0073ceb7c08fbc0e3c1506abb6c00ba925b6069807eb9a7d7bc4626cec6c0097ace4ebafb24dd0e5ffb47bb76b87aed03014933faf05777ba02ccb808b3cbdd5')
 
 _lc() {
     local d f n
@@ -49,43 +34,18 @@ _lc() {
 }
 
 pkgver() {
-    7z e -y -bd "TortoiseGit-32bit.msi" "F__overlaydll.9D3DBC93_494B_45A8_88D7_430AB5568B0F" > /dev/null
-    b="$(cygpath -wa "F__overlaydll.9D3DBC93_494B_45A8_88D7_430AB5568B0F" | sed 's/\\/\\\\/g')"
-    _ver32="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)$/\1/')"
     7z e -y -bd "TortoiseGit-64bit.msi" "F__overlaydll.3C89127D_F335_46EB_8720_CAFE0C0FEB7E" > /dev/null
     b="$(cygpath -wa "F__overlaydll.3C89127D_F335_46EB_8720_CAFE0C0FEB7E" | sed 's/\\/\\\\/g')"
-    _ver64="$(wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)$/\1/')"
-    _eqver "${_ver32}" "${_ver64}"
-}
-
-_build() {
-    for f in *${_apparch}bit*.msi
-    do
-        msiexec -a "${f}" "TARGETDIR=$(cygpath -wa "install${_apparch}")" -qn
-    done
-    _lc "install${_apparch}/Program Files/TortoiseGit/Common/TortoiseOverlays"/*
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)$/\1/'
 }
 
 build() {
-    for _apparch in 32 64
-    do
-        _build
-    done
+    msiexec -a "TortoiseGit-64bit.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
+    _lc "install/Program Files/TortoiseGit/Common/TortoiseOverlays"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "install${_apparch}/Program Files/TortoiseGit/Common/TortoiseOverlays"/* "${a}"
-}
-
-package_app-i686-tortoise-overlays() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-tortoise-overlays() {
-    _apparch=64
-    _package
-    cp -r "install32/Program Files/TortoiseGit/Common/TortoiseOverlays/tortoiseoverlays.dll" "${a}/tortoiseoverlays32.dll"
+    cp -r "install/Program Files/TortoiseGit/Common/TortoiseOverlays"/* "${a}"
 }

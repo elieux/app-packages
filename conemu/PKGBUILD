@@ -2,14 +2,15 @@
 
 _realname=conemu
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=18.03.09
-pkgrel=2
+pkgrel=1
 pkgdesc="A powerful, highly customizable console emulator with tabs"
 url="http://conemu.github.io/"
 arch=('any')
 license=('BSD')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -35,19 +36,9 @@ prepare() {
     _lc *
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "conemu${1}.exe" "${a}/conemu.exe"
+    cp -r "conemu64.exe" "${a}/conemu.exe"
     cp -r "conemu" "plugins" "${a}"
-}
-
-package_app-i686-conemu() {
-    _apparch=32
-    _package ""
-}
-
-package_app-x86_64-conemu() {
-    _apparch=64
-    _package "64"
 }

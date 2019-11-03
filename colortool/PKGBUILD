@@ -1,9 +1,9 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=colortool
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=1708.14008
 pkgrel=1
 pkgdesc="Windows Console Colortool"
@@ -17,7 +17,7 @@ source=("colortool.zip::https://github.com/Microsoft/console/releases/download/$
 sha512sums=('17c54389a6168e96a6be7c7ce2145873126068a509f6fda20c7c3aa3c90ec48fa239eba57b816bc89cf9d6eb4305a95112044729df5f9bd35c57bada3dbfef82')
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R *.exe "schemes" "${a}"
 }

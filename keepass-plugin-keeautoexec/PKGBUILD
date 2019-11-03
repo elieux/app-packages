@@ -2,11 +2,11 @@
 
 _realname=keepass-plugin-keeautoexec
 _dirname=keepass
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2.2
-pkgrel=2
+pkgrel=1
 pkgdesc="A KeePass plugin that opens additional databases when opening a database"
 url="http://keepass.info/plugins.html#keeautoexec"
 arch=('any')
@@ -19,7 +19,7 @@ source=("KeeAutoExec.zip::http://keepass.info/extensions/v2/keeautoexec/KeeAutoE
 sha512sums=('0bf85008e81520da3c92580302737956cf11d4cf048c3aa07d82bb71a3f1208c69cb46afbde49b54ba684ab04af63c4f044016dc3ff3108a08c1b34eee2a5288')
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/plugins" "${a}/plugins/keeautoexec"
     cp *.plgx "${a}/plugins"
     cp *.html "${a}/plugins/keeautoexec"

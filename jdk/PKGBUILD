@@ -3,17 +3,18 @@
 # adding quotes around the cookie value makes the download fail
 DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC - -o %o %u')
 
-_apparch=64
 _realname=jdk
 _realver=9.0.4+11/c2514751926b4512b076cc82f959763f
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=${_realver%+*}
-pkgrel=2
+pkgrel=1
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip" "unzip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
@@ -50,21 +51,20 @@ _rmmsdll() {
 }
 
 prepare() {
-    7z x -y -bd "jdk-windows${_apparch}.exe"
-    unzip -o "tools.zip" -d "tools${_apparch}"
+    7z x -y -bd "jdk-windows64.exe"
+    unzip -o "tools.zip" -d "tools"
     attrib -r //s
-    _lc "tools${_apparch}"/*
-    for f in $(find "tools${_apparch}" -iname '*.pack' -type f)
+    _lc "tools"/*
+    for f in $(find "tools" -iname '*.pack' -type f)
     do
-        "tools${_apparch}/bin/unpack200" "${f}" "${f%.pack}.jar"
+        "tools/bin/unpack200" "${f}" "${f%.pack}.jar"
         rm "${f}"
     done
 }
 
 package() {
-    s="tools${_apparch}"
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "${s}"/* "${a}"
+    cp -r "tools"/* "${a}"
     _rmmsdll "${a}"
 }

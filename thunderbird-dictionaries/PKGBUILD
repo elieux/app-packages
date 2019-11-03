@@ -2,9 +2,9 @@
 
 _realname=thunderbird-dictionaries
 _dirname=thunderbird
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=2018.03.12
 pkgrel=1
 pkgdesc="Dictionaries for Thunderbird"
@@ -307,7 +307,7 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}" "${a}/extensions"
     for f in *.xpi
     do

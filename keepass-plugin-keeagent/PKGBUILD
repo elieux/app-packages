@@ -5,11 +5,11 @@ DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -A "makepkg" -o %o %u')
 _realname=keepass-plugin-keeagent
 _realver=2016/07
 _dirname=keepass
-_apparch=32
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
+epoch=1
 pkgver=0.8.1
-pkgrel=2
+pkgrel=1
 pkgdesc="A KeePass plugin that acts as a SSH authentication agent"
 url="http://lechnology.com/software/keeagent/"
 arch=('any')
@@ -22,7 +22,7 @@ source=("KeeAgent.zip::http://lechnology.com/wp-content/uploads/${_realver}/KeeA
 sha512sums=('433341b7d2bd5de5f9d4dd81ee7347acd6e5ef43c979416db877e9b824179753d9cdca12294d72645ec559425bec549a381818f0795c6d77e8b06f5d00106dcd')
 
 package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/plugins" "${a}/plugins/keeagent"
     cp *.plgx "${a}/plugins"
     cp *.txt "${a}/plugins/keeagent"

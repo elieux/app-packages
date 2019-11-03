@@ -39,7 +39,7 @@ Guidelines for recipes
 
 - Follow MSYS2 and Arch Linux guidelines except where stated otherwise.
 - Follow the style set in existing recipes.
-- 32-bit and 64-bit package versions are separate and should still work if only one of them is installed.
+- Use 64-bit builds where available.
 - De-duplication takes place only on the level of whole applications, e.g. every package includes its own OpenSSL library, if it needs one, but a TeX editor and a TeX distribution should be separate packages.
 - Include all available localizations.
 - User configuration goes into per-user directories.

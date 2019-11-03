@@ -3,14 +3,16 @@
 _realname=firefox-dictionaries
 _dirname=firefox
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=2018.03.12
 pkgrel=1
 pkgdesc="Dictionaries for Firefox"
 url="https://addons.mozilla.org/en-US/firefox/language-tools/"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
+depends=("app-x86_64-firefox")
 makedepends=("unzip" "python3")
 provides=("${pkgbase}")
 options=(!strip)
@@ -259,8 +261,8 @@ prepare() {
     done
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_dirname}"
+package() {
+    a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}" "${a}/browser/extensions"
     for f in *.xpi
     do
@@ -288,16 +290,4 @@ print(id)
         mkdir "${a}/browser/extensions/${id}"
         cp -r "${f}"/* "${a}/browser/extensions/${id}"
     done
-}
-
-package_app-i686-firefox-dictionaries() {
-    depends=("app-i686-firefox")
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-firefox-dictionaries() {
-    depends=("app-x86_64-firefox")
-    _apparch=64
-    _package
 }

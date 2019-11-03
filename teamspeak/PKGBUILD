@@ -2,23 +2,22 @@
 
 _realname=teamspeak
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}"
-         "app-x86_64-${_realname}")
+pkgname=("app-x86_64-${_realname}")
+epoch=1
 pkgver=3.1.8
-pkgrel=2
+pkgrel=1
 pkgdesc="Quality voice communication via the Internet"
 url="http://www.teamspeak.com/"
 arch=('any')
 license=('custom')
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TeamSpeak3-Client-win32.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win32-${pkgver}.exe"
-        "TeamSpeak3-Client-win64.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe"
+source=("TeamSpeak3-Client-win64.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe"
         # "pluginsdk.zip::http://dl.4players.de/ts/client/pluginsdk/pluginsdk_${pkgver}.zip"
 )
-sha512sums=('821001b143f47d192548a7fc122c939256589fd497c1e15cac3b60936970eaf3149dc43c0f162d8c97345b9aabf7075dd0d8ae4f9828d0cc0acbf917dc727154'
-            '7bb09c43a822622af7415f68a65f9bbbc40d65192f45c4c034021f40c87402cb249e724b326bdd5e3ba97811e9d1019149f55d07db542c045c4ac70b09f12cbf')
+sha512sums=('7bb09c43a822622af7415f68a65f9bbbc40d65192f45c4c034021f40c87402cb249e724b326bdd5e3ba97811e9d1019149f55d07db542c045c4ac70b09f12cbf')
 
 _lc() {
     local d f n
@@ -35,37 +34,20 @@ _lc() {
     done
 }
 
-_prepare() {
-    w="*license*.rtf"
-    7z x -y -bd -x!"${w}" "TeamSpeak3-Client-win${_apparch}.exe" -o"win${_apparch}"
-    for f in $(7z l -y -bd -i!"${w}" "TeamSpeak3-Client-win${_apparch}.exe" | grep 'license.*rtf' | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's/^.*\\//')
-    do
-        7z e -y -bd -so -i!"*${f}" "TeamSpeak3-Client-win${_apparch}.exe" > "win${_apparch}/${f}"
-    done
-    _lc "win${_apparch}"/*
-}
-
 prepare() {
-    for _apparch in 32 64
+    w="*license*.rtf"
+    7z x -y -bd -x!"${w}" "TeamSpeak3-Client-win64.exe" -o"win"
+    for f in $(7z l -y -bd -i!"${w}" "TeamSpeak3-Client-win64.exe" | grep 'license.*rtf' | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's/^.*\\//')
     do
-        _prepare
+        7z e -y -bd -so -i!"*${f}" "TeamSpeak3-Client-win.exe" > "win/${f}"
     done
+    _lc "win"/*
 }
 
-_package() {
-    a="${pkgdir}/apps${_apparch}/${_realname}"
+package() {
+    a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "win${_apparch}"/* "${a}"
+    cp -r "win"/* "${a}"
     rm -r "${a}/update.exe" "${a}/uninstall.exe.nsis" "${a}"/'$pluginsdir'
-    mv "${a}/ts3client_win${_apparch}.exe" "${a}/ts3client.exe"
-}
-
-package_app-i686-teamspeak() {
-    _apparch=32
-    _package
-}
-
-package_app-x86_64-teamspeak() {
-    _apparch=64
-    _package
+    mv "${a}/ts3client_win64.exe" "${a}/ts3client.exe"
 }

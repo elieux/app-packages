@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("perfmonitor-2.zip::http://download.cpuid.com/${_realname}-2/${_realname}-2_${pkgver}.zip")
+source=("perfmonitor-2.zip::http://download.cpuid.com/perfmonitor-2/perfmonitor-2_${pkgver}.zip")
 sha512sums=('0688224b3ccf87ff3ef90ea5bc8dc615b581fec29ec9a2c8683ebf45f44a58207b29aa663d8f36edecb768d6a7f617265ad59de4466974fa89870f25bdee9630')
 
 _lc() {

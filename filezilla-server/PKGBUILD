@@ -13,7 +13,7 @@ license=('GPL')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("FileZilla_Server.exe::http://downloads.sourceforge.net/filezilla/FileZilla%20Server/${pkgver}/FileZilla_Server-${pkgver//./_}.exe")
+source=("FileZilla_Server.exe::https://download.filezilla-project.org/server/FileZilla_Server-${pkgver//./_}.exe")
 sha512sums=('0e0a92f3693d31d09341354ce212f42e1941743cf5f49bffe58b0c05cbc04865470e96c145ae0ffeea060a86d618da2a7de78a38946a9c3a2dcb956d0f2b3cfa')
 
 _lc() {

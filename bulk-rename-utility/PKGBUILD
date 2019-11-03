@@ -5,7 +5,7 @@ _realname=bulk-rename-utility
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.0.0.1
+pkgver=3.3.1.0
 pkgrel=1
 pkgdesc="File renaming software"
 arch=('any')
@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("BRU_NoInstall.zip::http://www.bulkrenameutility.co.uk/Downloads/BRU_NoInstall.zip")
-sha512sums=('2b10f4f7dc044968fe74cad09f5b0826a74a5fecb30295825bd279629a8038b41477f48c61e8a394de6953209e0f405c5e12d72ab53e41aa9487891e368e85a0')
+sha512sums=('88331b606a983d253967323591349d28176d829e3502f8a6a8e8cbf17ac8e44b24ee9e7b4ecb626cedec119d9e551f6d39357e70807a5a0a3bcf962cacd3c8dd')
 
 _lc() {
     local d f n
@@ -33,13 +33,13 @@ _lc() {
     done
 }
 
-pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "'"64-bit/Bulk Rename Utility.exe"'").VersionInfo.ProductVersion' | dos2unix
-}
-
 prepare() {
     _lc "64-bit"/*
     _lc "All"/*
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "'"64-bit/Bulk Rename Utility.exe"'").VersionInfo.ProductVersion' | dos2unix
 }
 
 package() {

@@ -4,7 +4,7 @@ _realname=conemu
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=18.03.09
+pkgver=19.10.12
 pkgrel=1
 pkgdesc="A powerful, highly customizable console emulator with tabs"
 url="http://conemu.github.io/"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ConEmuPack.7z::https://github.com/Maximus5/ConEmu/releases/download/v${pkgver}/ConEmuPack.${pkgver//./}.7z")
-sha512sums=('e2039c7d80b12211e3d3ad8f3c96f8c2c811c9adca4703f6c2170ad2cc687c622e9da4fbb4793bc9de2ce0379afd551dea7bacefaf8cc0131a22c4ac302d900d')
+sha512sums=('dc081a10a513d710b121eb38af3e45eafb8fd82ba217a11107a6d56127db476073f66b42df10ac1a80c1490d9778ae085a311e3a7d3f95b4f0e16a496c64a6b3')
 
 _lc() {
     local d f n
@@ -39,6 +39,7 @@ prepare() {
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "conemu64.exe" "${a}/conemu.exe"
     cp -r "conemu" "plugins" "${a}"
+    cp -r "conemu64.exe" "${a}/conemu.exe"
+    find "${a}" -name '*.map' -delete
 }

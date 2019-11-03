@@ -5,7 +5,7 @@ _realname=android-sdk-platform-tools
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=27.0.1
+pkgver=29.0.5
 pkgrel=1
 pkgdesc="Platform-Tools for Google Android SDK (adb and fastboot)"
 url="https://developer.android.com/studio/releases/platform-tools.html"
@@ -15,11 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("platform-tools-latest-windows.zip::https://dl.google.com/android/repository/platform-tools-latest-windows.zip")
-sha512sums=('19b059aab3cb6fce95269a1650730d1f4b7940c4e62d1c8c925ff5be7bc175cee9409c58ef12a53c849bcd900ce50acc8a1a8f399b6e2383c61dcbe89b45738d')
-
-pkgver() {
-    unzip -p "platform-tools-latest-windows.zip" "platform-tools/source.properties" | grep "^Pkg.Revision" | cut -d= -f2
-}
+sha512sums=('cb9060348531ca382163fbf68837552077418a6d74c1663f34447498bc429dd094e70924bca9cbc5e41a879fdaef169698f5d720054f424882ad615fd8b24f1d')
 
 _lc() {
     local d f n
@@ -38,6 +34,10 @@ _lc() {
 
 prepare() {
     _lc "platform-tools"/*
+}
+
+pkgver() {
+    cat "platform-tools/source.properties" | grep "^Pkg.Revision" | cut -d= -f2
 }
 
 package() {

@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=bind
-_realver=9.11.3
+_realver=9.14.7
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
@@ -15,9 +15,8 @@ replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("BIND64.zip::ftp://ftp.isc.org/isc/bind9/${_realver}/BIND${_realver}.x64.zip")
+source=("BIND.x64.zip::ftp://ftp.isc.org/isc/bind9/${_realver}/BIND${_realver}.x64.zip")
 sha512sums=('b3cd8eefc7fbee167b05984e4deac2514db0dd14632e224daa679ff1e6355f948565766e526231f0ec3e5938a48934999dd1c6f48dd919e9bb20c7838858901a')
-noextract=("BIND64.zip")
 
 _lc() {
     local d f n
@@ -35,14 +34,13 @@ _lc() {
 }
 
 prepare() {
-    unzip -o "BIND.zip" -d "bind"
-    _lc "bind"/*
+    _lc *
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp "bind"/*.{exe,dll} "${a}"
+    cp *.{exe,dll} "${a}"
     rm "${a}"/vcredist*.exe "${a}/bindinstall.exe"
-    cp "bind"/*.{html,pdf,txt} "bind"/{changes,copyright,history,migration,migration-4to9,openssl-license,readme,sha256} "${a}"
+    cp *.{html,pdf,txt} {changes,copyright,history,migration,migration-4to9,openssl-license,readme,sha256} "${a}"
 }

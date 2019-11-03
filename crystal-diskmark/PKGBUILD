@@ -5,7 +5,7 @@ _dirname=crystal
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.0.0
+pkgver=7.0.0b
 pkgrel=1
 pkgdesc="A disk benchmarking software (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalDiskMark/index-e.html"
@@ -42,6 +42,7 @@ package() {
     mkdir -p "${a}"
     cp "diskmark64.exe" "${a}/crystaldiskmark.exe"
     cp -r "cdmresource" "${a}"
-    rm "${a}/cdmresource/diskspd"/*
-    cp "cdmresource/diskspd/diskspd64.exe" "${a}/cdmresource/diskspd"
+    cp -r "license" "${a}/cdmlicense"
+    rm "${a}/cdmresource/diskspd"/*32*.exe
+    rm "${a}/cdmresource/diskspd"/*A64.exe
 }

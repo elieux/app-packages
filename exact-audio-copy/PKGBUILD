@@ -40,5 +40,5 @@ package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "eac"/* "${a}"
-    rm -r "${a}"/*.nsi "${a}"/'$pluginsdir' "${a}/microsoft.vc80.crt" "${a}/uninst.exe.nsis"
+    rm -r "${a}"/'$pluginsdir' "${a}/microsoft.vc80.crt" "${a}/uninst.exe.nsis"
 }

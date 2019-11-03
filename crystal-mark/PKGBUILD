@@ -11,7 +11,7 @@ pkgdesc="A benchmarking software (Crystal Dew World)"
 url="http://crystalmark.info/software/CrystalMark/index-e.html"
 arch=('any')
 license=('custom')
-depends=("app-i686-crystalsysinfo")
+depends=("app-crystalsysinfo")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -35,12 +35,11 @@ _lc() {
 
 prepare() {
     _lc *
-    rm -r "data" *sysinfo*
 }
 
 package() {
     a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}" "${a}/mark"
-    cp -r "template" *.{dll,exe,gld,gc2} "${a}"
-    cp *.txt "${a}/mark"
+    mkdir -p "${a}"
+    cp -r "template" *.{dll,exe,gld,gc2,txt} "${a}"
+    rm "${a}"/*sysinfo*
 }

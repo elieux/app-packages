@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("tmonitor.zip::http://download.cpuid.com/${_realname}/${_realname}_${pkgver}.zip")
+source=("tmonitor.zip::http://download.cpuid.com/tmonitor/tmonitor_${pkgver}.zip")
 sha512sums=('58a0e7b7afd9dd810308c16a58eb13f79f3cdf8ec3e2f3be227d57a33c45a4554234f922dd17bd674c444cc949f3ca3d734e791145c9a8396d2e252c06392e25')
 
 _lc() {

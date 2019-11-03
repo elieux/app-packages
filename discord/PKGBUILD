@@ -4,7 +4,7 @@ _realname=discord
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=0.0.300
+pkgver=0.0.305
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers"
 url="https://www.discordapp.com/"
@@ -14,7 +14,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("DiscordSetup.exe::https://discordapp.com/api/download?platform=win")
-sha512sums=('50a80f11bba0817bf5d75dfbc390ba5bf7c1620ebd173060fcca0878768b025eca77a9e8207cbbc52263fcc07f3086c1d38668e2fb7f9ec805d601aba786b2b2')
+sha512sums=('5b04621c795e6137165fdc6539a73626c2501010b1d861009765d68e44a5a132654e655a5afbcc6e358200c04d487007aa30a5819c0dfff4f733ac13b4fc80db')
 
 _lc() {
     local d f n
@@ -45,15 +45,15 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "DiscordSetup.exe").VersionInfo.ProductVersion'
-}
-
 prepare() {
     rm -f "Discord"-*-"full.nupkg"
     7z x -y -bd "DiscordSetup.exe"
     unzip -o "Discord"-*-"full.nupkg"
     _lc "lib/net45"/*
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "DiscordSetup.exe").VersionInfo.ProductVersion'
 }
 
 package() {

@@ -16,9 +16,23 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CrystalCPUIDx64.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID415x64.zip"
-        "CrystalMark.zip::http://crystalmark.info/download/archive/CrystalMark/CrystalMark2004R3.zip") # order is important
+        "CrystalMark.zip::http://crystalmark.info/download/archive/CrystalMark/CrystalMark2004R7.zip") # order is important
 sha512sums=('955a7f19b4ec651a7d07e5e800e2b40a1735056dfe2ed72d12ac93b75530d5b9973c707607a2015bc970c4904a34048d3f1c637c49599247a938d827fcf13d67'
-            'f837bee1b4cd8cd5d53b1304505382a7826cc8c4159cbed941db0c3aef335ff3b8988b28417a104dae978e0b2f484033d7383a9e3f9ad73c9f0986bd30eb001e')
+            '2a1eb4ba35e3238dc67617db7e7af83089f5d26b542891ff02b11a44049b6c8bedc2256868cc605ee7953fece14020b79445c420524363c95b0c6d177696a894')
+
+_eqver() {
+    local r v
+
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
 
 _lc() {
     local d f n
@@ -35,19 +49,23 @@ _lc() {
     done
 }
 
-pkgver() {
-    b="$(cygpath -wa "SysInfox64.dll" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
-}
-
 prepare() {
     _lc *
 }
 
+pkgver() {
+    _vers=( $(
+        for x in "" "x64"
+        do
+            b="$(cygpath -wa "sysinfo${x}.dll" | sed 's/\\/\\\\/g')"
+            wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
+        done
+    ) )
+    _eqver "${_vers[@]}"
+}
+
 package() {
     a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}" "${a}/sysinfo"
-    cp -r "data" *sysinfo*.{dll,sys,vxd} "${a}"
-    cp *sysinfo*.txt "${a}/sysinfo"
-    rm "${a}/sysinfont4.sys" "${a}"/sysinfo.*
+    mkdir -p "${a}"
+    cp -r "data" *sysinfo* "${a}"
 }

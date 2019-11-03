@@ -12,7 +12,7 @@ arch=('any')
 license=('AGPL' 'custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("esmska.tar.gz::http://ripper.profitux.cz/${_realname}/packages/${_realname}-${pkgver}.tar.gz")
+source=("esmska.tar.gz::https://github.com/kparal/esmska/releases/download/v${pkgver}/esmska-${pkgver}.tar.gz")
 sha512sums=('089ea57342604b6e89bafa3bd557fd179f22dd44b2553fde615543459921ad16f67c860e488cd544617d37b89778897d371ad86b7338e4be4d60ab6d630d745b')
 
 package() {

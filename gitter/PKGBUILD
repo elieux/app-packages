@@ -4,17 +4,17 @@ _realname=gitter
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.1.0
+pkgver=4.1.0
 pkgrel=1
 pkgdesc="Client for the Gitter communication platform"
-url="http://gitter.im/"
+url="https://gitter.im/"
 arch=('any')
 license=('custom')
 makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("GitterSetup.exe::https://update.gitter.im/win/GitterSetup-${pkgver}.exe")
-sha512sums=('3aa73f35e3cc675b41f3b5f685fa822ca87d5a358f389e423761313ccb106a72be3999204f725ff51c16775c5ef822d860eaa739557a12e9b12d91336c118154')
+sha512sums=('f55367b2d559a8d3828daf9b50d749ed96e34fffbc93c38a15bc4c6fbf1d7efb132d52adc9554b793b96af39c9f84ed47d9130405dab1b07ed1c0313a567c335')
 
 _lc() {
     local d f n
@@ -34,14 +34,14 @@ _lc() {
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "GitterSetup.exe"
     _lc "{app}"/*
-    for f in "{app}"/gitter*.exe
-    do
-        mv -f "${f}" "{app}/gitter.exe"
-    done
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "{app}"/* "${a}"
+    for f in "${a}"/gitter*.exe
+    do
+        mv -f "${f}" "${a}/gitter.exe"
+    done
 }

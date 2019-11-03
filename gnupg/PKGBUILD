@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=gnupg
-_realver=2.2.5_20180222
+_realver=2.2.17_20190709
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gnupg-w32.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${_realver}.exe")
-sha512sums=('dc4d261033eafe2f3cf3f1f7ea78d21d09b6d8095be083034ad9197c949a2121c59631f2cf31ba92f61d2afd5f2ca3c123c14b6648b0fd10613bd423697eaa28')
+sha512sums=('f1b8092e595e95f13a90fb4209886cce62ff85027b4129077177587265d8dc8a460a61e709391ff722fc480bb1c58108d9e9a8aed2bf4326fbfbb45300a8491f')
 
 prepare() {
     7z x -y -bd "gnupg-w32.exe"

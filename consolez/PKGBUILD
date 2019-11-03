@@ -4,7 +4,7 @@ _realname=consolez
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.18.2.17272
+pkgver=1.19.0.19104
 pkgrel=1
 pkgdesc="A console wrapper with tabs, easy copy-pasting and pretty visuals"
 url="http://github.com/cbucher/console"
@@ -15,8 +15,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ConsoleZ.x64.zip::https://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x64.${pkgver}.zip")
-sha512sums=('adcdab4bd31d8315e67c979ef5c1e806668f12ccf076c3c96ac2812449a8e5fac76af0ccece866901c5ac8ff0f3dfbfbe1c6dc11c353ff69f0f0b8ef4812c545')
-noextract=("ConsoleZ64.zip")
+sha512sums=('369f811bb6805e3b90010674cf3070cdcedeb37f1ca6c32fe6200aa6be3b0d2ccd350326c6263b0833ff09d66903955827b64a371c85e00b542afe026c069e87')
 
 _lc() {
     local d f n
@@ -34,13 +33,12 @@ _lc() {
 }
 
 prepare() {
-    unzip -o "ConsoleZ.x64.zip" -d "consolez"
-    _lc "consolez"/*
+    _lc *
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp "consolez"/*.{exe,dll} "${a}"
-    cp "consolez"/*.chm "${a}"
+    cp *.{exe,dll} "${a}"
+    cp *.chm "${a}"
 }

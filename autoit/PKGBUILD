@@ -17,12 +17,6 @@ options=(!strip)
 source=("autoit.zip::http://www.autoitscript.com/files/autoit3/autoit-v3.zip")
 sha512sums=('eacfc3176c688d3a68f3b7cbf1533a49fc9d2e99ac3fc63480564e61cb007a3382140e46887f63059e7edd5e85e76e733aacfe5938a9fffe3fa902271288498e')
 
-pkgver() {
-    b="install/Au3Check.exe"
-    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d '\000 '
-}
-
 _lc() {
     local d f n
 
@@ -40,6 +34,12 @@ _lc() {
 
 prepare() {
     _lc "install/Aut2Exe/Icons"/* "install/Aut2Exe"/* "install/AutoItX/Examples" "install/AutoItX/AutoItX.chm" "install/Icons"/* "install"/*
+}
+
+pkgver() {
+    b="install/Au3Check.exe"
+    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d '\000 '
 }
 
 package() {

@@ -2,19 +2,20 @@
 
 _realname=hxd
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.7.7.0
+pkgver=2.3.0.0
 pkgrel=1
 pkgdesc="Freeware hex editor and disk editor"
 arch=('any')
 url="http://mh-nexus.de/en/hxd/"
 license=('custom')
-makedepends=("unzip")
+replaces=("app-i686-${_realname}")
+makedepends=("unzip" "app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
-source=("HxDen.zip::ftp://wa651f2:anonymous@mh-nexus.de/HxDen.zip")
-sha512sums=('65be4f09f972b07b10081ee7c453fd15c61e3d22fdc55fc8cf9eecb9347b12b0165c5a58db73e6248b7642bc35796aed32f578ee2e26ded4f726a004558af097')
+source=("HxDSetup.zip::https://mh-nexus.de/downloads/HxDSetup.zip")
+sha512sums=('d2c58c3ced7d12f0dadaa20723d0c1b34167bb6ee6292deb8d9921f8dc711964778348059efd653bbac05ab3277c90350b7da9de4ffb82d8683494a98d87c137')
 
 _lc() {
     local d f n
@@ -32,12 +33,24 @@ _lc() {
 }
 
 prepare() {
-    _lc *
+    /apps/innounp/innounp -x -q -m -a -y "HxDSetup.exe"
+    _lc "{app}"/*
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "HxDSetup.exe").VersionInfo.ProductVersionRaw.ToString()' | dos2unix | tr -d ' '
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp *.exe "${a}"
-    cp *.txt "${a}"
+    for f in "{app}"/hxd64*.exe
+    do
+        if [ "English (United States)" = "$("${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "'"$(cygpath -w "${f}")"'").VersionInfo.Language' | dos2unix)" ]
+        then
+            cp "${f}" "${a}/hxd.exe"
+        fi
+    done
+    test -f "${a}/hxd.exe"
+    cp "{app}"/*.txt "${a}"
 }

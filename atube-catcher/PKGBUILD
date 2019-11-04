@@ -31,15 +31,15 @@ _lc() {
     done
 }
 
+prepare() {
+    /apps/innounp/innounp -x -q -m -a -y "aTubeCatcher.exe"
+    _lc "{app}"/*
+}
+
 pkgver() {
     /apps/innounp/innounp -e -q -m -a -y "aTubeCatcher.exe" "yct.exe" > /dev/null
     b="$(cygpath -wa "yct.exe" | sed 's/\\/\\\\/g')"
     wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
-}
-
-prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "aTubeCatcher.exe"
-    _lc "{app}"/*
 }
 
 package() {

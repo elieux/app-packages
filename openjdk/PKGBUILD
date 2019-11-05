@@ -1,25 +1,22 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-# adding quotes around the cookie value makes the download fail
-DLAGENTS=('http::/usr/bin/curl -qb oraclelicense=accept-securebackup-cookie -fLC - -o %o %u')
-
-_realname=jdk
-_realver=9.0.4+11/c2514751926b4512b076cc82f959763f
+_realname=openjdk
+_realver=13.0.1+9
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=${_realver%+*}
+pkgver=${_realver/+/.}
 pkgrel=1
 pkgdesc="Oracle Java Development Kit"
 url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-makedepends=("p7zip" "unzip" "curl")
+replaces=("app-i686-jdk" "app-x86_64-jdk")
+makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("jdk-windows64.exe::http://download.oracle.com/otn-pub/java/jdk/${_realver}/jdk-${pkgver}_windows-x64_bin.exe")
-sha512sums=('7a43cb0ae50768e78d47b3742d88ad211ca9d4b6de81d26f04176628de40ede59221a3531ac6f314c3a41570b8f00214b9c1909c257cecc1944f23f6ff95e464')
+source=("OpenJDK-jdk_x64_windows_hotspot.zip::https://github.com/AdoptOpenJDK/openjdk${_realver%%.*}-binaries/releases/download/jdk-${_realver/+/%2B}/OpenJDK${_realver%%.*}U-jdk_x64_windows_hotspot_${_realver/+/_}.zip")
+sha512sums=('603e2de1b330b2e091783f81b64e10ca6b76712c085376f5b61b883bf81c20d9a1567aa104a3735c32cd255fff841df2560a288845291fa7aff68617d9a61700')
 
 _lc() {
     local d f n
@@ -50,21 +47,9 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-prepare() {
-    7z x -y -bd "jdk-windows64.exe"
-    unzip -o "tools.zip" -d "tools"
-    attrib -r //s
-    _lc "tools"/*
-    for f in $(find "tools" -iname '*.pack' -type f)
-    do
-        "tools/bin/unpack200" "${f}" "${f%.pack}.jar"
-        rm "${f}"
-    done
-}
-
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "tools"/* "${a}"
+    cp -r "jdk-${_realver}"/* "${a}"
     _rmmsdll "${a}"
 }

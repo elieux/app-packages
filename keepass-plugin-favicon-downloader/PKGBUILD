@@ -15,7 +15,7 @@ depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeePassFaviconDownloader.plgx::http://downloads.sourceforge.net/keepass-favicon/${pkgver}/KeePassFaviconDownloader.plgx")
-sha512sums=('b897c49413a94f35a7f5d92c3c43215bd41da1ae7f9f2694cb17ab611b59286a75a20f6586c94b41f17a77786440fdb4ecb5655761ed14c8bef83e858755f8cf')
+sha512sums=('9d1f01e5736d2d66c8c4616c59409b7b5f09b192309686299ae270e9db55a2c853c8ff273fe4f9c87510d9a20f3c06a869b3a0ce454695505beb75bac167f6bc')
 
 package() {
     a="${pkgdir}/apps/${_dirname}"

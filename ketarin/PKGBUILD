@@ -4,7 +4,7 @@ _realname=ketarin
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.8.9
+pkgver=1.8.11
 pkgrel=1
 pkgdesc="A small application which automatically updates setup packages"
 url="https://ketarin.org"
@@ -14,7 +14,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Ketarin.zip::https://ketarin.org/downloads/Ketarin/Ketarin-${pkgver}.zip?noredirect")
-sha512sums=('0de7fffefcfe62d989511157a55d9f01a1cd9c5b7a2949c9b86bd402b78ab8a1dbe805d291339bb153da2d55cd084c9b294034402cd5c161abe9654c72a4cbeb')
+sha512sums=('e34a7d07d7891bf70e3331862afcdf63136a7cc74682d39035b7d3ce0608609e1cfa225ba9e9b4cc72b735562921eddb67ed94b46deb9c6af3931d20b229e0bb')
 
 _lc() {
     local d f n

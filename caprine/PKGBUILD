@@ -1,0 +1,44 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=caprine
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=2.40.0
+pkgrel=1
+pkgdesc="Elegant Facebook Messenger desktop app."
+url="https://sindresorhus.com/caprine"
+arch=('any')
+license=('MIT')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Caprine-Setup.exe::https://github.com/sindresorhus/caprine/releases/download/v${pkgver}/Caprine-Setup-${pkgver}.exe")
+sha512sums=('42f37f6975b40ab70d1be30b7ead5e83d3ca25161d2e5adf1cbb787f3346119848ebcd73422e52c2412a5d4a281fd4ef5119511b6bee7b0b2eb8204b09b1f2cf')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -bd "Caprine-Setup.exe"
+    7z x -bd '$PLUGINSDIR'/"app-64.7z" -o"caprine"
+    _lc "caprine"/*
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -r "caprine"/* "${a}"
+}

@@ -15,8 +15,8 @@ depends=("app-i686-keepass")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("PronouncePwGen.zip::http://downloads.sourceforge.net/pronouncepwgen/pronouncepwgen/${pkgver}/PronouncePwGen-${pkgver}.zip")
-sha512sums=('b897c49413a94f35a7f5d92c3c43215bd41da1ae7f9f2694cb17ab611b59286a75a20f6586c94b41f17a77786440fdb4ecb5655761ed14c8bef83e858755f8cf')
+source=("PronouncePwGen.zip::https://downloads.sourceforge.net/pronouncepwgen/pronouncepwgen/${pkgver}/PronouncePwGen-${pkgver}.zip")
+sha512sums=('b746b3c6dff1452280d52a7fc0e10728e4f3745d4a52bf59815ff8910ad8188537fa4495a53c690024427bdf998772367c1a0b0c5c925d2d6789fb8f0608b62f')
 
 package() {
     a="${pkgdir}/apps/${_dirname}"

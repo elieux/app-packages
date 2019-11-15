@@ -5,7 +5,7 @@ _realname=nconvert
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.12
+pkgver=7.32
 pkgrel=1
 pkgdesc="A powerful command line multi-platform batch image processor"
 arch=('any')
@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("NConvert-win64.zip::http://download.xnview.com/NConvert-win64.zip")
-sha512sums=('535f63f287c123d5861027d242698f801048481ecf7508723113ca4496f7cc588a8317c6845fd2cc55aef189de75be129c4d665eb2371d0260f9c4c0ac5b97dd')
+sha512sums=('62f6291339f41bdb84764f818660f7dbc29ff7361e8629fabfd1702e9561fcfa540608a4fb370721d9490b2a13ae8772ea647a7951be292eb03fbaa5b4d34e82')
 noextract=("NConvert-win64.zip")
 
 _lc() {
@@ -34,13 +34,13 @@ _lc() {
     done
 }
 
-pkgver() {
-    unzip -p "NConvert-win64.zip" "XnView/WhatsNew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
-}
-
 prepare() {
     unzip -o -j "NConvert-win64.zip" -d "NConvert"
     _lc "NConvert"/*
+}
+
+pkgver() {
+    unzip -p "NConvert-win64.zip" "XnView/WhatsNew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
 }
 
 package() {

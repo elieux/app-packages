@@ -4,23 +4,23 @@ _realname=teamspeak-server
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.1.1
+pkgver=3.10.0
 pkgrel=1
 pkgdesc="A proprietary VoIP conference software"
-url="http://www.teamspeak.com/"
+url="https://www.teamspeak.com/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("teamspeak3-server_win64.zip::http://dl.4players.de/ts/releases/${pkgver}/teamspeak3-server_win64-${pkgver}.zip")
-sha512sums=('9f922bd388778c4601673435e5126c53ee1bbfb85ba693a6edc47c0feb05d5a71d36b70f310fa1ab42940b8362c5fb22c9f0960bfce8e75b0f457d8f8337c760')
+source=("teamspeak3-server_win64.zip::https://files.teamspeak-services.com/releases/server/${pkgver}/teamspeak3-server_win64-${pkgver}.zip")
+sha512sums=('770e85e3d34e843a6f54c2548f846077639388f3ac9187025dd54972a4ad7f532fcfcba69bd0599a951966fa93f976c78549fe13eff74500bdb2232ed2ba563d')
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/tsdns"
-    cp -r "teamspeak3-server_win64/redist/libmariadb.dll" "teamspeak3-server_win64/tsdns/tsdnsserver.exe" "teamspeak3-server_win64"/*.{exe,dll} "${a}"
-    cp -r "teamspeak3-server_win64"/*.txt "teamspeak3-server_win64"/{doc,sql,serverquerydocs} "${a}"
-    cp "teamspeak3-server_win64/tsdns"/*.{txt,sample} "${a}/tsdns"
+    cp -R "teamspeak3-server_win64"/* "${a}"
+    mv "${a}/redist/libmariadb.dll" "${a}"
+    rm -R "${a}/redist"
 }

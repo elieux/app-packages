@@ -12,7 +12,7 @@ url="https://unetbootin.github.io/"
 license=('GPL')
 provides=("${pkgbase}")
 options=(!strip)
-source=("unetbootin-windows.exe::http://launchpad.net/unetbootin/trunk/${pkgver}/+download/unetbootin-windows-${pkgver}.exe")
+source=("unetbootin-windows.exe::https://github.com/unetbootin/unetbootin/releases/download/${pkgver}/unetbootin-windows-${pkgver}.exe")
 sha512sums=('60da9d07b908b8fb30e2ca41fd3d887480898291a6c32aca470f76a297fb793019da6c369a7a8206a368e31cc5f93ae43b4711a2f585ba15cc4fabf90d4c3af3')
 
 package() {

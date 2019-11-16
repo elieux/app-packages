@@ -1,0 +1,24 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=encfs4win
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=1.10.1
+pkgrel=1
+pkgdesc="Encrypted filesystem in user-space"
+arch=('any')
+url="https://encfs.win/"
+license=('GPL' 'LGPL')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("enfcs-nodeps.zip::https://github.com/jetwhiz/encfs4win/releases/download/v${pkgver}/encfs-nodeps.zip")
+sha512sums=('252907105da6a73598fe8a1667178c69a8660418c6f0cdabe27ad5f41937ca9d104c9500bc57eb92bf71127387f25321517eb8be4b8cda8140115fd86c7f968e')
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp * "${a}"
+    rm "${a}"/enfcs-nodeps.zip
+}

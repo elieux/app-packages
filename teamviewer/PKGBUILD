@@ -4,17 +4,17 @@ _realname=teamviewer
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=13.1.1548
+pkgver=14.7.1965
 pkgrel=1
 pkgdesc="All-in-one software for remote support and online meetings"
-url="http://www.teamviewer.com/"
+url="https://www.teamviewer.com/"
 arch=('any')
 license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TeamViewerPortable.zip::http://download.teamviewer.com/download/TeamViewerPortable.zip")
-sha512sums=('4ac1114a0124a12235ecf4ba0e4b4f5192cb8754192be9bf255183a1d77f08397cdb71ba46a586bdb757920ff004b08bfc41ab2b40ca02439d1992fb56d5b4bb')
+source=("TeamViewerPortable.zip::https://download.teamviewer.com/download/TeamViewerPortable.zip")
+sha512sums=('2ab812b34db71683151c7d6110a9877113d34082853bb05d707e88fe41bfbb12795b668745f8008fed67a17ae020c43eee1f78a7fd6f7bb353abb600faeff0d1')
 
 _lc() {
     local d f n
@@ -31,17 +31,17 @@ _lc() {
     done
 }
 
-pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -Command '(Get-Item "teamviewer.exe").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
-}
-
 prepare() {
     _lc *
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -Command '(Get-Item "teamviewer.exe").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp *.{dll,exe,ini} "${a}"
-    cp *.{txt,inf} "${a}"
+    cp * "${a}"
+    rm "${a}/teamviewerportable.zip"
 }

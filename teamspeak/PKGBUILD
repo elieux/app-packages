@@ -4,20 +4,18 @@ _realname=teamspeak
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.1.8
+pkgver=3.3.2
 pkgrel=1
 pkgdesc="Quality voice communication via the Internet"
-url="http://www.teamspeak.com/"
+url="https://www.teamspeak.com/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TeamSpeak3-Client-win64.exe::http://dl.4players.de/ts/releases/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe"
-        # "pluginsdk.zip::http://dl.4players.de/ts/client/pluginsdk/pluginsdk_${pkgver}.zip"
-)
-sha512sums=('7bb09c43a822622af7415f68a65f9bbbc40d65192f45c4c034021f40c87402cb249e724b326bdd5e3ba97811e9d1019149f55d07db542c045c4ac70b09f12cbf')
+source=("TeamSpeak3-Client-win64.exe::https://files.teamspeak-services.com/releases/client/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe")
+sha512sums=('b53d9228f05eb28ece2e6a1e6096ca192cd43c97b2f7b0827b2df065213cfdcea0bc0a32f0d56dce39972baf503b0705c8bade17215520b86ca3401d5de2b4aa')
 
 _lc() {
     local d f n
@@ -49,5 +47,8 @@ package() {
     mkdir -p "${a}"
     cp -r "win"/* "${a}"
     rm -r "${a}/update.exe" "${a}/uninstall.exe.nsis" "${a}"/'$pluginsdir'
-    mv "${a}/ts3client_win64.exe" "${a}/ts3client.exe"
+    for f in "${a}/ts3client_win64".*
+    do
+        mv "${f}" "${f/_win64/}"
+    done
 }

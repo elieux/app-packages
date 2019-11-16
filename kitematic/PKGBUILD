@@ -1,0 +1,58 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=kitematic
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.17.9
+pkgrel=1
+pkgdesc="Run containers through a simple, yet powerful graphical user interface"
+arch=('any')
+url="https://kitematic.com/"
+license=('Apache')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Kitematic-Windows.zip::https://github.com/docker/kitematic/releases/download/v${pkgver}/Kitematic-${pkgver}-Windows.zip")
+sha512sums=('0668e0e3d444c74740794875b2bc246bf76114058f47f965d3f4583ef58ba6840aa8fd0aa5e6da64b091383e980611b298a23d1c3271bc1420c7387e98ebd379')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -r * "${a}"
+    rm "${a}"/kitematic-windows.zip
+    _rmmsdll "${a}"
+}

@@ -1,1 +1,1 @@
-@java -jar %~dp0rhino.jar %*
+@java -jar %~dp0lib\rhino.jar %*

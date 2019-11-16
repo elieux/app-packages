@@ -4,7 +4,7 @@ _realname=slack
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.1.0
+pkgver=4.1.2
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="http://www.slack.com/"
@@ -15,7 +15,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("SlackSetup64.exe::https://slack.com/ssb/download-win64")
-sha512sums=('30852d44a15ba7c7a0365970ea33fabfe53d6a702c160266c74906bb9926e3b13ac6c88f1516461602ca33f78270eebfa93bf7377e5d7bd3d15e3d8ba2176380')
+sha512sums=('8a4a41dbcdb30dd72c00dc492038c55b4eae2b71acf1fdcbd28b5c2cac97c3de9a11ba014f3f9cac589ffb6d39118f284415432102f00b1abb37cbc946fad5f7')
 
 _lc() {
     local d f n
@@ -46,15 +46,15 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "SlackSetup64.exe").VersionInfo.ProductVersion' | dos2unix
-}
-
 prepare() {
     find -name 'slack-*-full.nupkg' -delete
     7z x -y -bd "SlackSetup64.exe" -o"SlackSetup"
     unzip -o "SlackSetup/slack"-*-"full.nupkg" -d "SlackSetup"
     _lc "lib/net45"/*
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "SlackSetup64.exe").VersionInfo.ProductVersion' | dos2unix
 }
 
 package() {

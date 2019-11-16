@@ -4,7 +4,7 @@ _realname=notepad++
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.5.5
+pkgver=7.8.1
 pkgrel=1
 pkgdesc="A free Scintilla-based editor with plugin support"
 url="https://notepad-plus-plus.org/"
@@ -14,11 +14,11 @@ replaces=("app-i686-${_realname}")
 makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("npp.bin64.zip::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.x64.zip"
-        "npp.Installer64.exe::https://notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.Installer.x64.exe")
-sha512sums=('9e800c47076d7a92c9e58e900bbd49ab4616d50039c51ea24a5a8cfb9c423d0f2b8082f214a262c5d7dd1b85f2a41b29285fc8a6d1b926429dea168e14b8b8c3'
-            '4ffed4d8db83ca5b85a80b1a7d60acac2122117e3b4f5762702f3e1ce0ee9d4368465ca197da9a8755a4404acea70c781d8fb28c989ece92c7f08840fb2f8f82')
-noextract=("npp.bin64.zip")
+source=("npp.bin.x64.zip::http://download.notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.x64.zip"
+        "npp.Installer.x64.exe::http://download.notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.Installer.x64.exe")
+sha512sums=('958db8b97de511dc2a1595f33a49d2bd0d592b558e2be1cb7a1507f5c67579d29ea1c31a9cad32fade117e124ced1447b999ac81129d7cd8fec21a0faef84aad'
+            '4993faaf453d6a982385c0b9e2368d21cfdbaf6b861d2d5f080f4523f628cdc91c91096d5a9461d9160f862c1d5a7e36309bb383f13bb208e84e6805a9499c2b')
+noextract=("npp.bin.x64.zip")
 
 _lc() {
     local d f n
@@ -36,17 +36,10 @@ _lc() {
 }
 
 prepare() {
-    unzip -o "npp.bin64.zip" -d "npp"
+    unzip -o "npp.bin.x64.zip" -d "npp"
     rm -f "npp/nppshell_06*.dll"
-    echo u | 7z x -bd -i!"NppShell_06.dll" -o"npp" "npp.Installer64.exe"
+    echo u | 7z x -bd -i!"NppShell_06.dll" -o"npp" "npp.Installer.x64.exe"
     _lc "npp"/*
-    for f in "npp"/nppshell_06*.dll
-    do
-        case "$(file "${f}")" in
-        64:*x86-64*) mv "${f}" "npp/nppshell_06.dll" ;;
-        64:*80386*) rm "${f}" ;;
-        esac
-    done
 }
 
 package() {

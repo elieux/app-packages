@@ -1,6 +1,6 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.cheater.cz/" -o %o %u')
+DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -e "https://www.cheater.cz/" -o %o %u')
 
 _realname=wincheater
 pkgbase="app-${_realname}"
@@ -9,7 +9,7 @@ epoch=1
 pkgver=2.07
 pkgrel=1
 pkgdesc="Video game cheats and guides database viewer"
-url="http://www.cheater.cz/wincheater2/info/"
+url="https://www.cheater.cz/wincheater2/info/"
 arch=('any')
 license=('custom')
 depends=("app-i686-wincheater-data-base")
@@ -52,25 +52,25 @@ _dlread() {
     rm "${SRCDEST}/${tmp}"
 }
 
-pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "WinCheater2_setup.exe").VersionInfo.FileDescription' | sed -r 's/^Scorpions WinCheater ([0-9]+[.][0-9]+)/\1/' | cut -d' ' -f1
-}
-
 prepare() {
     n="winch2-setup"
-    f="$(_dlread "http://www.cheater.cz/download/get-name.php?soubor=${n}")"
-    h="$(_dlread "http://www.cheater.cz/download/get-link.php?soubor=${n}" | sed -r 's/.*hash=([a-z0-9]+).*/\1/')"
+    f="$(_dlread "https://www.cheater.cz/download/get-name.php?soubor=${n}")"
+    h="$(_dlread "https://www.cheater.cz/download/get-link.php?soubor=${n}" | sed -r 's/.*hash=([a-z0-9]+).*/\1/')"
     if [ "${f}" = "????" ]
     then
         f="${i}.exe"
     fi
-    _dl "${f}::http://www.cheater.cz/download/download-file.php?hash=${h}"
+    _dl "${f}::https://www.cheater.cz/download/download-file.php?hash=${h}"
     source+=("${f}")
     noextract+=("${f}")
     extract_sources
 
     /apps/innounp/innounp -x -q -m -a -y "WinCheater2_setup.exe"
     _lc "{app}"/*
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "WinCheater2_setup.exe").VersionInfo.FileDescription' | sed -r 's/^Scorpions WinCheater ([0-9]+[.][0-9]+)/\1/' | cut -d' ' -f1
 }
 
 package() {

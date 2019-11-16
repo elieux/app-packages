@@ -8,16 +8,16 @@ epoch=1
 pkgver=2.0.0.5
 pkgrel=1
 pkgdesc="A KeePass plugin that adds TOTP to tray menu, entry list and Auto-Type"
-url="http://sourceforge.net/projects/traytotp-kp2/"
+url="https://sourceforge.net/projects/traytotp-kp2/"
 arch=('any')
 license=('GPL3')
 depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TrayTotp.plgx::http://downloads.sourceforge.net/traytotp-kp2/Tray%20TOTP%20v.%20${pkgver}/TrayTotp.plgx"
-        "Readme.txt::http://downloads.sourceforge.net/traytotp-kp2/Tray%20TOTP%20v.%20${pkgver}/Tray%20TOTP%20v.%20${pkgver}%20Readme.txt")
-sha512sums=('b897c49413a94f35a7f5d92c3c43215bd41da1ae7f9f2694cb17ab611b59286a75a20f6586c94b41f17a77786440fdb4ecb5655761ed14c8bef83e858755f8cf'
-            'b897c49413a94f35a7f5d92c3c43215bd41da1ae7f9f2694cb17ab611b59286a75a20f6586c94b41f17a77786440fdb4ecb5655761ed14c8bef83e858755f8cf')
+source=("TrayTotp.plgx::https://downloads.sourceforge.net/traytotp-kp2/Tray%20TOTP%20v.%20${pkgver}/TrayTotp.plgx"
+        "Readme.txt::https://downloads.sourceforge.net/traytotp-kp2/Tray%20TOTP%20v.%20${pkgver}/Tray%20TOTP%20v.%20${pkgver}%20Readme.txt")
+sha512sums=('0c650f9181a9de23d2749a03a588f7fa001b2687fef3c9de2f1831d5d57cf8f77c57cf4b66bad163beb4793b9f30e79a5548c90dd235d6937218b973663b2a0c'
+            '8ffaf3af4908371e79eb4f4ce945e1ea82e99275123f7186b7bc848113f4cb07cd5df050905aa834fe739e17312c565f07fd7b9be7fb935f929ad4b2c80a6491')
 
 package() {
     a="${pkgdir}/apps/${_dirname}"

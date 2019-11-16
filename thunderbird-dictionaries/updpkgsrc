@@ -2,18 +2,17 @@
 <?php
 // no error handling yet
 
-$product = str_replace('-dictionaries', '', basename(__DIR__));
-$list = file_get_contents("https://addons.mozilla.org/en-US/{$product}/language-tools/");
-preg_match_all("~<a href=\"/en-US/{$product}/addon/(.*?)/\">(?:Install|Download) Dictionary</a>~", $list, $matches);
+$list = file_get_contents("https://addons.thunderbird.net/en-US/thunderbird/language-tools/");
+preg_match_all("~<a href=\"/en-US/thunderbird/addon/(.*?)/\">Download Dictionary</a>~", $list, $matches);
 
 $srclist = [];
 foreach ($matches[1] as $addonname) {
-	$detail = file_get_contents("https://addons.mozilla.org/en-US/{$product}/addon/{$addonname}/");
+	$detail = file_get_contents("https://addons.thunderbird.net/en-US/thunderbird/addon/{$addonname}/");
 	preg_match("~data-addon=\"([0-9]+)\"~", $detail, $match);
 	$addonid = $match[1];
 	$addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', urldecode($addonname)), '-_');
 	echo "Found: {$addonname}-{$addonid}.xpi\n";
-	$srclist[] = "{$addonname}-{$addonid}.xpi::https://addons.mozilla.org/{$product}/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
+	$srclist[] = "{$addonname}-{$addonid}.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
 }
 
 $srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));

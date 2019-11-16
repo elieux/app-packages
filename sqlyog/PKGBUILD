@@ -6,7 +6,7 @@ _realname=sqlyog
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=12.5.1
+pkgver=13.1.5
 pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://github.com/webyog/sqlyog-community"
@@ -17,7 +17,7 @@ makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
-sha512sums=('0bb3236a9e22c6e866d0b7469f3b1a012b5e0d45c99d4c5a53c2037a5fdf2dd208a1f1ed7112852364410f0d9244c9e89796d37ec03daf3b4b4550c4d93ce9ad')
+sha512sums=('5ba0a73ba4b3aca11de4c882f35f38d6a48cf44a64828be570f1f781feb371503a3ef5c4df05f08bd2d8a1263bf78511b9064739396233e6dee65e905915980a')
 
 _lc() {
     local d f n
@@ -34,6 +34,20 @@ _lc() {
     done
 }
 
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
 prepare() {
     7z x -y -bd "SQLyogCommunity64.exe" -o"SQLyogCommunity"
     _lc "SQLyogCommunity"/*
@@ -42,7 +56,7 @@ prepare() {
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp "SQLyogCommunity"/*.{exe,dll,db} "${a}"
+    cp "SQLyogCommunity"/*.{exe,dll,db,txt} "${a}"
     rm "${a}/uninst.exe"
-    cp "SQLyogCommunity"/*.txt "${a}"
+    _rmmsdll "${a}"
 }

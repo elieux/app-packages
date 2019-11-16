@@ -5,17 +5,17 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.28.0.1
+pkgver=2.39.1
 pkgrel=1
 pkgdesc="A KeePass plugin that opens databases using Windows account credentials"
-url="http://keepass.info/plugins.html#winkee"
+url="https://keepass.info/plugins.html#winkee"
 arch=('any')
 license=('unknown')
 depends=("app-i686-keepass")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("WinKee.zip::http://keepass.info/extensions/v2/winkee/WinKee-${pkgver}.zip")
+source=("WinKee.zip::https://keepass.info/extensions/v2/winkee/WinKee-${pkgver}.zip")
 sha512sums=('7ec17bf2455ea22b75437b6427d2d0f14188cd97f7b82fed9a47ed18f6657862569efa995f9a7d7b51c0f6fbc0cf9928da6e7cd8017958a2da5fbe9ad6e73b3e')
 
 package() {

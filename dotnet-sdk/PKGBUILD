@@ -1,0 +1,44 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=dotnet-sdk
+_realver=a24f4f34-ada1-433a-a437-5bc85fc2576a/7e886d06729949c15c96fe7e70faa8ae
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=3.0.100
+pkgrel=1
+pkgdesc="The .NET Core SDK"
+url="https://github.com/dotnet/core"
+arch=('any')
+license=('MIT')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("dotnet-sdk-win-x64.zip::https://download.visualstudio.microsoft.com/download/pr/${_realver}/dotnet-sdk-${pkgver}-win-x64.zip")
+sha512sums=('c5f9a483bece13e3edd6fb2414191cf8b782767b21623d08a1c27578fac3798bd145e8a2b3867e74667accebf4353aa00920ed39298d7bc9790c0c82bbc3aa87')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R * "${a}"
+    rm "${a}/dotnet-sdk-win-x64.zip"
+}

@@ -7,14 +7,14 @@ epoch=1
 pkgver=2.39
 pkgrel=1
 pkgdesc="Views and manages processes, services and more"
-url="http://processhacker.sourceforge.net/"
+url="https://processhacker.sourceforge.io/"
 arch=('any')
 license=('GPL2' 'GPL3')
 replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("processhacker-bin.zip::http://downloads.sourceforge.net/${_realname}/${_realname}2/${_realname}-${pkgver}-bin.zip")
+source=("processhacker-bin.zip::https://downloads.sourceforge.net/${_realname}/${_realname}2/${_realname}-${pkgver}-bin.zip")
 sha512sums=('915b9f7c0b1374ce52fa9653ba1084741d15ff79dbb7c04d2a0f41eea8262b2f556d451bf9eefbd2d32831289908b6a1b39ce2cbcafbbfc4ae6e71d701b1aa81')
 
 _lc() {

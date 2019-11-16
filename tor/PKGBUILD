@@ -1,21 +1,22 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=tor
-_realver=7.5.2/0.3.2.10
+_realver=9.0.1
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=${_realver#*/}
+pkgver=0.4.1.6
 pkgrel=1
 pkgdesc="Anonymizing overlay network"
-url="http://www.torproject.org/"
+url="https://www.torproject.org/"
 arch=('any')
 license=('BSD')
+replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("tor-win32.zip::https://dist.torproject.org/torbrowser/${_realver%/*}/tor-win32-${pkgver}.zip")
-sha512sums=('615c87e0185d96cf9408c0c677b4d088531d35240da85ac101d16cd93c78687756ebbff5ccb4c3d4b2539fb4305ee70e5c3d716b9ec4b1d5209107f558f10344')
+source=("tor-win64.zip::https://dist.torproject.org/torbrowser/${_realver}/tor-win64-${pkgver}.zip")
+sha512sums=('36e518aba9b5db9114d72dd4c3b9235702b9a97767f28c5060704deee2d9eb0d6005f044e8738c76962999628e9e3644354907e541b0a906f93119ef4b72a0a9')
 
 _lc() {
     local d f n
@@ -39,5 +40,5 @@ prepare() {
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "data" "tor" "${a}"
+    cp -R "data" "tor" "${a}"
 }

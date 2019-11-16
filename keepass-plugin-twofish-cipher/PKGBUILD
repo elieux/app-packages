@@ -5,7 +5,7 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.3
+pkgver=1.4
 pkgrel=1
 pkgdesc="A KeePass plugin that enables to encrypt databases using the Twofish algorithm"
 url="http://gogogadgetscott.info/keepass/twofishcipher/"
@@ -16,7 +16,7 @@ makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TwofishCipher.zip::http://gogogadgetscott.info/keepass/twofishcipher/TwofishCipher-${pkgver}.zip")
-sha512sums=('a9ec7b5d1cd38e791ea590d2dfe7ec5aef8777d7f59a1900097736bc5d2c4478e3cfe6d71473bf38d0bef90e6546641f925b0aaa55f014a4ebfde71dc2875d99')
+sha512sums=('978a68edee1e3dd14f8eedfe0465f30a408f755e4394f8abb8913eaf930e3b32802ed88f80cc17a15ca4e0195ea34b650b0a4bde645aaf0cbc0ae048cd03bad0')
 
 package() {
     a="${pkgdir}/apps/${_dirname}"

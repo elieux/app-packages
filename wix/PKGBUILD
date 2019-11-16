@@ -4,21 +4,21 @@ _realname=wix
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.11.1
+pkgver=3.11.2
 pkgrel=1
 pkgdesc="Builds Windows installation packages from XML source code"
-url="http://wixtoolset.org/"
+url="https://wixtoolset.org/"
 arch=('any')
 license=('custom')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("wix-binaries.zip::https://github.com/wixtoolset/wix3/releases/download/wix${pkgver//./}rtm/wix$(echo "${pkgver}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1\2/')-binaries.zip")
-sha512sums=('a8c3c2243489fc79e7a18b321ed03133354d43620dd265f087d32ba508f7baf769d32d12b1ccbc22f924573e205ebda7fd8d8ca5e35d5d4a7181af4997657a20')
+sha512sums=('6fd961c85e1e6adafb99ef50c9659e3eb83c84ecaf49f523e556788845b206e1857aba2c39409405d4cda1df9b30a552ce5aab808be5f8368a37a447d78d1a05')
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r * "${a}"
-    rm "${a}"/*.zip
+    rm "${a}/wix-binaries.zip"
 }

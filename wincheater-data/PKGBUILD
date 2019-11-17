@@ -1,6 +1,6 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.cheater.cz/" -o %o %u')
+DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -e "https://www.cheater.cz/" -o %o %u')
 
 _dirname=wincheater
 pkgbase="app-wincheater-data"
@@ -8,15 +8,14 @@ pkgname=("app-i686-wincheater-data-base"
          "app-i686-wincheater-data-libs")
 epoch=1
 pkgver=2016.05.06
-pkgrel=2
-pkgdesc="Texts for WinCheater"
-url="http://www.cheater.cz/wincheater2/download-knihovny/"
+pkgrel=3
+url="https://www.cheater.cz/wincheater2/download-knihovny/"
 arch=('any')
 license=('custom')
 makedepends=("unrar")
 options=(!strip)
 source=("download-knihovny.html::${url}")
-sha512sums=('43472a1e00e0bbac34c67c8acee24bcf86c5c16927ffe9169564318130f7c40a9542ffcc2dc28c77bfa637da41f198c8b49839e9ff5c7b5f0d19c4340be35e24')
+sha512sums=('ede45ae349f7fc278dec3e5c34a9ab7d118aea87ce1d3b7df2380f43e2fc5d70a312053f69bd3f74530ae067f049c90ffc5bb25397140bb751881826b76dac98')
 
 _lc() {
     local d f n
@@ -50,23 +49,18 @@ _dlread() {
     rm "${SRCDEST}/${tmp}"
 }
 
-pkgver() {
-    #find . -mindepth 1 -maxdepth 1 -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find . -mindepth 1 -maxdepth 1 -name '*.exe' -execdir bash -c 'unrar l -c- "{}" | sed "/^;/d" | sed "/^$/d" | tail -n +6 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 4 | sed -r "s/^([0-9][0-9])-([0-9][0-9])-([0-9][0-9])$/20\3-\2-\1/" | tr "-" "."' \; | sort | tail -1
-}
-
 prepare() {
     source=()
     noextract=()
     for n in $(cat "download-knihovny.html" | grep 'onclick="downloadx' | sed -r "s/.*downloadx\('(.*?)'\).*/\1/")
     do
-        f="$(_dlread "http://www.cheater.cz/download/get-name.php?soubor=${n}")"
-        h="$(_dlread "http://www.cheater.cz/download/get-link.php?soubor=${n}" | sed -r 's/.*hash=([a-z0-9]+).*/\1/')"
+        f="$(_dlread "https://www.cheater.cz/download/get-name.php?soubor=${n}")"
+        h="$(_dlread "https://www.cheater.cz/download/get-link.php?soubor=${n}" | sed -r 's/.*hash=([a-z0-9]+).*/\1/')"
         if [ "${f}" = "????" ]
         then
             f="${i}.exe"
         fi
-        _dl "${f}::http://www.cheater.cz/download/download-file.php?hash=${h}"
+        _dl "${f}::https://www.cheater.cz/download/download-file.php?hash=${h}"
         source+=("${f}")
         noextract+=("${f}")
     done
@@ -84,6 +78,11 @@ prepare() {
     done
 }
 
+pkgver() {
+    #find . -mindepth 1 -maxdepth 1 -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -mindepth 1 -maxdepth 1 -name '*.exe' -execdir bash -c 'unrar l -c- "{}" | sed "/^;/d" | sed "/^$/d" | tail -n +6 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 4 | sed -r "s/^([0-9][0-9])-([0-9][0-9])-([0-9][0-9])$/20\3-\2-\1/" | tr "-" "."' \; | sort | tail -1
+}
+
 package_wincheater-data-base() {
     a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
@@ -97,6 +96,7 @@ package_wincheater-data-libs() {
 }
 
 package_app-i686-wincheater-data-base() {
+    pkgdesc="Texts for WinCheater"
     provides=("app-wincheater-data-base")
     replaces=("app-i686-wincheater-data")
     conflicts=("app-i686-wincheater-data")
@@ -105,6 +105,7 @@ package_app-i686-wincheater-data-base() {
 }
 
 package_app-i686-wincheater-data-libs() {
+    pkgdesc="Libraries for WinCheater"
     provides=("app-wincheater-data-libs")
     replaces=("app-i686-wincheater-libraries")
     conflicts=("app-i686-wincheater-libraries")

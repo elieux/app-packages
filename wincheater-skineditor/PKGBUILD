@@ -8,13 +8,13 @@ epoch=1
 pkgver=2.02
 pkgrel=1
 pkgdesc="Skin designer for WinCheater"
-url="http://www.cheater.cz/wincheater2/download-ostatni/"
+url="https://www.cheater.cz/wincheater2/download-ostatni/"
 arch=('any')
 license=('custom')
 makedepends=("upx")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SkinEditor2.exe::http://www.cheater.cz/download/SkinEditor2.exe")
+source=("SkinEditor2.exe::https://web.archive.org/web/20061218234805if_/http://www.cheater.cz:80/download/SkinEditor2.exe")
 sha512sums=('85c5537d596de07847697cd7a1592a473bbd86e5affe9a5272ac90bace26ed558d0cd2e05e57edd6bf8f16367f46e46f770d16972e520d6b0802e29fc5af80f3')
 
 _lc() {
@@ -32,13 +32,13 @@ _lc() {
     done
 }
 
+prepare() {
+    _lc *
+}
+
 pkgver() {
     upx -q -f -o "unpx" -d "SkinEditor2.exe" > /dev/null
     strings -d -eS "unpx" | grep -A 1 Caption | grep "pro WinCheater 2" | sed -r 's/SkinEditor ([0-9]+[.][0-9]+) pro WinCheater 2/\1/' | tr -d ' '
-}
-
-prepare() {
-    _lc *
 }
 
 package() {

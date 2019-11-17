@@ -2,21 +2,22 @@
 
 _realname=winmerge
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.14.0
+pkgver=2.16.4
 pkgrel=1
 pkgdesc="A differencing and merging tool"
-url="http://winmerge.org/"
+url="https://winmerge.org/"
 arch=('any')
 license=('GPL')
+replaces=("app-i686-${_realname}" "app-i686-winmerge-plugin-7z")
 makedepends=("unzip" "app-innounp")
-provides=("${pkgbase}")
+provides=("${pkgbase}" "app-winmerge-plugin-7z" "app-x86_64-winmerge-plugin-7z")
 options=(!strip)
-source=("WinMerge-Setup.exe::http://downloads.sourceforge.net/${_realname}/WinMerge-${pkgver}-Setup.exe"
-        "WinMerge-exe.zip::http://downloads.sourceforge.net/${_realname}/WinMerge-${pkgver}-exe.zip")
-sha512sums=('367d28f97ce2292d7da12cc066afc9339a7b39d7fc2e75140d7285516dd17b801886c00800dcd32348bf71836e89b1338782e947d1b8ec2e178c7dd11a128c04'
-            'b1fc1d1d4e4e944fa8d57e5784043c073a69eec214b49b18abcd498a350215538f15c47302020a85760a6d7c14ea7d6ccf23211661da0fea66e7f59781f64feb')
+source=("WinMerge-x64-Setup.exe::https://downloads.sourceforge.net/${_realname}/WinMerge-${pkgver}-x64-Setup.exe"
+        "winmerge-x64-exe.zip::https://downloads.sourceforge.net/${_realname}/winmerge-${pkgver}-x64-exe.zip")
+sha512sums=('a0d5dd87b64ce94436c792426c98a280380838451e58f31e42fe9edb737bb35dc369119a11f280d128d702a1846c2b87b0147bafcc271235ca6668e646e2317f'
+            '49b96f47712a8bd3dd1cd3e7eb8af17481a72fedc2e312712bb02745b17c7f581bb65f52f02eeac5bff5c033de1ca1c23761a4bf20462c947eff422184789363')
 
 _lc() {
     local d f n
@@ -34,13 +35,14 @@ _lc() {
 }
 
 prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "WinMerge-Setup.exe"
-    cp -r "{app}"/* "WinMerge-${pkgver}-exe"
-    _lc "WinMerge-${pkgver}-exe"/* "WinMerge-${pkgver}-exe"/*
+    /apps/innounp/innounp -x -q -m -a -y "WinMerge-x64-Setup.exe"
+    _lc "WinMerge"/* "{app}"/*
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "WinMerge-${pkgver}-exe"/* "${a}"
+    cp -R "WinMerge"/* "${a}"
+    cp -R "{app}/logoimages" "{app}/winmergeu.visualelementsmanifest.xml" "${a}"
+    rm "${a}/vcomp140.dll"
 }

@@ -1,7 +1,6 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=spidermonkey
-_realver=69.0.3
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
@@ -14,7 +13,7 @@ license=('MPL')
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("jsshell-win64.zip::https://ftp.mozilla.org/pub/firefox/releases/${_realver}/jsshell/jsshell-win64.zip")
+source=("jsshell-win64.zip::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/jsshell/jsshell-win64.zip")
 sha512sums=('77ce83c0e0daddc0ae6bd825e395ed2a880d06b6764d9c3c18a846d30151b4854e74352c0a94248a8dd4fb623762d2f224aaf0ad68a53976b02ed59ddf68dd85')
 
 _rmmsdll() {
@@ -29,10 +28,6 @@ _rmmsdll() {
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
-}
-
-pkgver() {
-    strings js.exe | grep 'JavaScript-C' | sed 's/JavaScript-C//'
 }
 
 package() {

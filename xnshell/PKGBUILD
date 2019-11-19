@@ -1,0 +1,77 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_dirname=xnview
+_realname=xnshell
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=4.04.0
+pkgrel=1
+pkgdesc="A powerful shell extension with image preview and transforms"
+url="https://www.xnview.com/en/xnshell/"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("XnShellEx64.zip::http://download.xnview.com/XnShellEx64.zip"
+        "XnShellEx.zip::http://download.xnview.com/XnShellEx.zip")
+sha512sums=('7a8927fc50a5a05cb8b13011b9b3ab5dfecdd41c6f868e07b05ad7378675f0ad0d22779b7462f5ea2121c38619afdbdeeeb66f206b777e27ad4cff3efc249471'
+            '320739224d2b9a0614532999615338bdb469fb94b74612aa2106a109d648cf61d49de19566cbce0be635955cfa356a3cf5a25242e620dff5ff90559751ca58d0')
+
+_eqver() {
+    local r v
+
+    for v in "${@}"
+    do
+        if [ -n "${r}" -a "${r}" != "${v}" ]
+        then
+            echo "Version mismatch between ${r} and ${v}."
+        fi
+        r="${v}"
+    done
+    echo "${r}"
+}
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc "XnShellEx64"/* "XnShellEx"/*
+}
+
+pkgver() {
+    _ver32="$("${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "XnShellEx/xnviewshellext.dll").VersionInfo.ProductVersionRaw.ToString()' | dos2unix)"
+    _ver64="$("${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "XnShellEx64/xnviewshellext64.dll").VersionInfo.ProductVersionRaw.ToString()' | dos2unix)"
+    _eqver "${_ver32}" "${_ver64}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1.\2\3.\4/'
+}
+
+package() {
+    a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}" "${a}/shellex"
+    cp "XnShellEx64"/* "${a}/shellex"
+    cp "XnShellEx/xnviewshellext.dll" "${a}/shellex"
+    (
+        echo
+        cat "XnShellEx/register.bat"
+        echo
+    ) >> "${a}/shellex/register.bat"
+    (
+        echo
+        cat "XnShellEx/unregister.bat"
+        echo
+    ) >> "${a}/shellex/unregister.bat"
+    rm "${a}/shellex"/msvc{p,r}120.dll
+}

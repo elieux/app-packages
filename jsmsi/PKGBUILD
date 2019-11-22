@@ -1,0 +1,66 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=jsmsi
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=2019.08.21
+pkgrel=1
+pkgdesc="MSI (Windows Installer) utilities from JSWare"
+arch=('any')
+url="https://jsware.net/jsware/msicode.php5"
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("jsmsix19.zip::https://www.jsware.net/jsware/zips/jsmsix19.zip"
+        "msiext.zip::https://www.jsware.net/jsware/zips/msiext.zip"
+        "msiext2.zip::https://www.jsware.net/jsware/zips/msiext2.zip"
+        "msied17.zip::https://www.jsware.net/jsware/zips/msied17.zip"
+        "zcodes.zip::https://www.jsware.net/jsware/zips/zcodes.zip"
+        "msiops2.zip::https://www.jsware.net/jsware/zips/msiops2.zip"
+        "jsmsi.zip::https://www.jsware.net/jsware/zips/jsmsi.zip"
+        "jsmsiops.zip::https://www.jsware.net/jsware/zips/jsmsiops.zip"
+        "msires.zip::https://www.jsware.net/jsware/zips/msires.zip"
+        "mmgeo.zip::https://www.jsware.net/jsware/zips/mmgeo.zip"
+        "clsmbase.zip::https://www.jsware.net/jsware/zips/clsmbase.zip")
+sha512sums=('c602e266a31954f2dc260b2d0e72a11350fd98f8152a4ad10bb9514ce32ed05c681a164ccfa0e3c512a5a3b62dd05cdbe74f99fbdb23a858db7b08750d24ac51'
+            '2f255bbc3fa162ba946a6daea982bf40081db68446c301c64286c9ee9f4b3cf010c1b3ba0fd21e7972cc83c513221b2c4b19bc9bf8058f18ccbded1b4d813926'
+            'c050ca0e7e05f4bf0733588c9ce732a54e91c8ca1b79079518f754390348ced00848f37c898b1790979a56cfa1952f8229727f83800dd864024d455fa3fa2482'
+            'b3483f3ce042c0f8aed3ca09fe9fba94f500d8422ae13e46ed1656938c637b5f4d7f5c4c3de33226206fb06cc273971539b0167ddffc8ce96bd0c6f8feff9027'
+            '9ee8bf9b0353c72bfdda4517d5499be4eb7ba6b5ddecd195dbaed5c9eb718e409e57565a96326217558ef74e88ccb024a961f5c443662675ba31f7e5f8341664'
+            '8ade02476f669e6aea6b97b0f23efd03f77ef3a79c5920e734d719fe45e99066804923a6184c58b0addb73eb86fb542fed8c3f4b188bb6d49025f56c1a12ff04'
+            '8062eb32525afec9b1b08a5ca7235488a3b788269506be56666dc328bb0ccedb59c418b3ea3ade81f156b0ab05531a06e2d93ec2e8e2fe5031c51f22e2e1461c'
+            '8975c152a85f5046348160e0c82a4d169dd87ff073c3cbaa22642535d00be4a7410b44156406071b79f4aaca80fe8c66bf0db25a6a250fd442daeb895a47eb3b'
+            'aa9d1152bfbdc7e7c0fa632d5d8bd79d0a5db8261c7aeac5f380a0084d175e799c4c6f53d516bbeedab84fb968f23db7a93f5bb72bb8acd4ddeb128695d1d789'
+            'f25cc0751f8a03119ce9023498cc38197b1a54e61c162dbfeeb71b61dc2f7535d0ca007949390f56260f82f503f89a0825226b335c7f61a72c2553010cab2090'
+            'a95a7a68b231f4d880b3f9dc21924d113089bdf9bb91fc2e770a21286259f86c434735a52e7fa32acb4bcd93da8fe9255e4dacb96e8d257478a03f796a3ffa53')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc */* *
+}
+
+pkgver() {
+    find . ! -name '*.zip' -type f -printf '%TY.%Tm.%Td\n' | sort | tail -1
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R * "${a}"
+    rm "${a}"/*.zip
+}

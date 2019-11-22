@@ -4,17 +4,17 @@ _realname=viber
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=8.4.0.5
+pkgver=11.9.1.3
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
-url="http://www.viber.com/en/products/windows"
+url="https://www.viber.com/download/"
 arch=('any')
 license=('custom')
-makedepends=("p7zip" "app-wix")
+makedepends=("app-lessmsi" "app-wix")
 provides=("${pkgbase}")
 options=(!strip)
-source=("ViberSetup.exe::http://download.viber.com/desktop/windows/ViberSetup.exe")
-sha512sums=('21e3c1304c5c25a02a708a68bca39de712e780bc5941ab7e5c0c3a14a7ebf6ac507ae39445594fa21d209fd49c6ef58b4087c54d3f182255436568d363ed3a77')
+source=("ViberSetup.exe::https://download.cdn.viber.com/desktop/windows/ViberSetup.exe")
+sha512sums=('a92003c957dc976cde035000f8efc9cde587855b06befbbcccd7a214867738277c5945286d706dd4549af70d5a3e5e68d16d60e5e7acae7a8eef6fb5e3d6f863')
 
 _lc() {
     local d f n
@@ -45,24 +45,20 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-pkgver() {
-    b="$(cygpath -wa "ViberSetup.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
-}
-
 prepare() {
     /apps/wix/dark -x . "ViberSetup.exe"
-    mv "AttachedContainer/ViberSetup.msi" .
+    rm -fR "ViberSetup"
+    /apps/lessmsi/lessmsi x "AttachedContainer\\ViberSetup.msi"
+    _lc "AttachedContainer/ViberSetup/SourceDir/Viber"/*
 }
 
-build() {
-    msiexec -a "ViberSetup.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
-    _lc "install/viber"/*
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "AttachedContainer/ViberSetup/SourceDir/Viber/viber.exe").VersionInfo.FileVersionRaw.ToString()' | dos2unix
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "install/viber"/* "${a}"
+    cp -R "AttachedContainer/ViberSetup/SourceDir/Viber"/* "${a}"
     _rmmsdll "${a}"
 }

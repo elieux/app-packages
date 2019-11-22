@@ -1,0 +1,42 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=lessmsi
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=1.6.91
+pkgrel=1
+pkgdesc="A tool to view and extract the contents of a Windows Installer (.msi) file"
+arch=('any')
+url="https://lessmsi.activescott.com/"
+license=('MIT')
+provides=("${pkgbase}")
+options=(!strip)
+source=("lessmsi.zip::https://github.com/activescott/lessmsi/releases/download/v${pkgver}/lessmsi-v${pkgver}.zip")
+sha512sums=('b7b585eed261c262499c73688dfd985818f7869319285168aeeac1f2cf5fad487280fcae1dac633296e5db0e0bc454495a09a90c2e37a7e7af07ef93563503c6')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc *
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp * "${a}"
+    rm "${a}/lessmsi.zip"
+}

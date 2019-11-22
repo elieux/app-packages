@@ -4,32 +4,18 @@ _realname=calibre
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.19.0
+pkgver=4.4.0
 pkgrel=1
 pkgdesc="Ebook management application"
 url="http://calibre-ebook.com/"
 arch=('any')
 license=('GPL3')
 replaces=("app-i686-${_realname}")
+makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("calibre-64bit.msi::http://download.calibre-ebook.com/${pkgver}/calibre-64bit-${pkgver}.msi")
-sha512sums=('bad732c7e0b2766066f57a2954ccdab03d68d5268bf6e29bded1cedb0a301f540208545b30d919f2875aff45c72087be5e6ce81ca2669bed81d90c3c01ba4d38')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+sha512sums=('1c3471a2beac53dd3f574b048b0c096df8703969a71d51686907af46f25f3d5886af4258e3e1e089f3d1e27e45a759f39193842596a1bb020ff96a0a7cb5df79')
 
 _rmmsdll() {
     local ms
@@ -45,16 +31,14 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-build() {
-    msiexec -a "calibre-64bit.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
-    attrib -r //s
-    _lc "install/PFiles"/*
-    _lc "install/PFiles"/calibre*/*
+prepare() {
+    rm -fR "calibre-64bit"
+    /apps/lessmsi/lessmsi x "calibre-64bit.msi"
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "install/PFiles"/calibre*/* "${a}"
+    cp -R "calibre-64bit/SourceDir/PFiles/Calibre2"/* "${a}"
     _rmmsdll "${a}"
 }

@@ -2,44 +2,29 @@
 
 _realname=musescore
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.1
+pkgver=3.3.2
 pkgrel=1
 pkgdesc="Create, play and print beautiful sheet music"
 url="http://musescore.org/"
 arch=('any')
 license=('GPL')
+replaces=("app-i686-${_realname}")
+makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("MuseScore.msi::ftp://ftp.osuosl.org/pub/musescore/releases/MuseScore-${pkgver}/MuseScore-${pkgver}.msi")
-sha512sums=('b602a812c29c5879dab9406302ea25d8f53f1e678fde4c00c33965b250ed197dda67476cf95e30dd10a541d20308a6b0f742b92d4abfe17956054719ded40375')
+source=("MuseScore-x86_64.msi::https://cdn.jsdelivr.net/musescore/v${pkgver}/MuseScore-${pkgver}-x86_64.msi")
+sha512sums=('c9ad17f2158fd8c53c7e79a8f15a7abe854f369ba2c30cea615030cf02a83f792bb39bf0660099571a58accca51ae95a0b3ac59d6f0b41514fd2826295b03718')
 
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
-
-build() {
-    msiexec -a "MuseScore.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
-
-    s="install/MuseScore 2"
-    _lc "${s}/bin"/*
+prepare() {
+    rm -fR "MuseScore-x86_64"
+    /apps/lessmsi/lessmsi x "MuseScore-x86_64.msi"
 }
 
 package() {
-    s="install/MuseScore 2"
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "${s}"/* "${a}"
+    cp -R "MuseScore-x86_64/SourceDir/MuseScore 3"/* "${a}"
+    rm "${a}/bin"/{concrt,msvcp,vcruntime}140.dll
 }

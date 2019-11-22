@@ -4,17 +4,18 @@ _realname=libreoffice
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.0.2
+pkgver=6.3.3
 pkgrel=1
 pkgdesc="The free office suite"
 url="https://www.libreoffice.org/"
 arch=('any')
 license=('LGPL3' 'custom:Apache')
 replaces=("app-i686-${_realname}")
+makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("LibreOffice_Win64.msi::http://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86_64/LibreOffice_${pkgver}_Win_x64.msi")
-sha512sums=('2cf5102052995002d1fbafbf21b7edc7bfdbc11d121f4e19e19ef8f2b650b9b45e9915fb50af4c88245db9e66a07fc3c6527eaa65ac34abc8845a3227adef37d')
+source=("LibreOffice_Win_x64.msi::https://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86_64/LibreOffice_${pkgver}_Win_x64.msi")
+sha512sums=('7bf5a700efde6b6dd15087d156c5e842524a50557f2b1190a55b2ff496b4149b3d2b47d8004435466b6e525eaca2fd4d1b5eb2e5692eaf6350aa421d64054499')
 
 _lc() {
     local d f n
@@ -31,14 +32,13 @@ _lc() {
     done
 }
 
-build() {
-    msiexec -a "LibreOffice_Win64.msi" "TARGETDIR=$(cygpath -wa "msi")" -qn
-    _lc "msi"/*
+prepare() {
+    rm -fR "LibreOffice_Win_x64"
+    /apps/lessmsi/lessmsi x "LibreOffice_Win_x64.msi"
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "msi"/* "${a}"
-    rm -r "${a}"/{fonts,system64} "${a}"/*.msi
+    cp -R "LibreOffice_Win_x64/SourceDir/LibreOffice"/* "${a}"
 }

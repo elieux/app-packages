@@ -1,0 +1,43 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=openvpn
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2.4.8.602
+pkgrel=1
+pkgdesc="A full-featured SSL VPN solution"
+url="https://openvpn.net/community/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("openvpn-install-Win10.exe::http://build.openvpn.net/downloads/releases/openvpn-install-${pkgver%.*}-I${pkgver##*.}-Win10.exe")
+sha512sums=('6a2ef83c8d4f42cd39ad0e9c09c7a1deabb857f413243ddc18710f6128047e26d7bd0fba2a0b62414bd3aa8385dcb4af1fddc6c3494cf4a6c6696900dee4bea1')
+
+_pickarch() {
+    local f n
+
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | sed -r 's/_[0-9]+[.]/./')"
+        case "$(file "${f}")" in
+        *x86-64*|*assembly*) mv -f "${f}" "${n}" ;;
+        *) rm "${f}" ;;
+        esac
+    done
+}
+
+prepare() {
+    rm -fR "openvpn-install-Win10.dir"
+    echo u | 7z x -bd "openvpn-install-Win10.exe" -o"openvpn-install-Win10.dir"
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "openvpn-install-Win10.dir"/* "${a}"
+    rm -R "${a}/easy-rsa" "${a}"/{'$TEMP','$PLUGINSDIR'}
+    _pickarch "${a}/bin"/*.{exe,dll}
+}

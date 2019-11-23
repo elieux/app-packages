@@ -1,0 +1,61 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=xnview-mp
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.94.1
+pkgrel=1
+pkgdesc="A multi-platform photo and picture viewer"
+url="https://www.xnview.com/en/xnviewmp/"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("XnViewMP-win-x64.zip::https://download.xnview.com/XnViewMP-win-x64.zip")
+sha512sums=('091f6ed6bd65aececb11a29ba602eef17fbd4dff5f740b00d2363eec0fc2dff858a77cc6e8096d9c75db56e75fc2c6848cdaccbdc8902ea7161c640f835330df')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    _lc "XnViewMP"/*
+}
+
+pkgver() {
+    cat "XnViewMP/WhatsNew.txt" | head -1 | sed -r 's/^Changelog ([0-9.]+):$/\1/' | sed -r 's/^([0-9]+[.][0-9+])$/\1.0/'
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "XnViewMP"/* "${a}"
+    _rmmsdll "${a}"
+}

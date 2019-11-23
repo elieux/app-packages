@@ -1,0 +1,58 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=tap-windows
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=9.24.2.601
+pkgrel=1
+pkgdesc="NDIS 6 TAP adapter driver"
+url="https://community.openvpn.net/openvpn#Tap-windowssubproject"
+arch=('any')
+license=('GPL2' 'custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("tap-windows-Win10.exe::http://build.openvpn.net/downloads/releases/tap-windows-${pkgver%.*}-I${pkgver##*.}-Win10.exe")
+sha512sums=('dc331bc2cca943985150b892cf9369da78c627c68b75bd883e08f2ffcfddb349ec864ff2195b9b85ade7d6474751b3e156c10d38b996441dad31e9e026adc17f')
+
+_pickarch() {
+    local f n
+
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | sed -r 's/_[0-9]+[.]/./')"
+        case "$(file "${f}")" in
+        *x86-64*|*assembly*) mv -f "${f}" "${n}" ;;
+        *) rm "${f}" ;;
+        esac
+    done
+}
+
+prepare() {
+    rm -fR "tap-windows-Win10.dir"
+    echo u | 7z x -bd "tap-windows-Win10.exe" -o"tap-windows-Win10.dir"
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "tap-windows-Win10.dir"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR'
+    _pickarch "${a}/bin"/*.exe
+    _pickarch "${a}/driver"/*.sys
+    for f in "${a}/driver"/OemVista*.inf
+    do
+        s="${f}"
+        s="${s#*/OemVista}"
+        s="${s%.inf}"
+        if grep -q 'NTamd64' "${a}/driver/OemVista${s}.inf"
+        then
+            mv -f "${a}/driver/OemVista${s}.inf" "${a}/driver/OemVista.inf"
+            mv -f "${a}/driver/tap0901${s}.cat" "${a}/driver/tap0901.cat"
+        else
+            rm "${a}/driver/OemVista${s}.inf"
+            rm "${a}/driver/tap0901${s}.cat"
+        fi
+    done
+}

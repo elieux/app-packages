@@ -4,18 +4,18 @@ _realname=xnview
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.44
+pkgver=2.49.1
 pkgrel=1
 pkgdesc="An efficient multimedia viewer, browser and converter"
 url="https://www.xnview.com/en/xnview/"
 arch=('any')
 license=('custom')
-depends=("app-nconvert")
+depends=("app-nconvert" "app-xnshell")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("XnView-win-full.zip::http://download3.xnview.com/XnView-win-full.zip")
-sha512sums=('89297d4a174eabfd01d10ccbe94b098c4890cf3c37bd1fc4e037463b4dcad1c1583a7e63cc6fd274c77f04d7f2c9c8f6c85085466cfb76104da0b1842ab85768')
+source=("XnView-win-full.zip::https://download3.xnview.com/XnView-win-full.zip")
+sha512sums=('cbc544b4186e727eb9c7f650b51dad269e75a44fdc5e6a7c9e306a9170bdd943a6cbe8ae3f4df22c8c1d6e5c6d83420ce65fff460764b65beb5fa9c57c363763')
 
 _lc() {
     local d f n
@@ -32,18 +32,18 @@ _lc() {
     done
 }
 
-pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "XnView/xnview.exe").VersionInfo.ProductVersion'
-}
-
 prepare() {
     _lc "XnView"/*
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "XnView/xnview.exe").VersionInfo.ProductVersion'
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "XnView"/* "${a}"
-    rm -R "${a}/nconvert.exe" "${a}/addon/Microsoft.VC90.CRT"
+    rm -R "${a}/nconvert.exe" "${a}/addon/Microsoft.VC90.CRT" "${a}/shellex"
     rm "${a}"/{formats,license,plugins,readme,usage,whatsnew}.txt
 }

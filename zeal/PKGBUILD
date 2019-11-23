@@ -11,6 +11,7 @@ url="https://zealdocs.org/"
 arch=('any')
 license=('GPL3')
 replaces=("app-i686-${_realname}")
+makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("zeal-windows-x64.msi::http://dl.bintray.com/zealdocs/windows/zeal-${pkgver}-windows-x64.msi")
@@ -31,16 +32,14 @@ _lc() {
     done
 }
 
-build() {
-    msiexec -a "zeal-windows-x64.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
-    attrib -r //s
-    s="install/Zeal"
-    _lc "${s}"/*
+prepare() {
+    rm -fR "zeal-windows-x64"
+    /apps/lessmsi/lessmsi x "zeal-windows-x64.msi"
+    _lc "zeal-windows-x64/SourceDir/Zeal"/*
 }
 
 package() {
-    s="install/Zeal"
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "${s}"/* "${a}"
+    cp -R "zeal-windows-x64/SourceDir/Zeal"/* "${a}"
 }

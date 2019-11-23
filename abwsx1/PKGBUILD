@@ -75,27 +75,34 @@ sha512sums=('0f4be3fdbe4923ee3728764774d46bb8f93d797e97ec96156531a5afcc264480b72
             'baaa6c91bc2f4c706bca007e2a84c61bcf37885f61f542aa688a3f0d4b74ebd8ff146c0dd6a5a6ff640a7c3ee393239a9bcf46d8567a51abd14ebf66ee08f7b5'
             'e7e3c12a6e4992d53265a74c600f98c3c4288c7a895e713b6376c363cd7cfa36899e84855caa52b19ada0f8d2cebea7be78d764eaf9fe8d5ebadeb7b0dd465cf')
 
+_pickarch() {
+    local f n
+
+    for f in "${@}"
+    do
+        n="$(echo "${f}" | sed -r 's/_[0-9]+[.]/./')"
+        case "$(file "${f}")" in
+        *x86-64*|*assembly*) mv -f "${f}" "${n}" ;;
+        *) rm "${f}" ;;
+        esac
+    done
+}
+
 prepare() {
-    echo u | 7z x -bd "abwsx1.exe" -o"dir"
+    rm -fR "abwsx1.dir"
+    echo u | 7z x -bd "abwsx1.exe" -o"abwsx1.dir"
 }
 
 pkgver() {
-    b="$(cygpath -wa "dir/abyssws.exe" | sed 's/\\/\\\\/g')"
+    b="$(cygpath -wa "abwsx1.dir/abyssws.exe" | sed 's/\\/\\\\/g')"
     wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "dir"/* "${a}"
+    cp -r "abwsx1.dir"/* "${a}"
     cp -f *.lng "${a}/lang"
     rm -r "${a}"/'$PLUGINSDIR'
-    for f in "${a}"/*.{exe,dll} "${a}/adn"/*.{exe,dll}
-    do
-        n="${f/_1/}"
-        case "$(file "${f}")" in
-        *80386*) rm "${f}" ;;
-        *x86-64*) mv -f "${f}" "${n}" ;;
-        esac
-    done
+    _pickarch "${a}"/*.{exe,dll} "${a}/adn"/*.{exe,dll}
 }

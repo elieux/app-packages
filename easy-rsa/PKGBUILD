@@ -1,0 +1,42 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=easy-rsa
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=3.0.6
+pkgrel=1
+pkgdesc="Simple shell based CA utility"
+url="https://community.openvpn.net/openvpn#Easy-rsasubproject"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("EasyRSA-windows.zip::https://github.com/OpenVPN/easy-rsa/releases/download/v${pkgver}/EasyRSA-windows-v${pkgver}.zip")
+sha512sums=('f0b8531ebaee16fec10a6dccfef328b80bc7f52161b6a0cca3e3504d239667d57c3f87fa05ec047a5ac2279624839ad278063fd39637da902f6c1ac3137c0060')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc "EasyRSA-v${pkgver}"/*
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "EasyRSA-v${pkgver}"/* "${a}"
+}

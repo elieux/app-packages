@@ -4,18 +4,17 @@ _realname=skype
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=8.17.0.2
+pkgver=8.54.0.91
 pkgrel=1
 pkgdesc="P2P software for high-quality voice communication"
-url="http://www.skype.com/"
+url="https://www.skype.com/"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
 makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Skype.exe::https://get.skype.com/go/getskype-skypeforwindows")
-sha512sums=('92fbc730bcadb7879cd047b23958fcfb59ad58ea0b3687eb921b3e6e2d2a4de87f1f94cf1e00d8f8a0c0d5276eb2ef50508b11b5d83050267a64134dc106a9a7')
+sha512sums=('2f4fb80aaa8e5587133e13f239867438ea9c2290aeda84234a55db65e77d95f13a78d792bfa54f912b0bbef4f10cc40eb9c87700c81fcbc33ec5b43ff557eaf7')
 
 _lc() {
     local d f n
@@ -46,13 +45,13 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "Skype.exe").VersionInfo.FileVersion' | dos2unix
-}
-
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "Skype.exe"
     _lc "{app}"/*
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "Skype.exe").VersionInfo.FileVersion' | dos2unix
 }
 
 package() {

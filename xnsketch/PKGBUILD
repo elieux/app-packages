@@ -1,0 +1,61 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=xnsketch
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.18.0
+pkgrel=1
+pkgdesc="Turn photos into cartoon or sketch images"
+url="https://www.xnview.com/en/xnsketch/"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("XnSketch-win-x64.zip::http://download.xnview.com/XnSketch-win-x64.zip")
+sha512sums=('7bcc0b3985d06684d9b5a2558f5438022e3861ffc44e2506973deb41b4bcf74bf82de19a2ff9f47ca89aff81ebd3e4f87b75d2e713ea8a31e1188d39a5d793bf')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+"
+        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    _lc "XnSketch"/*
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "XnSketch/xnsketch.exe").VersionInfo.ProductVersion' | sed -r 's/[.]0$//'
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "XnSketch"/* "${a}"
+    _rmmsdll "${a}"
+}

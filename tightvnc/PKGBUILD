@@ -4,17 +4,18 @@ _realname=tightvnc
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.8.8
+pkgver=2.8.27
 pkgrel=1
 pkgdesc="Light weight VNC implementation"
-url="http://www.tightvnc.com/"
+url="https://www.tightvnc.com/"
 arch=('any')
 license=('GPL2')
 replaces=("app-i686-${_realname}")
+makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("tightvnc-setup-64bit.msi::http://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-gpl-setup-64bit.msi")
-sha512sums=('0379d2fbc645388f9935828f05803c1c83e3e952067c6c357246779d4ef14d6227ba45801f689680639b6b89778c1af2012276447a52478fc34b675e6092f7cf')
+source=("tightvnc-gpl-setup-64bit.msi::https://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-gpl-setup-64bit.msi")
+sha512sums=('f2afeb040cb7120d3e15804d3d934414c15572218192bfa2aed5832550d3e724ad6f2ef4060e51cfaf1271641aee0634faa594d8bc31aceceb7b904420ecd11b')
 
 _lc() {
     local d f n
@@ -32,13 +33,12 @@ _lc() {
 }
 
 build() {
-    msiexec -a "tightvnc-setup-64bit.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
+    rm -fR "tightvnc-gpl-setup-64bit"
+    /apps/lessmsi/lessmsi x "tightvnc-gpl-setup-64bit.msi"
 }
 
 package() {
-    s="install/PFiles/TightVNC"
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "${s}"/*.{exe,dll} "${a}"
-    cp "${s}"/*.{txt,url} "${a}"
+    cp -R "tightvnc-gpl-setup-64bit/SourceDir/PFiles/TightVNC"/* "${a}"
 }

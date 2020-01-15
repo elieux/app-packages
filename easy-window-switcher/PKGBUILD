@@ -1,0 +1,58 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=easy-window-switcher
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=1.2.2
+pkgrel=1
+pkgdesc="Tabbing between windows of the same program"
+arch=('any')
+url="https://neosmart.net/EasySwitch/"
+license=('custom')
+makedepends=("curl")
+provides=("${pkgbase}")
+options=(!strip)
+source=()
+sha512sums=()
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_dl() {
+    (
+        cd "${SRCDEST}"
+        download_file "${1}"
+    )
+}
+
+prepare() {
+    _token="$(curl -c cookie.jar -d "id=26" https://neosmart.net/Download/Register | grep __RequestVerificationToken | sed -r 's/^.*value="(.+)".*$/\1/')"
+    _url="$(curl -b cookie.jar -d "productId=26&__RequestVerificationToken=${_token}&name=&email=" https://neosmart.net/Download/ThankYou | grep cfcdn.neosmart.net | grep href | sed -r 's/^.*href="(.+)".*$/\1/' | sed 's/&amp;/\&/g')"
+    _dl "Easy-Window-Switcher.exe::${_url}"
+    source+=("Easy-Window-Switcher.exe")
+    extract_sources
+    _lc *
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "easy-window-switcher.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.][0-9]+$/\1/'
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp *.exe "${a}"
+}

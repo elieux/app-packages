@@ -1,0 +1,42 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=traystatus
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=4.2
+pkgrel=1
+pkgdesc="Show status of Caps Lock, Num Lock, Scroll Lock, and more in system tray"
+url="https://www.traystatus.com/"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("TrayStatus.zip::https://binaryfortressdownloads.com/Download/BFSFiles/114/TrayStatus-${pkgver}c.zip")
+sha512sums=('a0d575a3a84503feada1cedc6dab80ba0ca23a5b9fea72ac455b60f24c30e438c05988239746d3f7b2281eac01bae46d434d58242c815c7b78c3fc99144135a6')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    _lc "TrayStatus"/*
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "TrayStatus"/* "${a}"
+}

@@ -1,46 +1,65 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-DLAGENTS=('http::/usr/bin/curl -qb "" -RfLC - -o %o %u')
-
 _realname=ltrdata
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2017.07.01
+pkgver=2019.07.16
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
 url="http://www.ltr-data.se/opencode.html"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=("exefiles.zip::http://www.ltr-data.se/files/exefiles.zip"
-        "exefiles64.zip::http://www.ltr-data.se/files/win64/exefiles.zip"
-        "scripts.zip::http://ltr-data.se/files/scripts.zip"
-        "scripts64.zip::http://ltr-data.se/files/scripts.zip"
+source=(
+        # ImDisk Virtual Disk Driver
+        # "imdiskinst.exe::http://www.ltr-data.se/files/imdiskinst.exe"
+        "devio64.zip::http://www.ltr-data.se/files/win64/devio.zip"
+        # "ImDiskTk-x64.exe::https://downloads.sourceforge.net/imdisk-toolkit/20200315/ImDiskTk-x64.exe"
+        # "ImDiskNet.7z::http://www.ltr-data.se/files/ImDiskNet.7z"
 
+        # Zero and Random Device Driver
+        # "zerodrv.exe::http://www.ltr-data.se/files/zerodrv.exe"
+
+        # Small command line utilities; order is important
+        "exefiles.zip::http://www.ltr-data.se/files/exefiles.zip"
+        "exefiles64.zip::http://www.ltr-data.se/files/win64/exefiles.zip"
+
+        # .NET command line utilities
+        "base64.zip::http://www.ltr-data.se/files/base64.zip"
         "checksum.zip::http://www.ltr-data.se/files/checksum.zip"
         "coordtool.zip::http://www.ltr-data.se/files/coordtool.zip"
+        "luhn.zip::http://www.ltr-data.se/files/luhn.zip"
+        "MailTools.zip::http://www.ltr-data.se/files/MailTools.zip"
+        "netexpr.zip::http://www.ltr-data.se/files/netexpr.zip"
+        "NetCompress.zip::http://www.ltr-data.se/files/NetCompress.zip"
         "netcheck.zip::http://www.ltr-data.se/files/netcheck.zip"
+        "ZipIO.zip::http://www.ltr-data.se/files/ZipIO.zip"
 
-        "devio.exe::http://www.ltr-data.se/files/devio.exe"
+        # .NET tools with graphical user interface
+        "GraphViewer.zip::http://www.ltr-data.se/files/GraphViewer.zip"
+        "Dataviewer.zip::http://www.ltr-data.se/files/Dataviewer.zip"
 
-        # installers
-        # "zerodrv.exe::http://www.ltr-data.se/files/zerodrv.exe"
-        # "imdiskinst.exe::http://www.ltr-data.se/files/imdiskinst.exe"
-        # "ImDiskNet.7z::http://www.ltr-data.se/files/ImDiskNet.7z"
+        # secret
+        "scripts.zip::http://www.ltr-data.se/files/scripts.zip"
 )
-sha512sums=('afcb6d51d1a6c243323b3f20f900d492ef83ba5b74f566414a2fe1cacc99b42ec65edbecb9fcb999599111b063e2e438b64e1e05d6ddca631a09b5bb5d4cb1d7'
-            '639810078a3a38928587ff5370ef355645ad6d4f16c9c8ef4902717371ca28b8010c1ddf1cc6f6c0858febc79446e4ec3e87ccb11c878e01926962cdb4eb6922'
-            '2f7c7011871898829ad1392a85c537ee6dfb2ea8f2eaa0619db1be4fbd0cf4c7239762d6d3c34772311e2e3440246fc6e6fe6116e92a358b340598eb05e0bdde'
-            '2f7c7011871898829ad1392a85c537ee6dfb2ea8f2eaa0619db1be4fbd0cf4c7239762d6d3c34772311e2e3440246fc6e6fe6116e92a358b340598eb05e0bdde'
-            '0cf74076fe57020215499b0c19c775500ba33c4d9101e06c0c0a4ab5e3d28cf8639edee156e324ca7b913304ca3b9a0a3f0ec59b5573de797b15f3d3856184db'
-            '42963e4d9520e4513ae8ee29cb5ea1f53432f257f649eba8fc544c43573b09717046b2ba8eea3b0e7787c5bd24e6a59ab61065c46a6f6a00fa5e674df3c34960'
+sha512sums=('156b163fdc038bb9924b2dde4ed1b2416fd09d2c0f0b8fd85a0f9a0d6b740be7daa0510ec4e7bded5573eda7d59510b859e33efe7b3d7b0dc2ce45bb95936bd0'
+            'b059836a1504fc0bc5962217469eab203d705cdb9648f0617f93d3f5b5a21d0e85ff9f4bb0b9d6eb7cc580139a604249f60b0d1a9b9b3faf28f93d836a0c2237'
+            '0ed62ac73a9a6c91e0220a35767e7382ba083b577f99c7e787b83d117fb622c6887be6733a0e63ab6b10c39c843be79960e2aba4197ee6de23b640c49c26a924'
+            'cc81176a9671bda63969e4dcc7e08b3937724377f8a6a525c3e3c9875f44448e4f48c3eebc7be21773cd478f6a12ae2148943a79c53f50c67b7d6556985cbd1c'
+            '32c764116bb3b2e2ad95019778e3432c74ded2a0a27b4710f4b0af88f2ebde8f49b25d739e184304632aa31d84d43614f181315ea7c37b9bb6daef660441b20f'
+            'c78357608f0a1fd78baa40962ab8d2fa2cc155a633310af8e36a60c78ea06ffcfe5747c0ab02f5deab13c975e0d25ab7476ca5b5ed97a1fe32dffde291826a21'
+            '71bb16fa938892ea0b9729c459c8de53e1c589539de586112d8149e812882bad54f0337d2ce05d6b7b12f6de68258f97fc063d2eca389bcb018474b6ecdbb427'
+            'dc6cf84aed533126c6ea9491780b4f8524cbeff30ec05b850536cd8a5671260a5c8473fa237ba4fc04d3067cd90bca5b1fc28ae087b1449db62ccb8fecdd6e62'
+            '045da9727fa5b1da415693f7a6209648730c24eb0274b0e8d2c643e577cd616e5a490bfa8dfb5ed77384cfc0c23b5c4b74a722e06a01d8a9a0d7ee200ee73b43'
+            '13e240fa94c5137b1bc536a01de1214758144f6d3c24c7c5954986c1d5833bf52a027a5f85dd5eecf9473ab5e054bcff1bb7e6c134765e7016b9ed0f3008e611'
             'cabfa2db55284f457e04932a648120a4ccf4a1d5a24fc1a2d71d84a27f4255d2886c5b94659529ac8f7351f267474429912f0ff21afc4767061c3b124d3faf67'
-            '56927c653e62000223b964c67fa57a35a96fc8409e85b2d6561b649fa991aa75c9ab29cb27941716c5a91d0d771839edd5324d6079d7bcd0d2721e243bda9c3d')
-noextract=("${source[@]##*/}")
+            '985a93bd42ad4ba961ca3abd09dd34c56c08a01205847e1c993843d8a85215df8efea19670bd630ad5adc17f419963e6be3345ca7f2d4b4de775a21d107f0e0b'
+            '42f9b33a22f15c949d45be7b8f998181053c9d64daf7ccc9266a7691da658e0edf67e112a25ddcb0b1965f00be9b58eda49314e72edc35f3af42a8794eaad56d'
+            '1d324591df45b82dfb1854956ecbd34546fa85dec21829787727d4957c5154e516aaa50a387b50565723cb205b61baeb0e58b0f6204580abd97a9bc1b8b8f525'
+            '2f7c7011871898829ad1392a85c537ee6dfb2ea8f2eaa0619db1be4fbd0cf4c7239762d6d3c34772311e2e3440246fc6e6fe6116e92a358b340598eb05e0bdde')
 
 _lc() {
     local d f n
@@ -58,30 +77,12 @@ _lc() {
 }
 
 pkgver() {
-    #find . -mindepth 1 -maxdepth 2 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find . -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 3 | tr "-" "."' \; \
-      -o -name '*.exe' -printf '%TY.%Tm.%Td\n' \
-      | sort | tail -1
-}
-
-prepare() {
-    for f in *.zip
-    do
-        unzip -o "${f}" -d "${f%%.zip}"
-        _lc "${f%%.zip}"/*
-    done
+    find . -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    for s in *.zip
-    do
-        s="${s%%.zip}"
-        u="${s##*/}"
-        u="${u%%64}"
-        echo "${u}"
-        find "${s}" -regextype posix-extended -regex ".+\.(exe|dll|exe\.config|cmd|vbs|ps1)" -print0 | xargs -0 cp -t "${a}"
-        find "${s}" -regextype posix-extended -regex ".+\.(txt|cnt|hlp)" -print0 | xargs -0r cp -t "${a}"
-    done
+    cp * "${a}"
+    rm "${a}"/*.zip
 }

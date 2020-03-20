@@ -4,7 +4,7 @@ _realname=sysinternals
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2018.02.12
+pkgver=2019.12.13
 pkgrel=1
 pkgdesc="Advanced system utilities for Windows"
 url="https://docs.microsoft.com/en-us/sysinternals/"
@@ -14,10 +14,10 @@ replaces=("app-i686-${_realname}")
 makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("http://download.sysinternals.com/files/SysinternalsSuite.zip"
-        "http://download.sysinternals.com/files/RootkitRevealer.zip"
-        "http://download.sysinternals.com/files/BlueScreen.zip")
-sha512sums=('124f36df6c4cdacc24baf5ab7832c3c15c58357dd9dbeb945df9424fc286ead9e143f50beaf6b25978083505f99a889d3c9179a818334c3ec7e528bf871e2294'
+source=("https://download.sysinternals.com/files/SysinternalsSuite.zip"
+        "https://download.sysinternals.com/files/RootkitRevealer.zip"
+        "https://download.sysinternals.com/files/BlueScreen.zip")
+sha512sums=('15f588ef94e91fe38eeea416b5c13b644beaa419da467e27f9a2ff28f223dcda243ababc9c7ee93e67c8fa0fbd76e11e1a6fb25bbd78b886bd4c6ed07d3d31e2'
             '2e5f89552fc1912b5fa37eb443ef2aa86e2a60f2f7f24f420df56e1ec5f59bd64e2b71e38365f7beaace419299762b9960b7617de9aff6301020277d3d7c1e61'
             '2e39c4b36e9928851fc86d9fc541956c3079a1ded09cca5ee677fbe1b3c9272b87651b65e53279cede3c4ed37028fcbae0823c4ee25180d5bc132cef8d155507')
 
@@ -36,29 +36,22 @@ _lc() {
     done
 }
 
-pkgver() {
-    #find . -mindepth 1 -maxdepth 1 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find . -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
-}
-
 prepare() {
     _lc *
+}
+
+pkgver() {
+    find . -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    for f in $(find . -mindepth 1 -maxdepth 1)
+    cp * "${a}"
+    rm "${a}"/*.zip
+
+    for f in *64.exe
     do
-        n="${f##*/}"
-        n="${n/64/}"
-        case "${n}" in
-        *.exe|*.sys|*.scr)
-            cp "${f}" "${a}/${n}"
-            ;;
-        *.chm|*.txt|*.hlp)
-            cp "${f}" "${a}/${n}"
-            ;;
-        esac
+        mv -f "${a}/${f}" "${a}/${f/64.exe/.exe}"
     done
 }

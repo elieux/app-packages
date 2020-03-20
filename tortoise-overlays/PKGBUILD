@@ -12,7 +12,7 @@ url="https://tortoisesvn.net"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("p7zip")
+makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${_realver}/TortoiseGit-${_realver}-64bit.msi")
@@ -33,19 +33,28 @@ _lc() {
     done
 }
 
-pkgver() {
-    7z e -y -bd "TortoiseGit-64bit.msi" "F__overlaydll.3C89127D_F335_46EB_8720_CAFE0C0FEB7E" > /dev/null
-    b="$(cygpath -wa "F__overlaydll.3C89127D_F335_46EB_8720_CAFE0C0FEB7E" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)$/\1/'
+prepare() {
+    rm -fR "TortoiseGit-64bit"
+    /apps/lessmsi/lessmsi x "TortoiseGit-64bit.msi"
+    _lc "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays"/*
 }
 
-build() {
-    msiexec -a "TortoiseGit-64bit.msi" "TARGETDIR=$(cygpath -wa "install")" -qn
-    _lc "install/Program Files/TortoiseGit/Common/TortoiseOverlays"/*
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays/tortoiseoverlays.dll").VersionInfo.ProductVersion' | dos2unix | tr -d ' ' | tr ',' '.'
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "install/Program Files/TortoiseGit/Common/TortoiseOverlays"/* "${a}"
+    cp -r "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays"/* "${a}"
+
+    for f in "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays"/tortoiseoverlays.dll*
+    do
+        case "$(file "${f}")" in
+        *x86-64*) cp -f "${f}" "${a}/tortoiseoverlays.dll" ;;
+        *80386*) cp -f "${f}" "${a}/tortoiseoverlays32.dll" ;;
+        esac
+    done
+
+    find "${a}" -name "*.duplicate*" -delete
 }

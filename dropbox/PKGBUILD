@@ -6,17 +6,18 @@ _realname=dropbox
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=70.4.93
+pkgver=93.4.273
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="http://www.dropbox.com/"
 arch=('any')
 license=('custom')
-makedepends=("p7zip" "curl")
+makedepends=("p7zip" "curl" "python3")
 provides=("${pkgbase}")
 options=(!strip)
+install="dropbox.install"
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
-sha512sums=('a96ffa535602130649532cdee002032bd51810847b2b75b83f0dd5ba9e9601a41b9421711ec0036b685d20c4799346e18fb6b293185491674437dfc6e0d3a11e')
+sha512sums=('3c2f0e3697a5a5641246cf73e35fbcd765d423f14061229ddbf4c3b90c10364cc2f6e15a3f7e905c97d1f58f29580b9bdcf9f9633033e6dff2499513d3c53adf')
 
 _lc() {
     local d f n
@@ -39,24 +40,22 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-pkgver() {
-    7z x -y -bd "DropboxOfflineInstaller.exe" > /dev/null
-    b="$(cygpath -wa "Installer.exe".* | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
-}
-
 prepare() {
     7z x -y -bd "DropboxOfflineInstaller.exe"
     7z x -y -bd "Installer.exe".*
-    _lc '$0'/*
+    _lc '$0'/"${pkgver}"/* '$0'/*
+}
+
+pkgver() {
+    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "'"$(echo "Installer.exe".*)"'").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
 }
 
 package() {
@@ -64,6 +63,23 @@ package() {
     mkdir -p "${a}"
     cp -r '$0'/* "${a}"
     rm -r "${a}/dropboxuninstaller.exe"
+
+    # remove system DLLs
     _rmmsdll "${a}"
-    rm "${a}"/msvcp140_{1,2}.dll
+    mv "${a}/${pkgver}"/* "${a}"
+    rm -r "${a}/${pkgver}"
+    rm "${a}/${pkgver}.manifest"
+    _pkgver="${pkgver}" _a="${a}" python3 -c '
+import os
+
+to_remove = """<dependency><dependentAssembly><assemblyIdentity type="win32" name="{0}" version="901.520.64.112" language="*"></assemblyIdentity></dependentAssembly></dependency>""".format(os.environ["_pkgver"]).encode("ascii")
+f = open(os.environ["_a"] + "/dropbox.exe", "rb+")
+data = f.read()
+pos = data.find(to_remove)
+f.seek(pos)
+f.write(b" " * len(to_remove))
+f.close()
+    '
+    # MSYS=winsymlinks:nativestrict ln -s . "${a}/${pkgver}" # Permission denied on msys2-runtime v3.0.7
+    # ( cd "${a}" && MSYS2_ARG_CONV_EXCL=* cmd /c mklink /d "${pkgver}" . ) # Works, but doesn't package correctly
 }

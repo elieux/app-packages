@@ -1,0 +1,23 @@
+post_install() {
+    newver="${1%-*}"
+    (
+        cd "apps/dropbox"
+        # MSYS=winsymlinks:nativestrict ln -s . "${newver#*~}" # Permission denied on msys2-runtime v3.0.7
+        MSYS2_ARG_CONV_EXCL=* cmd /c mklink /d "${newver#*~}" .
+    )
+}
+
+pre_upgrade() {
+    pre_remove "${2}"
+}
+
+post_upgrade() {
+    post_install "${1}"
+}
+
+pre_remove() {
+    oldver="${1%-*}"
+    case "${oldver}" in
+    1~*) rm "apps/dropbox/${oldver#*~}" ;;
+    esac
+}

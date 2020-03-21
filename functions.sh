@@ -50,8 +50,8 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")

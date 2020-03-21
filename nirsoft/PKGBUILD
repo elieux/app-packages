@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-DLAGENTS=('http::/usr/bin/curl -qb "" -fLC - -e "http://www.nirsoft.net/" -o %o %u')
+DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -e "http://www.nirsoft.net/" -o %o %u')
 
 _realname=nirsoft
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2018.03.17
+pkgver=2020.03.02
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="http://www.nirsoft.net/"
@@ -16,625 +16,97 @@ replaces=("app-i686-${_realname}")
 makedepends=("unzip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=("http://www.nirsoft.net/dot_net_tools/gacview.zip"
-        "http://www.nirsoft.net/dot_net_tools/snremove.zip"
+source=("nirsoft_package_enc.zip::https://download.nirsoft.net/nirsoft_package_enc_1.23.15.zip"
 
-        "http://www.nirsoft.net/utils/accesspv.zip"
-        "http://www.nirsoft.net/utils/acm.zip"
-        "http://www.nirsoft.net/utils/addrview.zip"
-        "http://www.nirsoft.net/utils/advancedrun-x64.zip"
-        "http://www.nirsoft.net/utils/alternatestreamview-x64.zip"
-        "http://www.nirsoft.net/utils/altstreamdump.zip"
-        "http://www.nirsoft.net/utils/anup.zip"
-        "http://www.nirsoft.net/utils/appcrashview.zip"
-        "http://www.nirsoft.net/utils/asterie.zip"
-        "http://www.nirsoft.net/utils/atnow.zip"
-        "http://www.nirsoft.net/utils/awatch.zip"
-        "http://www.nirsoft.net/utils/axhelper.zip"
-        "http://www.nirsoft.net/utils/batteryinfoview.zip"
-        "http://www.nirsoft.net/utils/bluescreenview-x64.zip"
-        "http://www.nirsoft.net/utils/bluetoothcl.zip"
-        "http://www.nirsoft.net/utils/bluetoothlogview.zip"
-        "http://www.nirsoft.net/utils/bluetoothview.zip"
-        "http://www.nirsoft.net/utils/browseraddonsview-x64.zip"
-        "http://www.nirsoft.net/utils/browsinghistoryview-x64.zip"
-        "http://www.nirsoft.net/utils/bulkfilechanger-x64.zip"
-        "http://www.nirsoft.net/utils/bulletspassview-x64.zip"
-        "http://www.nirsoft.net/utils/chromecacheview.zip"
-        "http://www.nirsoft.net/utils/chromecookiesview.zip"
-        "http://www.nirsoft.net/utils/chromehistoryview.zip"
-        "http://www.nirsoft.net/utils/cleanafterme.zip"
-        "http://www.nirsoft.net/utils/clipboardic.zip"
-        "http://www.nirsoft.net/utils/conadvpass.zip"
-        "http://www.nirsoft.net/utils/controlmymonitor.zip"
-        "http://www.nirsoft.net/utils/countrytraceroute.zip"
-        "http://www.nirsoft.net/utils/cports-x64.zip"
-        "http://www.nirsoft.net/utils/cprocess.zip"
-        "http://www.nirsoft.net/utils/csvfileview.zip"
-        "http://www.nirsoft.net/utils/ctie.zip"
-        "http://www.nirsoft.net/utils/customexplorertoolbar.zip"
-        "http://www.nirsoft.net/utils/deviceioview-x64.zip"
-        "http://www.nirsoft.net/utils/devmanview-x64.zip"
-        "http://www.nirsoft.net/utils/diskcountersview.zip"
-        "http://www.nirsoft.net/utils/disksmartview.zip"
-        "http://www.nirsoft.net/utils/dllexp-x64.zip"
-        "http://www.nirsoft.net/utils/dnsdataview.zip"
-        "http://www.nirsoft.net/utils/dnsquerysniffer-x64.zip"
-        "http://www.nirsoft.net/utils/domainhostingview.zip"
-        "http://www.nirsoft.net/utils/dotnetresourcesextract.zip"
-        "http://www.nirsoft.net/utils/downtester.zip"
-        "http://www.nirsoft.net/utils/driveletterview.zip"
-        "http://www.nirsoft.net/utils/driverview-x64.zip"
-        "http://www.nirsoft.net/utils/dumpedid.zip"
-        "http://www.nirsoft.net/utils/empv.zip"
-        "http://www.nirsoft.net/utils/esedatabaseview.zip"
-        "http://www.nirsoft.net/utils/eventlogchannelsview-x64.zip"
-        "http://www.nirsoft.net/utils/eventlogsourcesview-x64.zip"
-        "http://www.nirsoft.net/utils/executedprogramslist.zip"
-        "http://www.nirsoft.net/utils/exeinfo.zip"
-        "http://www.nirsoft.net/utils/exifdataview.zip"
-        "http://www.nirsoft.net/utils/explorestart.zip"
-        "http://www.nirsoft.net/utils/fastresolver.zip"
-        "http://www.nirsoft.net/utils/faview.zip"
-        "http://www.nirsoft.net/utils/fbcacheview.zip"
-        "http://www.nirsoft.net/utils/filetypesman-x64.zip"
-        "http://www.nirsoft.net/utils/firefoxdownloadsview.zip"
-        "http://www.nirsoft.net/utils/firmwaretablesview.zip"
-        "http://www.nirsoft.net/utils/flashcookiesview.zip"
-        "http://www.nirsoft.net/utils/folderchangesview.zip"
-        "http://www.nirsoft.net/utils/foldertimeupdate-x64.zip"
-        "http://www.nirsoft.net/utils/folrep.zip"
-        "http://www.nirsoft.net/utils/fulleventlogview-x64.zip"
-        "http://www.nirsoft.net/utils/gdiview-x64.zip"
-        "http://www.nirsoft.net/utils/guipropview-x64.zip"
-        "http://www.nirsoft.net/utils/grank.zip"
-        "http://www.nirsoft.net/utils/hashmyfiles-x64.zip"
-        "http://www.nirsoft.net/utils/heapmemview-x64.zip"
-        "http://www.nirsoft.net/utils/hostednetworkstarter.zip"
-        "http://www.nirsoft.net/utils/hotkeyslist.zip"
-        "http://www.nirsoft.net/utils/htmlastext.zip"
-        "http://www.nirsoft.net/utils/htmldocedit.zip"
-        "http://www.nirsoft.net/utils/httpnetworksniffer-x64.zip"
-        "http://www.nirsoft.net/utils/iconsext.zip"
-        "http://www.nirsoft.net/utils/idenswitch.zip"
-        "http://www.nirsoft.net/utils/iecacheview.zip"
-        "http://www.nirsoft.net/utils/iecompo.zip"
-        "http://www.nirsoft.net/utils/iecv.zip"
-        "http://www.nirsoft.net/utils/iedesignmode.zip"
-        "http://www.nirsoft.net/utils/iehv.zip"
-        "http://www.nirsoft.net/utils/imagecacheviewer.zip"
-        "http://www.nirsoft.net/utils/injecteddll.zip"
-        "http://www.nirsoft.net/utils/insideclipboard.zip"
-        "http://www.nirsoft.net/utils/installedcodec-x64.zip"
-        "http://www.nirsoft.net/utils/installeddriverslist-x64.zip"
-        "http://www.nirsoft.net/utils/installedpackagesview-x64.zip"
-        "http://www.nirsoft.net/utils/ipinfooffline.zip"
-        "http://www.nirsoft.net/utils/ipnetinfo.zip"
-        "http://www.nirsoft.net/utils/jrview.zip"
-        "http://www.nirsoft.net/utils/jsae.zip"
-        "http://www.nirsoft.net/utils/jumplistsview.zip"
-        "http://www.nirsoft.net/utils/lastactivityview.zip"
-        "http://www.nirsoft.net/utils/livecontactsview.zip"
-        "http://www.nirsoft.net/utils/loadeddllsview-x64.zip"
-        "http://www.nirsoft.net/utils/macaddressview.zip"
-        "http://www.nirsoft.net/utils/mimeview.zip"
-        "http://www.nirsoft.net/utils/mmcsnapinsview-x64.zip"
-        "http://www.nirsoft.net/utils/monitorinfoview.zip"
-        "http://www.nirsoft.net/utils/mozillacacheview.zip"
-        "http://www.nirsoft.net/utils/mozillahistoryview.zip"
-        "http://www.nirsoft.net/utils/muicacheview.zip"
-        "http://www.nirsoft.net/utils/multimonitortool-x64.zip"
-        "http://www.nirsoft.net/utils/mweather.zip"
-        "http://www.nirsoft.net/utils/myeventviewer-x64.zip"
-        "http://www.nirsoft.net/utils/mylastsearch.zip"
-        "http://www.nirsoft.net/utils/myuninst.zip"
-        "http://www.nirsoft.net/utils/mzcv.zip"
-        "http://www.nirsoft.net/utils/netbscanner.zip"
-        "http://www.nirsoft.net/utils/netconnectchoose.zip"
-        "http://www.nirsoft.net/utils/netresview.zip"
-        "http://www.nirsoft.net/utils/netrouteview.zip"
-        "http://www.nirsoft.net/utils/netscapass.zip"
-        "http://www.nirsoft.net/utils/networkconnectlog.zip"
-        "http://www.nirsoft.net/utils/networkcounterswatch.zip"
-        "http://www.nirsoft.net/utils/networkinterfacesview.zip"
-        "http://www.nirsoft.net/utils/networklatencyview-x64.zip"
-        "http://www.nirsoft.net/utils/networkopenedfiles-x64.zip"
-        "http://www.nirsoft.net/utils/networktrafficview-x64.zip"
-        "http://www.nirsoft.net/utils/nircmd-x64.zip"
-        "http://www.nirsoft.net/utils/nirext.zip"
-        "http://www.nirsoft.net/utils/nk2edit-x64.zip"
-        "http://www.nirsoft.net/utils/nk2view.zip"
-        "http://www.nirsoft.net/utils/ntfslinksview-x64.zip"
-        "http://www.nirsoft.net/utils/officeins-x64.zip"
-        "http://www.nirsoft.net/utils/ofview-x64.zip"
-        "http://www.nirsoft.net/utils/opensavefilesview-x64.zip"
-        "http://www.nirsoft.net/utils/openwithview.zip"
-        "http://www.nirsoft.net/utils/operacacheview.zip"
-        "http://www.nirsoft.net/utils/outlookaddressbookview-x64.zip"
-        "http://www.nirsoft.net/utils/outlookattachview-x64.zip"
-        "http://www.nirsoft.net/utils/outlookstatview-x64.zip"
-        "http://www.nirsoft.net/utils/passwordscan.zip"
-        "http://www.nirsoft.net/utils/pcanypass.zip"
-        "http://www.nirsoft.net/utils/pcanyscan.zip"
-        "http://www.nirsoft.net/utils/pinginfoview.zip"
-        "http://www.nirsoft.net/utils/previousfilesrecovery-x64.zip"
-        "http://www.nirsoft.net/utils/processactivityview-x64.zip"
-        "http://www.nirsoft.net/utils/processthreadsview-x64.zip"
-        "http://www.nirsoft.net/utils/produkey-x64.zip"
-        "http://www.nirsoft.net/utils/psapi.zip"
-        "http://www.nirsoft.net/utils/quicksetdns.zip"
-        "http://www.nirsoft.net/utils/recentfilesview.zip"
-        "http://www.nirsoft.net/utils/regdllview-x64.zip"
-        "http://www.nirsoft.net/utils/regfileexport.zip"
-        "http://www.nirsoft.net/utils/regfromapp-x64.zip"
-        "http://www.nirsoft.net/utils/registrychangesview-x64.zip"
-        "http://www.nirsoft.net/utils/regscanner-x64.zip"
-        "http://www.nirsoft.net/utils/resourcesextract-x64.zip"
-        "http://www.nirsoft.net/utils/rtmpdumphelper-x64.zip"
-        "http://www.nirsoft.net/utils/runasdate-x64.zip"
-        "http://www.nirsoft.net/utils/runfromprocess.zip"
-        "http://www.nirsoft.net/utils/safaricacheview.zip"
-        "http://www.nirsoft.net/utils/safarihistoryview.zip"
-        "http://www.nirsoft.net/utils/securitysoftview.zip"
-        "http://www.nirsoft.net/utils/searchfilterview.zip"
-        "http://www.nirsoft.net/utils/searchmyfiles-x64.zip"
-        "http://www.nirsoft.net/utils/seqdownload.zip"
-        "http://www.nirsoft.net/utils/serviwin.zip"
-        "http://www.nirsoft.net/utils/shadowcopyview-x64.zip"
-        "http://www.nirsoft.net/utils/shellbagsview.zip"
-        "http://www.nirsoft.net/utils/shellmenunew.zip"
-        "http://www.nirsoft.net/utils/shexview-x64.zip"
-        "http://www.nirsoft.net/utils/shman-x64.zip"
-        "http://www.nirsoft.net/utils/shmnview-x64.zip"
-        "http://www.nirsoft.net/utils/simpleprogramdebugger-x64.zip"
-        "http://www.nirsoft.net/utils/simplewmiview.zip"
-        "http://www.nirsoft.net/utils/siteshoter.zip"
-        "http://www.nirsoft.net/utils/skypecontactsview.zip"
-        "http://www.nirsoft.net/utils/skypelogview.zip"
-        "http://www.nirsoft.net/utils/smsniff-x64.zip"
-        "http://www.nirsoft.net/utils/socketsniff.zip"
-        "http://www.nirsoft.net/utils/soundvolumeview-x64.zip"
-        "http://www.nirsoft.net/utils/specialfoldersview-x64.zip"
-        "http://www.nirsoft.net/utils/startbluescreen.zip"
-        "http://www.nirsoft.net/utils/sysexp-x64.zip"
-        "http://www.nirsoft.net/utils/tabletextcompare.zip"
-        "http://www.nirsoft.net/utils/tagsrep.zip"
-        "http://www.nirsoft.net/utils/taskschedulerview-x64.zip"
-        "http://www.nirsoft.net/utils/tcplogview-x64.zip"
-        "http://www.nirsoft.net/utils/timezonesview.zip"
-        "http://www.nirsoft.net/utils/tflash.zip"
-        "http://www.nirsoft.net/utils/turnedontimesview.zip"
-        "http://www.nirsoft.net/utils/uninstallview-x64.zip"
-        "http://www.nirsoft.net/utils/urlprotocolview_u.zip"
-        "http://www.nirsoft.net/utils/urlstringgrabber.zip"
-        "http://www.nirsoft.net/utils/usbdeview-x64.zip"
-        "http://www.nirsoft.net/utils/usblogview.zip"
-        "http://www.nirsoft.net/utils/userassistview.zip"
-        "http://www.nirsoft.net/utils/userprofilesview.zip"
-        "http://www.nirsoft.net/utils/videocacheview-x64.zip"
-        "http://www.nirsoft.net/utils/volumouse-x64.zip"
-        "http://www.nirsoft.net/utils/wakemeonlan.zip"
-        "http://www.nirsoft.net/utils/webcacheimageinfo.zip"
-        "http://www.nirsoft.net/utils/webcamimagesave.zip"
-        "http://www.nirsoft.net/utils/webcookiessniffer-x64.zip"
-        "http://www.nirsoft.net/utils/websitesniffer-x64.zip"
-        "http://www.nirsoft.net/utils/webvideocap.zip"
-        "http://www.nirsoft.net/utils/whatinstartup-x64.zip"
-        "http://www.nirsoft.net/utils/whatishang-x64.zip"
-        "http://www.nirsoft.net/utils/whoiscl.zip"
-        "http://www.nirsoft.net/utils/whoisconnectedsniffer-x64.zip"
-        "http://www.nirsoft.net/utils/whoistd.zip"
-        "http://www.nirsoft.net/utils/whosip.zip"
-        "http://www.nirsoft.net/utils/wifichannelmonitor-x64.zip"
-        "http://www.nirsoft.net/utils/wifihistoryview.zip"
-        "http://www.nirsoft.net/utils/wifiinfoview.zip"
-        "http://www.nirsoft.net/utils/wirelessconnectioninfo.zip"
-        "http://www.nirsoft.net/utils/wincrashreport-x64.zip"
-        "http://www.nirsoft.net/utils/winexp.zip"
-        "http://www.nirsoft.net/utils/winfontsview.zip"
-        "http://www.nirsoft.net/utils/winlister-x64.zip"
-        "http://www.nirsoft.net/utils/winlogonview.zip"
-        "http://www.nirsoft.net/utils/winprefetchview-x64.zip"
-        "http://www.nirsoft.net/utils/winsockservicesview.zip"
-        "http://www.nirsoft.net/utils/wirelesskeydump-x64.zip"
-        "http://www.nirsoft.net/utils/wirelessnetconsole.zip"
-        "http://www.nirsoft.net/utils/wirelessnetview.zip"
-        "http://www.nirsoft.net/utils/wnetwatcher.zip"
-        "http://www.nirsoft.net/utils/wul.zip"
-        "http://www.nirsoft.net/utils/zipinst.zip"
-
-        "http://www.nirsoft.net/toolsdownload/chromepass.zip"
-        "http://www.nirsoft.net/toolsdownload/credentialsfileview-x64.zip"
-        "http://www.nirsoft.net/toolsdownload/dataprotectiondecryptor-x64.zip"
-        "http://www.nirsoft.net/toolsdownload/dialupass.zip"
-        "http://www.nirsoft.net/toolsdownload/encryptedregview-x64.zip"
-        "http://www.nirsoft.net/toolsdownload/iepv.zip"
-        "http://www.nirsoft.net/toolsdownload/lsasecretsdump-x64.zip"
-        "http://www.nirsoft.net/toolsdownload/lsasecretsview-x64.zip"
-        "http://www.nirsoft.net/toolsdownload/mailpv.zip"
-        "http://www.nirsoft.net/toolsdownload/mspass.zip"
-        "http://www.nirsoft.net/toolsdownload/netpass-x64.zip"
-        "http://www.nirsoft.net/toolsdownload/operapassview.zip"
-        "http://www.nirsoft.net/toolsdownload/passwordfox-x64.zip"
-        "http://www.nirsoft.net/toolsdownload/pspv.zip"
-        "http://www.nirsoft.net/toolsdownload/pstpassword.zip"
-        "http://www.nirsoft.net/toolsdownload/rdpv.zip"
-        "http://www.nirsoft.net/toolsdownload/routerpassview.zip"
-        "http://www.nirsoft.net/toolsdownload/sniffpass-x64.zip"
-        "http://www.nirsoft.net/toolsdownload/vaultpasswordview-x64.zip"
-        "http://www.nirsoft.net/toolsdownload/vncpassview.zip"
-        "http://www.nirsoft.net/toolsdownload/webbrowserpassview.zip"
-        "http://www.nirsoft.net/toolsdownload/wirelesskeyview-x64.zip"
-        # "http://www.nirsoft.net/toolsdownload/wirelesskeyview-no-command-line.zip"
-
-        # sources
-        # "http://www.nirsoft.net/utils/dotnetresourcesextract_src.zip"
-        # "http://www.nirsoft.net/utils/exeinfosrc.zip"
-        # "http://www.nirsoft.net/utils/winexpsrc.zip"
-        # "http://www.nirsoft.net/utils/atnowsrc.zip"
-
-        "http://www.nirsoft.net/utils/tflash210.zip"
-
-        # "http://www.nirsoft.net/utils/nk2edit-32-64.zip"
+        # excluded from the package for some reason
+        "accesspv.zip::https://www.nirsoft.net/utils/accesspv.zip"
+        "acm.zip::https://www.nirsoft.net/utils/acm.zip"
+        "addrview.zip::https://www.nirsoft.net/utils/addrview.zip"
+        "anup.zip::https://www.nirsoft.net/utils/anup.zip"
+        "asterie.zip::https://www.nirsoft.net/utils/asterie.zip"
+        "atnow.zip::https://www.nirsoft.net/utils/atnow.zip"
+        "conadvpass.zip::https://www.nirsoft.net/utils/conadvpass.zip"
+        "empv.zip::https://www.nirsoft.net/utils/empv.zip"
+        "exeinfo.zip::https://www.nirsoft.net/utils/exeinfo.zip"
+        "explorestart.zip::https://www.nirsoft.net/utils/explorestart.zip"
+        "folrep.zip::https://www.nirsoft.net/utils/folrep.zip"
+        "gacview.zip::https://www.nirsoft.net/dot_net_tools/gacview.zip"
+        "grank.zip::https://www.nirsoft.net/utils/grank.zip"
+        "httpnetworksniffer-x64.zip::https://www.nirsoft.net/utils/httpnetworksniffer-x64.zip"
+        "idenswitch.zip::https://www.nirsoft.net/utils/idenswitch.zip"
+        "iecompo.zip::https://www.nirsoft.net/utils/iecompo.zip"
+        "iedesignmode.zip::https://www.nirsoft.net/utils/iedesignmode.zip"
+        "injecteddll.zip::https://www.nirsoft.net/utils/injecteddll.zip"
+        "jrview.zip::https://www.nirsoft.net/utils/jrview.zip"
+        "jsae.zip::https://www.nirsoft.net/utils/jsae.zip"
+        "mimeview.zip::https://www.nirsoft.net/utils/mimeview.zip"
+        "myuninst.zip::https://www.nirsoft.net/utils/myuninst.zip"
+        "netscapass.zip::https://www.nirsoft.net/utils/netscapass.zip"
+        "nirext.zip::https://www.nirsoft.net/utils/nirext.zip"
+        "nk2view.zip::https://www.nirsoft.net/utils/nk2view.zip"
+        "pcanyscan.zip::https://www.nirsoft.net/utils/pcanyscan.zip"
+        "snremove.zip::https://www.nirsoft.net/dot_net_tools/snremove.zip"
+        "startbluescreen.zip::https://www.nirsoft.net/utils/startbluescreen.zip"
+        "tagsrep.zip::https://www.nirsoft.net/utils/tagsrep.zip"
+        "tflash.zip::https://www.nirsoft.net/utils/tflash.zip"
+        "tflash210.zip::https://www.nirsoft.net/utils/tflash210.zip"
+        "winexp.zip::https://www.nirsoft.net/utils/winexp.zip"
+        "wirelesskeydump-x64.zip::https://www.nirsoft.net/utils/wirelesskeydump-x64.zip"
+        "zipinst.zip::https://www.nirsoft.net/utils/zipinst.zip"
 
         # obsolete
-        # "http://www.nirsoft.net/utils/filedatech.zip"
-
-        # Windows XP
-        # "http://www.nirsoft.net/utils/astlog.zip"
-        # "http://www.nirsoft.net/utils/wmc.zip"
-        # "http://www.nirsoft.net/utils/asterwin120.zip"
-
-        # Windows 9x
-        # "http://www.nirsoft.net/utils/urlprotocolview.zip"
-        # "http://www.nirsoft.net/utils/strun.zip"
-        # "http://www.nirsoft.net/utils/mmview.zip"
-        # "http://www.nirsoft.net/utils/win9xpv.zip"
-        # "http://www.nirsoft.net/utils/filetypesman-98.zip"
-        # "http://www.nirsoft.net/utils/hashmyfiles98.zip"
-        # "http://www.nirsoft.net/utils/operacacheview-98.zip"
-        # "http://www.nirsoft.net/utils/regscanner-98.zip"
-        # "http://www.nirsoft.net/utils/resourcesextract-98.zip"
-        # "http://www.nirsoft.net/utils/specialfoldersview-98.zip"
+        # "https://www.nirsoft.net/utils/asterwin120.zip"
+        # "https://www.nirsoft.net/utils/astlog.zip"
+        # "https://www.nirsoft.net/utils/filedatech.zip"
+        # "https://www.nirsoft.net/utils/filetypesman-98.zip"
+        # "https://www.nirsoft.net/utils/hashmyfiles98.zip"
+        # "https://www.nirsoft.net/utils/mmview.zip"
+        # "https://www.nirsoft.net/utils/operacacheview-98.zip"
+        # "https://www.nirsoft.net/toolsdownload/pspv.zip"
+        # "https://www.nirsoft.net/utils/regscanner-98.zip"
+        # "https://www.nirsoft.net/utils/resourcesextract-98.zip"
+        # "https://www.nirsoft.net/utils/specialfoldersview-98.zip"
+        # "https://www.nirsoft.net/utils/strun.zip"
+        # "https://www.nirsoft.net/utils/urlprotocolview.zip"
+        # "https://www.nirsoft.net/utils/win9xpv.zip"
+        # "https://www.nirsoft.net/utils/wmc.zip"
 )
-sha512sums=('60bc25d5fc6cbed75de395e71dd8a41a55d5908692741145f08358eb94ad814318850eb8fb3565b410507a9cd78968893d1765f6a1a47169b65ffcf173adeb68'
-            '489017c6019e069d43513fd86535c378f77cab588cc259ee020bb49ec0bca0628a41f72809ffb97eea49732cbf5f0a74a386dd39c74601e689fb9da765fadd86'
+sha512sums=('ad9e85e2d09b369588770c51ab1b3f236ae510c672bf633fac81cce7572a197bf8a00bc0d38d542a4e55e3c5a2859839bf431e453c7ef45ddcd6bfebf4cd45bc'
             '4091bd243a84bb473a90025f822a949d3b6ed826fccb790a092a946b4e170c2ad24c2ab9f256a4042e49f93e03c32ba59666aff1d7f49682bde859fcb2e6ca4e'
             'ef42954a9e3d2504996030036badd0ded16bdd9192d49f1ce4b7aaeb178cb09f75be6a8243367cda82c70cf42eaf84b31f5f4fee59fd860ae4c5789e21485ced'
             '7aa3e3df2461fee5d23e4f7779c30d0e8f0e13bc16bbeefe20876ca525ed99ffa54ab7e71a4686d8ad623c146065c262b8c622588164ed25cf84a4be25f057bb'
-            '4c186f770c9a142bccc45d6ea8d6fa6288be7b4cfce0679fc7562070ee4f0301619a54161491bc6761fc05eb6f66feda4fec55fd5d3213f6bdd2b0a859809925'
-            'b02fb6b8c89edf1fc1de2cff1c4ce7923798ae08da2b6787c9d1898bd2fa4b85358c701f440f055d82208d57ca4e2be0ab1c59c2f5b1c42ff866e80e4b3da3da'
-            '00711a057226553337a987f2d9c24d63513dc6b3efce9a3c5a06a59f37d2687140838ebe835e08644df06aacb40c0738079d04c2e134ba0c74918459415e4d03'
-            '8192790ecdc459a79b427ebc1257ca7663b3dd9dd2ae96985b2ed464c4ad4e8e8dc97f78b43c2f74e47e3c1e4126a9d811d5b041d675f3c0506c9487b9b2c296'
-            '44d54c26db5dee7709d55dd75d71b1e6452cb046bb534ee2650ada73abc00e8e49a9d15d4277356d3d2734d7f7c51fd1910cf12cb778b5b19c2b882e65990c93'
             '6ae8f862be63f889de8258e66eca46b07f30aae0cb707753247c53b406d46deeef2b3fe94e962b9989d6d320f2e40aa0d7021c1e45bb53d5af0c74b1c89cee88'
-            'b9cfe7b77bcaed41b433cb269329255a1a5fc3fe27a152960e6e8b36702b6878fb3f5fa17565b58dbb2c8f62a11ae3feaee9aaf1e3a872260e4ecff54f75cda9'
             'c5fa1d862c1fcf3806e76ae002a3d45a9651d37ed7bf29bc1b2522ace0568b53d07e804a81488d6dfe80e3d4a59d363c2216a3ba5d63b1d9a4de87ff2f792188'
             '9f9ad3893a7724867270630dac8a5ab7eb2032eb62282f45a79e60fa9ad1a5316b5553bcd330e9e3ab1b07cbf5acab93158b78537b4cd58c1a7f2a22d2d194d0'
-            '94224cf6fd5bffd038534bcc07254ae61ed04c060cfbb8a83e16cff401227145eb9b12a95442695e93f3009cbf975de2d0eccc750dd6c1303bf0eaa116bd67f2'
-            'b365a3c83d1c93597409e1e08778c428b1ba6a964bc3d3b02d28647696497fb8736d7577639899db628e36ae7a24247a39800397db4aa9b2f13802d27adc7fea'
-            '24042f50f9f96673ce513b29c88a1f33d187e06e8298cea306efcc2e4dc332a5e57ca9fd0db64d61e41339212f713ccb2342de0bc431888f4448411769040797'
-            '6c3f7e515a746797f9cea6896aa24a2d2f2642af90c0934919943cb79d04165c8dc9446e9757530e8813e3674a20e5a9a8210684643a97533b68e67fc2532553'
-            '3568d0fb1c4a92a72a2f0773aac4c2f6c54acd5068576a30834ec6260240006919edc4dc5700cd61dffcf7e3ae8bccb2e30cba8b814f76a06163270f40e07f20'
-            'd1dadee5add2f85e0686f900f374cd233c6c091dab856d37bcfeaa41b951c300776c11f5fe71bc0e435a3037d15608d56a45b60d3c16ccbd7b6d9af4ebea7bba'
-            '10f3bc98fa55cb53d19d20fbdf44192226bf523c9688b884ea9f58d8d775f5430d0d56e310dfea749ad30bd955164f7196575debe5e4b6ee14bb6bde3e8c2fcc'
-            'fa156f64c4ad295a451c96dac0b5b10542c6bd3b7be0452986381326c5fa1dcc84232b6ece7dc01448f07f1896b399da41bc344f33b19be22f4a82659435d5d9'
-            '86908d82b39c9995a751ac624f5042b7698143727a5f319e99a43461cd3edefb73e82d8d2b6da9d46f9d0ede36b53a0aa0ca0bcc6f2b98c830b1d8ef3c353403'
-            '5ffffc234471b04f6e541375bbca120fb17b7a70b0be9ee7a4cfdc988688329e8ad2d237a56c67eccc6a3b9146ac60c3e22afb577e3f56657bd655a1ee27a93d'
-            '3fb06896041f13b989d74554a5141119cd08e9bfb1a5af42a03a520085460a256499da463a9f6ab9fe46f44203a9a54591bbf8f779e5990ff50b4cdd4a4e31b4'
-            'c963ee8fc43581854e922c1b0b84840c9a77b27589a18a8ae76ac0238ef1dcbbf5d9d3e8a1fddc1d425e09676e80100ca232293f1b1624aa2a4027e2096546e7'
-            '2e71d26bf729826a08932b7e7cda98ee8e4df0ee5757ad009945c1259aadb44f77de31a8c52f47b531eb966a36c03e5873d797c27ea029360672f6dcf5f5937d'
-            'e0e4b625500033b104bb7f88379c30e765aeef143457380b01b581f1d436f851ea2ef72d34bb62c5b5b560edf0ed4c43e1eb47a179b85e607101be96bbf0d9aa'
-            'f0ddc08ad28c72d31446ce46f1d81fb0a8351f1a58cadc7a686b63d78c93ae2d92dbe709de3eba5781a8db0cf3859932420d03552df349cf02e91213cf52feec'
-            '61ba21f78ec1f22ddd61d82932bb3f4cea41f121f3a93b16d85f5b18c205ce341b1452766a4d9b02cc4992e7857aefe2eb4bf531d065b74b43151dae707f3a0c'
-            '7ef94c8096d83c8552fdc5d90b14cba1ec2d715ae8f08d44dd7172fe30c5edeab0f318c32c59a9c626ab5fcd81754315202637400119e4fb4d4ea2108f90d1e5'
-            '8ab43e2baac2a2a5401d5646b5d83f37dbcb84de76636f7c3979321578087d5c3b20e0c8c624eed754fe59533370ab581a62efd81a88664a809ca7ec0369fdda'
-            '73584a879195b4fc605667f531a7c77d39e85b22748af3250f2a72fee834824d7b3ca319643fc522700a9ef1e8899cca7fa0e6a3157bb8a33583fc7c10e9f5c9'
-            '55b1b901d04527e9c2c3fccf410a4dd65d90329b19d172da5865ac899f17408b8f62a5862070b632bda09687048274365484a1314d87e813166215ff1925e7a8'
-            '4a6a256cdaeb98c5834167d8663f8272ed93e719ba7780cf9d8152bb8b89d90c1e6346ea947384f941221d3432ac40ae189357403401365bf1770edbb1566509'
             '0094af4eefc345a490a279655d224ec4b311df8b35bb6a55d10d5be2b2e58be86fbc3784db2c1ef97e64dc2a9791e0a97db98d1347f8e3733699af0acd58bfa2'
-            'd6b8fe404ffa9949bd71bbe5b736959f99a2df4b57123a61d7cab32e947f782dc1efc263911550254e83b6e88c5631f3ae289a1dd540cb946b97510aeba3f236'
-            'ad7b32c9d8330c9f987322ba01fd2d0f14855969b0100c40537ec18d91350a216899c52bcf3f0d89ba187a1fca23ff2da15ef08025f95e60dde440b505c84aaa'
-            'a763c7801234c697e3d31089d7915388fd201d48b3fbe6ee64f4b8f8020c25f9418e7929caf14f81c0ce50059fd6112b1ff54fc592222ff59ca0c722a8c55e27'
-            '4332a99042283999ef9a52cbe25c04b3f68f0086bbe9d8fae37db87c200c62ae5e6478614a5df3034ad7d8cd42c498eacc4f6ea91499e7b2c34c2d5751fb5ea2'
-            'eecc2057c9d8b91a21cfdd3dc1d26879f5ce7a57b0584a3ebfccbcf61e4dfe20a6c164c4bea449eb7797d008b71874f7c444268f4b03d20b30076e779e4e4209'
-            'b419a7f304548a85b859d6d42622e322af41ed21b2fc55e25584c037fd68c4e923f8e101f7eb592ef5669b49c3e3ee00958cc61193e6b42f272c0687ce7957ba'
-            '2d95caec03d72552ca9955b8012a0472b264bc2b413b2893ad02246d4e34f9f892b8ab2f92e934e441da4a82b008056902885253049ffc45de702027f5d233b8'
-            '5c2a36641f22510355a9610409269cb3417e20cd8c8daeba319f9267c79866d33ef0d0cf66d49d9c8e892aa083b26e9a04a454e8911d94ce2bf781a1e94dbe55'
-            'd8727a24306761616d0f487860eee56b524984a45d630d92b6f8bf596197cd41962551707b9b422f06d558322cee1bb30451a425a537cf297c1d6ed8fdc94afb'
-            'fffb5bbd625dcf682eba3d1aab95c0afa7a5e040b0e5965a589a0c2b4b84d3504f1a819e11b3f211f0a06e5b20d9cb8e601f7cdbacf0c1d5d93741b1b24b4e0b'
-            '17bb6ce0bf15d30dfc6f86f6a8f1ad4c1386852b0d223067e7f8c392e56abe454aeae72c5695c2deded871cee791ef7eac8f6fea1acb35528492a9466ed68931'
-            'd3202c36c59e9e4cd24534e4810cf7ebf021ed1a479b6a2c4190a9a46a17525da14118c87882902e03f1535cda40ded8896805d75751914d4bbb7e021a3e460b'
-            'dadccb221a5a5a952884636e9831cd63a8eccd9d5027836f563c4d170219ae900ae446033619ab527c507a46ec7f3eb59476129202c914b5ce8dbb34f4aa33e4'
-            '421860e0891db63add5f2ab3db7fe2a3c9e10824044d1a19b2d35cd6fa3767f77a4645d70c65006169ea0cb05b3b02f0ece6985c88d7536170f01d66618533a3'
-            '6ed5644a3961c613ded2c189f2fbbcee6002296152bdb5b02fe80bdf7c19556e6b64e1eede907f38c4ad991bb8ef4da579181bee61bbbce22ee175da1248524f'
-            '09c48c9f2c0aac53d92925ef9232522ffb356313b92e31585852e90172e3e87d1445e354972dda41339c4c952a522fbbd1c336e977c764dd55704c8e9cf5246f'
-            '1f350697607665739b84b764c0790a177acb535985bd2d062ccab3d65a1afcec3526ae6668c9573ad0616aa3b773912035560ece7c104bd277fe7c8bf6bfdf5a'
-            'd56824da0b8346bc6e3fd232dc195207fece06b084d78821da62e374c6d4876e4c8cbe35d89a2a705ae6f0468ce51145ae1f5c4632b0ce94d3e0295a21dc0c36'
-            'f8d2e4f8041a03498bdd073b68a502ce1c8d6d9c53cd657cf4cd1c9f9552a998a71d7a1c62d3d92ff67c11d46afacd7c0cbc15006f1a166a1b1ce4e4d04e6154'
-            '8af9f3aac8b12f1a2191d5aff3f15619236deb9672eaeda5cd06a14dba3ba773239ac52c24e7c34968a1d35545591abc78f65bf32ad9c33423331f00d1cc2123'
-            '3a562c216fe341475402df12face3e3e2386ecc1c7557d74c24a2ce6aedd76d629368456090ff10d7817402e617cb9d02fc34842672e5002274bd9690203c6af'
-            '309d7ea8a6f3750ac9e8990ce7785de57d133df8aeb5c55d2f85d31a949f1d533a74e9ca067ca6b8d55d8cfe892daa4bb7b33f7e38adfa2bbb6dd1632d7d8e79'
-            '3f3b54c63a26a47bb3c1aac534cbd10fef7c2883ad2aad41ded81b256d886731066ea9fabca82f07417273049878cd2fb194dd426d7f7bb89967b7569ac028d1'
-            '2ac6fee0839632b045f4a1a54753fef96c2807b7f5670da2f889ba648ddbff8007238f94198285cb2837ae39a8e26d0f26c8186571a875e3899cb3e6ecc31ad3'
-            '187b27cdad2645f733693ee6fce73bfd3d537129c628b2713daa17a860e0a287bd4f6f5928785be7dc9e7e5a047ed30a86fa4d959c9332d6a58c410a16e0e6ff'
-            '04bc0bdd3927bedb12c84cae18d4d0dbdc79fe393b97bc01d0b606bcf812789fc0f745b918f145d4a6785c747bff74d701c7a5a17a06a96c9ebc736bd9a9ca93'
             '6617306c0fb8b71e582ed9a9e0ea747f254f85fb0fe9e084ba0d0fc8aa189ec8d36c7e0eda0623e00dff60528e98e61a1738a8ff4e8d19b6dc3289daf87343b2'
-            '917c0aef0b24f21e8308fda722c5ac2cf2119d9bcccf86d237157fed3ae91e4fc0a1c6c167c790d2fa1efa5fe59f1c2064fcb89cc2a04a1eb24e37b7bcd97fa4'
-            '1c2c2d6e1d81b0ef70dad29f53d54e13343a85fb3689c8173478d746694043ac57e5d32ee5768adbd470e006306a0b476322eeb64ce1395e7c87c1dfd5f76a87'
-            'ce01459755964744c461f5061eff52353ee5b7572efb170b8549ea09312c6adf8131213314fb8c523a8bb38b31ea1b272f5c399e773c5309ba60128b520ca8b5'
-            'dcd5057d6e9de8e8bc4fdd096335889c058cecf573124b6b8a5f160a417bdebf51dceb21690b8014476066298726b897fab67ce494b2af05985eecc5bd54c10a'
-            '29cc21cdf0d096993662e34c429e6429952065c07d7690e25de52e5f413324f4cee27feea7685d17a66f04189d4ba9bd82127cc7de5e63240df9aeb7f8f77834'
-            '354b17319ba82040f083f2e0a77eada47b95b0a48d4a7d8c751d7e77e834b3c3a3bdd8248dc5159735e98cc73c26116f95f03891c13c47f0e3e6ef235c9882d4'
             '6518bcc6d0359deb5ef6d42d1763a362247ffd9af67fcb340420b9af1ce660b83f59c6b67117cea24b303cb1320c09630d6e066480fa0c4dba08aa5cb209bc83'
-            'dd967e79641b614ee13d338b74a500563279e12f41bd22a459d7351d07aa79659c4df652beb39f0e93f3cf895e476e9b564018a39f7bd9088878cda31a01132c'
             '955507786ea739d3a2f5b20202074ff2d101fd942fb3800b968151fa648834e863b2269454cee5079195c1c6645400858d4946e7a7186f8f859983d80d82b2a5'
-            '3b88677e39c6058bfb05b3002f7e6cb1505004e649eec05395da9989ba191c974adccbd049efc3fc6bfaa9f2c93d286efdd8bcf2674675b2ae4be473ad19c2dd'
-            '4e61b36f3938e001669b3cd121631340b75e711a6085c403250ee0932cb3ba4818e184632f62ac4631ffebe477568a96b58e417ce338eabe1bb5813294be3b9d'
-            'c7981b8995a7a33b385ac9b03c6326ebcbd75d5a7966b196bae0ca13564907f84d0232dbb4b123a348179acedc91b029fb3248800c6c281a2b25a18caa4eff46'
-            '7529c8efe46b3cc1ddb0f80d3ef2f5a2846c28e2b0ba57e26d20c235755d97fe22d4af05c157055f6db776dad5acdf7d42c0f59b49be2c62d59890085f8490b3'
-            '1d7c313e903b2e15e898a237640b7d2471318ea6329517acf1d0854287785eb0fcb287cb06baf2f78060ad1c7907b991837aaff9062182d453b1f1f029e4ecdf'
-            '33c892ed3afedae6b0075905e12d4b276b5f65dfe93dc2371490a7d34d7e8f2427e39d20dfb984fab52b0cbce10cacb10182c2c8c08a8437760329f144d5796a'
-            'a1496aecd107d40038f723a0f1fa65eb7b3270d06b757d177c3922759027c7d83a92f15f74db35dd3e7b689f4f05066cf06144c0419af334cb1b143c985287c7'
-            'a55e75dd3e38e0ee1af67ea655ac8584600988b1b5ad75606455f7b254b7a7369b766d7dc531a1ba0f46d7054fabe4d9b0bf1a1fe9f5d91b59aee52cb772a0e9'
-            'a976be12481de776991ff8da52ec561f6a981e6a392a2660da84bfe6a5f537b1268a7fdc7d7d2c2faed75250fa1940fa44716085843c4da7a0cb5c0a6ff7280e'
-            '923644e2b066b13f8cc06806678b68d852e02ff2555b16d5247f35ae219cf7718c9aecfe727d301814b25dabc3f6f85c7c87c1d090945344474cdb38a0e60414'
-            '947474c0b6e0df5ed935b6d359cb006dd33b03d01f4b8d926c9756c03856d6d58275dee10fecefd0b47095f163573d5c66b36dd459f7e38b4c7f6c74e2fd194b'
             '6654c6b41b631226030aca1240378cf8237c8a197080a518cca5ee5a41b1fc9767886264ae263b50c4a26338b072ff5bcebcc41e341c54c635f4337e0d6e49cb'
-            '3ea4eb627b0c10fb92c5744eea1c28d05df7b957fd2cbb14c29f556ac9266891473c5da1e99b7d32fd419141e8ec835f15a673ae2d7ce86200c29c2400aa625f'
-            '1b285adb61379cedcd330e0512468a504ae03e095ecc26a3269c4beb56a693b099caf6dcc6b4d5145b660779e1746f1acff42243f6f0a6e6d059703e09e3d7ac'
-            '243a402a102030b5cc44fd1149c81f97ae5b3d45def205854c77afc5b4f10b639a1ac27a9332659f91a98a2adb501baff486be99a305582da7081139d7631e16'
-            '38aa4ed37d25bee21fb31715f699a71ef2b9e230a570d0ef71bb9c4e42e087376a718357e83d6f3b8f982544160a75e4aedb78c26049e2c0ba1e6a5834fef22d'
-            '082aead8b44ce6d098c67036be71e5455667f47b0b2231340e4c9f55d7b4c8b7299ea2dcdfb6f0db461edb9f01045708bfa0082e37179fcd016563a8e53f5e83'
-            '4a04fdc165e4ee911755820c189cc30db8db22a1a128da951cc5985ae6d98cc1f820009fde0a6cae1903d7e6ae4f6e5b445ecee8b5f729aa4e4034259bf5d412'
+            '60bc25d5fc6cbed75de395e71dd8a41a55d5908692741145f08358eb94ad814318850eb8fb3565b410507a9cd78968893d1765f6a1a47169b65ffcf173adeb68'
             '8723ab7a792549e8a4dd3ec4a5ffe3b46f872114e4aac806c03465b3ee23a22a6e7f3208ad5a62721d4c494d128e4f2d6505c9553b55cea16ced81b8244c519e'
-            '9b28e6903684bf3e335d83c40577cd515b303fef2df76d61034adf8ea49e8eba6da368f25e38e02371acf59362d9a15efe093b49d093124bee3dcc5934d49f0c'
-            '3076b9aa1205d8ea6c9a8d25f395c7643b5a3e736dc8df00fce1e6e5a6b4d7ed235d0ff7a22a1e632be0448ebb876ef824e0605d382d8357ec04390fc83c8160'
-            'acf99f70ab6a58d0659350cd22260e862d4a0d3bc87603c503a5fa67dc67e80b5aac739a8e0a6ee383933bb421940ee80515dbd863c4ab723ca3e240c5c21397'
-            'c506ff62e114e3378d4b7867091d25599968ea73a94ce63864cccc52212e3ec5637fcb25d08e9720185418a2ebf5bd5dd42d54ee1b8ed6cad7fea7d2ecafa742'
-            '1ee54b951b1a068d51d5b86ded815f345ab973b5c7d2dff98601d4ce118069f07cbc322d82164ac4ee6010339c56c7c0896245308345911fcb209581ad328013'
-            'f99861c954664b60a88ea34004b5ab901a621b3787a888fa0ee825e7b6b665d4920fb5302eb376a556a43c49819d23d7fbb875ed5992c9460ddc4eb6bdae4b79'
-            '8b366cb3d0fcb9c678df92e32d2600b9fc38674c1e790894ed0aac21c0e42db299ebd19b7b99d632950797af84d5bcb6818efce152fb00b371f99dbcbd4531d7'
-            '046154df9604b9be7bef19305ab9e9d39c90de34e0bb9e651cad900d182ff05d9a9d3b0cf1ad28cbb0b35dfdc13e46da099445ae306c47da06938b4a56f464d6'
-            'f15ff2ba98a6513b6a894b65fc1f0c8f4e38155fe2cee0082b5e69350bc496d597e07dc74fb136ed6e913dc8c6cf1f185d84cf8059996158bf9c1bc78a58d53d'
-            'eb06767810984b698ce583d18b0c1b3ebb11f6996bb9e41907bf79c915678741bfe5d352152f3e1376d95f6a97a00a643bc4b9412ed179aac3511502e4b6f5d5'
-            '1d8d676ba56832a4c554ac0b1041f1bf6b6e2340c5af35fbbc9357218648347c14d719e1d35a23e584c4432b45bad145bcf7f562ec48a3d4a8903a1aa2eb490e'
+            'fece3b14d823a63c2842a5d41795c1f5bf23db8d4aa6bd4a90daf4226a0c5c9008ece6d9370b1cacbca5b4500ebb123d1b3c7b7a15c37b773022315d65e44cf5'
             '3e5977444f2a0f1eb7c07a06a13a7c8cf1a5d8e2126afea5eca7143898d464bf0e0933c201add820c42d26d12f259cf52c897d081e6062aba6fe07d6e3257794'
-            '53a4c2e139cb47d5c6fbc8dad4bd44726c698715852b52040eeb9dc950683ba4a4b4ab84cc389291c55cbbd265201753831b8e0a83ce8d8eae64d44468a9fba8'
             '76d2bf8bd882c360ed86332a67744fe77b18e72a047e242b2b6e8a34b912bfd33cc17d6b3c12475fe25189dd84498547876be438edce2363760d6c7e865c444b'
-            'bf835421273f47d0dee4eaf8e2877ba6353490f04bdbfc234f8bc51edcc45928181a906747a3cbd67428c719c0c6e4680873ae66b2aae9979ce33d424c7c23c1'
             '35eff3288887de6dadfb1310037541c92e3590e6c07813bba6019cca57416ff55629a775f4bcef8b4f9cf80a4855df07d19a045978b8828e3442ae6a16c840b7'
-            'f5668237f0e44fce8d37aa0fdfcb6f27d057c703344d0b9654a4b1d8b59a00d59dc0e8d3615614d66a5b5bb4a0eb4080893674bdaeec4d4e6fc4e1378cdeb438'
-            '68d920de54ddc73b8ff270d35468b9d982432f23d579656927a27105e27965ab9559f925c967801c7d04e7eaae00fd9cf7667303fe0517006848c244b6ba2dec'
             '8d27f71a01f689e0384e5bde3df0095d349bd3188c826e75fffc754735bd3aa79257ffa78a47753e1b1ff81e65885c85fe72ed6d5bccf638c3fc451bc55488d3'
-            '6dd7d35928ea703d35f5e0a67bf0b668af1a2a447855b289f22e9deb94a9b01232e44d804f4e131589a5f32caa7a057adc12122e976b68d2fdb0d9514b456a56'
-            'ef5a59350d5e90f9460437bfbc85f1821741d6eaf17cfe44f593043cde4e3fea1e5d45cc1d0e31827c22ac99564be7b0e1ff4f684af032e277def33ffe845a36'
-            '8ba68f9024334794468392c1722a15c2edd4c49848b8b06a6e13510efd9cac64334a89b7ad269ab3e2aa4cd7a7ff77714158e08ac60b896e8697ad5ec8419e56'
-            'c3ea64d968cc24f120079c775431370d805ba0f75a29210dbe319b36a64e0ecb3642fbbd62c1bd9d6a8e577b6a55360fc339f4514fe9669504c29cdd7528a3c0'
-            'e44681e4f0ffbbd6067aac97d83f68fc6b89fbfc5cbf26e291963f3007f45bb5e539f87655a094430842ff17cc970be5d44c1e45a1741be4cdc6a4f689c0fe3b'
-            '333c1e831024f8140ad4ecd690257482a7e510842a993a3ba50f323739089a0b62f2a1e4223fc8ed8bec4d79d8308779a473c24c984500e084b697e0f9aab2fe'
-            'c17a260910704030738285433f04417ad1e3c99f019de577a0fc63978c205c4233209d985dbd16ea8e0798c10ad8711cee677d0f9fc569fcec0131b5e1e9cad4'
-            '6bcabb65821da2e1928bdd26f64aed82d2b0645455d9c8851856b337f082bd80ad55cea17338546817b6c5e656148c2ddd35c74262dcdb67e1172bc5d3fa956c'
-            '2aa45329194a6f9f2583489beee4d9cabff01a79d8ed1a35202724a790204c9593c258c1df5688061bfaf23052f8dfb314817a35d488108f2b54e6ccb86af256'
             'bebb6cacb86345190ee323ace2d093206f819334ab200c515fbc07c6e04f6002af0967063c47eef51ca38ce47881953b60a36a05bc914c92b5f95fddc3a2ad16'
             '62860e5e19d50bff0a69c458f6b08f5c4403d8d708b6dd0f8a407cadcb9ae6293f4877706a14d8dd8ba95f0f3a854e5111fbacd02ab85dbbaa7b891ac122c8c3'
-            '798ee354d9178a786d10ad47043284bfc2b806646243da6aa3acb7d6e2e37d053749b2414642271c42a50cb937500a83890040cbf2aecb989e0fef7b447231e9'
-            'ffb1024d8cd1b770f16937852a92b15e7e27692094694e4bfc1510140edd263578487ac6d727884b98efd13d2aea614e245330dfdd5b094620a74c83edc1b6fa'
-            '93754677375a4a62d0be467aa66aaa37d1e12426f15dec6b0f7d4c0e4cbeb841f30279561d9d70eda731fede737a80e03102600612f7257232350e7da545a8af'
-            'dc436e5c36c6e5d69275d1bc9a3bb7d078a2a142e5d05c4201aa8d223a7065b7bd517d554c4f72c0cbae15132f2afbb266735c2fcc18512606ed36c0ad1ff692'
-            'e173f409c97bd97aeaca85c62358c7ac0d28dc88e3fb40889b02a9c3aced22cc9ca46a33639fc5c8262e7adb8572c0629232118e65fa9b067d74a9b7fa58faeb'
-            '559a2e6013e1ce5065713320b3071f8e0eba5c4ea7eef1053f3a7125c9ae1db1b9ad78807378156809cb8e0ec3e5df139159ffad3469f4855a60d6daa5216eaf'
             'cb029207e98a34a843691f672651563c313804331b604ff7837a0ba36c7373e484558038b8e892b15b12968854f061b2709fcb7b0690e933fe723ddf54bc1069'
-            '7f66820b71c195f34439d87edb7ef62b8cc0b8c0ed15a227d522aacb833e5d9375b86090bae1cb15b64ca33d70d6dfb56677b49888e927422812c84eca12eb82'
-            '2bab2a9f1a6ba00ce9e6de7890f6511b66bd1635dfd2181867d3d54cbfcba5bed8cd2269f9019176eae9457ebb2541a3894c7395115bb2c5b2dd6a67d99b8bc3'
-            '4fc88666331df5d53a2de2e68d617364d23a16ccf9d88bd7292086cd386f8e49a16ec5e852d87b1633806c0dd77d16d2b4e7ede9d25540cf18add2020049b109'
-            'a0f20224f6eb8675cf41643c7a9d473f68141dc92c0ab6b6aae6ab6f085b32dbfa7f4039df8bb8c965a0b59b52376749f1932081afadb164286123d9951930f7'
-            'f4cfcd5f683f754e37952776807091d6833b7532941a731523a8fa06fe2a75684ad6d9f78c0d00cb315817bb456a2bc7ff3733866763347f4dd8f9b728cd5dd9'
-            'eab2ca3b119a1172c9acb31a5364fbcbec4a2f46c1cd168c6aed9239acae2f21c5119adec80569f141a6f5fef7b678120476a2730c4f5125cfe2aac6443462bb'
-            'b3872079d1106c64b251364dfa26cb2355e7348ccbe2983ed9ffe7e77259a46506357603ecee9e07a34eef7ff0385895f3b35ef1de0ec8ba1dcbd02ee40e22fa'
-            '634dc6292970efee53ae787a2bdbb0a4a1468e9410f0900f5efbd887e47207fc1fee63db1cc2e8d268848ece4751682204a5249ade8cc9302301ce1595394e5f'
-            'ddd4f976bdd8b07d378653c27aa43c5922178a0bb8e540c1309e115536b8e90f35c85e55e53278d14b8e0da6fba66b2f40b2424d5a41f8e3b8a84e098af3ad06'
-            'f6466faadac9bb8b67cc07ebd1f0d6c1ed85876eb21b2cbef7eea5464ad3c112f98210581b623e6638dacb103d82422ac988fb7236694b90bb9927a132a9da87'
-            '5aab38bcea5cdb301e0de10744a9bb6aadf1d8981df52f3f772af96b0ef9831652f15b29410563946775378e11dde10b68b9d4dcb9170e16f7ee272efa2a86a8'
-            'da6455d6e2e1278d3927d99c9195afda3819aa3f8e94c341a414f52f120baae115a32d3444f0004bdf22b5ebb47616dbf8bb54eba7251acf4c117f6d6a5a3591'
             '38858cf0b56a2e59a9739ebee03f11ee661025818755058230ee0f224beae831f0b0869b76ed7bce6d6b6e4a8d321ab26999a2a85e04fd75bb0147156db824b2'
-            'd1f1b47ac1cda52a165d7c23aab22a4f4809f005f1e380824783d8efdcb65a3d35b99f7f28f8cc5c3de0b1a25b268f8a45fdb955a97b2ccf0769d2c4e230db87'
-            '2370fafe514ab223550bd913d696b2b41d82145b0081137131787a2cc2dbc4b6bc5ec99f8c6d308bbb2d6268a8e68ecfd731963bedcaddd36b6b71720462b4af'
-            'cedf51d3fe6c40f47201f36de69a65fbebe62e299d085805a2c8f8f19aaa5d51bc65fdffc403cddf2fa06c77dc7633cdbab82b2df20caa9ea3de395daa105f13'
-            '9ffac88b729acdedefd395e9212b989eb0a8b865c262b20d2336c07048e6e521ee11e70fe85c4cee6bc4d91e04c5d37aeff3be8bfd0d1c4bee95bf075e04f846'
-            '14257100255377f00dc1a0a64a0395c4227a6982ec1d2ee77923fbdad17ce9f0248e4213a1ed58e19f1a17586691102f65e1590ff360a835b0d5ceee948e511f'
             '5ae97450c5c0ad13480852fc0527c74dd32eca4e0d3f11696e6c5b2157dd463bd96bb6c41564777da3451e1ebb815f242993abaadc8cdfee0fbf378ab9e4fd9f'
-            '15246781968c8d48c473e73ab351666344a2f22194c6fd1d7ae10f4f7922502cc34e2f587b2f358fbf03588481f40f558cb15e33e50d181104d63aeda5bc9cab'
-            '1a0285d854c098f099711e6bd83b6fe64baeb50b549ef3e9a03fb3733a3ff0889d3e5fc94f40304be017f541b3b526cb841b20a0d7b0a723f5b1e9283e52aa07'
-            'a75bd492e3a20c41e6c783573efac3f34d932d62a380041ede20ff734f02da167e76b9969f513457a4ceb1c4cd24406a11fa2ddb1090877814acc2648a77b7a2'
-            '1f52c1c749cf9c0f3160e9e1e0f6fbbf718d1147c7f805150c334d50a9e8d3e5199d3919c4734fa52d5df097626bac99f9fd1bd07e08896a6b4e024d492f8382'
-            '3ab19a3e1ccfd070293bf0257773c16b9ef208d471e62f1d77c752e272e9608bbc96d1d6d5bff7cac2bed549042becb835408da61e81c46658890e580d9de7dd'
-            '123b6d1b3b38b69edf880dd8ddaf618bb795ffc7dfd42c45202cb346c80dfa0122a7b4977d67158009cd1bc2356b33a3654978aa19b9cc2278e280046a54ec01'
-            '40bbce4051eebdabe4e4d437120d6403098addf7ec6d7f5f32a351774cfc72b2709c5b19cad648db9a0f6990fcfcd1237ff1e0326bb8ea2a23021331ec6b63db'
-            '29d0361039deec760ff6c891b91bbaf4c9f5abbbe56f2f702b2e9167840544ca01e028424feea870ef8aa5762fa6c58d0fcc556654288064f75bf3ad028a7008'
-            '554bca4ddfb949d9c4c0339cfe400a02f989bbef0d36d541b10e69ad9488781ba851271a8a0508aa9e078c130d4ddd372fe7051242d2d668d34bacfd6c1f9651'
-            'ed7c38530405d4747f437dff6c0f20933bf02a8546e9fdeccf728d8591d5b8232834c3430d36e4f451cd80258a5bf2911971fd60a0c04ba0c3e363bd24910aae'
-            '2a97c3bcc3917789a345f7347b00066a1b1216fa929e29e61bd2f46210b2b3f8f3e9b4a40e20cfc063c9a6bf5e93e90fcc2561023afef2a51a4b6c65524ee1d8'
             '28e30c9ed221b9c32065cd938a9be56cdf70c2143f560faa346c75bbc213b4fcb5ecf49b1f14f65b22cb285ede3b6b40ad7707305503e16c2e7f1551ab21ab2e'
-            '57400637d666c0758daa720695dd8cbb4290e03a6414749e85b2a1ee532c648971655ef49d7cb3def75bc80e149aeb4a3647e1b3b4b6c0ecf241a263bba0b21d'
-            '3bf472b282e7e6f59e9aa238ce133d93df42b27498c35405c73f3a8f8b98036728c5fc35a5a3d10fd71cefb09d313ccd0acbc3c3b8717b7c3084f9e6d5b51a51'
             'e67af38f259b6fbcab0d9417fb6873fad691726ae99417f58831d054fcbb40c88b21e6fbfd1527c56fb27e9ef844be750bf5c3c0e7f6a72e0371b3e9ee433db6'
-            'bd4f667d82de4b85b14ba0c2c85acede1a47d22233e1245e1123b1b9975877cc2c08ee4102b91e24ec313a6a3a41ef11e6114e6607fa4c6f8b92a27a4cd42b24'
-            '2c85c87c527cd80f7b3367312c474484ec61d07d7df29efd70200632e6f939d831daf3deb4251f8ca1178d26af7a8615f1a3d5e7e81299bf270f101dc927341a'
-            '838fe50aeff2a83ea5fefa0df73fe85f2ac6aafd427edb5378cf3c33269c4bbac6525ccacd0b49dad203b858731a9d6d3d17335c5119e9778dc37fde0a17cdf3'
-            '3e82c4c1d1f2d33271cce069a851b1a908320a0aad4c8325962ed88f1140ed5e036f15c7caf2e29ede933dec2ff304b662684dfa7725d1f9969f66ec7b0844be'
-            'd5a0a94b206148cc0db319870cdcb3654e2e0fcf788969aa9e828f6fb427550ea32625e07f99ccfd35513b65c37fca091e2b2f9f6e2f7ac4b349e38a31949a09'
-            '04887d36866f1c17c6894cb8c3a668d7d9c6521952a45a2910e1c4112a0908878f5b4a23bca064960d4e3cd9444e816d60d7ffe78b16c8c02cadee3e7d0da814'
-            'd148aaf8a02ec93621716a407ba7e728d5ea2bdc977743dc63fcf6e129bbf557c8a6f7d6a389b21ddbdf512be05bc5715d05615e1b234bb499b26b1d99993883'
-            '006b4e49ba58ca7fc5ad8ccb73dea50658799afe0e7db345cc533bf463bc6fe8550777c62fb18f023936d79221e3d5b3cdbaa1810724b95bee8be43893a82ce9'
-            '820aff2d81bb7806cf733a1ead9eb1e4e249f84d01b5f966230407d6a3a837d2fcc2ea7ebb1aea24dbb7bc4329246b020b6f3d95f7b1a6e77c0b1753774a5292'
-            '6a6ea486cc6faad85c63dca6542ad4a28eae7c781982db36f0d41ead70975a2fcdd28c0ea998f36943cf100b78d6d3e050fddb2dd8037bc23bfe5b577677c008'
-            '87f893d6220e5d758d8dc4bd2887fd68277e88c16ecb80b0eba071803fd6690efe5cf45cd88a16bdf553a8598849dba1d6d0d1cb87db59f29b664aec426a0431'
-            'fa3a0e2fbfd3b9c259f11dd7d96d9385f8f4eed513eec7ac06e058031dfc532eba80f79b922ee1206576979d97fd7fb39e70ccc8dab2ded5a5ccf3d9d36d4ed4'
-            'e69762c0215a196da90e3d8efd17a18dfa4a90bc48f9479146e67d8726cee4bc17731c934d47b7cc96181f95601ca7bfc67016e41ff9fbd395428a86939eec7d'
-            '14761561503129030dc6ebee795cc956836380be8f46d3d3f16bc3188900588b144aa74d29eedc11aae4f5a9956b43311fddf3b6da28183e50a3e695b1784ede'
-            'f211d26f728d99630f0d877e23c6240d9233ca38b68e29096b847f4fd8986369425c15efcd22d55b0f5550a7717abb977af009e75bcfbad7a9f821fa1dfcc8eb'
-            '43bedcf6b59ce5fdc13977789691d4c62eeac9f32d6f11e2df8b875e007a7a3df24134bdf5e9649b2e90f7524cbf824e69627ab4080b2265393fcf6fcc99c50a'
-            '71644a658e89c86d2a96e151a03942ebe462bbf5867566a4bbdef6c9f0ce9cd9f38d87849d3a600657b9ce475b3a20ea85cb5a247f4c770d4557d677c6f02851'
-            'e07050cc579e89427f124a2b0007c8dc9ae886e35a0f33a53b1ac83b8dec3a1781d282c07b82e4bafd1cd9e8110971fc08ee6f618ccc364021e50fb0a3455d4e'
             '483411f3c954fd5410d70389091d6dfed7f48f33d2d4fb16ed3e4c7ccfcc9db9a9cbc89f4ccee67ee7e75f1ad53cbae0f23dbd0b3d6d39157d60fbeb3bb2fb23'
-            'ecd1edfd32e83c9af034c42af7c68b2c41720ae9af3fa4e61dcf8112b0beeaeb482540df8885cec1b5490cfaf7b92ca95c3dc2fa6eac0fc93451666ebc32a28c'
-            '0a66f8fe8daf4d8ecaed6dacbb17459545c03dbb59fe66dc4e00f025f90bac2495afd15e5ea3dba496bca273e24970692972ebb96c11263fab1d5dc13d5adbce'
-            '83ef6b8867b1a14dced0547339e015aafda1e30e0cbf2f42931b41d05f85e7883794c011ef65701ea9d51017c114360aa3ff83a032fd20b295d9550251243ddf'
-            '06bd5a80c589d19e2be93e185ad006fe9048df42a1e58f06f57d8f0acf95ff3765b6cda044803e0311aefab74aff6d8cdbbc798da672c371d6c507766b4ece5a'
-            '793ddeaf0a4cd8701b6ebed949d8d0bb45ecd6b16e178005bbef10e2992f354951c35e4c667dc402f149493838060bff4eca82b48ceed1f63d8a977f89b87e1d'
-            '5509526ef1c6b66ffdb4126bff7b72ceed83ef54f4872a66bc572b9fc26ff9ce70679ac7ddad4371a03dc415c3c606ecee0cd2d0ab10d3d89d57512e364b0e1a'
-            '4ecec4eea335d1ecbc15f40df64a852c3c2e2aa2e6b2c1d5b72ab6b85f9766a005cf10710e8f802aa00fb90e6c50e79d8abcaa3c8b7b40e4fb1933440612c223'
-            'ffeb4a7dde9f9e594985dae1afe3b48c269a8b7c5d466f662c1624b74aac05c7dfd60f9e03dea3cdfae1345052f320583b9eb1ecb8e9a154d47cb15822405a46'
-            '8075cbd5f2b891c811d8a70609c00b07aba11510ea66ebef58531527563870e7f24ab8d37811b6f02cc6058783168d30df23c5092647882ac509ac23a21f3580'
-            'f803e6666bf9c180a728f3ba04de014299f6a439fc88d808dcba80bc15ddad041a02ac8e226479aebd25935c17df344de802a8d75a0f9b87ac0c83a341a8118b'
-            '80d44d557ce2dea468f25a7112ee499119a7deb0014481cebdfca7b25f94a1b6bda61f8fd55b47856c655ecb5068ded107c3c7173645a42ba7be078975df73f2'
-            'e4dd816625ada957627b0769567c054d486b593bd9e8c22946b714103c918ff7f82fa1736857c30c680949591d4366bc49127bd042a23d427874625f6efa9815'
-            '9708b2a29bbfcc7fedce0854d7d8a6d715207936ae3ca10b11c4b65b2115ef8a89c13a1c61893dd204209a86a17c6af20db1cf678f6d29c21b88558282ad5dc6'
-            '6c1c24a58929cfe9f638a41a7ebfa0d89d00de64dac07ae65ae5161783d8b09127dc16d89e028b088e953e46669abca4adafdf46a1a195a907b61af683cc4a6d'
-            'e9b327c46589d6a721509cf476678f078904364628123b86b9e06f95b181b6e7e83fddeccc08ae0d7cfcb5f5572b5ec47f40c53fca9d8625c8faf8c51ec0e1ae'
-            '58ca8088237ff1f7f7792e5b2ddb03f654e4267c795b4f203b0c11ab255404d3c9bac66c9d56ffe250915c5735b3aeba2f75d62f74b89dffdbaa25d2e0b0da40'
-            'd239a798697e5400b6f04e9a838af7bcb79c8d336774804cf1edef25857c9c81a0a4cd00a328c6cd2f8b68239e503ff2884626e0aafc25c588813f4a378fc9e4'
-            '3f8bbb41db3cb14b240c958e62d07ad09c565a5f9b9e77290474f8718b211d14225543c6eeca22012ca7e93dba76e82a48a40aa1a4ecc74381ce3a6f87adfb01'
-            '23de02bd80983d40ea0b9e29e1c0e409dc7fd917a5f3d5a58ead321e2893039f04429f32cf05c218bae914b1c9dc81720643cd60b9a032dfa8de8c37dcef2920'
-            '6fbabc9ed84a97d391499fad6c93d8c78d1ff06ce6f785981e3c580e438628a39e8f254550205dd9fb9431dba4c6abf0c1b11a4d7489157877ed2532a10c1d65'
-            '77c1fb5477ce5534649635bd55095400be385b35b7d3b0083402cb089a2ed7a11bbb2221baf8f3e2cdd9ec1e2559ae03b25db9210cb87eb1ea5ba293ac5d8fa6'
-            '28390bd060d5c7a2ca00070dabf7ba8bb00abb2aea6866741be134f15b5aac4b36880ff9a00bc9ee73216a87be9b11c263eaabe338c19374b052a2e0da814707'
-            '7a17e49d7a652bbf0fec9afc0282f578e0a81b9329b98d1569762ff27f8ec5c8d59cea8f4c3fbf3bb8520809ba5c369ee17cf6db2858496ccb01ff4d8a44074c'
-            'e0185bab1bc1112a186d010f9c418c155b8958c57a0e4ba39f781ac6b0b5dd9eb99eac0d6d860bdf16288dc8ae15132872d30f7bf7df363911e795dcfe907557'
-            'fa393635954e74ec28fa4a7b9300941bb15abf10ebe0c6b096cd327612ccbb39a4e634dd8b194ecabcba73f51b09a916f67ba356472f910bbf927513f48af732'
-            'c7c3b652e1670ad01ac11f981154c887be6d37844d067ee2cf2e92bed303ab63fc07e34a7a85fdc6fe6d0aa9514b44127865ef951237ec0ee4a8847c573bdf29'
-            '92d59ec6de74ed9b5d7bb7c08db1e965f35230fc97ba09a53aed66983a9217461c63d88d7d68a109fb653c311802752c6846cd264cdbb73a0a6f8f33251637e1'
-            '1cf5e74196dc30d96ee117d26b73c3f99e741e97bef14805664816a0db8893b433c9a7c3eb5c6219a875dc596968f972e041ef7825ebdf04dcbcd1a7cadd98e1'
-            '7d6bf90986aaf4dd21ec307c0b9d878ed00baa4eaa9e9e83a9f36fc9b7f4644ec83a2e481dbb693c6999f8d1683c18c4e9dd7a442b49770e68f79deb22d1100c'
-            '30ce0296c5b4782d4dd81a76a13063519414b99043f41318d490d2df274d005c88fb56c7fa3b2111a90dd11e2d07c175af0ddce161fc09bf5ac39f44e1caf02b'
-            'bd45c917db88958d0b71d2e664cb3f527c307cb20c841653fdc00e0a39e32bc33bd1fc94beab05054867d5b9138f39fa3c5a5f3696eb81bf14ab797f2ecb646b'
-            '23edaa5c2e226cd1fdd5785a76380f7927e21a0860c87e3f6c6f9b1dac8df126652bbc7584c624c81f1cef1bd96332136195f1011af6aaa2db160de2cb62ced7'
-            '9961ef080e9b091d5ab3f1e3e4ef31f65d9458aa058160706cb78c1327fef59819131250dda47107e892aa09c9bc84166d38cb1c01a10ce3e801ae301ea28721'
-            '65a7a66c8d405ff04928b1bbcb00b5983390eb41fdbcddea3f645e507624843d6b3c6acb16ca6cc8cafcf63e3f2d07ba0346433e57d9036f94cb8a195c554025'
-            'b0e00f2bf209c87750d513d1ca61bc62e2db35ff98b098cbb99aa2357e210e99a7f5dd630c27fac90f2628d99673916cbaf43e13ef498311c731c13b54c24631'
-            '955879bd46ff16dfbdee21dfd5e2e0a9610514a6b29b84801d6a9acba43c7441a8158535b0cb328d20e4e2ec0ff603f6bd5c0e391676d6ff672b032478340f0d'
-            '55a64266a989f1b40c08396bb6bcc2fbe4b6447778011b5333599faca625f7e50dfcfb9c1be3ba0c09ecfb1951cc795b47c13fd6a304fa8878b8ce84e9be3030'
-            '9ceacf2d44068f880e9411dbe98a5791a40c4dd1188978cf53d517f05c0de373774e11f6fa636e14db146af0fb74dd407ce16fb3ef962cc4f797b69f810e2da1'
-            '4b7d0b96da8488a71a7f2eb157f1369e67a7ce6324654fb93d5439602f7cd82be74284c05db6377aa5fa3260ae873a003245805954c1fb2f2b6a163683321f0d'
-            '7e4d888b012df3d55558c55d43979a8e79462514c976e39423be1f911097e72a7cd9d7e42cdd55be9abca16d8b09f86f8cbf3e11e1967fa66aa870d422d20217'
-            'a4ca0c2d941b0e1201d4258e8695be008f8f7932f44177bbf5acda9f9a73cebc431bcd33e2ed05b8b6db2fbb2ce24fca7cb667795fcdf03d6423581266630f35'
-            '5a3ea09fa2aec71991f91fd3ec63c7460285f5048c48502ed444228b1c6dba38ae7b84c93a599ca610a1eef14d3015a2937830e0b1eb757bce89b8945962cd65'
-            '61d28eaa6e75671e2899f2ddd5e3676baba39182b693843db09f04b000ed4f1aa2193eef254515d4948344ed36152a0a8ee2ddc7b88a32bd58478d5fac67967e'
-            '592de3891bc045fc913a7cf01651383eaaf9f4e0029095b27d0217c13fd21b9beb895e4aabaa6d051c45119b0c44ba4b2ce41b41ce672c3118b5b32b4ee9e261'
-            'cdcd4d1145e2fb1f9dae3be9e53f93dcd928cab70bb906827a36a571799f8553253d43f86891b5bcdd5b331a5beb8d491b1ca3ce7b0122a3c8682227711b371e'
-            '3025d9331e98768cd67aa6a627fb2574c38d3b562a59e1e2a2fc6f858332638a7939c05318f31dbf6c952e4bbb3cc21422de839f17984de9010e37b6f0f59065'
-            '61b5c4b795b3e5b86693a35bb6c114b894234ada630ef6f602185dbc079b22a7ab7639d7bf6c51fa5b9e5ec018a8ab8beba70c5504302efe00ed0d66f373c617'
-            '96108af23957b9b6f9bb83cf6541fcc7d0d5d496d1b26809f196bdfa6cdf086425af6790255c2b2b3ff889641c2ac93439058c416819f928b1384766716be423'
-            '209f4225d0f76f14a9d623057d2a3f91ab73f8dde8f3e1501d50f252aa51d9f5a5b01aac83201745ffda4e943a33aab70c392d68da45a9f0d8f1db534dbf070a'
-            '0ef321b6c5f74437120da4f6be3f254503217e6bdbbae64baaf2cb31f2e7b7c747e899dba1805063a097b1aa016cc725bf4c1d7e75d605262052252454270c36'
-            'afeac3a0e36c708b57f044d5cb84a5a3e454daecb086575cab5b0fda395b53df545cdaa72cc73abe01f44680aac8fa91383cb4d6b4fe87d10a51089dec066508'
-            'be9612c00ca0d135d38ad033a8ef41d66f012a15925afb6d9efc7de743a2d902bf2e5e2208292d19fe16ef14924922a140f5bd0b69f70ce5dcaee9fcb43b2697'
-            'b6a4e3612d6077757ea99669fdc77b26c6a472c9925a471f0b9434faab04b5b6ed33350bbff3a5fe0ba6b1d84ea09c31333bc77c1c55eb69a63cce27c6021161'
-            '63abbbaf322da74fa0cafaf20cf0e089e0abbd8a27d1b7a7d366a621adbd8d07a1c93f8b06994fc7ab963ab54320c0915b8d9b0594f1139b188d4ab283f3b280'
-            'd1c6da93c58c590905a2ac68ab1f7b2595729283ebf9a94439dd9b2a5f33237eff63c0b4d80272aa00106de56db5a17173adc924e6907cf622106d5cf75f8523'
-            '8a0d5532db667b30824de95e63d7c9e306c068bc139f69a5f3b89f1fdd788d965f19945d9838ef3b760664ac03dbccf89f31d8e462056564c23e1b5e32d6be79'
-            '1abe9b63951f66a537bd4f0b7a812f0e95bfe8947a4dbfe7bf3a66180e79bc6bc6d94c1f753908381c4e15e4285fcb546b2ad430d8019a552710d4d1ad0517b9'
-            'e0c56bf6ba98333d94204531ad2d01cbfc29e2fccfd905bda6ddcccf91cd8dad3390663eaa72a473d7b2b85102766902b48034383afc91b417c33869334c8a57'
-            '225350eeb5426e86ea21f002fdec773fb9fa2351e671a3e1676d4bd889dce4a307f72563ef25b5d4ca8375c28ffe140de56296211693faca13d5a2aad8e3cd7b'
+            '489017c6019e069d43513fd86535c378f77cab588cc259ee020bb49ec0bca0628a41f72809ffb97eea49732cbf5f0a74a386dd39c74601e689fb9da765fadd86'
             '87dc012f79787bcd68aa43cb7ce1c540c31c6c08b42a7ff4fd43bfb005330ce3ca80b367d38fe1d69400bf3b9c4b3d2f45f0440abc800434f8929b50c59e330d'
-            '9c88fe4728b64228e0d66d3f9c7e3ab41a7218c4646a3317a634f684c2c607c728c5ff34c40677d6137a68928aac949536c75febe38a37b3fb3fe8ceed902d1c'
-            '1849366f9f83f77f53fae11a388647a68622f0ce83344ad41289e16fd16aec322cfc56406fd177f4ba4db16d1951211b7044599aa568fe330520ed9d11982293'
-            'd1153c1139db080fd86f487c8e88a4cbe27a8322f2150ae3c8cb68509afcc02f7a672ba6c540bbc54b65dd10d4291bca6f7191b6558a06b72a288dcf3cd01739'
             '9d644706ec8781529184aa98b42ea8a1105d23461a50c2537d650db1caa37e1bc8e3d54f1bb458a765a2cf316907a3e2b9ab04c09b11a9b85a0ad6ad326f4518'
-            '5be5fdc4d1cdae95a6ba99c96df0eb4137b2c6a917a79a235dc201171e3286a3bbb119e0636d7255184b0c503127c0c719712e4784335ee77ad8f3b8238cf9e2'
-            '1db148a98c0ccfafc17a8a9d6bb4c470213afec6015d1312d84cd6874fa42c6c02eb6a90a10bf7f24e4a6633b8204f5587469dd51235f295760781360dba9726'
-            '310840a444abe05efdedc4175d76431df3dd58b21a35796f842f47eb7df6cccdc7601ce94b054e0c27f44d69b95cecb45ad56c1353eb28751599b555edb0fb02'
-            '8eb982db76e966828e781b73ed734fa56211ddbcebf4d736bd47893c39fbb23d5de20d3caf3fc65b05f9d882eac864b6701b53b4f458d3d2fa9a58ed971764d1'
-            '0a7b3b80a937664fa3ec500a7c379dce0c0d63987c5392b0636a4cb05d9962a5e78615690cd9f46fe552416b994c5cc546b5da484d524d7551d515ae9949cf98'
             '9a489bb8686340c2ad6719e2b0c13ef8a9900ed639aacc5d6b08983e4204aea5fa3de222736458f8940a75f1bd7621a7fd67097f6af81598b3ec075b06e2d143'
-            '3f49fa0ebb0a7afc6ca9a64f042d56ada3fb43b6eb8cc904aa33e0de64698401e8f0ca85b17fcb63a50873d6dea49f887852e57548f257d880f251a8af7d9d47'
-            '58d1d578ad68ab4c619797711ba5282cd958a17af5bf3f1bbed884f645f704e60f1341d9aae6ad686ae5d763090840b3dfbc5d3c887c4b478aa8ffb16f157756'
-            '1b242717028004a25905bc05b30c6ebfbf392ff909c32dffd6e3f873b944d6a56b9abbf7ef1583764c18e88e9124c009623182c4d90b20404060a94554474761'
-            'f60fdacd1a4284b3de2535e36a9b517116065a7e27dce561b4f97a873893e22ade86005728c64a4fffca79b04093da26f31687aa1aa8d2c0542fb169abd60d25'
-            'ec87c1f0da43aea72e8fca35ff2bb8718dec1304928b8687e6f5ffe4cee088cb774fa5cdfa74f770cac3813bc7d97967395e8d877b08bee7abd21957e2ac415e'
-            'e38e7f8ec651826efd87466b30d9f325dea65343fa42f5e4852053030d16124b9cb10261f439849e09746b3eb37fd6e0ce54c5ba1d99bb23043a7bf56a7dfa30'
-            '506c037a51ce4d256c27a519a1a4a80046d2e65ce4918427d1dfe703ad1f6ff8d563229dd30aecc21af3680426cf39cc372bde3d334b910d9fabd83688884f56'
-            'cf9d0142e28a4684d0e43198c4f1850fb85b25d42f0d630beaca72d212f84bba693f617999e9563a286e80109690747cd5eea421ce5b091f4dd8be043061a7f2'
-            '4227c8229e47ae18e9cdcc386181564309365da9e7f5dfdba598912ddf21d16164b0187500f2352cef8de9c9b99b9922803077b77374627187075e2a290105f9'
-            '2e9b826a003640f88b634ecc8b1c809bd673c42162a30afe37e9b296680bc5e196120e8df251c9cfc26c24473e1b53dd3bd5baa82d2aab63cb33b28acdb25266'
-            'f2e4f4cdc0fbede1d459ba8ce48b788d381dd8ab8250f9b527c0dd54b5a187fdab48c7a067af968472053ec45eead2f47e7dd558040eeca6f2a6ea1a351c499c'
-            'c52807ffe69e6071124bb816a885672639edd9e089f064effacdadbfaef4c3d9bf91ac87906356ddb2337e1955ce05359ef8d88231a1c4824d791e041dd5c816'
-            'e7d9b5369dc0bb83201077c150859ef0af8468eb8faab2f4144eb2e4735a230ff4b032fa4af45fdb475029361acc3434d83898ba47854beebd8b732b939b99db'
-            '4f28270c67d8c9881adc4322fb00e7cf83e261acdc171f4c3cbe47f847a3503112684305c33a35b3a8adf8db71271e99d60516bfc6558dd98bf04efa49481f31'
-            '52a62e0081f150fd839b5606d7780f7bbf22d7872bfaea51a0b3a9a1de09831ffb841130844d30a04807c34c4fad2f1ee1ab9bfda9ef759834bd178536e7ac47'
-            '415bab1481bebbdcbafc2f6521095cd7253a464685e24d1bebfda137ef2155bba7b54055b8ecef6dcf161c41d2018253758bf9f140c0798620820c54d449963b'
-            '8cafee5a419f684761dbc0ea966e71753a4e2290b14d744f4762c44df0603f06db09defcc9c48324ee49fd5f3f21c14f4e7c7f0eb968c794503228893a77edf8'
-            'd1c2a39e22d0f4d3ee777394c2614dd3fd206adeeb70fb16b5e58d738946f7f405def97ed05f8c9d4b7a749f18ad696a1904aabc7adc8cc91c663b47d2dbddf2'
-            '4460ba869f8796b133853518086903b859e56c8c3dd6c501c52d7fca24ab077dd0591375b87633fd925c1cc9dcd70f513919ce683cc671adc62c9222c3bb3f54'
-            '8c0c498022f8544e004cd7142168ed1c8ddc07bc9921c492cc8ee7b1945242ea7ae0556154811445ae1ac78b7abec2d8eab0acdaeb0706fcdc1b76d378f33d43'
-            '6c62de56a9f505d1f9d55a9b22b4bb13beb3187b15c92ff4c256511c77ec1120445f47d2c76f48da3d6727e1fa96c6929bf7f8c2436577c517712a3722ca39b8'
-            'b687200cae2d0003cc1b24a31f2eecd71878faa299b43f35bc50cb3dad553786b0d32e308059e2583c0ef5c8181fe6c3f1297740a161de2f77113b4787cb2ca8'
-            'a125892db0c746fc88bd3c4929393acdb66b4e0fcd6d71f6a5cf7d192cb201c262d5b12f1726bd7b44ec53aafc33fd10d0d128bedf2297070d19974ff01b6f88'
-            '15584a6db6d37290daa14c47233594019cb24a1aef2306e9fd5c89a36c1042c7e17b2d20c5c8ca6b4c24d9528f5a009bef2b19877ffb1888d69aeb8bc4d2a230'
-            '87ae62e869f68d124efb490bdf62b60046e6a91b4bc818b36437918f2607bf9b9da73fb0ff683d996ee6973b9571ee738642e1444e14b72dc5a051278b336496'
-            'da328517d79741aaaa704476b54ef2f5154fb0fcd41dc72c078146b9106e25ff367c597d78d8fb74c4d4b9aaf6b77c323784935f81c82208d60e0fc27596fb67'
-            'f79e3ff6d0df464bab987926e45a145a83c707f5c7c794fadf0865db7667250129f94629896a032432744e98e6a38c627b002245840210d56a7f80d253d58841'
-            '3c2e1bfdc966e3f76ed9f94d77442b7889789577a7c02c37244bfe21119d64c4b4cfa5e590939ae61806fb9c1fd6e047c46e09ffa639eda934e416d1b8513441'
-            'dfcbcc335dc4579efd6988f3fa2c0861cc5aba3955b7970294852ec8622bf5b90989be6ba5262d5355a4b93a46bf20428dfbb57da4b11038c65433136967ad57'
-            'af527734c74d692d222cccab84fde1f080a02e0048ad74317b27704570591733154f2043495fac0d02a308068ed6e8acce0ab069ec53516f2e60e8a2402d7d61'
-            '019b0313b479d1d2cb0e0878ed6d584af77675e1b16ecb191fcbf3d028d98e487c52c8a832ae871eba11112e49b2f430b353cd0fe5eea458794064d3e647ad66'
-            '12a0124691384b23fe0c1ecfa01528dbce2f23dadd9ce8258304f5a554a16208f92bedeaf118d1a12e884f8dc4763fcce335bdac9b624e1c2892963718589212'
-            '52f0a1ffe43c4b619aaebe9a60b33c01771bd17eafa6cb1a2fc488cfce06729a96d534e4abb26fca760e165e2a4058258703209c794622d638f1fed891871562'
-            '8bbc1def2c642b120e9725990e1b8a03a902ad83cc6f25bd03f53f95b5e371fa01c7562332ae0689dbf845590a55a929013927bc410324a4d52f1312c1cc6a14'
-            '9984162112f557e7d71b6da9b11f21aad8f574c6000fcc6d69244cd7cb866acad4407c49c9daca87021b9f7cb8ad01ccfa3c1d15fd33e0388ecb6deac6852d43'
-            'eb1f162b5f65947205bf1f1a8d41807583a53f79764b9dd31982b2729eed1535b68f012bdfee395a1604b07b1fc459b6ad13487072fd8aeac40edf9bddf95758'
-            '270c85a6de0ac1f8831b18cbd05f1720e969f4451a3a1c48666c5ef6dacba809e110268949b0b6d6e8d4e93b210a25d049cb17777c823d1815843a29858a1c66'
-            '1518b787211ac0766efa686de2c45348d22e1bde01b2dc5e67a96b9c4653c2722337557e7695df1df56e8ea4c7fd9d16e508b04a8ea0819505bcd868303d30f4'
+            '3e3ea85b7987e76d737eaf4abfb68bbca48c3648625f48ae6822630f88d1b25d97addb3eb661ef1634baeaeb40a8b35a7235458db5174df621b6e8c30c4ebb26'
             '8b382f1e6aaecb13f9af33d9bf411697851af26c2e3aaea367d36c89e288412f0a5ca03f5bc0eb71510c5804f64e9aa395a548a09fbe1d54ae2e47aa59d087c5'
-            '670025cc92f7607fbc5f4d2c52f9a37855ec953a5b259547deb0c6c2b098d0c4a5bf6f8d03098322a8d588f5a609298eff45a0a04285041a91beb3229302ac5f'
-            '61c8f3c981b97222a6fcd540e449d5ce5cb742d5b56ad8fc7a6402bf87f57ba0970f96e5b846d271fcade061ac07364b2aab3e94e74dc8e463c2fc6e01811be8'
-            '534854ff98a3415882ea1458e3b6d88ba8652fdde06722a4158f0e8cb67b382daa893a8a97dcb2f03ad1359b1a6aa67e0dcb04141dc2ccc5f69970d49de6261f'
-            '24162eddfdb4da6ed83e1c87c7bf504c6fbdbeb52347fbd559bc7d43d1a8c1a46428711f9b99b87763476f1cc3a251fc305ccc41058d08a0d32ec237a8ce68f2'
-            'a42be4905c563e10dc3e14ec4c183240b82ab0dc870e75026bf31c0720a7a540db224e6b536983b93f42a61d1d83f55b82d6cae63c7bdd1b2d61b452f496b34a'
-            '5180d95723b42368bcbad87e913a951f12a860704419dc76feb4592c1e59a55957ad215a3a15605520ccc5fb2f50557c36967d85b1a45c45af8727d8a9f3845c'
-            '29101774220fb77fa51f778d1eb8bc4fc2a58f32bcb8dd957cb07607b5f5e33ac2d01afd8c1541f36af224362f20cfeb9d60a798eb6e4c1a899418216899bed5'
-            'b39400e6fe886d191b28bd70eac00efe76743d1bb610f2080aa13df2803287df53a3d3639f94a72bbbf72ba93935a4b1800c6455d9341a05476949b75d9d7ad0'
             '46b74616c4750b61ccd99fec82b94a1ac5cfe356002fc7e45b6285ba8dbf0e2b804781e08d3f4c10946c333b4223069d9ee9ea05e3ef50388b00e9d8a254f80f'
-            '101d10ddff04d6f6554637522f6ad50facd6fa64a71ef0968876c16268ddcf2615d0d4c93a70c9295d01275c51a526b92314ed88f59564c72b5f2be4e41a6014'
-            'e1ee37a65df1ecbf8aadeb5c828afff6e0f2b61839b0cd71d5785aad68b9e12f060c2109ba0ab85eced21a8e184b349c8afad5313104970a3904d202557b579e'
-            'b94b36861efba3ed6d1db51fd3ee5a20188cd78103af47f35fb91ef09503f618e4519d4e0edfc680fda937d80b05ec26cbd8493d0df87aef8e059e5dd490a2dc'
-            '602999c47dbc1de5ff2dc97ad4d6d32514f2c981c8060f09dd9d797f21196f7e969c41cad6988ac4395e26eff5c8a05a23d8e1174149ff48791ee9c5e07f9d65'
-            'f02e51b32e38b0dbf199f7631c3acc03c08be27b0ead3ce9d79e81db9f4bec5aa9a106191b84d72035e58de7fc7731887040d4a12f894b414269e68b4fdd5305'
-            '8011c57972abb58eee464c634fa9ab7f7e8f27a867786efb1987f00a60be858bb7a371198829b585f98d731ea1e73d49e6fed84322c91b757c96d324f90b7b44'
-            '4a7c3e99a21f3195991381163b9625b3aca1a941e0d1d8ea437b78cd9720a3306ce2a8f029a6964bf3be42062f3aee7cd51ec4e2926ca5b695ea50b22219fae9'
-            '0dd19bf179bed772526377c3356e1ebfdbe64d9779b17ff86fb8d8c2b3168d85cc7f73f9ee6a7d65fd26c3b3c037048479d5d360091ef4a42b1dc8fef362d4a7'
-            '07e862bbcc395630a3ca272c825a8a11d8493c5d196826a1aed866667f38da0e857c0fb05eba1eb58a7d05f8dd26e0781ed479e5395ccf0edbe239b6ae61081b'
-            'b303a4670f7f1a069bd2b77a08ee689c26e896afc6383cc6fa260a4f25b489223b9d96e93a7519688b86ceaa54ed41620de1a07d83f320d9417618417c327dd9'
-            '4c18793bdac0e435b8e67a92aabfa8b8335383d946280b0c5e0a2172959586e20290bc889c4894ac4fb19412a2c9e786b44ab918cf6d4db536fa4b2266ab96f8'
-            'a154ea0613120447623276f84177ee5e1078de1647c11ec45589d495efa71defddf2e41ed13b4050532429831b98a6dda8b15b5b4556e1f7c75a81ba9ac27dc4'
-            'f3ab5a1057fe59ff8044756708bf35da58e48c0173ca175b3dc01b8e516f1b32afa340e0ec412f8e84f6ce7f30366bed26c3a8a9c756fbeb135592b04dd2e557'
-            '3737d563cb538e5091834e1b6d20d0ee127899d9ccc2d6c5eb2dc4c44206585bce0a4ad886cd57aa5dde4ad4870aebd8d57caf038b3db248e77ec749003cc64e'
-            '6d3e9687d4595f503f8fc5c116235430e3f2cdc4814aedb7180860eb412ee4ed85a6bf056fa78d6769e0bb54a36c43cedec25502b938af35a4a13d02ff96c7d0'
-            '3ae0b143a762544c8d4088c22748383e586b7ab9c1acd6016ec6f42eac130fb369ced11978555b5c3ad3baca8be46484c69dc538a3ebfa0ca4b633c2b5014319'
-            '64850036cbec505d30b90a95ecece40da33178d099b579a57337969019d7d8d9955a4853e1fc8e682a7e5bc046e03b431ba42577509d123766fc85fb424a264a'
-            '3e78d8e5800cdc55bf0c66dbe87e9ab5f184278179a26a98b570d75194189cff857eb1099198c81f4dadf0a339228da9985de56b23af608e6a4b58c9b77ab6b1'
-            '63f7a493fcada7b50fa3b505a60bd33f5fd507e4a9eede76dd27a560a88454682aa61263400f03517408256938de695cf47547d3062b08d436c6f09f11c44028'
-            '73092d9b664cfd0f47176a0fcca2e7da573765a6baef0a83021e97ef5429694bac20d75de7a42d08ff243d1ad19c1b4073bcfc8c05d756a6717a55dd17ae497d'
-            'b26c4d4fc11f4173f78f9047e4f92cf3843d7adfaab16e57717d0b2f9237e0e02a24ea170488c99ba66295280747a1f0e2f7365686234d2d2c22724594a120ea'
-            '34ca29f5c55a3197e925731fb66156710b5726a4d32c1da231507142358f1045b94c426b8cd6ce414df5a10f9b832c57171f45b9a001704fa7eadf2bfc8945be'
-            '33b657e4a135bd08159d1e0d913ab71ea6caa9e48a5bc919c82f45d95942e1866b626c6ac2b0263f037f47a0e599afde86e62d583910923b09a818f2507969f5'
-            'fdedb6bb6076cf39f609b09c9810533b51b47c06a4498eef5e8a6bac2bc2ffe20e82b873d5935226afa5b5325dd7f2da60f8431c418cc8172ab1c8e4741925f1'
-            '57712cf823ac346a80b8d866b557a347b27fc640dbd156b5f2e5ae4193af9402d0615698d7a668d712fad609d73db691da11a8cac30db0b9614e3b71f459899f'
-            'eb42769404651c32d1d36847fafe880a14d2665e792939b1842ee8787bce3bc62aa4a1b8575435c831c0a5334cfad11aae54a9f6fa33420c041adab3cf16ac49'
-            '12997f9c609652cee9c53a3fe5a41a81100101e0750c1bc16a4f17a667e4349c3034be8ffed59565d01e31999c0ed698ef5d0831f749f28d4af5df88d1b75b18'
-            'c02d27613a2f5186465f2c17eaa69b717c6a239357906951a4a797484aafc55ba17c2af283c5e7cc25fee61824fcf923292b96b92795f96eb314ba779ac6663a'
-            '8fb089f7e52c1ccc96e3dfb87c3fd611f4da5790e6dcb4d8797da72030215fee6cd3293732659fc08a83c608ffb3a84ef5ffd2eaf26857d51b5b9129d4731258'
-            'febd7a4d197b89459b9fa054e676d1f81480a4ee6181ae3d6c232fdd4ad1bd53968a732389f97304d589065b81c484ad6ecf19c5a15a27dd1d2207c9d6febfbd'
-            '32ecbf34b40a68490b9abbe2152d150ed42c8ee994472f348f9c420ba4c51f5d7c30c251365d75ee0b476b3f8e94ff2cf65c3d8ef8f3c6d4917bb932b6bf80f2'
-            '338fbf0235bbe36db88384269ed676b14dca65e0f745a2e6a68d156c0e203cddffbd50c2d98c9ae227cfc17e938ec6bd30cd3a39dc312c5d2519a9e15ad2988d'
-            'e418e6f267414a2e55960fde5f1e17d2f7fca9d2e94a19c3769f745ef5189eb9e9968527bfe22485e0d2eea16761ec76d54fb6d98f99e9dc8d2d73732b85edfb'
-            '4651b103a337670eb3e5bbc36930d21f8eccf51b62cce37b320cc7cd9bfcb5e5135aa2375326677c475f580e2edf00489749e6e87c9bcaa3b80f8edc7a71d48c'
-            '85141ffc4a4eb634e1847258596cb0bcce54a27345e5fe43d9b14d18b56afbb6333eea28f7f5ea21bc68cc811f427301c1cc75a14da74de2ab0fb40f963e9c2b'
-            '34674d0fefd5b30009bc3a088c34c7a8270494d44e8ff57b887df5629741ac4a21c4b8024b5a31c24ce420ffd8ccf25ecb684cd4a89a8cf4c2af672ea6a2e5b0'
-            '35564c2ee1e0d9a7c7bd933ed664a783192a52da075957056a6ed7db8ab75e1cb4bc4ab409ef7dc838a810675ee1a8af1c972ae8c738ee9811c99b8312a0ac37'
-            '3e3ea85b7987e76d737eaf4abfb68bbca48c3648625f48ae6822630f88d1b25d97addb3eb661ef1634baeaeb40a8b35a7235458db5174df621b6e8c30c4ebb26')
-noextract=("${source[@]##*/}")
+            'f02e51b32e38b0dbf199f7631c3acc03c08be27b0ead3ce9d79e81db9f4bec5aa9a106191b84d72035e58de7fc7731887040d4a12f894b414269e68b4fdd5305')
+noextract=("${source[@]%%::*}")
 
 _lc() {
     local d f n
@@ -651,18 +123,20 @@ _lc() {
     done
 }
 
-pkgver() {
-    #find . -mindepth 2 -maxdepth 2 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find . -mindepth 1 -maxdepth 1 -name '*.zip' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
-}
-
 prepare() {
-    mv "urlprotocolview_u.zip" "urlprotocolview.zip"
+    unzip -P nirsoft9876$ nirsoft_package_enc.zip
     for f in *.zip
     do
-        unzip -o "${f}" -d "${f%%.zip}"
-        _lc "${f%%.zip}"/*
+        if [ "${f}" != "nirsoft_package_enc.zip" ]
+        then
+            unzip -o "${f}" -d "${f%%.zip}"
+            _lc "${f%%.zip}"/*
+        fi
     done
+}
+
+pkgver() {
+    find . -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
@@ -670,23 +144,18 @@ package() {
     mkdir -p "${a}"
     for f in *.zip
     do
-        s="${f%%.zip}"
-        u="${s##*/}"
-        u="${u%%-x64}"
-        echo "${u}"
-        mkdir "${a}/${u}"
-        cp "${s}"/* "${a}/${u}"
-        find "${a}/${u}" -regextype posix-extended -regex '.+\.(exe|dll|ocx|frm|frx|vbp|vbw)' -print0 | xargs -0 mv -t "${a}"
-        find "${a}/${u}" -name '*.chm' -print0 -o -name 'readme.txt' -print0 -o -name "${u}.txt" -print0 | xargs -0r mv -t "${a}"
-        if test -f "${a}/readme.txt"
+        if [ "${f}" != "nirsoft_package_enc.zip" ]
         then
-            mv "${a}/readme.txt" "${a}/${u}.txt"
-        fi
-        if test -z "$(find "${a}/${u}" -type f)"
-        then
-            rm -d "${a}/${u}"
+            d="${f%%.zip}"
+            u="${d%%-x64}"
+            cp "${d}"/* "${a}"
+            if [ -f "${a}/readme.txt" ]
+            then
+                mv "${a}/readme.txt" "${a}/${u}.txt"
+            fi
         fi
     done
-    cp "runfromprocess/runfromprocess-x64.exe" "${a}/runfromprocess.exe"
-    rm "${a}"/{regsvr32.exe,mswinsck.ocx}
+    rm "${a}"/{mswinsck.ocx,regsvr32.exe,psapi.dll,vcsource.zip,main.cpp,main.manifest,resource.h,script1.aps,script1.rc}
+    cp "NirSoft"/*.{dll,exe,chm} "${a}"
+    cp "NirSoft/x64"/*.{dll,exe} "${a}"
 }

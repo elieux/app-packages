@@ -31,14 +31,13 @@ _lc() {
     done
 }
 
-pkgver() {
-    /apps/innounp/innounp -e -q -m -a -y "Opera_Mobile_Emulator_Windows.exe" "OperaMobileEmu.exe" > /dev/null
-    strings -d -es "OperaMobileEmu.exe" | grep 'Opera Mobile/' | tail -1 | sed -r 's~^Opera Mobile/~~' | tr -d ' '
-}
-
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "Opera_Mobile_Emulator_Windows.exe"
     _lc "{app}"/*
+}
+
+pkgver() {
+    strings -d -es "{app}/operamobileemu.exe" | grep 'Opera Mobile/' | tail -1 | sed -r 's~^Opera Mobile/~~' | tr -d ' '
 }
 
 package() {

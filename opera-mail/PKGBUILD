@@ -32,22 +32,19 @@ _lc() {
     done
 }
 
-pkgver() {
-    _lc *
-    7z e -y -bd "opera-mail.i386.exe" "operamail.exe" > /dev/null
-    b="$(cygpath -wa "operamail.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
+prepare() {
+    7z x -y -bd "Opera-Mail.i386.exe" -o"Opera-Mail"
+    _lc "Opera-Mail"/*
 }
 
-prepare() {
-    _lc *
-    7z x -y -bd "opera-mail.i386.exe"
-    _lc *
+pkgver() {
+    b="$(cygpath -wa "Opera-Mail/operamail.exe" | sed 's/\\/\\\\/g')"
+    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
 }
 
 package() {
     a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r * "${a}"
-    rm -r "${a}/updatechecker" "${a}"/files* "${a}/opera-mail.i386.exe"
+    cp -r "Opera-Mail"/* "${a}"
+    rm -r "${a}/updatechecker" "${a}"/files*
 }

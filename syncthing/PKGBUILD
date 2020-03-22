@@ -1,0 +1,23 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=syncthing
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.4.0
+pkgrel=1
+pkgdesc="Continuous file synchronization"
+url="https://syncthing.net/"
+arch=('any')
+license=('MPL')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("syncthing-windows-amd64.zip::https://github.com/syncthing/syncthing/releases/download/v${pkgver}/syncthing-windows-amd64-v${pkgver}.zip")
+sha512sums=('08d02f932859efa6a9ef3395796e444c311e586bbeda03a314742318821af37cdc72466b83c144c022f845509b23607e4ba52d7dde36fdbb6154c53fcc160f6d')
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -r "syncthing-windows-amd64-v${pkgver}"/* "${a}"
+}

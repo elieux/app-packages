@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=messenger
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -7,13 +36,12 @@ epoch=1
 pkgver=2.0.9
 pkgrel=2
 pkgdesc="Beautiful desktop client for Facebook Messenger. Chat without being distracted by your feed or notifications."
-url="hhttps://github.com/Aluxian/Facebook-Messenger-Desktop/"
+url="https://github.com/Aluxian/Facebook-Messenger-Desktop/"
 arch=('any')
 license=('MIT')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("messengerfordesktop-full.nupkg::https://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v${pkgver}/messengerfordesktop-${pkgver}-full.nupkg")
+source=("messengerfordesktop-full.nupkg::https@subdir://github.com/Aluxian/Facebook-Messenger-Desktop/releases/download/v${pkgver}/messengerfordesktop-${pkgver}-full.nupkg")
 sha512sums=('4288e4a24ff6776890eac8b4810f94f11a90ee67a5b16b92c06834731f7ee9b449e66cb736b6063c0e02448183f105d4922b004ab8e779569d28a6729a4b6d52')
 
 _lc() {
@@ -31,13 +59,10 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "lib/net45"/*
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "lib/net45"/* "${a}"
+    cp -R "messengerfordesktop-full/lib/net45"/* "${a}"
     mv "${a}/messenger%20for%20desktop.exe" "${a}/messenger.exe"
+    _lc "${a}"/*
 }

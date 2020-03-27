@@ -1,0 +1,49 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=aws-sam-cli
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.46.2
+pkgrel=1
+pkgdesc="CLI tool to build, test, debug, and deploy Serverless applications using AWS SAM"
+url="https://aws.amazon.com/serverless/sam/"
+arch=('any')
+license=('Apache')
+replaces=("app-i686-${_realname}")
+makedepends=("app-lessmsi")
+provides=("${pkgbase}")
+options=(!strip)
+source=("AWS_SAM_CLI_64_PY3.msi::https://github.com/awslabs/aws-sam-cli/releases/latest/download/AWS_SAM_CLI_64_PY3.msi")
+sha512sums=('204cf074d849b2ee28e2cd1fc8c660ec34ca104f2645c2a49e363841bd512a55f36b43f528a65fc965d7ab13d92222e8a092a2b8ed94274574b80a1c862a2d37')
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    rm -fR "AWS_SAM_CLI_64_PY3"
+    /apps/lessmsi/lessmsi x "AWS_SAM_CLI_64_PY3.msi" > /dev/null
+}
+
+pkgver() {
+    cat "AWS_SAM_CLI_64_PY3/SourceDir/Amazon/AWSSAMCLI/Product.wxs" | grep '<Product' | grep Version= | sed -r 's/^.*Version="([0-9.]+)".*$/\1/'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "AWS_SAM_CLI_64_PY3/SourceDir/Amazon/AWSSAMCLI"/* "${a}"
+    rm -R "${a}/resources" "${a}"/*.wxs
+    _rmmsdll "${a}"
+}

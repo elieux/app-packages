@@ -1,0 +1,55 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=poweroff
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=3.0.1.3
+pkgrel=1
+pkgdesc="Controls the power state of your PC"
+url="http://users.telenet.be/jbosman/poweroff/poweroff.htm"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("pwroff.zip::http@subdir://users.pandora.be/jbosman/pwroff$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.][0-9.]+$/\1\2/').zip")
+sha512sums=('6fc659a687be68bcb42148806b81821b164746dcc48013b8ed6838a5123b20f24022fbd3adb9259a17b18289e0385fd634ca01f9b5ac86a07496e580454c2599')
+
+pkgver() {
+    powershell -command '(Get-Item "pwroff/poweroff.exe").VersionInfo.ProductVersionRaw.ToString()'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "pwroff"/* "${a}"
+}

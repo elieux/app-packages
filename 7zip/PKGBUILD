@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=7zip
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
@@ -7,15 +36,15 @@ epoch=1
 pkgver=19.00
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
-url="http://www.7-zip.org/"
+url="https://www.7-zip.org/"
 arch=('any')
 license=('LGPL2' 'custom')
 replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("7z-x64.exe::http://7-zip.org/a/7z${pkgver//./}-x64.exe"
-        "7z-extra.7z::http://7-zip.org/a/7z${pkgver//./}-extra.7z")
+source=("7z-x64.exe::https://7-zip.org/a/7z${pkgver//./}-x64.exe"
+        "7z-extra.7z::https@subdir://7-zip.org/a/7z${pkgver//./}-extra.7z")
 sha512sums=('af8f38679e16c996ffac152cac49369cf4b609abbd2cad07f49a114a82c6b5e564be29630c0fd2418110cf1a3d0ef3c9cc12f9164a69a575c91d9b98ce0df1a9'
             '17713037504215ae277037ea7e61d78afe2863a1ff3b8b9ff0a0f6af80969c054df35f4f2bf5ba79a35601a29b8600a8b71a16ced23d17e55eeb1cc131d55f65')
 
@@ -35,15 +64,16 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "7z-x64.exe" -o"7z-x64"
-    _lc * "7z-x64"/*
+    7z x -y -bd "7z-x64.exe" -o"7z-x64" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/extra"
-    cp -r "x64"/*.{dll,exe} "7z-x64/lang" "7z-x64"/*.{exe,dll,sfx} "${a}"
-    rm "${a}/uninstall.exe"
-    cp "7z-x64"/*.{chm,txt,ion} "${a}"
-    cp *.txt "${a}/extra"
+    cp -R "7z-x64"/* "${a}"
+    cp -R "7z-extra"/* "${a}/extra"
+    mv "${a}/extra/x64"/*.{dll,exe} "${a}"
+    rm -R "${a}/extra/x64" "${a}/extra/Far" "${a}/extra"/7z{a.dll,a.exe,xa.dll}
+    rm "${a}/Uninstall.exe"
+    _lc "${a}"/*
 }

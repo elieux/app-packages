@@ -11,7 +11,6 @@ pkgdesc="Platform-Tools for Google Android SDK (adb and fastboot)"
 url="https://developer.android.com/studio/releases/platform-tools.html"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("platform-tools-latest-windows.zip::https://dl.google.com/android/repository/platform-tools-latest-windows.zip")
@@ -32,16 +31,13 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "platform-tools"/*
-}
-
 pkgver() {
     cat "platform-tools/source.properties" | grep "^Pkg.Revision" | cut -d= -f2
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp -r "platform-tools" "${a}"
+    cp -R "platform-tools" "${a}"
+    _lc "${a}/platform-tools"/*
 }

@@ -4,18 +4,17 @@ _realname=atom
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.41.0
+pkgver=1.45.0
 pkgrel=1
 pkgdesc="A hackable text editor for the 21st Century"
 arch=('any')
 url="https://atom.io/"
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("atom-x64-windows.zip::https://github.com/atom/atom/releases/download/v${pkgver}/atom-x64-windows.zip")
-sha512sums=('2ef9469186d531646a1afe1bafa12d2edfb489f2571dcd8aa290ed93945cc912df06c711fc3adf460577d82dfa57f44dc0a64505f8e9bae5b157d457d78dba9e')
+sha512sums=('2ceb4df8446c7085a33f55e22d9ddb1f3d8d524dcbf94fe3651ebe4b56dd07db87d651320872639ad8e75ac1c20cb28d13979a42b6f9a9a9843b984f4b6198a8')
 
 _lc() {
     local d f n
@@ -38,21 +37,18 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-prepare() {
-    _lc "Atom x64"/*
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "Atom x64"/* "${a}"
+    cp -R "Atom x64"/* "${a}"
     _rmmsdll "${a}"
+    _lc "${a}"/*
 }

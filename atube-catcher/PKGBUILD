@@ -4,17 +4,17 @@ _realname=atube-catcher
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.8.0.9762
+pkgver=3.8.0.9823
 pkgrel=1
 pkgdesc="Downloads videos from the Internet"
-url="http://www.atube.me/"
+url="https://www.atube.me/"
 arch=('any')
 license=('custom')
 makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
-source=("aTubeCatcher.exe::http://files.dsnetwb.com/aTube_Catcher.exe")
-sha512sums=('51bc3ed71a2df572d6f7bc38dce80f86712ddcec42d6f90971f7bf3b70e0a284bf45cba8615cbc8784b4e23fbf74c9480420eb690bba27dfa5bf69b14ebe21ec')
+source=("aTube_Catcher.exe::http://files.dsnetwb.com/aTube_Catcher.exe")
+sha512sums=('10564b2a78647ed6080e385395263cd3da830ae85168f98b3cabcad990bacd9fe6c9e1a10dd0b560a029d98269c214cc9d9aab6ee9ae9a3c1889cabcdb997dd3')
 
 _lc() {
     local d f n
@@ -32,18 +32,16 @@ _lc() {
 }
 
 prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "aTubeCatcher.exe"
-    _lc "{app}"/*
+    /apps/innounp/innounp -x -q -m -a -y "aTube_Catcher.exe" -d"aTube_Catcher.dir"
 }
 
 pkgver() {
-    /apps/innounp/innounp -e -q -m -a -y "aTubeCatcher.exe" "yct.exe" > /dev/null
-    b="$(cygpath -wa "yct.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+    powershell -command '(Get-Item "aTube_Catcher.dir/{app}/yct.exe").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "{app}"/* "${a}"
+    cp -R "aTube_Catcher.dir/{app}"/* "${a}"
+    _lc "${a}"/*
 }

@@ -7,7 +7,7 @@ epoch=1
 pkgver=2.12.1.0
 pkgrel=1
 pkgdesc="A compact multi-platform web server"
-url="http://aprelium.com/abyssws/"
+url="https://aprelium.com/abyssws/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
@@ -76,33 +76,34 @@ sha512sums=('0f4be3fdbe4923ee3728764774d46bb8f93d797e97ec96156531a5afcc264480b72
             'e7e3c12a6e4992d53265a74c600f98c3c4288c7a895e713b6376c363cd7cfa36899e84855caa52b19ada0f8d2cebea7be78d764eaf9fe8d5ebadeb7b0dd465cf')
 
 _pickarch() {
-    local f n
+    local d f n
 
     for f in "${@}"
     do
-        n="$(echo "${f}" | sed -r 's/_[0-9]+[.]/./')"
-        case "$(file "${f}")" in
-        *x86-64*|*assembly*) mv -f "${f}" "${n}" ;;
-        *) rm "${f}" ;;
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | sed -r -e 's/_[0-9]+[.]/./' -e 's/[.]duplicate[0-9]+$//')"
+        case "$(file "${d}/${f}")" in
+        *x86-64*|*assembly*) mv -f "${d}/${f}" "${d}/${n}" ;;
+        *) rm "${d}/${f}" ;;
         esac
     done
 }
 
 prepare() {
     rm -fR "abwsx1.dir"
-    echo u | 7z x -bd "abwsx1.exe" -o"abwsx1.dir"
+    echo u | 7z x -bd "abwsx1.exe" -o"abwsx1.dir" > /dev/null
 }
 
 pkgver() {
-    b="$(cygpath -wa "abwsx1.dir/abyssws.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+    powershell -command '(Get-Item "abwsx1.dir/abyssws.exe").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "abwsx1.dir"/* "${a}"
+    cp -R "abwsx1.dir"/* "${a}"
     cp -f *.lng "${a}/lang"
-    rm -r "${a}"/'$PLUGINSDIR'
+    rm -R "${a}"/'$PLUGINSDIR'
     _pickarch "${a}"/*.{exe,dll} "${a}/adn"/*.{exe,dll}
 }

@@ -1,22 +1,50 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=crystaldiskinfo
 _dirname=crystal
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.3.1
+pkgver=8.4.2
 pkgrel=1
 pkgdesc="A disk utility (Crystal Dew World)"
-url="http://crystalmark.info/software/CrystalDiskInfo/index-e.html"
+url="https://crystalmark.info/software/CrystalDiskInfo/index-e.html"
 arch=('any')
 license=('MIT')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("CrystalDiskInfo.zip::https://osdn.net/dl/crystaldiskinfo/CrystalDiskInfo${pkgver//./_}.zip")
-sha512sums=('3a896e145cf4c02e81de1d4a422e12fde705f5cd1d58ba50fb808dcf850ce7dda6c928d9fff8191edcd32b61750c7637f3d55452e095429075fcddf1d917ba0b')
+source=("CrystalDiskInfo.zip::https@subdir://osdn.net/dl/crystaldiskinfo/CrystalDiskInfo${pkgver//./_}.zip")
+sha512sums=('b7a56c679cc7a5ba783feaf75761d880980720321fe4acc79aaf54f10f2b02f5687419e03f9f865c43e09f7f947d95b05698177ecc54783fd59faa55889cae54')
 
 _lc() {
     local d f n
@@ -33,14 +61,13 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "License"/* *
-}
-
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "diskinfo64.exe" "${a}/crystaldiskinfo.exe"
-    cp -r "cdiresource" "${a}"
-    cp -r "license" "${a}/cdilicense"
+    cp -R "CrystalDiskInfo"/* "${a}"
+    rm "${a}/DiskInfo32.exe" "${a}"/DiskInfoA*.exe
+    mv "${a}/DiskInfo64.exe" "${a}/CrystalDiskInfo.exe"
+    mv "${a}/License" "${a}/CdiLicense"
+    mv "${a}/ReadMe.txt" "${a}/CdiReadMe.txt"
+    _lc "${a}"/*
 }

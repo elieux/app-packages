@@ -4,7 +4,7 @@ _realname=discord
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=0.0.305
+pkgver=0.0.306
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers"
 url="https://www.discordapp.com/"
@@ -14,7 +14,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("DiscordSetup.exe::https://discordapp.com/api/download?platform=win")
-sha512sums=('5b04621c795e6137165fdc6539a73626c2501010b1d861009765d68e44a5a132654e655a5afbcc6e358200c04d487007aa30a5819c0dfff4f733ac13b4fc80db')
+sha512sums=('b71f23b0a6fe5532e70ba1a2b04410dcae573b281c4ec986a5f9eb3e49acfa6509b7b022f8f167cab1775bd69d5f0944b7b469ba2c70e558eb8ee171bad37c57')
 
 _lc() {
     local d f n
@@ -37,8 +37,8 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
@@ -46,19 +46,18 @@ _rmmsdll() {
 }
 
 prepare() {
-    rm -f "Discord"-*-"full.nupkg"
-    7z x -y -bd "DiscordSetup.exe"
-    unzip -o "Discord"-*-"full.nupkg"
-    _lc "lib/net45"/*
+    7z x -y -bd "DiscordSetup.exe" -o"DiscordSetup.dir" > /dev/null
+    unzip -q -o "DiscordSetup.dir/Discord"-*-"full.nupkg" -d"Discord-full"
 }
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "DiscordSetup.exe").VersionInfo.ProductVersion'
+    powershell -command '(Get-Item "DiscordSetup.exe").VersionInfo.ProductVersion'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "lib/net45"/* "${a}"
+    cp -R "Discord-full/lib/net45"/* "${a}"
     _rmmsdll "${a}"
+    _lc "${a}"/*
 }

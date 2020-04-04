@@ -1,0 +1,23 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=boot2docker
+_dirname=docker
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=19.03.5
+pkgrel=1
+pkgdesc="Lightweight Linux for Docker"
+url="https://github.com/boot2docker/boot2docker"
+arch=('any')
+license=('Apache')
+provides=("${pkgbase}")
+options=(!strip)
+source=("boot2docker.iso::https://github.com/boot2docker/boot2docker/releases/download/v${pkgver}/boot2docker.iso")
+sha512sums=('a36f2be89fe869272e1f1c3f2c8ef36081c810142df41dcc13f5519d03c44dd93a4e58e79e273ce274a32c42ba09a756eef20b3b1e43cabe9f6ffe92a7169c5f')
+
+package() {
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}"
+    cp boot2docker.iso "${a}"
+}

@@ -1,22 +1,21 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=chromium
-_realver=693954
+_realver=989
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=78.0.3904.70
-pkgrel=2
+pkgver=80.0.3987.149
+pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
-url="http://www.chromium.org/Home"
+url="https://www.chromium.org/Home"
 arch=('any')
 license=('BSD')
 replaces=("app-i686-${_realname}")
-makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Chromium-x64.7z::https://github.com/macchrome/winchrome/releases/download/v${pkgver}-r${_realver}-Win64/Chromium-${pkgver}-x64.7z")
-sha512sums=('274a354e564a75f4776420fa3946b1d5bb07f909c5fed63eb6699404e0763cb7245707e15d995ae98f704217fd79658e379e23c6b53f3452561e3f2693ab17a8')
+source=("chrome.sync.7z::https://github.com/Hibbiki/chromium-win64/releases/download/v${pkgver}-r${_realver}/chrome.sync.7z")
+sha512sums=('1a3a82dc0c80d71f161b9393d98613b255cdaf9db87c92edd4d55a2bbcc250eb462600f2a7080356a68b0f601020b6ed1fa60c6ed67ea0d21cb5a2f27a190e6f')
 
 _lc() {
     local d f n
@@ -33,12 +32,11 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "Chromium-${pkgver}-x64"/*
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "Chromium-${pkgver}-x64"/* "${a}"
+    cp -R "Chrome-bin"/* "${a}"
+    mv "${a}/${pkgver}"/* "${a}"
+    rm -R "${a}/${pkgver}"
+    _lc "${a}"/*
 }

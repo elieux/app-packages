@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _dirname=bulk-rename
 _realname=bulk-rename-command
 pkgbase="app-${_realname}"
@@ -9,15 +38,13 @@ pkgver=1.3.3.0
 pkgrel=1
 pkgdesc="Command-line file renaming software"
 arch=('any')
-url="http://www.bulkrenameutility.co.uk/Command.php"
+url="https://www.bulkrenameutility.co.uk/Command.php"
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("BRC_Unicode_64.zip::http://www.bulkrenameutility.co.uk/Downloads/BRC_Unicode_64.zip")
+source=("BRC_Unicode_64.zip::https@subdir://www.bulkrenameutility.co.uk/Downloads/BRC_Unicode_64.zip")
 sha512sums=('9f06ec09b04dc7f4582557201664d1280a71966c856a3c750289985805d280f58cb9d4406d27029e921db8b750bff971aa531ed15703b00e9f6b4054464c65d5')
-noextract=("BRC_Unicode_64.zip")
 
 _lc() {
     local d f n
@@ -35,19 +62,13 @@ _lc() {
 }
 
 pkgver() {
-    unzip -q -j -o "BRC_Unicode_64.zip" "BRC64.exe"
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "BRC64.exe").VersionInfo.ProductVersion' | dos2unix | tr -d ' ' | tr ',' '.'
-}
-
-prepare() {
-    unzip -o "BRC_Unicode_64.zip" -d "BRC"
-    _lc "BRC"/*
+    powershell -command '(Get-Item "BRC_Unicode_64/brc64.exe").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "BRC"/*.{dll,exe} "${a}"
-    mv "${a}/brc64.exe" "${a}/brc.exe"
-    cp "BRC"/*.{pdf,chm} "${a}"
+    cp "BRC_Unicode_64"/* "${a}"
+    mv "${a}/BRC64.exe" "${a}/BRC.exe"
+    _lc "${a}"/*
 }

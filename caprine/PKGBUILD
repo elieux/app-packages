@@ -4,7 +4,7 @@ _realname=caprine
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.40.0
+pkgver=2.44.0
 pkgrel=1
 pkgdesc="Elegant Facebook Messenger desktop app."
 url="https://sindresorhus.com/caprine"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Caprine-Setup.exe::https://github.com/sindresorhus/caprine/releases/download/v${pkgver}/Caprine-Setup-${pkgver}.exe")
-sha512sums=('42f37f6975b40ab70d1be30b7ead5e83d3ca25161d2e5adf1cbb787f3346119848ebcd73422e52c2412a5d4a281fd4ef5119511b6bee7b0b2eb8204b09b1f2cf')
+sha512sums=('a56cb5fb79f012ce15c80273a9fa1407ef68e54e1bf23ba3b6bf755c3a3592dd7cebaba4792ed1dcf68cf3f4d32730bc9d3ea6de2b8e5243057bded1dfbf18c7')
 
 _lc() {
     local d f n
@@ -32,13 +32,13 @@ _lc() {
 }
 
 prepare() {
-    7z x -bd "Caprine-Setup.exe"
-    7z x -bd '$PLUGINSDIR'/"app-64.7z" -o"caprine"
-    _lc "caprine"/*
+    7z x -bd "Caprine-Setup.exe" -o"Caprine-Setup" > /dev/null
+    7z x -bd "Caprine-Setup"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "caprine"/* "${a}"
+    cp -R "app-64"/* "${a}"
+    _lc "${a}"/*
 }

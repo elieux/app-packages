@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _dirname=bulk-rename
 _realname=bulk-rename-utility
 pkgbase="app-${_realname}"
@@ -9,13 +38,12 @@ pkgver=3.3.1.0
 pkgrel=1
 pkgdesc="File renaming software"
 arch=('any')
-url="http://www.bulkrenameutility.co.uk/"
+url="https://www.bulkrenameutility.co.uk/"
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("BRU_NoInstall.zip::http://www.bulkrenameutility.co.uk/Downloads/BRU_NoInstall.zip")
+source=("BRU_NoInstall.zip::https@subdir://www.bulkrenameutility.co.uk/Downloads/BRU_NoInstall.zip")
 sha512sums=('88331b606a983d253967323591349d28176d829e3502f8a6a8e8cbf17ac8e44b24ee9e7b4ecb626cedec119d9e551f6d39357e70807a5a0a3bcf962cacd3c8dd')
 
 _lc() {
@@ -33,20 +61,14 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "64-bit"/*
-    _lc "All"/*
-}
-
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "'"64-bit/Bulk Rename Utility.exe"'").VersionInfo.ProductVersion' | dos2unix
+    powershell -command '(Get-Item "BRU_NoInstall/64-bit/Bulk Rename Utility.exe").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp -R "All/js" "64-bit"/*.exe "${a}"
-    mv "${a}/bulk rename utility.exe" "${a}/bru.exe"
-    cp "All"/*.{chm,pdf,txt} "${a}"
-    cp "All/bruhere.dll" "All/bruhere64.dll" "${a}"
+    cp -R "BRU_NoInstall/64-bit"/* "BRU_NoInstall/All"/* "${a}"
+    mv "${a}/Bulk Rename Utility.exe" "${a}/BRU.exe"
+    _lc "${a}"/*
 }

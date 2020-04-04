@@ -4,18 +4,17 @@ _realname=carotdav
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.15.7
+pkgver=1.15.8
 pkgrel=1
 pkgdesc="A simple WebDAV, FTP, cloud drives and IMAP client"
 url="http://rei.to/carotdav_en.html"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CarotDAV.portable.zip::http://rei.to/CarotDAV${pkgver}.portable.zip"
         "installed.txt")
-sha512sums=('bff322bfcada476da57154e274ee9313d746a43ff83b1fd7961caeff7a0f1d20592cf66cb69484ebf6fd2443ab49ce9ec1155fa6d0ca83e1384e3ee4e50e8582'
+sha512sums=('9c927532ca3662249df6d5c5ad8188d67f6ec741e147dd4fc2bf2a78785f0bd4a7140e0966d74cfb89d9521c917ba344e6b4f936161ee457d9f351c1c5264902'
             'd9263cc4a54c6ac861cb02126ef86f4c7d2d3a7b2cdcb6bcb80978dfd1e81597788e2c8bee16c1038ebf5e892ccbdd3cd2c0ee92a87e494560dfbc7b7c46ab0b')
 
 _lc() {
@@ -33,13 +32,9 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "CarotDAV"/*
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp "installed.txt" "CarotDAV"/*.{dll,exe,xml,config} "${a}"
-    cp "CarotDAV"/*.txt "${a}"
+    cp "installed.txt" "CarotDAV"/* "${a}"
+    _lc "${a}"/*
 }

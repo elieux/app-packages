@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=crystaldmi
 _dirname=crystal
 pkgbase="app-${_realname}"
@@ -8,13 +37,12 @@ epoch=1
 pkgver=1.06
 pkgrel=1
 pkgdesc="A DMI utility (Crystal Dew World)"
-url="http://crystalmark.info/software/CrystalDMI/index-e.html"
+url="https://crystalmark.info/software/CrystalDMI/index-e.html"
 arch=('any')
 license=('BSD')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("CrystalDMI.zip::http://crystalmark.info/download/archive/CrystalDMI/CrystalDMI.zip")
+source=("CrystalDMI.zip::https@subdir://crystalmark.info/download/archive/CrystalDMI/CrystalDMI.zip")
 sha512sums=('6f5de3bae8eb8d924f718a5bea90cd5f90439ec4cfaaadc4d1e92da5fd4eabdb4d970c66bf0d9a5211a6639b0f2b0869978537c5c208b186a22aafb288cea477')
 
 _lc() {
@@ -32,19 +60,21 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 pkgver() {
-    b="$(cygpath -wa "CrystalDMI.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
+    powershell -command '(Get-Item "CrystalDMI/CrystalDMI.exe").VersionInfo.ProductVersion' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}" "${a}/dmi"
-    cp "crystaldmi.exe" "${a}/crystaldmi.exe"
-    cp *.{dll,vxd,sys} "${a}"
-    cp -r *.txt "${a}/dmi"
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}"
+    cp "CrystalDMI"/* "${a}"
+
+    local t f
+    for t in "${a}"/*.txt
+    do
+        f="$(basename "${t}")"
+        mv "${t}" "${a}/DMI${f}"
+    done
+
+    _lc "${a}"/*
 }

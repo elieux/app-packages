@@ -1,27 +1,55 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=cpu-z
 _dirname=cpuid
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.90
+pkgver=1.91
 pkgrel=1
 pkgdesc="Gathers information on some of the main devices of your system (CPUID)"
-url="http://www.cpuid.com/softwares/cpu-z.html"
+url="https://www.cpuid.com/softwares/cpu-z.html"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("cpu-z-en.zip::http://download.cpuid.com/cpu-z/cpu-z_${pkgver}-en.zip")
-sha512sums=('dfaf89242da40b98b9fd85fa8a245c5a810c6aa1d0ac37e06823175d751f58556c9196e60feb91f261362e0855c99e417f759f0250d7fade8d06549de3a65a7e')
+source=("cpu-z-en.zip::http@subdir://download.cpuid.com/cpu-z/cpu-z_${pkgver}-en.zip")
+sha512sums=('1c84d5edae5540af1c66a24c6ad619d470f33a0c2f9792c5d0e8ac81b15b33add06432593ca77eaf7cef2c8f3bedb87a7e0f8eb8dd0f9d1d385bf264fe525ae0')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "cpuz_x64.exe" "${a}/cpuz.exe"
-    cp "cpuz.ini" "${a}"
-    cp "cpuz_readme.txt" "${a}/cpuz.txt"
+    cp "cpu-z-en"/* "${a}"
+    rm "${a}/cpuz_x32.exe"
+    mv "${a}/cpuz_x64.exe" "${a}/cpuz.exe"
 }

@@ -1,22 +1,50 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=crystaldiskmark
 _dirname=crystal
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.0.0b
+pkgver=7.0.0h
 pkgrel=1
 pkgdesc="A disk benchmarking software (Crystal Dew World)"
-url="http://crystalmark.info/software/CrystalDiskMark/index-e.html"
+url="https://crystalmark.info/software/CrystalDiskMark/index-e.html"
 arch=('any')
 license=('MIT')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("CrystalDiskMark.zip::https://osdn.net/dl/crystaldiskmark/CrystalDiskMark${pkgver//./_}.zip")
-sha512sums=('41dfe6f639d2b97527e83f7069c97c6bac61764e728fb4d994f45fca5de9c4a987b40d2b3d69a9a3d0069260f84fc667d7f4416acf39b5872dc5dfe9ee8c7e73')
+source=("CrystalDiskMark.zip::https@subdir://osdn.net/dl/crystaldiskmark/CrystalDiskMark${pkgver//./_}.zip")
+sha512sums=('33b99233ab7e18eb96a9b41cc82e0036045574d7d5d537d84ddf86e9e8333917d4bc2e4955b2e1e8155d59c8b927d14b0288ad60c796cf1ff5d3bf61a330d698')
 
 _lc() {
     local d f n
@@ -33,16 +61,15 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "diskmark64.exe" "${a}/crystaldiskmark.exe"
-    cp -r "cdmresource" "${a}"
-    cp -r "license" "${a}/cdmlicense"
-    rm "${a}/cdmresource/diskspd"/*32*.exe
-    rm "${a}/cdmresource/diskspd"/*A64.exe
+    cp -R "CrystalDiskMark"/* "${a}"
+    rm "${a}/DiskMark32.exe" "${a}"/DiskMarkA*.exe
+    mv "${a}/DiskMark64.exe" "${a}/CrystalDiskMark.exe"
+    mv "${a}/License" "${a}/CdmLicense"
+    rm "${a}/CdmResource/DiskSpd"/DiskSpd32*.exe
+    rm "${a}/CdmResource/DiskSpd"/DiskSpdA*.exe
+    mv "${a}/ReadMe.txt" "${a}/CdmReadMe.txt"
+    _lc "${a}"/*
 }

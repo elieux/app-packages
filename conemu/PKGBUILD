@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=conemu
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
@@ -7,14 +36,13 @@ epoch=1
 pkgver=19.10.12
 pkgrel=1
 pkgdesc="A powerful, highly customizable console emulator with tabs"
-url="http://conemu.github.io/"
+url="https://conemu.github.io/"
 arch=('any')
 license=('BSD')
 replaces=("app-i686-${_realname}")
-makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("ConEmuPack.7z::https://github.com/Maximus5/ConEmu/releases/download/v${pkgver}/ConEmuPack.${pkgver//./}.7z")
+source=("ConEmuPack.7z::https@subdir://github.com/Maximus5/ConEmu/releases/download/v${pkgver}/ConEmuPack.${pkgver//./}.7z")
 sha512sums=('dc081a10a513d710b121eb38af3e45eafb8fd82ba217a11107a6d56127db476073f66b42df10ac1a80c1490d9778ae085a311e3a7d3f95b4f0e16a496c64a6b3')
 
 _lc() {
@@ -32,14 +60,11 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "conemu" "plugins" "${a}"
-    cp -r "conemu64.exe" "${a}/conemu.exe"
+    cp -R "ConEmuPack"/* "${a}"
+    mv -f "${a}/ConEmu64.exe" "${a}/ConEmu.exe"
     find "${a}" -name '*.map' -delete
+    _lc "${a}"/*
 }

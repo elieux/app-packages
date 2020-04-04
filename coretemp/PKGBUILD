@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=coretemp
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
@@ -8,17 +37,15 @@ pkgver=1.15.1
 pkgrel=1
 pkgdesc="A compact program to monitor processor temperature"
 arch=('any')
-url="http://www.alcpu.com/CoreTemp/"
+url="https://www.alcpu.com/CoreTemp/"
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("CoreTemp64.zip::http://www.alcpu.com/CoreTemp/CoreTemp64.zip"
-        "CoreTempTranslator.zip::http://www.alcpu.com/CoreTemp/CoreTempTranslator.zip")
+source=("CoreTemp64.zip::https@subdir://www.alcpu.com/CoreTemp/CoreTemp64.zip"
+        "CoreTempTranslator.zip::https@subdir://www.alcpu.com/CoreTemp/CoreTempTranslator.zip")
 sha512sums=('7e79f913b35d0ecf4671acb807de379d8b03ee4f2ebe99f1f7ba5311e5cf851d896c244dd0b5b84d70c34f6f00bceee7fe7fd109927c2a833fe9d34e23656de6'
             'be6a08b8e797dbf662ae88aff592b29d720c3069ad6fcc255446bc41ae15cec8b4755953e1c2b7e00aea982f04c4de7c4930af55d64ab6601819643abe373d81')
-noextract=("CoreTemp64.zip")
 
 _lc() {
     local d f n
@@ -35,21 +62,17 @@ _lc() {
     done
 }
 
-prepare() {
-    unzip -o "CoreTemp64.zip" -d "CoreTemp"
-    _lc "CoreTemp"/* "languages"/* *
-}
-
 pkgver() {
-    b="$(cygpath -wa "coretemp/core temp.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+    powershell -command '(Get-Item "CoreTemp64/Core Temp.exe").VersionInfo.ProductVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/translator"
-    cp -r *.{dll,exe,lng} "languages" "coretemp"/*.exe "${a}"
-    mv "${a}/core temp.exe" "${a}/coretemp.exe"
-    cp "coretemp"/*.{url,txt} "${a}"
-    cp *.{txt,png} "${a}/translator"
+    cp -R "CoreTemp64"/* "${a}"
+    mv "${a}/Core Temp.exe" "${a}/CoreTemp.exe"
+    cp -R "CoreTempTranslator"/* "${a}/translator"
+    mv "${a}/translator"/{languages,CoreTempTranslator.exe,Logger.dll} "${a}"
+    mv "${a}/translator/en-US.lng" "${a}/languages/en-US.lng"
+    _lc "${a}"/*
 }

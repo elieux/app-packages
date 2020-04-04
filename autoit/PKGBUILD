@@ -7,14 +7,13 @@ epoch=1
 pkgver=3.3.14.5
 pkgrel=1
 pkgdesc="A free BASIC-like scripting language for automating Windows GUIs"
-url="http://www.autoitscript.com/"
+url="https://www.autoitscript.com/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("autoit.zip::http://www.autoitscript.com/files/autoit3/autoit-v3.zip")
+source=("autoit.zip::https://www.autoitscript.com/files/autoit${pkgver%%.*}/autoit-v${pkgver%%.*}.zip")
 sha512sums=('eacfc3176c688d3a68f3b7cbf1533a49fc9d2e99ac3fc63480564e61cb007a3382140e46887f63059e7edd5e85e76e733aacfe5938a9fffe3fa902271288498e')
 
 _lc() {
@@ -32,24 +31,21 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "install/Aut2Exe/Icons"/* "install/Aut2Exe"/* "install/AutoItX/Examples" "install/AutoItX/AutoItX.chm" "install/Icons"/* "install"/*
-}
-
 pkgver() {
-    b="install/Au3Check.exe"
-    b="$(cygpath -wa "${b}" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d '\000 '
+    powershell -command '(Get-Item "install/Au3Check.exe").VersionInfo.ProductVersion'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
-    mkdir -p "${a}" "${a}/extras/Editors/SciTE"
-    cp -r "install"/{include,icons} "install/aut2exe/icons" "install"/au3check.* "install/autoitx"/*.psd1 "install/autoitx"/AutoItX3{_DLL.h,.Assembly.dll,.Assembly.xml,.PowerShell.dll} "install/autoitx/AutoItX3_x64.dll" "install/autoitx/AutoItX3_x64_DLL.lib" "install/aut2exe/aut2exe_x64.exe" "install/au3info_x64.exe" "install/autoit3_x64.exe" "${a}"
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "install"/* "${a}"
+    cp -R "${a}/aut2exe"/* "${a}/autoitx"/* "${a}"
+    rm -R "${a}/aut2exe" "${a}/autoitx" "${a}/upx.exe"
+    mv "${a}/scite" "${a}/extras/Editors/SciTE"
+    rm "${a}/extras/Editors/SciTE/SciTE.exe"
     for f in "${a}"/*_x64*
     do
-        mv "${f}" "$(echo "${f}" | sed "s/_x64//")"
+        mv -f "${f}" "${f/_x64/}"
     done
-    cp -r "install"/{examples,autoitx/examples,extras} "install/autoitx"/*.chm "install"/*.{chm,url} "install/autoit3help.exe" "${a}"
-    cp -r "install/scite"/*.properties "install/scite/api" "${a}/extras/editors/SciTE"
+    _lc "${a}"/*
 }

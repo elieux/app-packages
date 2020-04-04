@@ -1,22 +1,50 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=bind
-_realver=9.14.7
+_realver=9.16.1
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=${_realver//-/.}
+pkgver="${_realver//-/.}"
 pkgrel=1
 pkgdesc="The ISC BIND nameserver"
 url="https://www.isc.org/downloads/bind/"
 arch=('any')
 license=('custom:ISC')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("BIND.x64.zip::ftp://ftp.isc.org/isc/bind9/${_realver}/BIND${_realver}.x64.zip")
-sha512sums=('b3cd8eefc7fbee167b05984e4deac2514db0dd14632e224daa679ff1e6355f948565766e526231f0ec3e5938a48934999dd1c6f48dd919e9bb20c7838858901a')
+source=("BIND.x64.zip::https@subdir://downloads.isc.org/isc/bind${_realver%%.*}/${_realver}/BIND${_realver}.x64.zip")
+sha512sums=('fb5b240d1f6cc6b61c7db8eabafdb2a8b4f4656449a3d33f8d81eab52d6f951f836e7da91fef15e5d1e366be4f4ecc44acff228cbff586f8be3f72bbc53a72c7')
 
 _lc() {
     local d f n
@@ -33,14 +61,10 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp *.{exe,dll} "${a}"
-    rm "${a}"/vcredist*.exe "${a}/bindinstall.exe"
-    cp *.{html,pdf,txt} {changes,copyright,history,migration,migration-4to9,openssl-license,readme,sha256} "${a}"
+    cp "BIND.x64"/* "${a}"
+    rm "${a}"/vcredist*.exe "${a}/BINDInstall.exe"
+    _lc "${a}"/*
 }

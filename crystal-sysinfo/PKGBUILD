@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=crystalsysinfo
 _dirname=crystal
 pkgbase="app-${_realname}"
@@ -8,15 +37,14 @@ epoch=1
 pkgver=1.0.0.452
 pkgrel=1
 pkgdesc="A system inspection driver (Crystal Dew World)"
-url="http://crystalmark.info/?lang=en"
+url="https://crystalmark.info/?lang=en"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("CrystalCPUIDx64.zip::http://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID415x64.zip"
-        "CrystalMark.zip::http://crystalmark.info/download/archive/CrystalMark/CrystalMark2004R7.zip") # order is important
+source=("CrystalCPUIDx64.zip::https@subdir://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID415x64.zip"
+        "CrystalMark.zip::https@subdir://crystalmark.info/download/archive/CrystalMark/CrystalMark2004R7.zip") # order is important
 sha512sums=('955a7f19b4ec651a7d07e5e800e2b40a1735056dfe2ed72d12ac93b75530d5b9973c707607a2015bc970c4904a34048d3f1c637c49599247a938d827fcf13d67'
             '2a1eb4ba35e3238dc67617db7e7af83089f5d26b542891ff02b11a44049b6c8bedc2256868cc605ee7953fece14020b79445c420524363c95b0c6d177696a894')
 
@@ -49,23 +77,21 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 pkgver() {
-    _vers=( $(
-        for x in "" "x64"
+    local _vers=( $(
+        local x
+        for x in "CrystalCPUIDx64/SysInfoX64.dll" "CrystalMark/SysInfo.dll"
         do
-            b="$(cygpath -wa "sysinfo${x}.dll" | sed 's/\\/\\\\/g')"
-            wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
+            powershell -command '(Get-Item "'"${x}"'").VersionInfo.ProductVersionRaw.ToString()' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
         done
     ) )
     _eqver "${_vers[@]}"
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp -r "data" *sysinfo* "${a}"
+    cp -R "CrystalMark/data" "CrystalMark"/*SysInfo* "${a}"
+    cp -R "CrystalCPUIDx64/data" "CrystalCPUIDx64"/*SysInfo* "${a}"
+    _lc "${a}"/*
 }

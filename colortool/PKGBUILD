@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=colortool
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -10,14 +39,29 @@ pkgdesc="Windows Console Colortool"
 url="https://github.com/microsoft/terminal/tree/master/src/tools/ColorTool"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("colortool.zip::https://github.com/microsoft/terminal/releases/download/${pkgver}/colortool.zip")
+source=("colortool.zip::https@subdir://github.com/microsoft/terminal/releases/download/${pkgver}/colortool.zip")
 sha512sums=('33fe16d675213fd09b80c5f0477471bc15b2f9cd3112fb5e78693ea9249e41beb52f3fddae6c168d1611d363df81a4683060cd4a61b3a266efada1b48b15c8c8')
 
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R *.exe "schemes" "${a}"
+    cp -R "colortool"/* "${a}"
+    _lc "${a}"/*
 }

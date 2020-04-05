@@ -7,7 +7,7 @@ epoch=1
 pkgver=4.111.0.0
 pkgrel=1
 pkgdesc="Changes the display color temperature according to the time of the day"
-url="http://justgetflux.com/"
+url="https://justgetflux.com/"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
@@ -17,17 +17,16 @@ source=("flux-setup.exe::https://justgetflux.com/flux-setup.exe")
 sha512sums=('2d2092e1122c87aabec335401116555393aabd609e5df7bd596fea17a003a67b436a376c871196c270d9f3e87d41ad1963bb4ce8554cf9cc855c2263e575cd09')
 
 prepare() {
-    7z x -y -bd "flux-setup.exe"
+    7z x -y -bd "flux-setup.exe" -o"flux-setup.dir" > /dev/null
 }
 
 pkgver() {
-    7z x -y -bd "flux-setup.exe" "flux.exe" > /dev/null
-    b="$(cygpath -wa "flux.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+    powershell -command '(Get-Item "flux-setup.dir/flux.exe").VersionInfo.FileVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "flux.exe" "runtime" "${a}"
+    cp -R "flux-setup.dir"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR'
 }

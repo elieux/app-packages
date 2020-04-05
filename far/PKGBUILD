@@ -1,23 +1,50 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=far
-_realver=30b5454-20190823
+_realver=30b5555-20200208
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver="$(echo -n "${_realver}" | sed -r 's/^([0-9])([0-9])b([0-9]+)-[0-9]+$/\1.\2.\3/')"
 pkgrel=1
 pkgdesc="Extensible text mode file manager"
-url="http://farmanager.com/index.php?l=en"
+url="https://farmanager.com/index.php?l=en"
 arch=('any')
 license=('GPL2' 'BSD' 'custom')
 replaces=("app-i686-${_realname}")
-makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Far.x64.7z::http://farmanager.com/files/Far${_realver%%-*}.x64.${_realver##*-}.7z")
+source=("Far.x64.7z::https@subdir://farmanager.com/files/Far${_realver%%-*}.x64.${_realver##*-}.7z")
 sha512sums=('a470a41776a41e05386f289648121f1037f592f5f7cc69bcccb15f41b4832f77798f30e92832ca58ee4d47c4fcd7787c7b93f100b47cb768c749e2d61181f277')
-noextract=("${source[@]%%::*}")
 
 _lc() {
     local d f n
@@ -34,14 +61,10 @@ _lc() {
     done
 }
 
-prepare() {
-    7z x -y -bd "Far.x64.7z" -o"far"
-    _lc "far"/*
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "far"/* "${a}"
+    cp -R "Far.x64"/* "${a}"
     find "${a}" -name '*.map' -delete
+    _lc "${a}"/*
 }

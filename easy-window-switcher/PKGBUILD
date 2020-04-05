@@ -39,20 +39,20 @@ _dl() {
 }
 
 prepare() {
-    _token="$(curl -c cookie.jar -d "id=26" https://neosmart.net/Download/Register | grep __RequestVerificationToken | sed -r 's/^.*value="(.+)".*$/\1/')"
-    _url="$(curl -b cookie.jar -d "productId=26&__RequestVerificationToken=${_token}&name=&email=" https://neosmart.net/Download/ThankYou | grep cfcdn.neosmart.net | grep href | sed -r 's/^.*href="(.+)".*$/\1/' | sed 's/&amp;/\&/g')"
+    local _token="$(curl -c cookie.jar -d "id=26" https://neosmart.net/Download/Register | grep __RequestVerificationToken | sed -r 's/^.*value="(.+)".*$/\1/')"
+    local _url="$(curl -b cookie.jar -d "productId=26&__RequestVerificationToken=${_token}&name=&email=" https://neosmart.net/Download/ThankYou | grep cfcdn.neosmart.net | grep href | sed -r 's/^.*href="(.+)".*$/\1/' | sed 's/&amp;/\&/g')"
     _dl "Easy-Window-Switcher.exe::${_url}"
     source+=("Easy-Window-Switcher.exe")
     extract_sources
-    _lc *
 }
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "easy-window-switcher.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.][0-9]+$/\1/'
+    powershell -command '(Get-Item "Easy-Window-Switcher.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.][0-9]+$/\1/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp *.exe "${a}"
+    cp "Easy-Window-Switcher.exe" "${a}"
+    _lc "${a}"/*
 }

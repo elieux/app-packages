@@ -7,7 +7,7 @@ epoch=1
 pkgver=5.4.0
 pkgrel=1
 pkgdesc="Franz is a free messaging app and combines chat & messaging services into one application"
-url="http://meetfranz.com/"
+url="https://meetfranz.com/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
@@ -33,13 +33,13 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "franz-setup.exe" > /dev/null
-     7z x -y -bd '$PLUGINSDIR'/"app-64.7z" -o"franz"
-    _lc "franz"/*
+    7z x -y -bd "franz-setup.exe" -o"franz-setup.dir" > /dev/null
+    7z x -y -bd "franz-setup.dir"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "franz"/* "${a}"
+    cp -R "app-64"/* "${a}"
+    _lc "${a}"/*
 }

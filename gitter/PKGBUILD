@@ -32,16 +32,17 @@ _lc() {
 }
 
 prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "GitterSetup.exe"
-    _lc "{app}"/*
+    /apps/innounp/innounp -x -q -m -a -y "GitterSetup.exe" -d"GitterSetup.dir"
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "{app}"/* "${a}"
-    for f in "${a}"/gitter*.exe
+    cp -R "GitterSetup.dir/{app}"/* "${a}"
+    local f
+    for f in "${a}"/Gitter*.exe
     do
-        mv -f "${f}" "${a}/gitter.exe"
+        mv -f "${f}" "${a}/Gitter.exe"
     done
+    _lc "${a}"/*
 }

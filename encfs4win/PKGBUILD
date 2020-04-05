@@ -1,24 +1,51 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=encfs4win
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.10.1
+pkgver=1.10.2
 pkgrel=1
 pkgdesc="Encrypted filesystem in user-space"
 arch=('any')
 url="https://encfs.win/"
 license=('GPL' 'LGPL')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("enfcs-nodeps.zip::https://github.com/jetwhiz/encfs4win/releases/download/v${pkgver}/encfs-nodeps.zip")
-sha512sums=('252907105da6a73598fe8a1667178c69a8660418c6f0cdabe27ad5f41937ca9d104c9500bc57eb92bf71127387f25321517eb8be4b8cda8140115fd86c7f968e')
+source=("encfs-nodeps.zip::https@subdir://github.com/jetwhiz/encfs4win/releases/download/v${pkgver}/encfs-nodeps.zip")
+sha512sums=('b1fc03c9bbe96a34fd35c69573ffe46cb356d8d2f922efee842fa2e587886cc74f45539a7b26fd4e7865ba80f209601d487645436c10b99f1477209f76e78fde')
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp * "${a}"
-    rm "${a}"/enfcs-nodeps.zip
+    cp "encfs-nodeps"/* "${a}"
 }

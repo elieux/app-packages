@@ -4,21 +4,20 @@ _realname=filezilla
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.45.1
+pkgver=3.47.2.1
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client"
-url="http://filezilla-project.org/"
+url="https://filezilla-project.org/"
 arch=('any')
 license=('GPL')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("FileZilla_win64.zip::https://download.filezilla-project.org/client/FileZilla_${pkgver}_win64.zip")
-sha512sums=('1fe15352ec5a9facb62c13fe206dc63706129eaa44f375357896635ed5df73795021dcc2f41cf2dd2d9e65cf9792c070f4f03f8315785fc67b32e9debc43f27c')
+sha512sums=('4d3d37f85d8a364a2801bba80767700a4db02ba9e64a74ea5b86e7f64a1a68709e35ce78dc3e3df29863485b6f6f27e556a80fb41f78a04668c02babccdf3a5a')
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "FileZilla-${pkgver}"/* "${a}"
+    cp -R "FileZilla-${pkgver}"/* "${a}"
 }

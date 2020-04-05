@@ -6,10 +6,10 @@ _realname=dropbox
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=93.4.273
+pkgver=94.4.384
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
-url="http://www.dropbox.com/"
+url="https://www.dropbox.com/"
 arch=('any')
 license=('custom')
 makedepends=("p7zip" "curl" "python3")
@@ -17,7 +17,7 @@ provides=("${pkgbase}")
 options=(!strip)
 install="dropbox.install"
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
-sha512sums=('3c2f0e3697a5a5641246cf73e35fbcd765d423f14061229ddbf4c3b90c10364cc2f6e15a3f7e905c97d1f58f29580b9bdcf9f9633033e6dff2499513d3c53adf')
+sha512sums=('394c83757acb219b1758d0614ebe87c71a66ca5240aa7a894a60ffe8921014736fdbb0ff4672083ad0be4d85eb8f94b1d97194814f3655498fefaeadb086063b')
 
 _lc() {
     local d f n
@@ -29,7 +29,7 @@ _lc() {
         n="$(echo "${f}" | tr 'A-Z' 'a-z')"
         if test "${f}" != "${n}"
         then
-            mv "${d}/${f}" -T "${d}/${n}"
+            mv "${d}/${f}" "${d}/${n}"
         fi
     done
 }
@@ -49,31 +49,30 @@ _rmmsdll() {
 }
 
 prepare() {
-    7z x -y -bd "DropboxOfflineInstaller.exe"
-    7z x -y -bd "Installer.exe".*
-    _lc '$0'/"${pkgver}"/* '$0'/*
+    7z x -y -bd "DropboxOfflineInstaller.exe" -o"DropboxOfflineInstaller.dir" > /dev/null
+    7z x -y -bd "DropboxOfflineInstaller.dir"/Installer.exe.* -o"Installer" > /dev/null
 }
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "'"$(echo "Installer.exe".*)"'").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+    powershell -command '(Get-Item "Installer/\`$0/Dropbox.exe").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r '$0'/* "${a}"
-    rm -r "${a}/dropboxuninstaller.exe"
+    cp -R "Installer"/'$0'/* "${a}"
+    rm -R "${a}/DropboxUninstaller.exe"
 
     # remove system DLLs
     _rmmsdll "${a}"
     mv "${a}/${pkgver}"/* "${a}"
-    rm -r "${a}/${pkgver}"
+    rm -R "${a}/${pkgver}"
     rm "${a}/${pkgver}.manifest"
     _pkgver="${pkgver}" _a="${a}" python3 -c '
 import os
 
 to_remove = """<dependency><dependentAssembly><assemblyIdentity type="win32" name="{0}" version="901.520.64.112" language="*"></assemblyIdentity></dependentAssembly></dependency>""".format(os.environ["_pkgver"]).encode("ascii")
-f = open(os.environ["_a"] + "/dropbox.exe", "rb+")
+f = open(os.environ["_a"] + "/Dropbox.exe", "rb+")
 data = f.read()
 pos = data.find(to_remove)
 f.seek(pos)
@@ -82,4 +81,6 @@ f.close()
     '
     # MSYS=winsymlinks:nativestrict ln -s . "${a}/${pkgver}" # Permission denied on msys2-runtime v3.0.7
     # ( cd "${a}" && MSYS2_ARG_CONV_EXCL=* cmd /c mklink /d "${pkgver}" . ) # Works, but doesn't package correctly
+
+    _lc "${a}"/*
 }

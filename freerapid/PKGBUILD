@@ -10,7 +10,6 @@ pkgdesc="A Java-based download manager for Rapidshare and other file sharing arc
 arch=('any')
 url="http://wordrider.net/freerapid/"
 license=('GPL')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("FreeRapid.zip::http://files.kral.hk/frd/FreeRapid-${pkgver}.zip")
@@ -31,13 +30,9 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "FreeRapid-${pkgver}"/*
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "FreeRapid-${pkgver}"/{lib,lookandfeel,search,tools,frd.*,instplgs.dat,objectdb.conf,*.properties} "${a}"
-    cp -r "FreeRapid-${pkgver}"/{doc,copyright,license,readme.txt} "${a}"
+    cp -R "FreeRapid-${pkgver}"/* "${a}"
+    _lc "${a}"/*
 }

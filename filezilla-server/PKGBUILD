@@ -7,7 +7,7 @@ epoch=1
 pkgver=0.9.60.2
 pkgrel=1
 pkgdesc="A popular FTP server"
-url="http://filezilla-project.org/"
+url="https://filezilla-project.org/"
 arch=('any')
 license=('GPL')
 makedepends=("p7zip")
@@ -32,13 +32,13 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "FileZilla_Server.exe"
-    _lc *
+    7z x -y -bd "FileZilla_Server.exe" -o"FileZilla_Server.dir" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "filezilla server.exe" "filezilla server interface.exe" *.dll "${a}"
-    cp -r "license.txt" *.htm "${a}"
+    cp -R "FileZilla_Server.dir"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR' "${a}"/'$R1' "${a}/source"
+    _lc "${a}"/*
 }

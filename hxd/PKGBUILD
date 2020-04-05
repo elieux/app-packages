@@ -4,18 +4,18 @@ _realname=hxd
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.3.0.0
+pkgver=2.4.0.0
 pkgrel=1
 pkgdesc="Freeware hex editor and disk editor"
 arch=('any')
-url="http://mh-nexus.de/en/hxd/"
+url="https://mh-nexus.de/en/hxd/"
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip" "app-innounp")
+makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("HxDSetup.zip::https://mh-nexus.de/downloads/HxDSetup.zip")
-sha512sums=('d2c58c3ced7d12f0dadaa20723d0c1b34167bb6ee6292deb8d9921f8dc711964778348059efd653bbac05ab3277c90350b7da9de4ffb82d8683494a98d87c137')
+sha512sums=('33714bf909de383b2df6c7b860634cad0f1c0f6954753076c417feddc1477f506bc887b1b867a9ca2945fe90e6fd0ca70bbf74a63999a818e394d60cff59df99')
 
 _lc() {
     local d f n
@@ -33,24 +33,27 @@ _lc() {
 }
 
 prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "HxDSetup.exe"
-    _lc "{app}"/*
+    /apps/innounp/innounp -x -q -m -a -y "HxDSetup.exe" -d"HxDSetup.dir"
 }
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "HxDSetup.exe").VersionInfo.ProductVersionRaw.ToString()' | dos2unix | tr -d ' '
+    powershell -command '(Get-Item "HxDSetup.exe").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    for f in "{app}"/hxd64*.exe
-    do
-        if [ "English (United States)" = "$("${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "'"$(cygpath -w "${f}")"'").VersionInfo.Language' | dos2unix)" ]
-        then
-            cp "${f}" "${a}/hxd.exe"
-        fi
-    done
-    test -f "${a}/hxd.exe"
-    cp "{app}"/*.txt "${a}"
+    cp "HxDSetup.dir/{app}"/* "${a}"
+
+    # work around a runtime error because the program thinks it's in portable mode
+    mkdir "${a}/Settings"
+    touch "${a}/Settings/HxD Hex Editor.ini"
+    echo -n "ENU" > "${a}/Settings/HxD Hex Editor.lang"
+
+    local exe
+    exe="$(cat "HxDSetup.dir/install_script.iss" | grep '^Source: ' | grep 'Languages: "enu"' | grep 'Check: "not IsInPortableMode and IsX64InstallMode"' | sed -r 's/^Source: "[{]app[}]\\(HxD[0-9,]+.exe)".*$/\1/')"
+    rm "${a}"/HxD*.exe
+    cp "HxDSetup.dir/{app}/${exe}" "${a}/HxD.exe"
+
+    _lc "${a}"/*
 }

@@ -10,7 +10,6 @@ pkgdesc="Simple shell based CA utility"
 url="https://community.openvpn.net/openvpn#Easy-rsasubproject"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("EasyRSA-windows.zip::https://github.com/OpenVPN/easy-rsa/releases/download/v${pkgver}/EasyRSA-windows-v${pkgver}.zip")
@@ -31,12 +30,9 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "EasyRSA-v${pkgver}"/*
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "EasyRSA-v${pkgver}"/* "${a}"
+    _lc "${a}"/*
 }

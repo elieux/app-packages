@@ -2,9 +2,8 @@
 <?php
 // no error handling yet
 
-$product = str_replace('-dictionaries', '', basename(__DIR__));
-$list = file_get_contents("https://addons.mozilla.org/en-US/{$product}/language-tools/");
-preg_match_all("~<a href=\"/en-US/{$product}/addon/(.*?)/\">~", $list, $matches);
+$list = file_get_contents("https://addons.mozilla.org/en-US/firefox/language-tools/");
+preg_match_all("~<a href=\"/en-US/firefox/addon/(.*?)/\">~", $list, $matches);
 
 $srclist = [];
 foreach ($matches[1] as $addonname) {
@@ -14,7 +13,7 @@ foreach ($matches[1] as $addonname) {
 	if (strpos($addonname, 'langpack') !== false) {
 		continue;
 	}
-	$detail = file_get_contents("https://addons.mozilla.org/en-US/{$product}/addon/" . urlencode($addonname) . "/");
+	$detail = file_get_contents("https://addons.mozilla.org/en-US/firefox/addon/" . urlencode($addonname) . "/");
 	if (strpos($detail, 'this language pack') !== false) {
 		continue;
 	}
@@ -22,7 +21,7 @@ foreach ($matches[1] as $addonname) {
 	$addonid = $match[1];
 	$addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', transliterator_transliterate('Latin', urldecode($addonname))), '-_');
 	echo "Found: {$addonname}-{$addonid}.xpi\n";
-	$srclist[] = "{$addonname}-{$addonid}.xpi::https://addons.mozilla.org/{$product}/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
+	$srclist[] = "{$addonname}-{$addonid}.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
 }
 
 $srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));

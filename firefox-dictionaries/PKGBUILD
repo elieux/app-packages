@@ -1,142 +1,175 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=firefox-dictionaries
 _dirname=firefox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2019.04.03
+pkgver=2020.04.05
 pkgrel=1
 pkgdesc="Dictionaries for Firefox"
 url="https://addons.mozilla.org/en-US/firefox/language-tools/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-depends=("app-x86_64-firefox")
-makedepends=("unzip" "python3")
+makedepends=("python")
 provides=("${pkgbase}")
 options=(!strip)
-source=("afrikaans-spell-checker-5127.xpi::https://addons.mozilla.org/firefox/downloads/latest/5127/addon-5127-latest.xpi"
-        "albanian-dictionary-5485.xpi::https://addons.mozilla.org/firefox/downloads/latest/5485/addon-5485-latest.xpi"
-        "arabic-spell-checking-dictiona-3677.xpi::https://addons.mozilla.org/firefox/downloads/latest/3677/addon-3677-latest.xpi"
-        "corrector-ortografico-aragones-337264.xpi::https://addons.mozilla.org/firefox/downloads/latest/337264/addon-337264-latest.xpi"
-        "armenian-spell-checker-diction-5051.xpi::https://addons.mozilla.org/firefox/downloads/latest/5051/addon-5051-latest.xpi"
-        "assamese-spell-checker-522582.xpi::https://addons.mozilla.org/firefox/downloads/latest/522582/addon-522582-latest.xpi"
-        "correutor_asturianu-331662.xpi::https://addons.mozilla.org/firefox/downloads/latest/331662/addon-331662-latest.xpi"
-        "azerbaijani-spell-checker-222212.xpi::https://addons.mozilla.org/firefox/downloads/latest/222212/addon-222212-latest.xpi"
-        "azerbaijani-spellchecker-812779.xpi::https://addons.mozilla.org/firefox/downloads/latest/812779/addon-812779-latest.xpi"
-        "bambarabamanakan-474714.xpi::https://addons.mozilla.org/firefox/downloads/latest/474714/addon-474714-latest.xpi"
-        "xuxen-4020.xpi::https://addons.mozilla.org/firefox/downloads/latest/4020/addon-4020-latest.xpi"
-        "belarusian-spellcheck-webext-1017008.xpi::https://addons.mozilla.org/firefox/downloads/latest/1017008/addon-1017008-latest.xpi"
-        "bengali-bangladesh-dictionary-13660.xpi::https://addons.mozilla.org/firefox/downloads/latest/13660/addon-13660-latest.xpi"
-        "difazier-an-drouizig-482428.xpi::https://addons.mozilla.org/firefox/downloads/latest/482428/addon-482428-latest.xpi"
-        "bulgarian-dictionary-3623.xpi::https://addons.mozilla.org/firefox/downloads/latest/3623/addon-3623-latest.xpi"
-        "general-catalan-dictionary-3369.xpi::https://addons.mozilla.org/firefox/downloads/latest/3369/addon-3369-latest.xpi"
-        "valencian-spellchecker-4796.xpi::https://addons.mozilla.org/firefox/downloads/latest/4796/addon-4796-latest.xpi"
-        "valencian-catalan-dictionary-9192.xpi::https://addons.mozilla.org/firefox/downloads/latest/9192/addon-9192-latest.xpi"
-        "croatian-dictionary-9795.xpi::https://addons.mozilla.org/firefox/downloads/latest/9795/addon-9795-latest.xpi"
-        "czech-spell-checking-dictionar-3394.xpi::https://addons.mozilla.org/firefox/downloads/latest/3394/addon-3394-latest.xpi"
-        "czech-spell-checking-without-d-413604.xpi::https://addons.mozilla.org/firefox/downloads/latest/413604/addon-413604-latest.xpi"
-        "dansk-ordbog-3596.xpi::https://addons.mozilla.org/firefox/downloads/latest/3596/addon-3596-latest.xpi"
-        "woordenboek-nederlands-3291.xpi::https://addons.mozilla.org/firefox/downloads/latest/3291/addon-3291-latest.xpi"
-        "english-australian-dictionary-3099.xpi::https://addons.mozilla.org/firefox/downloads/latest/3099/addon-3099-latest.xpi"
-        "british-english-dictionary-2-461570.xpi::https://addons.mozilla.org/firefox/downloads/latest/461570/addon-461570-latest.xpi"
-        "canadian-english-dictionary-3653.xpi::https://addons.mozilla.org/firefox/downloads/latest/3653/addon-3653-latest.xpi"
-        "new-zealand-english-dict-291304.xpi::https://addons.mozilla.org/firefox/downloads/latest/291304/addon-291304-latest.xpi"
-        "us-english-dictionary-677644.xpi::https://addons.mozilla.org/firefox/downloads/latest/677644/addon-677644-latest.xpi"
-        "esperanta-vortaro-3684.xpi::https://addons.mozilla.org/firefox/downloads/latest/3684/addon-3684-latest.xpi"
-        "eesti-keele-speller-4195.xpi::https://addons.mozilla.org/firefox/downloads/latest/4195/addon-4195-latest.xpi"
-        "dictionnaire-franais1-354872.xpi::https://addons.mozilla.org/firefox/downloads/latest/354872/addon-354872-latest.xpi"
-        "dictionnaire-frison-5679.xpi::https://addons.mozilla.org/firefox/downloads/latest/5679/addon-5679-latest.xpi"
-        "dizionari-furlan-4742.xpi::https://addons.mozilla.org/firefox/downloads/latest/4742/addon-4742-latest.xpi"
-        "scottish-gaelic-spell-checker-260204.xpi::https://addons.mozilla.org/firefox/downloads/latest/260204/addon-260204-latest.xpi"
-        "corrector-de-galego-5018.xpi::https://addons.mozilla.org/firefox/downloads/latest/5018/addon-5018-latest.xpi"
-        "georgian-dictionary-900252.xpi::https://addons.mozilla.org/firefox/downloads/latest/900252/addon-900252-latest.xpi"
-        "german-dictionary-extended-for-3079.xpi::https://addons.mozilla.org/firefox/downloads/latest/3079/addon-3079-latest.xpi"
-        "german-dictionary-de_at-for-sp-9359.xpi::https://addons.mozilla.org/firefox/downloads/latest/9359/addon-9359-latest.xpi"
-        "german-dictionary-3077.xpi::https://addons.mozilla.org/firefox/downloads/latest/3077/addon-3077-latest.xpi"
-        "german-dictionary-de_de-for-sp-9361.xpi::https://addons.mozilla.org/firefox/downloads/latest/9361/addon-9361-latest.xpi"
-        "deutsch-alte-rechtschreibung-360545.xpi::https://addons.mozilla.org/firefox/downloads/latest/360545/addon-360545-latest.xpi"
-        "german-dictionary-switzerland-3049.xpi::https://addons.mozilla.org/firefox/downloads/latest/3049/addon-3049-latest.xpi"
-        "german-dictionary-de_ch-for-sp-9360.xpi::https://addons.mozilla.org/firefox/downloads/latest/9360/addon-9360-latest.xpi"
-        "greek-spellchecking-dictionary-3439.xpi::https://addons.mozilla.org/firefox/downloads/latest/3439/addon-3439-latest.xpi"
-        "english-greek-spelling-diction-3451.xpi::https://addons.mozilla.org/firefox/downloads/latest/3451/addon-3451-latest.xpi"
-        "gujarati-spell-checker-india-222506.xpi::https://addons.mozilla.org/firefox/downloads/latest/222506/addon-222506-latest.xpi"
-        "hausa-spelling-dictionary-85790.xpi::https://addons.mozilla.org/firefox/downloads/latest/85790/addon-85790-latest.xpi"
-        "hebrew-spell-checking-dictiona-3646.xpi::https://addons.mozilla.org/firefox/downloads/latest/3646/addon-3646-latest.xpi"
-        "hindi-spell-checker-221506.xpi::https://addons.mozilla.org/firefox/downloads/latest/221506/addon-221506-latest.xpi"
-        "hungarian-dictionary-3386.xpi::https://addons.mozilla.org/firefox/downloads/latest/3386/addon-3386-latest.xpi"
-        "icelandic-dictionary-3643.xpi::https://addons.mozilla.org/firefox/downloads/latest/3643/addon-3643-latest.xpi"
-        "kamus-pengecek-ejaan-bahasa-in-6818.xpi::https://addons.mozilla.org/firefox/downloads/latest/6818/addon-6818-latest.xpi"
-        "corrector_orthographic-325010.xpi::https://addons.mozilla.org/firefox/downloads/latest/325010/addon-325010-latest.xpi"
-        "litreoir-gaelspell-do-mhozilla-3090.xpi::https://addons.mozilla.org/firefox/downloads/latest/3090/addon-3090-latest.xpi"
-        "dizionario-italiano-3053.xpi::https://addons.mozilla.org/firefox/downloads/latest/3053/addon-3053-latest.xpi"
-        "kannada-spell-checker-402994.xpi::https://addons.mozilla.org/firefox/downloads/latest/402994/addon-402994-latest.xpi"
-        "korean-spellchecker-11487.xpi::https://addons.mozilla.org/firefox/downloads/latest/11487/addon-11487-latest.xpi"
-        "rastnivs-8323.xpi::https://addons.mozilla.org/firefox/downloads/latest/8323/addon-8323-latest.xpi"
-        "lao-spellchecking-dictionar-476993.xpi::https://addons.mozilla.org/firefox/downloads/latest/476993/addon-476993-latest.xpi"
-        "latin-dictionary-5563.xpi::https://addons.mozilla.org/firefox/downloads/latest/5563/addon-5563-latest.xpi"
-        "latvieu-valodas-pareizrakstb-3786.xpi::https://addons.mozilla.org/firefox/downloads/latest/3786/addon-3786-latest.xpi"
-        "lingala-spell-checker-204312.xpi::https://addons.mozilla.org/firefox/downloads/latest/204312/addon-204312-latest.xpi"
-        "lithuanian-spellcheck-3716.xpi::https://addons.mozilla.org/firefox/downloads/latest/3716/addon-3716-latest.xpi"
-        "dsb-spell-13201.xpi::https://addons.mozilla.org/firefox/downloads/latest/13201/addon-13201-latest.xpi"
-        "macedonian-makedonski-mk-mk-283744.xpi::https://addons.mozilla.org/firefox/downloads/latest/283744/addon-283744-latest.xpi"
-        "macedonian-spellchecker-latin-1473406.xpi::https://addons.mozilla.org/firefox/downloads/latest/1473406/addon-1473406-latest.xpi"
-        "malagasy-spell-checker-217294.xpi::https://addons.mozilla.org/firefox/downloads/latest/217294/addon-217294-latest.xpi"
-        "te-papakupu-mori-7130.xpi::https://addons.mozilla.org/firefox/downloads/latest/7130/addon-7130-latest.xpi"
-        "marathi-dictionary-12797.xpi::https://addons.mozilla.org/firefox/downloads/latest/12797/addon-12797-latest.xpi"
-        "mongolian-spell-checking-dicti-102885.xpi::https://addons.mozilla.org/firefox/downloads/latest/102885/addon-102885-latest.xpi"
-        "ndebele-south-spell-checker-46609.xpi::https://addons.mozilla.org/firefox/downloads/latest/46609/addon-46609-latest.xpi"
-        "nepali-dictionary-9971.xpi::https://addons.mozilla.org/firefox/downloads/latest/9971/addon-9971-latest.xpi"
-        "northern-sotho-spell-checker-46519.xpi::https://addons.mozilla.org/firefox/downloads/latest/46519/addon-46519-latest.xpi"
-        "norsk-bokml-ordliste-6868.xpi::https://addons.mozilla.org/firefox/downloads/latest/6868/addon-6868-latest.xpi"
-        "norsk-nynorsk-ordliste-6869.xpi::https://addons.mozilla.org/firefox/downloads/latest/6869/addon-6869-latest.xpi"
-        "oriya-spell-checker-232704.xpi::https://addons.mozilla.org/firefox/downloads/latest/232704/addon-232704-latest.xpi"
-        "odia-spelling-checker-630798.xpi::https://addons.mozilla.org/firefox/downloads/latest/630798/addon-630798-latest.xpi"
-        "glgyr-mlyy-7583.xpi::https://addons.mozilla.org/firefox/downloads/latest/7583/addon-7583-latest.xpi"
-        "lilak-persian-dictionary-671907.xpi::https://addons.mozilla.org/firefox/downloads/latest/671907/addon-671907-latest.xpi"
-        "lilak-2599241.xpi::https://addons.mozilla.org/firefox/downloads/latest/2599241/addon-2599241-latest.xpi"
-        "polish-spellchecker-dictionary-3052.xpi::https://addons.mozilla.org/firefox/downloads/latest/3052/addon-3052-latest.xpi"
-        "corretor-3257.xpi::https://addons.mozilla.org/firefox/downloads/latest/3257/addon-3257-latest.xpi"
-        "verificador-ortogrfico-para-p-6081.xpi::https://addons.mozilla.org/firefox/downloads/latest/6081/addon-6081-latest.xpi"
-        "ortografia-br-451204.xpi::https://addons.mozilla.org/firefox/downloads/latest/451204/addon-451204-latest.xpi"
-        "european-portuguese-spellcheck-3155.xpi::https://addons.mozilla.org/firefox/downloads/latest/3155/addon-3155-latest.xpi"
-        "punjabi-spell-checker-232706.xpi::https://addons.mozilla.org/firefox/downloads/latest/232706/addon-232706-latest.xpi"
-        "russian-spellchecking-dic-3703-3703.xpi::https://addons.mozilla.org/firefox/downloads/latest/3703/addon-3703-latest.xpi"
-        "russian-hunspell-dictionary-347439.xpi::https://addons.mozilla.org/firefox/downloads/latest/347439/addon-347439-latest.xpi"
-        "russian-english-dictionary-1013418.xpi::https://addons.mozilla.org/firefox/downloads/latest/1013418/addon-1013418-latest.xpi"
-        "sanskrit-spell-checker-337161.xpi::https://addons.mozilla.org/firefox/downloads/latest/337161/addon-337161-latest.xpi"
-        "srpski-5125.xpi::https://addons.mozilla.org/firefox/downloads/latest/5125/addon-5125-latest.xpi"
-        "srpski-renik-serbian-dictiona-10894.xpi::https://addons.mozilla.org/firefox/downloads/latest/10894/addon-10894-latest.xpi"
-        "swati-spell-checker-46614.xpi::https://addons.mozilla.org/firefox/downloads/latest/46614/addon-46614-latest.xpi"
-        "slovak-spell-checking-dictiona-4663.xpi::https://addons.mozilla.org/firefox/downloads/latest/4663/addon-4663-latest.xpi"
-        "slovar-za-slovenski-jezik-3046.xpi::https://addons.mozilla.org/firefox/downloads/latest/3046/addon-3046-latest.xpi"
-        "soay-senni-hantum-tenjandikaw-11940.xpi::https://addons.mozilla.org/firefox/downloads/latest/11940/addon-11940-latest.xpi"
-        "southern-sotho-spell-checker-46610.xpi::https://addons.mozilla.org/firefox/downloads/latest/46610/addon-46610-latest.xpi"
-        "diccionario-espaol-venezuela-11356.xpi::https://addons.mozilla.org/firefox/downloads/latest/11356/addon-11356-latest.xpi"
-        "diccionario-espaol-argentina-3059.xpi::https://addons.mozilla.org/firefox/downloads/latest/3059/addon-3059-latest.xpi"
-        "diccionario-de-espaol-chile-898419.xpi::https://addons.mozilla.org/firefox/downloads/latest/898419/addon-898419-latest.xpi"
-        "diccionario-espaol-mxico-7020.xpi::https://addons.mozilla.org/firefox/downloads/latest/7020/addon-7020-latest.xpi"
-        "spanish-mexico-dictionary-1018058.xpi::https://addons.mozilla.org/firefox/downloads/latest/1018058/addon-1018058-latest.xpi"
-        "diccionario-de-espaol-espaa-3554.xpi::https://addons.mozilla.org/firefox/downloads/latest/3554/addon-3554-latest.xpi"
-        "kiswahili-spell-checker-217290.xpi::https://addons.mozilla.org/firefox/downloads/latest/217290/addon-217290-latest.xpi"
-        "grans-hemmasnickrade-ordli-474623.xpi::https://addons.mozilla.org/firefox/downloads/latest/474623/addon-474623-latest.xpi"
-        "tamil-spell-checker-for-firefo-8902.xpi::https://addons.mozilla.org/firefox/downloads/latest/8902/addon-8902-latest.xpi"
-        "thamizha-solthiruthi-337368.xpi::https://addons.mozilla.org/firefox/downloads/latest/337368/addon-337368-latest.xpi"
-        "telugu-spell-checker-269588.xpi::https://addons.mozilla.org/firefox/downloads/latest/269588/addon-269588-latest.xpi"
-        "tsonga-spell-checker-46611.xpi::https://addons.mozilla.org/firefox/downloads/latest/46611/addon-46611-latest.xpi"
-        "tswana-spell-checker-46617.xpi::https://addons.mozilla.org/firefox/downloads/latest/46617/addon-46617-latest.xpi"
-        "turkce-yazim-denetimi-277036.xpi::https://addons.mozilla.org/firefox/downloads/latest/277036/addon-277036-latest.xpi"
-        "ukrainian-dictionary-4782.xpi::https://addons.mozilla.org/firefox/downloads/latest/4782/addon-4782-latest.xpi"
-        "upper-sorbian-spelling-diction-3956.xpi::https://addons.mozilla.org/firefox/downloads/latest/3956/addon-3956-latest.xpi"
-        "urdu-dictionary-7981.xpi::https://addons.mozilla.org/firefox/downloads/latest/7981/addon-7981-latest.xpi"
-        "uzbek-spell-checker-306383.xpi::https://addons.mozilla.org/firefox/downloads/latest/306383/addon-306383-latest.xpi"
-        "venda-spell-checker-46601.xpi::https://addons.mozilla.org/firefox/downloads/latest/46601/addon-46601-latest.xpi"
-        "dithionario-de-lengua-vneta-694745.xpi::https://addons.mozilla.org/firefox/downloads/latest/694745/addon-694745-latest.xpi"
-        "vietnamese-dictionary-7479.xpi::https://addons.mozilla.org/firefox/downloads/latest/7479/addon-7479-latest.xpi"
-        "geiriadur-cymraeg-231175.xpi::https://addons.mozilla.org/firefox/downloads/latest/231175/addon-231175-latest.xpi"
-        "xhosa-spell-checker-46599.xpi::https://addons.mozilla.org/firefox/downloads/latest/46599/addon-46599-latest.xpi"
-        "zulu-spell-checker-46490.xpi::https://addons.mozilla.org/firefox/downloads/latest/46490/addon-46490-latest.xpi")
+source=("afrikaans-spell-checker-5127.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/5127/addon-5127-latest.xpi"
+        "albanian-dictionary-5485.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/5485/addon-5485-latest.xpi"
+        "arabic-spell-checking-dictiona-3677.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3677/addon-3677-latest.xpi"
+        "corrector-ortografico-aragones-337264.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/337264/addon-337264-latest.xpi"
+        "armenian-spell-checker-diction-5051.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/5051/addon-5051-latest.xpi"
+        "assamese-spell-checker-522582.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/522582/addon-522582-latest.xpi"
+        "correutor_asturianu-331662.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/331662/addon-331662-latest.xpi"
+        "azerbaijani-spell-checker-222212.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/222212/addon-222212-latest.xpi"
+        "azerbaijani-spellchecker-812779.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/812779/addon-812779-latest.xpi"
+        "bambarabamanakan-474714.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/474714/addon-474714-latest.xpi"
+        "xuxen-4020.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/4020/addon-4020-latest.xpi"
+        "belarusian-spellcheck-webext-1017008.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/1017008/addon-1017008-latest.xpi"
+        "bengali-bangladesh-dictionary-13660.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/13660/addon-13660-latest.xpi"
+        "difazier-an-drouizig-482428.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/482428/addon-482428-latest.xpi"
+        "bulgarian-dictionary-3623.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3623/addon-3623-latest.xpi"
+        "general-catalan-dictionary-3369.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3369/addon-3369-latest.xpi"
+        "valencian-spellchecker-4796.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/4796/addon-4796-latest.xpi"
+        "valencian-catalan-dictionary-9192.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/9192/addon-9192-latest.xpi"
+        "croatian-dictionary-9795.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/9795/addon-9795-latest.xpi"
+        "czech-spell-checking-dictionar-3394.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3394/addon-3394-latest.xpi"
+        "czech-spell-checking-without-d-413604.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/413604/addon-413604-latest.xpi"
+        "dansk-ordbog-3596.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3596/addon-3596-latest.xpi"
+        "woordenboek-nederlands-3291.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3291/addon-3291-latest.xpi"
+        "english-australian-dictionary-3099.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3099/addon-3099-latest.xpi"
+        "british-english-dictionary-2-461570.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/461570/addon-461570-latest.xpi"
+        "canadian-english-dictionary-3653.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3653/addon-3653-latest.xpi"
+        "new-zealand-english-dict-291304.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/291304/addon-291304-latest.xpi"
+        "us-english-dictionary-677644.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/677644/addon-677644-latest.xpi"
+        "esperanta-vortaro-3684.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3684/addon-3684-latest.xpi"
+        "eesti-keele-speller-4195.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/4195/addon-4195-latest.xpi"
+        "dictionnaire-franais1-354872.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/354872/addon-354872-latest.xpi"
+        "dictionnaire-frison-5679.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/5679/addon-5679-latest.xpi"
+        "dizionari-furlan-4742.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/4742/addon-4742-latest.xpi"
+        "scottish-gaelic-spell-checker-260204.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/260204/addon-260204-latest.xpi"
+        "corrector-de-galego-5018.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/5018/addon-5018-latest.xpi"
+        "georgian-dictionary-900252.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/900252/addon-900252-latest.xpi"
+        "german-dictionary-extended-for-3079.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3079/addon-3079-latest.xpi"
+        "german-dictionary-de_at-for-sp-9359.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/9359/addon-9359-latest.xpi"
+        "spellchecker-rumgr-2624115.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/2624115/addon-2624115-latest.xpi"
+        "german-dictionary-3077.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3077/addon-3077-latest.xpi"
+        "german-dictionary-de_de-for-sp-9361.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/9361/addon-9361-latest.xpi"
+        "deutsch-alte-rechtschreibung-360545.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/360545/addon-360545-latest.xpi"
+        "german-dictionary-switzerland-3049.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3049/addon-3049-latest.xpi"
+        "german-dictionary-de_ch-for-sp-9360.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/9360/addon-9360-latest.xpi"
+        "greek-spellchecking-dictionary-3439.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3439/addon-3439-latest.xpi"
+        "english-greek-spelling-diction-3451.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3451/addon-3451-latest.xpi"
+        "gujarati-spell-checker-india-222506.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/222506/addon-222506-latest.xpi"
+        "hausa-spelling-dictionary-85790.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/85790/addon-85790-latest.xpi"
+        "hebrew-spell-checking-dictiona-3646.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3646/addon-3646-latest.xpi"
+        "hindi-spell-checker-221506.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/221506/addon-221506-latest.xpi"
+        "hu-optional-accents-dict-2617933.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/2617933/addon-2617933-latest.xpi"
+        "hungarian-dictionary-3386.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3386/addon-3386-latest.xpi"
+        "icelandic-dictionary-3643.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3643/addon-3643-latest.xpi"
+        "kamus-pengecek-ejaan-bahasa-in-6818.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/6818/addon-6818-latest.xpi"
+        "corrector_orthographic-325010.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/325010/addon-325010-latest.xpi"
+        "litreoir-gaelspell-do-mhozilla-3090.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3090/addon-3090-latest.xpi"
+        "dizionario-italiano-3053.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3053/addon-3053-latest.xpi"
+        "imseti-n-tira-n-teqbaylit-2610442.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/2610442/addon-2610442-latest.xpi"
+        "kannada-spell-checker-402994.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/402994/addon-402994-latest.xpi"
+        "korean-spellchecker-11487.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/11487/addon-11487-latest.xpi"
+        "rastnivs-8323.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/8323/addon-8323-latest.xpi"
+        "lao-spellchecking-dictionar-476993.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/476993/addon-476993-latest.xpi"
+        "latin-dictionary-5563.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/5563/addon-5563-latest.xpi"
+        "zeiler-sutto-latin-dictionary-2625316.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/2625316/addon-2625316-latest.xpi"
+        "latvieu-valodas-pareizrakstb-3786.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3786/addon-3786-latest.xpi"
+        "lingala-spell-checker-204312.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/204312/addon-204312-latest.xpi"
+        "lithuanian-spellcheck-3716.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3716/addon-3716-latest.xpi"
+        "dsb-spell-13201.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/13201/addon-13201-latest.xpi"
+        "macedonian-makedonski-mk-mk-283744.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/283744/addon-283744-latest.xpi"
+        "macedonian-spellchecker-latin-1473406.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/1473406/addon-1473406-latest.xpi"
+        "malagasy-spell-checker-217294.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/217294/addon-217294-latest.xpi"
+        "te-papakupu-mori-7130.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/7130/addon-7130-latest.xpi"
+        "marathi-dictionary-12797.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/12797/addon-12797-latest.xpi"
+        "mongolian-spell-checking-dicti-102885.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/102885/addon-102885-latest.xpi"
+        "ndebele-south-spell-checker-46609.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46609/addon-46609-latest.xpi"
+        "nepali-dictionary-9971.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/9971/addon-9971-latest.xpi"
+        "northern-sotho-spell-checker-46519.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46519/addon-46519-latest.xpi"
+        "norsk-bokml-ordliste-6868.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/6868/addon-6868-latest.xpi"
+        "norsk-nynorsk-ordliste-6869.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/6869/addon-6869-latest.xpi"
+        "oriya-spell-checker-232704.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/232704/addon-232704-latest.xpi"
+        "odia-spelling-checker-630798.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/630798/addon-630798-latest.xpi"
+        "glgyr-mlyy-7583.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/7583/addon-7583-latest.xpi"
+        "lilak-persian-dictionary-671907.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/671907/addon-671907-latest.xpi"
+        "lilak-2599241.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/2599241/addon-2599241-latest.xpi"
+        "polish-spellchecker-dictionary-3052.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3052/addon-3052-latest.xpi"
+        "corretor-3257.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3257/addon-3257-latest.xpi"
+        "verificador-ortogrfico-para-p-6081.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/6081/addon-6081-latest.xpi"
+        "ortografia-br-451204.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/451204/addon-451204-latest.xpi"
+        "european-portuguese-spellcheck-3155.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3155/addon-3155-latest.xpi"
+        "punjabi-spell-checker-232706.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/232706/addon-232706-latest.xpi"
+        "romanian-spellchecking-diction-4964.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/4964/addon-4964-latest.xpi"
+        "russian-spellchecking-dic-3703-3703.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3703/addon-3703-latest.xpi"
+        "russian-hunspell-dictionary-347439.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/347439/addon-347439-latest.xpi"
+        "russian-english-dictionary-1013418.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/1013418/addon-1013418-latest.xpi"
+        "sanskrit-spell-checker-337161.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/337161/addon-337161-latest.xpi"
+        "srpski-5125.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/5125/addon-5125-latest.xpi"
+        "srpski-renik-serbian-dictiona-10894.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/10894/addon-10894-latest.xpi"
+        "swati-spell-checker-46614.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46614/addon-46614-latest.xpi"
+        "slovak-spell-checking-dictiona-4663.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/4663/addon-4663-latest.xpi"
+        "slovar-za-slovenski-jezik-3046.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3046/addon-3046-latest.xpi"
+        "soay-senni-hantum-tenjandikaw-11940.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/11940/addon-11940-latest.xpi"
+        "southern-sotho-spell-checker-46610.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46610/addon-46610-latest.xpi"
+        "diccionario-espaol-venezuela-11356.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/11356/addon-11356-latest.xpi"
+        "diccionario-espaol-argentina-3059.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3059/addon-3059-latest.xpi"
+        "diccionario-de-espaol-chile-898419.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/898419/addon-898419-latest.xpi"
+        "diccionario-espaol-mxico-7020.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/7020/addon-7020-latest.xpi"
+        "spanish-mexico-dictionary-1018058.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/1018058/addon-1018058-latest.xpi"
+        "diccionario-de-espaol-espaa-3554.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3554/addon-3554-latest.xpi"
+        "kiswahili-spell-checker-217290.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/217290/addon-217290-latest.xpi"
+        "grans-hemmasnickrade-ordli-474623.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/474623/addon-474623-latest.xpi"
+        "tamil-spell-checker-for-firefo-8902.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/8902/addon-8902-latest.xpi"
+        "thamizha-solthiruthi-337368.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/337368/addon-337368-latest.xpi"
+        "telugu-spell-checker-269588.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/269588/addon-269588-latest.xpi"
+        "tsonga-spell-checker-46611.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46611/addon-46611-latest.xpi"
+        "tswana-spell-checker-46617.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46617/addon-46617-latest.xpi"
+        "turkce-yazim-denetimi-277036.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/277036/addon-277036-latest.xpi"
+        "ukrainian-dictionary-4782.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/4782/addon-4782-latest.xpi"
+        "upper-sorbian-spelling-diction-3956.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3956/addon-3956-latest.xpi"
+        "urdu-dictionary-7981.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/7981/addon-7981-latest.xpi"
+        "uzbek-spell-checker-306383.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/306383/addon-306383-latest.xpi"
+        "venda-spell-checker-46601.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46601/addon-46601-latest.xpi"
+        "dithionario-de-lengua-vneta-694745.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/694745/addon-694745-latest.xpi"
+        "vietnamese-dictionary-7479.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/7479/addon-7479-latest.xpi"
+        "geiriadur-cymraeg-231175.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/231175/addon-231175-latest.xpi"
+        "xhosa-spell-checker-46599.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46599/addon-46599-latest.xpi"
+        "zulu-spell-checker-46490.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46490/addon-46490-latest.xpi")
 sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e75565350c0486e42feec1d71bec32d675c3b6c1b2be1843e422234c16455c'
             '0e3515cc2ce96abdb7f4ac0667827659ddfbe2faf1d5162acff7fc4545760ec5fc45287ffaa9f906753b2e87245c7d8c8d0d6e0f0521b57b3e11e33356ef6209'
             '4ebbc96e6d67b3d4f712beeec049bedf440fe7bbee539e980f538ae61b2faabcc6b390ede06e096cd758c2529ea9be83e8703e814ebc477e322b163d0d304e86'
@@ -146,7 +179,7 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             'bc7630aa63eed56282a1d87998ad3d5e466fd58726627f8c9c96acc83c53c43b23b0e92d62ca8ca5bd42f143e4c457a6a663895eae0506eea7ffed090bd1f129'
             '2ff580171d2a2b32586b0db731aa506b07fd1fb758c82c93f083298c9030272789e2a8600762865c6ac49e38ce622435fd0dc87ec6b4374c5420e259c34688bf'
             'f806e84890204450de13b438e544961c1bf3d95781ac3af8a8d42d118c6c1843ee2c0439c336afb4dee70b032acda4a06b6d1d92886e7a6b28ebb788aa2fcd8c'
-            'b65cf11a8f7fc72e10902b452cf30966aaf5cf35c29139e0022ddd8c5f03ee948828ad2cd5c20bf5bb5b5415340df219397163a3538e8227ecfaf544b330cdd4'
+            '3bae9158d74e1d4f0de715c91c9ec43e0fa475bb7963fef40c9d928d29c3af10da37439bcc44ad08f296f5ac884548734a0eb31226cac5123ba0767a6858fe20'
             '0af8d5ccd131bc330bb7122042b5f3d4f670ca08bebdc74a55ae4fd99baf90fbb18523cd7afd313c5271f1682ab28b4d1c052fe0a04c8d00cccfa4b11586290b'
             'e3482aa82ddc0471c6b74f76ed96ca8b6fb81db2d59df61daaff53bd5713336a2f1221639a538ba7071aa83ec65d8b39a991378ddfc89dfd8d4f5b875d5950ce'
             'a24e27ad4a2f7aa92c14a7dc0b2a940167c2ae1a43a1c9e58afe8a6f6cfc74d5f3533fffc63c49e407c458282a4c37edd95e7a06d8c004f26ade430b506eeae5'
@@ -161,10 +194,10 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             '7dede4122c532e43a9846d82a74b2029688fa65a8cf0629da6cafe2fd0c522bd6a7ca7de4e93aa64580e752c988e673ceac83b45350072653c591751ae7e11a6'
             'f1a70f3e66256d4ac524645dd878d679cdfba195aa740428ae633f986d04bff6cc7d04b260598867564fe02da9968cd44974d8dc6a32c186d8a2c26c6805bef7'
             '9a2aa809d046778c853959fb83e29d577d97246ef5d0f07bf795711709a429ace2a47909056a243df6fee9a70378894a4121a2890c797f960dbc6e460d07a389'
-            'a365d8d29d67b86aebd5179f02b708ddfbf1d1e67325dc44800a2081ec7b4783459f5c0567a13c5082e94eecc435d188ddc282818fade83cdad8fab783130dbc'
+            '72ac0986088362851cbe0531f6b174279e8f2a571cc9d4fd3e7aa5a547a931ef333526ae369bc675d99b195164aba9ed90b2993a315f5cb41909c4eab3938afa'
             '69e598096dd3c3490d3946a1800a7bf7b127057a9a6905efaf8cd7455ba3c86f3e453dddd530ea613f6eb3d9616aad06857be63215bdac84570c66c03b744d4a'
             'fbcdddb4dd9046be7d874e05746ab4f9caaf7df22e811d02d62767634f5cfc14b2be679d010ea2547bec68b6e5d863c5cee85e05a4aa70034bfb567448b4c686'
-            '02295cbc85bd4f3fdee84e1277501cec6300483a980086700a4c96917dffab823544c9ecfa13c6a1748b80fc329bb3c54092a07ecffe0b330bb00e30c22e83a8'
+            'c1d34c1728e60136e5bba2c7f461e8bc8bbf3115f513a83fe85c5b960661b35c512ea6f9a3789f8857d6b558237728f6addb891870ca964a00e32d79228a4955'
             '7f60e8e8e399d46599adf3c15fc8fb3d3077304b7df049da42a23fb4f94644e0b9a0db77914bcbe05ec7401dee199c00a0ade273c3a6cea447e0d23f240bf9d4'
             'd3f98053f5807a7943e923decbd9d20c65ad6381484efbac8798261473fea24f83c6df2f3c6f680f3f07c574b5e43e7aecc28d14532cca748ac99965d0e6d6a5'
             'a7ba4e4d1e01f65bf8d45a7d368798c3fe7113b4dbeede137b5b385764c4b3d17c4b97c502c20b22c3b1c8aa8ee5e5ab391d008ef589c6a2fa829b7e42c76baa'
@@ -175,6 +208,7 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             '382141c3f993c11676eec60a6e20b306715d1bbded566e829b2001614a335cc04aebe5d64226ce0846aa8bcf9ccbe95ab2fb3e4b7d47982125ee27179ce13dca'
             '0ab2aa69a9a12cc8d6301bdc87b9825ba6379c02a9417eb08a5f0a35371222d072a79181683651841a14608bf0ee21e6c73533099734dbeaabdc34669a2b7cce'
             '74a95b2250f72e8c910a662ff396cc2aca5b69a0843e146c6780cb9f65131a21da09eecb51f69cfe3f8e1cf0e90cb0a24a73071fbfeec28c2de2f33998d125e9'
+            'b227db2667e0f4135d934d11dcaf9bee5bbf3d4a9abc9bbd66725798270ea22fd139ea62a446c23bb7ac3138b79c9fcaa97975d0633522fc6eca8524599feee7'
             '2850cb1c368c4c7274606f057405e3728d8d79598d40f51f7662cd433e19926a5d4bce6c341f09732393cb35efa76ecf8ecb11c6f1df4cb74bfbb875b1c956b9'
             '68f8b7d5ea9558d8411c4549269e0d45deead5c9e37c2d3a7fea9bf18eed481004561d0a084156980956eb5c11aa6473d162fdda460e8820f558586604fde967'
             '181243d6615255ddaed9466e0a5376640d4246dea7487bc43bcd7569f940a1288b5ae18fad2ad44ac747ebb7f407d6ddc36e44525c3de36e0e1db937b53f08d2'
@@ -186,17 +220,20 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             '89209b3a9a5e41d2ef0ea127acf0e18fa621477b16d1f9de3883bc546879f8667a641fde1e654406a7e8e303714ee5e3083e2018f4f86caa69f934b543583388'
             '13f96544629f1db91ab5749ece1f105e5423353d2f706ca1ffdb230ff57814bbab158b06cb0437b3ede9476c9a5e44432af95bf2a86cbe713c79048ff228d1be'
             'f90e6ca5a6b3591789472153275cb79950483452d1003fd9330fa83875c0a8eb31e0ab4179a7cbd60f8d72ff033fe36a96c9a4733659fb3e8a03f97c54b474ce'
+            'b059b6743174e143943f1657efa0ae46427652c3d0feae6be08795060cfc874ae87b311ca02c5bfdc76f98bac5282fb8b4c5b6dc9c14d47cdaafb3f6f26b48f8'
             '0937bda2d05f266e9a8052d71aa1d6a3cd3df4f5b475beaa2adb1af316e798ef028dd93c74a67f2a8f3c0f4f7f6ca10523aa1dcb12aed189843639a5d6a017e0'
             'b943b5c8ac06cc629c0d2f1430ef44b41dd568136805a785acb706ae3399aafd27323cb664ddb5669b32cae2f01a61afacf6fe2eda31d2cc0fddff9ab400ff61'
             '9ca3e9d0cf26e3ffa89d797530df61c64483c0b3d7b147d93398145edc41e5af62645dedbea9182e8ec8027eef8aea197df71afde5bb9db56dba315e7ad7ca7d'
-            '7bff1b5ba9b60345771ca8f257bd219ebe19063bd54abcbc50ee813bca0d826b6d7750953264679b7e3ddd52049176a47f8e2b8d7af7fac5eb5635ac4cb007fe'
+            'dfa10e8c291f8a74d6e3c041807fd24162cd9cac8f7b13087853a7ff38fcf3670168c91db4b1c38ea57710284a0459272b675b5a16da61e691d50b1c5837a10e'
             '11da74e376b38e046488c61d753b886ae4f6ce70f38fbbe13ae748cb927505b4bc66432ca9cfbd34393fc41b7b4de66bf00df30fa9301b38104062dbfee443da'
             'e1c6f5b55968779dac25cadb9b713ff44db0fd6292e31ca56177095e7586296f1a8d33838fd9324220edd61b45ec66f9bc50efac220de47efee6b1a2540e3646'
+            '03f28a48e2acd0b2f9f4cbd47ac1a82857962918e00c74cc4d0e3a5c5f2a630a53aa553ebe18aa7f5e6ac7ac266eb532e643e785454ccb7590c093de79869e6c'
             'af8997f00796c9e2b77ebc7907f6991f537402b147f3f4b3775341bf6c180eb2c214a87d54a9759c51ee18395819113de29ac8ce1c0d1c5aa3136ee609265c87'
             'dec99a9cbe49b6a93ee00243e4f344f056f76000636cdbd258fae86fd11c081b8f5ae767e94e64895eb91c6aab232c55c59eeef63a273eb92cc416d1b46163c3'
             'dabc3e82c812b05bab79cea91dbf0b8bc80d7abe4897b471d927fe4305e79710df31d8f06570069ca4b09bca1eb008ecd2a32af78dd937ae33714f4f4384f29d'
             '411a97da6de80c5abe0341d61a0490def43e38274e9a28776f7120dbf8e9c73c76afce9a1653602c5f0dfca8b31e3e558ed21b78fa93d8560667454d30d9fe2b'
             '7df42214fc2bcd2b7cf2536cf18bff59cc88634a6c82cde6426e62baad98f1047a6df05e13a6860711249077d4ba1bfe69311ffe227c610d20c368c247d2984e'
+            '83ebc8d791c8455c8a7835a0280166c3a9e219077f407c901134c55239cfcf4c330641f6b9a0bc7bf21d269afdf70230d720138d43772683daa600888364946e'
             '8f8c79c22d24b553f35ee062d9d7c426360eafb4115899a5902cfeccfb94dce7163a4683c6f86efb8de8aa9cf1eb9c1d33b92ff1b6763832350ce1a075ac4b16'
             'a4bd13865ce7f4e161cbc495dc84554ba209ba4f11368feadc10c619274281911158132118aba3df18a967e0700b3ae2c85f54b80bd7dae4f007520fcca21b0b'
             'd3f980758a50a157e39f33c22693ec0a94c87b8bfa6a0f875f707579e87bd97244d82fdaf410c2477b2cd86209f421c465bb240ddaed644a1bc28f6bc15dd6ef'
@@ -215,7 +252,7 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             '0c0d371d6795557a07a189164766e34d313d00671167f0905889fe9d1d0dfdc1925700aa8013f677168b54026b220db3b36b831e443940f83d185a85074b255a'
             'afe3179d248738bee10ebe30df1228deb1119f8275219f3c4202902c89a5319232861bfa862ec25478b79c7b10c7fe67b371afd4f835d8fa49110d4966717f66'
             '97d65a1c4d14c0ddeff5c0583fce462870a86bae511e7e1f9f74876870d01a3daa77944c3dbfd8fb26d0c10a59c91b288f2709699284d4340d6c765ee85346e1'
-            '3e0df7c143e09f41a3478b8f935002068e57240fe182b3295926ca41ef08dde768dfcc978108831bb279a123e97d63f83d7cc55ce543f3d107bee30c8d88c689'
+            '1b83c3162ef3f03a723eede0b8db01365df2c5f445df5a0494615899beb6c62d5981a1939006fcd3c913964b7f6a28941fc392e79f26a2e410fb7d8730d4d0b5'
             'ee5044f7d3871fb8347fdb480c4fd2c219c39de69624ffde2fe837579c2a17e979f55e61a74f9dd2c4954c8c9bbf3c891863f6a170a69911317db37193148c3b'
             'eee04210859305cf7ad8f411b0154d3030d855584ff4683fe85fede1e255b126728fa0f19d07dba177f59d6eea035c707e0c69251c16098698bea27c52108bd5'
             '451f77b06cbc5dfad4c1d5529c772e70ae45aa3558d0f5fa0c9e8bf8b0a7fa834060eec6fb6b713b93b0298635bd8a43ccac668a2400fff93bc95a288914c60b'
@@ -223,6 +260,7 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             'db6a7a992cb646320351359ba7da932e5cb51c165f57d10d8d2dc8279769f93a0a5c31dbbd07026b1a1a74d732396a34bc924e46f5e563fff52d92958cbf0ead'
             'b71dcc6e8a6191a3b16b8e88c06da1b2ed92ba9fe5927a3dac4d64b51a1d902ca3318388531b7097791c27442dbead50427e01a323c567687298097d4b11471a'
             'adb66da2b568e2e9079fe1b34c0cb929256d4dbcd17a63740abc2d732d821880fbd8da95075f1fce52d91c9ea7fa005eb3608a27c8612596260a4962277d684c'
+            '8e5fd78100cbedb24e133e91d4fb5b76d372c17323e04fad1e81096fd3485d98c1a949ff5dc423f8ef0647458a02a9f0b99edf4ed2d0646b16f993e670c9cdcc'
             '084e88eaee295a4d82f177513197ebba6529ffdbd6b078de951f0d4ad70d4daf9b18a4fe2a1d90bb3bc3939499ee0a1598e8e66b6cc74c5bbd3bad63a2ad83ef'
             '335f1b8fd4d49ce76630229683fe6538412fbc5b1948cadc0a98887e4be750ecc056c6efa9626b1ed7295456c4a17a4fea848bbd241cd0a26b30aa18e05f4d3c'
             '37330a65ddb966d1f632234747587399472c6823643563e2387f6172118b69b8bf170c3a447d6aeb5db1d89e05d0330848da57d1842cfa1fa29205763d551c86'
@@ -235,46 +273,40 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             'add17018bb06795ec6140988f9689f624f923cfc1093d61462e59e7814087971830ba48ae1be39e0eac51fc77043953cf537e761db6943257f048e0ccb84c058'
             '4efa3d6f178e853c267dc501f9ef1cc4b2c3e54c945076bbbd020cc34881f9e1bb3561c90f706a448677362139801b912c23d52a0fde7d58b0df447b68ea9396'
             '375225f5b52f7a295070e2a606fec54e20184c2e73c2ff4d1c3a19bfc4f1fe16d8892ba64ada7452b4025a241cc86c3ce5c72938d86a9a477c91a0b73247fd6a'
-            'f285b853a502d1b834564d50e63526bb078b7c7d3823dbe17dc79cd3e34f745d11cbc6eceda3cecd0abab476be1dcda3def27f224b0f41436b08e51ae725114f'
+            '8ff6bc5b2c6f53a1e2a734501c15dbc0279895b820950193add86ca5c79134123f0faa119bc8f22c14b2e2a770f6690e287880656b62324f34335a2b9bb98b5b'
             '41c24cb253a08384306f4042d5d8cbf620fae7fddf3ea11e42ed9e4e8a5b802786d7ae3aeeca6a677b68c7138e622ca70191d2fbd16367e2e43f7ec0a1be76b7'
             'bc2a83fe9194cbdca075c644244628add22d4ea2221f35d8a652177699f0292560a0823d3dccfcdccf3d5d44d38f9f5cdf84e1686f0678f619bdc8e852b6a639'
-            'adda3d6184a2ec9691ede52b26d8e87bdb57115e5241393122b587acce3bc9e97a998225707c6510b32b1c750925d86d4c9f2283640518c4e5cc5693ec2a2a98'
+            'a95c26e58ebf4bd8890c87d478fbc51ddc73a9df79d85cac90c9160bff5aa125f93825e2002de1c39b98ab848fcd6bf710334420f75e591658898e549f79690e'
             '536141a15dc7e65e5cc95c03fae41372f19b158e698d634bb948910900e151bdb6b328d8add2c60a728f5f48cbe175b4d2e84b432b789b308dae40cda923fa31'
             '9b8eb331b94332c07d6520f7b6cf40841179ce6bec49abd93be76c4c1e46fceb0d8eaa7177953b93c355914fea92fe823ba2b7fc93b86525b2ff7d55179c30aa'
-            'fc296db56f3b7d77108d3401152590113e3fdb85b9cb39402d722384a2677aa075820ad2926c3665d0df7c83bf609c49be6b6f362063123f345d874456eb8edb'
+            'c2d9a11d147320b4cccb1379c14cd5405ba6154b4656953d90dac8d7b222966bc541be66d50db9347a6e5c7865e8e08b843ad623c5c763d0a524757c0d4595f5'
             '103626608f52d533ac61147498ba06886d92d799e5e2d1f914e616b38c8be8c8ff02d8e0d3ec628da292560455a17d63ca36c23fabf2648d042432e380ac244d'
             'd5c68f9a976efb8a62c581da8d334046c0ad7296da27869e3a5010374c9af128560dfe7eeb1143cfde2a9dfd393cf10fb606dd66c52aa5c037c87836792c8cfb'
             '9d2625a3654ef6a345c23401821b6a356cf935b52c76c47fc80dbf524f44858d787c24ff7985331cb43f07c692677e26a0c5ff8a78ac92437d77b1d77a47a5f4'
             '44a417e5326d4336a4efadf2a2e5978c92ebe9d61d414ee48e5c08bf75cf50bb226199599d2017122c5811e64199843b16fab95542a1c3c5e13f373537750473'
             '2a4075579dfd13008570fe4ebf662bffa5c957c9a1b600e7d1419c27c79e9e9086c57f633c33800770db5252d9338bcca30b9498a7278db3efacc046fb280d68'
             '29c450ea5745eb0b53495a16323b8a753ba51acf0d76eb3f3b0950442c113095a807e9b4c7d6d37124c23c14541af36283dff707e203839882411a5b93d149c7'
-            '2c8043c5713174f95b8c029993d550c5b56639fb03a61bf6ce1dd45c131892951eecb20b748c6e21444a059dfada8452d134454a31327977bbb6dde640ceffc9'
+            'a38de453554383b8ebd51b8beea51807df779398bca197236060ad2b693f8b3ed2b17f44064c635169892dca9f3710d06af91c753343e94b72279f31bfaa8fdd'
             'bb3945368ddc635f8125523a938335df9619cdb0a6213856a76376debe11e305fef982abc196885b6caf2298b95f0704c3370bf9614ccadd1c4279ff76b390b1'
             'aea001062effe1f247b60ff2d42eea8e9dd3a5b87669fa139e9905a235b5be36374556aac3ce519d88891a14d2d8df87e7b6dd48a1505d9e36c9fade47c73a19'
             '9dce32df82df7a99540967ec24a6192aa0ca34a7625bc9cf44db1e15a2191dec5e2ec4d7d1f3f27555c60aa82a5f2e50983bd694b764472782e7d8e14fec8aa4'
             '47f2c11cbf388376ba21b3b1c658438c0381c85cdb8d72e9c448899d653781ed4568a87030aed36e2fb9fd3712cdb16ed6d1c0f58834a0ee63603fc00836a919'
-            '4d3ed7d21a68057f48f566265482eaf17efefcd5cf17e5531e35fdd06b41de53a48e6b59c3c6e29720fba27b23230c93d01f2adefd010ee8d45fb5d4f0a8c376'
+            '28f49dab10c2c1a8560ec1d5be484d0b7da993624637a3b89924ba0ecb570e1ea4872a7883bba781f503fdeddda057bc466cd82f39b216b02cb0f35ee2092141'
             '53254e7132748c374ca279f849df0203879370035aff4bd729fb240e314160a75c9f159feff654c1c2a031c5b50a33f67aa7986f7c95ee50ebe8416116f4aa8a'
             'ffc8ada0fdee0ca9799d64cdea73daadc75b8329af8ecb538724ccdd3e7adad972d9c44ef1244ee50f3b656c40413b3b51cc47bd4a9b26d2c30be6787d64a29d'
             '2c4b78000a070f93af568708474cdfc944750ac97dd843cfc2219d706bc085a6c9df80d06424572bf7ace11764791cf7095986dcd9c94b225b9bc87c20d3915e'
             'efd5922c96379c0c1c269f048ef4719d1ac30eeb365039e5707e4cf91edf1c7069983fab813a63c4e71d6dcc4024ecd56edee9ec25b29883e66d1bba01c07026')
-noextract=("${source[@]%%::*}")
-
-prepare() {
-    for f in *.xpi
-    do
-        unzip -q -o "${f}" -d "${f%%.xpi}"
-    done
-}
 
 pkgver() {
-    #find . -mindepth 2 -maxdepth 2 -name 'install.rdf' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find . -mindepth 1 -maxdepth 1 -name '*.xpi' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
+    find . -mindepth 2 -maxdepth 2 -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    depends=("app-firefox")
+
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}" "${a}/browser/extensions"
+    local f
     for f in *.xpi
     do
         f="${f%%.xpi}"
@@ -306,6 +338,6 @@ print(id)
         )"
         echo "${f}: ${id}"
         mkdir "${a}/browser/extensions/${id}"
-        cp -r "${f}"/* "${a}/browser/extensions/${id}"
+        cp -R "${f}"/* "${a}/browser/extensions/${id}"
     done
 }

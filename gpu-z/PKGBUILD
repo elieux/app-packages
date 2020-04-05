@@ -1,6 +1,6 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_realver=1386
+_realver=1489
 
 DLAGENTS=("https::/usr/bin/curl -qb '' -fLC - -d id=${_realver}&server_id=8 -o %o %u")
 
@@ -8,42 +8,23 @@ _realname=gpu-z
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.26.0
+pkgver=2.30.0
 pkgrel=1
 pkgdesc="Lightweight utility providing GPU and graphics card information"
 arch=('any')
-url="http://www.techpowerup.com/gpuz/"
+url="https://www.techpowerup.com/gpuz/"
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("GPU-Z.exe::https://www.techpowerup.com/download/techpowerup-gpu-z/")
-sha512sums=('edf71442bc5b82a658813e3b41f4071fb34785d5a995926162f30218ed7a52fb813c34d8ff9f9cf9bb8fe81cd0eb6804429a27489b6a074b1f4da98ee3ef8b73')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
-
-prepare() {
-    _lc *
-}
+sha512sums=('dca66bf6d26b9479e0223fe3b1b6500d8768f8abe90d9ee103ea8c433ad041c39d0ab589de216057ac8382c5953cad018c6b7581373b1b8958ed82320d040f52')
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "gpu-z.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.][0-9]+$/\1/'
+    powershell -command '(Get-Item "GPU-Z.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.][0-9]+$/\1/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r *.exe "${a}"
+    cp "GPU-Z.exe" "${a}/gpu-z.exe"
 }

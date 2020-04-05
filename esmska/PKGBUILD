@@ -16,8 +16,7 @@ source=("esmska.tar.gz::https://github.com/kparal/esmska/releases/download/v${pk
 sha512sums=('089ea57342604b6e89bafa3bd557fd179f22dd44b2553fde615543459921ad16f67c860e488cd544617d37b89778897d371ad86b7338e4be4d60ab6d630d745b')
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "esmska-${pkgver}"/{gateways,icons,lib,esmska.*} "${a}"
-    cp -r "esmska-${pkgver}"/{license,readme.txt} "${a}"
+    cp -R "esmska-${pkgver}"/* "${a}"
 }

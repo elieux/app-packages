@@ -4,17 +4,17 @@ _realname=gpg4win
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.1.10
+pkgver=3.1.11
 pkgrel=1
 pkgdesc="A secure solution for file and email encryption"
-url="http://www.gpg4win.org/index.html"
+url="https://www.gpg4win.org/index.html"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gpg4win.exe::https://files.gpg4win.org/gpg4win-${pkgver}.exe")
-sha512sums=('270abff8063cf19e54e28d657143981094cdf2499b1e2b610759bc998678a44b8ae38ad917d6bfd214b61557ddb7a134b6bdecca9ff47c250ccdd33a16d14ff7')
+sha512sums=('2b03af31ee162c31b23248fbafb7b179d4422052dc07b2d061a3c897a1dd11cbc04713246150418d3f57f330abd97e68f46edab8c245f44392ea9176df2e0b2f')
 
 _lc() {
     local d f n
@@ -32,16 +32,16 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "gpg4win.exe"
-    _lc *
+    7z x -y -bd "gpg4win.exe" -o"gpg4win.dir" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r * "${a}"
+    cp -R "gpg4win.dir"/* "${a}"
     find "${a}" -iname '*.tmp' -delete
-    rm -r "${a}/gpg4win.exe" "${a}"/'$'*
+    rm -R "${a}"/'$PLUGINSDIR' "${a}"/'$TEMP'
     rm "${a}/bin/pinentry.exe"
     cp "${a}/bin/pinentry-w32.exe" "${a}/bin/pinentry.exe"
+    _lc "${a}"/*
 }

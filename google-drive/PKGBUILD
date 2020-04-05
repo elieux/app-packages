@@ -4,17 +4,17 @@ _realname=google-drive
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.47.7654.300
+pkgver=3.49.9760.2421
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
-url="http://www.google.com/drive/"
+url="https://www.google.com/drive/"
 arch=('any')
 license=('custom')
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gsync_enterprise.msi::https://dl.google.com/drive/gsync_enterprise.msi")
-sha512sums=('813fcae7ad7253378ee7050e6457880d859cbd672837d667086d42fe14efa3e77e8d89b2294d5f8efe2cdb59562542b98afae759d90e7361e0ffeaa538779374')
+sha512sums=('c47d6b312281e988f025a4eb5b7f7bf34d8662da5b38529b426f70fb4d935b10c3b11e13bd2e690f93a3579f1c33f0d50f374a325370ed7800ae0751f0793a14')
 
 prepare() {
     rm -fR "gsync_enterprise"
@@ -22,11 +22,11 @@ prepare() {
 }
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "gsync_enterprise/SourceDir/Google/Drive/googledrivesync.exe").VersionInfo.FileVersionRaw.ToString()' | dos2unix
+    powershell -command '(Get-Item "gsync_enterprise/SourceDir/Google/Drive/googledrivesync.exe").VersionInfo.FileVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "gsync_enterprise/SourceDir/Google/Drive"/* "${a}"
     rm -fR "${a}"/Microsoft.VC90.{ATL,CRT,MFC}

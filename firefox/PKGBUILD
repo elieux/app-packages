@@ -4,204 +4,210 @@ _realname=firefox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=70.0.1
+pkgver=74.0
 pkgrel=1
 pkgdesc="Standalone, easy to customize web browser"
-url="http://www.mozilla.org/firefox/"
+url="https://www.mozilla.org/firefox/"
 arch=('any')
 license=('GPL' 'LGPL' 'MPL')
 replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("FirefoxSetup.exe::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/en-US/Firefox%20Setup%20${pkgver}.exe"
-        "ach.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ach.xpi"
-        "af.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/af.xpi"
-        "an.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/an.xpi"
-        "ar.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ar.xpi"
-        "ast.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ast.xpi"
-        "az.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/az.xpi"
-        "be.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/be.xpi"
-        "bg.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bg.xpi"
-        "bn.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bn.xpi"
-        "br.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/br.xpi"
-        "bs.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bs.xpi"
-        "ca.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ca.xpi"
-        "cak.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/cak.xpi"
-        "cs.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/cs.xpi"
-        "cy.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/cy.xpi"
-        "da.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/da.xpi"
-        "de.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/de.xpi"
-        "dsb.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/dsb.xpi"
-        "el.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/el.xpi"
-        "en-CA.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/en-CA.xpi"
-        "en-GB.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/en-GB.xpi"
-        "en-US.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/en-US.xpi"
-        "eo.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/eo.xpi"
-        "es-AR.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/es-AR.xpi"
-        "es-CL.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/es-CL.xpi"
-        "es-ES.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/es-ES.xpi"
-        "es-MX.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/es-MX.xpi"
-        "et.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/et.xpi"
-        "eu.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/eu.xpi"
-        "fa.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/fa.xpi"
-        "ff.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ff.xpi"
-        "fi.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/fi.xpi"
-        "fr.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/fr.xpi"
-        "fy-NL.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/fy-NL.xpi"
-        "ga-IE.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ga-IE.xpi"
-        "gd.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/gd.xpi"
-        "gl.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/gl.xpi"
-        "gn.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/gn.xpi"
-        "gu-IN.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/gu-IN.xpi"
-        "he.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/he.xpi"
-        "hi-IN.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hi-IN.xpi"
-        "hr.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hr.xpi"
-        "hsb.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hsb.xpi"
-        "hu.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hu.xpi"
-        "hy-AM.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hy-AM.xpi"
-        "ia.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ia.xpi"
-        "id.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/id.xpi"
-        "is.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/is.xpi"
-        "it.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/it.xpi"
-        "ja.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ja.xpi"
-        "ka.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ka.xpi"
-        "kab.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/kab.xpi"
-        "kk.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/kk.xpi"
-        "km.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/km.xpi"
-        "kn.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/kn.xpi"
-        "ko.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ko.xpi"
-        "lij.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lij.xpi"
-        "lt.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lt.xpi"
-        "lv.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lv.xpi"
-        "mk.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/mk.xpi"
-        "mr.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/mr.xpi"
-        "ms.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ms.xpi"
-        "my.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/my.xpi"
-        "nb-NO.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/nb-NO.xpi"
-        "ne-NP.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ne-NP.xpi"
-        "nl.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/nl.xpi"
-        "nn-NO.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/nn-NO.xpi"
-        "oc.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/oc.xpi"
-        "pa-IN.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/pa-IN.xpi"
-        "pl.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/pl.xpi"
-        "pt-BR.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/pt-BR.xpi"
-        "pt-PT.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/pt-PT.xpi"
-        "rm.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/rm.xpi"
-        "ro.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ro.xpi"
-        "ru.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ru.xpi"
-        "si.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/si.xpi"
-        "sk.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sk.xpi"
-        "sl.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sl.xpi"
-        "son.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/son.xpi"
-        "sq.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sq.xpi"
-        "sr.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sr.xpi"
-        "sv-SE.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sv-SE.xpi"
-        "ta.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ta.xpi"
-        "te.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/te.xpi"
-        "th.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/th.xpi"
-        "tr.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/tr.xpi"
-        "uk.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/uk.xpi"
-        "ur.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ur.xpi"
-        "uz.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/uz.xpi"
-        "vi.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/vi.xpi"
-        "xh.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/xh.xpi"
-        "zh-CN.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/zh-CN.xpi"
-        "zh-TW.xpi::http://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/zh-TW.xpi")
-sha512sums=('44421b3dab0f2124ff8bb1bccdaad64e74c8ec183f33092c908aa488bfec463e7caa8199e368ecff71e196523a750c6bf526667f76a0580cde40d9dabaa0f149'
-            '55927bb739878af63a5c2a8e7db7b703b37e994b77a109426e111b6c723c3448b8a39e61ff4d581d1dd1c774576e8f75203e4cb0070aaca7fa81f8b387a58cf1'
-            'b70ce6e6cb6a0a541e938129c6409f6ed00e402dab7c106c8974da5ac91a58b8f9d7cb87ee169e1da21b67bc12b8f30d91ba4fe31db17006040b2f251d503698'
-            'ab64e9abce2c31b9c0757102a3b7d23af3aac8357c35cd876ddd8a6c857c022f455ae1a15547c20f0b4f9756de80718a1e68205017665fe1c62572799eee5e73'
-            'e675c86a88d22015694dfa0935e3aea45b4ad623556c40bcc3df385c09fcc929ec8b9c7782d7036b30cd4b65134c84e7db7501e837779d897358c2c62d76f909'
-            'c0ff5762cd8e9edd6098c7d32e72773d5fab8f06da2d1a840339126444f7ff52c83f15bee27ae9db9cf05571df8aa8f9bc2539039914820b9c0ae6278e96f1fa'
-            '24e2477c011cc66a354cf5fa42e78482c00e3da6aa695770dfb7efb35e5466c0fc97523593400f2aa3cfd18a6a90efdb1d470e39f469f0e71ea82568166b18e4'
-            '1a66b164d98354bbeb849a840e6f2d04b3677c66e1ea8f6cb4ca62fbad0d56ab53940fd7f765e818c81b3fb20d4284420b2f9cbf9edd514a5c15bfde80fa2ee8'
-            'c36cdf0b9bdfa79ae1c3b92b54f2370bc0528e15da1fcc15ac039896d9aad4c1b592543fb2de4f8b07f431815a92a537cdc8684920e878ff6bd58ee196346488'
-            'f174467f47e13745f5ea20bccbc9fbb3ec46eb0d4aa03be99b004027e83653c8d39cc9e940662783a73b21d8684f7fc37603a83d8e8f14669e1c74908271a73b'
-            '7b2c8be7f8c31eeac26c3f6a2e0a385e099cbe20b1dbca35156a626ee0c1128eec5459525e058b078a54703966f5a0f219bc2daa0a83e4532b246c710a8143b9'
-            '3892df3ef827558e481827ff0b11d97bff215c1f331bac273f874acc3f52b795914d4f4b10a51ee74c65c264802d93d8e0908d0edef3131d25c4ddd7e5610c30'
-            'b3439fd349b3f9e447e683e9ba5cd6f0182df24abfbaad05ab63a90f2f27574736a6d2e85eb4cb38b37844d1a928ab1b6a202f2c2ce1513bb97a157bd3ce2ce4'
-            'c944c4f8bfc54756934f7520586f4ae5b5ccae27463df70f4076c5ebb9b9f91f865562964ad19c1f0d1d5e7035efc9d2af392e323fb97da6818a4669ec64e6cf'
-            '8d115d64e2384636e3b7eedec4e25c55bf96d82f9a9a068ea582be107a76bbf8a3998cdc82432f156b7c27164983f0ab775be5ed250c4adec510266f463003e5'
-            'ba384aab7196e11ac7f000ab8a5d0481c0733512022b7203ce0d38281a45385f5657871c1071cb0697a83bf90e7ea6bf6e9c6bec7d7202f448f471ac67d27338'
-            '43f6b1f4faacec3d2109e4cbc7fb531e0bb54687dc11f74f8ad10879b21bb7469b744626a7643e8db761f423b7c32aaa0a08c719f8dc4a50ce57f71d1edad0c0'
-            'b13579329561f1f5670974b1df232ffefa02b5515580c98e2d63f7a61189c4ad63d15d714e85312e60ed68df596ca506d133c440bd5ba0976af3db0ee3e1a1b6'
-            '685ce9c1fa4aed1ebbb048cfb3bf0935f9d5826d27aeb5af39fc68837375a91dc92db1eb2c2872f2629626ecb81fc6bf28d18a4fad5114bf059dc6b63947055d'
-            '9d10932505d7fc035e22039b39d12a148cd9804853d5b856ba368b6f85caaddcbf60fb67085a643341bf1cb7b8436c9b6582948eb184bf668d8aba5ed3ae44db'
-            'f7ece48ae71c42d4adf894ad5d9db09ae52b9c5465c4724c85840b933f6ac7d4761438a8301a08f755d4643d322d55fe3f4d26cce9135061610c4bbfb31eff10'
-            'fe2606aa57a5e554d218872188f8684e183c35bf08e4c3181115022e0ef2611f1e3658e220c4b74771d6b3e9dd01422221bde0c0565e5308c6b19f40de350218'
-            '0899658496eeda37359757ed1160d13e1f4a95c56d5dc9facf092490da20c75363977768dcd10465296ffe9c2a5f7dfd2be4cfdf8c13a55864b5b863506eface'
-            '034deedc70d86e2c6f91289231df0046a457c7a58b8a66475f5c84fc30accd106efe8f5f13898f4fb78b5aeac9ea79e3ec09f38913d191d7454710c9472b74b6'
-            '66c6cf3ce79b4eae528163ecc9b230e5740ef0ddc136406624ee9064cafc7e058ce9dc6d400970d20a93c061e23febe2dc086ceb36284efc073742081632ecee'
-            'fe5a28b965767c14649e255dcfea4a77af7cbb349eef80edce581ae97f4884917c61dc1063c582795ec65f2a659d148ce806d22a3c0d0694c7eb4c17c57c26d5'
-            'a7f0b5fbd4a7a6fb135bfe19bbcc5160b51299cf07645a6d2d7095ca5a8dbb1d60481c3e896dfac3974766f2c76c63514174e1f8ef9fd6a560776643931679c2'
-            'd9a2b13ee8d590b026577923e5a5564b1583694185ebfecc13cc3b1ae6cc577c92bdcdda1f0ff9365f06fbfcdb1c7b9657b99b114a705c43f4f11f4104b86b92'
-            '1dc1f94a1c39f87a392b9bb2ac224a3b55d0bfb5286d2960e162af01dd149e610b0b7931f03f788d1f7e84010d43e813d8c10701afeceeb83cfaea8b9f5f575d'
-            'b96edcc146787763326e48f96c381501b6d2c55158c4c6341968ac629658c4f87a33f6966e119ed2b9f4b3a089a3a2092547d3c346285196f799dc9729343818'
-            '2689858628c1805d92cad41c1738f00bcaa1fb3cd083a0916de5a268207215bc437d1e5cbc63a2972d800e992906e49f7499320b82ee9014f17b2989e728aa1d'
-            'ab92690a00721ff0458790adc5b8e20bd954286f217b6d01f54e3c5898916755c4e82d3a6ab61ff598f34db1569d02847a6c17083d6c257c454e1ff2eab1c335'
-            '6c1c77683fd6ad6a2bd9507d44d77c33c634ab4077939d22009ea46aea274a659dd87d622fd830dac6261e4ed878fea0054074b72c1191b1f611369763d314e7'
-            '5cb71c214beb8af614b89a22c18325537c74ab9038d5f0118aa85c5fda1675b3ed63ee3cc6ab0b60453c8cca806e46bbac9fc329d048ea4dc873ba514c0fa220'
-            'ea57269b995c7cbefb2f5522937f8e484d383c273d176c7a44c1e272518e518ce59c94c12d978adf1a40bdc8064304fae77808f540ccf10e0c393985b4469300'
-            'a52c7d954726bb7af0fe29c4c47cbd84b0463b3f3643ea546387ba2416f75bce5fc78531a099d16b4fead96b7cffd26ddfcd9ea54d0bc7d122023be050570fe8'
-            'b43b0c33342d96f25943b1f928969e59fc171539ac95bf0d6254715535fa275f6547cf909905a1694cad7d28b6e792be55789357c05573a72b655e57acc58278'
-            'cabd10908d4b8d3e45f34d14ce7e81d4aa307ce8ab0b979e4d4b9eb12bdbf998d947ecca7b0db908860a022200d3bb77278f6320cb14a380e006d4d711da1e50'
-            '0560d0a6575284f49c8a4920894785d2079035eada79e8e8fa8b0bceaf838783d0228135a293569a025a838b4797155981fd6ef3765db8ce64d7a4c8500f767d'
-            '1673290422da0633b2d94f9cc9208072f1458ecde86b98de83b1f2e61acfa2532080b70ce0457861fc55a775980188e39ab302acec7d5100eb4e7b9d83a07bcb'
-            '886b3871c874bba09167a6957e7de9571b99d0cead09ce95a950853aa66ac464586186a1c482fa62ee682c38cb294fa4dfdc5279ea32ab64773f9b0940960bbb'
-            'c44f305c59920ccb06665d5f5b6fa84771c16d3f62aa60e85843084fc7fe196450017e03b7193e4bb405ab38e1fe96421310ef0a755e4d5569c1ed00d78ba10d'
-            'ecfe45a95d9e8f7f7cb4ed3d247717c98fedba9b2cda42c572f6f2be21ef8ed2d6204f75786acd8762a84e6c4dd2b5671d81a44e08294c32cbf8884302fa1890'
-            '55c05509e58c153ce37f8efca6892ed20d5732b37d7629cfc765f6ac2423d4e1001b8bff107da28e1ae3841e35c91f848986ed0721de936a94681aa93926f918'
-            'd18d555263562b52b563145b1fd39d731718722ab93192228292cd907ee8ded027e53a66f6a5540b3e9b433028215a5d75151faa1bb4e2388b3c24491181feae'
-            'eb9ac8e481ff67ab6d5d546163399d45b23a1f6812db68d9e5fa2d141f29f55e11611303d048c54a6bc606696c200ed1e4f4e84ff737e5bc6d27fe787208de94'
-            'a355ac1417ea0b69ab91b06d47416b16fc4e3ade98554edf05233d224b78e14266d140c4a6c88158908058122928d7bef5cae4bf721372b545437e0686cfb961'
-            '5d52cfb984435311807873a3d11d744565bf2192c504c88d4226e897eb7186f94efdd96dd4d9e8654dc5f1d1e0bffa19238144e85b83aa658204e06651d19c52'
-            'd90d3462526683c3a6b839638ef27debc298a2d657484b9e7a63771da1eb4bcffd3536c13faf084608f25e9e2de5abb91ac29248cf532f832339573b77a3d859'
-            '7d1c498d498c0e5ed6d651668cdb819e12a1c63d80ce1849a3f9f1fd23c5f073d96bbe39683755549d7a52e6dd084c681768691d7c9ef4f8c1d95e91cd0ea0b3'
-            '63fb6936680bcbd29b09c35f33e83895cfa7929a4ae2e1037198ffc32d55a4c7a09094fbba5f5e190fbeb2ea49b08734d918f4218de34c740b5c0b68edc0b3bf'
-            '5d3213c4d1b6db01527ce6ccda589415f7dcff57a9f3074689019a584ea04dace23f7818edd62dd83dc975a784a0b1c9259273c3a626e3b0f42f00e87c1542a7'
-            'fe165d57fcb68bc3655067e08011c5343bd66167b3a82eb955994f43d423ef5e0681b7cff75fce081ab87b34bb95a1eca0f52ca91dec65505af9ff23353723e6'
-            '59416bbde3e293b8f602d30f5078e20b86a197ba1fed9e7275e877d577cf5ab8411d9f9ce18e72f5a7b12362eb09f565031e15b667f20aa3cbbd71b1918dfa42'
-            '7d5f451ce18a667c3d395877514077fff14d52155bbd695b8b1c71e340d8c402dc639a634dabdced2467ce94969979fd84ff811e293fc0f7cc6fddf2791d12be'
-            'd1ea2dcbd18996026ab021434bab023cccbc31911edf2565b441bfbc3f3f5e963f77e27f3b0f94183e30ccf601210ddd93eef04cb3c4f9979b3392666198d92f'
-            '0342026818b0bf1a3440cfb4f70842eb04f9bf14afb0c423bf7bcd74a3284d338be56998b399cc284a52b3bc87cf0d4b1747654b7153f8a4950fba73b0b3543a'
-            'd0f6310fef136a6603c18cdc0d0937a7041109e55503146a1007b867216704bb6b8e2449bd39d00ce2b2280ca20918d1eae6abd522f45776c27eec88692e94d8'
-            '1721b200536a94a0b4545e8813defd57eff37d105efaf47670a12dcb973ef499dd1e9b6f1f9ae7e4977d13367c65d54e5c10db8b18fd8b6d99b190e73bb1344e'
-            '186dc7a6622add62c175f6c2a4b63561dae8762ef32cde7c212760977e85d76cdeb6b9831c8e91559f6e64b70ec2615ff93553d5a6c03181eb1461b97c70c6aa'
-            '513c89dfd1f59cbb511a28856a7cadd6170574274269f12b03f45dbef73461d812474fe5c879d43040655ecddc2e442b23632d72a6e0e07bd8a7edcf952839af'
-            '40765007084516c697cb8cf7a59a47e6e3aedaf521dc586c7a7b8e4f34d988ba669856a701010b459b501cbde426385004cfd0c1908fbcadcbd7ce19a6b34326'
-            '078e42b56d4e102a04ffa72a1cb059bfd41c58ef8d080815f29c6fc94a966a38eb31a7e1af715495bba0ebbe04f89f9bed1ca230a9f6d6721343c2ab908d3120'
-            '5bd76e98d2b4d82cff3d128d64c3816aa5ce792e684523a2888abf2b8ec148526351c61f684f65449686ab8e10eeb62aefde4b2aad637824f745fa6803c089f0'
-            '5fa6ffae454bfc8b469305c940fdbd9a653fe3fe9e4de8ca8d15dfe7846aee3484ea2034d207ff5405b21f950395ff74631eca13e97bfb2bfb9c1a99c64d7828'
-            '518d86d5a8646aab450d95feda8aa0ff41d18137e4ec3fcdf6e5b89d16404a8b4a0ceb28e0ca18a6cf90ebfbed78af507cc5209e8e7573cdc5e983e6fadc5751'
-            'b6221a2fb7e62606c71c67144e6709125cf1269e2fd6e4f5774ef5e0ddb481cd3f543c56eb695a685b066a33ca6dfdbf59fc5bca88059fd4bc2e7d2e21a2575c'
-            '3f75187edb31a9079aef0d91763c1f00f465d88554b42f080b3b44b20246b5ae1531d8633867097643cd091f4d932d8d29d8e5725fad4d1dff66a90b653e4578'
-            '576b3361eabda0a3f0d292fd46c961c4588ae2a0a1bde19fa2eeb6887f9000c137703d354fd7b78f66397b9698239fc85fab2ca1a7342d560faa29a3f9550eaf'
-            '1d7e5c25d3d616083c689f16507f60c00c9a872ac31fda8e60131316ed9d54cd49c1eb747334c15dd8c17994d260e9e61f50b935190e887dd8e2bc35004cf448'
-            '7c41e0d940d2c79d08496e0d771e4a5950cb61ceb5915cbd545f4da8f313e84b435a351271f0a9efef358ab38ad6207bfcda1308038048c03e81675c27c5ad63'
-            'f1bec41f22f2c64dda6bfa634794a058d13698718eb8377c8045277cb4a71633f6867b04dd0b8ed42dc2018e53759a54206d7bfbf0d9f44ddaaae931f35b4774'
-            '2d71aad32634acd1e32ceaace62ebec23c0a5d58a7bd23a5ff9ce0a0c32e97e360cbb4a8815bf9df512f9746d4144cce9eaa77560278ec429bd7ecb3a7ade3ea'
-            'b05740471f6862e01edc72bca2aeedd433ed4d8a447e4b4baf6657e5728f5f4397ab7d402fdf34d1c5ea5de893c0c03b4d666a384d28f8d61c01547a0b6cf2e8'
-            '6367f1d1acf6a91ea43a2c929011a7bef1db4b468c98d088e24ca19094b846a5a8e765240216a59a4963820145d18d6657d4d93a040890d7eed0521a19e80d75'
-            '7c94a788465753ef3474e1e4f6f86ca6cd853174ef76dd2cbbad656681bbc758bebbcad83937d32d1bd7c2c0c8b4cfb07f959165b2e5b2614b6b1355ead9d27c'
-            'adb08a2820d62e4581228a75cd0d17e8e12bdde90d931ab816ca124b4a8acd508bdc5ea97f17759dc5496007a76a07a2d797d4e21ca113dbce57817c5aa55e26'
-            '694afc7508988c3185d69e95b30cabf9a8d91e34b783e6be74e972ee5182e1191249e80a4e95e7724b62047245b8e585a42f5d3dc1d00cc8b05d7a760575b942'
-            '9f3462c0fe213a48bc2a2350223648c63b6b421a013e9d722b8b4d6f864f75a669a7d6ae4db1d6642dd9f2cf37e6ac13718b65acc8419bfac998a1d91d1c5ab5'
-            'f81007e509c579fcc38805a2f5f8cc5f5fb70eedecd66848180f6dd544ced668b44dcf3f09242ebdc72a8e57b374b67698e84c6df62a9314e132bfd14c29fcea'
-            'b909938e91ccbc9cf09ad5317f322dbafab770a76ff4565ceead9e82e05eb5318995e483c30d69d0861b070c42e9dddc6a5692e0ee9b07353b43eb7fa6af8fc0'
-            '4c9db0b5b2244f904f84bccf0d70d4795da944677224ffba71ce10421645b32a4e1f98cc0e2c74a0189b9f6a96c7136fd40399289b3d8b195e2f1312b83545af'
-            '9b752c4fe4d40833a8cbdeb83d1629f8e510aaee90f28da43cddb38b3742e0b91e11ea8af99fd09a35326fb523360348c85707465d078d085023f2a8d83ea846'
-            '1d98cae23aaeca5bcdfd5d2c9a2d68eb6bfca0adb0a83b7abf2ca457efd88adc27d07df84bb33d39c3395940abaaf357f05ed5f03a5c4f52367632eee342d9ea'
-            '536bcab19f52aaf033d7a8699b62753ecd4a5d13cfe47c2bffedc94098013ec2678b64054a5d207cb0c8808c118363ce565a8d03c5f222140bda741208acfa0a'
-            'dc39ee44db4fe27fc524885c2f2b4e2fdfa1bdd2dd94a4a0e0a4a933a68aa2e70cb3d30957a2a64183c8f970a1214caa170c6d68e04ff705d4f63e9d3b03a32f'
-            'b34e8a11948fb55744c2b72477cd4a4d9064e43143c91c6d2fab765a56b3c417790e77d312fed5794d1ac568087c45275a00dc08851bcd287e06a65403b03dfa'
-            '09abfe836f9c9b68cecbb8992f444daeee0b0b1e60c309de637a2b974963550d805c4d4ff060ec4f6c37e934bd9ae33e291101422b0bf9c046886b1b26fa3fe6'
-            'd0ce5380348cbe2d4ed4365e880aafb471885c2d4bfd31ee49ce438bbabbad7442d03b3bea3f40ed1778d9cdcff4ffcf09360909f68ded6735ce8ca042cfff23'
-            '19e11b121fff63a27246f51572158b64c0c1e7361e29420e7a538bd2933603acbced12fa390d07fca8af4317210dd5aa0bf4449830d47000f73e3f8dafa6c600'
-            '765ffbf1ef7bd41fe407187f6df3c7b29ceecd7aa52d7b076e652a89713636ab90fe80988121dc6c58264aa3632e3e991801440410afd71ce424c9aa6d167828'
-            'afa61b623c0647a02b439ec42132cf9692dcf32b7cf844d2ffb15db07636a5ecca1398fdd2d5d5597cb7445ac3e90c7b8b1f51096548b455f33a64ed7f288ad7'
-            '8cfd758f6d9366ddbc90a90a01ee8cd4a1920bdcacf68d556cabe679bb05797e6dbd1827f987cdb91e96a4490534428de7a44b2b98b3b65833e08b97971988ba'
-            '31289f8e96b60683dc9d15da183cccea99d260b95f9155463a1b406d520c33367c9d7760a04ff9fafd1528e89ded66ca45dce3d6d971f91ccab4dbd67cccc803')
+source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/en-US/Firefox%20Setup%20${pkgver}.exe"
+        "ach.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ach.xpi"
+        "af.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/af.xpi"
+        "an.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/an.xpi"
+        "ar.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ar.xpi"
+        "ast.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ast.xpi"
+        "az.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/az.xpi"
+        "be.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/be.xpi"
+        "bg.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bg.xpi"
+        "bn.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bn.xpi"
+        "br.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/br.xpi"
+        "bs.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bs.xpi"
+        "ca-valencia.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ca-valencia.xpi"
+        "ca.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ca.xpi"
+        "cak.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/cak.xpi"
+        "cs.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/cs.xpi"
+        "cy.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/cy.xpi"
+        "da.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/da.xpi"
+        "de.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/de.xpi"
+        "dsb.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/dsb.xpi"
+        "el.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/el.xpi"
+        "en-CA.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/en-CA.xpi"
+        "en-GB.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/en-GB.xpi"
+        "en-US.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/en-US.xpi"
+        "eo.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/eo.xpi"
+        "es-AR.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/es-AR.xpi"
+        "es-CL.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/es-CL.xpi"
+        "es-ES.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/es-ES.xpi"
+        "es-MX.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/es-MX.xpi"
+        "et.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/et.xpi"
+        "eu.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/eu.xpi"
+        "fa.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/fa.xpi"
+        "ff.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ff.xpi"
+        "fi.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/fi.xpi"
+        "fr.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/fr.xpi"
+        "fy-NL.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/fy-NL.xpi"
+        "ga-IE.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ga-IE.xpi"
+        "gd.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/gd.xpi"
+        "gl.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/gl.xpi"
+        "gn.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/gn.xpi"
+        "gu-IN.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/gu-IN.xpi"
+        "he.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/he.xpi"
+        "hi-IN.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hi-IN.xpi"
+        "hr.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hr.xpi"
+        "hsb.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hsb.xpi"
+        "hu.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hu.xpi"
+        "hy-AM.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hy-AM.xpi"
+        "ia.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ia.xpi"
+        "id.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/id.xpi"
+        "is.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/is.xpi"
+        "it.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/it.xpi"
+        "ja.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ja.xpi"
+        "ka.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ka.xpi"
+        "kab.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/kab.xpi"
+        "kk.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/kk.xpi"
+        "km.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/km.xpi"
+        "kn.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/kn.xpi"
+        "ko.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ko.xpi"
+        "lij.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lij.xpi"
+        "lt.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lt.xpi"
+        "lv.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lv.xpi"
+        "mk.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/mk.xpi"
+        "mr.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/mr.xpi"
+        "ms.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ms.xpi"
+        "my.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/my.xpi"
+        "nb-NO.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/nb-NO.xpi"
+        "ne-NP.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ne-NP.xpi"
+        "nl.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/nl.xpi"
+        "nn-NO.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/nn-NO.xpi"
+        "oc.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/oc.xpi"
+        "pa-IN.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/pa-IN.xpi"
+        "pl.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/pl.xpi"
+        "pt-BR.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/pt-BR.xpi"
+        "pt-PT.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/pt-PT.xpi"
+        "rm.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/rm.xpi"
+        "ro.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ro.xpi"
+        "ru.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ru.xpi"
+        "si.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/si.xpi"
+        "sk.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sk.xpi"
+        "sl.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sl.xpi"
+        "son.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/son.xpi"
+        "sq.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sq.xpi"
+        "sr.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sr.xpi"
+        "sv-SE.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sv-SE.xpi"
+        "ta.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ta.xpi"
+        "te.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/te.xpi"
+        "th.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/th.xpi"
+        "tl.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/tl.xpi"
+        "tr.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/tr.xpi"
+        "trs.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/trs.xpi"
+        "uk.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/uk.xpi"
+        "ur.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ur.xpi"
+        "uz.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/uz.xpi"
+        "vi.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/vi.xpi"
+        "xh.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/xh.xpi"
+        "zh-CN.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/zh-CN.xpi"
+        "zh-TW.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/zh-TW.xpi")
+sha512sums=('b56117b63b44294c14353d805c9135b01a3804f0b53f4623b72704c40df0f2837f67482ca55288864ac11584838cefa00ec9e820c6ac0bee8eac1754a49d3ccf'
+            'd4f21ef2591aaa2af954553dd119e7892bfd0b7504aa6a0d354a537d211dfe029cd25e6b5d5761124a8c3cf98b7692c863ce672021dac829d648fcaa2429247f'
+            'fc890325eeeb1835f09564fca0d58d8effcc70905cc02ed0be38c140b0a21818a631ad6eb480fbf8c0752b273b0b949dae6f3948e0a727d7c0fe218e8ec5dedf'
+            '4baecdbfb4ec5179e1d8274635bf71777e7faca5f3afdb0914efd074c089cd3f40c27d11d118a18bdc96071ce88d6912c21c83d1bbb936fa315b19c5a72e275d'
+            'a1aec20dbcf7d18c92f93ea04216474c5bde044dbfa766753401622227beb0c1100bdaf2b4bf40bd6ab7b133334fdf9d586a1fa7c0849b865073e2a4a2c3d1cb'
+            '21df62e2f24638aace3a907317154c7c457d723f3cec2ae78d3520fb655fcce2ab5b3746c6383ab97e2686b318cf98253becb8ea0e29ef3422170f9c928b78d9'
+            'b6a6ef2b191f5f93daba21fff0c5ad9db55f0cfb262f57b07f64de75f825b9081840d36a5af1915b7058a83a5b48f54dcb540eb5d1583232be9edac1f80d4603'
+            'f9750f5ddac00c307a519ac7566564cc3ac13b86e84ee34be19e93d7dbc94b8cb7dc4ce6a1e2dbf8c6e21cdd48cb206fbfa30ed84a3489da6c94c481c3b8dc58'
+            'fb75add4aa266e68ab653dea51e87d42b7bf0539a3b890ddf45518e8257cac2cdfdcf8a89f0f58bbf4ed3478eed1d7f59a24694140cfd57e9ce5d1835f7767cd'
+            'a3e90fbab563276c92448976f62cc43ff636f26c28dd3862280ff01ec257e92bdc3894d1d31fb11b853ae1355ad6f4d4455d74f2b42b49571e294b8b78245a79'
+            'c8aeff2cb2d179646bd5bb80d1c09f0e1f20c6d1c804c886b066f300e19db8ab8c886c43003b0a498bdd33a528c1ddc13ca193d68f8e2ad873938cb9dcd56583'
+            'f7cae30a299a92b5f75255441632bffb595aa26b8be302ea2f8aa3da33ba82ab7905221231501e587fe6f77d25c9010acfcf8b717023eafc760761dfcdada1ae'
+            '5cd1ce841074e99b3f3b8c9216c750a0e6f5b7f09c592a4855fb9f5c1a8f4b7f798f180de7db4d912ad01d0c76ec2cec4bcb4be71dc67c86d430f79bd464edcb'
+            'ba83aef6196d5c2ca4d6e366a6bc1898518a986d61360c75331a677a1972c178bc0c864bed81b2b9fa4e926ed60ce32ea7098e0145f8cac2606dfad220547499'
+            '87ea4e512b4dafeaa9db949e147d6044a8a955081461eb1231ff51238896abb494600ab26a3d4a95e23dad5e2c835408ebed389039f9ffc22ac669cd815886e6'
+            '341d802065106e276dc3752cc4bd069c5aa24152fcc01f1b1da70f0b93496f45e36d25836f57907b947f759ff42744aa2a8ef937e5d0b28b23c691148655c691'
+            'e141d0ca00834727283a808c57eeae1a91afe8b0c3beeb0f979005c28b607714323bc8607752938b64fa3605f752467174c1bc114e3c6707b2f75cffd80db82d'
+            'b69c3a431721202a7a99648367ddc90f85198755fc00539e328d92635f7795a3593721df563d7df3dcc470f52d829aeb0b195d2d1cd6a6be831b2ff085333eb9'
+            '1f1a96a38dbae9c7cf5cbc6eae4e5fc3609e1beb7a80ef218c1c4dabc2c47084857465ed8ffb52e3d1ca665b51b1f0e791d98d9e75db6ea5fc2cae04cf5b26c6'
+            '7de15851d2714eda860fcd0e4be67f689e92026024dd6d023ba8c0662a3c7e9d3efef0437ad123ccab2d4d32a1e4d5a2278c8466ce8f62992efe7b4d72b5afb9'
+            '163130bea90af14c9f1372c9b51a60373fcf641075a2e085a7988521e114a9777085024988ea489af5acdaa9f35d7e104e9c8789c401a78c467b97ee513d649e'
+            '672bb400320c635ced1153c41beba11df1ca8b7ac2e78ad5537a47e840af157a604c39182661950263fcc03a80beedc3675447b3dd84f978f7b80a90e86593c5'
+            '5bec254e2fbbe16125423994e3566e2d0547960b75c15c42ac4bd92cd09f03577c4bdacbdacc38d351261f738053ed199a9ec0ffc29c09bd9c571e9ff0e8e281'
+            'a9b76d9d021a86c5a86bd0247d20f4a4533af9e5bd66e17201298ea1fe330f3820fdec7ccd70fc9ccae86fa6432c656de888886582a665e20cb159e1de277e5e'
+            'a81ca17210ab6914629dd8a8c4fd82a56b811408d7ce3a5f4ff2270643825398ff5402a428362e1b3ba19626a87cd305284be476acf4110ad49a22fa225e9ccd'
+            '470194abba029692a2f8a7bbd422d9d18595df52d40531584ac8064e41d1b63971f9d4549abb3e2520ce7f622851b9ea49967a149a26ae1327044904236297ce'
+            '52e9627dafb2e046e3f1e1800c0b1f25bb0a17a4cd00e47df206c30d95d85c2ebaec758cde96693b96474904f58d77ff194f539c958b6902b9139ed0f5942827'
+            '85ad569b95160bcbb2aea325f42d6eeb317ffba92a65360d37e1fc75160f99226f7198e4436597fa2da653b55ccbdeddb0e28855ebf24b4c546bf829b92784a7'
+            '0c1ddfe5eea24ff2f237237a26d4f31e5feef86ecc772a26bb22a7c9b23a50562ba599898b1edff4c12352c46dc3c1647b047f2840422a1fdd39129a0eac2c4d'
+            '9432193e6be31a082b523f583eec910628859802d5c842ec3c7b552634715ebda96f51ad7cbb97b6d9b84aefc7773f3c3cc2432e378d747b277578f204710b98'
+            '1ce833e343c254149103a7f6d2a26a08c46b51efade4c88983ebc84906e19a26094a0a54007a3828da6b28e98f8f076d601781c5941534544bca73328e9c1a96'
+            'b4247d9fbeda203a380a05355222b7d603c8792de6d5aeb7aa01680c206bd6408e621075a160687d1d130334e2967f5ff18f69d61b20722aa12f8bdea76ee51a'
+            '7073532f768f1c19fa60912d42c28a1ac069ae86d70e30b08739efc589702e0600c90b7edc388c606f162b60800a7319137c5739fc6f7fae69240ee2f7bde086'
+            '6998f3bb07f1f43bcbc8c08ab5ca18583026d5e80187870debf64994d651407caff0f95ddd9399d19a62f6eda601e2933179383791f07d615f613508be9e3d07'
+            '98505be8866ae0a395a44d94527e09fdab396ab767ff0d7e1f3a344c705b12242b11f2fc52b91f065bdb241f241e39adc78b5e4b3d044d230dcdfb389998d209'
+            '99d2af1c64bb53c4dcc420abd80db3856614f8f7688244b3ef97e30f7b672f1b5a839a05cd01dd340f984800d6f53ffd36aa0a470030814a6fb4a13d2040cb69'
+            '5306e25599f674a09116c43f121f66c481510f57fa11112697c35c05c7a51b8b2e3d4f0f4bf7d42ae3f5d98129cf99cc88391b7d787a209a0690ee607a9f862e'
+            'd01a1e8bec5f42a0132b3ba4bf15c1bf7420e656249d49514528fb908f27770ffc8466c1c085996ce1571e1cfb9c27a89463839dc04c7f58ec3f18a626759561'
+            'cbb10fa834c4560e9c5bd1d65f0cc7b605f7dfcc96d9c1ca876d57a8948552d0bb07d4ece4c8e91b7414f59cd58775e1ee1a399c534d84f9f0b7b4d128d829bc'
+            'a55d422785cf2b2a363860e364d1d408f4849d16236358be008f56e044399bac544e6689ea8b00156bf548267395d71b163c304316e0785b531c1ce0f76c75c4'
+            'b20a540779b0338711bb7b4043272624f761184981d7b6e1d76411a5deefa16a8ca5a99349c1e3d1ad486c1b551a04242714cb33b9ee990adc3bbcaae0843154'
+            '7320fd2f31c1db44965dfbf40bfd3da129dbf306c28317e7a49931f04993a8e1cd34c9a53c24a1afe1543cda31b3643d31364077c8114f4ff7f825437347d99f'
+            '069684d812d284cb36791c4feea2e013c0dff002437f7ad41bbea700bf6386dff94b75536da475eb708f88904f3093118209b9245749f7e5bb8cfe9e72bf0aad'
+            'f17bff5dd960e41cda53557b3f520715120340b2e3d2d0c375d1bb81509763708feeecc39d01f366db2d51991ba3eb8aba336d3e90f5c6bdcbf25b72660189dc'
+            'd09e04db63b716c8da12f8900e5643ef606259d65e2d6000ef915ad7186a5fc81127023578711c57c0060941ae25ed019168cc94e6fe7a873ddd728a420f66a9'
+            '43189bbae122508e5b80baa67ac9c97e0bcebea38673e90c2f9d87f6e91081be769899fba49d2edaf8b746cbdbde8fa5ddb4877dc4e3455cc9eb4e45c6ad5ede'
+            '9972be14cb2b2e8dc7abb9a4c605ba52dac5db8d964515029afe733750a4771f65adb151eac68003e4df84db917af62afa68d78c96bda093503c013e591bd972'
+            '76050138aea042ce0c504f1831fc615a807b66b1579f6ad05a1abf093b86fd08de590cb026644d311418ad1f844ee08cf19e9b68f8a33b53d6d4c7bae8984ead'
+            '638f44167bf05b3077ee61b7291948988862d905da789a0b54dd5797ed699cfa27d00381f3da0e91e1f8eae2fde32e68d9a7ccfdd2b4b9a2b22958fed96007b5'
+            'd3eb769c639511ce3dbb931d1adabc37823e9473fc658fe6bf983a1b2e9e2ee8d5c277dbcf84fa8a09af8fe6d053c709aa76587d52eb5dc8185095a1510f740e'
+            '7c3089d7fd4d8bc3a444b341aba47fd65b5f3f93cefbd349b4fbf098552bc4f743eaef38595c029a21347692e4c4d618c9a49d7cd055195d4c8e230a6b8deddc'
+            '6130c4421f8ca127bb54eaad27598efc08476646b8ee17a5c30af19e8e26cb54caf082a2ce424586f80dd223fe2562e4f8df558822e826770e3a2c053b95923d'
+            'd71136e77968a2759323226d40296dd45927d3e5866c17ec90098f0e8c3e0c545aa7888dbfc3b944356f81ce478012b772169c338b1d503ef578f7dcbf80f92a'
+            '64fab00908546ba06d9218e331357ca23644d65a60069907d5a0c09d975e96236fa50e5566c3c3cf0780d0dd6e50eeaa828d7b61c6a57bebf608af4cbf6e662a'
+            '4ea705ea7c201ae91380e328b07b52e1f4a422fe00c44683956d364560668a2dd6a087eb909f9600bd2877579c8d2a3cee7e4cb1cfaa8ea6101aaedeb6907cf2'
+            '3ec831e5fdbad3ab3fa38211caea7e84a9e58b7df9467485b83a589888b8d0779ee79306642df65117c84ebb160631684dcc072a344d8927f79aa4f5c9d5a418'
+            'f564ae24c9261f18f8be1b2913c6951ee2cf6b0039196310d0a9e2e4f7486656c47c737304f665d387daef423e49b7eebd783f4dc53fd8c88f37a88ae45ccdca'
+            'a99a0ef2660a41217a9ef1f43e31f9575a9d759548abff3e8f2d1cffed70a0d2c9f6738636b1dcbf24a384ea3192d7026c3e65d98931e2f0dd18131f4700b466'
+            'a89fe87ca4f7ed80c749dd96db3f9f6ed273ce69d9e51a97d54f0d6bf8a90220252d6d2d72eab6fc08ad379648ebb3f4874349458bcc205c8fea000bb589697d'
+            '7ec45f43fb2a614c842aadafe1aab737c5bfaa6ce1c0361f882badd965937649f13ed618314cce185e64216f9a9371279d012c880f7a1d7ca9ca61086149eaae'
+            'e9a8ac90d034f0ace574c348604f9274fe9fef4a34662463df8988bf38e76c9d846d87b0e20f6e10358ebd8ffb04748d357037ff8ea3cc348012f211f6fc7b84'
+            '4ce885b0625a525050ce5f856884e2ca19d945469a02206cb964fade5a3d4a884e76e8987d513f6c64550f89328b12ed9efb3ad7c5ffaa3b5292cf7155893754'
+            '59f51c013709939f0f3d41b21240a08bd83dc2c916a0710ee6988657e47898c44aea440402cd4f36b1cc1d0bd6a50851506863f7cb7e2f8d633c07028ee1823a'
+            'e856f130493100c544310a67e84017638aec27e7b2932a04d10054ba4983cfb534399ad6248253287fad14711074e0b2a8ac3679878c9389d5aaa5225ebf8e15'
+            '4e080397c71d0e9732d77da107c04c5e1f7f872ee76b800b16b03eb08429c911919e46fa7c99fc5f92fff6bd8c08acb9ea75d88b4ab19267a878b591a5021296'
+            '266913284178303b0e68c3cf5f68f772790ce484aa711c990025d6237cfac3214bfc95db314914a7d51324c7852cfe5794f10c656bab5bbc5fff941008daa4f4'
+            '24e6f09af2101637bd2bd69355e2f175e6d0003ab825f15d15b51ac3784b3955aa02f77eb099aea1e16cb758ce35e05945296fab7cf6bd74188dba7b6482c88e'
+            '8c87e37ff0ea3de67e5eec0f1bda45ccd72db0bc368d7c87b9b0344717f64cd2901da0c2524ae28e5a573a278d6f4b3828dc5c20f3344d0150acc52b1b6e2ffe'
+            'c512e98314e9bdccee1e53d6d4568b4a14ce67f5a7de973622cdc8f97767cdeb767428d716bee1e04c2fe65c71a8264b72fa45e2f3a4fe3ac56f7c9b8cd89ce2'
+            '475ef3e7b6de869e7b0b71e1085fc52187f22abd0da3281da795fc93d4864c9ab8a49788340c31b8d962016734cec91b759f7c038ab904d77950d80af5acf7dc'
+            '0dd55a2e53c77c3c88a2c4c8f0a61e790fe98db7063e1e22b0db18c07108a15ff4efce3f0cf3aad87fadb337ad775a6ef548d30cc53bd6459ae981a8bfaf0d64'
+            '42ec0636c47162fa418a1fc5c1022bd7635b7d253e2d055357e9bdb7becce54f3815eebc670adb0f002690136ba8b6cc54462285e574d4f5362dd5477027a760'
+            '14ac9a0694e557e682e8c12bb8b64fecf9da7b4e826dcc0565bc8e88710910b9128aaecb602d40e0d86fb07751929466e329cdd660af0372ddb341ef5928944b'
+            '4d9e3736fa77a94927baffa2faac3a6ffeb99e96c15edd6524b066d4a64f906eed622885493095c39abf31655d6f68b3c0a58133b8d6dad0debad24e030af776'
+            'c7ab56a95b7e3e0b18913eed50cc49921e6a83ecb83912cea2053fb1ac1313430cb4b1be847d838e528907d086e3d21c5dcfb8687baa0985a2945bda00d84a9b'
+            'e3616c449366005e3e795e60b7b8172b4d9f29d826d8a2ce7077e5c3d88c6b10c6444c80664506b370d2ec9570f5c6ede5fa63d2c095160769840748d39b23db'
+            '35c3138e1bde26e1b19ef78b15167bd4729561779aad8992010a9688a85bb00f8411c7ad3d1d48b2ab739c194d3bf39116d13804a34eac17eb6584242c9315cc'
+            'c3f7b2a54d12d0eb32579c47c7d741b6826065bf9cc324d3bc0506a4f35e4a6c4ae6584a74336ee47efc70134609795b6ff27e363482db835a63158dfc896456'
+            '7b189dfcafbb28835fa2e40271332c67a74824c1042fe7f8de0582396b29bfae5db406eca8ea1d7cfa7fcfea631fa5e562e0e7eb7d505e40ab00f79d0d38513a'
+            '27eac09a33155707ac98ba5aa9d451e33b53974bcb8dfa288b4beaa87ec728b32b0493d56ce5e774ee3a28728d4ed44c2231ddf180e65f9ccaf22e6a1461bc9b'
+            '145c9587d55c38a2df7de88f94f910bdc74fb40a69f31d780e705b5850aa73547313582907ee3569a3531e4c7e051638c6b55b1fa0eba3ae399d43565ab8d22a'
+            '3630dec007e2575d71b20c4d6e05d3687d389061f2eb5f3b7d9c418b7623847b6650d37e0e4fd07edb2161d3d50f10aba59e57590b8a4fbc7d733a6e13862bc7'
+            'ccfe0e7f429122fd8d00462f897bcd72c6031eeef7ad5cfffa60d41592d3208b77250524be9cbfdf30b4e6f28161fb370b9aea1b04388706faf2e8fb4486618f'
+            'd455fed23a14ad8513a18a79aa834304946b768768db13660d4a5626acd1bf823cefb89c158349ffc3af43599929526d86bd8b0a54f51f3f52e5666a2f4f95d6'
+            '7268ef68c37cd8be4aa6a742b28213db3ea4be4933630a581d74129d41ada5a37290ba5d2c323d29618f40d87039c45ec99757490d8fe90049973ad01502c903'
+            '9c9b87a483905558331444466f54593ccaae362320f2b18320d18232391f0dfad7ca3bdd9b5a23592e6c9647094b09b21fe33d0644aa28f9610fa3624a2e0751'
+            '00f2d176753c75fc400b09f57ec7a05644e6ed773dde855e2f7010305cf8a9113c6ac30835a9103a205a8ab5492afd60c94b8c01646b66ed8244b9a0238b53b0'
+            'fef5c40d9fd649e68fb6328803e6bbf4ab0a73c86ecd1eca439aebe2ca212b48a2de7e65fd1336bbd9171a851f267006b45be4fd614524072191e6137021bb81'
+            '785469032e2d55a021589b88285f699c2d541b8054897bec1a8d0c83d260c0920432198209ff5038e936a1232650faff13d806a90cc1c68c1ed0ba24bedf3d1b'
+            'f0fcf5f3d7955116dbbc6c28cd0c559cd473aa7bf3e8b295f7026c81ab4024de2d26d4cef6644164c42c7ba5bd4b2d756d2335f1a04aa63e2a8bcf3ed9f76082'
+            '5cdf6958fd02bdfe1aa9f7f7621faf3f0555b705a45a0b09be8de2d990d5e708951d2e68275be7009e7d2b91c93366c0f7f6b206c2dff89edf309ae7ed954581'
+            'd22b66a559808dd78f566ae9d2125a78e3680aea26ed17c749a308b4864e6d8f37efdc25c38b804b1a149b929ee21b632e21cda7b1c73a41e33b57083b1287a5'
+            '41fa051410b04d4d294caf6dacb59d5b1333247ac092927e1f8a2d018cea6d8f433c3506e867754638823d06659b6d64ea65c2df6ab648340204f5af1793f9ee'
+            '421d2dab135f5e9978262f55b0b978ad20c7d57ed9e3e83ba3b1ee016f2e3405c19d36b402d931f0a2e04e8dd7c533a4bc54c70dd4f4b74df827127c742a6297'
+            'e9821514ea33b658b2bd66f3360b4c7568bf2fa5b5f88467b7187366e7d9308dafa386d8f3e1e0dee86b72d9bc7fbf5367f9c7e99842575bc88941dfb67b9501'
+            'fddaea3ef3b04263c8e903300d4a68f9f8f9a733e0b16e727a021058d963911d987b79ca54d25cc664d7b9d3dda0ca774a32b986afa3cf4d3f1c7f37d17faabf'
+            '13d96124423739e5dee39b067c927c4b54337f6583681d679c369c1b0bbcc49dbe51f6ccdbe93e1a21a097804957cc32dd08642295390052993896537d760f5b')
 noextract=("${source[@]%%::*}")
 
 _lc() {
@@ -219,20 +225,40 @@ _lc() {
     done
 }
 
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
 prepare() {
-    7z x -y -bd "FirefoxSetup.exe"
-    _lc "core"/*
+    7z x -y -bd "FirefoxSetup.exe" -o"FirefoxSetup.dir" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "core"/* "${a}"
-    sed -ri -e '/(VCRUNTIME|MSVCP)140.dll/d' -e '/api-ms-win-[0-9a-z-]+.dll/d' "${a}/dependentlibs.list"
-    rm "${a}"/api-ms-win-*.dll "${a}"/ucrtbase.dll "${a}"/{vcruntime,msvcp}140.dll "${a}"/maintenanceservice{,_installer}.exe
+    cp -R "FirefoxSetup.dir/core"/* "${a}"
+    rm "${a}"/maintenanceservice{,_installer}.exe
+
+    # remove system DLLs
+    _rmmsdll "${a}"
+    sed -r -e '/(VCRUNTIME|MSVCP)140.dll/d' -e '/api-ms-win-[0-9a-z-]+.dll/d' -i "${a}/dependentlibs.list"
+
     mkdir "${a}/browser/extensions"
+    local f
     for f in *.xpi
     do
         cp "${f}" "${a}/browser/extensions/langpack-${f%%.xpi}@firefox.mozilla.org.xpi"
     done
+
+    _lc "${a}"/*
 }

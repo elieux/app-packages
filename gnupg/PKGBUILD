@@ -1,30 +1,30 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=gnupg
-_realver=2.2.17_20190709
+_realver=2.2.20_20200320
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=${_realver%%_*}
 pkgrel=1
 pkgdesc="Complete and free implementation of the OpenPGP standard"
-url="http://www.gnupg.org/"
+url="https://www.gnupg.org/"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("gnupg-w32.exe::ftp://ftp.gnupg.org/gcrypt/binary/gnupg-w32-${_realver}.exe")
-sha512sums=('f1b8092e595e95f13a90fb4209886cce62ff85027b4129077177587265d8dc8a460a61e709391ff722fc480bb1c58108d9e9a8aed2bf4326fbfbb45300a8491f')
+source=("gnupg-w32.exe::https://www.gnupg.org/ftp/gcrypt/binary/gnupg-w32-${_realver}.exe")
+sha512sums=('b827ae202585c2198cf739998d465f2497da3a1a0625b0ed81d4a4a1bf06194cd1b820cbeba7e1a61cd59493620c500c5a3ec5f9f03cfae2e5861df796bbfa87')
 
 prepare() {
-    7z x -y -bd "gnupg-w32.exe"
+    7z x -y -bd "gnupg-w32.exe" -o"gnupg-w32.dir" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "bin" "include" "lib" "share" "${a}"
+    cp -R "gnupg-w32.dir"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR'
     find "${a}" -iname '*.tmp' -delete
-    cp -r "README.txt" "${a}"
 }

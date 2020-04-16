@@ -1,0 +1,23 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=nginx
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=1.17.10
+pkgrel=1
+pkgdesc="Lightweight HTTP server and IMAP/POP3 proxy server"
+url="https://nginx.org/"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("nginx.zip::https://nginx.org/download/nginx-${pkgver}.zip")
+sha512sums=('9b4ba74c2b2b18850ce120c105ec084fbd22a9485038e400300f34e1c19db6018629dc7b15b754be2c2400c687803e16577b5801e701752ce1a0473414bab1af')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "nginx-${pkgver}"/* "${a}"
+    rm -R "${a}"/{logs,temp}
+}

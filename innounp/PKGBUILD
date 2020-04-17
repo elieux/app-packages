@@ -13,18 +13,16 @@ license=('GPL')
 makedepends=("unrar")
 provides=("${pkgbase}")
 options=(!strip)
-source=("innounp.rar::http://downloads.sourceforge.net/innounp/innounp/innounp%20${pkgver}/innounp${pkgver//./}.rar")
+source=("innounp.rar::https://downloads.sourceforge.net/innounp/innounp/innounp%20${pkgver}/innounp${pkgver//./}.rar")
 sha512sums=('a00dbb671de1fb0bc3c94ce97a569d2bbfcc00f6fcbe16578ea9940ffdc0558dcde7c9fa0b4a5d7c17d4b73706f6eb21f479c7e6d6b8de3605f3974d25841da3')
-noextract=("${source[@]%%::*}") # "Parsing filters is unsupported"
+noextract=("innounp.rar") # "Parsing filters is unsupported"
 
 prepare() {
-    unrar x -idq -tsm -o+ "innounp.rar"
+    unrar x -idq -tsm -o+ "innounp.rar" "innounp/"
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp *.exe "${a}"
-    cp *.htm "${a}"
+    cp "innounp"/* "${a}"
 }
-

@@ -6,19 +6,20 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=1.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that provides a RPC server for Kee"
 url="https://www.kee.pm/"
 arch=('any')
 license=('GPL2')
-depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeePassRPC.plgx::https://github.com/kee-org/keepassrpc/releases/download/v${pkgver}/KeePassRPC.plgx")
 sha512sums=('be519db93ac2028b809039f511ddd39a5714e6c8f4c7792eb2c7ca6289b7aacd2fe476a2cffb7f20927771c5f37ecb4fc981ce3b1fdd9869d62efb4a44795b97')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins"
-    cp *.plgx "${a}/plugins"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins"
+    cp *.plgx "${a}/Plugins"
 }

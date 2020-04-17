@@ -7,22 +7,21 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=1.8.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin to expose password entries securely over HTTP"
 url="https://github.com/pfn/keepasshttp"
 arch=('any')
 license=('unknown')
-depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("KeePassHttp.plgx::http://github.com/pfn/keepasshttp/raw/master/KeePassHttp.plgx"
-        "README.md::http://github.com/pfn/keepasshttp/raw/master/README.md")
+source=("KeePassHttp.plgx::https://github.com/pfn/keepasshttp/raw/master/KeePassHttp.plgx"
+        "README.md::https://github.com/pfn/keepasshttp/raw/master/README.md")
 # tag v1.8.4.2 doesn't contain the .plgx
 sha512sums=('673c51f77d114dd1ee32ddf0f1569495e9ea470326db7cdbdb4590950f0dd6fcddde7c2a69e788623189cd1a5343c1d457d996e2d14ac1f716402722d4c7832f'
             '93852b12c21a35469ab4b1d599caaf289ca0b30cd2f99dd7b5c7f716723635ab9ea757409040bdb4cd8a92fe9cfacebb8339182ee211d649eba197cdad880223')
 
 pkgver() {
-    v="$(dd if="KeePassHttp.plgx" bs=1 skip=57 count=20 status=none)"
+    local v="$(dd if="KeePassHttp.plgx" bs=1 skip=57 count=20 status=none)"
     if [ "${v}" == "${_realver}" ]
     then
         echo "${pkgver}"
@@ -32,8 +31,10 @@ pkgver() {
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins" "${a}/plugins/http"
-    cp *.plgx "${a}/plugins"
-    cp *.md "${a}/plugins/http"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins" "${a}/Plugins/http"
+    cp *.plgx "${a}/Plugins"
+    cp *.md "${a}/Plugins/http"
 }

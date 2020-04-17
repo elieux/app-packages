@@ -1,26 +1,55 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=keepass-plugin-keeautoexec
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that opens additional databases when opening a database"
-url="http://keepass.info/plugins.html#keeautoexec"
+url="https://keepass.info/plugins.html#keeautoexec"
 arch=('any')
 license=('unknown')
-depends=("app-i686-keepass")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("KeeAutoExec.zip::http://keepass.info/extensions/v2/keeautoexec/KeeAutoExec-${pkgver}.zip")
+source=("KeeAutoExec.zip::https@subdir://keepass.info/extensions/v2/keeautoexec/KeeAutoExec-${pkgver}.zip")
 sha512sums=('70b60ecfc25d8a51cce8cc6486b01ed0d40c6bea1cfac20a21488d7482557e469b7c06bbe4a0912c9219a3f6fd541adab183f25f46dfc572630f09dcd4958f2e')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins" "${a}/plugins/keeautoexec"
-    cp *.plgx "${a}/plugins"
-    cp *.html "${a}/plugins/keeautoexec"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins" "${a}/Plugins/keeautoexec"
+    cp "KeeAutoExec"/* "${a}/Plugins/keeautoexec"
+    mv "${a}/Plugins/keeautoexec"/*.{plgx,dll} "${a}/Plugins"
 }

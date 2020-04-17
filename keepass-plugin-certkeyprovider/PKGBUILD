@@ -7,19 +7,18 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.0.8.3
-pkgrel=3
+pkgrel=4
 pkgdesc="A KeePass plugin that allows to use Windows certificate store as a master key source"
 url="https://github.com/markbott/CertKeyProvider"
 arch=('any')
 license=('GPL3')
-depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CertKeyProviderPlugin.plgx::https://github.com/markbott/CertKeyProvider/releases/download/1.0.0/CertKeyProviderPlugin.plgx")
 sha512sums=('b6430c3f5f0d2029f5d52b3b3fdbddab752c7fd7aedc10b9360e0fdbcdd3a747a881e00cf74a015cf4cecbce932f14456f3aa6ab6a9f23de69758edebf56f1d0')
 
 pkgver() {
-    v="$(dd if="CertKeyProviderPlugin.plgx" bs=1 skip=67 count=20 status=none)"
+    local v="$(dd if="CertKeyProviderPlugin.plgx" bs=1 skip=67 count=20 status=none)"
     if [ "${v}" == "${_realver}" ]
     then
         echo "${pkgver}"
@@ -29,7 +28,9 @@ pkgver() {
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins"
-    cp *.plgx "${a}/plugins"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins"
+    cp *.plgx "${a}/Plugins"
 }

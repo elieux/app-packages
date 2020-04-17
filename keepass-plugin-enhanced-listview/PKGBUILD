@@ -7,20 +7,19 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=1.0.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that extends the listview"
-url="http://kpenhancedlistview.blogspot.com/"
+url="https://kpenhancedlistview.blogspot.com/"
 url="https://github.com/betonme/kpenhancedlistview/"
 arch=('any')
 license=('GPL2')
-depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
 source=("KPEnhancedListview.plgx::https://github.com/betonme/kpenhancedlistview/raw/master/KPEnhancedListview/Build/Release/KPEnhancedListview.plgx")
 sha512sums=('06cbcb092ea0e41d18062ec656fe44b56213b45cd8f86e49bb5e96d3c6dfe72c5eb511906f395ea5973b45f22c221918b193cb3b5b679815bd090bcca915b858')
 
 pkgver() {
-    v="$(dd if="KPEnhancedListview.plgx" bs=1 skip=64 count=20 status=none)"
+    local v="$(dd if="KPEnhancedListview.plgx" bs=1 skip=64 count=20 status=none)"
     if [ "${v}" == "${_realver}" ]
     then
         echo "${pkgver}"
@@ -30,7 +29,9 @@ pkgver() {
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins"
-    cp *.plgx "${a}/plugins"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins"
+    cp *.plgx "${a}/Plugins"
 }

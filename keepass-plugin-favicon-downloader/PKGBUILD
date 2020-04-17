@@ -6,19 +6,20 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=1.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that downloads and stores favicons"
-url="http://sourceforge.net/projects/keepass-favicon/"
+url="https://sourceforge.net/projects/keepass-favicon/"
 arch=('any')
 license=('GPL2')
-depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("KeePassFaviconDownloader.plgx::http://downloads.sourceforge.net/keepass-favicon/${pkgver}/KeePassFaviconDownloader.plgx")
+source=("KeePassFaviconDownloader.plgx::https://downloads.sourceforge.net/keepass-favicon/${pkgver}/KeePassFaviconDownloader.plgx")
 sha512sums=('9d1f01e5736d2d66c8c4616c59409b7b5f09b192309686299ae270e9db55a2c853c8ff273fe4f9c87510d9a20f3c06a869b3a0ce454695505beb75bac167f6bc')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins"
-    cp *.plgx "${a}/plugins"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins"
+    cp *.plgx "${a}/Plugins"
 }

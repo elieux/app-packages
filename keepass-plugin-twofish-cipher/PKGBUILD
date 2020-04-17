@@ -1,26 +1,55 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=keepass-plugin-twofish-cipher
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=1.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that enables to encrypt databases using the Twofish algorithm"
 url="http://gogogadgetscott.info/keepass/twofishcipher/"
 arch=('any')
 license=('GPL3')
-depends=("app-i686-keepass")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TwofishCipher.zip::http://gogogadgetscott.info/keepass/twofishcipher/TwofishCipher-${pkgver}.zip")
+source=("TwofishCipher.zip::http@subdir://gogogadgetscott.info/keepass/twofishcipher/TwofishCipher-${pkgver}.zip")
 sha512sums=('978a68edee1e3dd14f8eedfe0465f30a408f755e4394f8abb8913eaf930e3b32802ed88f80cc17a15ca4e0195ea34b650b0a4bde645aaf0cbc0ae048cd03bad0')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins" "${a}/plugins/twofish-cipher"
-    cp *.plgx "${a}/plugins"
-    cp *.txt "${a}/plugins/twofish-cipher"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins" "${a}/Plugins/twofish-cipher"
+    cp "TwofishCipher"/* "${a}/Plugins/twofish-cipher"
+    mv "${a}/Plugins/twofish-cipher"/*.plgx "${a}/Plugins"
 }

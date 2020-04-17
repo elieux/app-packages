@@ -1,27 +1,56 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=keepass-plugin-pronounceable-password-generator
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=1.0.4b
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that generates pronounceable passwords"
-url="http://sourceforge.net/projects/pronouncepwgen/"
+url="https://sourceforge.net/projects/pronouncepwgen/"
 arch=('any')
 license=('GPL3')
-depends=("app-i686-keepass")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("PronouncePwGen.zip::https://downloads.sourceforge.net/pronouncepwgen/pronouncepwgen/${pkgver}/PronouncePwGen-${pkgver}.zip")
+source=("PronouncePwGen.zip::https@subdir://downloads.sourceforge.net/pronouncepwgen/pronouncepwgen/${pkgver}/PronouncePwGen-${pkgver}.zip")
 sha512sums=('b746b3c6dff1452280d52a7fc0e10728e4f3745d4a52bf59815ff8910ad8188537fa4495a53c690024427bdf998772367c1a0b0c5c925d2d6789fb8f0608b62f')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins" "${a}/plugins/pronounceable-password-generator"
-    cp *.plgx "${a}/plugins"
-    cp -r "ppgsub" "${a}"
-    cp *.txt "${a}/plugins/pronounceable-password-generator"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins" "${a}/Plugins/pronounceable-password-generator"
+    cp -R "PronouncePwGen"/* "${a}/Plugins/pronounceable-password-generator"
+    mv "${a}/Plugins/pronounceable-password-generator/ppgsub" "${a}"
+    mv "${a}/Plugins/pronounceable-password-generator"/*.plgx "${a}/Plugins"
 }

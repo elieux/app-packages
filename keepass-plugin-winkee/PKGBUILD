@@ -1,26 +1,55 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=keepass-plugin-winkee
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.39.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that opens databases using Windows account credentials"
 url="https://keepass.info/plugins.html#winkee"
 arch=('any')
 license=('unknown')
-depends=("app-i686-keepass")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("WinKee.zip::https://keepass.info/extensions/v2/winkee/WinKee-${pkgver}.zip")
-sha512sums=('7ec17bf2455ea22b75437b6427d2d0f14188cd97f7b82fed9a47ed18f6657862569efa995f9a7d7b51c0f6fbc0cf9928da6e7cd8017958a2da5fbe9ad6e73b3e')
+source=("WinKee.zip::https@subdir://keepass.info/extensions/v2/winkee/WinKee-${pkgver}.zip")
+sha512sums=('3851963855b4c2bf4efaefbf5e06d76fe7165037dacd334bbfb4646fe151ee0d1488c9bf6c991c52ddd911aca7609dab886ead56856229852383f079dcf68eec')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins" "${a}/plugins/winkee"
-    cp *.plgx "${a}/plugins"
-    cp *.txt "${a}/plugins/winkee"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins" "${a}/Plugins/winkee"
+    cp "WinKee"/* "${a}/Plugins/winkee"
+    mv "${a}/Plugins/winkee"/*.plgx "${a}/Plugins"
 }

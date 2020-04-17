@@ -1,26 +1,55 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=keepass-plugin-otpkeyprov
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that allows using OTP codes for master key"
-url="http://keepass.info/plugins.html#otpkeyprov"
+url="https://keepass.info/plugins.html#otpkeyprov"
 arch=('any')
 license=('unknown')
-depends=("app-i686-keepass")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("OtpKeyProv.zip::http://keepass.info/extensions/v2/otpkeyprov/OtpKeyProv-${pkgver}.zip")
+source=("OtpKeyProv.zip::https@subdir://keepass.info/extensions/v2/otpkeyprov/OtpKeyProv-${pkgver}.zip")
 sha512sums=('0eace308bf07e2da3ac5c3d26ce13acd840b2a8a82fd55c74f9956881fc62bb7424e2ce847ffd5e0cd44e3be2f35bf6fe276cc546fbd19734aeb56b1f8f89b24')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins" "${a}/plugins/otpkeyprov"
-    cp *.plgx "${a}/plugins"
-    cp *.html "${a}/plugins/otpkeyprov"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins" "${a}/Plugins/otpkeyprov"
+    cp "OtpKeyProv"/* "${a}/Plugins/otpkeyprov"
+    mv "${a}/Plugins/otpkeyprov"/*.plgx "${a}/Plugins"
 }

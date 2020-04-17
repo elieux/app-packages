@@ -6,12 +6,11 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.3
-pkgrel=2
+pkgrel=3
 pkgdesc="A KeePass plugin that makes it easier to mount TrueCrypt volumes"
 url="https://bitbucket.org/schalpat/keepasstruecryptmount"
 arch=('any')
 license=('GPL2')
-depends=("app-i686-keepass")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
@@ -19,7 +18,9 @@ source=("KeepassTrueCryptMount.plgx.7z::https://bitbucket.org/schalpat/keepasstr
 sha512sums=('0642db647d2eabbff2e1845e2dc5a2d8657810a327c14da352961cb28a9ce649111e9a486d78fa612375233efbdb79080671ef38b66f8cbd85ba5cdcd0a62a00')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins"
-    cp *.plgx "${a}/plugins"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins"
+    cp *.plgx "${a}/Plugins"
 }

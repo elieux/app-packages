@@ -5,20 +5,21 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.1.2
-pkgrel=1
+pkgver=1.2.0
+pkgrel=2
 pkgdesc="A KeePass plugin that generates gramatically correct passphrases"
-url="https://bitbucket.org/ligos/readablepassphrasegenerator"
+url="https://github.com/ligos/readablepassphrasegenerator"
 arch=('any')
 license=('Apache 2.0')
-depends=("app-i686-keepass")
 provides=("${pkgbase}")
 options=(!strip)
-source=("ReadablePassphrase.plgx::https://bitbucket.org/ligos/readablepassphrasegenerator/downloads/ReadablePassphrase%20${pkgver}.plgx")
-sha512sums=('db5d5171c399faa3f797b16f79fd106128d6203a510cf8a31613c7d0d42c1ef444da0d8aa0318385110c5cd3544af85b4ebba92453f5a3d99098ab32c9fbc6f4')
+source=("ReadablePassphrase.plgx::https://github.com/ligos/readablepassphrasegenerator/releases/download/release-${pkgver}/ReadablePassphrase.${pkgver}.plgx")
+sha512sums=('13dfb384b922d64e785a785a3c18f985655f7e7da08430a27528823dd935494ae12e7163118b51bcaa0d5b5674fc6c7d9c03279894bcf258b04f174706af9cf8')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins"
-    cp *.plgx "${a}/plugins"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins"
+    cp *.plgx "${a}/Plugins"
 }

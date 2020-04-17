@@ -1,28 +1,58 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=keepass-plugin-keeotp
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=1.3.9
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that calculates TOTP codes"
-url="http://bitbucket.org/devinmartin/keeotp"
+url="https://bitbucket.org/devinmartin/keeotp"
 arch=('any')
 license=('MIT')
-depends=("app-i686-keepass")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("KeeOtp.zip::http://bitbucket.org/devinmartin/keeotp/downloads/KeeOtp-${pkgver}.zip")
+source=("KeeOtp.zip::https@subdir://bitbucket.org/devinmartin/keeotp/downloads/KeeOtp-${pkgver}.zip")
 sha512sums=('51d9101d92a11b17a6b048a7c37feddeeb148141878ab5831dca532418a1050a2867a31c992a3fcfdf4c58a5e470f021f27ad7069c787478f9bfb54f0f72bf03')
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/plugins" "${a}/plugins/keeotp"
-    cp "dlls"/*.dll "${a}"
-    cp *.plgx "${a}/plugins"
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins" "${a}/Plugins/keeotp"
+    cp -R "KeeOtp"/* "${a}/Plugins/keeotp"
+    mv "${a}/Plugins/keeotp"/*.plgx "${a}/Plugins"
+    mv "${a}/Plugins/keeotp/dlls"/* "${a}"
     rm "${a}/KeeOtp.dll"
-    cp *.txt "${a}/plugins/keeotp"
+    rm -R "${a}/Plugins/keeotp/dlls"
 }

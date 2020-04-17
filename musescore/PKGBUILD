@@ -4,10 +4,10 @@ _realname=musescore
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.3.2
+pkgver=3.4.2
 pkgrel=1
 pkgdesc="Create, play and print beautiful sheet music"
-url="http://musescore.org/"
+url="https://musescore.org/"
 arch=('any')
 license=('GPL')
 replaces=("app-i686-${_realname}")
@@ -15,16 +15,30 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("MuseScore-x86_64.msi::https://cdn.jsdelivr.net/musescore/v${pkgver}/MuseScore-${pkgver}-x86_64.msi")
-sha512sums=('c9ad17f2158fd8c53c7e79a8f15a7abe854f369ba2c30cea615030cf02a83f792bb39bf0660099571a58accca51ae95a0b3ac59d6f0b41514fd2826295b03718')
+sha512sums=('6960a772f34639451121004108cf909b43d92846af8bf36a9b8cffeefce63765a3043c467657f06a741d0ba5154e03a20edc1a8a4cba28f8b1c1a5f016ee2bb8')
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
 
 prepare() {
     rm -fR "MuseScore-x86_64"
-    /apps/lessmsi/lessmsi x "MuseScore-x86_64.msi"
+    /apps/lessmsi/lessmsi x "MuseScore-x86_64.msi" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "MuseScore-x86_64/SourceDir/MuseScore 3"/* "${a}"
-    rm "${a}/bin"/{concrt,msvcp,vcruntime}140.dll
+    _rmmsdll "${a}"
 }

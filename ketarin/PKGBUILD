@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=ketarin
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -10,10 +39,9 @@ pkgdesc="A small application which automatically updates setup packages"
 url="https://ketarin.org"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Ketarin.zip::https://ketarin.org/downloads/Ketarin/Ketarin-${pkgver}.zip?noredirect")
+source=("Ketarin.zip::https@subdir://ketarin.org/downloads/Ketarin/Ketarin-${pkgver}.zip?noredirect")
 sha512sums=('e34a7d07d7891bf70e3331862afcdf63136a7cc74682d39035b7d3ce0608609e1cfa225ba9e9b4cc72b735562921eddb67ed94b46deb9c6af3931d20b229e0bb')
 
 _lc() {
@@ -31,12 +59,9 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp *.{exe,dll,config} "${a}"
+    cp "Ketarin"/* "${a}"
+    _lc "${a}"/*
 }

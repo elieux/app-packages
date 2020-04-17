@@ -1,123 +1,146 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.43
+pkgver=2.44
 pkgrel=1
 pkgdesc="Light-weight and easy-to-use password manager"
-url="http://keepass.info/"
+url="https://keepass.info/"
 arch=('any')
 license=('GPL2')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("KeePass2.zip::http://downloads.sourceforge.net/keepass/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip"
-        "KeePass2-TrlUtil.zip::http://keepass.info/download/v2_trlutil_2/TrlUtil-${pkgver}.zip"
-        "KPScript.zip::http://keepass.info/extensions/v2/kpscript/KPScript-${pkgver}.zip"
+source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip"
+        "TrlUtil.zip::https@subdir://keepass.info/download/v2_trlutil_2/TrlUtil-${pkgver}.zip"
+        "KPScript.zip::https@subdir://keepass.info/extensions/v2/kpscript/KPScript-${pkgver}.zip"
         "KeePass.config.xml"
-        "KeePass2-Arabic.zip::http://downloads.sourceforge.net/keepass/KeePass-2.39-Arabic.zip"
-        "KeePass2-Bulgarian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Bulgarian.zip"
-        "KeePass2-Burmese.zip::http://downloads.sourceforge.net/keepass/Burmese-2.19.zip"
-        "KeePass2-Catalan.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Catalan.zip"
-        "KeePass2-Chinese_Simplified.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Chinese_Simplified.zip"
-        "KeePass2-Chinese_Traditional.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Chinese_Traditional.zip"
-        "KeePass2-Croatian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Croatian.zip"
-        "KeePass2-Czech.zip::http://downloads.sourceforge.net/keepass/KeePass-2.42-Czech.zip"
-        "KeePass2-Danish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Danish.zip"
-        "KeePass2-Dutch.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Dutch.zip"
-        "KeePass2-Estonian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.38-Estonian.zip"
-        "KeePass2-Finnish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Finnish.zip"
-        "KeePass2-French-c.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-French-c.zip"
-        "KeePass2-German.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-German.zip"
-        "KeePass2-Greek.zip::http://downloads.sourceforge.net/keepass/KeePass-2.42-Greek.zip"
-        "KeePass2-Hebrew-b.zip::http://downloads.sourceforge.net/keepass/KeePass-2.35-Hebrew-b.zip"
-        "KeePass2-Hungarian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Hungarian.zip"
-        "KeePass2-Icelandic.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Icelandic.zip"
-        "KeePass2-Indonesian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.23-Indonesian.zip"
-        "KeePass2-Italian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Italian.zip"
-        "KeePass2-Japanese.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Japanese.zip"
-        "KeePass2-Korean.zip::http://downloads.sourceforge.net/keepass/KeePass-2.36-Korean.zip"
-        "KeePass2-Latin.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Latin.zip"
-        "KeePass2-Latvian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.40-Latvian.zip"
-        "KeePass2-Lithuanian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Lithuanian.zip"
-        "KeePass2-Norwegian_NB.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Norwegian_NB.zip"
-        "KeePass2-Pashto.zip::http://downloads.sourceforge.net/keepass/KeePass-2.29-Pashto.zip"
-        "KeePass2-Persian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.41-Persian.zip"
-        "KeePass2-Polish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Polish.zip"
-        "KeePass2-Portuguese_BR.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Portuguese_BR.zip"
-        "KeePass2-Portuguese_PT.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Portuguese_PT.zip"
-        "KeePass2-Romanian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.22-Romanian.zip"
-        "KeePass2-Russian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Russian.zip"
-        "KeePass2-Serbian_Cyrillic.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Serbian_Cyrillic.zip"
-        "KeePass2-Serbian_Latin.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Serbian_Latin.zip"
-        "KeePass2-Slovak.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Slovak.zip"
-        "KeePass2-Slovenian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.37-Slovenian.zip"
-        "KeePass2-Spanish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Spanish.zip"
-        "KeePass2-Swedish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Swedish.zip"
-        "KeePass2-Turkish.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Turkish.zip"
-        "KeePass2-Ukrainian.zip::http://downloads.sourceforge.net/keepass/KeePass-2.43-Ukrainian.zip"
-        "KeePass2-Vietnamese.zip::http://downloads.sourceforge.net/keepass/KeePass-2.42-Vietnamese.zip")
-sha512sums=('b0430b8f26b7eea2bf55e564a7e205f75049be87025dda03bf60eb25acdd840c0d19c2231d4ea13b997e91dffff0b294b2196c7ad831d31964501d713ff7d2b2'
-            '44fc9ed76a7a94a06d65ec95fd8ea3aaad86b8a0c397aa443b788f6a272fc352b4bef9a85c4bf13c9f3945aed20df3b8b929818d2453ac23c7b93763fae0684d'
-            'a91b598bd790c877409a373a41742283111665d6b39458cf322a1c9c9775a06868dbcbb182d2f6070053482e8ad08023a6929fe6f877963d41e5c0fc14fd1fca'
+        "KeePass2-Arabic.zip::https://downloads.sourceforge.net/keepass/KeePass-2.39-Arabic.zip"
+        "KeePass2-Bulgarian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Bulgarian.zip"
+        "KeePass2-Burmese.zip::https://downloads.sourceforge.net/keepass/Burmese-2.19.zip"
+        "KeePass2-Catalan.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Catalan.zip"
+        "KeePass2-Chinese_Simplified.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Chinese_Simplified.zip"
+        "KeePass2-Chinese_Traditional.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Chinese_Traditional.zip"
+        "KeePass2-Croatian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.29-Croatian.zip"
+        "KeePass2-Czech.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Czech.zip"
+        "KeePass2-Danish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Danish.zip"
+        "KeePass2-Dutch.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Dutch.zip"
+        "KeePass2-Estonian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.38-Estonian.zip"
+        "KeePass2-Finnish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Finnish.zip"
+        "KeePass2-French.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-French.zip"
+        "KeePass2-German.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-German.zip"
+        "KeePass2-Greek.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Greek.zip"
+        "KeePass2-Hebrew-b.zip::https://downloads.sourceforge.net/keepass/KeePass-2.35-Hebrew-b.zip"
+        "KeePass2-Hungarian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Hungarian.zip"
+        "KeePass2-Icelandic.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Icelandic.zip"
+        "KeePass2-Indonesian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.23-Indonesian.zip"
+        "KeePass2-Italian-b.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Italian-b.zip"
+        "KeePass2-Japanese.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Japanese.zip"
+        "KeePass2-Korean.zip::https://downloads.sourceforge.net/keepass/KeePass-2.36-Korean.zip"
+        "KeePass2-Latin.zip::https://downloads.sourceforge.net/keepass/KeePass-2.29-Latin.zip"
+        "KeePass2-Latvian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Latvian.zip"
+        "KeePass2-Lithuanian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Lithuanian.zip"
+        "KeePass2-Norwegian_NB.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Norwegian_NB.zip"
+        "KeePass2-Pashto.zip::https://downloads.sourceforge.net/keepass/KeePass-2.29-Pashto.zip"
+        "KeePass2-Persian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.41-Persian.zip"
+        "KeePass2-Polish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Polish.zip"
+        "KeePass2-Portuguese_BR.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Portuguese_BR.zip"
+        "KeePass2-Portuguese_PT.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Portuguese_PT.zip"
+        "KeePass2-Romanian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.22-Romanian.zip"
+        "KeePass2-Russian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Russian.zip"
+        "KeePass2-Serbian_Cyrillic.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Serbian_Cyrillic.zip"
+        "KeePass2-Serbian_Latin.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Serbian_Latin.zip"
+        "KeePass2-Slovak.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Slovak.zip"
+        "KeePass2-Slovenian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.37-Slovenian.zip"
+        "KeePass2-Spanish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Spanish.zip"
+        "KeePass2-Swedish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Swedish.zip"
+        "KeePass2-Turkish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Turkish.zip"
+        "KeePass2-Ukrainian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Ukrainian.zip"
+        "KeePass2-Vietnamese.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Vietnamese.zip")
+sha512sums=('ec9cbdcf2e548ac781a80e14f15b213002d2e9affe3deb4740e404d6e17363bb55d9a2d27e0a9d2e8770e93cdcaa811ca751308de68670b8694b8f2fc061c496'
+            'd3eb34a9b29787298fd8abd04c72043f836093fe87912feb7685d7cfd04c833d7f1b99d97e832fd36864892f5a5d349390dc2162ff8a800dab5142844ff02b3c'
+            '93d0952d90efd49c1162ea5479865a86806bd5d6d850cc92965b38e2ede4d6abab7da04aabd892a8cc5ec8afb3317c709b07f259572354bfc70245ec60fbc692'
             'be3675bbbe47d929a1ca6c5dfefd31b674c7304cc4bfac914d5be9656937554919478feb363fd3a51561bcf879941fcb54b701648057422c452bf677d500a839'
             '44eacfbbdf36938f992876689a447ce72a8f6e0cd8af84315ccb40fe86d4a76203a61a24edf58dad39a857366628ea5cb6cc84f2f5897ced12e89da18180d02d'
-            '83b917fe8e43e99faca99401622d93fb2c17a094237fee53995c99875dffd97b90bf33dea7dec1d73ee729a430742c82095bfa94fccd05b1e8c48632bcbfb298'
+            '8c0674cb84d50172b872380e96a607448a06317fd290b2268c182cb256e73682df417b85ab4c93c859adafc9fbac8f87ff50fc75c6b1efc6958e81220429c62f'
             '8548df07918d101548e828e038bda9c593f909f17cd11cb568c987094b19ed66306f79e3e58d3128a3aeef20deb7061f9c1f1fc001e28aef355b42ec75a519d2'
-            '306e2546e1586551b57e3b1c3f27649aceb36a8c8c2d6551abb9157629ba2bf648d3b53dedcd45ab1de3fe7d25c99cba508aaf8d132bc9c7161b587003be2ba6'
-            '102c28ffa90a5aa7f35cccb57b38012196b417d1099f3cb8ba16a08ddb559e6126ddd585bec6910c29c3855bfee87d30cf4ff31aff3850e96543ab0195943ca7'
-            'bf872cf4c50c0a1e58f5aeb932ea1fdb841b8de8338800d12f0ebb51e5b77c944500cdd90107ae6dae1f57816cd86b5b6332099abde6474d63717e2f4b445467'
+            'dd76be9d0c0737d52a817064a2500945959f9ffc8b22b1f6e64c633675e98e554c90142a25bd9d85dcd26a3689fa050b70b7ccd15516c05c064a203e86fa5aa7'
+            '9f95368358ecf5cc6edfe3636490be7205df9b48cb8e02e357d6521f4eff49ca2f07cc1106b87c15ef6f61546bd767a098cb3c73ee3009d32dc3ff7ca3d23b6f'
+            '1e5c7d1ba43d56c336bf5623510a4c22e6342a5b61390f336894aacaaff7328e2fffb4de6e3b6459f87b87f9852ec28150c5af004c359ef32a099b21fd40b7fc'
             'a3584859709ef51bbf68f1703eb82178686d1694bdbf1a8ad992f6023bcfe67269313e1279e75c5450b59e693037dd93ab87285c8f43cb60e2dcd75bfc216020'
-            '74966d108c35fc717e928e21c13101b96dad518fb3a49a7a5fc3b4fd60deafe7380ed7d8ffa4d1866594b7b104588e5462b18bcd6755cdb08cbc65e77563e591'
+            'f0e38f8fb1a82ccb41b64042107814f9ec9774b7028f9003ab293fea8847e1b507ce120053905e1bccf79d6a4eaaa2aa8cb6bfe392db8071d700f3dd339992ad'
             '9603f67f04e0a7afd5674c131eb917e5dae558d555f234b166be45eb96d859ea3fc4e235fea3a8e0fcf47a17432083c6bb33a913bf3339efadb9013c20b72098'
-            '46cc6a2d80238680c911c0e3e9c1bda9842faa573f22f473debfdafcda945bf7640eacb75a52d361c51e93719ced9f5b8270d01a260a9c780eb91de43858c5b7'
+            'fd398d1b1a6ace0863fcfa1ea2a42054717a3c710181c17cc576893bf5bdb694a76ea897cd32379fdb65b49030e4a70922ca153b76fe14605cbb28cc0fc39afb'
             '2ef568588a24db4777969f35afd5e803989ae4814bbda6c7fcb674c0b40791ba43dbbce3613f05324d7855c519642e10d7f14397fea7bc95b1b208afc1a62648'
             'df6d474ef298930789d465054525d45c45bec169e6087e4aca767126dea23bc3ce1d632be94eac38f6d930ad5d09b0385c07997f72b02e5c4eb0371eec1715ab'
-            '7fe55d8a13fb2b1ac0f8584bb7a7ef7e4af40e9cee3654515a93f47c4d843d05b54343b20c264b53a66c232356501163b95e1575ab7fadd119dfe1d4f2b81d62'
-            'dd702c3a76b07ee02e220a22dd7531d9eed551e0cd4b1d9d4b6094149dbfa39f52e2a89d241fe589cdc7d8c3f85ae597d15d6bdde075c3daba65915415d16c14'
-            '317855ef39fcf6370467a4d3e2517ffbb7f1d60e6bf05ca6bc9d0f35c4ae95d2a17bc56d136386d338e22e14b5d2fb69bb9a285fdb632459d99fdb3f828fe159'
+            '0c50a533e00aa1c418524d1ccc09eadd22921016dc0b777fd9afcedf7b39fa1d8d34e688a75ff300830a7797295c90c19c6b6fb4e415dec273c8ac5cfff803bf'
+            'cc2014435f33147a4a0058a278b8f6a714ac9d779686e6f745373cde75616897d8c8886eb476a0c090f7601e495b0fba5df162235781e0663b044ee73533d984'
+            'a3d7038e9db2704a76527ad486eb5feec7e0d3ccf953539dd17648d58fd8cc99320e4028364e69fc846dbe4622d51f7236f967e272ae8c82e9146d3fd1248b2b'
             '6330ec5779b877b702badfb813cfb28c32b6bbbe4f6271586f39a7f166eeb10228c31af0d5e4d98e7c0f8de48525d4756663d562f184ff79b2ce8c91dc2bfc9d'
-            'b986f7ccfe5aecf4e55879a338f1725efcd911effa5ba5aedc34722ac8d1c037c0463918acbe85d281f36d863187f57066f94331c580a146c74613fd06fa1b55'
-            'b3bb4efa6c2407685fd653f6abda7b64fb1174de692d71971c2ea9a2c5de2975cb69bb870f79e820373e4ea34291d805d89ea8dd714b01b3e1a9f27a51fc3473'
+            '277154331079cf5a0d0d271b13c049744f30c5718a4f7cd8f2ed8ad1b3610825ffc43ab8d7da028425f60c01e3b13e66ae7d96d180db2287e852a55f131b7caf'
+            '51cd5b919055db52b3686e9da905a934144d9140aab7ede1b6e09086b80a89d6292feea228f34f365a0ac92bd9a364a3809b500816112f8e932816471c005c2b'
             'fc4926c62a7fa7bed1394535b7245b7abe3ac33af5f3e06bb6358dbf62fcfb967e4528f85043351ee1e030960627abc74afb8f6b145c6bf3ce56f81691ba18fb'
-            '4eb85eb61feac79cd74ffded83f7f0b2f599dd7734a68388c03d9f4d5f853bf076eab780fc693921eb1559d1eaf1c7273a0c511af10de62d7282e2c88f70b3ab'
-            '843de133a3ca8bfedaa35a3740105bb0acf37508c219e71402dc58324b630dede778f948dfe95e9137bb1ba81005ecfcc29cdd3c013c4b9fecd591bd3c0fd090'
+            '4a84be54afea3454430b33f9959e59c0796d64f9c85c57c2f73544b45438a3eda55bb0f82097b441ca31a046fce8757ef42cb910a9b496c9980ccae93c6f83d4'
+            'd5b7bda19630e0f7c90505fabb71f12e277121a0692538cedea03e7b7b9d9a68fd037226be6f0afc3c149c46bcd987b24d1b4b009af7f9bc25f2df02ef42eda5'
             'a9acb1ec07163dd54f8a4a350ab13bc06f5738517f6ea57cf2798a7a1345dc4214ac05a7eb13944eaa03182b7e44781ade98dc97d708ee3842dee9fae8c833f3'
             'af80a6a57248c14ef710fdfac05531d42fe937105e62c15de4ecf16185e998b2c8719b4b32e1eb4bf1fc0b7cb577f97565a94d20778efd5ab65b59c5baddb3c2'
-            '718cb6c39ccbf1d56d893f4f48be7114f91d600d2acb9c2927ee2d7512539d43e02253cc04263484478381820069f5b68ce43e82777e34c32bfba3deb9fff10c'
+            '67318a731cab0fd3bd539216a4a0bbaab15d670af2e245a121be917530ebd5f93e2c160dc0357e0bab33b1c45c002193a3a0df708f76cbdd6922c9d814a4dbf6'
             '19da69a8603b8714d60fe01abfb6bc0972c4d463391a0eb4465a507b097d5a1c50d324d71870cb71df5b0afb28a4060bf229669b19ac4b47e15d12c6a6567c38'
             '4038da7f0a58e53d5f83ecd9e9ddd15bc750cbdf721b51397d91def9bcaf28016af2a2eee6cec6506ed2d2341185a1d38567c5139f123cad769398cbc3dec700'
             '17c185bbc43090d4d22e137441e97c868c4cd6417d120bc72509b008a85a8b0eab0ca0b4e4f7f3e8030b01dc0b5e126f2d71108f176bfef59133e43b651b093a'
             '5605b97a6110b7d362f8c35f2a145ec458f09f1605aa99a8115da41a042d26805caa211515504725eeaacd13182cf71d05827dd8a62594fb2860ce98d0b71ca2'
-            'd0a4da547b740d2f9a48f7a5cea077ccc2dd744462df14ee141227249b99c263cc3eb78dad19f0a158c7b90f89456318a1f6497b2ca151c870e93b5b984877e0'
-            '87ff0e3445fd7c68081c3f27e5e480d0081ac5a1f56e532d583f89d845d72e26390a7b5ef75cdb26a92f1b498fa3ef540e715f2d7cc2d51767eeda7944ef7ccc'
-            'f55063ea3e498fcc5168915cd88b9c159038dd1fc60629501709970bb130ef1293aa207a0c4016d2b5fa0a113dcb7e5f968bfc93b1dfbafd1b54db349e0da0ae'
+            '6d5f99dde72a879c722a68632a552698bd5532d469c13e4c96dd9f935bf66450c7b944573ffda4fb666878d4e3969e6b381b3ac6af6decde3b173c067ef84b9e'
+            '765a069a92905fb31d20a148bcb475c665ee7cbb4adacbb950fc2f06d82eae9929c2922519a06c2028c72a39fdb8885db4a5f4c6f761206186c1ce81bdebad00'
+            '8b2d1054479c887e41ee98ef873df88303d3b3241390ede1093b66dc1183a7869d7bfca60c2c7de6b34b02f2ff40d83b295ed36d898148e9c49ccd3dbec7fb2d'
             'c5b393380b0ddbfe22ab48c4175d963a1d0e730afbf1835696708cf542ca30ead26b65d42628cb0b8fcb54ed1a545177ecb4720c21a2f86d8af4b0f3f2bc81e9'
-            '04cd042e68ec94217058173ec0f1bda8633a6c9ffcb2b6a90f4feecfddaade6a5b73f2d2ce2520cccfcffcb9c117ea773e93f6e20e08a56bc47378e4602c72da'
-            '257bcb207c240c98d435c7e63aa81ba1122b7e62cb5e0f326a5a109be72585e5d99250338803c1f144209f5a8262c6dccec8910b2b41afdc80b158af57cb9ba9'
-            '11b0f4ebc477663f0d6b2537256cb65d359d755d71a392929d12f8c7a2de509120e65e4e40a2e3da7d1e42f1c6ab752a943bef2e0cc90ceb6d648018c83ad13a'
-            '7f0285d08b06ce6de6e635abd9b717fcfdfa27bc834502ec721fddfa10bb26ee0585a14381719eb0728f53122746832a22186987e85205eafa85269e17241069'
+            '6578d08e31f181a3da31dee3917aba83a5c83ac272ac1c9aadd1b5d5ac9f79a09abbde1c77c99ae25e6453707d608b4d2e33e864400ad819977ae04f520d4e36'
+            '44032347f29b73f3e35a5091f8526b5d9d54b043b9860430521e861ae052522b500962db0d24978ca899f88e35c84606ba55c8bd626d95ade574f31359d6ca3d'
+            'eb9cb8155973dcfc2033fd1fd625aee670f8595f81b74f669af71e3c202dfa01d8d8f5a70786a8e1bebc5b88e756015ecd5a27e8ec2d4af34b19d4695cbf48c9'
+            'a156aea9a9f75ffa1d4671dee5a1ca01e55d0b9dc3f7ae555e7aa86ab995f445b269a0efd3a1a38185b42a3aaaac34acc4096301669b43fc73c0fc1a76368e90'
             '1140d20e4ae6debb6a6ee39ebfb89d66089e893704b4a7969b36ff5977e8b9467e255e6017ea5874a6abbad4ae058339a0f96a08f07942ebec91f1a4b6f84d28'
-            '8120f336b6353797f31d277e852e88cb231ce770fdba5dfb0f9196801eee42a7e4c2ec9d4204012314baee97e714574b2c463ca7f5592ab0a5bf193c3e01ccbd'
+            '4070b9f0cf8fdf401d7fd79038270102d1c2accf8101d4557dc504780836e61c02d57f9e337df39f96b4c401ee8a25a89c3df97b105c85c367b0201726cfcdc6'
             '98ea2f0f70fd7afa3ba61aca881c941ed1739baae438cba05d759876ad008071fc47d415e62b0d33aac86475508148cf29913d0102d3d139c871335130acee83'
-            'e87ee9250e2b1444371cf3eef4fc34a694fb4ecaecd8fb53a23ac9fa7bcc2a04b396711ed6890b123a8f2c1a7ae9ee1a9302f1db3bea6ccae151d84cc40d8385'
-            '6ec927e255694f13f37daf25a29f71601556f46771e799aa47a5972140c13a27c609f9cfe4348cb0b9febf2c146138a267f9063c565c7529e11de305c0ed7073'
-            '8303131a9abbc79f27ea58ea8191a478904ca58833f4ace5d660ae39215ebb7dc6652eba55b4c62796ec07a92368fb85d177882e84b574a9c7c5f5e955e8fa99')
-noextract=("KeePass2-TrlUtil.zip")
-
-prepare() {
-    unzip -o "KeePass2-TrlUtil.zip" -d "TrlUtil"
-    # when KPScript.exe is lowercased, it fails to load, so let's just keep everything as is
-    # _lc *
-}
+            '0182293847fe018b33c26de3caa396fe5b2bf37d7df97b5482c92c7bea14a6db5cd758272aecff526d766b1a3421dd85730cd25ef51fb6f645daa0bc2adb194c'
+            '0a42d0035d3eec127c03cd9e92e808d9a0e1d00c95d21954f17cc5e55407fd8c37dd967b8fc2ca8f2b201e372d4f2b57da41995619ba54ece427fa63dfd4ce49'
+            'd29fc662f21b7576a4b09f4f5fe959fc153052df62c91beb988c90da56f9fe472e6cf5961044f36b403d5fa79295f3d8f4103a457da4cd45464550979d7d2b2b')
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r *.{exe,exe.config,dll} "KeePass.config.xml" "TrlUtil" "XSL" "Languages" "${a}"
+    cp -R "KeePass2"/* "KPScript"/* "TrlUtil" "KeePass.config.xml" "${a}"
     cp *.lngx "${a}/Languages"
     cp "KeePass.config.xml" "${a}/TrlUtil"
-    cp *.{chm,txt} "${a}"
+
+    # when KPScript.exe is lowercased, it fails to load, so let's just keep everything as is
+    #_lc "${a}"/*
 }

@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=jsmsi
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -12,7 +41,7 @@ url="https://jsware.net/jsware/msicode.php5"
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("jsmsix19.zip::https://www.jsware.net/jsware/zips/jsmsix19.zip"
+source=("jsmsix19.zip::https@subdir://www.jsware.net/jsware/zips/jsmsix19.zip"
         "msiext.zip::https://www.jsware.net/jsware/zips/msiext.zip"
         "msiext2.zip::https://www.jsware.net/jsware/zips/msiext2.zip"
         "msied17.zip::https://www.jsware.net/jsware/zips/msied17.zip"
@@ -50,17 +79,16 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc */* *
-}
-
 pkgver() {
-    find . ! -name '*.zip' -type f -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -mindepth 2 -type f -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R * "${a}"
     rm "${a}"/*.zip
+    mv "${a}/jsmsix19"/* "${a}"
+    rm -R "${a}/jsmsix19"
+    _lc "${a}"/*
 }

@@ -10,7 +10,8 @@ $srclist = [];
 foreach ($zips as $zip) {
 	list($name) = array_slice($zip, 1);
 	echo "Found: {$name}.zip\n";
-	$srclist[] = "{$name}.zip::https://www.jsware.net/jsware/zips/${name}.zip";
+	$subdir = $name === 'jsmsix19' ? '@subdir' : '';
+	$srclist[] = "{$name}.zip::https{$subdir}://www.jsware.net/jsware/zips/{$name}.zip";
 }
 
 $srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));

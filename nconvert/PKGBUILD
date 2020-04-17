@@ -5,19 +5,17 @@ _realname=nconvert
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.32
+pkgver=7.39
 pkgrel=1
 pkgdesc="A powerful command line multi-platform batch image processor"
 arch=('any')
 url="https://www.xnview.com/en/nconvert/"
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("NConvert-win64.zip::http://download.xnview.com/NConvert-win64.zip")
-sha512sums=('62f6291339f41bdb84764f818660f7dbc29ff7361e8629fabfd1702e9561fcfa540608a4fb370721d9490b2a13ae8772ea647a7951be292eb03fbaa5b4d34e82')
-noextract=("NConvert-win64.zip")
+source=("NConvert-win64.zip::https://download.xnview.com/NConvert-win64.zip")
+sha512sums=('3c47af1481852c8ee19dc3064a17af82dd7ecdbcf2507cc24c9e0a2f933f40c3b1b5016a5d41359dc10d3afd8aeb2c1c2795ff935b47e68a748486ac73d48041')
 
 _lc() {
     local d f n
@@ -34,18 +32,28 @@ _lc() {
     done
 }
 
-prepare() {
-    unzip -o -j "NConvert-win64.zip" -d "NConvert"
-    _lc "NConvert"/*
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
 pkgver() {
-    unzip -p "NConvert-win64.zip" "XnView/WhatsNew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
+    cat "XnView/whatsnew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "NConvert"/*.exe "${a}"
-    cp "NConvert"/*.txt "${a}"
+    cp "XnView"/* "${a}"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
 }

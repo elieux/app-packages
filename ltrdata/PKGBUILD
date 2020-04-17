@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=ltrdata
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
@@ -16,34 +45,34 @@ options=(!strip)
 source=(
         # ImDisk Virtual Disk Driver
         # "imdiskinst.exe::http://www.ltr-data.se/files/imdiskinst.exe"
-        "devio64.zip::http://www.ltr-data.se/files/win64/devio.zip"
+        "devio64.zip::http@subdir://www.ltr-data.se/files/win64/devio.zip"
         # "ImDiskTk-x64.exe::https://downloads.sourceforge.net/imdisk-toolkit/20200315/ImDiskTk-x64.exe"
         # "ImDiskNet.7z::http://www.ltr-data.se/files/ImDiskNet.7z"
 
         # Zero and Random Device Driver
         # "zerodrv.exe::http://www.ltr-data.se/files/zerodrv.exe"
 
-        # Small command line utilities; order is important
-        "exefiles.zip::http://www.ltr-data.se/files/exefiles.zip"
-        "exefiles64.zip::http://www.ltr-data.se/files/win64/exefiles.zip"
+        # Small command line utilities
+        "exefiles.zip::http@subdir://www.ltr-data.se/files/exefiles.zip"
+        "exefiles64.zip::http@subdir://www.ltr-data.se/files/win64/exefiles.zip"
 
         # .NET command line utilities
-        "base64.zip::http://www.ltr-data.se/files/base64.zip"
-        "checksum.zip::http://www.ltr-data.se/files/checksum.zip"
-        "coordtool.zip::http://www.ltr-data.se/files/coordtool.zip"
-        "luhn.zip::http://www.ltr-data.se/files/luhn.zip"
-        "MailTools.zip::http://www.ltr-data.se/files/MailTools.zip"
-        "netexpr.zip::http://www.ltr-data.se/files/netexpr.zip"
-        "NetCompress.zip::http://www.ltr-data.se/files/NetCompress.zip"
-        "netcheck.zip::http://www.ltr-data.se/files/netcheck.zip"
-        "ZipIO.zip::http://www.ltr-data.se/files/ZipIO.zip"
+        "base64.zip::http@subdir://www.ltr-data.se/files/base64.zip"
+        "checksum.zip::http@subdir://www.ltr-data.se/files/checksum.zip"
+        "coordtool.zip::http@subdir://www.ltr-data.se/files/coordtool.zip"
+        "luhn.zip::http@subdir://www.ltr-data.se/files/luhn.zip"
+        "MailTools.zip::http@subdir://www.ltr-data.se/files/MailTools.zip"
+        "netexpr.zip::http@subdir://www.ltr-data.se/files/netexpr.zip"
+        "NetCompress.zip::http@subdir://www.ltr-data.se/files/NetCompress.zip"
+        "netcheck.zip::http@subdir://www.ltr-data.se/files/netcheck.zip"
+        "ZipIO.zip::http@subdir://www.ltr-data.se/files/ZipIO.zip"
 
         # .NET tools with graphical user interface
-        "GraphViewer.zip::http://www.ltr-data.se/files/GraphViewer.zip"
-        "Dataviewer.zip::http://www.ltr-data.se/files/Dataviewer.zip"
+        "GraphViewer.zip::http@subdir://www.ltr-data.se/files/GraphViewer.zip"
+        "Dataviewer.zip::http@subdir://www.ltr-data.se/files/Dataviewer.zip"
 
         # secret
-        "scripts.zip::http://www.ltr-data.se/files/scripts.zip"
+        "scripts.zip::http@subdir://www.ltr-data.se/files/scripts.zip"
 )
 sha512sums=('156b163fdc038bb9924b2dde4ed1b2416fd09d2c0f0b8fd85a0f9a0d6b740be7daa0510ec4e7bded5573eda7d59510b859e33efe7b3d7b0dc2ce45bb95936bd0'
             'b059836a1504fc0bc5962217469eab203d705cdb9648f0617f93d3f5b5a21d0e85ff9f4bb0b9d6eb7cc580139a604249f60b0d1a9b9b3faf28f93d836a0c2237'
@@ -61,28 +90,19 @@ sha512sums=('156b163fdc038bb9924b2dde4ed1b2416fd09d2c0f0b8fd85a0f9a0d6b740be7daa
             '1d324591df45b82dfb1854956ecbd34546fa85dec21829787727d4957c5154e516aaa50a387b50565723cb205b61baeb0e58b0f6204580abd97a9bc1b8b8f525'
             '2f7c7011871898829ad1392a85c537ee6dfb2ea8f2eaa0619db1be4fbd0cf4c7239762d6d3c34772311e2e3440246fc6e6fe6116e92a358b340598eb05e0bdde')
 
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
-
 pkgver() {
-    find . -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -mindepth 2 -type f -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp * "${a}"
-    rm "${a}"/*.zip
+
+    local d
+    for d in $(find . -mindepth 1 -maxdepth 1 -type d | grep -v "exefiles")
+    do
+        cp "${d}"/* "${a}"
+    done
+    cp "exefiles"/* "${a}"
+    cp "exefiles64"/* "${a}"
 }

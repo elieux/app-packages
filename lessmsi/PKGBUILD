@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=lessmsi
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -12,31 +41,11 @@ url="https://lessmsi.activescott.com/"
 license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
-source=("lessmsi.zip::https://github.com/activescott/lessmsi/releases/download/v${pkgver}/lessmsi-v${pkgver}.zip")
+source=("lessmsi.zip::https@subdir://github.com/activescott/lessmsi/releases/download/v${pkgver}/lessmsi-v${pkgver}.zip")
 sha512sums=('b7b585eed261c262499c73688dfd985818f7869319285168aeeac1f2cf5fad487280fcae1dac633296e5db0e0bc454495a09a90c2e37a7e7af07ef93563503c6')
 
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
-
-prepare() {
-    _lc *
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp * "${a}"
-    rm "${a}/lessmsi.zip"
+    cp "lessmsi"/* "${a}"
 }

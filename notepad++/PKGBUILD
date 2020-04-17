@@ -1,24 +1,52 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=notepad++
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.8.1
+pkgver=7.8.5
 pkgrel=1
 pkgdesc="A free Scintilla-based editor with plugin support"
 url="https://notepad-plus-plus.org/"
 arch=('any')
 license=('GPL')
 replaces=("app-i686-${_realname}")
-makedepends=("p7zip" "unzip")
+makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("npp.bin.x64.zip::http://download.notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.x64.zip"
+source=("npp.bin.x64.zip::http@subdir://download.notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.bin.x64.zip"
         "npp.Installer.x64.exe::http://download.notepad-plus-plus.org/repository/${pkgver%%.*}.x/${pkgver}/npp.${pkgver}.Installer.x64.exe")
-sha512sums=('958db8b97de511dc2a1595f33a49d2bd0d592b558e2be1cb7a1507f5c67579d29ea1c31a9cad32fade117e124ced1447b999ac81129d7cd8fec21a0faef84aad'
-            '4993faaf453d6a982385c0b9e2368d21cfdbaf6b861d2d5f080f4523f628cdc91c91096d5a9461d9160f862c1d5a7e36309bb383f13bb208e84e6805a9499c2b')
-noextract=("npp.bin.x64.zip")
+sha512sums=('49c6e71a5ddeef3dc4e6b5ead2bb958f7930f4bf880175de05bd23db7e966ac640018811c8c1723c8874a250292e8ee7d585b74acb2842631a4a047f127b946d'
+            '541be891034d45424c03ab5849d375c924575188abc05681a22ef548573a91a2df57b10f5b081a160e2121c6c32650a0a25bbfc80f8c124795a93a95292cc052')
 
 _lc() {
     local d f n
@@ -36,15 +64,13 @@ _lc() {
 }
 
 prepare() {
-    unzip -o "npp.bin.x64.zip" -d "npp"
-    rm -f "npp/nppshell_06*.dll"
-    echo u | 7z x -bd -i!"NppShell_06.dll" -o"npp" "npp.Installer.x64.exe"
-    _lc "npp"/*
+    7z x -y -bd "npp.Installer.x64.exe" -o"npp.Installer.x64.dir" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "npp"/* "${a}"
+    cp -R "npp.bin.x64"/* "${a}"
     rm "${a}/dolocalconf.xml"
+    _lc "${a}"/*
 }

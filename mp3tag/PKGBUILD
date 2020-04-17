@@ -4,17 +4,17 @@ _realname=mp3tag
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.99a
+pkgver=3.00
 pkgrel=1
 pkgdesc="Powerful audio metadata editor"
 arch=('any')
-url="http://mp3tag.de/en/index.html"
+url="https://mp3tag.de/en/index.html"
 license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("mp3tagsetup.exe::http://download.mp3tag.de/mp3tagv${pkgver//./}setup.exe")
-sha512sums=('f44e88a09f63148c62dd887285fa19fe5112a9c8bf4ce95762e01aba8e07aa10128d93584a0ddff4f219efb5c7363784b29b1a1ddae279e2a453ba4df0d71de5')
+source=("mp3tagsetup.exe::https://download.mp3tag.de/mp3tagv${pkgver//./}setup.exe")
+sha512sums=('9b0ac8f23e7e1168e3c5060bba7dc00674d6f99e242ce1dd52650777961fc1be8006e858a605beaefe154c68cefa875127b2a11c3a90dec51465ec0d6de2e435')
 
 _lc() {
     local d f n
@@ -32,20 +32,20 @@ _lc() {
 }
 
 prepare() {
+    local w f
     w="*license*.txt"
-    7z x -y -bd -x!"${w}" "mp3tagsetup.exe"
+    7z x -y -bd -x!"${w}" "mp3tagsetup.exe" -o"mp3tagsetup.dir" > /dev/null
     for f in $(7z l -y -bd -i!"${w}" "mp3tagsetup.exe" | grep 'license.*txt' | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's/^.*\\//')
     do
-        7z e -y -bd -so -i!"*${f}" "mp3tagsetup.exe" > "${f}"
+        7z e -y -bd -so -i!"*${f}" "mp3tagsetup.exe" > "mp3tagsetup.dir/${f}"
     done
-    _lc *
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/help"
-    cp -r "data" "export" "lang" *.{exe,dll} "${a}"
+    cp -R "mp3tagsetup.dir"/* "${a}"
     touch "${a}/help/helpmap.idx"
-    rm "${a}/mp3tagsetup.exe"
-    cp -r "help" *.txt "${a}"
+    rm -R "${a}"/'$PLUGINSDIR' "${a}"/'$R0'
+    _lc "${a}"/*
 }

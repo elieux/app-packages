@@ -4,23 +4,22 @@ _realname=mysql
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.0.18
+pkgver=8.0.19
 pkgrel=1
 pkgdesc="Fast SQL database server, community edition"
 url="https://www.mysql.com/products/community/"
 arch=('any')
 license=('GPL')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("mysql-winx64.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-winx64.zip")
-sha512sums=('30ee841c99053b49f8ddde3fbd8f94b5cb52c16a26eb5fe8bc950b1adc00c59f731df49575a86f9f0ef27e57446ef7135992e65e79da19b035d91f0096467e72')
+sha512sums=('1acc0b6d4781ad5f81efc1c1810e9248904afd6b5df1da0e33600346809e714d4261bc0d69de4e6e8653c428cabe0647a7f9864a3100603b79c95ecfac1fc9f8')
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "mysql-${pkgver}-winx64"/* "${a}"
+    cp -R "mysql-${pkgver}-winx64"/* "${a}"
     find "${a}" -name 'debug' -exec rm -r '{}' \; -prune
     find "${a}" -name '*.pdb' -delete
     find "${a}" -name '*.lib' -delete

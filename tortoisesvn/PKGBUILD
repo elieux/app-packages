@@ -11,7 +11,6 @@ url="https://tortoisesvn.net"
 arch=('any')
 license=('GPL2')
 replaces=("app-i686-${_realname}")
-depends=("app-tortoise-overlays")
 provides=("${pkgbase}" "app-subversion" "app-x86_64-subversion")
 options=(!strip)
 source=("TortoiseSVN-x64.msi::https://dotsrc.dl.osdn.net/osdn/storage/g/t/to/tortoisesvn/${pkgver%.*}/Application/TortoiseSVN-${pkgver}-x64-svn-1.13.0.msi" # hopefully an exception
@@ -199,21 +198,24 @@ _rmmsdll() {
 }
 
 prepare() {
+    local f
     for f in *.msi
     do
         rm -fR "${f%.msi}"
-        /apps/lessmsi/lessmsi x "${f}"
+        /apps/lessmsi/lessmsi x "${f}" > /dev/null
     done
     _lc "TortoiseSVN-x64/SourceDir/Program Files/TortoiseSVN"/*
-    rm "LanguagePack-x64-pt/SourceDir/PFiles/TortoiseSVN/Languages"/pt_BR.*
+    rm "LanguagePack-x64-pt/SourceDir/PFiles/TortoiseSVN/Languages"/pt_BR.* # There's a separate language pack for pt_BR
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    depends=("app-tortoise-overlays")
+
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "TortoiseSVN-x64/SourceDir/Program Files/TortoiseSVN"/* "${a}"
-    cp -r LanguagePack-x64-*/"SourceDir/PFiles/TortoiseSVN/Languages"/* "${a}/languages"
-    rm -r "${a}/common"
+    cp -R "TortoiseSVN-x64/SourceDir/Program Files/TortoiseSVN"/* "${a}"
+    cp -R LanguagePack-x64-*/"SourceDir/PFiles/TortoiseSVN/Languages"/* "${a}/languages"
+    rm -R "${a}/common"
     _rmmsdll "${a}"
     cp *.pdf "${a}"
 }

@@ -1,37 +1,21 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=openjdk
-_realver=13.0.1+9
+_realver=14+36
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=${_realver/+/.}
 pkgrel=1
-pkgdesc="Oracle Java Development Kit"
-url="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
+pkgdesc="Open Java Development Kit"
+url="https://adoptopenjdk.net/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-jdk" "app-x86_64-jdk")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("OpenJDK-jdk_x64_windows_hotspot.zip::https://github.com/AdoptOpenJDK/openjdk${_realver%%.*}-binaries/releases/download/jdk-${_realver/+/%2B}/OpenJDK${_realver%%.*}U-jdk_x64_windows_hotspot_${_realver/+/_}.zip")
-sha512sums=('603e2de1b330b2e091783f81b64e10ca6b76712c085376f5b61b883bf81c20d9a1567aa104a3735c32cd255fff841df2560a288845291fa7aff68617d9a61700')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+source=("OpenJDK-jdk_x64_windows_hotspot.zip::https://github.com/AdoptOpenJDK/openjdk${_realver%+*}-binaries/releases/download/jdk-${_realver/+/%2B}/OpenJDK${_realver%+*}U-jdk_x64_windows_hotspot_${_realver/+/_}.zip")
+sha512sums=('ac1892fbff2e7df5676b95be3ea5543db4ac34ece4b258289ed8ed3859868187828dfe7e8d5403f1d8f09595b4ea34d6a7324229823ef77804616709b7bd51b2')
 
 _rmmsdll() {
     local ms
@@ -39,8 +23,8 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
@@ -48,8 +32,8 @@ _rmmsdll() {
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "jdk-${_realver}"/* "${a}"
+    cp -R "jdk-${_realver}"/* "${a}"
     _rmmsdll "${a}"
 }

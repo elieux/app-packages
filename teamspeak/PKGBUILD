@@ -4,7 +4,7 @@ _realname=teamspeak
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.3.2
+pkgver=3.5.2
 pkgrel=1
 pkgdesc="Quality voice communication via the Internet"
 url="https://www.teamspeak.com/"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TeamSpeak3-Client-win64.exe::https://files.teamspeak-services.com/releases/client/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe")
-sha512sums=('b53d9228f05eb28ece2e6a1e6096ca192cd43c97b2f7b0827b2df065213cfdcea0bc0a32f0d56dce39972baf503b0705c8bade17215520b86ca3401d5de2b4aa')
+sha512sums=('32745fd414dc9ef4ee7480f0e2068f2a45e96773bdfcfcd9003e08a446ca75ee5616e1cd516a395e007d4f07f7b984b6e3906b288ec5daa1136a7eb6b7f3e55c')
 
 _lc() {
     local d f n
@@ -33,22 +33,24 @@ _lc() {
 }
 
 prepare() {
+    local w f
     w="*license*.rtf"
-    7z x -y -bd -x!"${w}" "TeamSpeak3-Client-win64.exe" -o"win"
+    7z x -y -bd -x!"${w}" "TeamSpeak3-Client-win64.exe" -o"TeamSpeak3-Client-win64.dir" > /dev/null
     for f in $(7z l -y -bd -i!"${w}" "TeamSpeak3-Client-win64.exe" | grep 'license.*rtf' | sed -r 's/[ ]+/\t/g' | cut -f 5 | sed 's/^.*\\//')
     do
-        7z e -y -bd -so -i!"*${f}" "TeamSpeak3-Client-win.exe" > "win/${f}"
+        7z e -y -bd -so -i!"*${f}" "TeamSpeak3-Client-win.exe" > "TeamSpeak3-Client-win64.dir/${f}"
     done
-    _lc "win"/*
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "win"/* "${a}"
-    rm -r "${a}/update.exe" "${a}/uninstall.exe.nsis" "${a}"/'$pluginsdir'
+    cp -R "TeamSpeak3-Client-win64.dir"/* "${a}"
+    rm -R "${a}/update.exe" "${a}/Uninstall.exe.nsis" "${a}"/'$PLUGINSDIR'
+    local f
     for f in "${a}/ts3client_win64".*
     do
         mv "${f}" "${f/_win64/}"
     done
+    _lc "${a}"/*
 }

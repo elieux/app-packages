@@ -4,7 +4,7 @@ _realname=winscp
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=5.15.5
+pkgver=5.17.2
 pkgrel=1
 pkgdesc="An open source two-pane SFTP/FTP/WebDAV/SCP client"
 url="https://winscp.net/"
@@ -13,8 +13,8 @@ license=('custom')
 makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
-source=("winscpsetup.exe::http://download.sourceforge.net/winscp/WinSCP-${pkgver}-Setup.exe")
-sha512sums=('0f6d3a7ad9a08d8f6aae1a861c34e69cb1437f59bc618b609264ac13db1f754afc63fb8576c6e5d3100333987f82a2f6b894786b2adb421ff43144f05e9f37f2')
+source=("WinSCP-Setup.exe::https://download.sourceforge.net/winscp/WinSCP-${pkgver}-Setup.exe")
+sha512sums=('99a54e8209486612a34c057d590891b0ababe659cda70d749c9208b01afe1faf5d390496e3be6832e1b29f177bd9ce923c1a098156cf215ea000de36f4111999')
 
 _lc() {
     local d f n
@@ -32,13 +32,13 @@ _lc() {
 }
 
 prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "winscpsetup.exe"
-    _lc '{app}'/* *
+    /apps/innounp/innounp -x -q -m -a -y "WinSCP-Setup.exe" -d"WinSCP-Setup.dir"
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "{app}"/* "${a}"
+    cp -R "WinSCP-Setup.dir/{app}"/* "${a}"
     rm -R "${a}/winscp.map" "${a}/putty"
+    _lc "${a}"/*
 }

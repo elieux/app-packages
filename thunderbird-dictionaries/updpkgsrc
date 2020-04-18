@@ -12,7 +12,7 @@ foreach ($matches[1] as $addonname) {
 	$addonid = $match[1];
 	$addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', urldecode($addonname)), '-_');
 	echo "Found: {$addonname}-{$addonid}.xpi\n";
-	$srclist[] = "{$addonname}-{$addonid}.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
+	$srclist[] = "{$addonname}-{$addonid}.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
 }
 
 $srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));

@@ -1,155 +1,165 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
 _realname=thunderbird-dictionaries
 _dirname=thunderbird
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2019.10.28
+pkgver=2020.04.18
 pkgrel=1
 pkgdesc="Dictionaries for Thunderbird"
 url="https://addons.thunderbird.net/en-US/thunderbird/language-tools/"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
-depends=("app-i686-thunderbird")
+makedepends=("python")
 provides=("${pkgbase}")
 options=(!strip)
-source=("us-english-dictionary-677644.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/677644/addon-677644-latest.xpi"
-        "afrikaans-spell-checker-5127.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/5127/addon-5127-latest.xpi"
-        "albanian-dictionary-5485.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/5485/addon-5485-latest.xpi"
-        "amharic-spell-checker-222211.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/222211/addon-222211-latest.xpi"
-        "arabic-spell-checking-dictiona-3677.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3677/addon-3677-latest.xpi"
-        "corrector-ortografico-aragones-337264.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/337264/addon-337264-latest.xpi"
-        "armenian-spell-checker-diction-5051.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/5051/addon-5051-latest.xpi"
-        "assamese-spell-checker-522582.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/522582/addon-522582-latest.xpi"
-        "correutor_asturianu-331662.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/331662/addon-331662-latest.xpi"
-        "azerbaijani-spell-checker-222212.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/222212/addon-222212-latest.xpi"
-        "bambarabamanakan-474714.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/474714/addon-474714-latest.xpi"
-        "xuxen-4020.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/4020/addon-4020-latest.xpi"
-        "belarusian-dictionary-4852.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/4852/addon-4852-latest.xpi"
-        "belarusian-classic-dictionary-4853.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/4853/addon-4853-latest.xpi"
-        "bengali-bangladesh-dictionary-13660.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/13660/addon-13660-latest.xpi"
-        "difazier-an-drouizig-482428.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/482428/addon-482428-latest.xpi"
-        "bulgarian-dictionary-3623.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3623/addon-3623-latest.xpi"
-        "general-catalan-dictionary-3369.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3369/addon-3369-latest.xpi"
-        "valencian-spellchecker-4796.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/4796/addon-4796-latest.xpi"
-        "valencian-catalan-dictionary-9192.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/9192/addon-9192-latest.xpi"
-        "chichewa-spell-check-222213.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/222213/addon-222213-latest.xpi"
-        "croatian-dictionary-9795.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/9795/addon-9795-latest.xpi"
-        "czech-spell-checking-dictionar-3394.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3394/addon-3394-latest.xpi"
-        "czech-spell-checking-without-d-413604.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/413604/addon-413604-latest.xpi"
-        "dansk-ordbog-3596.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3596/addon-3596-latest.xpi"
-        "diccionario-papiamento-408638.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/408638/addon-408638-latest.xpi"
-        "dikshonario-papiamentu-353517.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/353517/addon-353517-latest.xpi"
-        "woordenboek-nederlands-3291.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3291/addon-3291-latest.xpi"
-        "english-australian-dictionary-3099.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3099/addon-3099-latest.xpi"
-        "british-english-dictionary-2-461570.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/461570/addon-461570-latest.xpi"
-        "canadian-english-dictionary-3653.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3653/addon-3653-latest.xpi"
-        "new-zealand-english-444420.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/444420/addon-444420-latest.xpi"
-        "us-english-dictionary-677644.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/677644/addon-677644-latest.xpi"
-        "esperanta-vortaro-3684.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3684/addon-3684-latest.xpi"
-        "eesti-keele-speller-4195.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/4195/addon-4195-latest.xpi"
-        "eegbe-spelling-dictionary-14027.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/14027/addon-14027-latest.xpi"
-        "faroese-spell-checker-faroe-is-222500.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/222500/addon-222500-latest.xpi"
-        "dictionnaire-franais1-354872.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/354872/addon-354872-latest.xpi"
-        "frysk-wurdboek-5679.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/5679/addon-5679-latest.xpi"
-        "dizionari-furlan-4742.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/4742/addon-4742-latest.xpi"
-        "scottish-gaelic-spell-checker-260204.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/260204/addon-260204-latest.xpi"
-        "corrector-de-galego-5018.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/5018/addon-5018-latest.xpi"
-        "georgian-dictionary-900252.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/900252/addon-900252-latest.xpi"
-        "german-dictionary-extended-for-3079.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3079/addon-3079-latest.xpi"
-        "german-dictionary-de_at-for-sp-9359.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/9359/addon-9359-latest.xpi"
-        "german-dictionary-3077.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3077/addon-3077-latest.xpi"
-        "german-dictionary-de_de-for-sp-9361.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/9361/addon-9361-latest.xpi"
-        "deutsch-alte-rechtschreibung-360545.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/360545/addon-360545-latest.xpi"
-        "german-dictionary-switzerland-3049.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3049/addon-3049-latest.xpi"
-        "german-dictionary-de_ch-for-sp-9360.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/9360/addon-9360-latest.xpi"
-        "greek-spellchecking-dictionary-3439.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3439/addon-3439-latest.xpi"
-        "english-greek-spelling-diction-3451.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3451/addon-3451-latest.xpi"
-        "gujarati-spell-checker-india-222506.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/222506/addon-222506-latest.xpi"
-        "haitian-creole-spell-checker-48577.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/48577/addon-48577-latest.xpi"
-        "hausa-spelling-dictionary-85790.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/85790/addon-85790-latest.xpi"
-        "hawaiian-spell-checker-204309.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/204309/addon-204309-latest.xpi"
-        "hebrew-spell-checking-dictiona-3646.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3646/addon-3646-latest.xpi"
-        "hiligaynon-spell-checker-204310.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/204310/addon-204310-latest.xpi"
-        "hindi-spell-checker-221506.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/221506/addon-221506-latest.xpi"
-        "hungarian-dictionary-3386.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3386/addon-3386-latest.xpi"
-        "icelandic-dictionary-3643.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3643/addon-3643-latest.xpi"
-        "kamus-pengecek-ejaan-bahasa-in-6818.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/6818/addon-6818-latest.xpi"
-        "corrector_orthographic-325010.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/325010/addon-325010-latest.xpi"
-        "interlingue-spell-checker-684303.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/684303/addon-684303-latest.xpi"
-        "litreoir-gaelspell-do-mhozilla-3090.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3090/addon-3090-latest.xpi"
-        "dizionario-italiano-3053.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3053/addon-3053-latest.xpi"
-        "kannada-spell-checker-402994.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/402994/addon-402994-latest.xpi"
-        "kashubian-spell-checker-poland-222511.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/222511/addon-222511-latest.xpi"
-        "korean-spellchecker-11487.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/11487/addon-11487-latest.xpi"
-        "rastnivs-8323.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/8323/addon-8323-latest.xpi"
-        "lao-spellchecking-dictionar-476993.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/476993/addon-476993-latest.xpi"
-        "latin-dictionary-5563.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/5563/addon-5563-latest.xpi"
-        "latvieu-valodas-pareizrakstb-3786.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3786/addon-3786-latest.xpi"
-        "lingala-spell-checker-204312.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/204312/addon-204312-latest.xpi"
-        "lithuanian-spellcheck-3716.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3716/addon-3716-latest.xpi"
-        "dsb-spell-13201.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/13201/addon-13201-latest.xpi"
-        "macedonian-makedonski-mk-mk-283744.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/283744/addon-283744-latest.xpi"
-        "malagasy-spell-checker-217294.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/217294/addon-217294-latest.xpi"
-        "myeja-365452.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/365452/addon-365452-latest.xpi"
-        "te-papakupu-mori-7130.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/7130/addon-7130-latest.xpi"
-        "marathi-dictionary-12797.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/12797/addon-12797-latest.xpi"
-        "ndebele-south-spell-checker-46609.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/46609/addon-46609-latest.xpi"
-        "nepali-dictionary-9971.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/9971/addon-9971-latest.xpi"
-        "northern-sotho-spell-checker-46519.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/46519/addon-46519-latest.xpi"
-        "norsk-bokml-ordliste-6868.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/6868/addon-6868-latest.xpi"
-        "norsk-nynorsk-ordliste-6869.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/6869/addon-6869-latest.xpi"
-        "correcteur-occitan-languedocie-8235.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/8235/addon-8235-latest.xpi"
-        "odia-spelling-checker-630798.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/630798/addon-630798-latest.xpi"
-        "oriya-spell-checker-232704.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/232704/addon-232704-latest.xpi"
-        "lilak-persian-dictionary-671907.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/671907/addon-671907-latest.xpi"
-        "polish-spellchecker-dictionary-3052.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3052/addon-3052-latest.xpi"
-        "corretor-3257.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3257/addon-3257-latest.xpi"
-        "ortografia-br-451204.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/451204/addon-451204-latest.xpi"
-        "verificador-ortogrfico-para-p-6081.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/6081/addon-6081-latest.xpi"
-        "european-portuguese-spellcheck-3155.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3155/addon-3155-latest.xpi"
-        "punjabi-spell-checker-232706.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/232706/addon-232706-latest.xpi"
-        "romanian-spellchecking-diction-4964.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/4964/addon-4964-latest.xpi"
-        "russian-spellchecking-dic-3703-3703.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3703/addon-3703-latest.xpi"
-        "russian-hunspell-dictionary-347439.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/347439/addon-347439-latest.xpi"
-        "sanskrit-spell-checker-337161.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/337161/addon-337161-latest.xpi"
-        "srpski-5125.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/5125/addon-5125-latest.xpi"
-        "serbian-dictiona-10894.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/10894/addon-10894-latest.xpi"
-        "swati-spell-checker-46614.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/46614/addon-46614-latest.xpi"
-        "sk-spell-ascii-986677.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/986677/addon-986677-latest.xpi"
-        "slovak-spell-checking-dictiona-4663.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/4663/addon-4663-latest.xpi"
-        "slovar-za-slovenski-jezik-3046.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3046/addon-3046-latest.xpi"
-        "soay-senni-hantum-tenjandikaw-11940.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/11940/addon-11940-latest.xpi"
-        "southern-sotho-spell-checker-46610.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/46610/addon-46610-latest.xpi"
-        "diccionario-espaol-venezuela-11356.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/11356/addon-11356-latest.xpi"
-        "diccionario-espaol-argentina-3059.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3059/addon-3059-latest.xpi"
-        "diccionario-de-espaol-chile-898419.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/898419/addon-898419-latest.xpi"
-        "diccionario-espaol-mxico-7020.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/7020/addon-7020-latest.xpi"
-        "spanish-mexico-dictionary-986449.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/986449/addon-986449-latest.xpi"
-        "spanish-spain-dictionary-3554.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3554/addon-3554-latest.xpi"
-        "kiswahili-spell-checker-217290.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/217290/addon-217290-latest.xpi"
-        "grans-hemmasnickrade-ordli-474623.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/474623/addon-474623-latest.xpi"
-        "tamil-spell-checker-for-firefo-8902.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/8902/addon-8902-latest.xpi"
-        "thamizha-solthiruthi-337368.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/337368/addon-337368-latest.xpi"
-        "telugu-spell-checker-269588.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/269588/addon-269588-latest.xpi"
-        "tsonga-spell-checker-46611.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/46611/addon-46611-latest.xpi"
-        "tswana-spell-checker-46617.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/46617/addon-46617-latest.xpi"
-        "turkce-yazim-denetimi-277036.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/277036/addon-277036-latest.xpi"
-        "turkmen-spell-checker-204314.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/204314/addon-204314-latest.xpi"
-        "ukrainian-dictionary-4782.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/4782/addon-4782-latest.xpi"
-        "upper-sorbian-spelling-diction-3956.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/3956/addon-3956-latest.xpi"
-        "urdu-dictionary-7981.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/7981/addon-7981-latest.xpi"
-        "uzbek-spell-checker-306383.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/306383/addon-306383-latest.xpi"
-        "venda-spell-checker-46601.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/46601/addon-46601-latest.xpi"
-        "dithionario-de-lengua-vneta-694745.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/694745/addon-694745-latest.xpi"
-        "vietnamese-dictionary-7479.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/7479/addon-7479-latest.xpi"
-        "geiriadur-cymraeg-231175.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/231175/addon-231175-latest.xpi"
-        "xhosa-spell-checker-46599.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/46599/addon-46599-latest.xpi"
-        "yiddish-spell-checker-yivo-222538.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/222538/addon-222538-latest.xpi"
-        "zulu-spell-checker-46490.xpi::https://addons.thunderbird.net/thunderbird/downloads/latest/46490/addon-46490-latest.xpi")
-sha512sums=('a1cec97e4544db9ba188d953229be4545ae4eeee419df022532e122a9d2e8f242a182a02aa353ca979fcd16ce39523329a7fc74c45929d5bf964ea8e923dc78a'
+source=("us-english-dictionary-677644.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/677644/addon-677644-latest.xpi"
+        "afrikaans-spell-checker-5127.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/5127/addon-5127-latest.xpi"
+        "albanian-dictionary-5485.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/5485/addon-5485-latest.xpi"
+        "amharic-spell-checker-222211.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/222211/addon-222211-latest.xpi"
+        "arabic-spell-checking-dictiona-3677.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3677/addon-3677-latest.xpi"
+        "corrector-ortografico-aragones-337264.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/337264/addon-337264-latest.xpi"
+        "armenian-spell-checker-diction-5051.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/5051/addon-5051-latest.xpi"
+        "assamese-spell-checker-522582.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/522582/addon-522582-latest.xpi"
+        "correutor_asturianu-331662.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/331662/addon-331662-latest.xpi"
+        "azerbaijani-spell-checker-222212.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/222212/addon-222212-latest.xpi"
+        "bambarabamanakan-474714.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/474714/addon-474714-latest.xpi"
+        "xuxen-4020.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4020/addon-4020-latest.xpi"
+        "belarusian-dictionary-4852.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4852/addon-4852-latest.xpi"
+        "belarusian-classic-dictionary-4853.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4853/addon-4853-latest.xpi"
+        "bengali-bangladesh-dictionary-13660.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/13660/addon-13660-latest.xpi"
+        "difazier-an-drouizig-482428.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/482428/addon-482428-latest.xpi"
+        "bulgarian-dictionary-3623.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3623/addon-3623-latest.xpi"
+        "general-catalan-dictionary-3369.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3369/addon-3369-latest.xpi"
+        "valencian-spellchecker-4796.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4796/addon-4796-latest.xpi"
+        "valencian-catalan-dictionary-9192.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9192/addon-9192-latest.xpi"
+        "chichewa-spell-check-222213.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/222213/addon-222213-latest.xpi"
+        "croatian-dictionary-9795.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9795/addon-9795-latest.xpi"
+        "czech-spell-checking-dictionar-3394.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3394/addon-3394-latest.xpi"
+        "czech-spell-checking-without-d-413604.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/413604/addon-413604-latest.xpi"
+        "dansk-ordbog-3596.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3596/addon-3596-latest.xpi"
+        "diccionario-papiamento-408638.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/408638/addon-408638-latest.xpi"
+        "dikshonario-papiamentu-353517.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/353517/addon-353517-latest.xpi"
+        "woordenboek-nederlands-3291.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3291/addon-3291-latest.xpi"
+        "english-australian-dictionary-3099.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3099/addon-3099-latest.xpi"
+        "british-english-dictionary-2-461570.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/461570/addon-461570-latest.xpi"
+        "canadian-english-dictionary-3653.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3653/addon-3653-latest.xpi"
+        "new-zealand-english-444420.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/444420/addon-444420-latest.xpi"
+        "us-english-dictionary-677644.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/677644/addon-677644-latest.xpi"
+        "esperanta-vortaro-3684.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3684/addon-3684-latest.xpi"
+        "eesti-keele-speller-4195.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4195/addon-4195-latest.xpi"
+        "eegbe-spelling-dictionary-14027.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/14027/addon-14027-latest.xpi"
+        "faroese-spell-checker-faroe-is-222500.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/222500/addon-222500-latest.xpi"
+        "dictionnaire-franais1-354872.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/354872/addon-354872-latest.xpi"
+        "frysk-wurdboek-5679.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/5679/addon-5679-latest.xpi"
+        "dizionari-furlan-4742.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4742/addon-4742-latest.xpi"
+        "scottish-gaelic-spell-checker-260204.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/260204/addon-260204-latest.xpi"
+        "corrector-de-galego-5018.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/5018/addon-5018-latest.xpi"
+        "georgian-dictionary-900252.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/900252/addon-900252-latest.xpi"
+        "german-dictionary-extended-for-3079.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3079/addon-3079-latest.xpi"
+        "german-dictionary-de_at-for-sp-9359.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9359/addon-9359-latest.xpi"
+        "german-dictionary-3077.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3077/addon-3077-latest.xpi"
+        "german-dictionary-de_de-for-sp-9361.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9361/addon-9361-latest.xpi"
+        "deutsch-alte-rechtschreibung-360545.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/360545/addon-360545-latest.xpi"
+        "german-dictionary-switzerland-3049.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3049/addon-3049-latest.xpi"
+        "german-dictionary-de_ch-for-sp-9360.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9360/addon-9360-latest.xpi"
+        "greek-spellchecking-dictionary-3439.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3439/addon-3439-latest.xpi"
+        "english-greek-spelling-diction-3451.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3451/addon-3451-latest.xpi"
+        "gujarati-spell-checker-india-222506.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/222506/addon-222506-latest.xpi"
+        "haitian-creole-spell-checker-48577.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/48577/addon-48577-latest.xpi"
+        "hausa-spelling-dictionary-85790.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/85790/addon-85790-latest.xpi"
+        "hawaiian-spell-checker-204309.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/204309/addon-204309-latest.xpi"
+        "hebrew-spell-checking-dictiona-3646.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3646/addon-3646-latest.xpi"
+        "hiligaynon-spell-checker-204310.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/204310/addon-204310-latest.xpi"
+        "hindi-spell-checker-221506.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/221506/addon-221506-latest.xpi"
+        "hungarian-dictionary-3386.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3386/addon-3386-latest.xpi"
+        "icelandic-dictionary-3643.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3643/addon-3643-latest.xpi"
+        "kamus-pengecek-ejaan-bahasa-in-6818.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/6818/addon-6818-latest.xpi"
+        "corrector_orthographic-325010.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/325010/addon-325010-latest.xpi"
+        "interlingue-spell-checker-684303.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/684303/addon-684303-latest.xpi"
+        "litreoir-gaelspell-do-mhozilla-3090.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3090/addon-3090-latest.xpi"
+        "dizionario-italiano-3053.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3053/addon-3053-latest.xpi"
+        "kannada-spell-checker-402994.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/402994/addon-402994-latest.xpi"
+        "kashubian-spell-checker-poland-222511.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/222511/addon-222511-latest.xpi"
+        "korean-spellchecker-11487.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/11487/addon-11487-latest.xpi"
+        "rastnivs-8323.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/8323/addon-8323-latest.xpi"
+        "lao-spellchecking-dictionar-476993.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/476993/addon-476993-latest.xpi"
+        "latin-dictionary-5563.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/5563/addon-5563-latest.xpi"
+        "zeiler-sutto-latin-dictionary-987788.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/987788/addon-987788-latest.xpi"
+        "latvieu-valodas-pareizrakstb-3786.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3786/addon-3786-latest.xpi"
+        "lingala-spell-checker-204312.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/204312/addon-204312-latest.xpi"
+        "lithuanian-spellcheck-3716.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3716/addon-3716-latest.xpi"
+        "lojban-spell-check-987795.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/987795/addon-987795-latest.xpi"
+        "dsb-spell-13201.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/13201/addon-13201-latest.xpi"
+        "dolnoserbski-slownik-987736.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/987736/addon-987736-latest.xpi"
+        "macedonian-makedonski-mk-mk-283744.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/283744/addon-283744-latest.xpi"
+        "malagasy-spell-checker-217294.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/217294/addon-217294-latest.xpi"
+        "myeja-365452.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/365452/addon-365452-latest.xpi"
+        "te-papakupu-mori-7130.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/7130/addon-7130-latest.xpi"
+        "marathi-dictionary-12797.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/12797/addon-12797-latest.xpi"
+        "ndebele-south-spell-checker-46609.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46609/addon-46609-latest.xpi"
+        "nepali-dictionary-9971.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9971/addon-9971-latest.xpi"
+        "northern-sotho-spell-checker-46519.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46519/addon-46519-latest.xpi"
+        "norsk-bokml-ordliste-6868.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/6868/addon-6868-latest.xpi"
+        "norsk-nynorsk-ordliste-6869.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/6869/addon-6869-latest.xpi"
+        "correcteur-occitan-languedocie-8235.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/8235/addon-8235-latest.xpi"
+        "odia-spelling-checker-630798.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/630798/addon-630798-latest.xpi"
+        "oriya-spell-checker-232704.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/232704/addon-232704-latest.xpi"
+        "lilak-persian-dictionary-671907.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/671907/addon-671907-latest.xpi"
+        "polish-spellchecker-dictionary-3052.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3052/addon-3052-latest.xpi"
+        "corretor-3257.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3257/addon-3257-latest.xpi"
+        "ortografia-br-451204.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/451204/addon-451204-latest.xpi"
+        "verificador-ortogrfico-para-p-6081.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/6081/addon-6081-latest.xpi"
+        "european-portuguese-spellcheck-3155.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3155/addon-3155-latest.xpi"
+        "punjabi-spell-checker-232706.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/232706/addon-232706-latest.xpi"
+        "romanian-spellchecking-diction-4964.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4964/addon-4964-latest.xpi"
+        "russian-spellchecking-dic-3703-3703.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3703/addon-3703-latest.xpi"
+        "russian-hunspell-dictionary-347439.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/347439/addon-347439-latest.xpi"
+        "sanskrit-spell-checker-337161.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/337161/addon-337161-latest.xpi"
+        "srpski-5125.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/5125/addon-5125-latest.xpi"
+        "serbian-dictiona-10894.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/10894/addon-10894-latest.xpi"
+        "swati-spell-checker-46614.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46614/addon-46614-latest.xpi"
+        "sk-spell-ascii-986677.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/986677/addon-986677-latest.xpi"
+        "slovak-spell-checking-dictiona-4663.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4663/addon-4663-latest.xpi"
+        "slovar-za-slovenski-jezik-3046.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3046/addon-3046-latest.xpi"
+        "soay-senni-hantum-tenjandikaw-11940.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/11940/addon-11940-latest.xpi"
+        "southern-sotho-spell-checker-46610.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46610/addon-46610-latest.xpi"
+        "diccionario-espaol-venezuela-11356.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/11356/addon-11356-latest.xpi"
+        "diccionario-espaol-argentina-3059.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3059/addon-3059-latest.xpi"
+        "diccionario-de-espaol-chile-898419.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/898419/addon-898419-latest.xpi"
+        "diccionario-espaol-mxico-7020.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/7020/addon-7020-latest.xpi"
+        "spanish-mexico-dictionary-986449.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/986449/addon-986449-latest.xpi"
+        "spanish-spain-dictionary-3554.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3554/addon-3554-latest.xpi"
+        "kiswahili-spell-checker-217290.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/217290/addon-217290-latest.xpi"
+        "grans-hemmasnickrade-ordli-474623.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/474623/addon-474623-latest.xpi"
+        "tamil-spell-checker-for-firefo-8902.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/8902/addon-8902-latest.xpi"
+        "thamizha-solthiruthi-337368.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/337368/addon-337368-latest.xpi"
+        "telugu-spell-checker-269588.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/269588/addon-269588-latest.xpi"
+        "tsonga-spell-checker-46611.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46611/addon-46611-latest.xpi"
+        "tswana-spell-checker-46617.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46617/addon-46617-latest.xpi"
+        "turkce-yazim-denetimi-277036.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/277036/addon-277036-latest.xpi"
+        "turkmen-spell-checker-204314.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/204314/addon-204314-latest.xpi"
+        "ukrainian-dictionary-4782.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4782/addon-4782-latest.xpi"
+        "upper-sorbian-spelling-diction-3956.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3956/addon-3956-latest.xpi"
+        "urdu-dictionary-7981.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/7981/addon-7981-latest.xpi"
+        "uzbek-spell-checker-306383.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/306383/addon-306383-latest.xpi"
+        "venda-spell-checker-46601.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46601/addon-46601-latest.xpi"
+        "dithionario-de-lengua-vneta-694745.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/694745/addon-694745-latest.xpi"
+        "vietnamese-dictionary-7479.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/7479/addon-7479-latest.xpi"
+        "geiriadur-cymraeg-231175.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/231175/addon-231175-latest.xpi"
+        "xhosa-spell-checker-46599.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46599/addon-46599-latest.xpi"
+        "yiddish-spell-checker-yivo-222538.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/222538/addon-222538-latest.xpi"
+        "zulu-spell-checker-46490.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46490/addon-46490-latest.xpi")
+sha512sums=('a3c45e30c261eaad5077f941747d1621b6a2cb9dd0f0d4d0b006bc2ed32331605ccc051d6f719beb959e7b9b1b58b24848dca7e5d4f61cedb4f628942cbf3cd4'
             '53def81aaa659c6f1625711ce9ab200bbe7ba75cbdb9b79ab9a9b09fe7e6fea95ad50c94267075e7e96dc3e3d10d218d1a6b85bab9ff3a7b92c9ea8cbf0e6a3c'
             '28f752060ec2bfd600ccaf0b08fd257c7d0c51e4d7d9715be9ef33dcc3e2f9044135d32fe6e12fb09b4c7662be75fcdacc0f1e5c4fc8a44edea691056f133c16'
             'a0045440de6f82416658c3e13bcb2a0548c9f29ecb2c642e7f29acf8c475314ce8adbe555bb95becc5efa2fad5b3622760795a0c2ca36e5b8b77cfd779c8a7a1'
@@ -178,10 +188,10 @@ sha512sums=('a1cec97e4544db9ba188d953229be4545ae4eeee419df022532e122a9d2e8f242a1
             '0052eefa000d8dec98a987715b59f7e41f5f2a2c378e6fd1ee99d017d8be931fcad3355e3678bcc0458f294d1fc93410ba85db9a998503ff694dfe273c08278c'
             '028e271e41fce1dec0a77c9febce958add86a2f7f466cab642e10596f1d8fa06e149f298c414ccdc87aae439c00062582e1ded23a3cfa1a2cbc44d7cc81f3f10'
             '7dfa6f948f8983f23d20a65b64875872ef017f701a4c672f144a5b59cb9a77010f2e3800a91fb9b626d39baef7f16478aed87173c68840673dc179a4a19a5cdd'
-            '7380162236479de4629834fcb60a00a6232588139d665522f1814f0482b0d37461eeaf6724f35a87e5cf4d561ff3220e8ddea87f90adbdb4e5d537816901ffb3'
+            '74583ad3901b38d0aea90ee411db808d82238dfafa3493c239375457a388cb2756574cdca2f4c9f9d091e2ff7abfcdbec8ba64cce8aa69a354a7942ef3933ff7'
             'c7e0eb71c0e489c3c75fd37f705c4f80c73221de659acbe83cc37967fe3d0d04b025ea4b567c0ffb125755eaaa9401b555d6bc66e940395928f9a56f8bc499f5'
             'a894d5d120e170959a4652ffc485eecfe36c470b39309d276479ce1fc3bb0d3b83ea9a753c091b2f1a702528cdcf66d27dbeef6eabd9d64df78825bfa7fea20d'
-            'a1cec97e4544db9ba188d953229be4545ae4eeee419df022532e122a9d2e8f242a182a02aa353ca979fcd16ce39523329a7fc74c45929d5bf964ea8e923dc78a'
+            'a3c45e30c261eaad5077f941747d1621b6a2cb9dd0f0d4d0b006bc2ed32331605ccc051d6f719beb959e7b9b1b58b24848dca7e5d4f61cedb4f628942cbf3cd4'
             'bcab43f01c76caf5a9758d73edfa8293ab0fcab7399e782857dd46d968afa74213ce0879efdba54598a4f216522728d70b1885c64d1051816a5c4f280c3f5f77'
             'a4b59a108746be1d4530312615645414d2ad20a1eb8c0cb94539e361de19c6e77c79ae285e935399bb1d248d5ab1cf7267e0ad4c094f9650891e263a8fb12cd4'
             '6f701ae1d83d5ff794f88d440c89b487f8f391b9573900ee6af2ca8df9ac9433c6d019466297052300809cfc9138c8f46ce22c4829914cb4c787ba8d512020c3'
@@ -208,7 +218,7 @@ sha512sums=('a1cec97e4544db9ba188d953229be4545ae4eeee419df022532e122a9d2e8f242a1
             '181fba1e65ff6f2d88f552faab7d8283051484fe02236553050c969281d69711bc16a0da91377d16b35b23bbabb18b110852aba2190c7c6b4c7b354faf42d0db'
             '40fa1854bbd5c954893fb3293261010f3e2873954079c73946b6bbe4c0ae9b5bcd1db4584dc921738ce4a9f7a37bda21e730c79860fa99811f659d849d9cb90e'
             'd549ac206fe70a2f99c3eb500d54b0ef3ca0a1c670c57f5a4c416d0d47f8af7a9a405a86036c534fab46ec0b8c8fc15dd6cb8440b316383d0007b3d492dc8f5f'
-            '3d69fa51c7261274e4a11913fff2bd977908946028f640e6c64a340e052164811d50923530660559da4415264ae2097541e9538a74d7eefee15f19127995c67c'
+            '1e69b645758413176f4716722d65c50ce7c8197982302151eb2ac7ba61c618a16574205e324f8425ad27be52caa754231e187b28b40deaa1b0704ed445ffe1de'
             'c8ea05424ec7373332013b30eaece959c485cf222d1b5742b3ace445d06329e7c30882a34a68082319f495db6fe0acfcd508993f256b8cc644ecf183704f493b'
             '66eca6f2049542cc70513b1d3065942539dfe8f54829f5eab8abc77174aec907f5a43ba5d9b16f92f2db9cc7d46382e89ebac864d64f7411970c7751acea6130'
             '750f7e919fdf57fb2a6e9e9f62257b00ece929c06f4337b69d11b7455bb50eda517fdda1f78c4821f043471cec07b3d377348ea2889ddd6d56c6a7e8f7dc9cb1'
@@ -221,10 +231,13 @@ sha512sums=('a1cec97e4544db9ba188d953229be4545ae4eeee419df022532e122a9d2e8f242a1
             'e7ce58a3fc1f6cba9737efd09db2835a2733d84e0eb547ca87cf7646decf8b948057b53782ba45f3a4a51f75a2077e08dbd91aa6c13c78f508a62cf425484fe7'
             '7f7dffedd0ffef1d022d9d5a463e9ade8b0d0e302fd0692c2588fe0a3a583824305c8271b9552d86a6cf592c7d5d68941a9e615eb1a47f93b80458e79a79e50d'
             '284c820d79de512e2510f57e188490782c267c83c5cc588c6c2c33900cbce4cc4003819821448923ea2c25de6be7e74d423ecafed00c28fd341c84e40a068c3b'
+            '06f6ed2be4ec541a2904680babd2632822c31995142a4c5a208fe76fc77290ac1eaf261fee3e0d467c2eb6d50e9dd570bf42f7d0b7ed265abb7d5c1229d50fa0'
             '1c5fc1cf1ab872c0a1edfa8904bb42aa8558827c60d4045e1261ee128eba1aeb1aa03d085fa82230d243cd022e732cb0665153b807ac54de4f18003781d9825f'
             '0ab61d5e466963360fc159474e9020ec5df9a8a90903897c6ab8f536fcca638ef6577da0790f429abe57b76cec5bd79779f8505d1a8bcd3931bbeb517e398e3e'
             'd12aaf096bee0dd2adf83de9a2a42717f1a0e4e0b6970d9e3a71ee7ae89e2bc029f871ee74acb1fc1070323392b1dce627ecabc1035a395135dcc466aeeebc8d'
+            '116cc46d49c0903e3009be20d9158991e755bf00506624c2c32f6e9d29b0b5ab0f4d6250c46d716bc885c6c8d0637c929da4114a2c446f94f39b16da13df9a0c'
             '592e45631aaa1df7f4abfac2ca593fd07ee0f9dc00d0462012f80fbe60bd64d04c706a15f088deebb3d052e2924bc4d71e9080e910850e84e4aadc4864c64e4b'
+            '78bda40c9089718e288d6014c311b4f51cb4048fb541c648285aff0d14ce64fbe7ccd81528abb45022378e95a3bbf0e27423a1f3a20dd1428b897c0676e7ed37'
             '23d9a16f601fa960a3614fc5765bf633ac74db343751cf9bfe6434ddafc4e2633bb6949f1ab7f76459c947c971784df88a5bf3d80db6c853fb12e5993871d1b7'
             'a865bf7f94b82ff4f58f83de7d009ef738a95d0a423943de5e8ac096279a156b562e0819b6a3b1a8a106d8d250195d256c126f48486cc2c911fe3237f1979d75'
             '430bd5483ca8fa391337552f349891e0b2ddd54819dd681f63c67ae1bcf9ccfc3f99249d4c1d72361d799f0d7d7ff34482a91ed94516b345fadf424d671c9e77'
@@ -258,10 +271,10 @@ sha512sums=('a1cec97e4544db9ba188d953229be4545ae4eeee419df022532e122a9d2e8f242a1
             '514bbe47c4cd4f4123e6eb1b839d1d9895bd833478e540fea6cb91cd26a091178d61517ff403fda7c0f59b34e29c995dbda48ffca410b2f96cecfd43d4d24cf9'
             'e641a4b43c1bcf27e30099a71e045d5ed3e81c2f6caa120c81f8a408983e42c326fd2e8f4b9a07bbfcd4c87c4690a5ab50e7ce94e42c150b98958ab6a054dc9c'
             '8f3b024ddca4ebb0c99a36a0dfcbfc5ff74838948baf1f3ef5ce69aa13f8341996c6b9e5d7f763cff384819e98df1360a8931b29b446f717afa2b423f4d59f73'
-            'fcf9cad1b916755281684467213672a6d5de1fd66b268f0186d11d0dbe9eaf42d5441779431597d27842dbe97945fc164e83595df2270c61a3ae0ee1cb10b8a8'
+            '52aeaecad2980db7c1ac6ef45ec66ac335be2f1c6770def59305c2bc5d83a8440e938fd89d3b06ec2de09d3b02155726ba4fdc6e2c341fadd9e1e148f59a46b5'
             '5113e0294b7e16549bf5012c4131edc8ee3d32406fae880940e6ea85eb60c12afa3befb7a0cc7e3e5ed72644d5b5a4579cdcc527c9502da22b2ad326295bd5f1'
             '3ea308e44b6f78df36559d8825997cfae7992d39eb60887ed8cd6d3c618c6dc5a015776421c2d674c4505115ea166b51e83f1023d6b14723b74064a0fdb4c89c'
-            'e4b9494a89fd840ad124bf41b5d83c41ce62b9d22591a13f6d5549f8a4234202cfa512b751c2b9e837bbf91643f7ae8d3ab4d1f179e333f44b6aa9b2e67bda76'
+            'b5a3982e88e928424c1272123ccc1a82dd3106865b830aa3fdf88c966272f8e5ad098fce591f1b7cec7a1e374c0fc55b2f267f25da6106b45127230ba53ab53b'
             '90706da8285833f56a3373c401997a3cb9b5dbf8e6ece50013099767bdc9fa3f5cc4fe0af5db14d545f3577615fa4012de5e86360e72cc1c95005eeb4f5ac918'
             'b32eca3703675394205a31e7eb57d25cff53038cc7731241f7d157aa8e6ca503f85c81f37bd60bc07d3106d7c1718ff6a076a10d45d413b1221cfb7310de7b73'
             '1e719cfcdf346f458aca46d3c937aa38a1af26c3d669041fedffea09a161ed017954a031db911a4b177833c0ea27670d66cc68bd368c23393680a53a8866ed4f'
@@ -283,23 +296,17 @@ sha512sums=('a1cec97e4544db9ba188d953229be4545ae4eeee419df022532e122a9d2e8f242a1
             'fdeed5d42a015cba4b3ff9b594fc3c666f5f8e6a240aeff6bd613f7dfe8e717436aaaee2a4ca6c1ebb3b14c9cebd579b277458ab3bda6688da10f98d7d8ba9cc'
             'd10181d609bb8f67f402dce2969e002eaf8cbbd1bfd1d3758e41bbd9f75ed4b490727e30ace97cd1e499804f8f498455cdfc9be5f30c706ff1b6879add13292b'
             'ce7b692bbba404279e89e0492958b660cb9dda4ddc4deca67c62470da99f5834917450f4a9dd2d54f803c66907906fc05f80e668a05b0f12fd6ca1849a05b9f1')
-noextract=("${source[@]%%::*}")
-
-prepare() {
-    for f in *.xpi
-    do
-        unzip -o "${f}" -d "${f%%.xpi}"
-    done
-}
 
 pkgver() {
-    #find . -mindepth 2 -maxdepth 2 -name 'install.rdf' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find . -mindepth 1 -maxdepth 1 -name '*.xpi' -execdir bash -c 'unzip -l "{}" | tail -n +4 | head -n -2' \; | sed -r 's/[ ]+/\t/g' | cut -f 3 | tr '-' '.' | sort | tail -1
+    find . -mindepth 2 -maxdepth 2 -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    depends=("app-thunderbird")
+
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}" "${a}/extensions"
+    local f
     for f in *.xpi
     do
         f="${f%%.xpi}"
@@ -331,6 +338,6 @@ print(id)
         )"
         echo "${f}: ${id}"
         mkdir "${a}/extensions/${id}"
-        cp -r "${f}"/* "${a}/extensions/${id}"
+        cp -R "${f}"/* "${a}/extensions/${id}"
     done
 }

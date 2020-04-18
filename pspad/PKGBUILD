@@ -1,19 +1,47 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=pspad
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=5.0.1
+pkgver=5.0.3
 pkgrel=1
 pkgdesc="Freeware programmer's editor"
 arch=('any')
-url="http://www.pspad.com/en/"
+url="https://www.pspad.com/en/"
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("pspaden.zip::http://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip"
+source=("pspaden.zip::http@subdir://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip"
         "en_dic.cab::http://www.pspad.com/files/dic/en_dic.cab"
         "bp_dic.cab::http://www.pspad.com/files/dic/bp_dic.cab"
         "bg_dic.cab::http://www.pspad.com/files/dic/bg_dic.cab"
@@ -33,7 +61,7 @@ source=("pspaden.zip::http://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip"
         "sk_dic.cab::http://www.pspad.com/files/dic/sk_dic.cab"
         "sv_dic.cab::http://www.pspad.com/files/dic/sv_dic.cab"
         "es_dic.cab::http://www.pspad.com/files/dic/es_dic.cab")
-sha512sums=('caddb623d855d723547b80ac3e9a3b4ca44f3a340aa096ce52785423caeb7d87e33ded113c77e2c562aeadd327e9b28aa770cb09419cd167e83dfa2dad0c18e9'
+sha512sums=('344304bb1603d44df2c81964e808862f92498b7e577120a23edc30afa916a0c0feeabe007f821560f7a5d1dfa2447a6611232315913f9defa147966de6e706d3'
             '96d0392307db5d107896fdbbb412769a4721da6c54b695019ab52055c9ba5ce2b5b74312e2f721d162df18053c6ff84ffa3136c972ad22e4f6f62aeb38af3deb'
             '6bb8e11f5393a6134940bd93a20068b6398dbc76f404a75ff6dd3f22c4b75639d584a758a21d5264242394c215a71b1b940bcacfe3ac71f759ef5bc06c4bac55'
             'deeeec196bf229973170d85b12af13964e09cf072a21bd486919a158fb2d708c1cd9529c8226a704f1263fb0b22d66080511577a07443cbd1d015182bb7ab53c'
@@ -69,14 +97,10 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R * "${a}"
-    mv "${a}"/*.dic "${a}/spell"
-    rm "${a}"/pspaden.zip "${a}"/*.cab
+    cp -R "pspaden"/* "${a}"
+    cp *.dic "${a}/Spell"
+    _lc "${a}"/*
 }

@@ -2,16 +2,16 @@
 <?php
 // no error handling yet
 
-$list = file_get_contents("http://www.pspad.com/cz/download.php");
+$list = file_get_contents("https://www.pspad.com/cz/download.php");
 preg_match_all("~/files/dic/([a-z]+)_dic.cab~", $list, $packs, PREG_SET_ORDER);
 
 $srclist = [];
-$srclist[] = 'pspaden.zip::http://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip';
+$srclist[] = 'pspaden.zip::https@subdir://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip';
 
 foreach ($packs as $pack) {
 	list($lang) = array_slice($pack, 1);
 	echo "Found: {$lang}_dic.cab\n";
-	$srclist[] = "{$lang}_dic.cab::http://www.pspad.com/files/dic/{$lang}_dic.cab";
+	$srclist[] = "{$lang}_dic.cab::https://www.pspad.com/files/dic/{$lang}_dic.cab";
 }
 
 $srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));

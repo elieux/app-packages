@@ -16,7 +16,7 @@ replaces=("app-i686-${_realname}")
 makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SQLyogCommunity64.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
+source=("SQLyog.x64Community.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
 sha512sums=('5ba0a73ba4b3aca11de4c882f35f38d6a48cf44a64828be570f1f781feb371503a3ef5c4df05f08bd2d8a1263bf78511b9064739396233e6dee65e905915980a')
 
 _lc() {
@@ -40,8 +40,8 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
@@ -49,14 +49,14 @@ _rmmsdll() {
 }
 
 prepare() {
-    7z x -y -bd "SQLyogCommunity64.exe" -o"SQLyogCommunity"
-    _lc "SQLyogCommunity"/*
+    7z x -y -bd "SQLyog.x64Community.exe" -o"SQLyog.x64Community.dir" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp "SQLyogCommunity"/*.{exe,dll,db,txt} "${a}"
-    rm "${a}/uninst.exe"
+    cp -R "SQLyog.x64Community.dir"/* "${a}"
+    rm -R "${a}/uninst.exe" "${a}"/'$PLUGINSDIR'
     _rmmsdll "${a}"
+    _lc "${a}"/*
 }

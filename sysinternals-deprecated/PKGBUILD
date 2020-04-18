@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=sysinternals-deprecated
 _dirname=sysinternals
 pkgbase="app-${_realname}"
@@ -11,11 +40,10 @@ pkgdesc="Advanced system utilities for Windows (deprecated)"
 url="https://web.archive.org/web/20091002072805/http://technet.microsoft.com:80/en-us/sysinternals/bb545027.aspx"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("NewSid.zip::https://web.archive.org/web/20070322035140if_/http://download.sysinternals.com:80/Files/NewSid.zip"
-        "ProcFeatures.zip::https://web.archive.org/web/20070222172736if_/http://download.sysinternals.com:80/Files/ProcFeatures.zip")
+source=("NewSid.zip::https@subdir://web.archive.org/web/20070322035140if_/http://download.sysinternals.com:80/Files/NewSid.zip"
+        "ProcFeatures.zip::https@subdir://web.archive.org/web/20070222172736if_/http://download.sysinternals.com:80/Files/ProcFeatures.zip")
 sha512sums=('a279ccdb94a43f0e20278a534dbb7db0b931f00dd8a1dc45a93d4400e819e7a81126d34dd3dd3c7bd6b3e7da18b761e756c5f9166b2f86f92837a71128bdb1ab'
             '2c7e6e84beb528f72f2048d4b7dab9e7ccf4658d091b9ef44da89e37b2670a7198bfc6e902e98db680e493884b068fc5c4bdbce1a65e02113b1fb0ac2bd2130b')
 
@@ -34,16 +62,20 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 pkgver() {
-    find . -mindepth 1 -maxdepth 1 -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -mindepth 2 -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp *.exe "${a}"
+
+    local d
+    for d in $(find . -mindepth 1 -maxdepth 1 -type d)
+    do
+        cp "${d}"/* "${a}"
+    done
+
+    rm "${a}/Eula.txt"
+    _lc "${a}"/*
 }

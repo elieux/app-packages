@@ -4,23 +4,22 @@ _realname=rhino
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.7.11
+pkgver=1.7.12
 pkgrel=1
 pkgdesc="Open-source implementation of JavaScript written in Java"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino"
 arch=('any')
 license=('MPL2')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("rhino.zip::https://github.com/mozilla/rhino/releases/download/Rhino${pkgver//./_}_Release/rhino-${pkgver}.zip"
         "rhino.cmd")
-sha512sums=('11ef37865666b4dd84d0de465970fe23b44f54ee4594de057e268d9d5a99abe244750ff3ed63e22e27f6069c99788b74e3690b9e482f4ae7b1b899fdaa0712b1'
+sha512sums=('0bf0690d2924d5ce6e45674fd15a6dc9bed3b604b13a92cccaa407aeba6aad09b789d4aa34436c2947f617f97961f84b4bd2c7538d6dd355e218a26aa7549545'
             '915a4d8f097381c574a481ed85c6b509c112d8520d840668a0c1fd5c611226ffe9f96ffc5d67944a5611a2c96fa52c12bf9747e52c202e00925d105920fc53a3')
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "rhino${pkgver}"/* "${a}"
     mv "${a}/lib/rhino-${pkgver}.jar" "${a}/lib/rhino.jar"

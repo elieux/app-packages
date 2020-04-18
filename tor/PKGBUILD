@@ -1,22 +1,50 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=tor
-_realver=9.0.1
+_realver=9.0.9
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.4.1.6
+pkgver=0.4.2.7
 pkgrel=1
 pkgdesc="Anonymizing overlay network"
 url="https://www.torproject.org/"
 arch=('any')
 license=('BSD')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("tor-win64.zip::https://dist.torproject.org/torbrowser/${_realver}/tor-win64-${pkgver}.zip")
-sha512sums=('36e518aba9b5db9114d72dd4c3b9235702b9a97767f28c5060704deee2d9eb0d6005f044e8738c76962999628e9e3644354907e541b0a906f93119ef4b72a0a9')
+source=("tor-win64.zip::https@subdir://dist.torproject.org/torbrowser/${_realver}/tor-win64-${pkgver}.zip")
+sha512sums=('cca939b782533fe0cf4d609a791a32515b768656e8f2481f9efac529f35145f7ebdbf27482b5ad5200816f887af5b3233fdfdebe75e70b496308cd7bb91c8c00')
 
 _lc() {
     local d f n
@@ -33,12 +61,9 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "data"/* *
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "data" "tor" "${a}"
+    cp -R "tor-win64"/* "${a}"
+    _lc "${a}"/*
 }

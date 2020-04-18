@@ -10,7 +10,6 @@ pkgdesc="Show status of Caps Lock, Num Lock, Scroll Lock, and more in system tra
 url="https://www.traystatus.com/"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TrayStatus.zip::https://binaryfortressdownloads.com/Download/BFSFiles/114/TrayStatus-${pkgver}c.zip")
@@ -31,12 +30,9 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "TrayStatus"/*
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "TrayStatus"/* "${a}"
+    _lc "${a}"/*
 }

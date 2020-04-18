@@ -4,7 +4,7 @@ _realname=viber
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=11.9.1.3
+pkgver=12.8.0.75
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
 url="https://www.viber.com/download/"
@@ -14,7 +14,7 @@ makedepends=("app-lessmsi" "app-wix")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ViberSetup.exe::https://download.cdn.viber.com/desktop/windows/ViberSetup.exe")
-sha512sums=('a92003c957dc976cde035000f8efc9cde587855b06befbbcccd7a214867738277c5945286d706dd4549af70d5a3e5e68d16d60e5e7acae7a8eef6fb5e3d6f863')
+sha512sums=('d14bfa153c4f5bebfc8e5c661caa490d1b873bed7ada751794e634b1490cd3fef110e6e8e1e8913ae63c284da40c89eb90af24665b9424dae2fcc937528dda80')
 
 _lc() {
     local d f n
@@ -37,8 +37,8 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
@@ -46,19 +46,20 @@ _rmmsdll() {
 }
 
 prepare() {
-    /apps/wix/dark -x . "ViberSetup.exe"
+    /apps/wix/dark -x "ViberSetup.dir" "ViberSetup.exe"
+    cd "ViberSetup.dir/AttachedContainer"
     rm -fR "ViberSetup"
-    /apps/lessmsi/lessmsi x "AttachedContainer\\ViberSetup.msi"
-    _lc "AttachedContainer/ViberSetup/SourceDir/Viber"/*
+    /apps/lessmsi/lessmsi x "ViberSetup.msi" > /dev/null
 }
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "AttachedContainer/ViberSetup/SourceDir/Viber/viber.exe").VersionInfo.FileVersionRaw.ToString()' | dos2unix
+    powershell -command '(Get-Item "ViberSetup.dir/AttachedContainer/ViberSetup/SourceDir/Viber/viber.exe").VersionInfo.FileVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "AttachedContainer/ViberSetup/SourceDir/Viber"/* "${a}"
+    cp -R "ViberSetup.dir/AttachedContainer/ViberSetup/SourceDir/Viber"/* "${a}"
     _rmmsdll "${a}"
+    _lc "${a}"/*
 }

@@ -7,14 +7,14 @@ epoch=1
 pkgver=12.18
 pkgrel=1
 pkgdesc="Fast and secure Presto-based web browser and Internet suite"
-url="http://www.opera.com/download/guide/?os=windows&ver=12.18&local=y"
+url="https://ftp.opera.com/pub/opera/win/"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}" "app-x86_64-opera<15")
+replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Opera_int_Setup64.exe::http://www.opera.com/download/get/?id=39131&location=360&nothanks=yes&sub=marine")
+source=("Opera_int_Setup_x64.exe::https://ftp.opera.com/pub/opera/win/${pkgver/./}/int/Opera_${pkgver/./}_int_Setup_x64.exe")
 sha512sums=('450fcbff79a4777703b532bff21444b67ede88145e08ea9ad1a59b803a25f53d919c1b8beaa1e86c5f7ee616f43684379be0e60cb55994f98722a9c0f1112439')
 
 _lc() {
@@ -33,18 +33,17 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "Opera_int_Setup64.exe" -o"Opera_int"
-    _lc "Opera_int"/*
+    7z x -y -bd "Opera_int_Setup_x64.exe" -o"Opera_int_Setup_x64.dir" > /dev/null
 }
 
 pkgver() {
-    b="$(cygpath -wa "Opera_int/opera.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+)[.][0-9]+[.]0+$/\1/'
+    powershell -command '(Get-Item "Opera_int_Setup_x64.dir/opera.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+)[.][0-9]+[.]0+$/\1/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "Opera_int"/* "${a}"
-    rm -r "${a}/updatechecker" "${a}"/files*
+    cp -R "Opera_int_Setup_x64.dir"/* "${a}"
+    rm -R "${a}/updatechecker" "${a}"/files*
+    _lc "${a}"/*
 }

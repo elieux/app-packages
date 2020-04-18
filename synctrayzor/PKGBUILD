@@ -10,8 +10,6 @@ pkgdesc="Tray utility / filesystem watcher / launcher for Syncthing"
 url="https://github.com/canton7/SyncTrayzor"
 arch=('any')
 license=('MIT')
-depends=("app-syncthing")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("SyncTrayzorPortable-x64.zip::https://github.com/canton7/SyncTrayzor/releases/download/v${pkgver}/SyncTrayzorPortable-x64.zip")
@@ -38,28 +36,26 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-prepare() {
-    _lc "SyncTrayzorPortable-x64"/*
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    depends=("app-syncthing")
+
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "SyncTrayzorPortable-x64"/* "${a}"
+    cp -R "SyncTrayzorPortable-x64"/* "${a}"
     rm "${a}"/*.pdb
     _rmmsdll "${a}"
 
     # Make non-portable again; disable updates
     truncate -s0 "${a}"/syncthing.exe # SyncTrayzor complains if the file is missing
-    sed -r -i "${a}/synctrayzor.exe.config" \
+    sed -r -i "${a}/SyncTrayzor.exe.config" \
         -e 's~(<EnableAutostartOnFirstStart>)false~\1true~' \
         -e 's~(<Variant>)Portable~\1Installed~' \
         -e 's~(<LogFilePath>)logs~\1%APPDATA%\\SyncTrayzor\\logs~' \
@@ -70,4 +66,6 @@ package() {
         -e 's~(<SyncthingHomePath>)data\\syncthing~\1~' \
         -e 's~(<SyncthingDenyUpgrade>)false~\1true~' \
         -e 's~(<NotifyOfNewVersions>)true~\1false~'
+
+    _lc "${a}"/*
 }

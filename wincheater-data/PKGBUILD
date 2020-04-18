@@ -32,6 +32,21 @@ _lc() {
     done
 }
 
+_despace() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr ' ' '_')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
 _dl() {
     (
         cd "${SRCDEST}"
@@ -52,64 +67,48 @@ _dlread() {
 prepare() {
     source=()
     noextract=()
+
+    local n f h
     for n in $(cat "download-knihovny.html" | grep 'onclick="downloadx' | sed -r "s/.*downloadx\('(.*?)'\).*/\1/")
     do
         f="$(_dlread "https://www.cheater.cz/download/get-name.php?soubor=${n}")"
         h="$(_dlread "https://www.cheater.cz/download/get-link.php?soubor=${n}" | sed -r 's/.*hash=([a-z0-9]+).*/\1/')"
-        if [ "${f}" = "????" ]
-        then
-            f="${i}.exe"
-        fi
         _dl "${f}::https://www.cheater.cz/download/download-file.php?hash=${h}"
         source+=("${f}")
-        noextract+=("${f}")
+        noextract+=("${f}") # Parsing filters is unsupported
     done
     extract_sources
 
+    local f
     for f in *.exe
     do
         unrar x -idq -tsm -o+ "${f}"
     done
-    _lc *
-    for f in *" "*
-    do
-        n="$(echo "${f}" | tr ' ' '_')"
-        mv "${f}" "${n}"
-    done
 }
 
 pkgver() {
-    #find . -mindepth 1 -maxdepth 1 -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
-    find . -mindepth 1 -maxdepth 1 -name '*.exe' -execdir bash -c 'unrar l -c- "{}" | sed "/^;/d" | sed "/^$/d" | tail -n +6 | head -n -2 | sed -r "s/[ ]+/\t/g" | cut -f 4 | sed -r "s/^([0-9][0-9])-([0-9][0-9])-([0-9][0-9])$/20\3-\2-\1/" | tr "-" "."' \; | sort | tail -1
-}
-
-package_wincheater-data-base() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}"
-    cp *.sct "${a}"
-}
-
-package_wincheater-data-libs() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}"
-    cp *.sc2 "${a}"
+    find . -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package_app-i686-wincheater-data-base() {
     pkgdesc="Texts for WinCheater"
     provides=("app-wincheater-data-base")
-    replaces=("app-i686-wincheater-data")
-    conflicts=("app-i686-wincheater-data")
 
-    package_wincheater-data-base
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}"
+    cp *.sct "${a}"
+    _despace "${a}"/*
+    _lc "${a}"/*
 }
 
 package_app-i686-wincheater-data-libs() {
     pkgdesc="Libraries for WinCheater"
     provides=("app-wincheater-data-libs")
-    replaces=("app-i686-wincheater-libraries")
-    conflicts=("app-i686-wincheater-libraries")
     depends=("app-i686-wincheater")
 
-    package_wincheater-data-libs
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}"
+    cp *.sc2 "${a}"
+    _despace "${a}"/*
+    _lc "${a}"/*
 }

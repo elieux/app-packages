@@ -4,7 +4,7 @@ _realname=unbound
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.9.4
+pkgver=1.10.0
 pkgrel=1
 pkgdesc="Validating, recursive, and caching DNS resolver"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("unbound_setup.exe::https://nlnetlabs.nl/downloads/unbound/unbound_setup_${pkgver}.exe")
-sha512sums=('9b90fde1d82ddfe6d1567f36824df7d29792c0bc1dda97798c49be018cab3fa2c4b3c155dfd8417856d0bc419f080b105197deaae4764d32132bcc3fa103051f')
+sha512sums=('10cb592127838ee0c3805e30b5aef38af6d5741189dcbe88e77cff1720c7f070fe18b997d97885d1e709340dec036a91e0996be4da6411fd192acd71f85778a0')
 
 _lc() {
     local d f n
@@ -33,13 +33,13 @@ _lc() {
 }
 
 prepare() {
-    7z x -bd "unbound_setup.exe" -o"unbound_setup"
-    _lc "unbound_setup"/*
+    7z x -bd "unbound_setup.exe" -o"unbound_setup.dir" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "unbound_setup"/* "${a}"
-    rm -R "${a}"/'$pluginsdir'
+    cp -R "unbound_setup.dir"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR'
+    _lc "${a}"/*
 }

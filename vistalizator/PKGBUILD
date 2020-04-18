@@ -10,7 +10,6 @@ pkgdesc="Tool for changing display language in all Windows editions"
 url="https://www.froggie.sk/index.html"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Vistalizator.exe::https://www.froggie.sk/download/Vistalizator.exe"
@@ -33,17 +32,13 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 pkgver() {
-    b="$(cygpath -wa "Vistalizator.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
+    powershell -command '(Get-Item "Vistalizator.exe").VersionInfo.ProductVersion' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r *.exe "languages" "${a}"
+    cp -R "Vistalizator.exe" "Languages" "${a}"
+    _lc "${a}"/*
 }

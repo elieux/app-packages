@@ -1,20 +1,48 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=teamviewer
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=15.0.8397
+pkgver=15.4.8332
 pkgrel=1
 pkgdesc="All-in-one software for remote support and online meetings"
 url="https://www.teamviewer.com/"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TeamViewerPortable.zip::https://download.teamviewer.com/download/TeamViewerPortable.zip")
-sha512sums=('bee1371f3aeabea2f85d14d506635a18992f92e584271f6097e3b8a86364e999bbf5b1c1df7d3c893447fd915575d8fc4b262b73b0f98fdf33c24b5c13d0bbb3')
+source=("TeamViewerPortable.zip::https@subdir://download.teamviewer.com/download/TeamViewerPortable.zip")
+sha512sums=('33e9c4879f43e0fcd31ea4bc994cb446374f77916ee0dfedb8d2febebab5a02fdb688fa4110e9bd99e4e4f8d1ed251fdd3a55a6a4c249d19ba0a36a4984a7a69')
 
 _lc() {
     local d f n
@@ -31,17 +59,13 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -Command '(Get-Item "teamviewer.exe").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+    powershell -Command '(Get-Item "TeamViewerPortable/TeamViewer.exe").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp * "${a}"
-    rm "${a}/teamviewerportable.zip"
+    cp "TeamViewerPortable"/* "${a}"
+    _lc "${a}"/*
 }

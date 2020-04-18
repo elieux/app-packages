@@ -4,7 +4,7 @@ _realname=skype
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=8.54.0.91
+pkgver=8.59.0.77
 pkgrel=1
 pkgdesc="P2P software for high-quality voice communication"
 url="https://www.skype.com/"
@@ -14,7 +14,7 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Skype.exe::https://get.skype.com/go/getskype-skypeforwindows")
-sha512sums=('2f4fb80aaa8e5587133e13f239867438ea9c2290aeda84234a55db65e77d95f13a78d792bfa54f912b0bbef4f10cc40eb9c87700c81fcbc33ec5b43ff557eaf7')
+sha512sums=('7fc24e5ab1c0a3a90f89a5d15569641dace968839350c0b78814482b598e3c5d1e00b7d5bbff7289a0d58a1c7b0f8495dda2918c8177e748670ca0cd63c144f0')
 
 _lc() {
     local d f n
@@ -37,8 +37,8 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
@@ -46,17 +46,17 @@ _rmmsdll() {
 }
 
 prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "Skype.exe"
-    _lc "{app}"/*
+    /apps/innounp/innounp -x -q -m -a -y "Skype.exe" -d"Skype.dir"
 }
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "Skype.exe").VersionInfo.FileVersion' | dos2unix
+    powershell -command '(Get-Item "Skype.exe").VersionInfo.FileVersion'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "{app}"/* "${a}"
+    cp -R "Skype.dir/{app}"/* "${a}"
     _rmmsdll "${a}"
+    _lc "${a}"/*
 }

@@ -7,13 +7,13 @@ epoch=1
 pkgver=12.10.46154
 pkgrel=1
 pkgdesc="Mobile Opera Classic debugging on the desktop"
-url="http://www.opera.com/developer/mobile-emulator"
+url="https://ftp.opera.com/pub/opera/sdlbream/"
 arch=('any')
 license=('custom')
 makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Opera_Mobile_Emulator_Windows.exe::http://www.opera.com/download/get/?id=35131&location=360&nothanks=yes&sub=marine")
+source=("Opera_Mobile_Emulator_Windows.exe::https://ftp.opera.com/pub/opera/sdlbream/${pkgver/./}/Opera_Mobile_Emulator_${pkgver%0}_Windows.exe")
 sha512sums=('c64619a2b68bfc57f1da89d800a5ea3ca2a2df271d422720edfc424729407e1e1ebd53e1ab21e7367a8f3b903b799fbe2fbd501675320086333ca8faa7686302')
 
 _lc() {
@@ -32,16 +32,16 @@ _lc() {
 }
 
 prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "Opera_Mobile_Emulator_Windows.exe"
-    _lc "{app}"/*
+    /apps/innounp/innounp -x -q -m -a -y "Opera_Mobile_Emulator_Windows.exe" -d"Opera_Mobile_Emulator_Windows.dir"
 }
 
 pkgver() {
-    strings -d -es "{app}/operamobileemu.exe" | grep 'Opera Mobile/' | tail -1 | sed -r 's~^Opera Mobile/~~' | tr -d ' '
+    strings -d -es "Opera_Mobile_Emulator_Windows.dir/{app}/OperaMobileEmu.exe" | grep 'Opera Mobile/' | tail -1 | sed -r 's~^Opera Mobile/~~' | tr -d ' '
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "{app}"/* "${a}"
+    cp -R "Opera_Mobile_Emulator_Windows.dir/{app}"/* "${a}"
+    _lc "${a}"/*
 }

@@ -1,20 +1,19 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=opera-mail
-_realver=39133
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.0.1044
+pkgver=1.0
 pkgrel=1
 pkgdesc="A lightweight, customizable mail client"
-url="http://www.opera.com/computer/mail"
+url="https://ftp.opera.com/pub/opera/mail/"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Opera-Mail.i386.exe::http://www.opera.com/download/get/?id=${_realver}&location=360&nothanks=yes&sub=marine")
+source=("Opera-Mail.i386.exe::https://ftp.opera.com/pub/opera/mail/${pkgver%.*}/win/Opera-Mail-${pkgver%.*}-${pkgver##*.}.i386.exe")
 sha512sums=('9048a51fecda9a8694bfc00936eda758d20cbd7fb342f43118f73be86920cf59da062cf00f23bef50382ba87841e6592051fca05b4fad55a855ef4ff02765e92')
 
 _lc() {
@@ -33,18 +32,17 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "Opera-Mail.i386.exe" -o"Opera-Mail"
-    _lc "Opera-Mail"/*
+    7z x -y -bd "Opera-Mail.i386.exe" -o"Opera-Mail.i386.dir" > /dev/null
 }
 
 pkgver() {
-    b="$(cygpath -wa "Opera-Mail/operamail.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' ' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
+    powershell -command '(Get-Item "Opera-Mail.i386.dir/operamail.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "Opera-Mail"/* "${a}"
-    rm -r "${a}/updatechecker" "${a}"/files*
+    cp -R "Opera-Mail.i386.dir"/* "${a}"
+    rm -R "${a}/updatechecker" "${a}"/files*
+    _lc "${a}"/*
 }

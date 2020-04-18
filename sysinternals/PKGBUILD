@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=sysinternals
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
@@ -11,12 +40,11 @@ url="https://docs.microsoft.com/en-us/sysinternals/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("https://download.sysinternals.com/files/SysinternalsSuite.zip"
-        "https://download.sysinternals.com/files/RootkitRevealer.zip"
-        "https://download.sysinternals.com/files/BlueScreen.zip")
+source=("SysinternalsSuite.zip::https@subdir://download.sysinternals.com/files/SysinternalsSuite.zip"
+        "RootkitRevealer.zip::https@subdir://download.sysinternals.com/files/RootkitRevealer.zip"
+        "BlueScreen.zip::https@subdir://download.sysinternals.com/files/BlueScreen.zip")
 sha512sums=('15f588ef94e91fe38eeea416b5c13b644beaa419da467e27f9a2ff28f223dcda243ababc9c7ee93e67c8fa0fbd76e11e1a6fb25bbd78b886bd4c6ed07d3d31e2'
             '2e5f89552fc1912b5fa37eb443ef2aa86e2a60f2f7f24f420df56e1ec5f59bd64e2b71e38365f7beaace419299762b9960b7617de9aff6301020277d3d7c1e61'
             '2e39c4b36e9928851fc86d9fc541956c3079a1ded09cca5ee677fbe1b3c9272b87651b65e53279cede3c4ed37028fcbae0823c4ee25180d5bc132cef8d155507')
@@ -36,22 +64,26 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 pkgver() {
-    find . -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -mindepth 2 -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp * "${a}"
-    rm "${a}"/*.zip
 
-    for f in *64.exe
+    local d
+    for d in $(find . -mindepth 1 -maxdepth 1 -type d)
     do
-        mv -f "${a}/${f}" "${a}/${f/64.exe/.exe}"
+        cp "${d}"/* "${a}"
     done
+
+    local f
+    for f in "${a}"/*64.exe "${a}"/*64.EXE
+    do
+        f="$(basename "${f}")"
+        mv -f "${a}/${f}" "${a}/${f/64./.}"
+    done
+
+    _lc "${a}"/*
 }

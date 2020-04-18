@@ -1,20 +1,48 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=spidermonkey
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=69.0.3
+pkgver=74.0
 pkgrel=1
 pkgdesc="An interactive JavaScript shell from the SpiderMonkey distribution"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Introduction_to_the_JavaScript_shell"
 arch=('any')
 license=('MPL')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("jsshell-win64.zip::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/jsshell/jsshell-win64.zip")
-sha512sums=('77ce83c0e0daddc0ae6bd825e395ed2a880d06b6764d9c3c18a846d30151b4854e74352c0a94248a8dd4fb623762d2f224aaf0ad68a53976b02ed59ddf68dd85')
+source=("jsshell-win64.zip::https@subdir://ftp.mozilla.org/pub/firefox/releases/${pkgver}/jsshell/jsshell-win64.zip")
+sha512sums=('7f8ee791e2362a7d134fa5ed4d8416bb7b6240708a434b0118572955550e74da3296deb58f438c2c2b6a6e6f01b2dab6c1f6d0cc8b7222d6fdbb8ce8ba7ddc9f')
 
 _rmmsdll() {
     local ms
@@ -22,8 +50,8 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
@@ -31,9 +59,8 @@ _rmmsdll() {
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r * "${a}"
-    rm "${a}/jsshell-win64.zip"
+    cp -R "jsshell-win64"/* "${a}"
     _rmmsdll "${a}"
 }

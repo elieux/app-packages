@@ -12,8 +12,7 @@ arch=('any')
 url="https://web.archive.org/web/20150610153444/http://www.cheater.cz/winch/win_download_knihovny.htm"
 license=('custom')
 makedepends=("unrar")
-depends=("app-i686-wincheater")
-provides=("app-${_realname}")
+provides=("${pkgbase}")
 options=(!strip)
 source=("cestiny.exe::https://web.archive.org/web/20070204024110if_/http://www.cheater.cz:80/download/cestiny.exe"
         "internet.exe::https://web.archive.org/web/20070205223922if_/http://www.cheater.cz:80/download/internet.exe")
@@ -38,6 +37,7 @@ _lc() {
 }
 
 prepare() {
+    local f
     for f in *.exe
     do
         unrar x -idq -tsm -o+ "${f}"
@@ -46,11 +46,13 @@ prepare() {
 }
 
 pkgver() {
-    find . -mindepth 1 -maxdepth 1 -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+    find . -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
+    depends=("app-i686-wincheater")
+
+    local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
     cp *.sc2 "${a}"
 }

@@ -17,28 +17,13 @@ options=(!strip)
 source=("tightvnc-gpl-setup-64bit.msi::https://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-gpl-setup-64bit.msi")
 sha512sums=('f2afeb040cb7120d3e15804d3d934414c15572218192bfa2aed5832550d3e724ad6f2ef4060e51cfaf1271641aee0634faa594d8bc31aceceb7b904420ecd11b')
 
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
-
 build() {
     rm -fR "tightvnc-gpl-setup-64bit"
-    /apps/lessmsi/lessmsi x "tightvnc-gpl-setup-64bit.msi"
+    /apps/lessmsi/lessmsi x "tightvnc-gpl-setup-64bit.msi" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "tightvnc-gpl-setup-64bit/SourceDir/PFiles/TightVNC"/* "${a}"
 }

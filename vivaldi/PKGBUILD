@@ -4,7 +4,7 @@ _realname=vivaldi
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.9.1705.41
+pkgver=2.11.1811.49
 pkgrel=1
 pkgdesc="A new browser for our friends"
 url="https://vivaldi.com/"
@@ -15,7 +15,8 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Vivaldi.x64.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.x64.exe")
-sha512sums=('22487838625bac51ee94bdbd2a8c213670366855e15e894a3973c92bd3ab410b7b8669810d2e6382497f8bd46cd80d15147d9fb049acc263cc4bf567368f04b8')
+sha512sums=('7e2a7b119d8f95094fac4eb913aa19157931eba50326cd850f2a90c004a4c3125b2564e29a4b7b0c1aa67d8f35eaafa47d9f1dc768fa9c84d53951c9459dd81c')
+noextract=("Vivaldi.x64.exe") # bsdtar detects and extracts a setup.exe
 
 _lc() {
     local d f n
@@ -33,14 +34,13 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "Vivaldi.x64.exe"
-    7z x -y -bd "vivaldi.7z"
-    rm "vivaldi.7z"
-    _lc "Vivaldi-bin"/* "Vivaldi-bin/${pkgver}"/*
+    7z x -y -bd "Vivaldi.x64.exe" -o"Vivaldi.x64.dir" > /dev/null
+    7z x -y -bd "Vivaldi.x64.dir/vivaldi.7z" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "vivaldi-bin"/*.exe "vivaldi-bin/${pkgver}"/* "${a}"
+    cp -R "Vivaldi-bin"/*.exe "Vivaldi-bin/${pkgver}"/* "${a}"
+    _lc "${a}"/*
 }

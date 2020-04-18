@@ -12,13 +12,10 @@ pkgdesc="Video game cheats and guides database viewer"
 url="https://www.cheater.cz/wincheater2/info/"
 arch=('any')
 license=('custom')
-depends=("app-i686-wincheater-data-base")
-optdepends=("app-i686-wincheater-data-libs: Databases")
 makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=()
-
 
 _lc() {
     local d f n
@@ -53,31 +50,29 @@ _dlread() {
 }
 
 prepare() {
+    local n f h
     n="winch2-setup"
     f="$(_dlread "https://www.cheater.cz/download/get-name.php?soubor=${n}")"
     h="$(_dlread "https://www.cheater.cz/download/get-link.php?soubor=${n}" | sed -r 's/.*hash=([a-z0-9]+).*/\1/')"
-    if [ "${f}" = "????" ]
-    then
-        f="${i}.exe"
-    fi
     _dl "${f}::https://www.cheater.cz/download/download-file.php?hash=${h}"
     source+=("${f}")
     noextract+=("${f}")
     extract_sources
 
-    /apps/innounp/innounp -x -q -m -a -y "WinCheater2_setup.exe"
-    _lc "{app}"/*
+    /apps/innounp/innounp -x -q -m -a -y "WinCheater2_setup.exe" -d"WinCheater2_setup.dir"
 }
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "WinCheater2_setup.exe").VersionInfo.FileDescription' | sed -r 's/^Scorpions WinCheater ([0-9]+[.][0-9]+)/\1/' | cut -d' ' -f1
+    powershell -command '(Get-Item "WinCheater2_setup.exe").VersionInfo.FileDescription' | sed -r 's/^Scorpions WinCheater ([0-9]+[.][0-9]+)/\1/' | cut -d' ' -f1
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    depends=("app-i686-wincheater-data-base")
+    optdepends=("app-i686-wincheater-data-libs: Databases")
+
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "{app}"/* "${a}"
+    cp -R "WinCheater2_setup.dir/{app}"/* "${a}"
     rm "${a}/texty.sct" "${a}"/*.sc2
+    _lc "${a}"/*
 }
-
-

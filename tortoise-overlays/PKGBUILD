@@ -35,26 +35,30 @@ _lc() {
 
 prepare() {
     rm -fR "TortoiseGit-64bit"
-    /apps/lessmsi/lessmsi x "TortoiseGit-64bit.msi"
-    _lc "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays"/*
+    /apps/lessmsi/lessmsi x "TortoiseGit-64bit.msi" > /dev/null
 }
 
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays/tortoiseoverlays.dll").VersionInfo.ProductVersion' | dos2unix | tr -d ' ' | tr ',' '.'
+    powershell -command '(Get-Item "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays/tortoiseoverlays.dll").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays"/* "${a}"
+    cp -R "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays"/* "${a}"
 
-    for f in "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays"/tortoiseoverlays.dll*
+    local d f n
+    for f in "${a}"/TortoiseOverlays.dll*
     do
-        case "$(file "${f}")" in
-        *x86-64*) cp -f "${f}" "${a}/tortoiseoverlays.dll" ;;
-        *80386*) cp -f "${f}" "${a}/tortoiseoverlays32.dll" ;;
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | sed -r -e 's/_[0-9]+[.]/./' -e 's/[.]duplicate[0-9]+$//')"
+        case "$(file "${d}/${f}")" in
+        *x86-64*) mv -f "${d}/${f}" "${d}/${n}" ;;
+        *80386*) mv -f "${d}/${f}" "${d}/${n/./32.}" ;;
         esac
     done
 
     find "${a}" -name "*.duplicate*" -delete
+    _lc "${a}"/*
 }

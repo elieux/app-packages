@@ -4,14 +4,14 @@ _realname=tortoisegit
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.10.0.1
+pkgver=2.10.0.2
 pkgrel=1
 pkgdesc="Git client implemented as a Windows shell extension"
 url="https://tortoisegit.org"
 arch=('any')
 license=('GPL2')
 replaces=("app-i686-${_realname}")
-depends=("app-tortoise-overlays")
+makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${pkgver%.*}.0/TortoiseGit-${pkgver}-64bit.msi"
@@ -45,7 +45,7 @@ source=("TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${pkgver%.
         "TortoiseGit-LanguagePack-64bit-tr.msi::https://download.tortoisegit.org/tgit/${pkgver%.*}.0/TortoiseGit-LanguagePack-${pkgver%.*}.0-64bit-tr.msi"
         "TortoiseGit-LanguagePack-64bit-uk.msi::https://download.tortoisegit.org/tgit/${pkgver%.*}.0/TortoiseGit-LanguagePack-${pkgver%.*}.0-64bit-uk.msi"
         "TortoiseGit-LanguagePack-64bit-vi.msi::https://download.tortoisegit.org/tgit/${pkgver%.*}.0/TortoiseGit-LanguagePack-${pkgver%.*}.0-64bit-vi.msi")
-sha512sums=('29eefea723587e681dc1f9dbbeeaf4ec52788280c8000746aaf1b0b1209b8c576e740641d30534e60dd75db59d60bf8571490f8720caa664ce8c79296bb9ffa2'
+sha512sums=('1fe722c71d5b878a81409919293e3ba38dd4b17aab2e2f927fe6c3132bca6d0504d828db50cd6ffda1798efeb5b2b41c4cd083c4eff682fc378c714ecce36f81'
             '6dff86bc1346234f4709ec0a2f1b16acf62a8f58a45cc42aaa6de89f0bd6b3ee4b5eed23bb9208b91acab0e916d6347011d395c8a539616d1aee324fee6f4671'
             'e80c6b9d074d8091adf06612af462baec89cd0b641c68df02c38406b9e15e5cf2e95cf67bf3a514c186e2970ee2942b5cbcf7be2740ef33a56ac1cc2d19030fd'
             'f91b7c491b4b612fb682f44c24c2cc1407bb4bc5289d809ea65efd5919c7db0c5284d1bd8714aa5786d5ead6fbabb83e68ee6618e21b6026509dc8fc6e2b484a'
@@ -107,19 +107,22 @@ _rmmsdll() {
 }
 
 prepare() {
+    local f
     for f in *.msi
     do
         rm -fR "${f%.msi}"
-        /apps/lessmsi/lessmsi x "${f}"
+        /apps/lessmsi/lessmsi x "${f}" > /dev/null
     done
     _lc "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit"/*
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    depends=("app-tortoise-overlays")
+
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit"/* "${a}"
-    cp -r TortoiseGit-LanguagePack-64bit-*/"SourceDir/Program Files/TortoiseGit/Languages"/* "${a}/languages"
-    rm -r "${a}/common"
+    cp -R "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit"/* "${a}"
+    cp -R TortoiseGit-LanguagePack-64bit-*/"SourceDir/Program Files/TortoiseGit/Languages"/* "${a}/languages"
+    rm -R "${a}/common"
     _rmmsdll "${a}"
 }

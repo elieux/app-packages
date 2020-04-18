@@ -4,7 +4,7 @@ _realname=thunderbird
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=68.2.2
+pkgver=68.6.0
 pkgrel=1
 pkgdesc="Standalone, easy to customize mail/news reader"
 url="https://www.thunderbird.net/"
@@ -14,130 +14,130 @@ replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("ThunderbirdSetup.exe::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/en-US/Thunderbird%20Setup%20${pkgver}.exe"
-        "ar.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ar.xpi"
-        "ast.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ast.xpi"
-        "be.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/be.xpi"
-        "bg.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/bg.xpi"
-        "br.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/br.xpi"
-        "ca.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ca.xpi"
-        "cak.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/cak.xpi"
-        "cs.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/cs.xpi"
-        "cy.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/cy.xpi"
-        "da.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/da.xpi"
-        "de.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/de.xpi"
-        "dsb.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/dsb.xpi"
-        "el.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/el.xpi"
-        "en-GB.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/en-GB.xpi"
-        "en-US.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/en-US.xpi"
-        "es-AR.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/es-AR.xpi"
-        "es-ES.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/es-ES.xpi"
-        "et.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/et.xpi"
-        "eu.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/eu.xpi"
-        "fi.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/fi.xpi"
-        "fr.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/fr.xpi"
-        "fy-NL.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/fy-NL.xpi"
-        "ga-IE.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ga-IE.xpi"
-        "gd.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/gd.xpi"
-        "gl.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/gl.xpi"
-        "he.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/he.xpi"
-        "hr.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/hr.xpi"
-        "hsb.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/hsb.xpi"
-        "hu.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/hu.xpi"
-        "hy-AM.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/hy-AM.xpi"
-        "id.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/id.xpi"
-        "is.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/is.xpi"
-        "it.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/it.xpi"
-        "ja.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ja.xpi"
-        "ka.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ka.xpi"
-        "kab.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/kab.xpi"
-        "kk.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/kk.xpi"
-        "ko.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ko.xpi"
-        "lt.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/lt.xpi"
-        "ms.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ms.xpi"
-        "nb-NO.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/nb-NO.xpi"
-        "nl.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/nl.xpi"
-        "nn-NO.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/nn-NO.xpi"
-        "pl.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/pl.xpi"
-        "pt-BR.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/pt-BR.xpi"
-        "pt-PT.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/pt-PT.xpi"
-        "rm.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/rm.xpi"
-        "ro.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ro.xpi"
-        "ru.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ru.xpi"
-        "si.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/si.xpi"
-        "sk.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sk.xpi"
-        "sl.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sl.xpi"
-        "sq.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sq.xpi"
-        "sr.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sr.xpi"
-        "sv-SE.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sv-SE.xpi"
-        "tr.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/tr.xpi"
-        "uk.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/uk.xpi"
-        "uz.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/uz.xpi"
-        "vi.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/vi.xpi"
-        "zh-CN.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/zh-CN.xpi"
-        "zh-TW.xpi::http://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/zh-TW.xpi")
-sha512sums=('6d3f3b76710aa6f0eda0e88b1c75ffb02c3d564658b227bc4bc7c254b426287ef7914645cc6a9fa79d224ee2c103e879e81d80b3fbd5e1b7c3b8cc5231f33784'
-            'ce70660f731d5bf989a217dc78fc7049817ed98eb59b25eca36e3f0e0ab20cf2a71235cf067089e75751d4984dc92da97cd1aa4336f74164b9c983af678b0795'
-            '18dfebfe34cf8d5fb2672193a362728f20b3e9ceea8710784a3573ee6e701f052ab84c9119619a1f94d1bf21c1bcaebf7dfb8b4cc28aaeae80095d97d67791d8'
-            '06122805a21e1e608aa1af2325e42e38e5b0eab00aea4e0d991f7989491571ce1267e30a878e92828a035b17fce61d28d2c9dd418635cbc2858af42d6774f204'
-            '0b2c127dbbc22030a748b81fe2a38186a820a39bf990b2fdaafa4c335d68d343de3354acc5f916c8b13fb5f0751b6248181d3d8aa3b356c06c169848b2b72cda'
-            '7c57b5fc583d6a39359951cc6184074b1848df80ce26df4637cd37ccf844553b9e0fd71c456bffcf1549fcf688200068bbeb7e08d89386770d1b8e71d07c5cd0'
-            '0df96a1bd17c70b8092ad551fa274e7ab2ff86bdbdbcd1f697e4f6f1f00f5a9b6a244425a6472e3fded27456b4a7b20f0c322d33f8c868f625e0261f73b2c1be'
-            '8ca934a6e42a1d317ee7288df6e6968553f08c6e7e0030c39730b1b5fffa202b22418986e03574ffe127ea065e6c828f9d006da711b31e9a012777f57eecde55'
-            'bcaf4e140675c5b5ab558ddd55e81873be50cd2ed43416b63017045e47a359aa79ce91d60f044ea8e314cd43c1f267fc8faf80fe83397ea6cc5d65b8e72cac7c'
-            'f012d1c6e500ab4ade9d1a1f438cc4bf4eabb57a8442c34f44ac4546f56c4cc1e1d86f74d0bee2c19f4bcf1e202ecfa740c5bc65d4bde68860ba3e24ac975260'
-            '0102f55e80e85ce16161f8489b082c6320784bc4a8c44c23570ae596fc05349cfd4ec8d80eecacb3124f23bcc9d8fef90e42870f3b7d196cd2cfc928f612a41e'
-            '5e70335ebee0db7dd7d914cac617f26cfd31b0fc76453feb4a32aa5eebbcc43b65d41324590455796c8600d607b66af92a5d672ee2d686f0127d1c0d040fddd7'
-            'c342d9d4a13afd37bc603862e5db092e6dea09bb85eba63da31d483f22d771a9fed3ca9429942e1252d5114f5f799fed2c8044bf8d41d18297822e27fe568dd3'
-            '71adc70945e1e1db8f49ccaec3c0e56dd3057376018a1061a9b746d7ebcc9982d47514f7602b3f05023e8528b45234adf409c2df5de3c2081cd8aede2ad2bfd7'
-            'c7c7a007101214e51f5615d21c2f793acb8e6ff0c87e9e45dcbfbda4b5cd24d99aee87108487dc77b0b7e671949dc35e00997e0643b0cd47ad57aa8d8b677374'
-            '7190ad700ef8e21048676042067583b6cd54c7b5f0bbb5e482d923b77d170686ca5358de9403b9b8ffc0d906f92b485a7395f15bfe0d45b97c2a2f2709b6508a'
-            '31e69ebf86519811fb2e97a0396dd446dab506783d9b6a280092bbe054c7406015c21cc3c098af39976120363dee9570684bb582fd7cea5f441ece161eef0fb0'
-            'a8c95b6947fd2630ef91eff3f8adaa0ed0598f4ef90777a7c7073b9ae82bf3e15b0163dad970d14f970e806c32e88c97f50593cafd65db6771d5c0e636bba055'
-            'b35faccd5fed9308c9f8ce437769aeed08b6d0b75811a9cbe24c9fae55621b051353e6a2f2984501211ebf1011da257c8e313086d4b1e1e4f9287d320696cc0c'
-            '2324573e9275a1da4c736583fe671ca70260b634a3ddad417a305ed42ad4df8e31471e2499a7491b247a8c1c6ad3610de08fd60b5e64571127469f6399b8ce96'
-            'f92498e33e68313a168ce86c32e0380fc0413842e7e6e27a84d12e95fc550027aeed43902a2c41b449f17fc99e3172ddaae925c4f4e60aa514cf2986731ea75f'
-            'a0c870c9e31cf00e5204ffbeb04faa7988162c1e3a269aac08a67dc42e172b9fe9f280f542265a68442bd21f6114f6a6432ef003259daddfc6d57b1ddd7efe25'
-            'b507baf4ab397eb48664b43aa2a01ba3a5b8d456626e97f7799238f6417892afd6ed85f419f4e1806ef6f412f1dbc0a2727f5a73269a6f7cc9b29476f912dc9f'
-            'a5524c39f5d5c00b330b7b65764c4fec4db51ad50ad58965ddb7c33325b9ee9d2f8d03849464e02e4e1c4b6d2e523cd46eb88b37c7cf2143ac4b7b6a70f4c6ea'
-            'ef0e027dd961097d3fa51db31aa470a069c4286660d9eeb3be68d9b2ecb53bccc1f1410948439689b30c99d264b2ba8445ee92e47a16a7b907fd6be3328bd4f5'
-            '484255d8056d79a1de4d11b06a5e4c69490ba4b8c64ce1f73f2aa6808136308e2d0419a36ebb29c15f2de032bd4e6d5a19dc1a55ee139e66f7013303fa60226e'
-            '2f09507db5296217963f3d665b1cb1f14a1610c7f0eace7412253f8de8bf72a41309a12e2fdb94314ec116290ce6460e2f5fd67c1949c0aa54b6211d20d41a70'
-            'f7617d6f0ab2a0e4fa115ac8d6bb35aaf8092ccd190d76fb5e303f3b85708af26e32900b69a3bef6bb3c963f038e22828a758696cdfe5ac6e422f639aab479cf'
-            'd69143f9a126eafe7f792b30fa92d3d26273829e6eb46efabbc29b7babc9cd639ddf47bbdd94c6c197e7f9cd15651536d682a196d677f3816e39933aea94b8e9'
-            'd8bce34ebdc034293b59c11398afbd0af00f2b611a6adf7119f566b706d508600c4be57b2b7baef19666ab543679e81c8bc4b85961583b58a2d2628541a9d5fc'
-            'be63d47f993e3fe92ba3cd65bdfeab6315f5454542eba8244e3cc36868c717909d0e14516c1e2408fdb8bf6105810db86fcd3c767d0ed1fd865df900a26748ff'
-            '43004b1d01b629f18f3e8c5015e72f4637a21b1f72cebfcd6b2e5304c6605d97e0913be80351c7a33d001c9b0ece54b8377e60c26dc144dcf93fce6180da3b33'
-            '6435f30cb69a545545091c89621e6a224ede0a4139511f475713e31a4fe19fb5746929972614634c7794e4f81e5e16c44528489919317b2788181c15d3b09c2d'
-            '02942f280c7faa13b0d80bb6647f7335fc02fa8060f568b1b27a931089c71bdd667835e279ebeac64aacf4f79d7494579dad3e3ca234769533633b3874a931df'
-            'ad3d6f95ce19502282df5fc66eaa45e5dcac6fb2afbd35c38fc5567162ce88035acc5a8cad9c7e418f2d386c8265b6d2104852fa215c01ee84cccb7e6da207b1'
-            '16bbc0a6d80f834a804a5f45a40e47d1f92f866cfbc1ef9866677a37fdbc79dcc258c3684086ef4e45664b5e3ebcf4d3808f7fb4f0809979b65f9e664b4b040d'
-            '64f3d1dcd852350cfe5a6434d13f2e63c36e6bb76acd7d869314eba25ecd51b404db6518d74c64468f4982a50a1d6b64587c95e13b3209d967c9c5e216470d6c'
-            'af21e28e8e4f7a897885758a72793379cd1b0ceb5117c8e27acd68f990265df22ba34c318b62af46ef5f497393dd179db22316782917a6bff280c5b494791435'
-            'f1cba58bd8aa53c4da5f4da838b82e21ec9624148943405c2f64941ef4495db61cadfce1270f4068441dda8cc5bf9c3fd74005a08ecb960ffb60b999b6bdde1e'
-            '8f9a6c5174644827c236636bcdcab3c633dca7edea06ac95440242823b177f3e94765cf5af23e625c6ba1d20f460332adc2ac411f5fee1cbbf19ab22468f5f38'
-            'b8721817a552d7443d04aa7f87af499b0440a337f035e752d7d1cbab6eff1271ac6cb55d15486e44d1f1da907bcf0b597d4d1866e36afb4fcd518dac6a750e1b'
-            'a4cfacd0dc29df06cfb720dcf24cf6eea11a5df6e42ecc569642fac7ed495c8a2d64d3b890ee57fccd220472f0195de18272216eb05426ee2e4a3c2188d3aae1'
-            'd2ec3304cfadd792047d6aae241d25c56a7675bfb795c61826ad2f03ec87f547507a757a118a64c46ab9328a27d6e08823956889f84fdf8910102ff3ec1e5635'
-            '9bc33a2f9bc06eeced6d7853e069803133240b76023269a23008374635fd929d9cb396e9fbe0da95c12380f15880a94ab48c82f687d71c13da21da0213b99b46'
-            'bed99e9556f6c7f356caddf4187a509fab642555e95d11e53f0ffbaf7a429a32f4d417aa9a85cd3dbf5b4492b3311a563edf9b80c4e6195a66060aeec66aa6b2'
-            '95a58f63ec3cf5610666170fb3e3798c1269c8bf65eb35f977887d7cf80dba9a66e7f733a8b3487c4f070238cfd80df732e896f868ef3d5fa0eac85b0ce6e11d'
-            '53ee4ab40826d06fdaa1c0bd92153f3ed89474eb67d3ea323afb71ac80340cce8ceaf5c4a1f4d704d62f2a927075898531c080f879eaa0529ac41d15ff88f2e7'
-            '3153723fa2db357aaed01b1b5b110d6350562799ba3f47b254b6dc2afa2b632258efd2922104999dfd6ceddf4aab097fb4580decefd6588d26bb169c85cfa18e'
-            'b6027a4e259c052cb9b07bec4d4df68bc557f2eb4413d551eefc0306ef252e6cdd02ed681293bcf3ffb1306d9cfceb958695cb115490efa833f8a1b1fd1725c4'
-            '877c8de303355e2dc959b4982a185937345ab071760b86a1b4eca0599d3b7e641908e8bed821f9703f849846624228b44ac514a8d2bbe6f13a2749acac311932'
-            '3e1934ecabd364b8d39291ad666908475f13522259c21012a2d92b871117e8a80f90f9fd01caa380fb1ae66f31cf27a2b2350d94c719a0b49ee2e78134f2ebb5'
-            'a384f63952fe37b10871ace0b42a64ab02179f06775165bb66e7544f0825e0f90da7685f084ca5be235b25b0ffd57fd5a8fd48041686f68a5fab7ded4f70a9eb'
-            'cde3254356977c29892b566d17d03b1b550502912fc8765a52bc3e4d28b3064a97f483c5093e8380c2cd6bcca7e85e7cf34ba687a8d0bbe53e63b7ba37f389eb'
-            'df596af32cdddfe910cc08eef0aefe2b7c304de38ffc968837908d0be9a55f40d52371f32fe8f15f3caf0b4dc336f432faee6fb43db959c5db835767a42c5467'
-            '4f96df0bd0feb9b6209636f74162f6fee127ca141d1f3e996d233befcb48241f4b7809e77698f7be78c4bcfb39e75f0c0b51b9fc4a58222ba158adbdd69f2d73'
-            '831ccd80bc8760ba2a0fb1fe42f418a45f45dd72d2fbd90dfe214afaa779072d3efeba6c4e16fc8d5ef2d7b49af96a7a7799dd2d89fc78958df85bfd988ce3e8'
-            '951dd16cf8456217a33f5bfc0dc3cfb584804270b3501e158c701c06e2548d75eb71a7588ac03b8479849b9dd225c5fafa34441ca8642dbd2f141aaf4ebc6fbf'
-            '9c1021855f6d18edeab8c9c8ee4f517fa12d61b021ca9216de4c626b4790a0bc43897e69e992eae53b59620057ef0bf86ceaf2510228d595b611e0d1c216709d'
-            'a655a8c679a092cc49464d8e7051036217d2370fb1ad70cbcb5aa395088817cb1198a3286d9afbbf4a9ebc88207eb5e207fc0d2a3b539855030f4efafb86da8f'
-            '23325af946d8c0e4186f94f48fc448d948f422246b87c65ffc2afdf797ad35dc3b3210741271cd159aceb27d9978eae3970c0d0678338afda69ad9dcf103fa2e'
-            '86093363d7b29e5853f780ef44dd6c00c8a69eb8d65dd11cab18ac801a349d735586bbc598910e60ce68eb3d9b5d2e71f2826ab89f3f4635f09aee9871b32d2a'
-            'ac74481ae381e4d61f6e75b6fe690a8b2e2943af477b28db42d74efd26592408a75a86f61e354be63b44263c4662a1cb2b65c3a6e25382a7608bebf325704a1c')
+source=("ThunderbirdSetup.exe::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/en-US/Thunderbird%20Setup%20${pkgver}.exe"
+        "ar.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ar.xpi"
+        "ast.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ast.xpi"
+        "be.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/be.xpi"
+        "bg.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/bg.xpi"
+        "br.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/br.xpi"
+        "ca.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ca.xpi"
+        "cak.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/cak.xpi"
+        "cs.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/cs.xpi"
+        "cy.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/cy.xpi"
+        "da.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/da.xpi"
+        "de.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/de.xpi"
+        "dsb.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/dsb.xpi"
+        "el.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/el.xpi"
+        "en-GB.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/en-GB.xpi"
+        "en-US.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/en-US.xpi"
+        "es-AR.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/es-AR.xpi"
+        "es-ES.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/es-ES.xpi"
+        "et.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/et.xpi"
+        "eu.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/eu.xpi"
+        "fi.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/fi.xpi"
+        "fr.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/fr.xpi"
+        "fy-NL.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/fy-NL.xpi"
+        "ga-IE.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ga-IE.xpi"
+        "gd.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/gd.xpi"
+        "gl.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/gl.xpi"
+        "he.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/he.xpi"
+        "hr.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/hr.xpi"
+        "hsb.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/hsb.xpi"
+        "hu.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/hu.xpi"
+        "hy-AM.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/hy-AM.xpi"
+        "id.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/id.xpi"
+        "is.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/is.xpi"
+        "it.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/it.xpi"
+        "ja.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ja.xpi"
+        "ka.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ka.xpi"
+        "kab.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/kab.xpi"
+        "kk.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/kk.xpi"
+        "ko.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ko.xpi"
+        "lt.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/lt.xpi"
+        "ms.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ms.xpi"
+        "nb-NO.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/nb-NO.xpi"
+        "nl.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/nl.xpi"
+        "nn-NO.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/nn-NO.xpi"
+        "pl.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/pl.xpi"
+        "pt-BR.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/pt-BR.xpi"
+        "pt-PT.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/pt-PT.xpi"
+        "rm.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/rm.xpi"
+        "ro.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ro.xpi"
+        "ru.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/ru.xpi"
+        "si.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/si.xpi"
+        "sk.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sk.xpi"
+        "sl.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sl.xpi"
+        "sq.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sq.xpi"
+        "sr.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sr.xpi"
+        "sv-SE.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/sv-SE.xpi"
+        "tr.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/tr.xpi"
+        "uk.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/uk.xpi"
+        "uz.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/uz.xpi"
+        "vi.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/vi.xpi"
+        "zh-CN.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/zh-CN.xpi"
+        "zh-TW.xpi::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/xpi/zh-TW.xpi")
+sha512sums=('f2d91503798d8660e06991e08d6570ed353b6f8aa67a96af0caf9ff7755c51be870289663a9d6f045b0e42de6c1a2725defab9c16d649bf089ce15eb8583631b'
+            '432059d287bf4896842adf4075237827e204a11742e076d65e20617081fae2f09537eda0465f80113566359d31d53e1f2930923c3be0cc3a088121042cc3453e'
+            '19f815daef1e60dc6fd1a88010ebb0d4b88ce2c3ab134a044f3da8f27c2146e2bbf2d3968be9df17dc04e45a9e23ae91e2eaf0f5f39ffe28b139a869debf37c6'
+            'aa1eb3ae26867b9cf69a18076f743d8397653a9094fab0b7fa2bffb332b7f3dd5f2c236c50b18646f065165a7f460ff8a1e7ba0fb66d087844d7b2e7197afda2'
+            '22f631d155b0f0a14855230bf5a46d8b4277fd995d7e2862a8dea36f517e41ce40ac0955b8d10d830abd109cc938ead7d9826447999a9426c6d89752500bfd12'
+            'be171a5c281a695d6cd0cbe9836249f6cc64e838f10e6df8891ac16424ad1fdbcc2cb0bb7f3f351a03bc0e17658655d9c32846952ced93d450e5bfeff79d60a7'
+            'b556f85042670f4601e39f017fd4ffc7a5254f80012663c5343443704617e3fa7a29e023136a0a8679804b0652e744db1cb03a840fa4799ecefe3ec39ebfc7fa'
+            'f9503e54e423f2b75856b087f6c4848be8c974916e127c2bdc5c6d30f6eb046c50ff0a361cbaa0e46044874dfea5dea8e4caaca13e912facce5922f4d1a7141b'
+            '42eb7330e7355a49a06bd3c10f69d2cd99b305384f38639ee0dcbe073fb6f2e4d5ad47529ff72c1b91bd9a3df960ee2f904e7d842e407a2dc5d072a22956ca9b'
+            '2936fd4e60c66e09a284ce12d8f53148aed759d14fb4d124554236afd0ea239b3a78eeef00a416a50e920f605d81033f730b6156ef93f4f5bd1e26d013557b4c'
+            'dcaaa8cfb4ce16fdf0a44ac641a690ba6658f79cafe223508181e9c0b5aa5e45caac9da3b6415881eea6808a95e407eb0a732f6eed202ae5dee446ca673c5048'
+            '96491b85a9ec06f268d0a9c59c83f91d2ec454a0cd711b9ab5b4566ce18f89ff7530aa5a921b62ee30c0b94942638eb667d18a00d86c3638ad7a6a7ea6ee0c96'
+            '711e72f9e6676664654d33ddf5e8cce6bb80afb5333c1e66bdcc56df52dee2b33a91d5cbd8fbe61f5dcb0c64c670a6a9ca932812b539dabb22aded2b39b16017'
+            'add7279d04f23f0afac2621c66daefead9707483884506e7759ad4dca457ea738dbbb9c16e10170543f770e5049f4c8a13ee93ec3a81f221a887af436d4adeff'
+            '84da2ba471e5d68153185015525dfdd302b3035ef846fc7e377261bc8f000bc144eb33145225b681df665d381b6966c64785ba7bdfaabeeb58060ec89645d24b'
+            'dfb055ca43d82da73ece4671b31bb02ec6949546394f3982840a059dbfba9ac62e87de2035f2639212bb51475c9881abc8ec27a79651215d0ed91c535a5d1036'
+            '8502817e4fc026411824e24e4e40c68a40d0ab6f59a1d9619c67f51135d06a0c5d4564c25bac10a2cb3d0df410d806a543240b4437750440c3b26937c71dc14c'
+            '35c7af525a80065dfa6c1b364e7fe1d6b969771027152fcab94e24ce39bb687cf7fb8c81e902747d7a4950221b21130dab57aacb887b09d190f2483a086bd211'
+            '35cf5df0d18f14e4577671c79a3590d73091946b7f0296636300d49da99c77d55ad72cb1ad583fd79690621b6c99e429ac32cc8235fcf6df3e9d6bf225bb3e72'
+            '87ba3600d36ad35080f9e2684e939bada897317b77957e062163240f30193edfe441d40ce1270cbde1962b1a25980aa4f6f5547dacd4ddee5b5938487c4cc786'
+            'd5f63d0f374637334e9b97dbfcbc26c542329f5fc55b3f051f0c6c033c24496dd3de557e47cf06f5037a3953bc33dc0ca2726eba164ae9bb25ae0d4a09fef682'
+            '07b68002d07bd586d1bec517a06174bf2ca192e6e762743ac07f36b34ac1eb80dfea92e295d60eddc6a56cb15e8960d4d35c052994e426eac81a62815d7ec927'
+            '8b2f7ef4958beae8409caf130b74d7298879f4b362d4aa67c5ae4e2b8112cfe30f292815ea3f994d49f28ab67c48feda8ffd6d86ba7d0a180338a10c841dd65a'
+            '19e428164859c6f090b68f1687fccb5091bf9228eb98519b24b214baa021dfc92a8676000526d843fc4096240c6278c423240ef2eea6e9ab865c5bbf7f9aa9f8'
+            'a44e113d3caacc7f1d6f5f18a69e38a205f4033dc41840fc78a53cf69293a93714eaa1b0013622355e5c041e49739207f5a5845e24c126339e89d0e785589fee'
+            '88503fd5bbb627428088e31c20c7dc597444fa7cda2b941cf7c6d5c31050875ddee001ece0d9446fddfb2e337b10596a47267176fd0f7516df6a6a79855ff46b'
+            '8d8391cec28c42a7a73ce70976afdb0dfb688e9f189a0088c0ba7b405e38df5f3c4a98dad5b41d1bf83a188ed4a8f89b36be915cb1f2025e7cc287d0518c8cb2'
+            'd3969b4b0d628e28f493c49382584800952b963fcccdb0ebd932e7a46ec4da4807e2f3424609e6fd49a12dee9d98e5d9bb8763818eedccf0109a5c2d5d1a46d1'
+            'b69d719fb4a4cb9802087eeb2376f079079be9c92f0eb16f7d76fb4f60fce36378ee297ea7cab3a2aa82fedc8f33c6a573ba4f6721bdd44b0b0b8f9752027659'
+            '5c7826cb3659af3dcf222b71d94ada168f2bab210d963a8b09f2f837e2c6c8a064ac4afe0c8bfc1d157dde2bb1961531be9f18682c4dc6da90defd36cb544be9'
+            'd64ad554a54d3d9a58be757ffb0201f9059f433b42436ba9cda54e97d10f5eeef41c1308319a1bdc7f90e3ce66c8fe0081fd47d0f3bff17175c08bb0e4c2d574'
+            'a96d572eeab9d99c77955b1136ba27a5973118ae3191d088d09e5695f7f1d2c612397f778863c8bb9ce1191178d5d091cee93c21555d1887531839011c956cd2'
+            '65f5216d2886069973f0f6375a2f201e452bb3fc5c63b92fb58f8bef9cc95a8f556e36e1c596cdd8dc1522eaf50aa3360f23ae57091bb34d0769224e01264d9a'
+            'a20f895bcad8558633e4cae12417c23a2a7c28498fc351b4ae1402fd051f007efa5937a6891a4890e707dda0b64ca0965384356270548f1d6013d2652a24b258'
+            '886cfa1fb2bf18341be4619bb3783ee910b545f365316102110f0f5f37fcb600c39044466e02ac64b7dff2eb1e8e756c510b602e03f9c56e661965d91256fd07'
+            'e69bb7f266a72918364a885df4baff2ae7b3e5bf9c36bd9aa78afed10fc9210ceb16d159eaec9bc9c37d85a85b57dc7f6472bd93c5a46fee0f4ee21c67998212'
+            'd4e564cfad509935bce0d89863b343257793d79df068d5c997aeb9c3fe9ad12e898352334da22e194ffe70a02500b77f2a0707c04139dad6d6cddcaac17dd6a6'
+            '9d9a9eb446e6ed4752839b6244defed634834bd7e880c9b72b0b6d449f6e61b035a04f9ef9baa3d9ca27f666284aa737a9a9969039fe19d696ffd00a853454ee'
+            'ee2579f3bf29f55a1ab57777b379da9921835216fc8218f00838f022ea532494016da7f6f63261d3cea8fee8829316d6bcd7295db1471191fa76627e4b4c2a37'
+            'b1bd46da7cd23b2d66893072e9df13f9dba32a5ba34498b47a93a79be7ef838da92737de0c35f1944f5c15a96f3e5fabc9b76ddcb78c839eb751b1a0ff71c582'
+            'ae0faeaf3fa9814c6d1df3799d470639d6b00b0e965a87ef663bc90a97d8ba920b2f8f532b5e5c9fcae1253578c2f180e059257f4eeb5e4fb1970ca061107588'
+            'e203a0f3d2d0cafb09873d18a243f7b37aa5ce64e2105e36ba9d7e55814263bc1221aa8a2bb09371ce92aaf4d30dc3e80dc44f85d1fdf3b57fea9ba31d5de152'
+            '7614a4a6b0d940e17648a5a8c26ea7ee3016673549a40bdf48adac18fb47573f3b971591cc03b8d881c53381ec505fe96b76ca40d7d72d2876166caf156d36d1'
+            'fe602995a2af1bc2d27085f8cb59a6b18deb93a689980f4aa08035d2efbf41b2fa4b3aaadfb301d54b1a09809a927cecb53fa67fdb0c76accb2cc60c67474783'
+            'faeab1ebec7f76212a3e0223065442a536cc5f279abbd30f6d7b1bc9aa49e4d56cc48d695f87b6727b2d0f9f0ad305be86908f556f4b7bf240daa74515c9e0b0'
+            '23d19c915a539a294e8e2a51227d7b4961288a28ab6b70a5ffbaa908b7d32bb9fd2dac4044d03c3653c1f9b86bb9294ccffd2c1b42823af34939c942df142c34'
+            '6fad6019b15781fc5d4ac321764f2e6bcd8f69cc69038384cd52f81079532e5d314e3d2ba087838853e6510d5b78ec39aa70c900d1127f000257d95cc4cdcdb9'
+            'b968adedeb844334848d6f9e183536c5c59edabe3b1df2d7bdfc8c83bd7fb53ac5cf6592a830aa62cf5ae6b83e2c7026889f4df12d0a6f4bf06ebbd815495d45'
+            'a3839f801746b81584385196692a8cda60a902980771c4213eb26d67a9b4935a622d7e27e90bcb23d95928ac32e46e437cffb5e77748ecae10c3759811792a1a'
+            'b7b7b48646e2769096b6e2dd0398d365bd2451d5b6ab974d6b617e2e471e3e31cef953c6a0771c68e48c710eb6cedbafdd42126c9e678263a6b70a42046a3a4c'
+            'ffe72e355500dca1c83f165b2e5e703600563d8343766cb94280d69dd280b11200676c61837cc1930055ddc87ee40fe862a6d19cf24fbddc7c5e515250849499'
+            '040141946a60cf7035ba140ff81e5fc70f233af82b1e3987f90be955ec018311dc40a02556055b198050c7a1d2b709cc6d001baf069368382f646266381431c9'
+            '806cba80112d3efc0cca4760a5ec73fda0a087d14ed2cf74824ea0d2b5cb008d7d4717c90ca805e1cb98978d5625198d03e3cf02a26618fb340858ccd3d3f753'
+            '8d8571ac8125ca07a51d4dafd28520cd554034360758f7caac821a6dafc9f692bd3fcdffc84519714a8e8b8a58e9f8e712896e09633ce9397b73890b70a8ecf9'
+            'ad2576246b3d72b12169d61411d8e20145a6b74698cd2cf6090afc2d4e7cb4c2fb74b797c24616cd2c64b9c9cb6db6deea7858af38d061449ec80700ea2beff7'
+            'e0135424603669ffc14e6005ea364335a72a83ad27638235443541c08f12c626bc3140e4bee23f55f15addbefa0e334effc727c4a90bcc659b6483e602156b5f'
+            'bcb39b96982e70b028582df639e10417c962f938ffc10a44c4492caed600d71d458c67d9ca1b8dccf84a6f8b3b69ae4a068fb708ac64926c11e3799eac31b123'
+            '4a04abb53864d5544f5303f2aa9674581b0cd0a3235dffca93fa829db20615306aa092d4e8e1847413f0062937657e5df6d944443b2e932102e41d121e7fa015'
+            'af6555cabca633899a61180c294e9397715b7137e8560279286a6ce979690d43c88f10336a3e7517f630ad079c7eb98ea769caca1b1d730a6f7af03801264776'
+            '1bc79ac5879695f0008f3a3dedac85f0b0923333f2f828a593306d1aaabdd578d7e5d2465200d14e324d2f4e13527da969d0c770f0b57d9b1c068c01d5ae197f'
+            '9609f0ae0dd87cbfc815f413e0b7d25caec3ff203b832cf13846dd73dfb6e2ddc9fc0b6d4e0bed5bd29622952df5294d84ead2a3030d921d103fe759dce21367'
+            'f39f8a61cce24b1bc526785978a933b10ca738c29ec817cff3d3ae357ef0e96a6f7c4313e46e48ec7ac4611800d558aecd59853d562a9dff9c64c42cd413a6d6')
 noextract=("${source[@]%%::*}")
 
 _lc() {
@@ -155,20 +155,40 @@ _lc() {
     done
 }
 
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
 prepare() {
-    7z x -y -bd "ThunderbirdSetup.exe"
-    _lc "core"/*
+    7z x -y -bd "ThunderbirdSetup.exe" -o"ThunderbirdSetup.dir" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "core"/* "${a}"
-    sed -ri -e '/(VCRUNTIME|MSVCP)140.dll/d' -e '/api-ms-win-[0-9a-z-]+.dll/d' "${a}/dependentlibs.list"
-    rm "${a}"/api-ms-win-*.dll "${a}"/ucrtbase.dll "${a}"/{vcruntime,msvcp}140.dll "${a}"/maintenanceservice{,_installer}.exe
+    cp -R "ThunderbirdSetup.dir/core"/* "${a}"
+    rm "${a}"/maintenanceservice{,_installer}.exe
+
+    # remove system DLLs
+    _rmmsdll "${a}"
+    sed -r -e '/(VCRUNTIME|MSVCP)140.dll/d' -e '/api-ms-win-[0-9a-z-]+.dll/d' -i "${a}/dependentlibs.list"
+
     mkdir "${a}/extensions"
+    local f
     for f in *.xpi
     do
         cp "${f}" "${a}/extensions/langpack-${f%%.xpi}@thunderbird.mozilla.org.xpi"
     done
+
+    _lc "${a}"/*
 }

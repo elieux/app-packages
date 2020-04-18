@@ -13,18 +13,20 @@ license=('GPL2' 'custom')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("tap-windows-Win10.exe::http://build.openvpn.net/downloads/releases/tap-windows-${pkgver%.*}-I${pkgver##*.}-Win10.exe")
+source=("tap-windows-Win10.exe::https://build.openvpn.net/downloads/releases/tap-windows-${pkgver%.*}-I${pkgver##*.}-Win10.exe")
 sha512sums=('dc331bc2cca943985150b892cf9369da78c627c68b75bd883e08f2ffcfddb349ec864ff2195b9b85ade7d6474751b3e156c10d38b996441dad31e9e026adc17f')
 
 _pickarch() {
-    local f n
+    local d f n
 
     for f in "${@}"
     do
-        n="$(echo "${f}" | sed -r 's/_[0-9]+[.]/./')"
-        case "$(file "${f}")" in
-        *x86-64*|*assembly*) mv -f "${f}" "${n}" ;;
-        *) rm "${f}" ;;
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | sed -r -e 's/_[0-9]+[.]/./' -e 's/[.]duplicate[0-9]+$//')"
+        case "$(file "${d}/${f}")" in
+        *x86-64*|*assembly*) mv -f "${d}/${f}" "${d}/${n}" ;;
+        *) rm "${d}/${f}" ;;
         esac
     done
 }
@@ -35,12 +37,13 @@ prepare() {
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "tap-windows-Win10.dir"/* "${a}"
     rm -R "${a}"/'$PLUGINSDIR'
     _pickarch "${a}/bin"/*.exe
     _pickarch "${a}/driver"/*.sys
+    local f s
     for f in "${a}/driver"/OemVista*.inf
     do
         s="${f}"

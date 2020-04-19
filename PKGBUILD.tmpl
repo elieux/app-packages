@@ -10,9 +10,7 @@ pkgdesc="<customize>"
 url="<customize>"
 arch=('any')
 license=('<customize>')
-depends=("<customize>")
-makedepends=("unzip")
-provides="app-${_realname}"
+provides=("${pkgbase}")
 options=(!strip)
 source=("<customize>::<customize>")
 md5sums=('<customize>')
@@ -32,12 +30,11 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc *
-}
-
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    depends=("<customize>")
+
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r * "${a}"
+    cp -R "<customize>"/* "${a}"
+    _lc "${a}"/*
 }

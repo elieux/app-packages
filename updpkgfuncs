@@ -2,7 +2,7 @@
 <?php
 // no error handling yet
 
-$funcregex = "~\b(_[a-z]+)[(][)] ([{]\n.*?\n[}]\n)~s";
+$funcregex = "~\b((?:download|extract|)_[a-z@]+)[(][)] ([{]\n.*?\n[}]\n)~s";
 
 $allfuncs = file_get_contents("functions.sh");
 preg_match_all($funcregex, $allfuncs, $funcmatches, PREG_SET_ORDER);

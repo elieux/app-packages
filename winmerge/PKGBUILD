@@ -4,20 +4,20 @@ _realname=winmerge
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.16.4
+pkgver=2.16.6
 pkgrel=1
 pkgdesc="A differencing and merging tool"
 url="https://winmerge.org/"
 arch=('any')
 license=('GPL')
 replaces=("app-i686-${_realname}" "app-i686-winmerge-plugin-7z")
-makedepends=("unzip" "app-innounp")
+makedepends=("app-innounp")
 provides=("${pkgbase}" "app-winmerge-plugin-7z" "app-x86_64-winmerge-plugin-7z")
 options=(!strip)
-source=("WinMerge-x64-Setup.exe::https://downloads.sourceforge.net/${_realname}/WinMerge-${pkgver}-x64-Setup.exe"
-        "winmerge-x64-exe.zip::https://downloads.sourceforge.net/${_realname}/winmerge-${pkgver}-x64-exe.zip")
-sha512sums=('a0d5dd87b64ce94436c792426c98a280380838451e58f31e42fe9edb737bb35dc369119a11f280d128d702a1846c2b87b0147bafcc271235ca6668e646e2317f'
-            '49b96f47712a8bd3dd1cd3e7eb8af17481a72fedc2e312712bb02745b17c7f581bb65f52f02eeac5bff5c033de1ca1c23761a4bf20462c947eff422184789363')
+source=("WinMerge-Setup.exe::https://downloads.sourceforge.net/winmerge/WinMerge-${pkgver}-Setup.exe"
+        "winmerge-x64-exe.zip::https://downloads.sourceforge.net/winmerge/winmerge-${pkgver}-x64-exe.zip")
+sha512sums=('99b3a758f147661a20e59c59167bacfee0514a6898473ab639a139c1e2b17211355b3e8417a9bbd708df5093602dc1dc2f6a18a5dc248f78b8a0e759150245fe'
+            '3858083254db0eabf8a225804230151a0a1d7cb62d3dc148f19406c16b9c8a099081f657ae01421c755939a2ae9822d05bcb5deceae3b77bc4e928ba25c2e134')
 
 _lc() {
     local d f n
@@ -35,14 +35,14 @@ _lc() {
 }
 
 prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "WinMerge-x64-Setup.exe"
-    _lc "WinMerge"/* "{app}"/*
+    /apps/innounp/innounp -x -q -m -a -y "WinMerge-Setup.exe" -d"WinMerge-Setup.dir"
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "WinMerge"/* "${a}"
-    cp -R "{app}/logoimages" "{app}/winmergeu.visualelementsmanifest.xml" "${a}"
+    cp -R "WinMerge-Setup.dir/{app}/LogoImages" "WinMerge-Setup.dir/{app}/WinMergeU.VisualElementsManifest.xml" "${a}"
     rm "${a}/vcomp140.dll"
+    _lc "${a}"/*
 }

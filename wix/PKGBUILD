@@ -1,5 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=wix
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
@@ -10,15 +39,13 @@ pkgdesc="Builds Windows installation packages from XML source code"
 url="https://wixtoolset.org/"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("wix-binaries.zip::https://github.com/wixtoolset/wix3/releases/download/wix${pkgver//./}rtm/wix$(echo "${pkgver}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1\2/')-binaries.zip")
+source=("wix-binaries.zip::https@subdir://github.com/wixtoolset/wix3/releases/download/wix${pkgver//./}rtm/wix$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.][0-9]+$/\1\2/')-binaries.zip")
 sha512sums=('6fd961c85e1e6adafb99ef50c9659e3eb83c84ecaf49f523e556788845b206e1857aba2c39409405d4cda1df9b30a552ce5aab808be5f8368a37a447d78d1a05')
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r * "${a}"
-    rm "${a}/wix-binaries.zip"
+    cp -R "wix-binaries"/* "${a}"
 }

@@ -1,29 +1,55 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=xmplay
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.8.3.4
+pkgver=3.8.4.0
 pkgrel=1
 pkgdesc="Light weight, pluggable audio player"
-url="http://www.un4seen.com/xmplay.html"
+url="https://www.un4seen.com/xmplay.html"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("xmplay.zip::http://us.un4seen.com/files/xmplay$(echo "${pkgver}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1\2/').zip")
-sha512sums=('05ccbf67897b4ac55bc1591839ff559b55bd3c2db6aeaf3a4350a71c97485397a6a68fe5a54cf12cc2d51581b944444554d7adc3fe586fcba1195c6f2d4bacbe')
+source=("xmplay.zip::http@subdir://us.un4seen.com/files/xmplay$(echo "${pkgver}" | sed -r 's/([0-9]+)[.]([0-9]+)[.][0-9.]+/\1\2/').zip")
+sha512sums=('042355ee79ccca6e8a75d0cd2bab2b56a3934a7f96c92413b1ece122d6550f68ef6fbefe0aeeb161684529b7942d64fb6d1e12bfeb46c448462715c71cb4784f')
 
 pkgver() {
-    b="$(cygpath -wa "xmplay.exe" | sed 's/\\/\\\\/g')"
-    wmic datafile where name=\""${b}"\" get version | grep 'Version' -A 1 | tail -1 | tr -d ' '
+    powershell -command '(Get-Item "xmplay/xmplay.exe").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r *.{dll,exe} "${a}"
-    cp -r *.txt "${a}"
+    cp -R "xmplay"/* "${a}"
 }

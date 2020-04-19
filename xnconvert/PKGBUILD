@@ -10,11 +10,10 @@ pkgdesc="A bulk image converter"
 url="https://www.xnview.com/en/xnconvert/"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("XnConvert-win-x64.zip::https://download.xnview.com/XnConvert-win-x64.zip")
-sha512sums=('50502db4371d0039a59ef37f5c3c9b4246eb6a645ff437414717b07339701ee22716b7eb52d7ea6aeb825ead78940160d2a2f701e51c564a71e5939e3ae38fea')
+sha512sums=('8f332868d8a9092146d6e70c92f4542806d10ce55028255035ac96d74edc2fe355ed39349ec6af9e26d76bd22d06922942af29de04cdb345173c3c8d404c47e5')
 
 _lc() {
     local d f n
@@ -37,25 +36,22 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-prepare() {
-    _lc "XnConvert"/*
-}
-
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "XnConvert/xnconvert.exe").VersionInfo.ProductVersion'
+    powershell -command '(Get-Item "XnConvert/xnconvert.exe").VersionInfo.ProductVersion'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "XnConvert"/* "${a}"
     _rmmsdll "${a}"
+    _lc "${a}"/*
 }

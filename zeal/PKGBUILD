@@ -14,7 +14,7 @@ replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("zeal-windows-x64.msi::http://dl.bintray.com/zealdocs/windows/zeal-${pkgver}-windows-x64.msi")
+source=("zeal-windows-x64.msi::https://dl.bintray.com/zealdocs/windows/zeal-${pkgver}-windows-x64.msi")
 sha512sums=('b05f39c2838eb245654919b4f9bfb3e6f9cbe5aedd49b80dbe0fb1e0e3db0526cc3dc0327be17fc84ec57809a48525acb06c91867948ec6915530358faf2aead')
 
 _lc() {
@@ -34,12 +34,12 @@ _lc() {
 
 prepare() {
     rm -fR "zeal-windows-x64"
-    /apps/lessmsi/lessmsi x "zeal-windows-x64.msi"
-    _lc "zeal-windows-x64/SourceDir/Zeal"/*
+    /apps/lessmsi/lessmsi x "zeal-windows-x64.msi" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "zeal-windows-x64/SourceDir/Zeal"/* "${a}"
+    _lc "${a}"/*
 }

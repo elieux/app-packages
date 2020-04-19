@@ -2,14 +2,14 @@
 #
 # How to create patches:
 # 0. get a CIL decompiler that can point to the actual bytes, e.g. dnSpy
-# 1. in paintdotnet.systemlayer.dll, open PaintDotNet.SystemLayer.AssemblyServices::Initialize() and nop out these calls:
+# 1. in PaintDotNet.SystemLayer.dll, open PaintDotNet.SystemLayer.AssemblyServices::Initialize() and nop out these calls:
 #    - AssemblyServices.LoadUniversalCrt(nativeRootDirPath)
 #    - AssemblyServices.LoadVisualCppRuntime(nativeRootDirPath)
 #    - AssemblyServices.LoadOpenMP(nativeRootDirPath)
-# 2. save and run xdelta3 -e -s paintdotnet.systemlayer.dll.orig paintdotnet.systemlayer.dll paintdotnet.systemlayer.dll.xd3
-# 3. in paintdotnet.exe, open PaintDotNet.Program::InspectForDefectsAndPerformRepairsPart1() and invert this condition:
+# 2. save and run xdelta3 -e -s PaintDotNet.SystemLayer.dll.orig PaintDotNet.SystemLayer.dll PaintDotNet.SystemLayer.dll.xd3
+# 3. in PaintDotNet.exe, open PaintDotNet.Program::InspectForDefectsAndPerformRepairsPart1() and invert this condition:
 #    - if (AppInfoService.Instance.InstallType != AppInstallType.Classic)
-# 4. save and run xdelta3 -e -s paintdotnet.exe.orig paintdotnet.exe paintdotnet.exe.xd3
+# 4. save and run xdelta3 -e -s PaintDotNet.exe.orig PaintDotNet.exe PaintDotNet.exe.xd3
 
 DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -k -o %o %u')
 
@@ -24,10 +24,10 @@ url="https://www.getpaint.net"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("unzip" "p7zip" "xdelta3" "app-lessmsi")
+makedepends=("p7zip" "xdelta3" "app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("paint.net.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip"
+source=("paint.net.install.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip"
         "paintdotnet.systemlayer.dll.xd3"
         "paintdotnet.exe.xd3")
 sha512sums=('dbe1006d6f4c75f52e7bb30c2d24e1736063bc9d55b9969cee28a526fe960c06190108bda8ee27415ba2fc5669ffeb1ec5888f53736449bbe59a0ebd40c08a85'
@@ -50,21 +50,22 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "paint.net.${pkgver}.install.exe"
+    7z x -y -bd "paint.net.${pkgver}.install.exe" -o"paint.net.install.dir" > /dev/null
     rm -fR "PaintDotNet_x64"
-    /apps/lessmsi/lessmsi x "PaintDotNet_x64.msi"
-    _lc "PaintDotNet_x64/SourceDir"/*
+    /apps/lessmsi/lessmsi x "paint.net.install.dir\\PaintDotNet_x64.msi" > /dev/null
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -r "PaintDotNet_x64/SourceDir"/* "${a}"
-    mkdir "${a}"/{effects,filetypes,shapes}
+    cp -R "PaintDotNet_x64/SourceDir"/* "${a}"
+    mkdir "${a}"/{Effects,FileTypes,Shapes}
 
     # remove system DLLs
-    xdelta3 -f -d -s "PaintDotNet_x64/SourceDir/paintdotnet.systemlayer.dll" paintdotnet.systemlayer.dll.xd3 "${a}/paintdotnet.systemlayer.dll"
-    xdelta3 -f -d -s "PaintDotNet_x64/SourceDir/paintdotnet.exe" paintdotnet.exe.xd3 "${a}/paintdotnet.exe"
-    rm -r "${a}/native" "${a}"/*.pdb "${a}"/system.*.dll*
-    cp "PaintDotNet_x64/SourceDir"/system.{buffers,runtime.compilerservices.unsafe}.dll "${a}"
+    xdelta3 -f -d -s "PaintDotNet_x64/SourceDir/PaintDotNet.SystemLayer.dll" "PaintDotNet.SystemLayer.dll.xd3" "${a}/PaintDotNet.SystemLayer.dll"
+    xdelta3 -f -d -s "PaintDotNet_x64/SourceDir/PaintDotNet.exe" "PaintDotNet.exe.xd3" "${a}/PaintDotNet.exe"
+    rm -R "${a}/Native" "${a}"/*.pdb "${a}"/System.*.dll*
+    cp "PaintDotNet_x64/SourceDir"/System.{Buffers,Runtime,Runtime.CompilerServices.Unsafe}.dll "${a}"
+
+    _lc "${a}"/*
 }

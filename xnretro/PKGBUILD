@@ -10,10 +10,9 @@ pkgdesc="Vintage camera effects on desktop"
 url="https://www.xnview.com/en/xnretro/"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("XnRetro-win-x64.zip::http://download.xnview.com/XnRetro-win-x64.zip")
+source=("XnRetro-win-x64.zip::https://download.xnview.com/XnRetro-win-x64.zip")
 sha512sums=('e71d8645ab99d17f67268528610351ad1287163b9a0c0775cbaa68f60d4bdf834abd42f86f35ee3361cf6f17893dfcbae5f8756a42eea3dba20701dc832455bc')
 
 _lc() {
@@ -37,26 +36,23 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+"
-        "vc([ao]mp|corlib|runtime)[0-9]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-prepare() {
-    _lc "XnRetro"/*
-}
-
 pkgver() {
-    "${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "XnRetro/xnretro.exe").VersionInfo.FileVersionRaw.ToString()' | sed -r 's/[.]0$//'
+    powershell -command '(Get-Item "XnRetro/XnRetro.exe").VersionInfo.FileVersionRaw.ToString()' | sed -r 's/[.]0$//'
 }
 
 package() {
-    a="${pkgdir}/apps/${_realname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "XnRetro"/* "${a}"
-    rm "${a}"/microsoft.vc90.{crt,openmp}.manifest
     _rmmsdll "${a}"
+    rm "${a}"/{"Microsoft.VC90.OpenMP.manifest","microsoft.vc90.crt.manifest","Download details Microsoft Visual C++ 2008 Redistributable Package (x64).URL"}
+    _lc "${a}"/*
 }

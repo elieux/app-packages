@@ -5,19 +5,18 @@ _realname=xnshell
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.04.0
+pkgver=4.10.0
 pkgrel=1
 pkgdesc="A powerful shell extension with image preview and transforms"
 url="https://www.xnview.com/en/xnshell/"
 arch=('any')
 license=('custom')
-makedepends=("unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("XnShellEx64.zip::http://download.xnview.com/XnShellEx64.zip"
-        "XnShellEx.zip::http://download.xnview.com/XnShellEx.zip")
-sha512sums=('7a8927fc50a5a05cb8b13011b9b3ab5dfecdd41c6f868e07b05ad7378675f0ad0d22779b7462f5ea2121c38619afdbdeeeb66f206b777e27ad4cff3efc249471'
-            '320739224d2b9a0614532999615338bdb469fb94b74612aa2106a109d648cf61d49de19566cbce0be635955cfa356a3cf5a25242e620dff5ff90559751ca58d0')
+source=("XnShellEx64.zip::https://download.xnview.com/XnShellEx64.zip"
+        "XnShellEx.zip::https://download.xnview.com/XnShellEx.zip")
+sha512sums=('1f2bcb25a675a0d0bae19772536d3eb3fb0f384ee7c3efa99c9d0f708bec79bb03da412f7fe4ad4d4fc79e3727c81d1ac7406c3dd284a1b6488443f18b85837a'
+            '6040e6799f8ac7707055b0ad0e3e29e3bc2dc0930e68eb38067853f3419f8a2f2e5a0155c319e6e7e6418cc73dfff1836dc29dfebe19eecb95c58a17cae391d1')
 
 _eqver() {
     local r v
@@ -48,30 +47,31 @@ _lc() {
     done
 }
 
-prepare() {
-    _lc "XnShellEx64"/* "XnShellEx"/*
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
 pkgver() {
-    _ver32="$("${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "XnShellEx/xnviewshellext.dll").VersionInfo.ProductVersionRaw.ToString()' | dos2unix)"
-    _ver64="$("${SYSTEMROOT}/System32/WindowsPowerShell/v1.0/powershell" -command '(Get-Item "XnShellEx64/xnviewshellext64.dll").VersionInfo.ProductVersionRaw.ToString()' | dos2unix)"
-    _eqver "${_ver32}" "${_ver64}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1.\2\3.\4/'
+    local _ver64="$(powershell -command '(Get-Item "XnShellEx64/XnViewShellExt64.dll").VersionInfo.ProductVersionRaw.ToString()')"
+    local _ver32="$(powershell -command '(Get-Item "XnShellEx/XnViewShellExt.dll").VersionInfo.ProductVersionRaw.ToString()')"
+    _eqver "${_ver64}" "${_ver32}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1.\2\3.\4/'
 }
 
 package() {
-    a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}" "${a}/shellex"
-    cp "XnShellEx64"/* "${a}/shellex"
-    cp "XnShellEx/xnviewshellext.dll" "${a}/shellex"
-    (
-        echo
-        cat "XnShellEx/register.bat"
-        echo
-    ) >> "${a}/shellex/register.bat"
-    (
-        echo
-        cat "XnShellEx/unregister.bat"
-        echo
-    ) >> "${a}/shellex/unregister.bat"
-    rm "${a}/shellex"/msvc{p,r}120.dll
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}" "${a}/ShellEx64" "${a}/ShellEx"
+    cp -R "XnShellEx64"/* "${a}/ShellEx64"
+    cp -R "XnShellEx"/* "${a}/ShellEx"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
 }

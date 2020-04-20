@@ -1,0 +1,44 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=xming
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=6.9.0.31
+pkgrel=1
+pkgdesc="X Window System server for Windows"
+url="http://www.straightrunning.com/XmingNotes/"
+arch=('any')
+license=('BSD' 'MIT' 'custom')
+makedepends=("app-innounp")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Xming-setup.exe::https://downloads.sourceforge.net/xming/Xming-${pkgver//./-}-setup.exe")
+sha512sums=('cdb645dc0ea16d0de0dfaafc4678e13a4eaabffe585d53f7b9d7de96ed4df7719c61397adefc763c0cf9374af1ded593f146542866904d624c994e64a9433eb9')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    /apps/innounp/innounp -x -q -m -a -y "Xming-setup.exe" -d"Xming-setup.dir"
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "Xming-setup.dir/{app}"/* "${a}"
+    rm "${a}"/plink*.exe
+    _lc "${a}"/*
+}

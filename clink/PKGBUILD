@@ -1,0 +1,38 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=clink
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.4.9
+pkgrel=1
+pkgdesc="Powerful Bash-style command line editing for cmd.exe"
+url="https://mridgers.github.io/clink/"
+arch=('any')
+license=('GPL3')
+provides=("${pkgbase}")
+options=(!strip)
+source=("clink.zip::https://github.com/mridgers/clink/releases/download/${pkgver}/clink_${pkgver}.zip")
+sha512sums=('48c05d1e921c1260c059ae29562133a25171588846ea4fbdb35b7ce9e8fee0d5ff57a60c066658d5e8d863ebb7e00596d0d1b1b2bb832809c578dbb842e07ecd')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "clink_${pkgver}"/* "${a}"
+    _lc "${a}"/*
+}

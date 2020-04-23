@@ -64,13 +64,13 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "7z-x64.exe" -o"7z-x64" > /dev/null
+    7z x -y -bd "7z-x64.exe" -o"7z-x64.dir" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}" "${a}/extra"
-    cp -R "7z-x64"/* "${a}"
+    cp -R "7z-x64.dir"/* "${a}"
     cp -R "7z-extra"/* "${a}/extra"
     mv "${a}/extra/x64"/*.{dll,exe} "${a}"
     rm -R "${a}/extra/x64" "${a}/extra/Far" "${a}/extra"/7z{a.dll,a.exe,xa.dll}

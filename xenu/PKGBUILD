@@ -1,0 +1,79 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=xenu
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.3.9
+pkgrel=1
+pkgdesc="Find broken links on web sites"
+url="http://home.snafu.de/tilman/xenulink.html"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("Xenu64.zip::http@subdir://home.snafu.de/tilman/tmp/Xenu64.zip"
+        "xenubeta.zip::http@subdir://home.snafu.de/tilman/tmp/xenubeta.zip")
+sha512sums=('1dd7db4c2f0f71a8bcb3b65dad3afaac7d8413fdd08f313abc9af37c525526ef3a431e2278c0f502a7db16b5ac7ea1341a9e76e2390b1e92434fb7ab096021be'
+            '3c5c08f5aae653b07cd0c560ef0c009e9d8ccb8994571b6ca52fd55569f7ffeedffe1fd05f82c1657035bc4ea31938e3f4f3de008f4e221b7610718091315750')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -y -bd "xenubeta/Setup.exe" -o"Setup.dir" > /dev/null
+}
+
+pkgver() {
+    powershell -command '(Get-Item "Xenu64/Xenu.exe").VersionInfo.ProductVersionRaw.ToString()' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "Setup.dir"/* "${a}"
+    cp -R "Xenu64"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR' "${a}/uninst.exe"
+    _lc "${a}"/*
+}

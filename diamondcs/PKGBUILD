@@ -1,0 +1,152 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=diamondcs
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=2008.07.08
+pkgrel=1
+pkgdesc="Collection of utilities by DiamondCS"
+url="http://web.archive.org/web/20080518053439/http://www.diamondcs.com.au/software.php"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+makedepends=("app-innounp")
+options=(!strip)
+source=(
+        # Main products
+        "dsesetup.exe::http://web.archive.org/web/20080719232713/http://diamondcs.com.au/downloads/dsesetup.exe"
+        "pgsetup.exe::http://web.archive.org/web/20080720112831/http://diamondcs.com.au/downloads/pgsetup.exe"
+        "pesetup.exe::http://web.archive.org/web/20080720012410/http://diamondcs.com.au/downloads/pesetup.exe"
+        # hard to unpack
+        # "wgsetup.exe::http://web.archive.org/web/20080720113845/http://diamondcs.com.au/downloads/wgsetup.exe"
+
+        # Freeware Windows Utilities
+        "apt.zip::http@subdir://web.archive.org/web/20080720114259/http://diamondcs.com.au/downloads/freeutilities/apt.zip"
+        "apm.zip::http@subdir://web.archive.org/web/20080720114507/http://diamondcs.com.au/downloads/freeutilities/apm.zip"
+        "bsectexp.zip::http@subdir://web.archive.org/web/20080718223658/http://diamondcs.com.au/downloads/freeutilities/bsectexp.zip"
+        "ffunlock.zip::http@subdir://web.archive.org/web/20080720115114/http://diamondcs.com.au/downloads/freeutilities/ffunlock.zip"
+        "regprot.zip::http@subdir://web.archive.org/web/20080720114958/http://diamondcs.com.au/downloads/freeutilities/regprot.zip"
+        "asviewer.zip::http@subdir://web.archive.org/web/20080727020805/http://www.diamondcs.com.au/downloads/freeutilities/asviewer.zip"
+        "dellater.zip::http@subdir://web.archive.org/web/20080720114842/http://diamondcs.com.au/downloads/freeutilities/dellater.zip"
+        "netcheck.zip::http@subdir://web.archive.org/web/20080720114727/http://diamondcs.com.au/downloads/freeutilities/netcheck.zip"
+        "csview.zip::http@subdir://web.archive.org/web/20080720114630/http://diamondcs.com.au/downloads/freeutilities/csview.zip"
+        "irclean.zip::http@subdir://web.archive.org/web/20080720115222/http://diamondcs.com.au/downloads/freeutilities/irclean.zip"
+        "md5.zip::http@subdir://web.archive.org/web/20080720012230/http://diamondcs.com.au/downloads/freeutilities/md5.zip"
+
+        # Freeware Console Utilities
+        "dcsconsoletools.zip::http@subdir://web.archive.org/web/20080719225622/http://diamondcs.com.au/downloads/console/dcsconsoletools.zip"
+
+        # Freeware Developer Utilities
+        "dllcompare.zip::http@subdir://web.archive.org/web/20080720010347/http://diamondcs.com.au/downloads/freeutilities/dllcompare.zip"
+        "bytebreak.zip::http@subdir://web.archive.org/web/20080720010234/http://diamondcs.com.au/downloads/freeutilities/bytebreak.zip"
+)
+sha512sums=('0b794308064a7d12ac925153a4751fecf7321c17e75a839bf661c2fed8abaa16d560f878f40e1b2a9d34538892212cdfc9d7b7836816adc82a447e591d255b68'
+            'd051104a5b891406a5bc086c7315d4a192afbea572fef18df06866ed7eb908ee5684d04493db9aee2fb2f731f76ee7d3a479a5bdd407d97ad41acfe1003369d2'
+            '3a92504f778297fca0d77edf8aa4b58f6c666194d47180b667cf1e86c72e30b8a453d03dc5461996bdfb23fd105f8b16b868cfe2b7881f118780ef2b75406ef0'
+            'fff747f3008220e7e490aeca2a4b330564a35e5a6be600486a2ff9917671a76117d8353e0a2a6b81e902e364a951cd7b1e2ca555a89906077c3c1e865ed4b8f7'
+            'fd8faa80a824cf797837bfe96fa5efd1fb5f1c97adff41e4f482ac84a3d6ce3896f0a781cd61364c549721728ff15fb428f02132c8e4d4b604003ecbf8264b9f'
+            'b8777d81adfcb6261cbd18c55dc16b2b8937ccceec435830ab8a8ebaa6e870df19bbb8aa69ae8b9295f3692f0668ec141562aa54f3f58ce30019f0df61ec4dfa'
+            '90078cadc10e4fb6637dd24abb01bc77c88f59b16c25dea961a73bb9d4def9ad1733cedd541b1b925c96d14901973ce82c004d0d67e265f18e8bbacb6d3842ae'
+            'fbd85bfc3b4a2710a688d170d45a8adc5f23c71de98f2062f4361112824ecc35b307201320d49526728e706eeefd7f7edae7eb72ebbcde3ddb84cabb68a744c1'
+            '9c1eef869000300a426ce76cbb8a7b37d295d6eb6bb46372cab85f1b5825b5ef076aecf02f43a6b886b22858dac909e07454eab76a90efa09ee8c7fb24330f9b'
+            '88f36cb7b92de95497ce17c224a8e14eca4133ee8a452ff2aa3548519bbb475bf3f75c3e99885ed2586ec63d2dcce5f35872ef9071b7a19ef4eef9118ba53551'
+            'af1a59042bc977ba7d111f49383edf4781abe4eff41fb7f7319d8cd11c44ddf6ccb2d44fc530815ca715b9c9901d754f9f4444203878cbb05fec29ad4afd5c46'
+            '143d240ef44986e0a00ef69523eb00da9880a7b48fbb20772f5e282109d4b3258ec5fbc50bf9f62335702552c39e4319bf87ac624a1c165a347cd0122a3242d5'
+            '8b9a6e00c6f3bd1a0ca0108c16d82ffe8aef32e3009107beda5ad793893f58ca3ff01f3dbedb9b81caf89f229cad64dd93f14003fda4ef4dfbf0d102df9d5b8d'
+            '22a32b010c64823a3067482748fc699e2aafe2e6fac51695f9f631445e500337c1c6f1d6603faac36ee69afb16f69f8d23bcd88b1af5e06817e1ee326fa0c348'
+            '993e9059100370d89058429f4ef2102cb6a447402e19d6e3d58c0210eb99646aab659adbf0a44e2d92ab965a7c1d8afc44f5c33cb9d6868ff87c5652022dc48a'
+            '8a3d6fd2670d5af3f2122d7841419211aef2bbfe7ecf30260c29c2ff28641e10fbea7299dbfd54bf8bd8046bda5da0d3623e0af65d86eb634a8ac6a73887ccf9'
+            '9d8c4a1d048d3fcf186ef25c4bd226ec77ec7fe0a827aada9090e622b9334c940b7c605420f41aef9f2e7434558245cf9e21d53cbb60b69af3d98f01bcc753b4')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    /apps/innounp/innounp -x -q -m -a -y "dsesetup.exe" -d"dsesetup.dir"
+    /apps/innounp/innounp -x -q -m -a -y "pgsetup.exe" -d"pgsetup.dir"
+    /apps/innounp/innounp -x -q -m -a -y "pesetup.exe" -d"pesetup.dir"
+}
+
+pkgver() {
+    find . -mindepth 2 -type f -not -name 'install_script.iss' -not -path '*/embedded/*' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+
+    local d
+    for d in $(find . -mindepth 1 -maxdepth 1 -type d | grep -v '[.]dir$' | grep -vF "md5")
+    do
+        cp -R "${d}"/* "${a}"
+        if test -f "${a}/license.txt"
+        then
+            mv "${a}/license.txt" "${a}/${d}.txt"
+        fi
+        if test -f "${a}/readme.txt"
+        then
+            mv "${a}/readme.txt" "${a}/${d}.txt"
+        fi
+    done
+    cp "md5/license.txt" "${a}/md5gui.txt"
+    cp "md5/md5.exe" "${a}/md5gui.exe"
+
+    mkdir -p "${a}/deepsystemexplorer"
+    cp "dsesetup.dir/{app}"/* "${a}/deepsystemexplorer"
+    cp "dsesetup.dir/{tmp}"/* "${a}/deepsystemexplorer"
+    mv "${a}/deepsystemexplorer/{code_GetFileName}.exe" "${a}/deepsystemexplorer/DeepSystemExplorer.exe"
+
+    mkdir -p "${a}/portexplorer"
+    cp "pesetup.dir/{app}"/* "${a}/portexplorer"
+    cp "pesetup.dir/{sys}"/* "${a}/portexplorer"
+
+    mkdir -p "${a}/procguard"
+    cp "pgsetup.dir/{app}"/* "${a}/procguard"
+    cp -R "pgsetup.dir/{sys}"/* "${a}/procguard"
+    mv "${a}/procguard/drivers"/* "${a}/procguard"
+    rm -R "${a}/procguard/drivers"
+
+    _lc "${a}"/*/* "${a}"/*
+}

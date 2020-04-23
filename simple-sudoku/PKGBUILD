@@ -1,0 +1,82 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=simple-sudoku
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=4.2.1.83
+pkgrel=1
+pkgdesc="A Sudoku puzzle maker and solver"
+url="http://www.angusj.com/sudoku/"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+makedepends=("app-innounp")
+options=(!strip)
+source=("sudoku_setup.exe::http://www.angusj.com/sudoku/sudoku_setup.exe"
+        "ss_extra_puzzles_1.zip::http@subdir://www.angusj.com/sudoku/ss_extra_puzzles_1.zip"
+        "ss_extra_puzzles_2.zip::http@subdir://www.angusj.com/sudoku/ss_extra_puzzles_2.zip")
+sha512sums=('46b081a772d67ca5bbdebebe0e0e4a86a8dfb8076d0af44b448d444e415ca5be0c058fd0563a036cfdc882c09435ac55c3cd983947207b11a240bcead266c7b7'
+            'bffbe3975e9ed01d2018f31b596eaec18032c9efe6b36c15cf416fb7090ea4b04fa379f4549d4534c21e7f20c43a9087e8d3bd1ae0d34043c1c19b1b706c8e5e'
+            '4e1aa8d5202f62bd0aeb61951a7443bd262361bcaab1a8f86b614ef7a2fc6afee2772b9c075c364dfab36090fef5b38f89b6b6e4a9257745e30a8ae7282862d7')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    /apps/innounp/innounp -x -q -m -a -y "sudoku_setup.exe" -d"sudoku_setup.dir"
+}
+
+pkgver() {
+    powershell -command '(Get-Item "sudoku_setup.dir/{app}/simplesudoku.exe").VersionInfo.FileVersionRaw.ToString()'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "sudoku_setup.dir/{app}"/* "${a}"
+    cp -R "ss_extra_puzzles_1"/* "${a}"
+    cp -R "ss_extra_puzzles_2"/* "${a}"
+    _lc "${a}"/*
+}

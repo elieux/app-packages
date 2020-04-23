@@ -1,0 +1,38 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=psubst
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=3.0.1
+pkgrel=1
+pkgdesc="Create persistent substituted drives between startups"
+url="https://github.com/ildar-shaimordanov/psubst"
+arch=('any')
+license=('MIT')
+provides=("${pkgbase}")
+options=(!strip)
+source=("psubst.bat::https://github.com/ildar-shaimordanov/psubst/releases/download/v${pkgver}/psubst.bat")
+sha512sums=('c9676f4627ecf839f4ef7e6c759d8d73af62cb5491070337d5ec64954a9dc53b92b9956b3f14317e3f0839e334964040ad9b331d5ac1aa36c13d68679ad1555d')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp "psubst.bat" "${a}"
+    _lc "${a}"/*
+}

@@ -1,0 +1,69 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=ansicon
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.89
+pkgrel=1
+pkgdesc="Process ANSI escape sequences for Windows console programs"
+url="http://adoxa.altervista.org/ansicon/"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("ansicon-bin.zip::https@subdir://github.com/adoxa/ansicon/releases/download/v${pkgver}/ansi${pkgver/./}-bin.zip")
+sha512sums=('6a1f62bd8cf13487c16d62b17dbf03972da3f5162c14a47a1e765fa9212f5e02171cdc566eeb12745a82b819fedd3eff79330ba2bb9ed94d0c9a7f2ba93c248f')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "ansicon-bin"/* "${a}"
+    mv "${a}/x64"/* "${a}"
+    rm -R "${a}"/{x64,x86}
+    _lc "${a}"/*
+}

@@ -1,0 +1,68 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=xdebugclient
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.0.beta6
+pkgrel=1
+pkgdesc="Simple frontend for xdebug"
+url="https://code.google.com/p/xdebugclient/"
+url="https://github.com/zobo/xdebugclient"
+arch=('any')
+license=('LGPL')
+provides=("${pkgbase}")
+options=(!strip)
+source=("xdc.zip::https@subdir://github.com/zobo/xdebugclient/releases/download/v${pkgver/.beta/-beta}/xdc-${pkgver/.beta/-beta}.zip")
+sha512sums=('8f12e4d06ce7bbdefe94add8d34cbdd010a69d6a3e9f22f9be8d86ef9e0e5ee2adb5621945f9efb52a178fdce3966cedf17c670af1ddab18d966d1c62736a82f')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "xdc"/* "${a}"
+    _lc "${a}"/*
+}

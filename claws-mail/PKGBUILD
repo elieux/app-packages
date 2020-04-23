@@ -1,0 +1,28 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=claws-mail
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=3.17.4
+pkgrel=1
+pkgdesc="User-friendly, lightweight, and fast email client"
+url="https://www.claws-mail.org/"
+arch=('any')
+license=('GPL3')
+provides=("${pkgbase}")
+makedepends=("p7zip")
+options=(!strip)
+source=("claws-mail-64bit.exe::https://www.claws-mail.org/win32/claws-mail-${pkgver}-1-64bit.exe")
+sha512sums=('0581315e22331677d931e57c39aedd636abe1ccc4778d23308a15a7c5018c48a88dc96ed0f931fa35a53eda52ad2da95b8644a25682fbe8b482fa338b1df66a0')
+
+prepare() {
+    7z x -y -bd "claws-mail-64bit.exe" -o"claws-mail-64bit.dir" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "claws-mail-64bit.dir"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR' "${a}"/*.tmp
+}

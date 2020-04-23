@@ -1,0 +1,44 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=hstart
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=4.9
+pkgrel=1
+pkgdesc="Bypass UAC, hide console windows, run apps in the background"
+url="https://www.ntwind.com/software/hstart.html"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+makedepends=("p7zip")
+options=(!strip)
+source=("Hstart-setup.exe::https://hstart.s3.amazonaws.com/Hstart_${pkgver}-setup.exe")
+sha512sums=('06650bf3c401ef0b6fe410578cab61a8301d1f9d82fd3515b37974998aab9b78f8b547ea8cb5e3bb99dca257f11102facaf22677437a7c20e2b71ded2a1396ef')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -y -bd "Hstart-setup.exe" -o"Hstart-setup.dir" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "Hstart-setup.dir"/* "${a}"
+    rm -R "${a}/uninst.exe" "${a}"/{'$PLUGINSDIR','$TEMP'}
+    _lc "${a}"/*
+}

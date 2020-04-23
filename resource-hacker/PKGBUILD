@@ -1,0 +1,71 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=resource-hacker
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=5.1.7.343
+pkgrel=1
+pkgdesc="Freeware resource compiler & decompiler for Windows applications"
+url="http://www.angusj.com/resourcehacker/"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("resource_hacker.zip::http@subdir://www.angusj.com/resourcehacker/resource_hacker.zip")
+sha512sums=('7c46c1e9ef2d2e8d69d9962ed75a1938c62403dd8508e03d48a8daad5dda01bca0afcb4464e546f293c046e1d8bb42e54e393517b23ac16074ad35fa69fbe6a3')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+pkgver() {
+    powershell -command '(Get-Item "resource_hacker/ResourceHacker.exe").VersionInfo.FileVersionRaw.ToString()'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "resource_hacker"/* "${a}"
+    _lc "${a}"/*
+}

@@ -6,7 +6,6 @@ Add `updpkgsrc` to recipes where the list of sources is long and tedious to upda
 It'd be good to have recipes the following packages. In case of FOSS, it's better to make recipes for `mingw-packages`, but until that package is done and equally good as official distribution, it can be here.
 
 - activation-backup-and-recovery
-- advanced-process-termination
 - aida32
 - album-art-downloader
 - altap-testctxmenu
@@ -21,8 +20,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - arsclip
 - audacity
 - auremo
-- autohotkey
-- autohotkey2exe
 - autounpack
 - badapp
 - battery-status
@@ -107,7 +104,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - hlsw
 - hp-usb-boot-utility
 - hst
-- hstart
 - html-help-workshop
 - httpd
 - i2p
@@ -127,7 +123,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - keytweak
 - klite-codec-tweak-tool
 - kliu
-- kmplayer
 - lessmsi
 - linuxlive-usb-creator
 - ln
@@ -146,7 +141,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - mono
 - mono-migration-analyzer
 - mpd
-- mplayer
 - mumble
 - mv2player
 - nbuexplorer
@@ -184,7 +178,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - processlasso
 - processtamer
 - psc
-- psubst
 - psx
 - quickres
 - rad-video-tools
@@ -196,7 +189,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - redmond-path
 - refreshforce
 - res
-- resource-hacker
 - rinetd
 - rivatuner
 - rramdisk
@@ -216,7 +208,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - shortcuts
 - siemensmultichanger
 - simoco
-- simple-sudoku
 - sinegen
 - skype-exporters
 - skype-tracer
@@ -255,7 +246,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - tsearch
 - ugrowl
 - umod-crc
-- unison
 - universalindentgui
 - universal-usb-installer
 - unoconv
@@ -285,11 +275,7 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - winspector
 - winswup
 - wpkg
-- xdc
-- xdebugclient
 - xdoc2txt
-- xenu
-- xming
 - xmplay-plugins
 - xmplay-skin-editor
 - xn-resource-editor
@@ -307,32 +293,20 @@ These are already present in `mingw-packages` in some form or other, so they're 
 - nasm
 - go
 - gplc
-- lame
-- lua
-- mpv
-- ffmpeg
 - gimp
-- cmake
 - doxygen
 - octave
-- perl
 - pidgin
 - python2
 - python3
 - rtmpdump
-- ruby
 - rust
 - tesseract
-- vlc
 - yasm
 - qemu
 - pngcrush
-- multi-threaded-tcp-port-scanner
-- llvm
 - imagemagick
 - gnuwin32
 - ghostscript
 - getgnuwin32
-- clink
 - blender
-- ansicon

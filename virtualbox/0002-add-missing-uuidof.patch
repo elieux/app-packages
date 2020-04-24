@@ -1,0 +1,11 @@
+--- a/src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp	2020-04-09 19:41:59 +0000
++++ b/src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp	2020-05-06 20:44:06 +0000
+@@ -25,6 +25,8 @@
+ #include "VBox/VBoxNetCfg-win.h"
+ #include "VBox/VBoxDrvCfg-win.h"
+
++#define COM_IIDOF(I) __uuidof(I)
++
+ #define _WIN32_DCOM
+
+ #include <devguid.h>

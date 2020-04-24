@@ -1,0 +1,11 @@
+--- a/src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp	2020-04-09 19:41:59 +0000
++++ b/src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp	2020-05-06 20:44:06 +0000
+@@ -881,7 +883,7 @@
+
+ VBOXNETCFGWIN_DECL(VOID) VBoxNetCfgWinSetLogging(IN LOG_ROUTINE pfnLog)
+ {
+-    *((void * volatile *)&g_Logger) = pfnLog;
++    *((void * volatile *)&g_Logger) = (void *)pfnLog;
+ }
+
+ /*

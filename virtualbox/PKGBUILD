@@ -1,0 +1,208 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=virtualbox
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=6.1.6.137129
+pkgrel=1
+pkgdesc="Powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use"
+url="https://www.virtualbox.org/"
+arch=('any')
+license=('GPL2')
+provides=("${pkgbase}")
+makedepends=("p7zip" "mingw-w64-x86_64-gcc")
+options=(!strip)
+source=("VirtualBox-Win.exe::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBox-${pkgver%.*}-${pkgver##*.}-Win.exe"
+        "VirtualBox.tar.bz2::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBox-${pkgver%.*}.tar.bz2"
+        "VirtualBoxSDK.zip::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBoxSDK-${pkgver%.*}-${pkgver##*.}.zip"
+        "0001-headers-devguid.h-add-missing-guids-and-winapi-famil.patch" # https://sourceforge.net/p/mingw-w64/mailman/message/37003202/
+        "0002-add-missing-uuidof.patch"
+        "0003-fix-conversions.patch"
+        "0004-remove-__function__.patch"
+        "netcfgn.h" # https://raw.githubusercontent.com/Biswa96/mingw-w64/040e0d3f509a253b05916892a24ec0ad4a325d69/mingw-w64-headers/include/netcfgn.h
+        "netcfgx.h" # https://raw.githubusercontent.com/Biswa96/mingw-w64/040e0d3f509a253b05916892a24ec0ad4a325d69/mingw-w64-headers/include/netcfgx.h
+)
+sha512sums=('1afcf5dcad92e37ba0957d4d535c1a1859f6c128e9ed17bde8ef90e8b49a8c38128fc96683302f3c5c315e23f4072d3d229481aa8c5641b82f1d294118ff680e'
+            '4a94417fe69c40755b55526cee67068ca8d32e71e5b6ebe0cccf46062dfb4ee76b33ac92f8b8f4748d438eda1714129360fdbaa39c16df3877b20109a7c6439a'
+            'd46549657fd8f2eb95196c310a9d81163fb231ce663ac7e24e1e8ac15b5830b25188c547db91fdca5b9524c2ba340f0b638e34863f8e26b4d118bf832b7f99bf'
+            '74906c18b32f67c2e660579610035afaa6f3aba774d68ebea1b5e1b0d54f6d0c9649539c6de709041ff7279408bed099bc4359fe37caf8ccd7b36988938bdf1a'
+            '3a8c36323c821516ebf792c776a235bbf45b46c362938ac58b65cf821062b70ae5327d39e5f7f79c52e0283aa29039cda3ec2fba38239e5909d740437096a0f1'
+            '5a5795ba727008590534c1fca76679393949d44d63e2cd615f0832c4720a7b695941e2f8367620ee39ec9623fe40e0abf47ed428b76fd6a6712fb72e4e374909'
+            '1122c0c136b0ffe30ea9cb11f965289dd6885b2e1ca2b7c1ea178050e2e9c4218299786728275658ac711b75a68628caa6b1c696854e8ec48463b476dc2f2559'
+            'ceefc94cc90b6d737f97ef3829a4cc26c8f0729474ce9fc396ff58f00aa9fad68f5c5fd1debf9249c6977f5723a95547e46878d928a7b3499a0ebd115814b942'
+            '6e4bf1ff22c86a20758ee07d83a69ccc7ffbb10570a795eeccb0ba74c1f230e06e2b6166dbe77741de846ac8f962f67734b212bb1caa6f8b887e230e60735bf2')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -y -bd "VirtualBox-Win.exe" -o"VirtualBox-Win.dir" > /dev/null
+
+    mkdir -p "build"
+    cp -R "VirtualBox-${pkgver%.*}/include" "build"
+    cp "/mingw64/x86_64-w64-mingw32/include/devguid.h" "build/include"
+    cp netcfg[nx].h "build/include"
+    mkdir -p "build/src/VBox"
+    cp -R "VirtualBox-${pkgver%.*}/src/VBox/HostDrivers" "build/src/VBox"
+
+    cd "build"
+    patch -p1 -i "${srcdir}/0001-headers-devguid.h-add-missing-guids-and-winapi-famil.patch"
+    patch -p1 -i "${srcdir}/0002-add-missing-uuidof.patch"
+    patch -p1 -i "${srcdir}/0003-fix-conversions.patch"
+    patch -p1 -i "${srcdir}/0004-remove-__function__.patch"
+}
+
+cxx() {
+    PATH="/mingw64/bin:$PATH" g++ -Wall -Wextra -Wno-unknown-pragmas -Wno-dangling-else -std=c++11 "-I${srcdir}/build/include" -DIN_RING3 "${@}" -lole32 -loleaut32 -lsetupapi -liphlpapi -lnewdev -lws2_32
+}
+
+build() {
+    cd "build"
+    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp" -municode -D_UNICODE -c -o "VBoxNetCfg.o"
+    cxx "src/VBox/HostDrivers/win/cfg/VBoxDrvCfg.cpp" -municode -D_UNICODE -c -o "VBoxDrvCfg.o"
+    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp" -DNDIS60=1 -o "NetAdp6Install.exe" "VBoxNetCfg.o" "VBoxDrvCfg.o"
+    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp" -DNDIS60=1 -o "NetAdp6Uninstall.exe" "VBoxNetCfg.o" "VBoxDrvCfg.o"
+    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp" "VBoxNetCfg.o" "VBoxDrvCfg.o"
+    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp" "VBoxNetCfg.o" "VBoxDrvCfg.o"
+    # later:
+    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltInstall.cpp"
+    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltUninstall.cpp"
+    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfInstall.cpp"
+    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfUninstall.cpp"
+    cxx "src/VBox/HostDrivers/VBoxUSB/win/install/USBInstall.cpp"
+    cxx "src/VBox/HostDrivers/VBoxUSB/win/install/USBUninstall.cpp"
+    cxx "src/VBox/HostDrivers/Support/testcase/SUPInstall.cpp"
+    cxx "src/VBox/HostDrivers/Support/testcase/SUPUninstall.cpp"
+    # VBoxRT.dll?
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "VirtualBox-Win.dir"/* "${a}"
+    cp -R "sdk" "${a}"
+
+    local f
+    for f in "${a}"/file_*
+    do
+        f="$(basename "${f}")"
+        mv "${a}/${f}" "${a}/${f#file_}"
+    done
+
+    local d="${a}/doc"
+    mkdir -p "${d}"
+    mv "${a}/UserManual.pdf" "${d}"
+
+    local d="${a}/drivers/network/netadp6"
+    mkdir -p "${d}"
+    mv "${a}"/VBoxNetAdp6* "${d}"
+    cp "${d}/VBoxNetAdp6_PreW10.cat" "${d}/VBoxNetAdp6.cat"
+
+    local d="${a}/drivers/network/netadp"
+    mkdir -p "${d}"
+    mv "${a}"/VBoxNetAdp* "${d}"
+
+    local d="${a}/drivers/network/netflt"
+    mkdir -p "${d}"
+    mv "${a}"/VBoxNetFlt* "${d}"
+    mv "${d}/VBoxNetFltNobj.sys" "${d}/VBoxNetFltNobj.dll"
+
+    local d="${a}/drivers/network/netlwf"
+    mkdir -p "${d}"
+    mv "${a}"/VBoxNetLwf* "${d}"
+    cp "${d}/VBoxNetLwf_PreW10.cat" "${d}/VBoxNetLwf.cat"
+
+    local d="${a}/drivers/USB/filter"
+    mkdir -p "${d}"
+    mv "${a}"/VBoxUSBMon* "${d}"
+    cp "${d}/VBoxUSBMon_PreW10.cat" "${d}/VBoxUSBMon.cat"
+
+    local d="${a}/drivers/USB/device"
+    mkdir -p "${d}"
+    mv "${a}"/VBoxUSB* "${d}"
+    cp "${d}/VBoxUSB_PreW10.cat" "${d}/VBoxUSB.cat"
+
+    local d="${a}/drivers/vboxdrv"
+    mkdir -p "${d}"
+    mv "${a}"/VBoxDrv* "${d}"
+    cp "${d}/VBoxDrv_PreW10.cat" "${d}/VBoxDrv.cat"
+
+    local d="${a}/dtrace/lib/amd64"
+    mkdir -p "${d}"
+    local f n
+    for f in "${a}"/dtrace_lib_arch_*.d
+    do
+        f="$(basename "${f}")"
+        n="${f#dtrace_lib_arch_}"
+        n="${n//_/-}"
+        mv "${a}/${f}" "${d}/${n}"
+    done
+
+    local d="${a}/dtrace/testcase/amd64"
+    mkdir -p "${d}"
+    local f n
+    for f in "${a}"/dtrace_testcase_arch_*.d
+    do
+        f="$(basename "${f}")"
+        n="${f#dtrace_testcase_arch_}"
+        n="${n//_/-}"
+        mv "${a}/${f}" "${d}/${n}"
+    done
+
+    local d="${a}/nls"
+    mkdir -p "${d}"
+    local f
+    for f in "${a}"/nlsgui*
+    do
+        f="$(basename "${f}")"
+        mv "${a}/${f}" "${d}/VirtualBox_${f#nlsgui}.qm"
+    done
+    for f in "${a}"/nlsqt*
+    do
+        f="$(basename "${f}")"
+        mv "${a}/${f}" "${d}/qt_${f#nlsqt}.qm"
+    done
+
+    local d="${a}/platforms"
+    mkdir -p "${d}"
+    mv "${a}"/q{minimal,offscreen,windows}.dll "${d}"
+
+    local d="${a}/UnattendedTemplates"
+    mkdir -p "${d}"
+    mv "${a}"/*_*.{sh,cfg,sif,xml,cmd} "${d}"
+
+    local d="${a}/x86"
+    mkdir -p "${d}"
+    local f
+    for f in "${a}"/*_x86
+    do
+        f="$(basename "${f}")"
+        mv "${a}/${f}" "${d}/${f%_x86}-x86.dll"
+    done
+
+    local f
+    for f in $(find "${a}" -maxdepth 1 -type f -not -iname "*.*")
+    do
+        f="$(basename "${f}")"
+        mv "${a}/${f}" "${a}/${f}.dll"
+    done
+    mv "${a}/VBoxSDS.dll" "${a}/VBoxSDS.exe"
+    mv "${a}/VBoxSVC.dll" "${a}/VBoxSVC.exe"
+    mv "${a}/vbox_img.exe" "${a}/vbox-img.exe"
+    rm "${a}"/msvc[pr]100* "${a}/x86"/msvc[pr]100-x86.dll
+    rm "${a}"/*.py
+    _lc "${a}"/*
+}

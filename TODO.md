@@ -194,7 +194,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - rramdisk
 - rthdribl
 - runassvc
-- salamander
 - scala
 - screenbright
 - scriptcs

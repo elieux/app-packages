@@ -122,7 +122,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - jpegdump
 - keytweak
 - klite-codec-tweak-tool
-- kliu
 - lessmsi
 - linuxlive-usb-creator
 - ln

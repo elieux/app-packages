@@ -1,0 +1,149 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=kliu
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2013.11.13
+pkgrel=1
+pkgdesc="Collection of small and useful freeware utilities by Kai Liu"
+url="http://code.kliu.org/"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=(
+        # main
+        "CmdOpenInstall-latest.exe::http@subdir://code.kliu.org/cmdopen/downloads/CmdOpenInstall-latest.exe"
+        "HashCheckInstall-latest.exe::http@subdir://code.kliu.org/hashcheck/downloads/HashCheckInstall-latest.exe"
+        # skip "noredirect-latest.xpi::http://code.kliu.org/noredirect/downloads/noredirect-latest.xpi"
+        # quickdrag seems to be gone
+        # skip "urlflipper-latest.xpi::http://code.kliu.org/urlflipper/downloads/urlflipper-latest.xpi"
+
+        # misc
+        "addpath-redist.7z::http@subdir://code.kliu.org/misc/addpath/addpath-1.3.1-redist.7z"
+        "elevate-redist.7z::http@subdir://code.kliu.org/misc/elevate/elevate-1.3.0-redist.7z"
+        "fixiepng.htc::http://code.kliu.org/misc/fixiepng/fixiepng.htc"
+        "fontreg-redist.7z::http@subdir://code.kliu.org/misc/fontreg/fontreg-2.1.3-redist.7z"
+        "hashutils-redist.7z::http@subdir://code.kliu.org/misc/hashutils/hashutils-1.3.0-redist.7z"
+        "hidecon-redist.7z::http@subdir://code.kliu.org/misc/hidecon/hidecon-1.2.2-redist.7z"
+        "hideexec-redist.7z::http@subdir://code.kliu.org/misc/hideexec/hideexec-1.2.3-redist.7z"
+        # skip "inlinedisposition-latest.xpi::http://code.kliu.org/misc/inlinedisposition/downloads/inlinedisposition-latest.xpi"
+        "mappeddrive-cachefix-redist.7z::http@subdir://code.kliu.org/misc/mappeddrive-cachefix/mappeddrive-cachefix-1.0.0-redist.7z"
+        # skip http://code.kliu.org/misc/notepad2/
+        "pendmove-redist.7z::http@subdir://code.kliu.org/misc/pendmove/pendmove-1.4.0-redist.7z"
+        "resetwmi-redist.7z::http@subdir://code.kliu.org/misc/resetwmi/resetwmi-1.3.3-redist.7z"
+        "resizefile-redist.7z::http@subdir://code.kliu.org/misc/resizefile/resizefile-1.0.0-redist.7z"
+        "runinf-redist.7z::http@subdir://code.kliu.org/misc/runinf/runinf-1.2.0-redist.7z"
+        "stripshortname-redist.7z::http@subdir://code.kliu.org/misc/stripshortname/stripshortname-1.0.0-redist.7z"
+        # skip "tabsubmit-latest.xpi::http://code.kliu.org/misc/tabsubmit/downloads/tabsubmit-latest.xpi"
+        "timeclone-redist.7z::http@subdir://code.kliu.org/misc/timeclone/timeclone-2.0.4-redist.7z"
+        "vcopy-redist.7z::http@subdir://code.kliu.org/misc/vcopy/vcopy-1.4.2-redist.7z"
+        "vhdutils-redist.7z::http@subdir://code.kliu.org/misc/vhdutils/vhdutils-1.0.0-redist.7z"
+        "cversion.ini_removal_utility.zip::http@subdir://code.kliu.org/misc/winisoutils/cversion.ini_removal_utility.zip"
+        "eicfg_removal_utility.zip::http@subdir://code.kliu.org/misc/winisoutils/eicfg_removal_utility.zip"
+        "windows7_iso_image_edition_switcher.zip::http@subdir://code.kliu.org/misc/winisoutils/windows7_iso_image_edition_switcher.zip"
+)
+sha512sums=('9b457a172cfb80ee83e6d7057d6c08fe33f5f7e70108e9e816274a1b64361aa10ff5b3aeb79191c3588267303dbac52db19cf077936c0b023d333cf2b03ba8f0'
+            '09344bbea2e140fd6ab295a5c7506aaa934f99931615220ce15809d8c84e987821d2235b8e6736b84c3381ee2f07f34846f88458d134c2940fd9f26dcc16702f'
+            '9ea46217396319818fe6409786fd4df75e4ab2840fd625621fa5af9ae3533b149078c4ddd1ed6bd20239622ecac190e40f0565296e232c6e9e69221a8c8768bf'
+            '32f55ff6cd19129f214d12749bff0b2acd65e6dfd9a3ac7677d3bb5582cb67995ee934ed269a549b960372337d28888ba71d6b706dc4954888bfe0850493901d'
+            '4ab64c967f56196186b5f9e8c500deacec49052d78c9e5f7f6d1ae3140f8e8bd628ceaead28b5fd59b86d5d2fcd788122b40596aa7d102d5380ea4682755a5b4'
+            'b517dacf54ded7e33c02ff11f50acee4bd5f8e963954869d6cb41991f516e7268325143c4f1bc496c3e86018c85ceddf022f5fb6b1ab552621c5325d38c4fe19'
+            '9dd6242f7ceba692fd275a4db5ac08e6c9ca75eba8123347f062c29bb2b91b9057e02651ed1706fb228f252a3810ae64d6abc0034dcde2faa1dadaafac005e15'
+            '1add134cdde9b61aaee51164ad9c93a98d3e4300c98ee9327fb553a50824f97f58ffcc3d5344e23558798c55c43dcbc1d7f2650daa01bf75dc115241b041695b'
+            'e3e6e5d5b26f90ad45238570e6bdc1ffd262a594cc3ec699d3f7b3d1c94002024068efb38fa2aae2cfcbe64da9d042d3318668a654941c391dd05e4532ebc119'
+            '0e4930d5dfb857f4e418e8e45c11b99f77a53486c50d71f757e4e1111eef1954a019c98c51479c6d936a1c12deb73c9e6e8f47d50cae0008102bdf0694c5f140'
+            'dc191f6d78f22479138ad37241fd95d0f7010c94e8e8ac4609fcddef560ae4ce4b569b941dd76801e475d2ce17d427ae74352404c1da7e7967af180beb1bf748'
+            '0c1d6c0bd9acedd8ae2a7fe2b7cba04fecdef950531204ecd352e6053589afc163964cd9ab4acbc2e0d2157520b059308e9030146aac99f18b4103094f7605d6'
+            'fb3b6b96412e0b791a0afc11d5a6ba6b3bcaeb94d4da3ca1a7aef6d74324b4f97e43072656eac37bbcd59da8e459464db947bb877de95f7ac355aa0512424c4a'
+            '9e8828b96b5570004fb579214e2f85bc8df9f0646f4b64494ce85ca5b6ff74ee7609580067f8f2ea5c2eedbfcd46b2698caa06ccc3ff9bae19bc4486d3b889b4'
+            '025c38ffeb93ac7bd7af3fe6d60dc8654ea4a3f1df91de6f8a6a1fd4b7f1587b97f1e8a27f9610ea34992925dfd50146a535eca09baebd29e50b75c4d5a1cccd'
+            '970343928a35c5ae717b4662fe073855056cd97d58e0bd1b6bc14225d26330b40d5e0ae1aebe2c858d709a9c3412cb3c5d88496322a7710b14f2882a8411d120'
+            '7772272bb882a841f7edeab4becd3e242aa84979385b4bbeb8a978b8c39b38749ae45b4dcf78dc38f8c50b0051a80783b7eef0054fe76285f770bc2868fc98e5'
+            'be46d6d9e2f16cb4ae1f86a51d7311a1b5c210c842bf04314439b7e354388f3830a0f5ccdd0b59dd2774c7cc96de368a30c70831e9e4e110b780b9255452d54b'
+            '61d58ac5df3233ef799662cae538d5a1e894c3cb6617532198b6d0a94f74a98e6f0e737d35d5688001c943887cd2a0d456a7d57d12f2cc1dcae2366050b8a39a'
+            'bd0d623d8eece86aaba4a9bbd181f9eb3ec0080f07d967a208ff6dbb2f9e4e72f5a1392086930359a1724aa95c6b3d4ade6e3fd8be455d31c70870b25e21d44a'
+            '4174103468b9ccede3586f268991385bd7654a4416593559bbdb4ebbae762be5e8a7a7671f5a63f72722de122b6b212348bbe7fc9fd036a7be2f1cc4938f7cff')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+pkgver() {
+    find . -mindepth 2 -type f -printf '%TY.%Tm.%Td\n' | sort | tail -1
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}" "${a}/shellexts"
+
+    local d
+    for d in *Install-latest
+    do
+        cp -R "${d}"/* "${a}/shellexts"
+        mv "${a}/shellexts/x86-64"/* "${a}/shellexts"
+        rm -R "${a}/shellexts"/x86-{32,64}
+    done
+    for d in *-redist
+    do
+        cp -R "${d}"/* "${a}"
+        mv "${a}/bin.x86-64"/* "${a}"
+        rm -R "${a}"/{src,bin.x86-{32,64}}
+        if test -f "${a}/readme.txt"
+        then
+            mv "${a}/readme.txt" "${a}/${d%-redist}.txt"
+        fi
+    done
+    for d in "cversion.ini_removal_utility" "eicfg_removal_utility" "windows7_iso_image_edition_switcher"
+    do
+        cp -R "${d}"/* "${a}"
+        if test -f "${a}/readme.txt"
+        then
+            mv "${a}/readme.txt" "${a}/${d}.txt"
+        fi
+    done
+    rm -R "${a}/sha1_verification_utilities"
+    rm "${a}"/*.{c,sha1,md5}
+    _lc "${a}"/*
+}

@@ -1,0 +1,46 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=imdisk-toolkit
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2020.04.12
+pkgrel=1
+pkgdesc="Ramdisk for Windows and mounting of image files"
+arch=('any')
+url="https://sourceforge.net/projects/imdisk-toolkit/"
+license=('unknown')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("ImDiskTk-x64.zip::https://downloads.sourceforge.net/imdisk-toolkit/${pkgver//./}/ImDiskTk-x64.zip")
+sha512sums=('891ef3ccd9441710bfa00d7963d130774f7df5d2df9111ca8e4f8204e3e51ac280336e74d8a4020afb035562ce5c0533067603bb29ba0f192a6d558cc4f44662')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -y -bd "ImDiskTk${pkgver//./}/files.cab" -o"files" > /dev/null
+}
+
+package() {
+    depends=("app-ltrdata")
+
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "files"/* "${a}"
+    rm -R "${a}/driver"
+    _lc "${a}"/*
+}

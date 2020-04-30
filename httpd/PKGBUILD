@@ -1,0 +1,74 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+# without user-agent, it redirects to localhost
+DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -H user-agent:Mozilla -o %o %u')
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=httpd
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2.4.43
+pkgrel=1
+pkgdesc="A high performance Unix-based HTTP server"
+url="https://httpd.apache.org/"
+arch=('any')
+license=('Apache')
+provides=("${pkgbase}")
+options=(!strip)
+source=("httpd-win64-VS16.zip::https@subdir://www.apachelounge.com/download/VS16/binaries/httpd-${pkgver}-win64-VS16.zip")
+sha512sums=('13f2b0e4243074608ef23d7977245a582568e5916a9b7fc798ec4c8e785696f863b77ba9e39726e380633b4cff35d9ea47249f99404f7223f985eea6f954083f')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "httpd-win64-VS16"/* "${a}"
+    mv "${a}/ReadMe.txt" "${a}/ReadMe_ApacheLounge.txt"
+    rm "${a}/-- Win64 VS16  --"
+    mv "${a}/Apache24"/* "${a}"
+    rm -R "${a}/Apache24" "${a}/conf/original" "${a}/logs"
+    _lc "${a}"/*
+}

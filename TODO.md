@@ -104,7 +104,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - hp-usb-boot-utility
 - hst
 - html-help-workshop
-- httpd
 - i2p
 - icesword
 - ilspy

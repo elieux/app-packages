@@ -86,12 +86,10 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - game-audio-player
 - ghc
 - gmer
-- gnuplot
 - gocr
 - godfather
 - gog-downloader
 - golly
-- graphviz
 - groovy
 - gspot
 - gsview
@@ -120,7 +118,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - jpegdump
 - keytweak
 - klite-codec-tweak-tool
-- lessmsi
 - linuxlive-usb-creator
 - magical-jelly-bean-keyfinder
 - magical-jelly-bean-keyfinder-v1.5.1
@@ -134,7 +131,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - mercurial
 - miktex
 - miles-sound-tools
-- mono
 - mono-migration-analyzer
 - mpd
 - mumble
@@ -178,7 +174,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - rdesktop
 - rdtabs
 - realvnc
-- redmond-path
 - refreshforce
 - res
 - rinetd
@@ -220,7 +215,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - svnservice
 - synergy
 - sysinternals-deprecated-2006.11.01-1-any.pkg.tar.xz
-- syslinux
 - taskswitchxp
 - tcc
 - testcpu
@@ -301,3 +295,6 @@ These are already present in `mingw-packages` in some form or other, so they're 
 - ghostscript
 - getgnuwin32
 - blender
+- gnuplot
+- graphviz
+- mono

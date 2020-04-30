@@ -1,12 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-DLAGENTS=('https::/usr/bin/curl -k -qb "" -fLC - -o %o %u')
-
 _realname=sqlyog
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=13.1.5
+pkgver=13.1.6
 pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://github.com/webyog/sqlyog-community"
@@ -17,7 +15,7 @@ makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("SQLyog.x64Community.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
-sha512sums=('5ba0a73ba4b3aca11de4c882f35f38d6a48cf44a64828be570f1f781feb371503a3ef5c4df05f08bd2d8a1263bf78511b9064739396233e6dee65e905915980a')
+sha512sums=('0834a70e357da1e414475bd88ea85e675e6ae41b12cd38b1effe8a2805fd03a8dd40c02262b9095ceb08871c260c788f0c0ead47f1fcd788ccb32d271a695b85')
 
 _lc() {
     local d f n

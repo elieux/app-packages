@@ -1,0 +1,40 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=xdebug-dbgp-tools
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.2 # determined by running the tools
+pkgrel=1
+pkgdesc="DBGp tools from Xdebug"
+url="https://xdebug.org/docs/dbgpClient"
+arch=('any')
+license=('unknown')
+provides=("${pkgbase}")
+options=(!strip)
+source=("dbgpClient.exe::https://xdebug.org/files/binaries/dbgpClient.exe"
+        "dbgpProxy.exe::https://xdebug.org/files/binaries/dbgpProxy.exe")
+sha512sums=('9afcedf27df5b82eafde48a2ac4bdb8cc88f24d869aa9289614a8bc9b0c164e35d397b160aa00258bfa7c60c263622831d3696e45dae2f1a7bceb78851038a92'
+            '744d93302f4c6febdaf559fcb35b566ca1e2cff9d9a2767f43027cdc8819cc3ae178b2233bf16e143fd831a81aa8f7d6ab27d14dc7157458394f7975167af697')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp "dbgpClient.exe" "dbgpProxy.exe" "${a}"
+    _lc "${a}"/*
+}

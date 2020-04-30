@@ -25,7 +25,7 @@ download_http@subdir() {
     download_file "${1/@subdir:/:}"
 }
 
-extract_https@subdir() {
+extract_http@subdir() {
     _extract_subdir "${@}"
 }
 
@@ -40,17 +40,17 @@ url="http://www.ltr-data.se/opencode.html"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
+makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=(
         # ImDisk Virtual Disk Driver
-        # "imdiskinst.exe::http://www.ltr-data.se/files/imdiskinst.exe"
+        "imdiskinst.exe::http://www.ltr-data.se/files/imdiskinst.exe"
         "devio64.zip::http@subdir://www.ltr-data.se/files/win64/devio.zip"
-        # "ImDiskTk-x64.exe::https://downloads.sourceforge.net/imdisk-toolkit/20200315/ImDiskTk-x64.exe"
-        # "ImDiskNet.7z::http://www.ltr-data.se/files/ImDiskNet.7z"
+        "ImDiskNet.7z::http@subdir://www.ltr-data.se/files/ImDiskNet.7z"
 
-        # Zero and Random Device Driver
-        # "zerodrv.exe::http://www.ltr-data.se/files/zerodrv.exe"
+        # Zero and Random device driver
+        "zerodrv.exe::http://www.ltr-data.se/files/zerodrv.exe"
 
         # Small command line utilities
         "exefiles.zip::http@subdir://www.ltr-data.se/files/exefiles.zip"
@@ -74,7 +74,10 @@ source=(
         # secret
         "scripts.zip::http@subdir://www.ltr-data.se/files/scripts.zip"
 )
-sha512sums=('156b163fdc038bb9924b2dde4ed1b2416fd09d2c0f0b8fd85a0f9a0d6b740be7daa0510ec4e7bded5573eda7d59510b859e33efe7b3d7b0dc2ce45bb95936bd0'
+sha512sums=('d750a7358f45b771c7c4cd11391f772356125adfa8e6bcccab72fbc8672a45c4f63510a5b55abd62ac20143280f1900d733b4dbff97f122f5a09a523af68122d'
+            '156b163fdc038bb9924b2dde4ed1b2416fd09d2c0f0b8fd85a0f9a0d6b740be7daa0510ec4e7bded5573eda7d59510b859e33efe7b3d7b0dc2ce45bb95936bd0'
+            '87731ba392e91a85b1e0ae13fd28bf0a749b50984ae3cb5f966a63e04412db9b2e5f88c05ed8d312bdd9881db524358d0e16fbcfd3cc852e5674dc497cba7cae'
+            '52a581f7f24343db0279e5af73243ab760902501ee797dea20f5a167cbf3d5d8075ac495526bbb1ad0634562b43ff01c97f1be8a1fb34f947e14d5b85f1dc86d'
             'b059836a1504fc0bc5962217469eab203d705cdb9648f0617f93d3f5b5a21d0e85ff9f4bb0b9d6eb7cc580139a604249f60b0d1a9b9b3faf28f93d836a0c2237'
             '0ed62ac73a9a6c91e0220a35767e7382ba083b577f99c7e787b83d117fb622c6887be6733a0e63ab6b10c39c843be79960e2aba4197ee6de23b640c49c26a924'
             'cc81176a9671bda63969e4dcc7e08b3937724377f8a6a525c3e3c9875f44448e4f48c3eebc7be21773cd478f6a12ae2148943a79c53f50c67b7d6556985cbd1c'
@@ -90,6 +93,11 @@ sha512sums=('156b163fdc038bb9924b2dde4ed1b2416fd09d2c0f0b8fd85a0f9a0d6b740be7daa
             '1d324591df45b82dfb1854956ecbd34546fa85dec21829787727d4957c5154e516aaa50a387b50565723cb205b61baeb0e58b0f6204580abd97a9bc1b8b8f525'
             '2f7c7011871898829ad1392a85c537ee6dfb2ea8f2eaa0619db1be4fbd0cf4c7239762d6d3c34772311e2e3440246fc6e6fe6116e92a358b340598eb05e0bdde')
 
+prepare() {
+    7z x -y -bd "imdiskinst.exe" -o"imdiskinst.dir" > /dev/null
+    7z x -y -bd "zerodrv.exe" -o"zerodrv.dir" > /dev/null
+}
+
 pkgver() {
     find . -mindepth 2 -type f -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
@@ -99,10 +107,16 @@ package() {
     mkdir -p "${a}"
 
     local d
-    for d in $(find . -mindepth 1 -maxdepth 1 -type d | grep -v "exefiles")
+    for d in $(find . -mindepth 1 -maxdepth 1 -type d | grep -v "exefiles" | grep -v "[.]dir$" | grep -v "ImDiskNet")
     do
         cp "${d}"/* "${a}"
     done
     cp "exefiles"/* "${a}"
     cp "exefiles64"/* "${a}"
+
+    cp -R "imdiskinst.dir" "${a}/imdisk"
+    cp -R "ImDiskNet" "${a}/imdisk/dotnet"
+    cp -R "zerodrv.dir" "${a}/zerodrv"
+    rm "${a}/imdisk/runwaitw.exe" "${a}/zerodrv/run64.exe"
+    rm -R "${a}/imdisk"/{awealloc,cli,cpl,cplcore,svc,sys}/{ARM,ARM64,i386,ia64} "${a}/zerodrv"/{i386,ia64}
 }

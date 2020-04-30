@@ -60,7 +60,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - drivesort
 - dtdcalculator
 - dualclip-translator
-- dupemerge
 - duplicate-file-hard-linker
 - dvdfab
 - easybcd
@@ -124,7 +123,6 @@ It'd be good to have recipes the following packages. In case of FOSS, it's bette
 - klite-codec-tweak-tool
 - lessmsi
 - linuxlive-usb-creator
-- ln
 - magical-jelly-bean-keyfinder
 - magical-jelly-bean-keyfinder-v1.5.1
 - mathematics

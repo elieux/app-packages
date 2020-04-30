@@ -1,0 +1,118 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=schinagl
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2020.03.31
+pkgrel=1
+pkgdesc="Collection of small and useful freeware utilities by Hermann Schinagl"
+url="https://schinagl.priv.at/nt/ntutils.html"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+makedepends=("p7zip" "unzip")
+options=(!strip)
+source=(
+        "HardLinkShellExt_X64.exe::http://schinagl.priv.at/nt/hardlinkshellext/HardLinkShellExt_X64.exe"
+        "ln64.zip::http@subdir://www.schinagl.priv.at/nt/ln/ln64.zip"
+        "dupemerge64.zip::http@subdir://schinagl.priv.at/nt/dupemerge/dupemerge64.zip"
+        "xdel64.zip::http@subdir://www.schinagl.priv.at/nt/xdel/xdel64.zip"
+        "buntkal_2003.zip::http@subdir://www.schinagl.priv.at/nt/buntkal/buntkalv20_2003.zip"
+)
+sha512sums=('466d72e528e9114d8c3dc6cc31c71cac2237d8792f48ef2c91afcdf769da63b66a93dc85769221a9dc0ec86a9ea3790a4278baf66cc7e94fa9997d2ce613aa89'
+            'b423c50ba08166356a0249de167c5a269b5230663f58b186ad182f6c74ee45a72b4b8bad6c48d8296612d41625591db4e8fb1314137b24c9da5a8afd0b37f9ae'
+            '4d7836a163e1a06331774ce30bc26edfc64dea6ea9f893f2c0b0dbd7a6ca05750bfde356d9ccf12717c987e29bf2b741e838252812bfe2dcd43ef7e383b57ba6'
+            '91c1db4bb7cf80b6f9747e79db6e8f4449653ac5b3e416740e04499c70e851db83c75a5b69b90ceb1bd4b526696fa24784800065ae0fe33f3f567d1a5657d203'
+            '2080a876332b0d495ba19e5b64b519353d6b73e8be82c8be4b890c9093c712e9a3086969a310021b0c203c1347de33b029cbc56d85a72f290a5047077747d9ba')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -y -bd "HardLinkShellExt_X64.exe" -o"HardLinkShellExt_X64.dir" > /dev/null
+    unzip -q -o "ln64/bat/vshadow.zip"
+    unzip -q -o "HardLinkShellExt_X64.dir/Doc"/symlink-*-x64.zip -d"symlink-x64"
+}
+
+pkgver() {
+    find . -mindepth 2 -type f -not -name '*.nsis' -not -path '*/$PLUGINSDIR/*' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+
+    cp -R "HardLinkShellExt_X64.dir"/* "${a}"
+    mv "${a}/Doc" "${a}/HardLinkShellExt_Doc"
+    mv "${a}/license.txt" "${a}/HardLinkShellExt"
+    rm -R "${a}"/'$PLUGINSDIR' "${a}/uninst-HardlinkShellExt_X64.exe.nsis" "${a}/HardLinkShellExt_Doc"/symlink-*.{cab,zip} "${a}/32"
+
+    cp -R "symlink-x64"/* "${a}"
+    mv "${a}/ln.exe" "${a}/miniln.exe"
+
+    cp -R "dupemerge64"/* "${a}"
+    mv "${a}/Doc" "${a}/DupeMerge_Doc"
+
+    cp -R "ln64"/* "${a}"
+    mv "${a}/Doc" "${a}/ln_Doc"
+    mv "${a}/bat"/* "${a}"
+    rm -R "${a}/bat" "${a}/vshadow.zip"
+
+    cp -R "vshadow"/* "${a}"
+    mv "${a}/vshadow3.0 - vista_win2k8"/* "${a}"
+    mv "${a}/vshadow64.exe" "${a}/vshadow.exe"
+    rm -R "${a}/vshadow3.0 - vista_win2k8" "${a}/vshadow2.2 - xp_win2k3" "${a}/vshadow32.exe"
+
+    cp -R "xdel64"/* "${a}"
+    mkdir "${a}/xdel_Doc"
+    mv "${a}"/*.{png,txt,html} "${a}/xdel_Doc"
+
+    cp -R "buntkal_2003"/* "${a}"
+    mkdir "${a}/buntkal_doc"
+    mv "${a}"/*.{png,html} "${a}/buntkal_Doc"
+    mv "${a}/Bunter Jahreskalender V20 2003.xls" "${a}/buntkal.xls"
+
+    _lc "${a}"/*
+}

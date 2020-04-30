@@ -1,0 +1,56 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=php-ext-apcu
+_dirname=php
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=5.1.18
+pkgrel=1
+pkgdesc="A userland caching module for PHP"
+url="https://pecl.php.net/package/APCu"
+arch=('any')
+license=('PHP')
+provides=("${pkgbase}")
+options=(!strip)
+source=("php_apcu-7.4-nts-vc15-x64.zip::https@subdir://windows.php.net/downloads/pecl/releases/apcu/${pkgver}/php_apcu-${pkgver}-7.4-nts-vc15-x64.zip")
+sha512sums=('a94f50d4cc955fd2d638c93590bab5ad85bf648bdd85cbe6dc68b7aa8bfdcff739b62cf508508c1ad2d16cc0501cd26f5ae75d6ae428387f951d0dbb5fe1eba0')
+
+package() {
+    depends=("app-php")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/ext" "${a}/ext/apcu"
+    cp -R "php_apcu-7.4-nts-vc15-x64"/* "${a}/ext/apcu"
+    rm "${a}/ext/apcu"/*.pdb
+    mv "${a}/ext/apcu/php_apcu.dll" "${a}/ext"
+}

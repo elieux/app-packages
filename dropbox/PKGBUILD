@@ -1,12 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-DLAGENTS=('https::/usr/bin/curl -k -qb "" -fLC - -o %o %u')
-
 _realname=dropbox
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=94.4.384
+pkgver=96.4.172
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="https://www.dropbox.com/"
@@ -17,7 +15,7 @@ provides=("${pkgbase}")
 options=(!strip)
 install="dropbox.install"
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
-sha512sums=('394c83757acb219b1758d0614ebe87c71a66ca5240aa7a894a60ffe8921014736fdbb0ff4672083ad0be4d85eb8f94b1d97194814f3655498fefaeadb086063b')
+sha512sums=('c3dd96969e144f5086e790c9fbf6727f34b913651295fbcce7301eea6ab2803232aeb839a00dd749b7b78d8d544868ec0611c530a76fd060dd17c341b3bcf3f1')
 
 _lc() {
     local d f n

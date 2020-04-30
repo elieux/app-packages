@@ -1,0 +1,93 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=flos
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2013.03.18
+pkgrel=1
+pkgdesc="Collection of small and useful freeware utilities by Florian Balmer"
+url="http://www.flos-freeware.ch/index.html"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=(
+        "notepad2_x64.zip::http@subdir://www.flos-freeware.ch/zip/notepad2_4.2.25_x64.zip"
+        "metapath_x64.zip::http@subdir://www.flos-freeware.ch/zip/metapath_4.0.13_x64.zip"
+        "textview.zip::http@subdir://www.flos-freeware.ch/zip/textview.zip"
+        "run95.zip::http@subdir://www.flos-freeware.ch/zip/run95.zip"
+        "ntouch.zip::http@subdir://www.flos-freeware.ch/zip/ntouch.zip"
+        "dtouch.zip::http@subdir://www.flos-freeware.ch/zip/dtouch.zip"
+)
+sha512sums=('eff95326ded6f3beca482cd6b462af5e0d75b2d853510d545dad959868ca437f6fd37ef812040517f50fab5885e7ebdc47d54e2c5376e09225b512abe3849a29'
+            'ecb6eb3b99e08c6dd738bda36cef3f35a271bc2be81ed311b3f2ffb6e4800e64776fbf839949d7f3f2c34fbd8042bf3316966c7e4ed739a2352fb3aefaae779c'
+            '49257b3387c484dbf85fd603392a62e1e2f760b85c629c90c795a2c442ffd36a95fc5c2172b284ba7195c8445299abaf04085b07a520aac09e6dc0505088e31d'
+            'f343859ccae0575ecef3797f015f17e3550c5b5ea8b945bbbc2982f4e5eee0341005e66a4c63e65b9bf3b3eb0793fa020c434492ed2b9642494db36f68804ece'
+            'c970ff564368005e39ed324cebf352671b0d5fe7b16f141b7d7cc6bde7c7d56979026d1e531dab12b6572b1391c09685a2bc099e7751c73d5ed3298d2a06fa6c'
+            'e798acc20fad90efe3aa109cb220f66bc7b3c929b87eeacce336f96c7124cf2a6333b661218b653b406b6950c86210a3e0a73d42f9bf16e155be56e27d23b8b9')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+pkgver() {
+    find . -mindepth 2 -type f -printf '%TY.%Tm.%Td\n' | sort | tail -1
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+
+    local d
+    for d in $(find . -mindepth 1 -maxdepth 1 -type d)
+    do
+        cp "${d}"/* "${a}"
+        if test -f "${a}/License.txt"
+        then
+            mv "${a}/License.txt" "${a}/$(basename "${d%_x64}")_License.txt"
+        fi
+    done
+
+    _lc "${a}"/*
+}

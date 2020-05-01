@@ -1,0 +1,28 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realver=2083448
+_realname=windows-sdk
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=10.0.18362.0x
+pkgrel=1
+pkgdesc="Headers, libraries, metadata, and tools for building Windows apps"
+url="https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("WindowsSDK.iso::https://go.microsoft.com/fwlink/?linkid=${_realver}")
+sha512sums=('b19a1aac21bd5b3eaea53790c635651d2dc4663259d799de499e89449647440cdd3af690500c63ef2445280d3bb528954e134a4f2f06fcb46c7d2e1d43921f8b')
+
+prepare() {
+    7z x -y -bd "WindowsSDK.iso" -o"WindowsSDK"
+}
+
+package() {
+    a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "WindowsSDK"/* "${a}"
+}

@@ -1,0 +1,60 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=salamander-plugin-tcproxy
+_dirname=salamander
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.8.84.102
+pkgrel=1
+pkgdesc="Use plugins originally designed for Total Commander in Altap Salamander"
+arch=('any')
+url="https://www.manison.cz/products/tcproxy.php?Lang=en"
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("tcproxy_as40.zip::https@subdir://www.manison.cz/download/tc/tcproxy_as40.zip")
+sha512sums=('d1adf0778e5728f7c3a119fe01b987eb3ae02686aeb717c358fa8cf13759d80038f0d52bfaba54149d6d5261479f9e64df1343c600ea425b1fe5db18bcc86d7a')
+
+pkgver() {
+    powershell -command '(Get-Item "tcproxy_as40/x64/tcproxy.spl").VersionInfo.FileVersionRaw.ToString()'
+}
+
+package() {
+    depends=("app-salamander")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/plugins/tcproxy"
+    cp -R "tcproxy_as40"/* "${a}/plugins/tcproxy"
+    mv "${a}/plugins/tcproxy/x64"/* "${a}/plugins/tcproxy"
+    rm -R "${a}/plugins/tcproxy"/x{86,64}
+}

@@ -1,0 +1,22 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=aws-vault
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=5.4.4
+pkgrel=1
+pkgdesc="A vault for securely storing and accessing AWS credentials in development environments"
+url="https://github.com/99designs/aws-vault"
+arch=('any')
+license=('MIT')
+provides=("${pkgbase}")
+options=(!strip)
+source=("aws-vault-windows-386.exe::https://github.com/99designs/aws-vault/releases/download/v${pkgver}/aws-vault-windows-386.exe")
+sha512sums=('4b22cd54e3ba8371c3fe496b1a10f8d8ebd28813aaea1633b301ba4c44044bfa127392c0bf6851493a710bf557841c8b357e370eaeb69b25c4a50c85500a5eaa')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp "aws-vault-windows-386.exe" "${a}/aws-vault.exe"
+}

@@ -4,7 +4,7 @@ _realname=xnview-mp
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.94.1
+pkgver=0.96.2
 pkgrel=1
 pkgdesc="A multi-platform photo and picture viewer"
 url="https://www.xnview.com/en/xnviewmp/"
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("XnViewMP-win-x64.zip::https://download.xnview.com/XnViewMP-win-x64.zip")
-sha512sums=('091f6ed6bd65aececb11a29ba602eef17fbd4dff5f740b00d2363eec0fc2dff858a77cc6e8096d9c75db56e75fc2c6848cdaccbdc8902ea7161c640f835330df')
+sha512sums=('11ce5b8937ba149dfa884d4b86d4a763d0f59a952bbab3a1a5d6021118bec1b5407b737f3602c1477119d4cd73f2f6364501bb74fee874b52a7ad420d6193160')
 
 _lc() {
     local d f n
@@ -52,6 +52,7 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "XnViewMP"/* "${a}"
+    rm "${a}/vc_redist.x64.exe"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

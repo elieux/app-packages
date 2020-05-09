@@ -1,0 +1,64 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=whatsapp
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2.2019.6
+pkgrel=1
+pkgdesc="Desktop WhatsApp client"
+url="https://www.whatsapp.com/download"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("WhatsAppSetup.exe::https://web.whatsapp.com/desktop/windows/release/x64/WhatsAppSetup.exe")
+sha512sums=('0e0b3d037aa0cfad3795c4d4399195289bb60dbac72f251c7dc652b218d7e8a2f95bdd403f3c62b6b6cde63aede10edb00211626d3deceb3a631ede242c63639')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    rm -fR "WhatsAppSetup.dir"
+    7z x -y -bd "WhatsAppSetup.exe" -o"WhatsAppSetup.dir" > /dev/null
+    unzip -q -o "WhatsAppSetup.dir/WhatsApp"-*-"full.nupkg" -d "WhatsApp-full"
+}
+
+pkgver() {
+    powershell -command '(Get-Item "WhatsAppSetup.exe").VersionInfo.ProductVersion'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "WhatsApp-full/lib/net45"/* "${a}"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
+}

@@ -1,0 +1,26 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+# 2017-04-26: Users of Windows 10 Creators Update should use prelease build 2.2.4-101 to avoid an issue with services failing to start. If for some reason you cannot use that build you can also set AppNoConsole=1 in the registry, noting that applications which expect a console window may behave unexpectedly.
+_realver=2.24-101-g897c7ad
+_realname=nssm
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver="${_realver//-/.}"
+pkgrel=1
+pkgdesc="The non-sucking service manager"
+url="https://nssm.cc/"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("nssm.zip::https://nssm.cc/ci/nssm-${_realver%%-*}-${_realver#*-}.zip")
+sha512sums=('f25fcc7b37d64aa3bb44336182a343250bf7fe7df1d22795bc742ae1cce574d9bbbb22afe2ba4352df40676e54f8442ae2dc1516c58a7b42c6e5c464804cd342')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "nssm-${_realver}"/* "${a}"
+    mv "${a}/win64"/* "${a}"
+    rm -R "${a}"/win{32,64}
+}

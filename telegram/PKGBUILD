@@ -1,0 +1,38 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=telegram
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2.1.3
+pkgrel=1
+pkgdesc="Desktop Telegram client"
+url="https://desktop.telegram.org/"
+arch=('any')
+license=('GPL3')
+provides=("${pkgbase}")
+options=(!strip)
+source=("tportable.zip::https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tportable.${pkgver}.zip")
+sha512sums=('5e7d00e12351ccdb2da7dd9b6ffafbbc043f43bb9b4a6daa2c3112f88019dc33b402131c1c6bc447db59ac3ce90a8aa1aaec1150cbf19d6617840e0bab0fb8dc')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp "Telegram"/* "${a}"
+    _lc "${a}"/*
+}

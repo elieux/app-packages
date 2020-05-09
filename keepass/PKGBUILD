@@ -34,7 +34,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.45
-pkgrel=1
+pkgrel=2
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
 arch=('any')
@@ -85,7 +85,7 @@ source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%
         "KeePass2-Spanish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Spanish.zip"
         "KeePass2-Swedish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Swedish.zip"
         "KeePass2-Turkish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Turkish.zip"
-        "KeePass2-Ukrainian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Ukrainian.zip"
+        "KeePass2-Ukrainian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Ukrainian.zip"
         "KeePass2-Vietnamese.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Vietnamese.zip")
 sha512sums=('e7b38972377097e157dbe40f421795473fb9a1ad7a3726561898b2c538a187492872ad6eee41bfbcdff6404f91129e24a9b0fbabca843c064e4fb2bcd3b201ad'
             'd7675c729689e7b51d8959b86cd6838bc8445588cbb3387a596f5d613161227d6dd0852127e90d70ba9a871b117729cbc0a4c492bb98b15aa39791dbb0f04ec5'
@@ -131,7 +131,7 @@ sha512sums=('e7b38972377097e157dbe40f421795473fb9a1ad7a3726561898b2c538a18749287
             'ff410a5c764e61e63d343b5c391cf7a356518d6c0f46da75d368a3228efd684c82c828a10698d3921651c4d7a4ee853d811ed12a94e0f1bff231c63f43ea8dda'
             '98ea2f0f70fd7afa3ba61aca881c941ed1739baae438cba05d759876ad008071fc47d415e62b0d33aac86475508148cf29913d0102d3d139c871335130acee83'
             '48f23639781e034fe9fc4738670e59b3605aba856ca3858dc20bb3d729e418d91088ab169060585f1cb918c441eb8f1ae09e1d990f085ce081d5eea45e2ed2d9'
-            '0a42d0035d3eec127c03cd9e92e808d9a0e1d00c95d21954f17cc5e55407fd8c37dd967b8fc2ca8f2b201e372d4f2b57da41995619ba54ece427fa63dfd4ce49'
+            '4df61a2221cf585480c421c2be97b0511c13cb15924fe759723a31f68eab189cbbec02137ae17f29468e48b7bd5fe6529ad0c16c02ed1b5141805f8846b7e437'
             'd29fc662f21b7576a4b09f4f5fe959fc153052df62c91beb988c90da56f9fe472e6cf5961044f36b403d5fa79295f3d8f4103a457da4cd45464550979d7d2b2b')
 
 package() {

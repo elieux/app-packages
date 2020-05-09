@@ -1,0 +1,53 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=asume
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.7.1
+pkgrel=1
+pkgdesc="Altap Salamander user menu editor"
+url="https://bitbucket.org/-tukanos-/asume/wiki/Home"
+arch=('any')
+license=('CC4-BY')
+provides=("${pkgbase}")
+options=(!strip)
+source=("asume_portable.7z::https@subdir://bitbucket.org/-tukanos-/asume/downloads/asume_portable_${pkgver}.7z")
+sha512sums=('561c941f47dfbee7fda09b049aee7608228318a698266b54dddd336738425a704bde6da6e6b2ab5c953a092ab302256ff7c2b9de1dfa3078b3b58b295f1ec13c')
+
+package() {
+    optdepends=("app-salamander")
+
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "asume_portable/"* "${a}"
+}

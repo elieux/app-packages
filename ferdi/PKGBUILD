@@ -1,0 +1,44 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=ferdi
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=5.5.0
+pkgrel=1
+pkgdesc="Combine your favourite messaging services into one application, community fork of Franz"
+url="https://getferdi.com/"
+arch=('any')
+license=('Apache2')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Ferdi-Setup.exe::https://github.com/getferdi/ferdi/releases/download/v${pkgver}/Ferdi-Setup-${pkgver}.exe")
+sha512sums=('3c7ca5709122056f19d824d9e3f7ee3ac890f423d7d260cf4e343f7e397473c661abfdb788fb0661c49013cf575d9b77ea672aad6841f47c53ab0472084d2fe9')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -y -bd "Ferdi-Setup.exe" -o"Ferdi-Setup.dir" > /dev/null
+    7z x -y -bd "Ferdi-Setup.dir"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "app-64"/* "${a}"
+    _lc "${a}"/*
+}

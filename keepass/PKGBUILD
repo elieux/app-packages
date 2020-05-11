@@ -34,7 +34,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.45
-pkgrel=2
+pkgrel=3
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
 arch=('any')
@@ -80,13 +80,13 @@ source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%
         "KeePass2-Russian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Russian.zip"
         "KeePass2-Serbian_Cyrillic.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Serbian_Cyrillic.zip"
         "KeePass2-Serbian_Latin.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Serbian_Latin.zip"
-        "KeePass2-Slovak.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Slovak.zip"
+        "KeePass2-Slovak.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Slovak.zip"
         "KeePass2-Slovenian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.37-Slovenian.zip"
         "KeePass2-Spanish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Spanish.zip"
         "KeePass2-Swedish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Swedish.zip"
         "KeePass2-Turkish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Turkish.zip"
         "KeePass2-Ukrainian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Ukrainian.zip"
-        "KeePass2-Vietnamese.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Vietnamese.zip")
+        "KeePass2-Vietnamese.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Vietnamese.zip")
 sha512sums=('e7b38972377097e157dbe40f421795473fb9a1ad7a3726561898b2c538a187492872ad6eee41bfbcdff6404f91129e24a9b0fbabca843c064e4fb2bcd3b201ad'
             'd7675c729689e7b51d8959b86cd6838bc8445588cbb3387a596f5d613161227d6dd0852127e90d70ba9a871b117729cbc0a4c492bb98b15aa39791dbb0f04ec5'
             '8a5f8062f81328b5c8eab473fe33808788bfdc123b723777b78f8148cbc8a37d21e79305256ed069d7075ee112c473f616b1e2d639c1fa9433ec01c8b12c76e0'
@@ -126,13 +126,13 @@ sha512sums=('e7b38972377097e157dbe40f421795473fb9a1ad7a3726561898b2c538a18749287
             '1b67ce7646474dc68f1e588aa07e12b147df2b66ca155d3b1e1a7b08c94c220b19cd1f62da28b2c2d01c519fa6b273a3ac03af91b063786bc0899b9a6da846d9'
             'df2e7143b7d730250a74cfcb9eeb38bd706f56a646c5def67e18541d1d27ee58e85dbc948b1a43e0c3c62821acdc8f8b1a4eeb8fbebd65af5b64ffa9364132e6'
             '1b52b5c91dffbacefec3ab1392bff07eab4931cb442af4de608e0d05e231829164acdc407b58198a5c8b356c4db7e6aae4153ed7ca2ef3a61e371a57a9bf100e'
-            'a156aea9a9f75ffa1d4671dee5a1ca01e55d0b9dc3f7ae555e7aa86ab995f445b269a0efd3a1a38185b42a3aaaac34acc4096301669b43fc73c0fc1a76368e90'
+            '283fc7a52ed9b6b78aa9010dfbed6ceae3ae1c43141d6f4d37698cb504dddcbb3f30cd48ac2e182ce6b8a9a180b7aff1e3282992a02485c0e886f115d538cb46'
             '1140d20e4ae6debb6a6ee39ebfb89d66089e893704b4a7969b36ff5977e8b9467e255e6017ea5874a6abbad4ae058339a0f96a08f07942ebec91f1a4b6f84d28'
             'ff410a5c764e61e63d343b5c391cf7a356518d6c0f46da75d368a3228efd684c82c828a10698d3921651c4d7a4ee853d811ed12a94e0f1bff231c63f43ea8dda'
             '98ea2f0f70fd7afa3ba61aca881c941ed1739baae438cba05d759876ad008071fc47d415e62b0d33aac86475508148cf29913d0102d3d139c871335130acee83'
             '48f23639781e034fe9fc4738670e59b3605aba856ca3858dc20bb3d729e418d91088ab169060585f1cb918c441eb8f1ae09e1d990f085ce081d5eea45e2ed2d9'
             '4df61a2221cf585480c421c2be97b0511c13cb15924fe759723a31f68eab189cbbec02137ae17f29468e48b7bd5fe6529ad0c16c02ed1b5141805f8846b7e437'
-            'd29fc662f21b7576a4b09f4f5fe959fc153052df62c91beb988c90da56f9fe472e6cf5961044f36b403d5fa79295f3d8f4103a457da4cd45464550979d7d2b2b')
+            'f3068a47016ddcc3f85d4a73b3fe5c8f5ec1acefb994c7038d4357429b3146471ecb0fe690d96e90313b0fd2792f0a1e06d3fda865dcafe852228003da79c08c')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

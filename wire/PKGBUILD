@@ -1,0 +1,64 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=wire
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=3.17.3598
+pkgrel=1
+pkgdesc="Desktop Wire client"
+url="https://www.wire.com/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip" "unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Wire-Setup.exe::https://wire-app.wire.com/win/prod/Wire-Setup.exe")
+sha512sums=('2cf25e26cfa7e6d7feeecc78bd8e7ee1cf6b133f545d3049078bbe4ba24af3ff35cde3806eba653be953b7d8b9dcdadb486f6185a69031fd772cfcc883e645bc')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    rm -fR "Wire-Setup.dir"
+    7z x -y -bd "Wire-Setup.exe" -o"Wire-Setup.dir" > /dev/null
+    unzip -q -o "Wire-Setup.dir/wire"-*-"full.nupkg" -d "wire-full"
+}
+
+pkgver() {
+    powershell -command '(Get-Item "Wire-Setup.exe").VersionInfo.ProductVersion'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "wire-full/lib/net45"/* "${a}"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
+}

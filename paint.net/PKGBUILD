@@ -2,20 +2,23 @@
 #
 # How to create patches:
 # 0. get a CIL decompiler that can point to the actual bytes, e.g. dnSpy
-# 1. in PaintDotNet.SystemLayer.dll, open PaintDotNet.SystemLayer.AssemblyServices::Initialize() and nop out these calls:
+# 1. in PaintDotNet.SystemLayer.dll, open PaintDotNet.SystemLayer.AssemblyServices::Initialize() and nop[1] out these calls:
 #    - AssemblyServices.LoadUniversalCrt(nativeRootDirPath)
 #    - AssemblyServices.LoadVisualCppRuntime(nativeRootDirPath)
 #    - AssemblyServices.LoadOpenMP(nativeRootDirPath)
 # 2. save and run xdelta3 -e -s PaintDotNet.SystemLayer.dll.orig PaintDotNet.SystemLayer.dll PaintDotNet.SystemLayer.dll.xd3
-# 3. in PaintDotNet.exe, open PaintDotNet.Program::InspectForDefectsAndPerformRepairsPart1() and invert this condition:
+# 3. in PaintDotNet.exe, open PaintDotNet.Program::InspectForDefectsAndPerformRepairsPart1() and invert[2] this condition:
 #    - if (AppInfoService.Instance.InstallType != AppInstallType.Classic)
 # 4. save and run xdelta3 -e -s PaintDotNet.exe.orig PaintDotNet.exe PaintDotNet.exe.xd3
+#
+# [1] 0x00
+# [2] 0x2C brfalse.s -> 0x2D brtrue.s
 
 _realname=paint.net
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.2.10
+pkgver=4.2.11
 pkgrel=1
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
@@ -28,9 +31,9 @@ options=(!strip)
 source=("paint.net.install.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip"
         "paintdotnet.systemlayer.dll.xd3"
         "paintdotnet.exe.xd3")
-sha512sums=('dbe1006d6f4c75f52e7bb30c2d24e1736063bc9d55b9969cee28a526fe960c06190108bda8ee27415ba2fc5669ffeb1ec5888f53736449bbe59a0ebd40c08a85'
-            '4629f23deddaf189b69f284e208eb5dbc9e10dd96784068ec4d820f3d542226318197125b6267ceca3863fac674c249afd76df01b56575080b6caa561e155ef4'
-            '9d0f03747dad5e544b36158aa543d9f26b89f3a7362b6ecd75194f370aa60cba870f57de4b421af539da2034184a0d1e870b45e793c0fca17ebfae6054e4a3fd')
+sha512sums=('ff8d7d2fa098ac5a1a1eafd1b0687a41c6cb9e241c622addaf52a8f8d55721e16a7acdc0172ecb4bcea1c7c9311336df06ee0f1c841fd04b7edd97108965212d'
+            '638c8d9311b43738f97b81870a539f895abb0919f88de595530915719897cd6f8248765a675c4297adccaefd6724598e77171c11a46c4479e0ab2cefab38c126'
+            '586147fc49cd27320b3e56dcf7fb7ca307935bbcd55c2a69a14238a0f6bd01a1df36c56efc176dac08bd19a22d6b249b8123d99ba59a04a349a8bdeb4da6a028')
 
 _lc() {
     local d f n
@@ -62,8 +65,7 @@ package() {
     # remove system DLLs
     xdelta3 -f -d -s "PaintDotNet_x64/SourceDir/PaintDotNet.SystemLayer.dll" "PaintDotNet.SystemLayer.dll.xd3" "${a}/PaintDotNet.SystemLayer.dll"
     xdelta3 -f -d -s "PaintDotNet_x64/SourceDir/PaintDotNet.exe" "PaintDotNet.exe.xd3" "${a}/PaintDotNet.exe"
-    rm -R "${a}/Native" "${a}"/*.pdb "${a}"/System.*.dll*
-    cp "PaintDotNet_x64/SourceDir"/System.{Buffers,Runtime,Runtime.CompilerServices.Unsafe}.dll "${a}"
+    rm -R "${a}/Native" "${a}"/*.pdb
 
     _lc "${a}"/*
 }

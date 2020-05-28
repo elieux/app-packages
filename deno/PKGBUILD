@@ -1,0 +1,22 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=deno
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="A secure runtime for JavaScript and TypeScript"
+url="https://deno.land/"
+arch=('any')
+license=('MIT')
+provides=("${pkgbase}")
+options=(!strip)
+source=("deno-x86_64-pc-windows-msvc.zip::https://github.com/denoland/deno/releases/download/v${pkgver}/deno-x86_64-pc-windows-msvc.zip")
+sha512sums=('7d964410f2ce2cf806965b850ad821bf8b12e0c34287fb72d14dce98cb22a4b4dddba7871962ae390966dd41b4bbda325a18545f259e15946bfd03211eb174ac')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp "deno.exe" "${a}"
+}

@@ -18,7 +18,7 @@ _realname=paint.net
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.2.11
+pkgver=4.2.12
 pkgrel=1
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
@@ -31,9 +31,9 @@ options=(!strip)
 source=("paint.net.install.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip"
         "paintdotnet.systemlayer.dll.xd3"
         "paintdotnet.exe.xd3")
-sha512sums=('ff8d7d2fa098ac5a1a1eafd1b0687a41c6cb9e241c622addaf52a8f8d55721e16a7acdc0172ecb4bcea1c7c9311336df06ee0f1c841fd04b7edd97108965212d'
-            '638c8d9311b43738f97b81870a539f895abb0919f88de595530915719897cd6f8248765a675c4297adccaefd6724598e77171c11a46c4479e0ab2cefab38c126'
-            '586147fc49cd27320b3e56dcf7fb7ca307935bbcd55c2a69a14238a0f6bd01a1df36c56efc176dac08bd19a22d6b249b8123d99ba59a04a349a8bdeb4da6a028')
+sha512sums=('15e03064eb1b7c304fac1195c4367b9fd8d872119492264b723320f12b8fb7dcf4d0620925ff232ead2990c32b3eb8c4b90cdbbc828c040740a0dedc416418e2'
+            'b9fd2a1f0bed82223c639ee122e5013a53f173ddd9be5acc021210ff8da49dfab3ae0ccbaefc24ddc06931c7d1c03a7b610673bac2d59d117500b467ae158964'
+            '400b4622414172fad0377c5a18132e8977d0534b95ba5eb5edf1689d670cde4367e3eeb3447eafb53103c63e006cdb282c9c753cb16f3cf696f1090add9516b2')
 
 _lc() {
     local d f n

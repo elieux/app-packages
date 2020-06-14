@@ -30,7 +30,7 @@ extract_https@subdir() {
 }
 
 _realname=bind
-_realver=9.16.1
+_realver=9.16.3
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("BIND.x64.zip::https@subdir://downloads.isc.org/isc/bind${_realver%%.*}/${_realver}/BIND${_realver}.x64.zip")
-sha512sums=('fb5b240d1f6cc6b61c7db8eabafdb2a8b4f4656449a3d33f8d81eab52d6f951f836e7da91fef15e5d1e366be4f4ecc44acff228cbff586f8be3f72bbc53a72c7')
+sha512sums=('666b89952de6532987310a76446b4ac61f3c9d323f20f4d43433b5ce05cb19aa0a15a4be2be645f3f26f3c3d3807d60446b706a2c46e7704abb332ce9a0cf496')
 
 _lc() {
     local d f n

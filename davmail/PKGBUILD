@@ -30,7 +30,7 @@ extract_https@subdir() {
 }
 
 _realname=davmail
-_realver=5.4.0-3135
+_realver=5.5.1-3299
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("davmail-windows-noinstall.zip::https@subdir://downloads.sourceforge.net/davmail/davmail/${_realver%%-*}/davmail-${_realver}-windows-noinstall.zip")
-sha512sums=('62e50a774927304be2ccb8906d02d773cc548670be35bfc2be2c2522ae0165222a91a8ae0b26ac6ae1691f79cb13fe88d54eaefe45b2c7019224946e92fa6703')
+sha512sums=('c449c30b66bcf9a012bbeda7052f961e44248bc18e59b571e75612a68cbd2d6dec1781a3393b71d72bf5e5a248a9d8dfd678da82924b65c3e6158cd674be4860')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

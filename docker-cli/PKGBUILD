@@ -1,0 +1,35 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realver=45519
+_realname=docker-cli
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=19.03.8
+pkgrel=1
+pkgdesc="Pack, ship and run any application as a lightweight container"
+url="https://docs.docker.com/engine/reference/commandline/cli/"
+arch=('any')
+license=('Apache')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+replaces=("app-x86_64-docker")
+conflicts=("app-x86_64-docker")
+options=(!strip)
+source=("DockerDesktopInstaller.exe::https://download.docker.com/win/stable/${_realver}/Docker%20Desktop%20Installer.exe")
+sha512sums=('4d596df675a8c0c906732f51e3dcb648d46d18cefdf3d770674c339260daa4c119e2b1ff8517a361bd96b2f6676d846c92f67c2994ceaa19c17cbffb2b617d9b')
+
+prepare() {
+    7z x -y -bd "DockerDesktopInstaller.exe" -o"DockerDesktopInstaller.dir" > /dev/null
+    7z x -y -bd "DockerDesktopInstaller.dir/.text" -o"text" > /dev/null
+}
+
+pkgver() {
+    powershell -command '(Get-Item "text/resources/bin/docker.exe").VersionInfo.ProductVersion'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp "text/resources/bin/docker.exe" "${a}"
+}

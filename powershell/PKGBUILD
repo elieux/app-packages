@@ -33,7 +33,7 @@ _realname=powershell
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.0.1
+pkgver=7.0.2
 pkgrel=1
 pkgdesc="A cross-platform automation and configuration tool/framework"
 url="https://github.com/PowerShell/PowerShell"
@@ -42,7 +42,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("PowerShell-win-x64.zip::https@subdir://github.com/PowerShell/PowerShell/releases/download/v${pkgver}/PowerShell-${pkgver}-win-x64.zip")
-sha512sums=('27c6cd9fa1aef13c0435660386efd4be7a78034f2015642073767166035ae77b910514e1807f2efb5fae4e4fac3ca504227210d0d16cbf7a46b9ded697d9d114')
+sha512sums=('1b78af4b9a4052c5e49653f937693f08e263c41b81fb4597631c03ce40a28d7bdc436faefe4e4f571b35c8f8d26ef0931aba352f87a58109f1b58bca7ce0eb85')
 
 _rmmsdll() {
     local ms

@@ -1,5 +1,26 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
 download_https@subdir() {
     download_file "${1/@subdir:/:}"
 }
@@ -13,7 +34,7 @@ _dirname=thunderbird
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2020.04.18
+pkgver=2020.07.03
 pkgrel=1
 pkgdesc="Dictionaries for Thunderbird"
 url="https://addons.thunderbird.net/en-US/thunderbird/language-tools/"
@@ -65,9 +86,9 @@ source=("us-english-dictionary-677644.xpi::https@subdir://addons.thunderbird.net
         "scottish-gaelic-spell-checker-260204.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/260204/addon-260204-latest.xpi"
         "corrector-de-galego-5018.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/5018/addon-5018-latest.xpi"
         "georgian-dictionary-900252.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/900252/addon-900252-latest.xpi"
+        "german-dictionary-3077.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3077/addon-3077-latest.xpi"
         "german-dictionary-extended-for-3079.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3079/addon-3079-latest.xpi"
         "german-dictionary-de_at-for-sp-9359.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9359/addon-9359-latest.xpi"
-        "german-dictionary-3077.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3077/addon-3077-latest.xpi"
         "german-dictionary-de_de-for-sp-9361.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9361/addon-9361-latest.xpi"
         "deutsch-alte-rechtschreibung-360545.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/360545/addon-360545-latest.xpi"
         "german-dictionary-switzerland-3049.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3049/addon-3049-latest.xpi"
@@ -176,9 +197,9 @@ sha512sums=('a3c45e30c261eaad5077f941747d1621b6a2cb9dd0f0d4d0b006bc2ed32331605cc
             '141cbe566fbc45d819449e1a773e9a131c5f598b9396221a29a60085d220df95cd76e4e1c164ac81e90fc30fc9ffe5d2aa615e0a4be852575135c4645b9337df'
             '0a391a671ba645a9ddd26cd0302ec9bfc7c3d1fa4cece5a5dbf55d7b0923f632b1f345a7a90adef93f91a4aed6feca64fc9adf9d150ba7e2b875af94eca52fea'
             'fdb08a9c18ab87cdd43e7f03993be5fcd1d1f12f51337767cb33e067cb568e55ea6dba4d347bbcb5748b96765511041595cafaf3418cdf9c5e386f71b4391119'
-            '83ebb8eb64c8e152359e987f10675d3d2f57bf2d1edc0bb1736f9f68175f3fdc53d800ebdf3f64b6c7726b056e9d6086aea8d22de71c903684cb53ac13fd29e3'
+            'ed3cef0e91ad780ed0f8f4ac08590f5c4902f17abe1487ddad59ba2f3580bfbc154aaed5933b838bddf32ba28121bd6e2a1d414448a399adfff74e14c9e01a77'
             '8bc60a99e11d35ac135a9557c8b91f87f2b3e274e6adba7ecd5a36c88299b1db78e1c7cd254da72066477e0bdbc685fb9d6a8fd47e5d04fcbdd68df05cc3b4a2'
-            'b317210595992dd357a0ebd311a80e5720152740e137fff00411c2a7b8ee039f416636771d78a6b88d90b07febc398cbd342df9eaa8b46a00f40ec98c12ff602'
+            '4db08d3031b97e1896bc1b1c960ff65d8178af9177eb52e0013b6348a120217b6e344df717e9596e3e6fd05ab947cec99af17409d386d8efcae8884e4592d8fb'
             'bc76e4a9ebc290a4e059a5e86db7f4c95c41b53b843f3689766aeb8cdd00198a45c3f07b7e97e617d7bc6cba80023b65aba2f913078a59f7547e922da1c789b8'
             '1c59ae351108dc52ebf0c4597972e8bc6db563b46e60899508ce314fd7b57baf8fe8a50b34e4703f14289df01bc8a79a3034d807f193143e67d9b17159e24e34'
             '82a0e4971b6c6f312d1265211fe90b29c570eeaafbba3fa742e088d6055e79002e0e7cdb338a08dcf65a59cc4488c21dc74580d730277cf733c86a404521f0d0'
@@ -188,7 +209,7 @@ sha512sums=('a3c45e30c261eaad5077f941747d1621b6a2cb9dd0f0d4d0b006bc2ed32331605cc
             '0052eefa000d8dec98a987715b59f7e41f5f2a2c378e6fd1ee99d017d8be931fcad3355e3678bcc0458f294d1fc93410ba85db9a998503ff694dfe273c08278c'
             '028e271e41fce1dec0a77c9febce958add86a2f7f466cab642e10596f1d8fa06e149f298c414ccdc87aae439c00062582e1ded23a3cfa1a2cbc44d7cc81f3f10'
             '7dfa6f948f8983f23d20a65b64875872ef017f701a4c672f144a5b59cb9a77010f2e3800a91fb9b626d39baef7f16478aed87173c68840673dc179a4a19a5cdd'
-            '74583ad3901b38d0aea90ee411db808d82238dfafa3493c239375457a388cb2756574cdca2f4c9f9d091e2ff7abfcdbec8ba64cce8aa69a354a7942ef3933ff7'
+            '08f7d19ca2050d42eef50dcee555ae51f44485d4df22f25ced84ff94abb43e6a6b6bc67dfbc9ef4ddb1719c18214faaa43bd3f07c20ffae2312232b0f6326fc7'
             'c7e0eb71c0e489c3c75fd37f705c4f80c73221de659acbe83cc37967fe3d0d04b025ea4b567c0ffb125755eaaa9401b555d6bc66e940395928f9a56f8bc499f5'
             'a894d5d120e170959a4652ffc485eecfe36c470b39309d276479ce1fc3bb0d3b83ea9a753c091b2f1a702528cdcf66d27dbeef6eabd9d64df78825bfa7fea20d'
             'a3c45e30c261eaad5077f941747d1621b6a2cb9dd0f0d4d0b006bc2ed32331605ccc051d6f719beb959e7b9b1b58b24848dca7e5d4f61cedb4f628942cbf3cd4'
@@ -202,9 +223,9 @@ sha512sums=('a3c45e30c261eaad5077f941747d1621b6a2cb9dd0f0d4d0b006bc2ed32331605cc
             '1965aef0912a07f5fbc178f4f3de9d56a30e292454b2cfd130e945f98dfd82ce0b864073019552a0bb8894b18931d0de995cbfab696c5eaf4e372bff3a4134e6'
             'e177b70acfa6a7efc2bcec358d20d3684bf2bd15891bbc7b65fe89d274eac6c98fdaede248cf64a06df18be9f15e687d438d09c22360f5dce30fb294307b036f'
             'e3d169e4e0157c5937f7c08050706c1e13c41689bee9442dee44de4bc349fad35941080e000f769c7bfc7b498c315c00610d8b6acaf5f35fe86e346ea848beb4'
+            '9dda63954bf5664f03744394d5ad5c286f2cb7d6b8cd01537587a92200c809ad50fe762bc008a84d2199092761d597fecc6c5ef38d52b235205d805598363bdb'
             'fecbefa44d292e415ee7da67d2afc46604614e564b037d2cc18c60e2363a9a8cf050faa055c33a45499da028dad939215525e6e47b835ef4fc0b900298b2daec'
             'b7450a8b6dcdc281033899c64578822f07d1e5e5dfe9a582e85094e35376f1f0d2479df57c214c820edc58fd00646c70c07c05bed65c45e084ffe2a02d761e9c'
-            '9dda63954bf5664f03744394d5ad5c286f2cb7d6b8cd01537587a92200c809ad50fe762bc008a84d2199092761d597fecc6c5ef38d52b235205d805598363bdb'
             '8a724f3eccb28e89f4964e29f3fe8919f0d424a3b2ca992897af827c1082a90cd32490ccb11a0649e68b0f3dafad8c72d5a0a722304c6d5152429407e171cf65'
             '3f8a1dc6f54dd9ad82706259fa2da9e075f39de37bd01c2a80b2523904b15e5959f496b7e2bbb8ddf319257f157d107e62834eea092c8393d6a59db4446ef311'
             '777232c7e12c4a7c230588f0055794583da114c740063ba9960a52cb12c85bcf185c871a6a8de312f254806aa51efebc8ff447bfeb3afd1e80a26fd085433336'
@@ -271,7 +292,7 @@ sha512sums=('a3c45e30c261eaad5077f941747d1621b6a2cb9dd0f0d4d0b006bc2ed32331605cc
             '514bbe47c4cd4f4123e6eb1b839d1d9895bd833478e540fea6cb91cd26a091178d61517ff403fda7c0f59b34e29c995dbda48ffca410b2f96cecfd43d4d24cf9'
             'e641a4b43c1bcf27e30099a71e045d5ed3e81c2f6caa120c81f8a408983e42c326fd2e8f4b9a07bbfcd4c87c4690a5ab50e7ce94e42c150b98958ab6a054dc9c'
             '8f3b024ddca4ebb0c99a36a0dfcbfc5ff74838948baf1f3ef5ce69aa13f8341996c6b9e5d7f763cff384819e98df1360a8931b29b446f717afa2b423f4d59f73'
-            '52aeaecad2980db7c1ac6ef45ec66ac335be2f1c6770def59305c2bc5d83a8440e938fd89d3b06ec2de09d3b02155726ba4fdc6e2c341fadd9e1e148f59a46b5'
+            '745085076890864dcc0004b639f6f8ce9a648c675d7005060b158eee5c7977d48d5bd8a812dd7c818acd9e5484b27b3118902c55f5619337c0ab342df6b040d3'
             '5113e0294b7e16549bf5012c4131edc8ee3d32406fae880940e6ea85eb60c12afa3befb7a0cc7e3e5ed72644d5b5a4579cdcc527c9502da22b2ad326295bd5f1'
             '3ea308e44b6f78df36559d8825997cfae7992d39eb60887ed8cd6d3c618c6dc5a015776421c2d674c4505115ea166b51e83f1023d6b14723b74064a0fdb4c89c'
             'b5a3982e88e928424c1272123ccc1a82dd3106865b830aa3fdf88c966272f8e5ad098fce591f1b7cec7a1e374c0fc55b2f267f25da6106b45127230ba53ab53b'

@@ -4,7 +4,7 @@ _realname=mariadb
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=10.4.13
+pkgver=10.5.4
 pkgrel=1
 pkgdesc="Fast SQL database server, drop-in replacement for MySQL"
 url="https://mariadb.org/"
@@ -14,7 +14,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("mariadb-winx64.zip::https://downloads.mariadb.org/f/mariadb-${pkgver}/winx64-packages/mariadb-${pkgver}-winx64.zip")
-sha512sums=('9caad9f397d6ef0bde65b2ccafef0c22d72dcf419a7656dec95dec6fa2ebeeca8046206934f8b5698e25ac4847c17480ec1dfce7f4c94a5d01e8da6148c9c6fc')
+sha512sums=('c59a23bd21b029fc921a926d8ee9f99600d676aef069586f1c3b59f57d7e2dc2794659673daee16876652c5def5fbe9603bba95f05bc8a5f3e748f8d1a57997a')
 
 _rmmsdll() {
     local ms
@@ -34,9 +34,6 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "mariadb-${pkgver}-winx64"/* "${a}"
-    rm -R "${a}/data"
-    find "${a}" -name 'debug' -exec rm -r '{}' \; -prune
     find "${a}" -name '*.pdb' -delete
-    find "${a}" -name '*.lib' -delete
     _rmmsdll "${a}"
 }

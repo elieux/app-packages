@@ -30,10 +30,11 @@ download_https@subdir() {
 }
 
 _realname=asume
+_realver=73232
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc="Altap Salamander user menu editor"
 url="https://bitbucket.org/-tukanos-/asume/wiki/Home"
@@ -41,8 +42,8 @@ arch=('any')
 license=('CC4-BY')
 provides=("${pkgbase}")
 options=(!strip)
-source=("asume_portable.7z::https@subdir://bitbucket.org/-tukanos-/asume/downloads/asume_portable_${pkgver}.7z")
-sha512sums=('561c941f47dfbee7fda09b049aee7608228318a698266b54dddd336738425a704bde6da6e6b2ab5c953a092ab302256ff7c2b9de1dfa3078b3b58b295f1ec13c')
+source=("asume_portable.7z::https@subdir://dotsrc.dl.osdn.net/osdn/asume/${_realver}/asume_portable_${pkgver}.7z")
+sha512sums=('77bb8240b1ad7c1c8ec95f007c21b3a66b31c74099133c2371e97864f71a8a288a5258ca69aec2677b08850d8fef62e1347956298aa1800607896bb79efccd33')
 
 package() {
     optdepends=("app-salamander")

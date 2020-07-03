@@ -21,11 +21,11 @@ _extract_subdir() {
     eval "${_original_bsdtar}"
 }
 
-extract_http@subdir() {
+extract_https@subdir() {
     _extract_subdir "${@}"
 }
 
-download_http@subdir() {
+download_https@subdir() {
     download_file "${1/@subdir:/:}"
 }
 
@@ -41,26 +41,27 @@ url="https://www.pspad.com/en/"
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("pspaden.zip::http@subdir://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip"
-        "en_dic.cab::http://www.pspad.com/files/dic/en_dic.cab"
-        "bp_dic.cab::http://www.pspad.com/files/dic/bp_dic.cab"
-        "bg_dic.cab::http://www.pspad.com/files/dic/bg_dic.cab"
-        "cz_dic.cab::http://www.pspad.com/files/dic/cz_dic.cab"
-        "da_dic.cab::http://www.pspad.com/files/dic/da_dic.cab"
-        "fr_dic.cab::http://www.pspad.com/files/dic/fr_dic.cab"
-        "id_dic.cab::http://www.pspad.com/files/dic/id_dic.cab"
-        "it_dic.cab::http://www.pspad.com/files/dic/it_dic.cab"
-        "cat_dic.cab::http://www.pspad.com/files/dic/cat_dic.cab"
-        "hu_dic.cab::http://www.pspad.com/files/dic/hu_dic.cab"
-        "de_dic.cab::http://www.pspad.com/files/dic/de_dic.cab"
-        "po_dic.cab::http://www.pspad.com/files/dic/po_dic.cab"
-        "pt_dic.cab::http://www.pspad.com/files/dic/pt_dic.cab"
-        "ro_dic.cab::http://www.pspad.com/files/dic/ro_dic.cab"
-        "ru_dic.cab::http://www.pspad.com/files/dic/ru_dic.cab"
-        "gr_dic.cab::http://www.pspad.com/files/dic/gr_dic.cab"
-        "sk_dic.cab::http://www.pspad.com/files/dic/sk_dic.cab"
-        "sv_dic.cab::http://www.pspad.com/files/dic/sv_dic.cab"
-        "es_dic.cab::http://www.pspad.com/files/dic/es_dic.cab")
+source=("pspaden.zip::https@subdir://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip"
+        "en_dic.cab::https://www.pspad.com/files/dic/en_dic.cab"
+        "bp_dic.cab::https://www.pspad.com/files/dic/bp_dic.cab"
+        "bg_dic.cab::https://www.pspad.com/files/dic/bg_dic.cab"
+        "cz_dic.cab::https://www.pspad.com/files/dic/cz_dic.cab"
+        "da_dic.cab::https://www.pspad.com/files/dic/da_dic.cab"
+        "fr_dic.cab::https://www.pspad.com/files/dic/fr_dic.cab"
+        "id_dic.cab::https://www.pspad.com/files/dic/id_dic.cab"
+        "it_dic.cab::https://www.pspad.com/files/dic/it_dic.cab"
+        "cat_dic.cab::https://www.pspad.com/files/dic/cat_dic.cab"
+        "hu_dic.cab::https://www.pspad.com/files/dic/hu_dic.cab"
+        "de_dic.cab::https://www.pspad.com/files/dic/de_dic.cab"
+        "po_dic.cab::https://www.pspad.com/files/dic/po_dic.cab"
+        "pt_dic.cab::https://www.pspad.com/files/dic/pt_dic.cab"
+        "ro_dic.cab::https://www.pspad.com/files/dic/ro_dic.cab"
+        "ru_dic.cab::https://www.pspad.com/files/dic/ru_dic.cab"
+        "gr_dic.cab::https://www.pspad.com/files/dic/gr_dic.cab"
+        "sk_dic.cab::https://www.pspad.com/files/dic/sk_dic.cab"
+        "sv_dic.cab::https://www.pspad.com/files/dic/sv_dic.cab"
+        "es_dic.cab::https://www.pspad.com/files/dic/es_dic.cab"
+        "tr_dic.cab::https://www.pspad.com/files/dic/tr_dic.cab")
 sha512sums=('344304bb1603d44df2c81964e808862f92498b7e577120a23edc30afa916a0c0feeabe007f821560f7a5d1dfa2447a6611232315913f9defa147966de6e706d3'
             '96d0392307db5d107896fdbbb412769a4721da6c54b695019ab52055c9ba5ce2b5b74312e2f721d162df18053c6ff84ffa3136c972ad22e4f6f62aeb38af3deb'
             '6bb8e11f5393a6134940bd93a20068b6398dbc76f404a75ff6dd3f22c4b75639d584a758a21d5264242394c215a71b1b940bcacfe3ac71f759ef5bc06c4bac55'
@@ -80,7 +81,8 @@ sha512sums=('344304bb1603d44df2c81964e808862f92498b7e577120a23edc30afa916a0c0fee
             '1cbd35cbd62b82ec339dce7f0da9e9ed770dc988e9c0ef4b4bcf864db9dd84ccd6a75784c36e54913471367b4c9c2a9e432b33256b326d33824f739415dbf6b1'
             'ba6d610e121cc460455ebc78145ccf1545e3d2d86ea73a9ef502f4725c1b37fed515fdbda7ce8f0fb9517f4d4c31ac9d80f6777dc3ea1a667062209fbaf11da3'
             '5f0bdb89d9adef595a2f9dbf399e361060933d4528910431554ca002fa79aa2fc2dcebbcf04d3ad443c43bd818183b4842f6dc1e2f4f82280712d51119666892'
-            '82b149931d9226d508e1ce7123ad91989fea0944d207825a13144c9ae51068cedbb1ac59fa56f118f0c0bd29b91d7e18e7e1e8d1d5aa6becb0f5f7a12cdea7a4')
+            '82b149931d9226d508e1ce7123ad91989fea0944d207825a13144c9ae51068cedbb1ac59fa56f118f0c0bd29b91d7e18e7e1e8d1d5aa6becb0f5f7a12cdea7a4'
+            '33bbaa50d57973ddc280a464aae475f7ac6b896ac9e0db260d21c46ff66585ba9bf24dab8120af031371968c2ac0ce39d69eeb2202dec8d0c3c69bbcba25f3fb')
 
 _lc() {
     local d f n

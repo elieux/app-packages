@@ -4,7 +4,7 @@ _realname=traystatus
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.2
+pkgver=4.3
 pkgrel=1
 pkgdesc="Show status of Caps Lock, Num Lock, Scroll Lock, and more in system tray"
 url="https://www.traystatus.com/"
@@ -12,8 +12,8 @@ arch=('any')
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("TrayStatus.zip::https://binaryfortressdownloads.com/Download/BFSFiles/114/TrayStatus-${pkgver}c.zip")
-sha512sums=('a0d575a3a84503feada1cedc6dab80ba0ca23a5b9fea72ac455b60f24c30e438c05988239746d3f7b2281eac01bae46d434d58242c815c7b78c3fc99144135a6')
+source=("TrayStatus.zip::https://binaryfortressdownloads.com/Download/BFSFiles/114/TrayStatus-${pkgver}.zip")
+sha512sums=('9ac7881938f38709084b3c81376216d9b806673c6a69514b424a16b4b6e2c7b6edb3c9c8f2150c7c5ae469b2cd676563f4eeda232cdb07684c2e7acb4ae81b51')
 
 _lc() {
     local d f n
@@ -34,5 +34,6 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "TrayStatus"/* "${a}"
+    rm "${a}"/System.*.dll
     _lc "${a}"/*
 }

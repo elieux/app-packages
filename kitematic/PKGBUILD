@@ -33,7 +33,7 @@ _realname=kitematic
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.17.11
+pkgver=0.17.12
 pkgrel=1
 pkgdesc="Run containers through a simple, yet powerful graphical user interface"
 arch=('any')
@@ -42,7 +42,7 @@ license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
 source=("Kitematic-Windows.zip::https@subdir://github.com/docker/kitematic/releases/download/v${pkgver}/Kitematic-${pkgver}-Windows.zip")
-sha512sums=('d96cb2b4dce4cc1753d439eb154a02c640e07bda3163236ed91b4bc328d16e2b939b1d20280c6de52691bc3606bd6ae49897cc7ab785b56e52d0a8034d0ecd59')
+sha512sums=('1993f7f287ce4d2ff71de0d272c59fb0dc1732f1eac8e7474c5d0ca7b40576b03a28bb5a5478553d50af3c56e21d25653d36c13f0a9502f036ba56b7d46d9a2e')
 
 _lc() {
     local d f n

@@ -34,7 +34,7 @@ _dirname=firefox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2020.07.03
+pkgver=2020.08.01
 pkgrel=1
 pkgdesc="Dictionaries for Firefox"
 url="https://addons.mozilla.org/en-US/firefox/language-tools/"
@@ -118,7 +118,7 @@ source=("afrikaans-spell-checker-5127.xpi::https@subdir://addons.mozilla.org/fir
         "macedonian-spellchecker-latin-1473406.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/1473406/addon-1473406-latest.xpi"
         "malagasy-spell-checker-217294.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/217294/addon-217294-latest.xpi"
         "te-papakupu-mori-7130.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/7130/addon-7130-latest.xpi"
-        # "marathi-dictionary-12797.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/12797/addon-12797-latest.xpi" # broken XML
+        # "marathi-dictionary-12797.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/12797/addon-12797-latest.xpi"
         "mongolian-spell-checking-dicti-102885.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/102885/addon-102885-latest.xpi"
         "ndebele-south-spell-checker-46609.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46609/addon-46609-latest.xpi"
         "nepali-dictionary-9971.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/9971/addon-9971-latest.xpi"
@@ -188,7 +188,7 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             'a24e27ad4a2f7aa92c14a7dc0b2a940167c2ae1a43a1c9e58afe8a6f6cfc74d5f3533fffc63c49e407c458282a4c37edd95e7a06d8c004f26ade430b506eeae5'
             'f197b826b3fbb23b6880c9d76e1bb5130e85b5163c4cead2cd519de1c0b5b78375e9427b50a810fa83e747850fb118aa18776ed127f810b2bf63280732755eea'
             '17fe5c3c0bec8413953f9c63179f53c0a0fa15169705433fc58a3ad9878ba587be416e68ee65ec72cca08ac5df4b6caa2a01056541ea9dd0b4b8356c84fdca9c'
-            'ca1969a3aaf961dd69913a1ba8de6a973427c7fcc0a309d90d69baf400950db12fecf9ea73b21f2125c3b7e3b679d25ae15308a704f13b7aff9b6b15426e46b6'
+            '6058eb91d230197a315113b532c78cf0d18e616ef661166ab14c34c36308b6303ada9be00a8ff9a69e1fff0aa6b85b4f45e724901f754dc53418c7943fc403cc'
             '05616949835fd068b98ca980546aaa92caa82bf1726204ac48517d99a727a5945ff251d6363ba0e2da3e318fc522536483c743c504f3c920664c2fc4ad722bd7'
             '60f8d42aef2fc36f273c9f0783ac994b5a44ea4890204f030279364f24ef31ba9d6df532b09e3257e5ae2a78ff1047be448ff0d2be4ba3b6690bccc31cb5b0bf'
             'c7ec25ec6cc6682e4cc9fd0b598f815abeaf40e3090413c7b91b84744531d0da3ed044ef2e5df380335aed8c70ac098ac86df9393bac73aa7c3fc6be0a7a1abd'
@@ -199,7 +199,7 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             'f1a70f3e66256d4ac524645dd878d679cdfba195aa740428ae633f986d04bff6cc7d04b260598867564fe02da9968cd44974d8dc6a32c186d8a2c26c6805bef7'
             '9a2aa809d046778c853959fb83e29d577d97246ef5d0f07bf795711709a429ace2a47909056a243df6fee9a70378894a4121a2890c797f960dbc6e460d07a389'
             '8d6a55b3ba80fad5ee57c3d2f842c6d562a504a2e3ff84e4651cb26c7ee85306973b73113861888c74d0d14b9330440ff5fbedead7113902748f14181c418166'
-            'efaa3794d62acffdd8fc25e5b0d2fa184e322aceb673c151a648c13d9bb46f896b0d60850bd5735a605c5a7137894a1450be17adace8c30f4dc899e46fd73ed0'
+            '90333aba5db233ce932e2dddc3d559e4055e2bfa8320c1d63ca658934a94df344a8fa7f2bc264403e0e27fcd18d6d3087a0f39807df47c9b1a9d82f7a983d175'
             '69e598096dd3c3490d3946a1800a7bf7b127057a9a6905efaf8cd7455ba3c86f3e453dddd530ea613f6eb3d9616aad06857be63215bdac84570c66c03b744d4a'
             'fbcdddb4dd9046be7d874e05746ab4f9caaf7df22e811d02d62767634f5cfc14b2be679d010ea2547bec68b6e5d863c5cee85e05a4aa70034bfb567448b4c686'
             'c1d34c1728e60136e5bba2c7f461e8bc8bbf3115f513a83fe85c5b960661b35c512ea6f9a3789f8857d6b558237728f6addb891870ca964a00e32d79228a4955'

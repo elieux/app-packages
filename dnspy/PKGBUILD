@@ -33,7 +33,7 @@ _realname=dnspy
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.1.5
+pkgver=6.1.6
 pkgrel=1
 pkgdesc=".NET debugger and assembly editor"
 url="https://github.com/0xd4d/dnSpy"
@@ -42,7 +42,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("dnSpy-net472.zip::https@subdir://github.com/0xd4d/dnSpy/releases/download/v${pkgver}/dnSpy-net472.zip")
-sha512sums=('59f17cb1bb24c51ddfc793bdfc20afa90f3771a01ea03ffb188ebd98cb0c1a9fb203e458a084acb8f11f52f1ac0cb86967ce2c0f407215abf31511e4c81a5a29')
+sha512sums=('f282dfda5af2a695410f9a2025d97aefefbd1e6ec4afc70d6ba8e68df065c6f6e19596d087a033ad84a3562b99c186e3125d7cd68e84e2b1d02605c95f105b88')
 
 _lc() {
     local d f n

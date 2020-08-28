@@ -1,0 +1,83 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=repoz
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=5.4
+pkgrel=1
+pkgdesc="A zero-conf git repository hub"
+url="https://github.com/awaescher/RepoZ"
+arch=('any')
+license=('MIT')
+makedepends=("p7zip" "mingw-w64-x86_64-jq")
+provides=("${pkgbase}")
+options=(!strip)
+source=("RepoZ.Setup.exe::https://github.com/awaescher/RepoZ/releases/download/v${pkgver}/RepoZ.${pkgver}.Setup.exe")
+sha512sums=('1e8b361628004d9d07cc9a12fd22c1ebe74aecd1ad68cb9d79b74ec7318bd9c2d6931d08b60e4ed2a8fb98b96edb8a24a368695b6318ac210e00293a4aae9ce5')
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    7z x -y -bd "RepoZ.Setup.exe" -o"RepoZ.Setup.exe.dir" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "RepoZ.Setup.exe.dir"/* "${a}"
+
+    find "${a}/lib" -mindepth 1 -maxdepth 1 -not -name "win32" -exec rm -R {} ';'
+    local f
+    for f in "grr" "grrui"
+    do
+        cat "RepoZ.Setup.exe.dir/${f}.deps.json" | /mingw64/bin/jq --arg f "${f}" '(.targets[".NETCoreApp,Version=v3.1/win-x64"] | to_entries | .[] | select(.key | match("^" + $f + "/")) | .key) as $grrver | (.targets[".NETCoreApp,Version=v3.1/win-x64"][$grrver].dependencies["runtimepack.Microsoft.NETCore.App.Runtime.win-x64"]) as $runtimever | del(.targets[]["runtimepack.Microsoft.NETCore.App.Runtime.win-x64/" + $runtimever])' > "${a}/${f}.deps.json"
+        cat "RepoZ.Setup.exe.dir/${f}.runtimeconfig.json" | /mingw64/bin/jq '.runtimeOptions |= (.framework = .includedFrameworks[0] | del(.includedFrameworks))' > "${a}/${f}.runtimeconfig.json"
+    done
+    rm "${a}/System".*.dll "${a}/Microsoft".*.dll "${a}"/{clrcompression,clretwrc,clrjit,coreclr,dbgshim,hostfxr,hostpolicy,mscordaccore,mscordaccore_amd64_amd64_4.700.20.6602,mscordbi,mscorlib,mscorrc.debug,mscorrc,netstandard,WindowsBase}.dll
+    cp "RepoZ.Setup.exe.dir"/{Microsoft.Extensions.DependencyInjection.Abstractions,System.Net.Http.WinHttpHandler,System.ServiceModel.Primitives}.dll "${a}"
+    _rmmsdll "${a}"
+
+    rm -R "${a}"/'$PLUGINSDIR'
+}

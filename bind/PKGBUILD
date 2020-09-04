@@ -30,11 +30,10 @@ extract_https@subdir() {
 }
 
 _realname=bind
-_realver=9.16.5
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver="${_realver//-/.}"
+pkgver=9.16.6
 pkgrel=1
 pkgdesc="The ISC BIND nameserver"
 url="https://www.isc.org/downloads/bind/"
@@ -43,8 +42,8 @@ license=('custom:ISC')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("BIND.x64.zip::https@subdir://downloads.isc.org/isc/bind${_realver%%.*}/${_realver}/BIND${_realver}.x64.zip")
-sha512sums=('e982fb7c306514d098e9e6b7238c6e6bce4202472979568d24510b96c0c48196242913dcee9dde48460a5f248d9e292dc88fb28bd17060cebfa10121a36cb2cb')
+source=("BIND.x64.zip::https@subdir://downloads.isc.org/isc/bind${pkgver%%.*}/${pkgver}/BIND${pkgver}.x64.zip")
+sha512sums=('b2fa0054db4df2cc75eb6ef33b812c770c37aec984e6b5847548be8262edbd1d6bacec9f24d468ec976c300c753a48236bfcc39b861befcc75597b38d4805bea')
 
 _lc() {
     local d f n

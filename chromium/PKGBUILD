@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=chromium
-_realver=768962
+_realver=782793
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=84.0.4147.105
+pkgver=85.0.4183.83
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="https://www.chromium.org/Home"
@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("chrome.sync.7z::https://github.com/Hibbiki/chromium-win64/releases/download/v${pkgver}-r${_realver}/chrome.sync.7z")
-sha512sums=('2b3c2a611b6aaa59d50a45fc276857378312b8514c10e087097b9f1d6e349ccba5e97d0ed8468237645f65c783a8ec821dcb6338029ced6f8f48f00870256d1c')
+sha512sums=('371fb6cd8408ac70a922170adcd742f5d88041740864d38d7210a610ef46ffc39fe55f6a83e870eaf3d0b569b26eb618488853db364fd08c31063b3ebc5442db')
 
 _lc() {
     local d f n

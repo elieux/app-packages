@@ -4,7 +4,7 @@ _realname=openvpn
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.4.8.602
+pkgver=2.4.9.601
 pkgrel=1
 pkgdesc="A full-featured SSL VPN solution"
 url="https://openvpn.net/community/"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("openvpn-install-Win10.exe::https://build.openvpn.net/downloads/releases/openvpn-install-${pkgver%.*}-I${pkgver##*.}-Win10.exe")
-sha512sums=('6a2ef83c8d4f42cd39ad0e9c09c7a1deabb857f413243ddc18710f6128047e26d7bd0fba2a0b62414bd3aa8385dcb4af1fddc6c3494cf4a6c6696900dee4bea1')
+sha512sums=('0a18f720856429da8f68a9ab1ec782ee3655981cbfb5b33b94d03e85ba8b1315b370d7c35fe0f23ec7b1e12c2647c26cb5124cf890dec43b0f110253b42deb2d')
 
 _pickarch() {
     local d f n

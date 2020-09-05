@@ -4,7 +4,7 @@ _realname=traystatus
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.3
+pkgver=4.4
 pkgrel=1
 pkgdesc="Show status of Caps Lock, Num Lock, Scroll Lock, and more in system tray"
 url="https://www.traystatus.com/"
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("TrayStatus.zip::https://binaryfortressdownloads.com/Download/BFSFiles/114/TrayStatus-${pkgver}.zip")
-sha512sums=('9ac7881938f38709084b3c81376216d9b806673c6a69514b424a16b4b6e2c7b6edb3c9c8f2150c7c5ae469b2cd676563f4eeda232cdb07684c2e7acb4ae81b51')
+sha512sums=('4ebb47d431cf59920a7bc79bb69bec678f2e12e10f55c91a937440bf8d1ae55f9c4903e71a47ad6c70adb6ffd26726a5e07d8859699a72d9e12a44102e0adaf4')
 
 _lc() {
     local d f n

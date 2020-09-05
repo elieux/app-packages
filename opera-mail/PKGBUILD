@@ -4,7 +4,7 @@ _realname=opera-mail
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.0
+pkgver=1.0.1044
 pkgrel=1
 pkgdesc="A lightweight, customizable mail client"
 url="https://ftp.opera.com/pub/opera/mail/"
@@ -33,10 +33,6 @@ _lc() {
 
 prepare() {
     7z x -y -bd "Opera-Mail.i386.exe" -o"Opera-Mail.i386.dir" > /dev/null
-}
-
-pkgver() {
-    powershell -command '(Get-Item "Opera-Mail.i386.dir/operamail.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.]0+$/\1/'
 }
 
 package() {

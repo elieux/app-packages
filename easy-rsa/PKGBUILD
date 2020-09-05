@@ -2,18 +2,19 @@
 
 _realname=easy-rsa
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.0.6
+pkgver=3.0.7
 pkgrel=1
 pkgdesc="Simple shell based CA utility"
 url="https://community.openvpn.net/openvpn#Easy-rsasubproject"
 arch=('any')
 license=('custom')
 provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
 options=(!strip)
-source=("EasyRSA-windows.zip::https://github.com/OpenVPN/easy-rsa/releases/download/v${pkgver}/EasyRSA-windows-v${pkgver}.zip")
-sha512sums=('f0b8531ebaee16fec10a6dccfef328b80bc7f52161b6a0cca3e3504d239667d57c3f87fa05ec047a5ac2279624839ad278063fd39637da902f6c1ac3137c0060')
+source=("EasyRSA-win64.zip::https://github.com/OpenVPN/easy-rsa/releases/download/v${pkgver}/EasyRSA-${pkgver}-win64.zip")
+sha512sums=('61d0b2c18ee75e108e93fc4f46b22387f31479d50e3547acb8b625dab3676b6913af35ce193570d87bbd3472f3a46012bfcfca9186fe6265c495fab3d04ea089')
 
 _lc() {
     local d f n
@@ -33,6 +34,6 @@ _lc() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "EasyRSA-v${pkgver}"/* "${a}"
+    cp -R "EasyRSA-${pkgver}"/* "${a}"
     _lc "${a}"/*
 }

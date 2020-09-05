@@ -1,11 +1,40 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _dirname=xnview
 _realname=xnshell
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.10.0
+pkgver=4.12.0
 pkgrel=1
 pkgdesc="A powerful shell extension with image preview and transforms"
 url="https://www.xnview.com/en/xnshell/"
@@ -13,10 +42,10 @@ arch=('any')
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("XnShellEx64.zip::https://download.xnview.com/XnShellEx64.zip"
+source=("XnShellEx64.zip::https@subdir://download.xnview.com/XnShellEx64.zip"
         "XnShellEx.zip::https://download.xnview.com/XnShellEx.zip")
-sha512sums=('1f2bcb25a675a0d0bae19772536d3eb3fb0f384ee7c3efa99c9d0f708bec79bb03da412f7fe4ad4d4fc79e3727c81d1ac7406c3dd284a1b6488443f18b85837a'
-            '6040e6799f8ac7707055b0ad0e3e29e3bc2dc0930e68eb38067853f3419f8a2f2e5a0155c319e6e7e6418cc73dfff1836dc29dfebe19eecb95c58a17cae391d1')
+sha512sums=('9e9e2b618509255ec386280c60cf517189cf0716d7a718aff9e550562ce764383c91755cbb02e4200b64f5b5771158a038118db8b25306c06bae63fcfc811324'
+            '04c09455176f9bf2b85ab15f515853fc58e4a992e85f6d9074013600951ec21bc5c7b1986cfb07c4a055f7827d1e807913b3214d9c8a13d71c554a11f2243cde')
 
 _eqver() {
     local r v
@@ -62,7 +91,7 @@ _rmmsdll() {
 }
 
 pkgver() {
-    local _ver64="$(powershell -command '(Get-Item "XnShellEx64/XnViewShellExt64.dll").VersionInfo.ProductVersionRaw.ToString()')"
+    local _ver64="$(powershell -command '(Get-Item "XnShellEx64/XnShellEx/XnViewShellExt64.dll").VersionInfo.ProductVersionRaw.ToString()')"
     local _ver32="$(powershell -command '(Get-Item "XnShellEx/XnViewShellExt.dll").VersionInfo.ProductVersionRaw.ToString()')"
     _eqver "${_ver64}" "${_ver32}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1.\2\3.\4/'
 }
@@ -70,7 +99,7 @@ pkgver() {
 package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}" "${a}/ShellEx64" "${a}/ShellEx"
-    cp -R "XnShellEx64"/* "${a}/ShellEx64"
+    cp -R "XnShellEx64/XnShellEx"/* "${a}/ShellEx64"
     cp -R "XnShellEx"/* "${a}/ShellEx"
     _rmmsdll "${a}"
     _lc "${a}"/*

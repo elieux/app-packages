@@ -4,7 +4,7 @@ _realname=unbound
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.10.0
+pkgver=1.11.0
 pkgrel=1
 pkgdesc="Validating, recursive, and caching DNS resolver"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("unbound_setup.exe::https://nlnetlabs.nl/downloads/unbound/unbound_setup_${pkgver}.exe")
-sha512sums=('10cb592127838ee0c3805e30b5aef38af6d5741189dcbe88e77cff1720c7f070fe18b997d97885d1e709340dec036a91e0996be4da6411fd192acd71f85778a0')
+sha512sums=('fce94acae1fce23744b2422523df1265bc8e9276eb37ea03bd01504e371908efba28805ab447e63b20782dd665dfa288839cddce0d902d50347a55e5dd659bff')
 
 _lc() {
     local d f n

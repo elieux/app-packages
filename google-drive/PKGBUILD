@@ -4,7 +4,7 @@ _realname=google-drive
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.49.9760.2421
+pkgver=3.50.3166.17
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
 url="https://www.google.com/drive/"
@@ -14,7 +14,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gsync_enterprise.msi::https://dl.google.com/drive/gsync_enterprise.msi")
-sha512sums=('c47d6b312281e988f025a4eb5b7f7bf34d8662da5b38529b426f70fb4d935b10c3b11e13bd2e690f93a3579f1c33f0d50f374a325370ed7800ae0751f0793a14')
+sha512sums=('ba3b58c48ff80082bc92b987c491ad9403d357490e3b8c9aedc72b7a11768a7a4750da70c172d846cc4e68f1878d9e31e6123817d676d1bfa723c0de2a14e502')
 
 prepare() {
     rm -fR "gsync_enterprise"

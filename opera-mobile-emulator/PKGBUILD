@@ -4,7 +4,7 @@ _realname=opera-mobile-emulator
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=12.10.46154
+pkgver=12.10
 pkgrel=1
 pkgdesc="Mobile Opera Classic debugging on the desktop"
 url="https://ftp.opera.com/pub/opera/sdlbream/"
@@ -33,10 +33,6 @@ _lc() {
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "Opera_Mobile_Emulator_Windows.exe" -d"Opera_Mobile_Emulator_Windows.dir"
-}
-
-pkgver() {
-    strings -d -es "Opera_Mobile_Emulator_Windows.dir/{app}/OperaMobileEmu.exe" | grep 'Opera Mobile/' | tail -1 | sed -r 's~^Opera Mobile/~~' | tr -d ' '
 }
 
 package() {

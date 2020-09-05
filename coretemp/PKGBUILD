@@ -33,7 +33,7 @@ _realname=coretemp
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.15.1
+pkgver=1.16.0
 pkgrel=1
 pkgdesc="A compact program to monitor processor temperature"
 arch=('any')
@@ -44,7 +44,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("CoreTemp64.zip::https@subdir://www.alcpu.com/CoreTemp/CoreTemp64.zip"
         "CoreTempTranslator.zip::https@subdir://www.alcpu.com/CoreTemp/CoreTempTranslator.zip")
-sha512sums=('7e79f913b35d0ecf4671acb807de379d8b03ee4f2ebe99f1f7ba5311e5cf851d896c244dd0b5b84d70c34f6f00bceee7fe7fd109927c2a833fe9d34e23656de6'
+sha512sums=('99fbd8a2166f9f17bcb4930b2658216efb23194147192f6492cc8032468aa1c57e56760c38d82f67cb95362b823839de4219dcbde39935179bfae19b894e9c3e'
             'be6a08b8e797dbf662ae88aff592b29d720c3069ad6fcc255446bc41ae15cec8b4755953e1c2b7e00aea982f04c4de7c4930af55d64ab6601819643abe373d81')
 
 _lc() {

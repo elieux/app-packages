@@ -5,7 +5,7 @@ _realname=nconvert
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.39
+pkgver=7.41
 pkgrel=1
 pkgdesc="A powerful command line multi-platform batch image processor"
 arch=('any')
@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("NConvert-win64.zip::https://download.xnview.com/NConvert-win64.zip")
-sha512sums=('3c47af1481852c8ee19dc3064a17af82dd7ecdbcf2507cc24c9e0a2f933f40c3b1b5016a5d41359dc10d3afd8aeb2c1c2795ff935b47e68a748486ac73d48041')
+sha512sums=('b0ce20191dee340b400a71fc2983112b7f78ff371c3f40c88cdf1ba13feabc46b5a9de57c13d5c2852b8b4f392db3cc8cf65e48160ceb71d19eef65ff5f5a776')
 
 _lc() {
     local d f n
@@ -47,13 +47,13 @@ _rmmsdll() {
 }
 
 pkgver() {
-    cat "XnView/whatsnew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
+    cat "NConvert/whatsnew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
 }
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "XnView"/* "${a}"
+    cp "NConvert"/* "${a}"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

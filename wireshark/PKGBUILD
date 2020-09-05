@@ -4,7 +4,7 @@ _realname=wireshark
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.2.5
+pkgver=3.2.6
 pkgrel=1
 pkgdesc="A free network protocol analyzer"
 url="https://www.wireshark.org/"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Wireshark-win64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-win64-${pkgver}.exe")
-sha512sums=('54a6329628eee0cf782c42727146825d68ab4d0984c8202727205a0114e5cacf50117ea04b354aaa8eafea1732ba426122388bae1843a920e314372ae519a752')
+sha512sums=('5c0cc9e73d0192fc87c4be622c46f74fecaea12d04f0ecd0d06003138d44efb1ec850d029ec4187e715a74b2cac61417fb3e195ea791fab67dcb17d35aae9043')
 
 _lc() {
     local d f n

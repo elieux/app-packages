@@ -5,7 +5,7 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=0.107.0
+pkgver=0.108.0
 pkgrel=1
 pkgdesc="A KeePass plugin that adds TOTP to tray menu, entry list and Auto-Type"
 url="https://github.com/KeeTrayTOTP/KeeTrayTOTP"
@@ -16,8 +16,8 @@ replaces=("app-i686-keepass-plugin-tray-totp")
 options=(!strip)
 source=("KeeTrayTotp.plgx::https://github.com/KeeTrayTOTP/KeeTrayTOTP/releases/download/v${pkgver}/KeeTrayTOTP.plgx"
         "KeeTrayTOTP.zip::https://github.com/KeeTrayTOTP/KeeTrayTOTP/archive/v${pkgver}.zip")
-sha512sums=('275687c58952af4805672823b051f2f1d8e9f0f566ed376f3ddf14d5036777abc0c9a649bbd63b8daa6f5d8d09c8cfa60deccd490d204e0fe73b4995671ea699'
-            '2ffc22b964ea77b3eeb43e79129b2f2488126c521648323f19b6e92e25e4ff014972078793300b182cd3bf7f5ce8ee0e14f2cda07d686e17a884077c5de32cb0')
+sha512sums=('8a7933513a5aa1f53c5a906f84f75976d38435e53dfefe95958a55e3d0d3c4ada3dc7a2ed94939280581f3da45f7b81b19e1372915c4d653b503a34745008f46'
+            '3b306703d081803d6e16c3f4ccca1a04433ecd77b375b6b84db6cf4e47b02b0e9366381a0e3ce0d365cab6b3e7c642fd32fa56803bbb3973e400e6a951a213b8')
 
 package() {
     depends=("app-keepass")

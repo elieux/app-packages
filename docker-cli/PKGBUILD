@@ -1,6 +1,6 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_realver=46911
+_realver=48029
 _realname=docker-cli
 _dirname=docker
 pkgbase="app-${_realname}"
@@ -18,7 +18,7 @@ replaces=("app-x86_64-docker")
 conflicts=("app-x86_64-docker")
 options=(!strip)
 source=("DockerDesktopInstaller.exe::https://download.docker.com/win/stable/${_realver}/Docker%20Desktop%20Installer.exe")
-sha512sums=('ddd84d4285bd5f2f4ff986282764fa0b4384bb0cdf7c739023171a9930c4bab27ff01dd7ae80c50a3cb7d28fa5c80f6da7a9a78c461d93d3129251310bab6548')
+sha512sums=('c67a4478d890065534d12d66e1e1b2fb75de76605ad081233f3bbb2350e29693786429056681397622936b91997d155ee5b28055b4ecb4ec26ee4eb9757410aa')
 
 prepare() {
     7z x -y -bd "DockerDesktopInstaller.exe" -o"DockerDesktopInstaller.dir" > /dev/null
@@ -26,11 +26,11 @@ prepare() {
 }
 
 pkgver() {
-    powershell -command '(Get-Item "text/resources/bin/docker.exe").VersionInfo.ProductVersion'
+    powershell -command '(Get-Item "text/resources/bin/com.docker.cli.exe").VersionInfo.ProductVersion'
 }
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "text/resources/bin/docker.exe" "${a}"
+    cp "text/resources/bin/com.docker.cli.exe" "${a}/docker.exe"
 }

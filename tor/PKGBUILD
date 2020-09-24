@@ -30,11 +30,11 @@ download_https@subdir() {
 }
 
 _realname=tor
-_realver=9.5.4
+_realver=10.0
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.4.3.6
+pkgver=0.4.4.5
 pkgrel=1
 pkgdesc="Anonymizing overlay network"
 url="https://www.torproject.org/"
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("tor-win64.zip::https@subdir://dist.torproject.org/torbrowser/${_realver}/tor-win64-${pkgver}.zip")
-sha512sums=('8d30e1eca518360af397fdf40dd55dde6e38b697d41e3bfbc5e132c6206e391c942d24e0526893e102843e535f0f14d167e48028416e1d3a47fabf85e5cbc425')
+sha512sums=('29811aa0aee7eda10027eca92213e8878d2583c61258a36c5df684d154ac87ba8ba2d8b2595ed52e853a69b00f722309690866b78bab64a0413485da96d9e4eb')
 
 _lc() {
     local d f n

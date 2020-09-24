@@ -34,7 +34,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.46
-pkgrel=1
+pkgrel=2
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
 arch=('any')
@@ -84,7 +84,7 @@ source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%
         "KeePass2-Slovenian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.37-Slovenian.zip"
         "KeePass2-Spanish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Spanish.zip"
         "KeePass2-Swedish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Swedish.zip"
-        "KeePass2-Thai.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Thai.zip"
+        "KeePass2-Thai-b.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Thai-b.zip"
         "KeePass2-Turkish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Turkish.zip"
         "KeePass2-Ukrainian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Ukrainian.zip"
         "KeePass2-Vietnamese.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Vietnamese.zip")
@@ -131,7 +131,7 @@ sha512sums=('57e08fcbc6b60f6f2bdec926b775c9c0a6bfe40dfe04dd3fb4c864f6db5cfd25cf2
             '1140d20e4ae6debb6a6ee39ebfb89d66089e893704b4a7969b36ff5977e8b9467e255e6017ea5874a6abbad4ae058339a0f96a08f07942ebec91f1a4b6f84d28'
             'fa6f10e45165922d420463b13a719a8102bd6080aef997519221e80236e35e8c7eb8ef37c3e01ebc4616172bfc35ba6bb148ae03c5d40c52caae9817a2ad9591'
             '98ea2f0f70fd7afa3ba61aca881c941ed1739baae438cba05d759876ad008071fc47d415e62b0d33aac86475508148cf29913d0102d3d139c871335130acee83'
-            'dfb35b38551ddc2ee1d2053cac83980511696b703eb0c7fddf22a517d433e0106e02dbe08660279462f34c5473a97f621c18bedc7475e26f54cfe373f8a8e491'
+            '607353d04fb21e9b29016e0c9783ebe311f86046376844768232edd88a4fd7d59c02559500ef70735fcb6c6a2e208d48f4d475426d4af7764592d2355088ca0f'
             'd00bc406ca1ef22da6a2a55fd69b0869f49a0219d68fea92a45c589f1d991b4189e8fb9f494bc0532c34d2018a9ad76a48d93174abbd16dd2ad65fd95520e703'
             '8c614ab8cf35e7f33bbcecf7657007962422b35118aa8d98862d32f9184ae69f0a009c146a867c627a15ccc44fd3bb8e0eace25d62c5b1b19d2ced918477c278'
             '13625ff56df76496d81e9b27779c645b88fa4b5acfb7dc3c0d884f8556d7a447b624a3b493d74cc32491fdecbdcfc07bd2785511988dff7a8f326fbd511443d5')

@@ -33,7 +33,7 @@ _realname=signal
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.35.1
+pkgver=1.16.3
 pkgrel=1
 pkgdesc="Dekstop Signal client"
 url="https://www.signal.org/download/windows/"
@@ -43,7 +43,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("signal-desktop-win.exe::https@subdir://updates.signal.org/desktop/signal-desktop-win-${pkgver}.exe")
-sha512sums=('8163838098147e0a25287a471a4ac9e24b9e4cf4ec7ee9dc92284e8edf8a724d2a8fcc36f1e8a6912e32227f99e55c3dbd946c1b3cb7defb1e2f80223b855081')
+sha512sums=('6d2d928a96fa25f41f1e9bbca1f4624671e69731ac50ac559e89b9aa85462a21e6f1e00835599e610810aebf2930fcd532beecab8bbeff6ab7340e7cc55ed21f')
 
 _lc() {
     local d f n
@@ -60,9 +60,30 @@ _lc() {
     done
 }
 
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    rm -fR "signal-desktop-win.dir"
+    7z x -y -bd "signal-desktop-win.exe" -o"signal-desktop-win.dir" > /dev/null
+    7z x -y -bd "signal-desktop-win.dir"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
+}
+
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "signal-desktop-win"/* "${a}"
+    cp -R "app-64"/* "${a}"
+    _rmmsdll "${a}"
     _lc "${a}"/*
 }

@@ -1,0 +1,22 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=api-monitor
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2.r13
+pkgrel=1
+pkgdesc="Spy on API calls and COM interfaces"
+url="http://www.rohitab.com/apimonitor"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("api-monitor-x86-x64.zip::http://www.rohitab.com/download/api-monitor-v${pkgver/./}-x86-x64.zip")
+sha512sums=('999bfa4acea9a83ee97f18f564456e78ad551a2da8f7207c130e61f87d6855aa2c23379fb5813be4a17933ccf5cc97f98df09837f2099ae412fc0be6d2316c34')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "API Monitor (rohitab.com)/"* "${a}"
+}

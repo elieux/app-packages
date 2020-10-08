@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_realver=48029
+_realver=48506
 _realname=docker-cli
 _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=19.03.12
+pkgver=19.03.13
 pkgrel=1
 pkgdesc="Pack, ship and run any application as a lightweight container"
 url="https://docs.docker.com/engine/reference/commandline/cli/"
@@ -18,19 +18,18 @@ replaces=("app-x86_64-docker")
 conflicts=("app-x86_64-docker")
 options=(!strip)
 source=("DockerDesktopInstaller.exe::https://download.docker.com/win/stable/${_realver}/Docker%20Desktop%20Installer.exe")
-sha512sums=('c67a4478d890065534d12d66e1e1b2fb75de76605ad081233f3bbb2350e29693786429056681397622936b91997d155ee5b28055b4ecb4ec26ee4eb9757410aa')
+sha512sums=('963a595075a9e04b5d0fad95e086a102312b959ca94ac8f44f566cb8169e19b23efa92dcd5a2f4a18d910c4753693416726a819766fd51d13351c78087f27d79')
 
 prepare() {
     7z x -y -bd "DockerDesktopInstaller.exe" -o"DockerDesktopInstaller.dir" > /dev/null
-    7z x -y -bd "DockerDesktopInstaller.dir/.text" -o"text" > /dev/null
 }
 
 pkgver() {
-    powershell -command '(Get-Item "text/resources/bin/com.docker.cli.exe").VersionInfo.ProductVersion'
+    powershell -command '(Get-Item "DockerDesktopInstaller.dir/resources/bin/com.docker.cli.exe").VersionInfo.ProductVersion'
 }
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "text/resources/bin/com.docker.cli.exe" "${a}/docker.exe"
+    cp "DockerDesktopInstaller.dir/resources/bin/com.docker.cli.exe" "${a}/docker.exe"
 }

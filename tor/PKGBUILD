@@ -30,7 +30,7 @@ download_https@subdir() {
 }
 
 _realname=tor
-_realver=10.0
+_realver=10.0.1
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("tor-win64.zip::https@subdir://dist.torproject.org/torbrowser/${_realver}/tor-win64-${pkgver}.zip")
-sha512sums=('29811aa0aee7eda10027eca92213e8878d2583c61258a36c5df684d154ac87ba8ba2d8b2595ed52e853a69b00f722309690866b78bab64a0413485da96d9e4eb')
+sha512sums=('5f5bd2516eef6b080b3c1545dbe81ee6052bc48ff1581f458964ece96b139fdfbdc558bb79b8548f8b9b5655bcef4c1e608cced5bbbdf518d4eef1a89dd27350')
 
 _lc() {
     local d f n

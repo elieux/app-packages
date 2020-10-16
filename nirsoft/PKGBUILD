@@ -32,11 +32,11 @@ extract_https@subdir() {
 }
 
 _realname=nirsoft
-_realver=1.23.32
+_realver=1.23.33
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2020.09.27
+pkgver=2020.10.10
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="https://www.nirsoft.net/"
@@ -101,7 +101,7 @@ source=("nirsoft_package_enc.zip::https://download.nirsoft.net/nirsoft_package_e
         # "https://www.nirsoft.net/utils/win9xpv.zip"
         # "https://www.nirsoft.net/utils/wmc.zip"
 )
-sha512sums=('9a72d1ac2e4d39b39c79542a0fb91071423d27f4fc9b194d66f4465bbcdf3c566402667a1d29adb62495a61c8bc21d1eeef595eaa4b397e8006462f7c6e4b67a'
+sha512sums=('90b80ae474c38a78501b709ea7760e750f1ece0d0170f34b03967e810c2f0868a983dc8346f9b58d62a908d92b26775ebcc2143060ad99699db24fe471ae25bd'
             '4091bd243a84bb473a90025f822a949d3b6ed826fccb790a092a946b4e170c2ad24c2ab9f256a4042e49f93e03c32ba59666aff1d7f49682bde859fcb2e6ca4e'
             'ef42954a9e3d2504996030036badd0ded16bdd9192d49f1ce4b7aaeb178cb09f75be6a8243367cda82c70cf42eaf84b31f5f4fee59fd860ae4c5789e21485ced'
             '7aa3e3df2461fee5d23e4f7779c30d0e8f0e13bc16bbeefe20876ca525ed99ffa54ab7e71a4686d8ad623c146065c262b8c622588164ed25cf84a4be25f057bb'

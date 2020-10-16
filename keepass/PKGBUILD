@@ -34,7 +34,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.46
-pkgrel=3
+pkgrel=4
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
 arch=('any')
@@ -49,7 +49,7 @@ source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%
         "KeePass2-Bulgarian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Bulgarian.zip"
         "KeePass2-Burmese.zip::https://downloads.sourceforge.net/keepass/Burmese-2.19.zip"
         "KeePass2-Catalan.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Catalan.zip"
-        "KeePass2-Chinese_Simplified.zip::https://downloads.sourceforge.net/keepass/KeePass-2.45-Chinese_Simplified.zip"
+        "KeePass2-Chinese_Simplified.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Chinese_Simplified.zip"
         "KeePass2-Chinese_Traditional.zip::https://downloads.sourceforge.net/keepass/KeePass-2.46-Chinese_Traditional.zip"
         "KeePass2-Croatian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.29-Croatian.zip"
         "KeePass2-Czech.zip::https://downloads.sourceforge.net/keepass/KeePass-2.44-Czech.zip"
@@ -96,7 +96,7 @@ sha512sums=('57e08fcbc6b60f6f2bdec926b775c9c0a6bfe40dfe04dd3fb4c864f6db5cfd25cf2
             '65fe9ab5e4c7a6a46e9d650ebff9bce860334c12bf0809e975b2f7a42574b3c12e725a0f1800cca3bc019289a8d368b933e1fcb44f42b928ba3980f4139433ae'
             '8548df07918d101548e828e038bda9c593f909f17cd11cb568c987094b19ed66306f79e3e58d3128a3aeef20deb7061f9c1f1fc001e28aef355b42ec75a519d2'
             'ac16178362cc85ea48aa08099517ebd8b62c1d13928c043f49439ec7fcc0946beaca474321fddd8f48e3169588847deb46cd45931019b182fa246a8ab03edea2'
-            'da63d6867a7235f8925e3196fa29acb2225647aea84dbb01308206058cb1965406fcca15f571c00c6f96f81c34decccaa4c391c96ccc21013c723d511e4f85e4'
+            'f2d859d386f16c3cbb450d02efc88434a485d77bef5b89249635e073b16b1294d8ab007f4f8cd6a904bd07b7d72b4c03084e3120c6a2be63722268735f872d1c'
             '86ba99ab93dae46ea712835b13b14ec60e0ff89f410f3823c7035db1ad943b317119119f686f13cca649c52d7483c1a017e3f44403709153ed51f5fb42a08c5c'
             'a3584859709ef51bbf68f1703eb82178686d1694bdbf1a8ad992f6023bcfe67269313e1279e75c5450b59e693037dd93ab87285c8f43cb60e2dcd75bfc216020'
             'f0e38f8fb1a82ccb41b64042107814f9ec9774b7028f9003ab293fea8847e1b507ce120053905e1bccf79d6a4eaaa2aa8cb6bfe392db8071d700f3dd339992ad'

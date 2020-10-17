@@ -1,0 +1,40 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_dirname=xdebug-dbgp-tools
+_realname=xdebug-dbgp-proxy
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.3 # determined by running the .exe
+pkgrel=1
+pkgdesc="DBGp proxy from Xdebug"
+url="https://xdebug.org/docs/dbgpProxy"
+arch=('any')
+license=('unknown')
+provides=("${pkgbase}")
+conflicts=("xdebug-dbgp-tools")
+options=(!strip)
+source=("dbgpProxy.exe::https://xdebug.org/files/binaries/dbgpProxy.exe")
+sha512sums=('c07bea4670effd0ba43e6a214aec2ddc8e99a190c068984dbb3eebd3d039f99bf5e29bcabb6269a0bf73fbcea9aa842d766e3bd03022d7263074da2c9d5de2e3')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}"
+    cp "dbgpProxy.exe" "${a}"
+    _lc "${a}"/*
+}

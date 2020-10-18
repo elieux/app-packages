@@ -4,7 +4,7 @@ _realname=xnview-mp
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.97.0
+pkgver=0.97.1
 pkgrel=1
 pkgdesc="A multi-platform photo and picture viewer"
 url="https://www.xnview.com/en/xnviewmp/"
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("XnViewMP-win-x64.zip::https://download.xnview.com/XnViewMP-win-x64.zip")
-sha512sums=('70de02338e41052580ba25c962a03e407033a06000c5ab32007495dafb147615c9812637fe04a768c5e431e228bd6da1e56071c86fc488aac1255d2135c4187b')
+sha512sums=('163058e13d2372053d94df77baaed360312b25ff9d1fb03f887fd0624399e4f95f21cc66fae530443599d585683873b5f272b7f3f9bce9bc51cb599d1161d6d2')
 
 _lc() {
     local d f n

@@ -1,0 +1,43 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=csgo-demos-manager
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=2.13.12
+pkgrel=1
+pkgdesc="Manage replays from the game Counter-Strike: Global Offensive"
+url="https://csgo-demos-manager.com/"
+arch=('any')
+license=('custom')
+makedepends=("app-innounp")
+provides=("${pkgbase}")
+options=(!strip)
+source=("csgo-demos-manager.exe::https://github.com/akiver/CSGO-Demos-Manager/releases/download/v${pkgver}/csgo-demos-manager-${pkgver}.exe")
+sha512sums=('e8ce6ab5636b9489b33287f2a751a7c04a1d169018ae2e99fc2ad2d0cf27ed792671633e1b88adb14c6878a083e10a7c00e3f8db44b63f6d9fa3935a7dfde1c9')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    /apps/innounp/innounp -x -q -m -a -y "csgo-demos-manager.exe" -d"csgo-demos-manager.dir"
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "csgo-demos-manager.dir/{app}"/* "${a}"
+    _lc "${a}"/*
+}

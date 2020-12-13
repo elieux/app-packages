@@ -1,5 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # choco version format: 1.16.20200918
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]{8})$/\1.\2.0/'
+}
+
 _extract_subdir() {
     local _file="$(get_filename "${1}")"
     local _dir="${_file%.*}"
@@ -30,6 +35,7 @@ extract_https@subdir() {
 }
 
 _realname=coretemp
+_choconame=coretemp
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1

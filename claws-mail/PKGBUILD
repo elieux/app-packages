@@ -1,6 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # choco version format: 3.17.4.20191026
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]{8})$/\1.\2.\3/'
+}
+
 _realname=claws-mail
+_choconame=claws-mail
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1

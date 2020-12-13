@@ -1,5 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # choco version format: 2.4.0.20200422
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0[.]([0-9]{8})$/\1.\2/'
+}
+
 _extract_subdir() {
     local _file="$(get_filename "${1}")"
     local _dir="${_file%.*}"
@@ -30,6 +35,7 @@ extract_https@subdir() {
 }
 
 _realname=keepass-plugin-keeautoexec
+_choconame=keepass-plugin-keeautoexec
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")

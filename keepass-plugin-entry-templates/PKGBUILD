@@ -1,6 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # choco version format: 1.8.0.20190608
+    echo "${1}" | sed -r 's/^1[.]([0-9]+)[.]([0-9]+)[.]([0-9]{8})$/\2.\3/'
+}
+
 _realname=keepass-plugin-entry-templates
+_choconame=keepass-kpentrytemplates
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")

@@ -1,10 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=f.lux
+_choconame=f.lux
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.118.0.0
+pkgver=4.118
 pkgrel=1
 pkgdesc="Changes the display color temperature according to the time of the day"
 url="https://justgetflux.com/"
@@ -22,7 +23,7 @@ prepare() {
 }
 
 pkgver() {
-    powershell -command '(Get-Item "flux-setup.dir/flux.exe").VersionInfo.FileVersionRaw.ToString()'
+    powershell -command '(Get-Item "flux-setup.dir/flux.exe").VersionInfo.FileVersionRaw.ToString()' | sed -r 's/^([0-9]+[.][0-9]+)[.]0[.]0$/\1/'
 }
 
 package() {

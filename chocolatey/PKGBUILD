@@ -1,0 +1,56 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=chocolatey
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.10.15
+pkgrel=1
+pkgdesc="Package manager for Windows"
+url="https://chocolatey.org/"
+arch=('any')
+license=('Apache2')
+provides=("${pkgbase}")
+options=(!strip)
+source=("chocolatey.nupkg::https@subdir://chocolatey.org/api/v2/package/chocolatey/${pkgver}")
+sha512sums=('a380d643061ddc8c4e064370cce688a3e3f09058f4172d05ef65260783960cf67bc1427ded979879638ec9c405bbdac50fb0cc99903941905c9ef82231cc1d6b')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "chocolatey"/* "${a}"
+    rm -R "${a}"/{_rels,package,*.nuspec} "${a}/[Content_Types].xml"
+    rm -R "${a}/tools"/{chocolateyInstall.ps1,chocolateysetup.psm1,init.ps1,VERIFICATION.txt}
+    mv "${a}/tools/" "${a}/toolsx/"
+    mv "${a}/toolsx/chocolateyInstall"/* "${a}"
+    rm -R "${a}/toolsx"
+}

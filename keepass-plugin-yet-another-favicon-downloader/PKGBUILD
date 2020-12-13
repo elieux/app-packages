@@ -1,0 +1,26 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-yet-another-favicon-downloader
+_choconame=keepass-yet-another-favicon-downloader
+_dirname=keepass
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=1.2.4.0
+pkgrel=1
+pkgdesc="Quickly download favicons for your password entries"
+url="https://github.com/navossoc/KeePass-Yet-Another-Favicon-Downloader"
+arch=('any')
+license=('MIT')
+provides=("${pkgbase}")
+options=(!strip)
+source=("YetAnotherFaviconDownloader.plgx::https://github.com/navossoc/KeePass-Yet-Another-Favicon-Downloader/releases/download/v${pkgver}/YetAnotherFaviconDownloader.plgx")
+sha512sums=('5423bd8a7d9c27c9b918e41ce9ca85cd9786bfa7e7d087a17bce9ce5da0036d1700c3065f018f9dfe25ec84eb3eec821b996cd6acc925ed7c9be8ca09fd7529d')
+
+package() {
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins"
+    cp *.plgx "${a}/Plugins"
+}

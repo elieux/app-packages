@@ -5,7 +5,7 @@ _choconame=discord
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=0.0.308
+pkgver=0.0.309
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers"
 url="https://www.discordapp.com/"
@@ -15,7 +15,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("DiscordSetup.exe::https://discordapp.com/api/download?platform=win")
-sha512sums=('2722c71b7f98b3539d7dd5525fbc1492eb9cfc73c16a1b77973183ec2ff03c3704384055749af9e94734cf9709dee9de8669581df66055bc5f3a30fef18a25b5')
+sha512sums=('d01532d763b869364cc7fd3b49eb23d9522680b4880a70fa39e9cda40380d0f755c31c8ba1c51babeda9aa64f346b37acef459a3aa0b18819f83e66b7aa4c1f0')
 
 _lc() {
     local d f n

@@ -1,8 +1,8 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _chocover() {
-    # choco version format: 20.11.24.0
-    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]0$/\1.\2.\3/'
+    # choco version format: 20.11.4.0
+    echo "${1}" | sed -r -e 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]0$/\1.\2.\3/' -e 's/[.]([0-9])[.]/.0\1./' -e 's/[.]([0-9])[.]/.0\1./'
 }
 
 _extract_subdir() {
@@ -26,12 +26,12 @@ _extract_subdir() {
     eval "${_original_bsdtar}"
 }
 
-download_https@subdir() {
-    download_file "${1/@subdir:/:}"
-}
-
 extract_https@subdir() {
     _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
 }
 
 _realname=conemu
@@ -39,7 +39,7 @@ _choconame=ConEmu
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=20.10.11
+pkgver=21.01.28
 pkgrel=1
 pkgdesc="A powerful, highly customizable console emulator with tabs"
 url="https://conemu.github.io/"
@@ -49,7 +49,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ConEmuPack.7z::https@subdir://github.com/Maximus5/ConEmu/releases/download/v${pkgver}/ConEmuPack.${pkgver//./}.7z")
-sha512sums=('42c45aa3c5c732b8e7007cce0a9c73cbca4735e571100393848ece4614eec56aa1ee1517f0078dfa0f2548400724053e11b39bf68bacffacda3643eb233c6fc8')
+sha512sums=('a9e36f6a384defe0042cd520778513c53fde72fcd2c0dd25ae5fd6ea8732b98df9bf0af4bc8e88e4e1f8a122e4586eb53e5df32cfd5392b31615f6d3d640fd97')
 
 _lc() {
     local d f n

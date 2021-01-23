@@ -1,16 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_chocover() {
-    # choco version format: 3.5.2.311459983
-    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1.\2.\3/'
-}
-
 _realname=musescore
 _choconame=musescore
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.5.1
+pkgver=3.6.0.487915773
 pkgrel=1
 pkgdesc="Create, play and print beautiful sheet music"
 url="https://musescore.org/"
@@ -20,8 +15,8 @@ replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("MuseScore-x86_64.msi::https://github.com/musescore/MuseScore/releases/download/v${pkgver%.0}/MuseScore-${pkgver}-x86_64.msi")
-sha512sums=('0031e3e86cbe439a7ac9344912bea52bfb0259d408d83f9f5ccd456a30fd3117247e4423413bf76091bb2910e6c86d4037f26e323b3a6eabae66f3b113d879b4')
+source=("MuseScore-x86_64.msi::https://github.com/musescore/MuseScore/releases/download/v${pkgver%.0.*}/MuseScore-${pkgver}-x86_64.msi")
+sha512sums=('b0a69b02f20107e0f35790d544b31b0d9add816e8609de5065691762132b2bd8e499313706879f1cba2be3f609e8ad183e79442cb57e696b91da819acf6bd3cc')
 
 _rmmsdll() {
     local ms

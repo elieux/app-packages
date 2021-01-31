@@ -1,11 +1,17 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+
+_chocover() {
+    # choco version format: 3.54.3529.0458
+    echo "${1}" | sed -r -e 's/[.]0+([1-9])/.\1/'
+}
+
 _realname=google-drive
 _choconame=google-backup-and-sync
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.50.3166.17
+pkgver=3.54.3529.458
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
 url="https://www.google.com/drive/"
@@ -15,7 +21,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gsync_enterprise.msi::https://dl.google.com/drive/gsync_enterprise.msi")
-sha512sums=('ba3b58c48ff80082bc92b987c491ad9403d357490e3b8c9aedc72b7a11768a7a4750da70c172d846cc4e68f1878d9e31e6123817d676d1bfa723c0de2a14e502')
+sha512sums=('c1fcef91263425bf9a2d6048056d9e2d43960106e668804a7a6ec85f004bf176d34a13da107533dc464d50b409366704a1b42f7c08691375b4ede3d6e06b1b35')
 
 prepare() {
     rm -fR "gsync_enterprise"

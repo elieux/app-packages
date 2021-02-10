@@ -1,11 +1,16 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # choco version format: 1.53.4.20210131
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.][0-9]{8}$/\1.\2.\3/'
+}
+
 _realname=rclone
 _choconame=rclone
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.53.3
+pkgver=1.54.0
 pkgrel=1
 pkgdesc="Syncs your files to cloud storage"
 url="https://rclone.org/"
@@ -14,7 +19,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("rclone-windows-amd64.zip::https://downloads.rclone.org/v${pkgver}/rclone-v${pkgver}-windows-amd64.zip")
-sha512sums=('f100210a3c7394bee29c400bcec024474df2ddeaa612d79b36d59a7a07bb58838ec1bd20c08f7754f351994b2d5874435b5161299aed74db3470d0aff669ec74')
+sha512sums=('9fba65a5a56a95ca8796fd54c9fd077ccf8bee057b8efa15589a93a9d7da75dbb19b7f4af28447562a881552de8237ff839a447d45248cd12b5ec518940a0b81')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

@@ -5,7 +5,7 @@ _choconame=f.lux
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.118
+pkgver=4.119
 pkgrel=1
 pkgdesc="Changes the display color temperature according to the time of the day"
 url="https://justgetflux.com/"
@@ -16,7 +16,7 @@ provides=("${pkgbase}")
 replaces=("app-i686-f-lux")
 options=(!strip)
 source=("flux-setup.exe::https://justgetflux.com/flux-setup.exe")
-sha512sums=('f42068e8a499ca89a8ccfa4b86e8547ceb8e7335909087e1ab17d38bc409b0a53a0e8d65ff186e5acd7d1f19991d03ea021eb09d606a5aa11c08d9e94bf03c84')
+sha512sums=('2900c6bf27aeaf0a33b60799e7f2ef3a7b76364f8ac110689ed580ed31b9c14938397e4209daf7d12ef6db1e88c153818cd2f9a84ab4f11bc9854cfaee7ef903')
 
 prepare() {
     7z x -y -bd "flux-setup.exe" -o"flux-setup.dir" > /dev/null
@@ -30,5 +30,5 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "flux-setup.dir"/* "${a}"
-    rm -R "${a}"/'$PLUGINSDIR'
+    rm -R "${a}"/'$PLUGINSDIR' "${a}/runtime/uninstall.exe.nsis"
 }

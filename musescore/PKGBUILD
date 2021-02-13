@@ -5,7 +5,7 @@ _choconame=musescore
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.6.0.487915773
+pkgver=3.6.2.548021803
 pkgrel=1
 pkgdesc="Create, play and print beautiful sheet music"
 url="https://musescore.org/"
@@ -15,8 +15,8 @@ replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("MuseScore-x86_64.msi::https://github.com/musescore/MuseScore/releases/download/v${pkgver%.0.*}/MuseScore-${pkgver}-x86_64.msi")
-sha512sums=('b0a69b02f20107e0f35790d544b31b0d9add816e8609de5065691762132b2bd8e499313706879f1cba2be3f609e8ad183e79442cb57e696b91da819acf6bd3cc')
+source=("MuseScore-x86_64.msi::https://github.com/musescore/MuseScore/releases/download/v$(echo "${pkgver%.*}" | sed -r -e 's/[.]0$//')/MuseScore-${pkgver}-x86_64.msi")
+sha512sums=('b6fc966c93b9af4991f51b65a3a93e773ab3efa10f3b14a844e705d4ae64e8c10f396aa5b15396fce3ee72beaccf4f5cfd35138ed72d9bb211ea7700cccba7db')
 
 _rmmsdll() {
     local ms
@@ -24,7 +24,7 @@ _rmmsdll() {
     ms=("msvbvm[0-9]+"
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+(_([0-9]|codecvt_ids))?"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
         "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
         "concrt[0-9]+"
         "pgort[0-9]+"

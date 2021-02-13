@@ -5,7 +5,7 @@ _choconame=tapwindows
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=9.24.2
+pkgver=9.24.6
 pkgrel=1
 pkgdesc="NDIS 6 TAP adapter driver"
 url="https://community.openvpn.net/openvpn#Tap-windowssubproject"
@@ -14,12 +14,12 @@ license=('GPL2' 'custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("tap-windows.zip::https://build.openvpn.net/downloads/releases/tap-windows-${pkgver}.zip")
-sha512sums=('882d7473867a329a3fdd4e94008bc363138fcbbe474e27bc9e6f66c8844ecc671f3481f33523f1f12ef7274916453138f8e965b6c1b97106eb89ce30712dd378')
+sha512sums=('d667c1c2bb4adddf304ea2d1a568dbc00c3954e5bf4760932322f6cd87457ac9b51165d9fecb0f9063f986969d75b01d5763893344fd00b816c2b5503347e646')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "tap-windows-${pkgver}"/* "${a}"
     mv "${a}/amd64"/* "${a}"
-    rm -R "${a}"/{amd64,arm64,i386}
+    rm -R "${a}"/{amd64,arm64,i386,win10}
 }

@@ -1,5 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # choco version format: 2021.1.19
+    echo "${1}" | sed -r 's/[.]([0-9])[.]/.0\1./' -r 's/[.]([0-9])[.]/.0\1./'
+}
+
 _extract_subdir() {
     local _file="$(get_filename "${1}")"
     local _dir="${_file%.*}"
@@ -34,7 +39,7 @@ _choconame=sysinternals
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2020.10.15
+pkgver=2021.01.19
 pkgrel=1
 pkgdesc="Advanced system utilities for Windows"
 url="https://docs.microsoft.com/en-us/sysinternals/"
@@ -46,7 +51,7 @@ options=(!strip)
 source=("SysinternalsSuite.zip::https@subdir://download.sysinternals.com/files/SysinternalsSuite.zip"
         "RootkitRevealer.zip::https@subdir://download.sysinternals.com/files/RootkitRevealer.zip"
         "BlueScreen.zip::https@subdir://download.sysinternals.com/files/BlueScreen.zip")
-sha512sums=('fa330804318d4483c0c5a60455f6698cbd8d2ed7b967f82ce89e85815eb1851d30aecf5c2178debf968bb3aa1e8262d93668eb5ae5fdbd5ea1aaeca2b3d8800a'
+sha512sums=('fe10cd067a9cb4e79ca76b9ebc285577c27ba4e723a47e1633a2bd040008dc4fa963b8b10481b3486f9818801fab9e93507df01c1e0095f76ee859dfac1fed4b'
             '2e5f89552fc1912b5fa37eb443ef2aa86e2a60f2f7f24f420df56e1ec5f59bd64e2b71e38365f7beaace419299762b9960b7617de9aff6301020277d3d7c1e61'
             '2e39c4b36e9928851fc86d9fc541956c3079a1ded09cca5ee677fbe1b3c9272b87651b65e53279cede3c4ed37028fcbae0823c4ee25180d5bc132cef8d155507')
 

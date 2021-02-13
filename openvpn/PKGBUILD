@@ -5,42 +5,26 @@ _choconame=openvpn
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.4.9.601
+pkgver=2.5.0.601
 pkgrel=1
 pkgdesc="A full-featured SSL VPN solution"
 url="https://openvpn.net/community/"
 arch=('any')
 license=('custom')
-makedepends=("p7zip")
+makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("openvpn-install-Win10.exe::https://build.openvpn.net/downloads/releases/openvpn-install-${pkgver%.*}-I${pkgver##*.}-Win10.exe")
-sha512sums=('0a18f720856429da8f68a9ab1ec782ee3655981cbfb5b33b94d03e85ba8b1315b370d7c35fe0f23ec7b1e12c2647c26cb5124cf890dec43b0f110253b42deb2d')
-
-_pickarch() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | sed -r -e 's/_[0-9]+[.]/./' -e 's/[.]duplicate[0-9]+$//')"
-        case "$(file "${d}/${f}")" in
-        *x86-64*|*assembly*) mv -f "${d}/${f}" "${d}/${n}" ;;
-        *) rm "${d}/${f}" ;;
-        esac
-    done
-}
+source=("OpenVPN-amd64.msi::https://swupdate.openvpn.org/community/releases/OpenVPN-${pkgver%.*}-I${pkgver##*.}-amd64.msi")
+sha512sums=('8c5bdc6fe50dfc641842096707d67a1aa196a6e4e3f33ee7b81b39b6eb24d39e6e03137ee28b2f514e8dccad53726e31b102fff02ca8e9996cd4f6d58a9c02ce')
 
 prepare() {
-    rm -fR "openvpn-install-Win10.dir"
-    echo u | 7z x -bd "openvpn-install-Win10.exe" -o"openvpn-install-Win10.dir" > /dev/null
+    rm -fR "OpenVPN-amd64"
+    /apps/lessmsi/lessmsi x "OpenVPN-amd64.msi" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "openvpn-install-Win10.dir"/* "${a}"
-    rm -R "${a}/easy-rsa" "${a}"/{'$TEMP','$PLUGINSDIR'}
-    _pickarch "${a}/bin"/*.{exe,dll}
+    cp -R "OpenVPN-amd64/SourceDir/OpenVPN"/* "${a}"
+    rm -R "${a}"/{easy-rsa,include,config,config-auto,log}
 }

@@ -39,7 +39,7 @@ _choconame=x64dbg.portable
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2020.10.19.23.04
+pkgver=2021.02.09.17.28
 pkgrel=1
 pkgdesc="An open-source x64/x32 debugger for Windows"
 arch=('any')
@@ -48,7 +48,7 @@ license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
 source=("snapshot.zip::https@subdir://github.com/x64dbg/x64dbg/releases/download/snapshot/snapshot_$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1-\2-\3_\4-\5/').zip")
-sha512sums=('802a159ca08183500e2709e1536429539781b81c425f7dc31a56d264aedf4d3ec8acb2d34d189a595c1b7e5a7808947c3114f44b90ffe036aa343c657812811e')
+sha512sums=('6641ba61ba75a630c27fd1812c0482814217ff7e91efafb170472b4d5696741d81139bbf86690f2d8eb7b9ccf66190b297876aa3e6e98e59ca088fd672e4262c')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

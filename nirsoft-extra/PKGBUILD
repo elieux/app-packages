@@ -1,0 +1,172 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+#DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -e "https://www.nirsoft.net/" -o %o %u')
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=nirsoft-extra
+_dirname=nirsoft
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2018.09.01
+pkgrel=1
+pkgdesc="Collection of small and useful freeware utilities by Nir Sofer (utilities not included with the launcher)"
+url="https://www.nirsoft.net/"
+arch=('any')
+license=('custom')
+makedepends=("unzip") #"curl")
+provides=("${pkgbase}")
+options=(!strip)
+source=("accesspv.zip::https@subdir://www.nirsoft.net/utils/accesspv.zip"
+        "acm.zip::https@subdir://www.nirsoft.net/utils/acm.zip"
+        "addrview.zip::https@subdir://www.nirsoft.net/utils/addrview.zip"
+        "anup.zip::https@subdir://www.nirsoft.net/utils/anup.zip"
+        "asterie.zip::https@subdir://www.nirsoft.net/utils/asterie.zip"
+        "atnow.zip::https@subdir://www.nirsoft.net/utils/atnow.zip"
+        "conadvpass.zip::https@subdir://www.nirsoft.net/utils/conadvpass.zip"
+        "empv.zip::https@subdir://www.nirsoft.net/utils/empv.zip"
+        "exeinfo.zip::https@subdir://www.nirsoft.net/utils/exeinfo.zip"
+        "explorestart.zip::https@subdir://www.nirsoft.net/utils/explorestart.zip"
+        "folrep.zip::https@subdir://www.nirsoft.net/utils/folrep.zip"
+        "gacview.zip::https@subdir://www.nirsoft.net/dot_net_tools/gacview.zip"
+        "grank.zip::https@subdir://www.nirsoft.net/utils/grank.zip"
+        "httpnetworksniffer-x64.zip::https@subdir://www.nirsoft.net/utils/httpnetworksniffer-x64.zip"
+        "idenswitch.zip::https@subdir://www.nirsoft.net/utils/idenswitch.zip"
+        "iecompo.zip::https@subdir://www.nirsoft.net/utils/iecompo.zip"
+        "iedesignmode.zip::https@subdir://www.nirsoft.net/utils/iedesignmode.zip"
+        "injecteddll.zip::https@subdir://www.nirsoft.net/utils/injecteddll.zip"
+        "jrview.zip::https@subdir://www.nirsoft.net/utils/jrview.zip"
+        "jsae.zip::https@subdir://www.nirsoft.net/utils/jsae.zip"
+        "mimeview.zip::https@subdir://www.nirsoft.net/utils/mimeview.zip"
+        "myuninst.zip::https@subdir://www.nirsoft.net/utils/myuninst.zip"
+        "netscapass.zip::https@subdir://www.nirsoft.net/utils/netscapass.zip"
+        "nirext.zip::https@subdir://www.nirsoft.net/utils/nirext.zip"
+        "nk2view.zip::https@subdir://www.nirsoft.net/utils/nk2view.zip"
+        "pcanyscan.zip::https@subdir://www.nirsoft.net/utils/pcanyscan.zip"
+        "snremove.zip::https@subdir://www.nirsoft.net/dot_net_tools/snremove.zip"
+        "startbluescreen.zip::https@subdir://www.nirsoft.net/utils/startbluescreen.zip"
+        "tagsrep.zip::https@subdir://www.nirsoft.net/utils/tagsrep.zip"
+        "tflash.zip::https@subdir://www.nirsoft.net/utils/tflash.zip"
+        "tflash210.zip::https@subdir://www.nirsoft.net/utils/tflash210.zip"
+        "winexp.zip::https@subdir://www.nirsoft.net/utils/winexp.zip"
+        "wirelesskeydump-x64.zip::https@subdir://www.nirsoft.net/utils/wirelesskeydump-x64.zip"
+        "zipinst.zip::https@subdir://www.nirsoft.net/utils/zipinst.zip"
+
+        # obsolete
+        # "https://www.nirsoft.net/utils/asterwin120.zip"
+        # "https://www.nirsoft.net/utils/astlog.zip"
+        # "https://www.nirsoft.net/utils/filedatech.zip"
+        # "https://www.nirsoft.net/utils/filetypesman-98.zip"
+        # "https://www.nirsoft.net/utils/hashmyfiles98.zip"
+        # "https://www.nirsoft.net/utils/mmview.zip"
+        # "https://www.nirsoft.net/utils/operacacheview-98.zip"
+        # "https://www.nirsoft.net/toolsdownload/pspv.zip"
+        # "https://www.nirsoft.net/utils/regscanner-98.zip"
+        # "https://www.nirsoft.net/utils/resourcesextract-98.zip"
+        # "https://www.nirsoft.net/utils/specialfoldersview-98.zip"
+        # "https://www.nirsoft.net/utils/strun.zip"
+        # "https://www.nirsoft.net/utils/urlprotocolview.zip"
+        # "https://www.nirsoft.net/utils/win9xpv.zip"
+        # "https://www.nirsoft.net/utils/wmc.zip"
+)
+sha512sums=('4091bd243a84bb473a90025f822a949d3b6ed826fccb790a092a946b4e170c2ad24c2ab9f256a4042e49f93e03c32ba59666aff1d7f49682bde859fcb2e6ca4e'
+            'ef42954a9e3d2504996030036badd0ded16bdd9192d49f1ce4b7aaeb178cb09f75be6a8243367cda82c70cf42eaf84b31f5f4fee59fd860ae4c5789e21485ced'
+            '7aa3e3df2461fee5d23e4f7779c30d0e8f0e13bc16bbeefe20876ca525ed99ffa54ab7e71a4686d8ad623c146065c262b8c622588164ed25cf84a4be25f057bb'
+            '6ae8f862be63f889de8258e66eca46b07f30aae0cb707753247c53b406d46deeef2b3fe94e962b9989d6d320f2e40aa0d7021c1e45bb53d5af0c74b1c89cee88'
+            'c5fa1d862c1fcf3806e76ae002a3d45a9651d37ed7bf29bc1b2522ace0568b53d07e804a81488d6dfe80e3d4a59d363c2216a3ba5d63b1d9a4de87ff2f792188'
+            '9f9ad3893a7724867270630dac8a5ab7eb2032eb62282f45a79e60fa9ad1a5316b5553bcd330e9e3ab1b07cbf5acab93158b78537b4cd58c1a7f2a22d2d194d0'
+            '0094af4eefc345a490a279655d224ec4b311df8b35bb6a55d10d5be2b2e58be86fbc3784db2c1ef97e64dc2a9791e0a97db98d1347f8e3733699af0acd58bfa2'
+            '6617306c0fb8b71e582ed9a9e0ea747f254f85fb0fe9e084ba0d0fc8aa189ec8d36c7e0eda0623e00dff60528e98e61a1738a8ff4e8d19b6dc3289daf87343b2'
+            '6518bcc6d0359deb5ef6d42d1763a362247ffd9af67fcb340420b9af1ce660b83f59c6b67117cea24b303cb1320c09630d6e066480fa0c4dba08aa5cb209bc83'
+            '955507786ea739d3a2f5b20202074ff2d101fd942fb3800b968151fa648834e863b2269454cee5079195c1c6645400858d4946e7a7186f8f859983d80d82b2a5'
+            '6654c6b41b631226030aca1240378cf8237c8a197080a518cca5ee5a41b1fc9767886264ae263b50c4a26338b072ff5bcebcc41e341c54c635f4337e0d6e49cb'
+            '60bc25d5fc6cbed75de395e71dd8a41a55d5908692741145f08358eb94ad814318850eb8fb3565b410507a9cd78968893d1765f6a1a47169b65ffcf173adeb68'
+            '8723ab7a792549e8a4dd3ec4a5ffe3b46f872114e4aac806c03465b3ee23a22a6e7f3208ad5a62721d4c494d128e4f2d6505c9553b55cea16ced81b8244c519e'
+            'fece3b14d823a63c2842a5d41795c1f5bf23db8d4aa6bd4a90daf4226a0c5c9008ece6d9370b1cacbca5b4500ebb123d1b3c7b7a15c37b773022315d65e44cf5'
+            '3e5977444f2a0f1eb7c07a06a13a7c8cf1a5d8e2126afea5eca7143898d464bf0e0933c201add820c42d26d12f259cf52c897d081e6062aba6fe07d6e3257794'
+            '76d2bf8bd882c360ed86332a67744fe77b18e72a047e242b2b6e8a34b912bfd33cc17d6b3c12475fe25189dd84498547876be438edce2363760d6c7e865c444b'
+            '35eff3288887de6dadfb1310037541c92e3590e6c07813bba6019cca57416ff55629a775f4bcef8b4f9cf80a4855df07d19a045978b8828e3442ae6a16c840b7'
+            '8d27f71a01f689e0384e5bde3df0095d349bd3188c826e75fffc754735bd3aa79257ffa78a47753e1b1ff81e65885c85fe72ed6d5bccf638c3fc451bc55488d3'
+            'bebb6cacb86345190ee323ace2d093206f819334ab200c515fbc07c6e04f6002af0967063c47eef51ca38ce47881953b60a36a05bc914c92b5f95fddc3a2ad16'
+            '62860e5e19d50bff0a69c458f6b08f5c4403d8d708b6dd0f8a407cadcb9ae6293f4877706a14d8dd8ba95f0f3a854e5111fbacd02ab85dbbaa7b891ac122c8c3'
+            'cb029207e98a34a843691f672651563c313804331b604ff7837a0ba36c7373e484558038b8e892b15b12968854f061b2709fcb7b0690e933fe723ddf54bc1069'
+            '38858cf0b56a2e59a9739ebee03f11ee661025818755058230ee0f224beae831f0b0869b76ed7bce6d6b6e4a8d321ab26999a2a85e04fd75bb0147156db824b2'
+            '5ae97450c5c0ad13480852fc0527c74dd32eca4e0d3f11696e6c5b2157dd463bd96bb6c41564777da3451e1ebb815f242993abaadc8cdfee0fbf378ab9e4fd9f'
+            '28e30c9ed221b9c32065cd938a9be56cdf70c2143f560faa346c75bbc213b4fcb5ecf49b1f14f65b22cb285ede3b6b40ad7707305503e16c2e7f1551ab21ab2e'
+            'e67af38f259b6fbcab0d9417fb6873fad691726ae99417f58831d054fcbb40c88b21e6fbfd1527c56fb27e9ef844be750bf5c3c0e7f6a72e0371b3e9ee433db6'
+            '483411f3c954fd5410d70389091d6dfed7f48f33d2d4fb16ed3e4c7ccfcc9db9a9cbc89f4ccee67ee7e75f1ad53cbae0f23dbd0b3d6d39157d60fbeb3bb2fb23'
+            '489017c6019e069d43513fd86535c378f77cab588cc259ee020bb49ec0bca0628a41f72809ffb97eea49732cbf5f0a74a386dd39c74601e689fb9da765fadd86'
+            '87dc012f79787bcd68aa43cb7ce1c540c31c6c08b42a7ff4fd43bfb005330ce3ca80b367d38fe1d69400bf3b9c4b3d2f45f0440abc800434f8929b50c59e330d'
+            '9d644706ec8781529184aa98b42ea8a1105d23461a50c2537d650db1caa37e1bc8e3d54f1bb458a765a2cf316907a3e2b9ab04c09b11a9b85a0ad6ad326f4518'
+            '9a489bb8686340c2ad6719e2b0c13ef8a9900ed639aacc5d6b08983e4204aea5fa3de222736458f8940a75f1bd7621a7fd67097f6af81598b3ec075b06e2d143'
+            '3e3ea85b7987e76d737eaf4abfb68bbca48c3648625f48ae6822630f88d1b25d97addb3eb661ef1634baeaeb40a8b35a7235458db5174df621b6e8c30c4ebb26'
+            '8b382f1e6aaecb13f9af33d9bf411697851af26c2e3aaea367d36c89e288412f0a5ca03f5bc0eb71510c5804f64e9aa395a548a09fbe1d54ae2e47aa59d087c5'
+            '46b74616c4750b61ccd99fec82b94a1ac5cfe356002fc7e45b6285ba8dbf0e2b804781e08d3f4c10946c333b4223069d9ee9ea05e3ef50388b00e9d8a254f80f'
+            'f02e51b32e38b0dbf199f7631c3acc03c08be27b0ead3ce9d79e81db9f4bec5aa9a106191b84d72035e58de7fc7731887040d4a12f894b414269e68b4fdd5305')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+pkgver() {
+    find . -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
+}
+
+package() {
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}"
+
+    local d
+    for d in $(find . -mindepth 1 -maxdepth 1 -type d)
+    do
+        d="$(basename "${d}")"
+        u="${d%%-x64}"
+        cp "${d}"/* "${a}"
+        if test -f "${a}/readme.txt"
+        then
+            mv "${a}/readme.txt" "${a}/${u}.txt"
+        fi
+    done
+    rm "${a}"/{mswinsck.ocx,regsvr32.exe,psapi.dll,vcsource.zip,main.cpp,main.manifest,resource.h,script1.aps,script1.rc}
+
+    _lc "${a}"/*
+}

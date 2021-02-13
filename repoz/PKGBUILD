@@ -34,7 +34,7 @@ _choconame=repoz
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=5.4
+pkgver=5.5
 pkgrel=1
 pkgdesc="A zero-conf git repository hub"
 url="https://github.com/awaescher/RepoZ"
@@ -44,7 +44,7 @@ makedepends=("p7zip" "mingw-w64-x86_64-jq")
 provides=("${pkgbase}")
 options=(!strip)
 source=("RepoZ.Setup.exe::https://github.com/awaescher/RepoZ/releases/download/v${pkgver}/RepoZ.${pkgver}.Setup.exe")
-sha512sums=('1e8b361628004d9d07cc9a12fd22c1ebe74aecd1ad68cb9d79b74ec7318bd9c2d6931d08b60e4ed2a8fb98b96edb8a24a368695b6318ac210e00293a4aae9ce5')
+sha512sums=('9cdec304da164f3ec042be8641ed20e69524bda45622b93331db1cafa993ead72f776b5c246ddfa9d22c3d83ec069d5c477651a6247992726de523e02b86ea9b')
 
 _rmmsdll() {
     local ms
@@ -76,9 +76,9 @@ package() {
         cat "RepoZ.Setup.exe.dir/${f}.deps.json" | /mingw64/bin/jq --arg f "${f}" '(.targets[".NETCoreApp,Version=v3.1/win-x64"] | to_entries | .[] | select(.key | match("^" + $f + "/")) | .key) as $grrver | (.targets[".NETCoreApp,Version=v3.1/win-x64"][$grrver].dependencies["runtimepack.Microsoft.NETCore.App.Runtime.win-x64"]) as $runtimever | del(.targets[]["runtimepack.Microsoft.NETCore.App.Runtime.win-x64/" + $runtimever])' > "${a}/${f}.deps.json"
         cat "RepoZ.Setup.exe.dir/${f}.runtimeconfig.json" | /mingw64/bin/jq '.runtimeOptions |= (.framework = .includedFrameworks[0] | del(.includedFrameworks))' > "${a}/${f}.runtimeconfig.json"
     done
-    rm "${a}/System".*.dll "${a}/Microsoft".*.dll "${a}"/{clrcompression,clretwrc,clrjit,coreclr,dbgshim,hostfxr,hostpolicy,mscordaccore,mscordaccore_amd64_amd64_4.700.20.6602,mscordbi,mscorlib,mscorrc.debug,mscorrc,netstandard,WindowsBase}.dll
+    rm "${a}/System".*.dll "${a}/Microsoft".*.dll "${a}"/{clrcompression,clretwrc,clrjit,coreclr,dbgshim,hostfxr,hostpolicy,mscordaccore,mscordaccore_amd64_amd64_*,mscordbi,mscorlib,mscorrc.debug,mscorrc,netstandard,WindowsBase}.dll
     cp "RepoZ.Setup.exe.dir"/{Microsoft.Extensions.DependencyInjection.Abstractions,System.Net.Http.WinHttpHandler,System.ServiceModel.Primitives}.dll "${a}"
     _rmmsdll "${a}"
 
-    rm -R "${a}"/'$PLUGINSDIR'
+    rm -R "${a}"/'$PLUGINSDIR' "${a}/Uninstall.exe"
 }

@@ -4,7 +4,7 @@ _realname=aws-sam-cli
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.2.0
+pkgver=1.18.1
 pkgrel=1
 pkgdesc="CLI tool to build, test, debug, and deploy Serverless applications using AWS SAM"
 url="https://aws.amazon.com/serverless/sam/"
@@ -15,7 +15,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("AWS_SAM_CLI_64_PY3.msi::https://github.com/awslabs/aws-sam-cli/releases/latest/download/AWS_SAM_CLI_64_PY3.msi")
-sha512sums=('229afd2cd538686b6a329c9d82d1c387f80a2ac1be0da592418dd1811e2cb87b3164ac984e3e5fbbd1aa7dc2447cc91af3fc19a019f72e25601b25d9b6448eb0')
+sha512sums=('247d81dbd15aca0a08a977e21defe8db56bfa390835756b712cea6b3179497a55296dceb21291200e695468da0c7e4865f5f06c4fe7552c9ab69d92ef2a43444')
 
 _rmmsdll() {
     local ms

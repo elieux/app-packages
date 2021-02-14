@@ -4,7 +4,7 @@ _realname=csgo-demos-manager
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.13.12
+pkgver=2.13.15
 pkgrel=1
 pkgdesc="Manage replays from the game Counter-Strike: Global Offensive"
 url="https://csgo-demos-manager.com/"
@@ -14,7 +14,7 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("csgo-demos-manager.exe::https://github.com/akiver/CSGO-Demos-Manager/releases/download/v${pkgver}/csgo-demos-manager-${pkgver}.exe")
-sha512sums=('e8ce6ab5636b9489b33287f2a751a7c04a1d169018ae2e99fc2ad2d0cf27ed792671633e1b88adb14c6878a083e10a7c00e3f8db44b63f6d9fa3935a7dfde1c9')
+sha512sums=('e9a93bd5530dd98cf7a21d5d4b1af0d50a1ed579b73a0c6e95c3576988f0e621d2c2d57fe49e0d79123083fdfae77fd8c9cc15514efd5250e3f8f6efa2803b9e')
 
 _lc() {
     local d f n

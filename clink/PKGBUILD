@@ -1,20 +1,48 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=clink
-_choconame=clink
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.4.9
+pkgver=1.1.28.4d0b27
 pkgrel=1
 pkgdesc="Powerful Bash-style command line editing for cmd.exe"
-url="https://mridgers.github.io/clink/"
+url="https://chrisant996.github.io/clink/"
 arch=('any')
 license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("clink.zip::https://github.com/mridgers/clink/releases/download/${pkgver}/clink_${pkgver}.zip")
-sha512sums=('48c05d1e921c1260c059ae29562133a25171588846ea4fbdb35b7ce9e8fee0d5ff57a60c066658d5e8d863ebb7e00596d0d1b1b2bb832809c578dbb842e07ecd')
+source=("clink.zip::https@subdir://github.com/chrisant996/clink/releases/download/v${pkgver%.*}/clink.${pkgver}.zip")
+sha512sums=('6549bb1f5192b6cebd72f4e1fdcd7caca00a283c13b0b8d4dd4ed6f171d3e42dc4fce60f304862a70b129ee3a70be8dbf2423490a9b274c9eb6df79fe96c6142')
 
 _lc() {
     local d f n
@@ -34,6 +62,6 @@ _lc() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "clink_${pkgver}"/* "${a}"
+    cp -R "clink"/* "${a}"
     _lc "${a}"/*
 }

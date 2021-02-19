@@ -5,7 +5,7 @@ _choconame=slack
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.12.2
+pkgver=4.13.0
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="https://www.slack.com/"
@@ -16,7 +16,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("SlackSetup64.exe::https://slack.com/ssb/download-win64")
-sha512sums=('04f9d7d0d9e9bcfc86ea4f5ed56b72f7b80b8080dc91aea75f825e91ea76b5deef55bc7404f6438665975621164ee21f833f4af1b53ccf5bf9c653dc08bc8e6a')
+sha512sums=('e79cc84ca2a9bc0df90b900ce6121b3aa78e01d1ddcd474ffb134aeedfaf59fa6d93e6383e253bfb6a6884a54f982daa1746ebaf1581ce5d2d06938aa844e48b')
 
 _lc() {
     local d f n

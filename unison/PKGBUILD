@@ -32,53 +32,25 @@ download_https@subdir() {
 _realname=unison
 _choconame=unison
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.48.4
+pkgver=2.51.4_rc1
 pkgrel=1
 pkgdesc="Two-way file synchronizer"
 url="https://www.cis.upenn.edu/~bcpierce/unison/"
 arch=('any')
 license=('GPL')
+replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
-makedepends=("p7zip")
 options=(!strip)
-source=("Unison-Windows.zip::https@subdir://github.com/bcpierce00/unison/releases/download/${pkgver}/Unison-Windows-${pkgver}.zip"
-        # ugly bundled dependency because who keeps 32-bit GTK+ around
-        "gtk2-runtime-ash.exe::https://downloads.sourceforge.net/gtk-win/gtk2-runtime-2.24.10-2012-10-10-ash.exe")
-sha512sums=('2e2c282c0729c1078a46bb4d090404c9d5f39baa1fabf78c873b33f3c3b027d2c99b6830696c7bb82b2387dd813353779620370581a2ecb79f95369f1390478d'
-            '61c3e9ba1edae1778f2ebf0674afd072acca191617abcb2d8df334428e1a938ce8dfe7b63e8eb72b9a41e063e7064184ba922ac4d607fc9fedb80e7d79c3d8a0')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
-
-prepare() {
-    7z x -y -bd "gtk2-runtime-ash.exe" -o"gtk2-runtime-ash.dir" > /dev/null
-}
+source=("unison+ocaml-4.08.1+x86_64.windows.zip::https@subdir://github.com/bcpierce00/unison/releases/download/v${pkgver}/unison-v${pkgver}+ocaml-4.08.1+x86_64.windows.zip")
+sha512sums=('0db2dd6b921cb4187029e2a8b428f0a8910f41ebfffd5e2c931b0c4761f80e1b8edf4bcf8479ffe580cc3483ee596e3165d1142b837ca5c4209a7b987f1911fd')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
 
-    cp -R "gtk2-runtime-ash.dir"/* "${a}"
-    mv "${a}"/'$_63_' "${a}/bin"
-    rm -R "${a}"/'$PLUGINSDIR' "${a}/gtk2_runtime_uninst.exe" "${a}/bin"/*.exe{,.manifest}
-
-    cp "Unison-Windows"/* "${a}/bin"
-    mv "${a}/bin/unison ${pkgver} GTK.exe" "${a}/bin/unison-gui.exe"
-    mv "${a}/bin/unison ${pkgver} text.exe" "${a}/bin/unison.exe"
-
-    _lc "${a}"/*
+    cp -R "unison+ocaml-4.08.1+x86_64.windows"/* "${a}"
+    mv "${a}/bin/unison"* "${a}"
+    rm -R "${a}"/{bin,lib}
 }

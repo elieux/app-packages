@@ -127,6 +127,8 @@ source=("afrikaans-spell-checker-5127.xpi::https@subdir://addons.mozilla.org/fir
         "northern-sotho-spell-checker-46519.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46519/addon-46519-latest.xpi"
         "norsk-bokml-ordliste-6868.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/6868/addon-6868-latest.xpi"
         "norsk-nynorsk-ordliste-6869.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/6869/addon-6869-latest.xpi"
+        "dico-ortografic-oc-gascon-2599348.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/2599348/addon-2599348-latest.xpi"
+        "dico-ortografic-oc-lengadocian-2599486.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/2599486/addon-2599486-latest.xpi"
         "oriya-spell-checker-232704.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/232704/addon-232704-latest.xpi"
         "odia-spelling-checker-630798.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/630798/addon-630798-latest.xpi"
         "glgyr-mlyy-7583.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/7583/addon-7583-latest.xpi"
@@ -147,6 +149,7 @@ source=("afrikaans-spell-checker-5127.xpi::https@subdir://addons.mozilla.org/fir
         "srpski-renik-serbian-dictiona-10894.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/10894/addon-10894-latest.xpi"
         "swati-spell-checker-46614.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46614/addon-46614-latest.xpi"
         "slovak-spell-checking-dictiona-4663.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/4663/addon-4663-latest.xpi"
+        "sk-sk-ascii_spellchecking-1474684.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/1474684/addon-1474684-latest.xpi"
         "slovar-za-slovenski-jezik-3046.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3046/addon-3046-latest.xpi"
         "soay-senni-hantum-tenjandikaw-11940.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/11940/addon-11940-latest.xpi"
         "southern-sotho-spell-checker-46610.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/46610/addon-46610-latest.xpi"
@@ -201,8 +204,8 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             '7dede4122c532e43a9846d82a74b2029688fa65a8cf0629da6cafe2fd0c522bd6a7ca7de4e93aa64580e752c988e673ceac83b45350072653c591751ae7e11a6'
             'f1a70f3e66256d4ac524645dd878d679cdfba195aa740428ae633f986d04bff6cc7d04b260598867564fe02da9968cd44974d8dc6a32c186d8a2c26c6805bef7'
             '9a2aa809d046778c853959fb83e29d577d97246ef5d0f07bf795711709a429ace2a47909056a243df6fee9a70378894a4121a2890c797f960dbc6e460d07a389'
-            '8d6a55b3ba80fad5ee57c3d2f842c6d562a504a2e3ff84e4651cb26c7ee85306973b73113861888c74d0d14b9330440ff5fbedead7113902748f14181c418166'
-            'bc3a86c71227cb2aa6c474baf2915edb29a22173d7f50cd0ccfe125ff69a355939868ffe873fdeae5a77c7e52cc0eb821cd525068fde92859cac3174978f27f3'
+            'dacea607b932f4f1e54146158177f4c22c574d0af0c048518828a662e5106cffb8f90ab354529cfc4bc20feab1eca538e0986770450a2e706096b6f77d982d82'
+            'c542985db5758aeb1fb3ee5e0f9b8c6a967fd709787bc65941718c186f027cd32c135a62228e8ed88ac040fca368cc23e24ec040d0af5a5490260ed0d1a3cfe0'
             '2cc0384da4d8710caf4f8bf57c8c4e7147d39e619bac69fbca7b373e16c115b2ae2e72a50a0f035833228f1dfbf4d42d0e2efde8b3378c12c714ffc5f5be527e'
             'fbcdddb4dd9046be7d874e05746ab4f9caaf7df22e811d02d62767634f5cfc14b2be679d010ea2547bec68b6e5d863c5cee85e05a4aa70034bfb567448b4c686'
             '759d7dae1b5fb621a96ea04ba04d494f2f3449d0d7c7b658d7f0590359e41cf7bae4a394785b10570a1845b532905f27198b7503e496aacf851afb36afa4ba6a'
@@ -251,12 +254,14 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             '185851bf3e68bc0d7b75c58f0db1d93c67dfe7833619e56fec4fc288092c3a3ea64b156ff548dba05bc163aad67e665b3f700d8669cab796de77c13d58215b42'
             '5bd10faddc7ef96ce55915a549514aff695be9fea7233d76b95466bee94f34e233cd8469836964daf9636205ad25f02bd02347005bf6b4ea3eefb6ec3a6d7f03'
             '6d58f91db36b68c714e1935e9da1fb2677078f8288b05e2d77670d51a4388dfe24af70035305ede5db5eb0f56e5a0065496cd7a71f45c7e6c6a26f36401b9fde'
-            '25511991846643ac55f34b5a6e49ee290fff9da152c925c452a37d59ec3b53e526124a92010383f75c916aaf3383b08de1cf5a46f5e2f8bc166ec7ac3382be5d'
+            '9391f6ff845147cf0a5def05e6ff345eda55e03cefd317428b3bae3e869a55021d6a649e12a5fd00cd9752bc238c73cea7f8857b6becc7d447e24d33ce0ce922'
             'b46243458b5ce88aaeb141b6fd89bc51f284b2ed417dc6ba7b62a9db2edf4e2f69936a64744629f8e03c766df25ea253cbfc27527b3cd4342a261115f374d6bf'
             '843c027e73ba88c5e2ae831be681af5af6e1b1181a3d402bb843e006fc9945f106e682d043c64d9e460207b7f75f34551554576d5e99b8d59b1a558d639f12e5'
             '7c1e9af1b5957d64d1fbeb938bf0b6bcaffe177d8501778c7e51eb7b9dd4cdf74dee6db859e9ce3fe7e47d2a21195936c8b4d0af7a3940460ab67dfe01944431'
             '048d503a3bc81f8f81648fb7afcf56e540217a44ed32a50d954b265cac635f28c7b6ecb46bdcd75af9043fd34a0e2fc07031944cdf1c1065368e045ec466963a'
             'a7a2236beb872d69a0508a286c99218d01c27e99f34130c5aae5bace09eff078929dfc3404c08f9c25db907188b3bcda81f6715dde02bcdb67a37527722d74ab'
+            'bff175739bbdec41f6a6b9ed7550dcdf118429e092949cabb57afe0288f68d2baf4d091c62dd91da57f8b72b8f857915d7a17ec8b5e546fdb2d3013cbfe9e92f'
+            '1abb4e2a64be09d26a46855d80269b94943d32df4655f401f673eb5295dc35a3f1ed22717fc374c888d657b767ecea9517e7807221415a9b99dca28669a9394f'
             '0c0d371d6795557a07a189164766e34d313d00671167f0905889fe9d1d0dfdc1925700aa8013f677168b54026b220db3b36b831e443940f83d185a85074b255a'
             'afe3179d248738bee10ebe30df1228deb1119f8275219f3c4202902c89a5319232861bfa862ec25478b79c7b10c7fe67b371afd4f835d8fa49110d4966717f66'
             '97d65a1c4d14c0ddeff5c0583fce462870a86bae511e7e1f9f74876870d01a3daa77944c3dbfd8fb26d0c10a59c91b288f2709699284d4340d6c765ee85346e1'
@@ -277,6 +282,7 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             '97c8cd1c1eb5a670391feb855ef942d331f0b90c65bc2b5a6855a54a732074e890924fd30f0e302c71a2efc4f8ff8efd4786e42058477a2ff295c2d646f81c73'
             'b057c55b86f81403afb35fbda5391954a1ff48bc5bb271d0ab8082fb9f7d75f5c7c22cad4603b7fb6a4d1835174e5d1c68174f9555af0e838addac99369a0e9f'
             '296938e28ae9f6e8dfc1ef8660e8db1ba40d59cc839e90013dfe884fef74150da3bb2682215b9e49194178131dfd4a351d0f2d888dff131400ac4b465c31dcee'
+            '502b6fad594a120ffbdfa88a8eea62707a287c159e478b09567bfc6168a6d7a9ce3c6748a65ef5a9f9dda5fb53dabb4ce2075cba8dee83e7d06ca6c49a34437d'
             'ea6d301feb019376aa0fbd6ee4151926044ca89f564c26abf5b42c24579d1e9f00a82fc6896720af7df8f1ace884f47cc74e94ac6774b46838983cbdaa14e8d5'
             'add17018bb06795ec6140988f9689f624f923cfc1093d61462e59e7814087971830ba48ae1be39e0eac51fc77043953cf537e761db6943257f048e0ccb84c058'
             '4efa3d6f178e853c267dc501f9ef1cc4b2c3e54c945076bbbd020cc34881f9e1bb3561c90f706a448677362139801b912c23d52a0fde7d58b0df447b68ea9396'
@@ -300,7 +306,7 @@ sha512sums=('be39205a4ae9a4a274687eb75c1ec9be8e07dbcbbac418b7b4d4257aef4e9c3378e
             'aea001062effe1f247b60ff2d42eea8e9dd3a5b87669fa139e9905a235b5be36374556aac3ce519d88891a14d2d8df87e7b6dd48a1505d9e36c9fade47c73a19'
             '9dce32df82df7a99540967ec24a6192aa0ca34a7625bc9cf44db1e15a2191dec5e2ec4d7d1f3f27555c60aa82a5f2e50983bd694b764472782e7d8e14fec8aa4'
             '47f2c11cbf388376ba21b3b1c658438c0381c85cdb8d72e9c448899d653781ed4568a87030aed36e2fb9fd3712cdb16ed6d1c0f58834a0ee63603fc00836a919'
-            '4838ad9e2fddcab5df9f02dfd42f92834be3b10c2698c1aba5d1e4871d6ea977fed601e741e1d73f7b7184ae46e3dce13727a350c3d75ef5008e0311107d3326'
+            'f1ff40cd0edf2e3d71497e57f245b046a4df9db140a2a94617ad3fe1bd7a07b014f9fa996881e956330b9963adfe2a5e9d62f67a37934aedf86e3ac9d39406df'
             '53254e7132748c374ca279f849df0203879370035aff4bd729fb240e314160a75c9f159feff654c1c2a031c5b50a33f67aa7986f7c95ee50ebe8416116f4aa8a'
             'ffc8ada0fdee0ca9799d64cdea73daadc75b8329af8ecb538724ccdd3e7adad972d9c44ef1244ee50f3b656c40413b3b51cc47bd4a9b26d2c30be6787d64a29d'
             '2c4b78000a070f93af568708474cdfc944750ac97dd843cfc2219d706bc085a6c9df80d06424572bf7ace11764791cf7095986dcd9c94b225b9bc87c20d3915e'

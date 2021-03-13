@@ -5,7 +5,7 @@ _choconame=synctrayzor
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.1.24
+pkgver=1.1.28
 pkgrel=1
 pkgdesc="Tray utility / filesystem watcher / launcher for Syncthing"
 url="https://github.com/canton7/SyncTrayzor"
@@ -14,7 +14,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("SyncTrayzorPortable-x64.zip::https://github.com/canton7/SyncTrayzor/releases/download/v${pkgver}/SyncTrayzorPortable-x64.zip")
-sha512sums=('80c77c7a468c2a48ce344230412e4c4cc46679f87879c184fa95a6a53d0e1081b671bac8901f5e38e653643fd44dd17eb94c1a2d0bd14caae88a20fa0aacc5ff')
+sha512sums=('fca26c00ff0c98e7932e8395a22d12811720b7fe97123bb1f49093e023b3223a62580d559ba878e8c6e3b163142b722e3852107754b959aba0449be1bfefb499')
 
 _lc() {
     local d f n
@@ -55,7 +55,7 @@ package() {
     _rmmsdll "${a}"
 
     # Make non-portable again; disable updates
-    truncate -s0 "${a}"/syncthing.exe # SyncTrayzor complains if the file is missing
+    truncate -s0 "${a}/syncthing.exe" # SyncTrayzor complains if the file is missing
     sed -r -i "${a}/SyncTrayzor.exe.config" \
         -e 's~(<EnableAutostartOnFirstStart>)false~\1true~' \
         -e 's~(<Variant>)Portable~\1Installed~' \

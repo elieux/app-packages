@@ -4,7 +4,7 @@ _realname=virtualbox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.1.14.140239
+pkgver=6.1.18.142142
 pkgrel=1
 pkgdesc="Powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use"
 url="https://www.virtualbox.org/"
@@ -21,9 +21,9 @@ source=("VirtualBox-Win.exe::https://download.virtualbox.org/virtualbox/${pkgver
         "0003-fix-conversions.patch"
         "0004-remove-__function__.patch"
 )
-sha512sums=('20bb56987ce8742040c0cdead4e822fce01330997a6f3e5af66ae4e81aa9999f7024e78379752ea710570590b8991db99195e7e9bc681aa3cd2a0b6cd020d469'
-            '4249f4f1cbaff0005c55a9ff002aa9c1573cca6e9e866cb8be4cc3a0514b0a9fc3e75ddeae8384d7c9479ed372e2d7692c4b168e15ed17bb02ff0b9418556391'
-            'a5732e4e7f1a50a7a2c066a9ef8d604c590a1c4fb6841a6e1ecb7da880c027cc96d6ed27c4d57335f89638117d2df813155d99dcbca826d88cfb572eab608b4c'
+sha512sums=('f9945af8e8d7908f309ab4ae2b586656793ce6a2a4477dbd6cc8acb4712ae5437cca744469b5d9aad9489393c2dd25f8d00dec2219c18d65e4ba9c7e3f0ebd39'
+            '41cb4bd42429b09836c59ef9867dd3d35d0d5512ff6e515a7f8688ed444c079ce353a84f0d45b607ccf08424782d5de09b264f51b2c41a9ec34eb834458c293c'
+            '9fcff9828e3856d08a83c2dde34b02175efbdc877201a6b9bd79ed8589387c7ee5813130dccbe51e8b63554f091552e6659afd8fb2e27d05798a682b71b3c40f'
             'ff6c95e8a3c664aff59431208e3c2a129de81e3b5a11c08e2a45f012f095602803320881399f7b4d63e20ad7dd5dde4b62c6ce7db946b650b9f8ec714d62f61f'
             'aad91163f57f9dbca8242c9bb5ea0fe99ccad82ce9141f551195d8029a94b604a224b842c3223220daa778d08d7e37933bca4a5700fc231f9bea62f78e858806'
             '8ad2952c5a9f1c6d24ddac16cfddb518a6b5a867b26b72bbcd5bf422028803339f8a96e31706d2600a0a1f4a1c81acf15eca6af8ce99b38528e9a2d25d7fd123'
@@ -102,35 +102,42 @@ package() {
     mkdir -p "${d}"
     mv "${a}"/VBoxNetAdp6* "${d}"
     cp "${d}/VBoxNetAdp6_PreW10.cat" "${d}/VBoxNetAdp6.cat"
+    cp "build"/NetAdp6{In,Unin}stall.exe "${d}"
 
     local d="${a}/drivers/network/netadp"
     mkdir -p "${d}"
     mv "${a}"/VBoxNetAdp* "${d}"
+    cp "build"/NetAdp{In,Unin}stall.exe "${d}"
 
     local d="${a}/drivers/network/netflt"
     mkdir -p "${d}"
     mv "${a}"/VBoxNetFlt* "${d}"
     mv "${d}/VBoxNetFltNobj.sys" "${d}/VBoxNetFltNobj.dll"
+    cp "build"/NetFlt{In,Unin}stall.exe "${d}"
 
     local d="${a}/drivers/network/netlwf"
     mkdir -p "${d}"
     mv "${a}"/VBoxNetLwf* "${d}"
     cp "${d}/VBoxNetLwf_PreW10.cat" "${d}/VBoxNetLwf.cat"
+    cp "build"/NetLwf{In,Unin}stall.exe "${d}"
 
     local d="${a}/drivers/USB/filter"
     mkdir -p "${d}"
     mv "${a}"/VBoxUSBMon* "${d}"
     cp "${d}/VBoxUSBMon_PreW10.cat" "${d}/VBoxUSBMon.cat"
+    cp "build"/USB{In,Unin}stall.exe "${d}"
 
     local d="${a}/drivers/USB/device"
     mkdir -p "${d}"
     mv "${a}"/VBoxUSB* "${d}"
     cp "${d}/VBoxUSB_PreW10.cat" "${d}/VBoxUSB.cat"
+    cp "build"/USB{In,Unin}stall.exe "${d}"
 
     local d="${a}/drivers/vboxdrv"
     mkdir -p "${d}"
     mv "${a}"/VBoxDrv* "${d}"
     cp "${d}/VBoxDrv_PreW10.cat" "${d}/VBoxDrv.cat"
+    cp "build"/SUP{In,Unin}stall.exe "${d}"
 
     local d="${a}/dtrace/lib/amd64"
     mkdir -p "${d}"
@@ -196,8 +203,6 @@ package() {
     mv "${a}/vbox_img.exe" "${a}/vbox-img.exe"
     rm "${a}"/msvc[pr]100* "${a}/x86"/msvc[pr]100-x86.dll
     rm "${a}"/*.py
-
-    cp "build"/{Net{Adp{,6},Flt,Lwf},USB,SUP}{In,Unin}stall.exe "${a}"
 
     _lc "${a}"/*
 }

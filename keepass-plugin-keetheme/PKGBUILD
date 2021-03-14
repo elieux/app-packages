@@ -1,0 +1,26 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=keepass-plugin-keetheme
+_choconame=keepass-plugin-keetheme
+_dirname=keepass
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=0.6.11
+pkgrel=1
+pkgdesc="Change the appearance of KeePass, to make it look better at night"
+url="https://github.com/xatupal/KeeTheme"
+arch=('any')
+license=('MIT')
+provides=("${pkgbase}")
+options=(!strip)
+source=("KeeTheme.plgx::https://github.com/xatupal/KeeTheme/releases/download/v${pkgver}/KeeTheme.plgx")
+sha512sums=('555ecdc3caaedcb899a111238f8eb9797957917ceafb4314e3f51c7b0f01d0e29a29a3bf670e8095cb7622a59e8fef151e295c996198261130076e4d4264f4df')
+
+package() {
+    depends=("app-keepass")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/Plugins"
+    cp *.plgx "${a}/Plugins"
+}

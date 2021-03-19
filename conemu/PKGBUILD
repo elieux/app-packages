@@ -39,7 +39,7 @@ _choconame=ConEmu
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=21.03.12
+pkgver=21.03.14
 pkgrel=1
 pkgdesc="A powerful, highly customizable console emulator with tabs"
 url="https://conemu.github.io/"
@@ -49,7 +49,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ConEmuPack.7z::https@subdir://github.com/Maximus5/ConEmu/releases/download/v${pkgver}/ConEmuPack.${pkgver//./}.7z")
-sha512sums=('da31dbeddca83b6173b41cae5fd94701dca0f9bbb51c2cd1d720155dc5460b3debb80a2921d45942bf631c295d9e717b75038628f81ed638e27ff67678e72da5')
+sha512sums=('69f34aecf05cbedd5362d77782351441884376f824c5e8700ea1e95facfb545b6bf2bf19ab92933b4ca3d6b5509500a18fb1baaea828308e95cb783dbaa9217e')
 
 _lc() {
     local d f n

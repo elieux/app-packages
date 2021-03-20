@@ -1,13 +1,13 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=docker-cli
-_realver=61504
+_realver=61853
 _choconame=docker-cli
 _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=20.10.3
+pkgver=20.10.5
 pkgrel=1
 pkgdesc="Pack, ship and run any application as a lightweight container"
 url="https://docs.docker.com/engine/reference/commandline/cli/"
@@ -19,7 +19,7 @@ replaces=("app-x86_64-docker")
 conflicts=("app-x86_64-docker")
 options=(!strip)
 source=("DockerDesktopInstaller.exe::https://desktop.docker.com/win/stable/amd64/${_realver}/Docker%20Desktop%20Installer.exe")
-sha512sums=('549d8eaedd82b3657d7db88f7490e5378544fa364057b6f4c8fc2374fe41bc4b46615f175b2419207d4a5967ca617239572bef9b4402f62d6304256a52625622')
+sha512sums=('2c205207e2706fee4032cc4cfdfc76ea483806ff368cc7cb542d64d56900627e58438ed0620a296a2ac26f1ccefcb39c1b82ec0291e5b028f5af48f6c6df5916')
 
 prepare() {
     7z x -y -bd "DockerDesktopInstaller.exe" -o"DockerDesktopInstaller.dir" > /dev/null

@@ -1,12 +1,16 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # choco version format: 16.0.0.3600
+    echo "${1}" | sed -r -e 's/0+$//'
+}
+
 _realname=openjdk
-_realver=16+36
-_choconame=openjdk
+_choconame=adoptopenjdk
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver="$(echo "${_realver%+*}" | sed -r -e 's/^([0-9]+)$/\1.0/' -e 's/^([0-9]+[.][0-9]+)$/\1.0/' | tr '+' '.').${_realver#*+}"
+pkgver=16.0.0.36
 pkgrel=1
 pkgdesc="Open Java Development Kit"
 url="https://adoptopenjdk.net/"
@@ -15,7 +19,7 @@ license=('custom')
 replaces=("app-i686-jdk" "app-x86_64-jdk")
 provides=("${pkgbase}")
 options=(!strip)
-source=("OpenJDK-jdk_x64_windows_hotspot.zip::https://github.com/AdoptOpenJDK/openjdk${pkgver%%.*}-binaries/releases/download/jdk-${_realver/+/%2B}/OpenJDK${pkgver%%.*}-jdk_x64_windows_hotspot_${_realver/+/_}.zip")
+source=("OpenJDK-jdk_x64_windows_hotspot.zip::https://github.com/AdoptOpenJDK/openjdk${pkgver%%.*}-binaries/releases/download/jdk-$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/%2B\1/')/OpenJDK${pkgver%%.*}-jdk_x64_windows_hotspot_$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/_\1/').zip")
 sha512sums=('1c64e6f29aeacda54e8918927a7265617241336f2240de86cf7f342d30056038da8cddfbc5376804a94f4f3b96e7dbf6ae266fd0bc99d9ec216125897d440cf2')
 
 _rmmsdll() {

@@ -5,7 +5,7 @@ _choconame=aws-vault
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=6.2.0
+pkgver=6.3.0
 pkgrel=1
 pkgdesc="A vault for securely storing and accessing AWS credentials in development environments"
 url="https://github.com/99designs/aws-vault"
@@ -14,7 +14,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("aws-vault-windows-386.exe::https://github.com/99designs/aws-vault/releases/download/v${pkgver}/aws-vault-windows-386.exe")
-sha512sums=('0aa88089405c8f4aaca5ac1748f76971001571eaf3338248578597374a32df795242935c9177b973686da6e4f94e33d2e314b42f8ee5015753f8b777e8cad9f2')
+sha512sums=('4776288b589031866b647c4cbb6c2ed9053f573f37471e86524e4b7361df5aa1f0333f8bf2a3cac9ed008c336981614c7a19ef59323216928e25c3d2320aca3c')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

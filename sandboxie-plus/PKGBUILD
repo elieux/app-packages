@@ -1,0 +1,59 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=sandboxie-plus
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.7.3
+pkgrel=1
+pkgdesc="Sandbox-based isolation software for Windows"
+url="https://sandboxie-plus.com/"
+arch=('any')
+license=('GPL3')
+makedepends=("app-innounp")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Sandboxie-Plus-x64.exe::https://github.com/sandboxie-plus/Sandboxie/releases/download/${pkgver}/Sandboxie-Plus-x64-v${pkgver}.exe")
+sha512sums=('9eeb80e3213f694c5bb78d1f8550f4e96fe228c02b8b04a2d435062568f3ae3dd95f56b259cee36be1aa3d88d38cc53e5ec17d5ca6221b2716586b8abe0a8ea8')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    /apps/innounp/innounp -x -q -m -a -y "Sandboxie-Plus-x64.exe" -d"Sandboxie-Plus-x64.dir"
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "Sandboxie-Plus-x64.dir/{app}"/* "${a}"
+    rm "${a}"/Sandboxie{,-Plus}.ini
+    _rmmsdll "${a}"
+    _lc "${a}"/*
+}

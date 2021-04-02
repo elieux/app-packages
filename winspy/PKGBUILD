@@ -1,0 +1,73 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_chocover() {
+    # choco version format: 1.7.202103022
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]{9})$/\1.\2/'
+}
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=winspy++
+_choconame=winspy
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=1.7
+pkgrel=1
+pkgdesc="Select and view the properties of any window in the system"
+url="http://www.catch22.net/software/winspy"
+arch=('any')
+license=('GPL')
+provides=("${pkgbase}")
+options=(!strip)
+source=("WinSpy.zip::http@subdir://www.catch22.net/assets/files/software/WinSpy${pkgver//./}.zip")
+sha512sums=('079f6a6a0328363851df16e4df9967bed9272e7e2dda873bcd548309c2aa3fb79235c2466adc9b05d91672894f7f9d3eace7f6443cdbf5c84f75988c8b6bf3c0')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "WinSpy"/* "${a}"
+    _lc "${a}"/*
+}

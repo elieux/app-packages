@@ -34,7 +34,7 @@ _choconame=vscode
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.54.3
+pkgver=1.55.1
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 arch=('any')
@@ -43,8 +43,8 @@ license=('custom')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("VSCode-win64.zip::https@subdir://vscode-update.azurewebsites.net/${pkgver}/win32-x64-archive/stable")
-sha512sums=('28ff6342fa3ee93b8b2c5844eb25cde7550a46cb4aaa9a31ee99c928cb5bed1a347878f1acf4529b8f1093a183920a44c531f0a85c2aed4397a5b856bad34f31')
+source=("VSCode-win32-x64.zip::https@subdir://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive")
+sha512sums=('258a1a94c582d9bcf221cbb7d71937106ff7a5c363827a9b0786f01ce97d24b316a89b61cb670a233b420c9254de4c37ac9951cabd4b7c3bbb95d0f725292109')
 
 _lc() {
     local d f n
@@ -75,10 +75,14 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
+pkgver() {
+	powershell -command '(Get-Item "VSCode-win32-x64/Code.exe").VersionInfo.ProductVersion' | sed -r 's/[.]0$//'
+}
+
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "VSCode-win64"/* "${a}"
+    cp -R "VSCode-win32-x64"/* "${a}"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

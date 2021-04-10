@@ -6,7 +6,7 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=0.6.12
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="Change the appearance of KeePass, to make it look better at night"
 url="https://github.com/xatupal/KeeTheme"
@@ -15,7 +15,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeTheme.plgx::https://github.com/xatupal/KeeTheme/releases/download/v${pkgver}/KeeTheme.plgx")
-sha512sums=('15dc87a1ecbd57f4a3f07cb8d2b1820d379053955f6dfee32e79240ba760c3462224b9db79a4230bf816b4855861ce26a67f4fe8167432adb1f39873f26bb416')
+sha512sums=('6924103ee32bdcf8c956ec5e465612f38cd35d4b8dbc4ad9fef71fafdab69b10a4562a7f4e36e769dbfa6285cbdf1675cd74392898ac055d8ffb3c8391113ed4')
 
 package() {
     depends=("app-keepass")

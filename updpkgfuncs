@@ -13,7 +13,9 @@ foreach ($funcmatches as $func) {
 }
 $updatefunc = function($func) use($funcs) {
 	list($name, $body) = array_slice($func, 1);
-	$body = $funcs[$name];
+	if (isset($funcs[$name])) {
+		$body = $funcs[$name];
+	}
 	return "{$name}() {$body}";
 };
 

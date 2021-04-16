@@ -34,7 +34,7 @@ _choconame=vscode
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.55.1
+pkgver=1.55.2
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 arch=('any')
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("VSCode-win32-x64.zip::https@subdir://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive")
-sha512sums=('258a1a94c582d9bcf221cbb7d71937106ff7a5c363827a9b0786f01ce97d24b316a89b61cb670a233b420c9254de4c37ac9951cabd4b7c3bbb95d0f725292109')
+sha512sums=('59874409ad7c6493e38c6285b82e8fdb55a752f2c2b7cdae0c288c9627f4165ba5ecb6262290c4bddbeb29f24cd6261dc0b69be827ebd9e98e4b81886a1f6034')
 
 _lc() {
     local d f n
@@ -76,7 +76,7 @@ _rmmsdll() {
 }
 
 pkgver() {
-	powershell -command '(Get-Item "VSCode-win32-x64/Code.exe").VersionInfo.ProductVersion' | sed -r 's/[.]0$//'
+    powershell -command '(Get-Item "VSCode-win32-x64/Code.exe").VersionInfo.ProductVersion' | sed -r 's/[.]0$//'
 }
 
 package() {

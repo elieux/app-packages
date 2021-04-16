@@ -34,7 +34,7 @@ _choconame=pspad
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=5.0.6
+pkgver=5.0.6.589
 pkgrel=1
 pkgdesc="Freeware programmer's editor"
 arch=('any')
@@ -42,7 +42,7 @@ url="https://www.pspad.com/en/"
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("pspaden.zip::https@subdir://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip"
+source=("pspaden.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1\2\3/')en.zip"
         "en_dic.cab::https://www.pspad.com/files/dic/en_dic.cab"
         "bp_dic.cab::https://www.pspad.com/files/dic/bp_dic.cab"
         "bg_dic.cab::https://www.pspad.com/files/dic/bg_dic.cab"

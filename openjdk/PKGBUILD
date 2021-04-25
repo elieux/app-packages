@@ -10,7 +10,7 @@ _choconame=adoptopenjdk
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=16.0.0.36
+pkgver=16.0.1.9
 pkgrel=1
 pkgdesc="Open Java Development Kit"
 url="https://adoptopenjdk.net/"
@@ -19,8 +19,8 @@ license=('custom')
 replaces=("app-i686-jdk" "app-x86_64-jdk")
 provides=("${pkgbase}")
 options=(!strip)
-source=("OpenJDK-jdk_x64_windows_hotspot.zip::https://github.com/AdoptOpenJDK/openjdk${pkgver%%.*}-binaries/releases/download/jdk-$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/%2B\1/')/OpenJDK${pkgver%%.*}-jdk_x64_windows_hotspot_$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/_\1/').zip")
-sha512sums=('1c64e6f29aeacda54e8918927a7265617241336f2240de86cf7f342d30056038da8cddfbc5376804a94f4f3b96e7dbf6ae266fd0bc99d9ec216125897d440cf2')
+source=("OpenJDK-jdk_x64_windows_hotspot.zip::https://github.com/AdoptOpenJDK/openjdk${pkgver%%.*}-binaries/releases/download/jdk-$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/%2B\1/')/OpenJDK${pkgver%%.*}$(echo "${pkgver}" | grep -qE '*.0.0.*' || echo 'U')-jdk_x64_windows_hotspot_$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/_\1/').zip")
+sha512sums=('a49a36d1855099f9f227fe08eb0c7ae51e0def1bc3348a09de618412604c31130b50883612bca2ec892fe63c3f8c4bc30da10de5c83ed508c54f9953ca6e5c61')
 
 _rmmsdll() {
     local ms
@@ -39,6 +39,6 @@ _rmmsdll() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "jdk-${_realver}"/* "${a}"
+    cp -R "jdk-$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/+\1/')"/* "${a}"
     _rmmsdll "${a}"
 }

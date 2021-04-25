@@ -6,10 +6,10 @@
 #    - AssemblyServices.LoadUniversalCrt(nativeRootDirPath)
 #    - AssemblyServices.LoadVisualCppRuntime(nativeRootDirPath)
 #    - AssemblyServices.LoadOpenMP(nativeRootDirPath)
-# 2. save and run xdelta3 -e -s PaintDotNet.SystemLayer.dll.orig PaintDotNet.SystemLayer.dll PaintDotNet.SystemLayer.dll.xd3
+# 2. save and run xdelta3 -e -s PaintDotNet.SystemLayer.dll.orig PaintDotNet.SystemLayer.dll paintdotnet.systemlayer.dll.xd3
 # 3. in PaintDotNet.exe, open PaintDotNet.Program::InspectForDefectsAndPerformRepairsPart1() and invert[2] this condition:
 #    - if (AppInfoService.Instance.InstallType != AppInstallType.Classic)
-# 4. save and run xdelta3 -e -s PaintDotNet.exe.orig PaintDotNet.exe PaintDotNet.exe.xd3
+# 4. save and run xdelta3 -e -s PaintDotNet.exe.orig PaintDotNet.exe paintdotnet.exe.xd3
 #
 # [1] 0x00
 # [2] 0x2C brfalse.s -> 0x2D brtrue.s
@@ -19,7 +19,7 @@ _choconame=paint.net
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.2.15
+pkgver=4.2.16
 pkgrel=1
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
@@ -32,9 +32,9 @@ options=(!strip)
 source=("paint.net.install.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip"
         "paintdotnet.systemlayer.dll.xd3"
         "paintdotnet.exe.xd3")
-sha512sums=('d955cfbc49887e05d2b48653f1628569718f474cfacea1aef8a791c134928f8a25b7144dd501803eeb52b1c71ee2eea01e33f84574d0d416cc425b0b5976c990'
-            'd54cae0798b797f39414d1de0c832ed07b9c4a154b9320c0b7204b513fb998ee6581412bd051881c40fea9e40be62a56ff3b9eddbdf2f7a0391ca7602893025e'
-            '3ec1a51425de024439ad2f1e7a3a092b5a2319ab49c6fd166d16211b79e2dce27e1aa9d12ac2427c51d096c854d3e9a392c86337e5c6ba805a582c759a97334e')
+sha512sums=('97c518a8feb2666c6aa3672dd22479aad85eaedda5df7698e17f5a08929410faeb8295e7026de8b29127958dd47e0fe1e1bb5e6de7f91a561a0cae29b090365d'
+            'fc11a5265360a2dcb70d8d995c4df3371eb7e3f9b9cb050a0e4a6780a9d4b98ef3ff257e2c2d8baf33b1c40cf23204f0744e97d31f8fd29debbb7fef29af5579'
+            'bce7850c8f502536d019b4e09dcafdb62777f0cf1283839a5e4a6878c3044c1ff5ca26374c7b19c707a923afc87b1c2687a11d2c02e11ab5b83f982d5b5d4399')
 
 _lc() {
     local d f n

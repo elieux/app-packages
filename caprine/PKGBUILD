@@ -5,7 +5,7 @@ _choconame=caprine
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.52.3
+pkgver=2.52.4
 pkgrel=1
 pkgdesc="Elegant Facebook Messenger desktop app."
 url="https://sindresorhus.com/caprine"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Caprine-Setup.exe::https://github.com/sindresorhus/caprine/releases/download/v${pkgver}/Caprine-Setup-${pkgver}.exe")
-sha512sums=('99d580ffa7434d946df6ea1f001fd94285e336a12bf9def42a7d8afa3ace27ea285d62311dc58b793a45a2dac0f326a9ecbbeff485d1e2220f564c9aaa6c13cb')
+sha512sums=('4e4370070d8a14c8ac17d3120c9905118cbec0e330b9d3f037470533684c8d1bbf7c69e0d3dbfcfb599e39a9c966c0856754a625303ba25e14e0bbe637921669')
 
 _lc() {
     local d f n

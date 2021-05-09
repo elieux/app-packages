@@ -5,7 +5,7 @@ _choconame=mariadb
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=10.5.9
+pkgver=10.5.10
 pkgrel=1
 pkgdesc="Fast SQL database server, drop-in replacement for MySQL"
 url="https://mariadb.org/"
@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("mariadb-winx64.zip::rsync://rsync.osuosl.org/mariadb/mariadb-${pkgver}/winx64-packages/mariadb-${pkgver}-winx64.zip")
-sha512sums=('ac6b6d366df19328faa6597cc2497f9a52f8c51ff1c348594d2e2dd6651934ddb42d2477a4fbdd2dfce25a1d4685281d70b48ee877bc95cc85415690b69fd3c9')
+sha512sums=('b085ab61688c5dd16d6fdfa7868529b5b4fb1fc5b1a66ba3d3d1e7e62bea6d59d86cbe160ca486c918f46444029be1d04dfab42c0099a57e736fab225da34c21')
 
 _rmmsdll() {
     local ms

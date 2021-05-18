@@ -4,7 +4,7 @@ _realname=virtualbox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.1.20.143896
+pkgver=6.1.22.144080
 pkgrel=1
 pkgdesc="Powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use"
 url="https://www.virtualbox.org/"
@@ -21,9 +21,9 @@ source=("VirtualBox-Win.exe::https://download.virtualbox.org/virtualbox/${pkgver
         "0003-fix-conversions.patch"
         "0004-remove-__function__.patch"
 )
-sha512sums=('d45d840bfcbf4e3e8b780af7f6460baac2724d8a09badcf7f3b3ef98dbb165178cdcaceb621b914fdb144c8693143e78ab8bb2efa19b8cd07973ec6c7f7be2f4'
-            'b5af4e04e1a52c85b20226a274fac93712b79d426c0268cce3f2a337616a03161a55522ecddd13844bfc24a6808ba3d651366e74ce657cc6f8fd64c34ae745a4'
-            'f81c79ce960ecf04b4d68813b091d48a6246d197ab4ef4f563a3dbd4cb22943d4ef3f05e1ff77fa80df75dbbce32b4c3b35a317805dc3ff8907a8ef03874098b'
+sha512sums=('da2e81a723dd89fc695599ee8560bc60d560a766f75360cbc83cd16048a0367bc29f310ec00abc24960269414c3b56da8d970809cf827ba3b62ed2ecd758cfd5'
+            'ab0fc7cea455f74598d5da18528404405221e9c96a34f0355a39187524240596db4b54e1b1af5f152d5329b8e7977218819c0605f0d0ba0d83a1fb8f8487548d'
+            'b0cce70a4ec2ce5b4efa72a52056a81dbd91f2fcb553ea458cbfb1f3d654d5efcc383cee9114e50b8ad8f972f3c99c1a8c7a891d6f54712acc4725b5e0a3705a'
             'ff6c95e8a3c664aff59431208e3c2a129de81e3b5a11c08e2a45f012f095602803320881399f7b4d63e20ad7dd5dde4b62c6ce7db946b650b9f8ec714d62f61f'
             'aad91163f57f9dbca8242c9bb5ea0fe99ccad82ce9141f551195d8029a94b604a224b842c3223220daa778d08d7e37933bca4a5700fc231f9bea62f78e858806'
             '8ad2952c5a9f1c6d24ddac16cfddb518a6b5a867b26b72bbcd5bf422028803339f8a96e31706d2600a0a1f4a1c81acf15eca6af8ce99b38528e9a2d25d7fd123'

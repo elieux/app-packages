@@ -34,7 +34,7 @@ _choconame=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.48
+pkgver=2.48.1
 pkgrel=1
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
@@ -43,7 +43,7 @@ license=('GPL2')
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip"
-        "TrlUtil.zip::https@subdir://keepass.info/download/v2_trlutil_2/TrlUtil-${pkgver}.zip"
+        "TrlUtil.zip::https@subdir://keepass.info/download/v2_trlutil_2/TrlUtil-2.48.zip"
         "KPScript.zip::https@subdir://keepass.info/extensions/v2/kpscript/KPScript-${pkgver}.zip"
         "KeePass.config.xml"
         "KeePass2-Arabic.zip::https://downloads.sourceforge.net/keepass/KeePass-2.39-Arabic.zip"
@@ -90,9 +90,9 @@ source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%
         "KeePass2-Turkish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.48-Turkish.zip"
         "KeePass2-Ukrainian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.47-Ukrainian.zip"
         "KeePass2-Vietnamese.zip::https://downloads.sourceforge.net/keepass/KeePass-2.47-Vietnamese.zip")
-sha512sums=('c78984c83ef4dcd8e917b359ed1273064bad4d2de2671b78f5f3661fb399a279d7ac5bdc2d5fff8612bcaceebcaae9d76c21c2fa3c8f2bac189459792d598468'
+sha512sums=('d6a78eff02b8d64cf9fec4920ca2db6ac4fe3982dc6582840cd1dd6fe234245f2aa0723a9ddc6b269eba89e3acdd969408246b34759d2e4547780ab380923fba'
             '58d2460328cfc2c34cf6dd68520c296a4b65b198e3716ffd05a03bf7572ce8f5cb36d2c88354a3a90617a0871ecb6d74ec80cb38c8cbc2a17fe994fc63d5123b'
-            'c8b92ddcb6d27c4c056750e6b6132298a61dbbc033df524185c5c5e193c18ac90aec907c48e11ec70adf34c2dd99b85503911942a9be153f3539b2adf7148bed'
+            'e46cfa2ccbdaa4a0af16b4600bde72f85b060da50c0812bdee690eef62dc600c0e13fbb8c5a92d39b6a2b51a397e541ddde92faf1e66eb027cf2d0fc2529bcf7'
             'be3675bbbe47d929a1ca6c5dfefd31b674c7304cc4bfac914d5be9656937554919478feb363fd3a51561bcf879941fcb54b701648057422c452bf677d500a839'
             '44eacfbbdf36938f992876689a447ce72a8f6e0cd8af84315ccb40fe86d4a76203a61a24edf58dad39a857366628ea5cb6cc84f2f5897ced12e89da18180d02d'
             '86365f3dc4ae4930d37dfea548d3d107352916a254c02db50f68616d8fce032d8a6fc2f3284eeeb04d6f38b8cd018c34101b0cc63c83801df68346452f9034a5'

@@ -1,0 +1,46 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=youtube-music
+_choconame=th-ch-youtube-music
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.11.0
+pkgrel=1
+pkgdesc="Unofficial YouTube Music Desktop App with built-in ad blocker and downloader"
+url="https://th-ch.github.io/youtube-music/"
+arch=('any')
+license=('MIT')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("YouTube-Music-Setup.exe::https://github.com/th-ch/youtube-music/releases/download/v${pkgver}/YouTube-Music-Setup-${pkgver}.exe")
+sha512sums=('96b1718c7a372df830b8cf338b0dbe170b25661222a58af9857424af24c05321b72fed84b004cce55ced28e2f84b95f32774717abe7ca51524ad91ba019b50b9')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    7z x -bd "YouTube-Music-Setup.exe" -o"YouTube-Music-Setup" > /dev/null
+    7z x -bd "YouTube-Music-Setup"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "app-64"/* "${a}"
+    mv "${a}/YouTube Music.exe" "${a}/YouTube-Music.exe"
+    _lc "${a}"/*
+}

@@ -5,7 +5,7 @@ _choconame=calibre
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=5.18.0
+pkgver=5.20.0
 pkgrel=1
 pkgdesc="Ebook management application"
 url="https://calibre-ebook.com/"
@@ -16,7 +16,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("calibre-64bit.msi::https://download.calibre-ebook.com/${pkgver}/calibre-64bit-${pkgver}.msi")
-sha512sums=('522db7540e7af2535c7a9319c2ef233348a82adfe4e6f1010a11c5f433aa142ee1f1d4e1eb2eeb568c8b287d0a978f8ea8c2b63c2f5044542274794767cb550a')
+sha512sums=('f3eeb84af1fc70b2f29c603e39a532160fbbbff20e180c3ad8d37c6b43aa575f9cf940cce33eb02aac70c07277577dc5ab0240513c72530b4571765bbc6b9436')
 
 _rmmsdll() {
     local ms

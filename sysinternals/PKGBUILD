@@ -39,7 +39,7 @@ _choconame=sysinternals
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2021.06.01
+pkgver=2021.06.23
 pkgrel=1
 pkgdesc="Advanced system utilities for Windows"
 url="https://docs.microsoft.com/en-us/sysinternals/"
@@ -51,7 +51,7 @@ options=(!strip)
 source=("SysinternalsSuite.zip::https@subdir://download.sysinternals.com/files/SysinternalsSuite.zip"
         "RootkitRevealer.zip::https@subdir://download.sysinternals.com/files/RootkitRevealer.zip"
         "BlueScreen.zip::https@subdir://download.sysinternals.com/files/BlueScreen.zip")
-sha512sums=('157816705fc86b8e71e66a369ae7668a36e6d5b47c3d27389bccb991b87229ad28d05c16434a9c4554e863e33c155631d59b3ccd71a85446c41d593c0b2adbc7'
+sha512sums=('fc461f577e388cc8a7e74d83fe5298d03eb136c914541612c8b39d727dd23baa9425f137f180c2c698ef6f0043f66699ede148b492bffd84e881a4b207d23ecd'
             '2e5f89552fc1912b5fa37eb443ef2aa86e2a60f2f7f24f420df56e1ec5f59bd64e2b71e38365f7beaace419299762b9960b7617de9aff6301020277d3d7c1e61'
             '2e39c4b36e9928851fc86d9fc541956c3079a1ded09cca5ee677fbe1b3c9272b87651b65e53279cede3c4ed37028fcbae0823c4ee25180d5bc132cef8d155507')
 

@@ -5,7 +5,7 @@ _choconame=Opera
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=77.0.4054.90
+pkgver=77.0.4054.146
 pkgrel=1
 pkgdesc="A fast and free Blink-based web browser"
 url="https://www.opera.com/computer"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Opera_Setup_x64.exe::https://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup_x64.exe")
-sha512sums=('e51aeb8433acc028e471fa499f2e34920996f6e440a3f7a286dacdfc0240d78bd1cc52eaa496cd4a0989c11324eb69bc44da55774c952bc4730af0ae6f62288e')
+sha512sums=('4ca13b86db7c8fb24d420717cc9b9f6f4c2f8f1e83795c4b051c99b045aaf5e1756cb47cd1c32a032ac329575d87353ab011f8f068f86ebf6ae5e46e2440b76f')
 
 _lc() {
     local d f n

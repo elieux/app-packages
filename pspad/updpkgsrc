@@ -6,7 +6,7 @@ $list = file_get_contents("https://www.pspad.com/cz/download.php");
 preg_match_all("~/files/dic/([a-z]+)_dic.cab~", $list, $packs, PREG_SET_ORDER);
 
 $srclist = [];
-$srclist[] = 'pspaden.zip::https@subdir://www.pspad.com/files/pspad/pspad${pkgver//./}en.zip';
+$srclist[] = 'pspaden.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pkgver}" | sed -r \'s/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\\1\\2\\3/\')en.zip';
 
 foreach ($packs as $pack) {
 	list($lang) = array_slice($pack, 1);
@@ -16,6 +16,6 @@ foreach ($packs as $pack) {
 
 $srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
 $pkgbuild = file_get_contents('PKGBUILD');
-$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
+$pkgbuild = preg_replace("~^source=\(.*?\)$~sm", addcslashes("source=({$srclist})", '\\$'), $pkgbuild);
 rename('PKGBUILD', 'PKGBUILD.old');
 file_put_contents('PKGBUILD', $pkgbuild);

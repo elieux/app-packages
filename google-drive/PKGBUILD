@@ -11,7 +11,7 @@ _choconame=google-backup-and-sync
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.54.3529.458
+pkgver=3.56.3802.7766
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
 url="https://www.google.com/drive/"
@@ -21,7 +21,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gsync_enterprise.msi::https://dl.google.com/drive/gsync_enterprise.msi")
-sha512sums=('c1fcef91263425bf9a2d6048056d9e2d43960106e668804a7a6ec85f004bf176d34a13da107533dc464d50b409366704a1b42f7c08691375b4ede3d6e06b1b35')
+sha512sums=('188d9db337a2667f1b7ee908f6870f5c86a25c7121b89fc8161dab167b84b2ef28e3749a8817b96f399796425e763d07bb3150cebae22967c32f4fcc53565237')
 
 prepare() {
     rm -fR "gsync_enterprise"

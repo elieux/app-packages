@@ -34,7 +34,7 @@ _dirname=thunderbird
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2021.03.12
+pkgver=2021.07.01
 pkgrel=1
 pkgdesc="Dictionaries for Thunderbird"
 url="https://addons.thunderbird.net/en-US/thunderbird/language-tools/"
@@ -65,9 +65,9 @@ source=("us-english-dictionary-677644.xpi::https@subdir://addons.thunderbird.net
         "valencian-catalan-dictionary-9192.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9192/addon-9192-latest.xpi"
         "chichewa-spell-check-222213.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/222213/addon-222213-latest.xpi"
         "croatian-dictionary-9795.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9795/addon-9795-latest.xpi"
-        "czech-spell-checking-dictionar-3394.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3394/addon-3394-latest.xpi"
         "czech-spell-checking-without-d-413604.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/413604/addon-413604-latest.xpi"
         "czech-spellcheck-cc0-987993.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/987993/addon-987993-latest.xpi"
+        "czech-spell-checking-dictionar-3394.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3394/addon-3394-latest.xpi"
         "dansk-ordbog-3596.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3596/addon-3596-latest.xpi"
         "diccionario-papiamento-408638.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/408638/addon-408638-latest.xpi"
         "dikshonario-papiamentu-353517.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/353517/addon-353517-latest.xpi"
@@ -148,6 +148,7 @@ source=("us-english-dictionary-677644.xpi::https@subdir://addons.thunderbird.net
         "russian-spellchecking-dic-3703-3703.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3703/addon-3703-latest.xpi"
         "russian-hunspell-dictionary-347439.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/347439/addon-347439-latest.xpi"
         "sanskrit-spell-checker-337161.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/337161/addon-337161-latest.xpi"
+        "ditzionriu-sardu-988078.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/988078/addon-988078-latest.xpi"
         "srpski-5125.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/5125/addon-5125-latest.xpi"
         "serbian-dictiona-10894.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/10894/addon-10894-latest.xpi"
         "swati-spell-checker-46614.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46614/addon-46614-latest.xpi"
@@ -204,15 +205,15 @@ sha512sums=('b5c81b68e6e915d1c1294d65c13f0bd36c85f6bd9ee632f9a827abb49e3794e2cdc
             '4db08d3031b97e1896bc1b1c960ff65d8178af9177eb52e0013b6348a120217b6e344df717e9596e3e6fd05ab947cec99af17409d386d8efcae8884e4592d8fb'
             'bc76e4a9ebc290a4e059a5e86db7f4c95c41b53b843f3689766aeb8cdd00198a45c3f07b7e97e617d7bc6cba80023b65aba2f913078a59f7547e922da1c789b8'
             '1c59ae351108dc52ebf0c4597972e8bc6db563b46e60899508ce314fd7b57baf8fe8a50b34e4703f14289df01bc8a79a3034d807f193143e67d9b17159e24e34'
-            '31381aeb61300cbcc3bf7d1724b9cec136966e075cd9ed847dbe83b3bfd62588b4c2ee63f0e9aa262ab7fb5b26512a66cb982e021c367c3e46b47a1b34d81179'
             '616ea8c36104206d02bde01dca8a7e52787928747387620e1c0de3d9c61ac02c6fb77e419de391b3fc5e64f410d4929d08a0aa76abd9260702fe6f10d664d466'
             '6330bbaccc0819b6c06b180950811eb64ffc85ebdf7f453c7933e694d86d901b45763b481787b756ef9e5d8f1dfe8990e2ede2183a75b6c43fdf559b5cadc326'
+            '666811eb671cf926569a1e194aca580140b4771e07855dfa6aa7c6172105ce425d634d0f39fd75881c71881ba98ade9002adc4dbf2e3ce4de39e1e3940797eb0'
             'ab7648e3b2ac634d9d01de88ce36ba2c93838f344b66802f945d9be9972f6b6ec18f6b3b325294032a2324cef0178563f9bd0f8f0a613b7db42f8c1ba3283c72'
             '467dc71027a15601a9a452c10f64c4132529d263b20e96eb1d6b8ca13988155a9a0f1175f4161268d6f77df43b5ba3c59ab10f71b67b49e8f9624f48e6916aa6'
             '0052eefa000d8dec98a987715b59f7e41f5f2a2c378e6fd1ee99d017d8be931fcad3355e3678bcc0458f294d1fc93410ba85db9a998503ff694dfe273c08278c'
-            '028e271e41fce1dec0a77c9febce958add86a2f7f466cab642e10596f1d8fa06e149f298c414ccdc87aae439c00062582e1ded23a3cfa1a2cbc44d7cc81f3f10'
+            '43a4d6155b5c59e783cbd0ac2da62a59d2e7c6876dbb9d1d7c9ee0c814ecff4c9d4740e10621077b7aa491bc009150a610e3f9af7fbfee67969f69a69b55b59a'
             '7dfa6f948f8983f23d20a65b64875872ef017f701a4c672f144a5b59cb9a77010f2e3800a91fb9b626d39baef7f16478aed87173c68840673dc179a4a19a5cdd'
-            '69a301084a0271d128664ad1cb5e7450acf5a1013d5ea501c87cf382ad17e7190c1230383adb7fe5b6fe91975d7c8c8f131dbe0c259e033992ccd9fef6bd8827'
+            '2d1cfe97160e68a1074810d4f27f816cab4fb97cfbc4fd04753687250b119e8659c6123358888c91e4e257a7b75d6b31f5628773a6916328ad051066d9975bef'
             'c7e0eb71c0e489c3c75fd37f705c4f80c73221de659acbe83cc37967fe3d0d04b025ea4b567c0ffb125755eaaa9401b555d6bc66e940395928f9a56f8bc499f5'
             'a894d5d120e170959a4652ffc485eecfe36c470b39309d276479ce1fc3bb0d3b83ea9a753c091b2f1a702528cdcf66d27dbeef6eabd9d64df78825bfa7fea20d'
             'b5c81b68e6e915d1c1294d65c13f0bd36c85f6bd9ee632f9a827abb49e3794e2cdcf7fabbb7a81447544a51173c2440e3039728d0b3af8c1ca1fb644e4d70f11'
@@ -267,7 +268,7 @@ sha512sums=('b5c81b68e6e915d1c1294d65c13f0bd36c85f6bd9ee632f9a827abb49e3794e2cdc
             '430bd5483ca8fa391337552f349891e0b2ddd54819dd681f63c67ae1bcf9ccfc3f99249d4c1d72361d799f0d7d7ff34482a91ed94516b345fadf424d671c9e77'
             'ef1fed5c5e5f6aacdc0ec01e3760c3ff2f4f2f7ef7a3150ac81559bdf736fe137a7289da9b11d03e2aceca95743e88123c8188bcee18a084af7315fcc48cfe5f'
             '109d97b0bd39db4d26598ce2cf3463ac8d1bb3932a91c0ab5ef1a119ff939236e5352e662ec154715d8855f15ead1014d157efebd35a74097e0567aa2d2b07d2'
-            '1fb972d434bedccae48976d8294e9d9d602aa683d550f4c16277257c7de6acc2f43ac8e390beb9ee7d69b338d6963d1701ff57c4b95d1353c21bea54543513c0'
+            '97aa66cf6a63a1df674d8c67c76939db37cea61bbbecdde592a747b1f9243768431575bf92bb5336bac8a958f01cc126325ac090a15658ea13450bc10d7491bf'
             '7e440aa9a2c3cb02f3132cfe16b53274cb3594380963c292e1eae6d70ef1d637b130d5c7da0036c253649ef5abdbe6b0877f1666e03d92c39fb9bd91f8763840'
             '160fba8329ad75c353fbbf9ce9830b7e53888a21f73fb98ded1487aef93c738a2c8f191a42640688193cb5d3bafa401f699fd66671afa0edf8c7aca682a7c7cf'
             'c0c5ff4bdd858d7036d2c3c0836f09ac99895fa98ec6d3e8c6b523cca72ddb5a559934eb903568934d1147d369c8df8b979da12298a289be63bb8c6fba2706f1'
@@ -287,6 +288,7 @@ sha512sums=('b5c81b68e6e915d1c1294d65c13f0bd36c85f6bd9ee632f9a827abb49e3794e2cdc
             'd65c1c7ad0f355b55eb75eac8ca9fa54a6718d61f2b72a59410a1171d7989560360fd32fc2e77c23f1dc7eca8cf564941ac513b83c71108729fe532ac8ad3da2'
             '5ce570cd07309a3251e86b71d95f3edadcec6df5ff59477f9986b38c5776e8af4843fbccbfb66550c2c3f0b2ee6a75467da3c4b4486f3bca95b5804b1f7fe953'
             '36e48e07385b1f1b176b90f4f5ff7a6d7266acf88eafae359e6844ff3ad38ada4f4c56201aa0db94876b4bd71b85759d4de9a6828f0f53300b9bc17ab7076d54'
+            'efada67e79b19cada046f81790858c42c1d3d85f7b239ae6004b3266a3e33297d7caf20360b4a7ad056be76db16813eea4562b323ed1a6eca23e7f373ed3472a'
             'e3cf6d6c4884ee8ad89d4c09601115734e7aece064ce0cb52142e50cc5246bba479c0e30a3580d81cbf0dee8146f2837162be70be1f18afa5a7df8730f2dd84f'
             '5538da3c087c749015155a5d50a2424a51c487f818d60ae3c01cc6fa68ca053a7a3e9bfc8addafd85b527bb4cec1082abfcfa4c2bf243c8074e94f719525c0ca'
             'c8c039655ccc5a940d0099bfad0aeac048735bf42597263a8b5f0df8ba43d8122774a0e95d9b9bd9e2b7a9fe9bd3233629097138d5d20d048ff2fb729a8e58a9'

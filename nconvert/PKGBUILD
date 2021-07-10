@@ -5,7 +5,7 @@ _dirname=xnview
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.41
+pkgver=7.80
 pkgrel=1
 pkgdesc="A powerful command line multi-platform batch image processor"
 arch=('any')
@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("NConvert-win64.zip::https://download.xnview.com/NConvert-win64.zip")
-sha512sums=('b0ce20191dee340b400a71fc2983112b7f78ff371c3f40c88cdf1ba13feabc46b5a9de57c13d5c2852b8b4f392db3cc8cf65e48160ceb71d19eef65ff5f5a776')
+sha512sums=('2a40970ccb778613d35b039eccf7e96c1900707aa4dd60c8baa7aa4c4d06013752c016618dda3fe113a2784c5a213b13ca235addee05c157aac7d229fae195a3')
 
 _lc() {
     local d f n
@@ -47,7 +47,7 @@ _rmmsdll() {
 }
 
 pkgver() {
-    cat "NConvert/whatsnew.txt" | head -1 | sed -r 's/^.*NConvert v([0-9.]+).*$/\1/'
+    cat "NConvert/ReadMe.txt" | head -1 | sed -r 's/^.*Nconvert v([0-9.]+).*$/\1/'
 }
 
 package() {

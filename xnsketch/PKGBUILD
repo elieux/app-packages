@@ -4,7 +4,7 @@ _realname=xnsketch
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.18.0
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="Turn photos into cartoon or sketch images"
 url="https://www.xnview.com/en/xnsketch/"
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("XnSketch-win-x64.zip::https://download.xnview.com/XnSketch-win-x64.zip")
-sha512sums=('7bcc0b3985d06684d9b5a2558f5438022e3861ffc44e2506973deb41b4bcf74bf82de19a2ff9f47ca89aff81ebd3e4f87b75d2e713ea8a31e1188d39a5d793bf')
+sha512sums=('27d9652a863af0158f5da1361a2d93e798c2cf64013b7a43c1e9ce6782b51ceb92dd3b3151d1a38e7062fb4986f6104a67fccee517184bdbf5bf0eb7daf31647')
 
 _lc() {
     local d f n
@@ -53,6 +53,6 @@ package() {
     mkdir -p "${a}"
     cp -R "XnSketch"/* "${a}"
     _rmmsdll "${a}"
-    rm "${a}/Visual C++ Redistributable Packages.website"
+    rm "${a}/The latest supported Visual C++ downloads.website"
     _lc "${a}"/*
 }

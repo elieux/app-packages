@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=89.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone, easy to customize web browser"
 url="https://www.mozilla.org/firefox/"
 arch=('any')
@@ -99,6 +99,7 @@ source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver
         "sq.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sq.xpi"
         "sr.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sr.xpi"
         "sv-SE.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sv-SE.xpi"
+        "szl.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/szl.xpi"
         "ta.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ta.xpi"
         "te.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/te.xpi"
         "th.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/th.xpi"
@@ -196,6 +197,7 @@ sha512sums=('ea47a285025f2d2d55a57cb97276acbd7ef3750607488878bffa34bf47211ddcb93
             '844898aa7b832269bc2896c1efde843dae6b4f423c354dba788a3ec2eefb1cc054f7309784e143a4eefce3c65891861d90502f230abeda20d1b62de7be01c2a1'
             '3e757955313f1109e5a8da9ba7bae0bac9b8ac69020b4a0ac1462a0dc71c94ed6c7f1a9c6aab21e112204191eecca59a39ced5ea141341b37f6ba88bcb72feb2'
             'fe425bc9f4e62efc288fb5e236e077a671ff89e01bc92ff3cc04ea7e5aeb5d897069119a52e1ed94406ad597200dd5091f1c8da82cf04a368e9e61448aaecca1'
+            '660550a30944870f5f67c04868e8c3c2d1b121167853b85ada7c3bffefceb3cc3d9cda0aed42531d9130782fcd7da7258d3035f03a2db64ff501856c5fe18b4f'
             '535b2c12c54b09ae47edf11aae58eaf30355e75bc98024aee0eec7802b767654c48a94f409b8dd357b7792b82fa89e451c76558c48b16029b232eca3af03f34f'
             'e1480f699de3f7ba8b39a3b797a88443416b1540a20efd08557da3199f40d5d4f4571d122ace398fe8d43ede9540e2743e64d7c9ed7558f4e1c932249c018bfb'
             'a9566f8cf4e888c5e73a7f0f902fd38530b6aac9932bcd5be9409368c325e925ba78c468bff8192f317a8ba8e432bc651e7acec07010d37facbfa5d2d36fbc91'

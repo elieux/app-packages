@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=1.90.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A bulk image converter"
 url="https://www.xnview.com/en/xnconvert/"
 arch=('any')
@@ -54,5 +54,6 @@ package() {
     mkdir -p "${a}"
     cp -R "XnConvert"/* "${a}"
     _rmmsdll "${a}"
+    rm "${a}/The latest supported Visual C++ downloads.website"
     _lc "${a}"/*
 }

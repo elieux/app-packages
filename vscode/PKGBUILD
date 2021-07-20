@@ -34,7 +34,7 @@ _choconame=vscode
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.58.1
+pkgver=1.58.2
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 arch=('any')
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("VSCode-win32-x64.zip::https@subdir://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive")
-sha512sums=('bf13d26743fef0623dab338782fb13fb72d91bf267b69d0fc7ecb5909d22b2b2ff2815090c073b9b11e52fc08376f351a7088929c04d6eb96681135f69c1242d')
+sha512sums=('5ed8bdf022764ad4309b41df89ee80d0b7030dec51008b8a42aceb4b7d4603ae5f3b6f1e97caf7143d1370a197401322f3954295adfb5cafdcd2c7f93896a629')
 
 _lc() {
     local d f n

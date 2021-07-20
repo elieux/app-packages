@@ -10,7 +10,7 @@ _choconame=claws-mail
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.17.8
+pkgver=3.18.0
 pkgrel=1
 pkgdesc="User-friendly, lightweight, and fast email client"
 url="https://www.claws-mail.org/"
@@ -20,7 +20,7 @@ provides=("${pkgbase}")
 makedepends=("p7zip")
 options=(!strip)
 source=("claws-mail-64bit.exe::https://www.claws-mail.org/win32/claws-mail-${pkgver}-1-64bit.exe")
-sha512sums=('ca05d38a879d3c8c43e39661b8f996de30467ee5fd9090b923821eed81cee3f5a0184f5e61ca9907c516c2103d8b37baea29c2224d45ddc5f571ce4f3f30621c')
+sha512sums=('066ee5dbd2077404f4e4bdcb3463985da52462fe40cef27b2e651bd73ed57758e715f1d041381e8ca429aa79622ac39673606266ba1f0710a681a8c9078579a6')
 
 prepare() {
     7z x -y -bd "claws-mail-64bit.exe" -o"claws-mail-64bit.dir" > /dev/null
@@ -30,5 +30,5 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "claws-mail-64bit.dir"/* "${a}"
-    rm -R "${a}"/'$PLUGINSDIR' "${a}"/*.tmp
+    rm -R "${a}"/'$PLUGINSDIR' "${a}/claws-mail-uninstall.exe"
 }

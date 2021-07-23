@@ -5,7 +5,7 @@ _choconame=openvpn
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.5.2.601
+pkgver=2.5.3.601
 pkgrel=1
 pkgdesc="A full-featured SSL VPN solution"
 url="https://openvpn.net/community/"
@@ -15,7 +15,21 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("OpenVPN-amd64.msi::https://swupdate.openvpn.org/community/releases/OpenVPN-${pkgver%.*}-I${pkgver##*.}-amd64.msi")
-sha512sums=('cdac3cadc05a6c4605f3f6cbf9c1ce9db15d1d5aa3f92fec66deccc5b216f4b3ebbddb25224ea5135336b836e0dedd6c3c092d3b77477319c3a4de8705e239d7')
+sha512sums=('45e48fe8effca62a183eece5ceaaab98db9ba3c12cc1844615cd48c26de5795607f0c6ed7aa4a5610be0d3839762a8e483fffbb0feed2338225d6fd6d2049bb1')
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
 
 prepare() {
     rm -fR "OpenVPN-amd64"
@@ -27,4 +41,5 @@ package() {
     mkdir -p "${a}"
     cp -R "OpenVPN-amd64/SourceDir/OpenVPN"/* "${a}"
     rm -R "${a}"/{easy-rsa,include,config,config-auto,log}
+    _rmmsdll "${a}"
 }

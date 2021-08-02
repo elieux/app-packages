@@ -5,7 +5,7 @@ _choconame=Atom
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.57.0
+pkgver=1.58.0
 pkgrel=1
 pkgdesc="A hackable text editor for the 21st Century"
 arch=('any')
@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("atom-x64-windows.zip::https://github.com/atom/atom/releases/download/v${pkgver}/atom-x64-windows.zip")
-sha512sums=('821ba2188d1015012e01e8db99712226d0d8f24b26557a8bf34d6e150708aced1d4f77ef48f419e60c870845116c45c3f96154117bb8485d944440eb9f716dec')
+sha512sums=('2bc46b39932d481a7adb9d3c08cda14d87e11565866c44dd092847d4bf85e4307489340fba86c0a409b5780531320a2187e05a9144c7189cb5091ba1919373f8')
 
 _lc() {
     local d f n

@@ -10,7 +10,7 @@ _choconame=synctrayzor
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.1.28
+pkgver=1.1.29
 pkgrel=1
 pkgdesc="Tray utility / filesystem watcher / launcher for Syncthing"
 url="https://github.com/canton7/SyncTrayzor"
@@ -19,7 +19,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("SyncTrayzorPortable-x64.zip::https://github.com/canton7/SyncTrayzor/releases/download/v${pkgver}/SyncTrayzorPortable-x64.zip")
-sha512sums=('fca26c00ff0c98e7932e8395a22d12811720b7fe97123bb1f49093e023b3223a62580d559ba878e8c6e3b163142b722e3852107754b959aba0449be1bfefb499')
+sha512sums=('b9829d315d72730bd234114dbe46e47edd6f37d1e929000bda7de0d1eeefc6a37ca2b9def1e73467e01bb8a68930d5d20a7eedd85e33b0339e0f90daa022b3a6')
 
 _lc() {
     local d f n

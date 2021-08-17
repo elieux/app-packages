@@ -1,0 +1,52 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=dive
+_choconame=dive
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.10.0
+pkgrel=1
+pkgdesc="A tool for exploring each layer in a Docker image"
+url="https://github.com/wagoodman/dive"
+arch=('any')
+license=('MIT')
+provides=("${pkgbase}")
+options=(!strip)
+source=("dive_windows_amd64.zip::https@subdir://github.com/wagoodman/dive/releases/download/v${pkgver}/dive_${pkgver}_windows_amd64.zip")
+sha512sums=('4a85eb33563783019b18a642560fb000f50e0236636b7a03a153fb63a0eac4f54247770abde833baa26d5bf0c991a0ee7dc9b2e5881f74fb95806d7a5074bc5b')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp "dive_windows_amd64"/* "${a}"
+}

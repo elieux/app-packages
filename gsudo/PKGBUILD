@@ -34,7 +34,7 @@ _choconame=gsudo
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 pkgdesc="A Sudo for Windows"
 url="https://github.com/gerardog/gsudo"
@@ -43,7 +43,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("gsudo.zip::https@subdir://github.com/gerardog/gsudo/releases/download/v${pkgver}/gsudo.v${pkgver}.zip")
-sha512sums=('95349a730fcbc182cd6260f27d28c4eb5ce9690f78b8d83f39f09a60f9ab7c789afc1650dc000e76a675eaf87a57979ca5a7cba511730a0b6cb3bd3717254ec9')
+sha512sums=('473663ba5ed598e45ae6c6b5b68b32f8e2515ce167761372131f05ca7ece8a53d049cae8ecdc811475db7a4379d32c2c8645c037284f10d251625e2805f478bd')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
@@ -51,5 +51,4 @@ package() {
     cp -R "gsudo"/* "${a}"
     mv "${a}/gsudo" "${a}/sudo"
     mv "${a}/gsudo.exe" "${a}/sudo.exe"
-    mv "${a}/gsudo.ps1" "${a}/sudo.ps1"
 }

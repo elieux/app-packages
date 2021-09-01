@@ -31,7 +31,7 @@ extract_https@subdir() {
 
 _realname=far
 _choconame=Far
-_realver=30b5858-20210727
+_realver=30b5885-20210901
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
@@ -45,7 +45,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Far.x64.7z::https@subdir://farmanager.com/files/Far${_realver%%-*}.x64.${_realver##*-}.7z")
-sha512sums=('6904d65d3d6c3d4cd69467a3ef6a60f9745e75cb7c39a417b40695b1fb34074a36ccb9e1057ee265a84791c8a1925db86859b73a2ea1b89a3e48a7e4b999f2f7')
+sha512sums=('0d91e58e6ffb0d6b24c863be4fd762a938fa186f882eed0ea53018ee1921c11cda3af071e30aba7f58c4def103e89ae4ba68ef7fa8b4af8e61fa48e977be3d46')
 
 _lc() {
     local d f n

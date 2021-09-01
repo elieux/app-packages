@@ -12,7 +12,7 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.0.12
+pkgver=2.0.13
 pkgrel=1
 pkgdesc="KeePass plugin to expose credentials securely to a browser using Native Messaging"
 url="https://github.com/smorks/keepassnatmsg"
@@ -20,9 +20,9 @@ arch=('any')
 license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("KeePassNatMsg-binaries.zip::https://github.com/smorks/keepassnatmsg/releases/download/v${pkgver}/KeePassNatMsg-v${pkgver}-binaries.zip"
+source=("KeePassNatMsg.binaries.zip::https://github.com/smorks/keepassnatmsg/releases/download/v${pkgver}/KeePassNatMsg-v${pkgver}.binaries.zip"
         "README.md::https://github.com/smorks/keepassnatmsg/raw/v${pkgver}/README.md")
-sha512sums=('ccd01e3f2d82d5389cdf31e6b9e7e19b35576b86bcff653ec84ec391443649b7bdd7aa59029a8c66343cf27f518a605700a849990d6afb95f9f5b3b4613c81e2'
+sha512sums=('3ba976c44b634bf5de91b11ece39d2995aed761843b003beae4ad105e03fde5b608ee32c8137474076c245de0113ca18b212ed57900ab84d3cc998d52829bdb7'
             '7412ebafa5be830ca90ebf1d7c0c40b206bdf311a5ea0d80f4dce6a0c4297caa42f0df83693548c2305f87c63728e2b3e4d2d00d4ee16ce6e3b015194c1c4785')
 
 package() {

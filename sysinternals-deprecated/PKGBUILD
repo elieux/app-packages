@@ -35,7 +35,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2006.11.01
-pkgrel=1
+pkgrel=2
 pkgdesc="Advanced system utilities for Windows (deprecated)"
 url="https://web.archive.org/web/20091002072805/http://technet.microsoft.com:80/en-us/sysinternals/bb545027.aspx"
 arch=('any')
@@ -43,8 +43,10 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("NewSid.zip::https@subdir://web.archive.org/web/20070322035140if_/http://download.sysinternals.com:80/Files/NewSid.zip"
+        "PageDefrag.zip::https@subdir://web.archive.org/web/20210506084633/https://download.sysinternals.com/files/PageDefrag.zip"
         "ProcFeatures.zip::https@subdir://web.archive.org/web/20070222172736if_/http://download.sysinternals.com:80/Files/ProcFeatures.zip")
 sha512sums=('a279ccdb94a43f0e20278a534dbb7db0b931f00dd8a1dc45a93d4400e819e7a81126d34dd3dd3c7bd6b3e7da18b761e756c5f9166b2f86f92837a71128bdb1ab'
+            '4cb8b71d931f3871264768f95b3012a71eeeee14232d54b28c94b4e15807acfa62ccfa1430db68bc69fb0a8e99accd6946d708a5b795b9775939dc15b32b4371'
             '2c7e6e84beb528f72f2048d4b7dab9e7ccf4658d091b9ef44da89e37b2670a7198bfc6e902e98db680e493884b068fc5c4bdbce1a65e02113b1fb0ac2bd2130b')
 
 _lc() {

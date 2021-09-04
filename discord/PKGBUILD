@@ -1,5 +1,22 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+# BROKEN:  The app wants to download its modules on startup, but that only kicks
+# in if the program is inside a directory called app-${pkgver}.  Still, it
+# modifies the program directory, which is not very nice.
+# We can download them too.  Problem is, they are encoded or encrypted.
+# 1. https://discord.com/api/updates/distributions/app/manifests/latest?channel=stable&platform=win&arch=x86
+# 2. parse the output and get links to the modules like:
+#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_utils/1/full.distro
+#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_voice/9/full.distro
+#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_desktop_core/3/full.distro
+#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_erlpack/1/full.distro
+#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_spellcheck/1/full.distro
+#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_krisp/1/full.distro
+# 3. ???
+# 4. profit
+# The main app (same as the contents of the installer probably) seems to be here:
+# - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/full.distro
+
 _realname=discord
 _choconame=discord
 pkgbase="app-${_realname}"

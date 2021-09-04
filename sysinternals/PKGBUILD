@@ -2,7 +2,7 @@
 
 _chocover() {
     # choco version format: 2021.1.19
-    echo "${1}" | sed -r -e 's/[.]([0-9])[.]/.0\1./' -e 's/[.]([0-9])[.]/.0\1./'
+    echo "${1}" | sed -r -e 's/[.]([0-9])[.]/.0\1./' -e 's/[.]([0-9])$/.0\1/'
 }
 
 _extract_subdir() {

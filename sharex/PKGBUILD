@@ -34,7 +34,7 @@ _choconame=sharex
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=13.6.0
+pkgver=13.6.1
 pkgrel=1
 pkgdesc="Screen capture, file sharing and productivity tool"
 url="https://getsharex.com/"
@@ -42,8 +42,8 @@ arch=('any')
 license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("ShareX-portable.zip::https@subdir://github.com/ShareX/ShareX/releases/download/v${pkgver}/ShareX-portable.zip")
-sha512sums=('f41f695d7865ff17274053443befeb72623434d74e9ebcb0ef28ad9339eff42c43edfa6f8c44bc6e1aaa41543de275f59498237665e4135950e9e4a99ebf4aaf')
+source=("ShareX-portable.zip::https@subdir://github.com/ShareX/ShareX/releases/download/v${pkgver}/ShareX-${pkgver}-portable.zip")
+sha512sums=('5a11559faf2861540fcaa91f299f965a1bb2c9a2790cc811c7f8e1c5ebc3cbfada3767d79ec45b4d48fe940833d71c25df7eaac9f555630f14fe8c56826f30f5')
 
 _lc() {
     local d f n

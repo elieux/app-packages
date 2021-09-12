@@ -5,7 +5,7 @@ _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.6.3
+pkgver=0.6.4
 pkgrel=1
 pkgdesc="Program to keep Docker login credentials safe by storing using the Windows Credential Manager"
 url="https://github.com/docker/docker-credential-helpers"
@@ -14,7 +14,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("docker-credential-wincred-amd64.zip::https://github.com/docker/docker-credential-helpers/releases/download/v${pkgver}/docker-credential-wincred-v${pkgver}-amd64.zip")
-sha512sums=('a298bf72db3072ac77c9ceb8cf79f5c4d39d2374da4fc742b56931e7ca967eb454fb65e5676e7958b5138263a825f3ba7d6905d0620857173b298a35712d9f4e')
+sha512sums=('e59ec5a98626422146a03613eecd4bcd86d8fc415c8e8e0818c62622c9b90d8f7881ba86e80798e746ea45a87b39565f3c74e75054ab712aa7d57ee5ac116aff')
 
 package() {
     depends=("app-docker-cli")

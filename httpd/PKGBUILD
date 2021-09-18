@@ -37,7 +37,7 @@ _choconame=apache-httpd
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.4.48
+pkgver=2.4.49
 pkgrel=1
 pkgdesc="A high performance Unix-based HTTP server"
 url="https://httpd.apache.org/"
@@ -46,7 +46,7 @@ license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
 source=("httpd-win64-VS16.zip::https@subdir://www.apachelounge.com/download/VS16/binaries/httpd-${pkgver}-win64-VS16.zip")
-sha512sums=('ad60c74d3505e4cc618412207405428ac7c2d374dbd72f190feb73a598e9876de3bca31d8547649ed34e05ed2f9e0063f031714923e49bc7febf2332547c3212')
+sha512sums=('3242ee0a1363a2f0d195585af5afac286f3455c95bf8161664afb1fb34bab6d2e7c787ffc0c56f3e627bca27d03572e334a771dacc0228b08910b10eb13c5c0b')
 
 _lc() {
     local d f n

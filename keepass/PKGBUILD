@@ -35,7 +35,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.49
-pkgrel=2
+pkgrel=3
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
 arch=('any')
@@ -83,7 +83,7 @@ source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%
         "KeePass2-Serbian_Cyrillic.zip::https://downloads.sourceforge.net/keepass/KeePass-2.49-Serbian_Cyrillic.zip"
         "KeePass2-Serbian_Latin.zip::https://downloads.sourceforge.net/keepass/KeePass-2.49-Serbian_Latin.zip"
         "KeePass2-Slovak.zip::https://downloads.sourceforge.net/keepass/KeePass-2.49-Slovak.zip"
-        "KeePass2-Slovenian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.37-Slovenian.zip"
+        "KeePass2-Slovenian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.49-Slovenian.zip"
         "KeePass2-Spanish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.49-Spanish.zip"
         "KeePass2-Swedish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.43-Swedish.zip"
         "KeePass2-Tamil.zip::https://downloads.sourceforge.net/keepass/KeePass-2.49-Tamil.zip"
@@ -132,7 +132,7 @@ sha512sums=('b9cbe89ea4bd83313c7fc581c88c981f9c707ffb3e4c1b904f8cba913b22ab5f363
             '8c7b9ecd611d01a16a7bc3c6adb0c97270346a7767da39f069766a36a6d2d999a0050be7edee3336ccfb513f5d08952f77cc19d7d0f6a285f76043b2ac66d99c'
             '4347262977db176f7f1ade0e68960515ee820c385579295df72b5a8ee836a22231622d2c1c224578687a12e323a01751e6c6285d7700ba2e5db24a8169af1e7f'
             '10ee39709385c373dcdc4ee191412dd28681a6c35aafac42fb0fd40b86a1d4e35197d6b5dc0f6dc514bc8687da09ef3c6964c5cfa32b9d9eb4d0e848f060584e'
-            '1140d20e4ae6debb6a6ee39ebfb89d66089e893704b4a7969b36ff5977e8b9467e255e6017ea5874a6abbad4ae058339a0f96a08f07942ebec91f1a4b6f84d28'
+            'ccccba867c412e33a3ea5270a3d339be9281234e5caa292751bd6c4f283a6a1e9431c96366b7ba72a58601de604feb7619714c8390200b26431a3002c80d0247'
             '61a994312672664330e95c927c839e9b2425ae9f48724394461459db36b8813198b4a67af630cb1c967efc54194a03edfed9725c014a3cbdc3fb1ece04cbe919'
             '98ea2f0f70fd7afa3ba61aca881c941ed1739baae438cba05d759876ad008071fc47d415e62b0d33aac86475508148cf29913d0102d3d139c871335130acee83'
             'ca8eaba04e7dc86e7846d07743b0cf5bba600ceb8d84f2f4d22a0e6b560612a3e81ce2642e9038150568ec72cba8bcc44ecf35769f75055df43451ba0755e8eb'

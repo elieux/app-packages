@@ -10,7 +10,7 @@ _choconame=rclone
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.56.1
+pkgver=1.56.2
 pkgrel=1
 pkgdesc="Syncs your files to cloud storage"
 url="https://rclone.org/"
@@ -19,7 +19,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("rclone-windows-amd64.zip::https://downloads.rclone.org/v${pkgver}/rclone-v${pkgver}-windows-amd64.zip")
-sha512sums=('8d9133cfca859ac67496b75d696087f93607ab5fafb8c18d0b841c4439140fd4569912658c1471c595e18a055f09c9b3caec274624c90bdd0dc1dceaf73289c9')
+sha512sums=('7b969093a96e7f664f70f3ac4d5f4ff94b96aeb7ae2cc95e36d3c116c6c50c29c02e1d34e87d250f37a98b10e416e43e5b3d20ce278d7ec86e1b15c72814e7e4')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

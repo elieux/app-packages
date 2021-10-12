@@ -1,10 +1,5 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_chocover() {
-    # choco version format: 7.1.3.20210315
-    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]{8})$/\1.\2.\3/'
-}
-
 _extract_subdir() {
     local _file="$(get_filename "${1}")"
     local _dir="${_file%.*}"

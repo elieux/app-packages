@@ -1,6 +1,5 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-
 _chocover() {
     # choco version format: 3.54.3529.0458
     echo "${1}" | sed -r -e 's/[.]0+([1-9])/.\1/'

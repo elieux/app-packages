@@ -1,8 +1,8 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _chocover() {
-    # choco version format: 1.94.0.20201009
-    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0[.]([0-9]{8})$/\1.\2/'
+    # choco version format: 1.94.0
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0$/\1.\2/'
 }
 
 _extract_subdir() {

@@ -1,0 +1,65 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=postman
+_choconame=postman
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=8.12.4
+pkgrel=1
+pkgdesc="Client for the Slack team communication platform"
+url="https://www.postman.com/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip" "unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Postman-win64-Setup.exe::https://dl.pstmn.io/download/latest/win64")
+sha512sums=('514d84ed9dd544e754b7674fb78e45437d9c2d361fde6bc4fd85695128241b02bc73e2ea0bb9cc3a04b0bd9b58c099009223093886ba57d8131482104296a043')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    rm -fR "Postman-win64-Setup.dir"
+    7z x -y -bd "Postman-win64-Setup.exe" -o"Postman-win64-Setup.dir" > /dev/null
+    unzip -q -o "Postman-win64-Setup.dir/Postman"-*-"full.nupkg" -d "Postman-full"
+}
+
+pkgver() {
+    powershell -command '(Get-Item "Postman-win64-Setup.exe").VersionInfo.ProductVersion'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "Postman-full/lib/net45"/* "${a}"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
+}

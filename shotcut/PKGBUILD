@@ -5,7 +5,7 @@ _choconame=Shotcut
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=21.09.20
+pkgver=21.10.17
 pkgrel=1
 pkgdesc="Cross-platform, open-source video editor"
 url="https://shotcut.org/"
@@ -14,7 +14,7 @@ license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
 source=("shotcut-win64.zip::https://github.com/mltframework/shotcut/releases/download/v${pkgver}/shotcut-win64-${pkgver//./}.zip")
-sha512sums=('91b081cd257d345c6b63d294bda6730233e918eea6b6f058563b91b2a401e6f8eeee37ccd143bb3487025612893bf668f189df797df9044d58b454c14af62e0c')
+sha512sums=('7fb775bc4590f5b8664ed94074514face33a2502db8437217634ec956695ccffe56aa3e0a42dcd658c35a59195c30e3999cb8dd0f19d4cf598e59af1a98aaa69')
 
 _lc() {
     local d f n

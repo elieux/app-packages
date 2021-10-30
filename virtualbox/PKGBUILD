@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=6.1.28.147628
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use"
 url="https://www.virtualbox.org/"
 arch=('any')
@@ -205,4 +205,7 @@ package() {
     rm "${a}"/*.py
 
     _lc "${a}"/*
+    ln "${a}/vboxrt.dll" "${a}/drivers/vboxdrv/vboxrt.dll"
+    ln "${a}/vboxrt.dll" "${a}/drivers/USB/device/vboxrt.dll"
+    ln "${a}/vboxrt.dll" "${a}/drivers/USB/filter/vboxrt.dll"
 }

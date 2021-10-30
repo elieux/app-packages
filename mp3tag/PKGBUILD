@@ -5,7 +5,7 @@ _choconame=mp3tag
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.10
+pkgver=3.11
 pkgrel=1
 pkgdesc="Powerful audio metadata editor"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("mp3tagsetup.exe::https://download.mp3tag.de/mp3tagv${pkgver//./}setup.exe")
-sha512sums=('bb6813df2252e7cee956c3dd220d38be7788d2eac682fcd5d0e26c8c170b54b501700efd26961ef5ca1330246e0759a573101a61bad57eaf715cd5006cf1d0e9')
+sha512sums=('086a35e44745cbe5daee705805e2688f93e00f481fdd914df4dc5ac017c89a4de1c760627d23b9e058aeecac949c59c3b022400b46216a0bffca3e5a9ae79f49')
 
 _lc() {
     local d f n
@@ -47,6 +47,6 @@ package() {
     mkdir -p "${a}" "${a}/help"
     cp -R "mp3tagsetup.dir"/* "${a}"
     touch "${a}/help/helpmap.idx"
-    rm -R "${a}"/'$PLUGINSDIR' "${a}"/'$R0'
+    rm -R "${a}"/'$PLUGINSDIR' "${a}"/'$R0' "${a}"/'$R2'
     _lc "${a}"/*
 }

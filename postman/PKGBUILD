@@ -5,7 +5,7 @@ _choconame=postman
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.12.4
+pkgver=8.12.5
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="https://www.postman.com/"
@@ -15,7 +15,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Postman-win64-Setup.exe::https://dl.pstmn.io/download/latest/win64")
-sha512sums=('514d84ed9dd544e754b7674fb78e45437d9c2d361fde6bc4fd85695128241b02bc73e2ea0bb9cc3a04b0bd9b58c099009223093886ba57d8131482104296a043')
+sha512sums=('58828f11e0f1f7b7e437a747c1796670db0bb50be83dc0b3f06034bc2a1a81b9fd783a0072d62c14fe8887ef2fd23ea8da0bd1ee860bb8551baa17b860a73192')
 
 _lc() {
     local d f n

@@ -5,7 +5,7 @@ _choconame=syncthing
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.18.3
+pkgver=1.18.4
 pkgrel=1
 pkgdesc="Continuous file synchronization"
 url="https://syncthing.net/"
@@ -14,7 +14,7 @@ license=('MPL')
 provides=("${pkgbase}")
 options=(!strip)
 source=("syncthing-windows-amd64.zip::https://github.com/syncthing/syncthing/releases/download/v${pkgver}/syncthing-windows-amd64-v${pkgver}.zip")
-sha512sums=('6fc4e7dc1082739f01056d27f2c5f0aac2ed5ac212d51febcc73da0924060fbe838bdc3b7f60e6e7438cac94dd6856f1090c9d223e6541bfc3f06f8fd921ba0d')
+sha512sums=('7de051f741f4b2202f3928f7b765d64af1a528690ea00a7b781a05e6a203a8e94002bbf5fcdac59771320e86be9c3fb0895a7af7e1cc5904314413059632f876')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

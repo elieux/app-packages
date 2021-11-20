@@ -30,11 +30,11 @@ download_https@subdir() {
 }
 
 _realname=clink
-_realver=de5dfb
+_realver=b7536d
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.2.37
+pkgver=1.2.44
 pkgrel=1
 pkgdesc="Powerful Bash-style command line editing for cmd.exe"
 url="https://chrisant996.github.io/clink/"
@@ -43,7 +43,7 @@ license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
 source=("clink.zip::https@subdir://github.com/chrisant996/clink/releases/download/v${pkgver}/clink.${pkgver}.${_realver}.zip")
-sha512sums=('9edf14ec176f24853731adb2f55833bb0c6dc02e5dddacb4995570beef0be4d58be323da8ce802b08b7632dfca17b88ce552022cc904c06683573e7bd0343a22')
+sha512sums=('039a9ee8646e918193af7d100e437ef8dd94079a4513afde568d5f776fdab582c61200966689c4f227a4884a333cbf31cac48afeeb0ef46531c32c252edc90b6')
 
 _lc() {
     local d f n

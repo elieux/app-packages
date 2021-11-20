@@ -6,7 +6,7 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.2.4.0
+pkgver=1.2.5.0
 pkgrel=1
 pkgdesc="Quickly download favicons for your password entries"
 url="https://github.com/navossoc/KeePass-Yet-Another-Favicon-Downloader"
@@ -15,7 +15,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("YetAnotherFaviconDownloader.plgx::https://github.com/navossoc/KeePass-Yet-Another-Favicon-Downloader/releases/download/v${pkgver}/YetAnotherFaviconDownloader.plgx")
-sha512sums=('5423bd8a7d9c27c9b918e41ce9ca85cd9786bfa7e7d087a17bce9ce5da0036d1700c3065f018f9dfe25ec84eb3eec821b996cd6acc925ed7c9be8ca09fd7529d')
+sha512sums=('559e07de3ca71fca94576bfef5dbc4e3bcfa617eea3bc98e122bb3d63c41f68d7fbec0aaee41ecb437d4194282f76b2dc21186ae760ebf33283071156b0c627f')
 
 package() {
     depends=("app-keepass")

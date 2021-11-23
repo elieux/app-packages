@@ -34,7 +34,7 @@ _choconame=7zip
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=21.02
+pkgver=21.05
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="https://www.7-zip.org/"
@@ -44,10 +44,8 @@ replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("7z-x64.exe::https://7-zip.org/a/7z${pkgver//./}-x64.exe"
-        "7z-extra.7z::https@subdir://7-zip.org/a/7z${pkgver//./}-extra.7z")
-sha512sums=('f7670813878728cd24343406f43123a4746ec9428fd8fb2046e1f1203cbdf179f3562a2308bfe96929b50f03746dcb6d7d551bbf2e4d0dd8fb7e80fb98f61c89'
-            '941b36fd73030fc1dbd9849fd370bead609e21334faf502bc6b139c4c7b9c876823b5b5e1fe95258e8155fabfac7ea3800f88ca145d5113aa79b1adf6ba63ff8')
+source=("7z-x64.exe::https://7-zip.org/a/7z${pkgver//./}-x64.exe")
+sha512sums=('9de1e8c851f5ac8b4277b630a618ededc3023a12fd2c1932dbb75d18a865390b21555cd204ec5980ec297c8170d678591ab6d5947c727938c0dcef9b91ff90aa')
 
 _lc() {
     local d f n
@@ -70,11 +68,8 @@ prepare() {
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
-    mkdir -p "${a}" "${a}/extra"
+    mkdir -p "${a}"
     cp -R "7z-x64.dir"/* "${a}"
-    cp -R "7z-extra"/* "${a}/extra"
-    mv "${a}/extra/x64"/*.{dll,exe} "${a}"
-    rm -R "${a}/extra/x64" "${a}/extra/Far" "${a}/extra"/7z{a.dll,a.exe,xa.dll}
     rm "${a}/Uninstall.exe"
     _lc "${a}"/*
 }

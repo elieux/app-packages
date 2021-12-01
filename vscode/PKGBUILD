@@ -43,7 +43,7 @@ license=('custom')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("VSCode-win32-x64.zip::https@subdir://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive")
+source=("VSCode-win32-x64.zip::https@subdir://update.code.visualstudio.com/${pkgver}/win32-x64-archive/stable")
 sha512sums=('5427f3b33027a1901a8e77d8798a2d5c03ed3aa3b780b5a850ecb3ae5862fc21c04f156b09b7bbc52f8e490ea2d2f489e074ac531e18f1f7587fa1add45c1fee')
 
 _lc() {

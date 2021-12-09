@@ -5,7 +5,7 @@ _choconame=carotdav
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.15.10
+pkgver=1.16.1
 pkgrel=1
 pkgdesc="A simple WebDAV, FTP, cloud drives and IMAP client"
 url="http://rei.to/carotdav_en.html"
@@ -15,7 +15,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("CarotDAV.portable.zip::http://rei.to/CarotDAV${pkgver}.portable.zip"
         "installed.txt")
-sha512sums=('7b6186da7cc7e42a1f2a08193856a96d2f09f3b1d13aa1c3eb41e622c6abc3b7ac846a990a3fb2ee20cd7622bc488d348187a5de307f1c71be2478cd8120a409'
+sha512sums=('2dc7ff1de112c2e7341d839c3434583d2f3e9f10650c8ea94faf50892baf33586f28a4b0618ec061e54e2a1a89894aeeb68210848ae352928a4c076515b54ca7'
             'd9263cc4a54c6ac861cb02126ef86f4c7d2d3a7b2cdcb6bcb80978dfd1e81597788e2c8bee16c1038ebf5e892ccbdd3cd2c0ee92a87e494560dfbc7b7c46ab0b')
 
 _lc() {

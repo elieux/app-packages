@@ -5,7 +5,7 @@ _choconame=tortoisehg
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=5.9.2
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="Mercurial client implemented as a Windows shell extension"
 url="https://www.mercurial-scm.org/wiki/TortoiseHg"
@@ -15,7 +15,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("tortoisehg-x64.msi::https://www.mercurial-scm.org/release/tortoisehg/windows/tortoisehg-${pkgver}-x64.msi")
-sha512sums=('33bb1cf2fd022a8394d8dc7554e794ee34644069576ca636108ac69e0c8f2b256c0fa5120b98a71da6f811b556b3233dc58bfa415110d36f2babd61e58e02a8f')
+sha512sums=('6e5f802f678826d8c1bf436bbe2617b80795e54836426dceac9af17d1754eab87ae5dea32ba2732535d823591dd3c6b022d0ff809c7aca177f0abaaa05cb554d')
 
 _lc() {
     local d f n

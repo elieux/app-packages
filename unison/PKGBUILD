@@ -34,7 +34,7 @@ _choconame=unison
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.51.4_rc1
+pkgver=2.51.5
 pkgrel=1
 pkgdesc="Two-way file synchronizer"
 url="https://www.cis.upenn.edu/~bcpierce/unison/"
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("unison+ocaml-4.08.1+x86_64.windows.zip::https@subdir://github.com/bcpierce00/unison/releases/download/v${pkgver}/unison-v${pkgver}+ocaml-4.08.1+x86_64.windows.zip")
-sha512sums=('0db2dd6b921cb4187029e2a8b428f0a8910f41ebfffd5e2c931b0c4761f80e1b8edf4bcf8479ffe580cc3483ee596e3165d1142b837ca5c4209a7b987f1911fd')
+sha512sums=('dfa648bcefe509489248a42dbebfb87ef44bc0a92289554a390edc4c454feedab86e061c6ab2e9da3c125c4585760f51b02a2211d55b32cd22677f7a3439ddf8')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

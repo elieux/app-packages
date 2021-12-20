@@ -35,7 +35,7 @@ _dirname=crystal
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.13.0
+pkgver=8.13.1
 pkgrel=1
 pkgdesc="A disk utility (Crystal Dew World)"
 url="https://crystalmark.info/software/CrystalDiskInfo/index-e.html"
@@ -45,7 +45,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("CrystalDiskInfo.zip::https@subdir://osdn.net/dl/crystaldiskinfo/CrystalDiskInfo${pkgver//./_}.zip")
-sha512sums=('d21267e46cad900dc2751d9da02409bb40e0c94e89ee1cf6149179dbf645cae28fd196fe89b831122723f74ec13632ac0712e078790c2d1e46506b283535ba94')
+sha512sums=('97509530b1cdb018bf12a73498db69ce1c205b172f8d67a2ce75d9b0f113e4f0227df65def74ca5ff82f8a7805395247fd9f1305c7f4a3cefa0a3ab648826c8a')
 
 _lc() {
     local d f n

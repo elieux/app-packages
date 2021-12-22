@@ -34,23 +34,23 @@ _dirname=php
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=5.1.20
-pkgrel=1
+pkgver=5.1.21
+pkgrel=2
 pkgdesc="A userland caching module for PHP"
 url="https://pecl.php.net/package/APCu"
 arch=('any')
 license=('PHP')
 provides=("${pkgbase}")
 options=(!strip)
-source=("php_apcu-7.4-nts-vc15-x64.zip::https@subdir://windows.php.net/downloads/pecl/releases/apcu/${pkgver}/php_apcu-${pkgver}-7.4-nts-vc15-x64.zip")
-sha512sums=('716a8313d86e6d3e99888193663ba3aafd04567e735043b221dc5e5a4fc61235ea1e84dd58e35ded90bb5f981f8ff59e3c97ddb7f2d2eaef88c8fbd6d92d4d7b')
+source=("php_apcu-8.0-nts-vs16-x64.zip::https@subdir://windows.php.net/downloads/pecl/releases/apcu/${pkgver}/php_apcu-${pkgver}-8.0-nts-vs16-x64.zip")
+sha512sums=('11e27f6120a87600b32919f04b541a14cc579be209bdd0a0afe85258b1cf49d68fbe7e37aecbadfef0e04fed26dfe851ed339f30b50eb19c8c765803617e3867')
 
 package() {
-    depends=("app-php")
+    depends=("app-x86_64-php>=1~8.0.0" "app-x86_64-php<1~8.1.0")
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/ext" "${a}/ext/apcu"
-    cp -R "php_apcu-7.4-nts-vc15-x64"/* "${a}/ext/apcu"
+    cp -R "php_apcu-8.0-nts-vs16-x64"/* "${a}/ext/apcu"
     rm "${a}/ext/apcu"/*.pdb
     mv "${a}/ext/apcu/php_apcu.dll" "${a}/ext"
 }

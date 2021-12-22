@@ -4,7 +4,7 @@ _realname=sandboxie-plus
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.0.2
+pkgver=1.0.4
 pkgrel=1
 pkgdesc="Sandbox-based isolation software for Windows"
 url="https://sandboxie-plus.com/"
@@ -13,8 +13,8 @@ license=('GPL3')
 makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Sandboxie-Plus-x64.exe::https://github.com/sandboxie-plus/Sandboxie/releases/download/${pkgver}/Sandboxie-Plus-x64-v${pkgver%[a-z]}.0.0.exe")
-sha512sums=('b41881eac66c0dcad6a13815a47c57814c7514cf32fa1335204972d962de7cd7c6795349b2b106fe87187ddd83aaf64203bb754a9f5b92cd414e669f4a4df803')
+source=("Sandboxie-Plus-x64.exe::https://github.com/sandboxie-plus/Sandboxie/releases/download/${pkgver}/Sandboxie-Plus-x64-v${pkgver%[a-z]}.exe")
+sha512sums=('b603034f81ae9a207ff7346e149483a64d363c4e4252bf8e87a51ca0e2a0a9f5133f5e5039aa377558d5463ab998ad74d915468810095e22ba8ba2d60d67ee1b')
 
 _lc() {
     local d f n

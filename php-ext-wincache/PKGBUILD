@@ -35,7 +35,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=2.0.0.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Windows-specific PHP user data, session, file system and relative path cache"
 url="https://sourceforge.net/projects/wincache/"
 arch=('any')
@@ -46,7 +46,7 @@ source=("wincache-dev-7.4-nts-vc15-x64.exe::https@subdir://download.sourceforge.
 sha512sums=('2a2078307487c7174500de72999e300b664e50c3d8b9531373968b4f45102ba1cf7bfb95d58737271b994c50c463fc827ff0a9549059e057a46906379dd6ecb8')
 
 package() {
-    depends=("app-php")
+    depends=("app-x86_64-php>=1~7.4.0" "app-x86_64-php<1~7.5.0")
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/ext" "${a}/ext/wincache"

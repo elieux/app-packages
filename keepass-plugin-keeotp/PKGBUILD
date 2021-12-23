@@ -1,59 +1,26 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_extract_subdir() {
-    local _file="$(get_filename "${1}")"
-    local _dir="${_file%.*}"
-    if type bsdtar | head -1 | grep -q 'is a function'
-    then
-        local _original_bsdtar="$(type bsdtar | tail +2)"
-    fi
-    bsdtar() {
-        local _extra_args=()
-        if [ "${1}" = "-xf" ]
-        then
-            mkdir -p "${_dir}"
-            _extra_args=(-C "${_dir}")
-        fi
-        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
-    }
-    extract_file "${_file}"
-    unset -f bsdtar
-    eval "${_original_bsdtar}"
-}
-
-download_https@subdir() {
-    download_file "${1/@subdir:/:}"
-}
-
-extract_https@subdir() {
-    _extract_subdir "${@}"
-}
-
 _realname=keepass-plugin-keeotp
-_choconame=keepass-plugin-keeotp
+_choconame=keepass-plugin-keeotp2
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.3.9
-pkgrel=2
+pkgver=1.5.8.1
+pkgrel=1
 pkgdesc="A KeePass plugin that calculates TOTP codes"
-url="https://web.archive.org/web/20200621144226/https://bitbucket.org/devinmartin/keeotp/wiki/Home"
+url="https://github.com/tiuub/KeeOtp2"
 arch=('any')
 license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
-source=("KeeOtp.zip::https@subdir://web.archive.org/web/20200621144226/https://bitbucket.org/devinmartin/keeotp/downloads/KeeOtp-${pkgver}.zip")
-sha512sums=('51d9101d92a11b17a6b048a7c37feddeeb148141878ab5831dca532418a1050a2867a31c992a3fcfdf4c58a5e470f021f27ad7069c787478f9bfb54f0f72bf03')
+source=("KeeOtp2.plgx::https://github.com/tiuub/KeeOtp2/releases/download/v${pkgver}/KeeOtp2.plgx")
+sha512sums=('eb2295050cd5f5b7b0327499c53e241899ec18d80f8708c350830f968817ff64b088d02f305cb73e8735b96bf52533cb82ca00d803d3e8be2e711a88e6e7d9ca')
 
 package() {
     depends=("app-keepass")
 
     local a="${pkgdir}/apps/${_dirname}"
-    mkdir -p "${a}/Plugins" "${a}/Plugins/keeotp"
-    cp -R "KeeOtp"/* "${a}/Plugins/keeotp"
-    mv "${a}/Plugins/keeotp"/*.plgx "${a}/Plugins"
-    mv "${a}/Plugins/keeotp/dlls"/* "${a}"
-    rm "${a}/KeeOtp.dll"
-    rm -R "${a}/Plugins/keeotp/dlls"
+    mkdir -p "${a}/Plugins"
+    cp "KeeOtp2.plgx" "${a}/Plugins"
 }

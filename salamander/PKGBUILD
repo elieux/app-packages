@@ -35,7 +35,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=4.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Powerful two panel file manager"
 url="https://www.altap.cz/"
 arch=('any')
@@ -44,9 +44,11 @@ provides=("${pkgbase}")
 makedepends=("p7zip")
 options=(!strip)
 source=("asx64.exe::ftp://ftp.altap.cz/pub/altap/salamand/as${pkgver/./}x64.exe"
-        "dbviewer.7z::https@subdir://forum.altap.cz/download/file.php?id=2331")
+        "dbviewer.7z::https@subdir://forum.altap.cz/download/file.php?id=2331"
+        "tar-plugin-4.0.zip::https@subdir://forum.altap.cz/download/file.php?id=2482")
 sha512sums=('d119f06e29de6ca082a2688588729a69b0d141e6b55268466ccd476684c52f8e7e2e381c5459196c1c4f7b59a188cc92395658d9c7e11b64ecac73389e6acbf3'
-            '48f2c7d5d481704fe1e61251097fd78a0cceb4dba4270933e5d79f31c06716f4c01890522494dcffa7824e154fc6d91bf25d74574dd846539ecb6dcd6e914ac0')
+            '48f2c7d5d481704fe1e61251097fd78a0cceb4dba4270933e5d79f31c06716f4c01890522494dcffa7824e154fc6d91bf25d74574dd846539ecb6dcd6e914ac0'
+            'dc391c72f882ab97e68718574b95deca2f35f37abe32b157cc9a32dcf369b3512aff1605a59eff06736660c7bb0e0e209c033fe89b3896bc209f2636e3da8cac')
 
 _rmmsdll() {
     local ms
@@ -71,6 +73,7 @@ package() {
     mkdir -p "${a}"
     cp -R "asx64.dir"/* "${a}"
     cp -R "dbviewer/x64"/* "${a}"
+    cp -R "tar-plugin-4.0/x64"/* "${a}/plugins/tar"
     rm -R "${a}/remove" "${a}/x64" "${a}"/setup.{exe,inf}
     _rmmsdll "${a}"
 }

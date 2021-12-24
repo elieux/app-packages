@@ -33,7 +33,7 @@ _realname=ltrdata
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2021.03.14
+pkgver=2021.11.25
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
 url="http://www.ltr-data.se/opencode.html"
@@ -52,45 +52,33 @@ source=(
         # Zero and Random device driver
         "zerodrv.exe::http://www.ltr-data.se/files/zerodrv.exe"
 
-        # Small command line utilities
+        # others
         "exefiles.zip::http@subdir://www.ltr-data.se/files/exefiles.zip"
         "exefiles64.zip::http@subdir://www.ltr-data.se/files/win64/exefiles.zip"
-
-        # .NET command line utilities
-        "base64.zip::http@subdir://www.ltr-data.se/files/base64.zip"
-        "checksum.zip::http@subdir://www.ltr-data.se/files/checksum.zip"
-        "coordtool.zip::http@subdir://www.ltr-data.se/files/coordtool.zip"
-        "luhn.zip::http@subdir://www.ltr-data.se/files/luhn.zip"
-        "MailTools.zip::http@subdir://www.ltr-data.se/files/MailTools.zip"
-        "netexpr.zip::http@subdir://www.ltr-data.se/files/netexpr.zip"
-        "NetCompress.zip::http@subdir://www.ltr-data.se/files/NetCompress.zip"
-        "netcheck.zip::http@subdir://www.ltr-data.se/files/netcheck.zip"
-        "ZipIO.zip::http@subdir://www.ltr-data.se/files/ZipIO.zip"
-
-        # .NET tools with graphical user interface
-        "GraphViewer.zip::http@subdir://www.ltr-data.se/files/GraphViewer.zip"
-        "Dataviewer.zip::http@subdir://www.ltr-data.se/files/Dataviewer.zip"
+        "DotNetFileTools.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/DotNetFileTools.zip"
+        "MathTools.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/MathTools.zip"
+        "SystemTools.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/SystemTools.zip"
+        "MailTools.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/MailTools.zip"
+        "HyperV.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/HyperV.zip"
+        "xmlvalidate.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/xmlvalidate.zip"
+        "QuickBrowser.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/QuickBrowser.zip"
 
         # secret
         "scripts.zip::http@subdir://www.ltr-data.se/files/scripts.zip"
 )
-sha512sums=('d750a7358f45b771c7c4cd11391f772356125adfa8e6bcccab72fbc8672a45c4f63510a5b55abd62ac20143280f1900d733b4dbff97f122f5a09a523af68122d'
+sha512sums=('5e6a38df7cc8abdc54a7bf17b286cb14ae52c402592ba659a3458a461f5bdfa1beae8890c66dd333ab7d2622f946a51a78a2076ece891ddd84fe4b7cc7fd4185'
             '156b163fdc038bb9924b2dde4ed1b2416fd09d2c0f0b8fd85a0f9a0d6b740be7daa0510ec4e7bded5573eda7d59510b859e33efe7b3d7b0dc2ce45bb95936bd0'
-            '87731ba392e91a85b1e0ae13fd28bf0a749b50984ae3cb5f966a63e04412db9b2e5f88c05ed8d312bdd9881db524358d0e16fbcfd3cc852e5674dc497cba7cae'
-            '52a581f7f24343db0279e5af73243ab760902501ee797dea20f5a167cbf3d5d8075ac495526bbb1ad0634562b43ff01c97f1be8a1fb34f947e14d5b85f1dc86d'
-            '5dc27e99f2b27a90ead2c1c528683be5d8d343000f75f4b914784c3fac30737f2771faf71a724496608713ab1cefea886bd1b06834daa33f1e97d8f9e21402a6'
-            'bcc71744f409438a235b941a49e9f544a860c42fe77feae9c413061bfbfd4efe7cec748371b0870a2e632ac42a61d8da63e3046059652034931bddcfc4c031b8'
-            'cc81176a9671bda63969e4dcc7e08b3937724377f8a6a525c3e3c9875f44448e4f48c3eebc7be21773cd478f6a12ae2148943a79c53f50c67b7d6556985cbd1c'
-            '63ab1a69de1e77a5b286742ab14511704d42d688730328cfb851ef137a77f42c6f7b8335787e12d7157899da793ad13bf6e5aac2c5231accd5bde60b1d0807ae'
-            '6177ce58a92032b4053b9eb8f8b93fa2ca45b0ecd7e40f89c9b92e488d692ebd9ef52717ca16be6b1ebc603e518332cc399be3a56fc93dec262d895d83ae5cd6'
-            '9d2c63c65615b49b816c0c9e7a509cefc6232a00874098a28ec9074f218793ce5a63233077f0ceeec0fef953c3afc59b1cadddd8e6e749aa208486376a8a2640'
-            'b0a8132c760cbf7e478c4e7ae8d3e77c9dcfcbf4ac43a0dad22d286fb9eb5e4685de43f936b749cbe15230b0bc72c7337248b09b12398795a49afe25903a35c2'
-            '3bef9c6913b973861bd0cbb105c027617dffee0c86b0b8c0428561e2edf187d96aa437cb6b05b5fa5a1185a81befae32d671e0761d824fcdf475666bab38b414'
-            '13e240fa94c5137b1bc536a01de1214758144f6d3c24c7c5954986c1d5833bf52a027a5f85dd5eecf9473ab5e054bcff1bb7e6c134765e7016b9ed0f3008e611'
-            'cabfa2db55284f457e04932a648120a4ccf4a1d5a24fc1a2d71d84a27f4255d2886c5b94659529ac8f7351f267474429912f0ff21afc4767061c3b124d3faf67'
-            '985a93bd42ad4ba961ca3abd09dd34c56c08a01205847e1c993843d8a85215df8efea19670bd630ad5adc17f419963e6be3345ca7f2d4b4de775a21d107f0e0b'
-            '53df075dd9530a46b7e478d6ffb3997406f6563b54631d5381c0c95d144a03236d7457ac7c5475ec723c89cae7c72aa75225173dc63699339e1c13f44651c6a2'
-            '2746e9be70384e3c01d3027f95ae67b07f992086e4cd19f7c7999787d0d92f4ee93bc1d6be872bdfc0ae522c1589138c3107dfe7009d2b2efb1004f206b52050'
+            '2ffbc129febee2667c54c068d04dff97aa6b6dcdcd828b0b8c3770d0133fd3e7390e067c16c86dfbcffc2a21c874622d415e04a8aa220bdd02665088c4f98929'
+            '846acc5130f99dfb63d5a7d03f3f0628b327e1846907f87825a9e954cb3a9bd72681e9072dd07171ac06556cfeacc7be5a4172cbb8052fc45b45e5c0d31b2635'
+            '97926b1a9fc8ad1cfad24fb367a213afa96f7e4129ffd4b0e52b6f9be167b06fb62296688312c9d075e3748adf9ae82e8812999971fc89ff3aa3aa2aa116e90b'
+            '257e7eb32205706f05c13f36d5007901af14d28055f6925a1156b1a4a2fcda31c16b584328e52b46c9c30fa9d389cb893eca3267f1205ceac9c2ac775d8fa45c'
+            'd228a63f0ea911603bc54015684730399f1381228f872f90be5046fc38e44270881e8f09d5d104b3da9188f77af9ee067f7c824397d5f4793ef7ffef77ffd54f'
+            'a80a43915db3b4e66609b84e7ddc7891fbc6894e6d87ec445ea018070226ac1ec1ae7b0c33bc720048972a88a4f55d75fcbed1c80e567c7bc21cef844d7216dd'
+            '9e50ac421909568305c9eeead7d0a9b7a8bed2226e18f0a2c016532b51a82a65d1fa696bf1e692cfd11f0797575343bbafcd5e930a17b90bf299713d42567898'
+            '3553c501bd8f43da3530b241f7cf52e41f4648de136bab96e13f962f70bba6c011f2e47e9588490bc423b91a81ae628e8b454c269cbcd209499e315ae8341670'
+            'cefaf78d68cdb220e5a01d1cdca70152d90b3083ae13907dffe26df05688b3c99ea84996b856dcb38263c534404e0b740732bebba8103b92895c4c8b7de1c529'
+            '42e774f146bef0285a667094f8887cc3d773f9be3c2fbae3ad593bcb5bb61a5b8731ac96158e72791ab9683d9f61a11b5debab190f8e291ce9d027fb52cebfbe'
+            '21b71877593ee77d4273f0d98862294d43e8981b30b427b08678eba70b8e1e1e3de439783a0b4f5e0d6b47996dc93ef85e8c3597b62a99b6392a569f3045fab8'
             '2f7c7011871898829ad1392a85c537ee6dfb2ea8f2eaa0619db1be4fbd0cf4c7239762d6d3c34772311e2e3440246fc6e6fe6116e92a358b340598eb05e0bdde')
 
 prepare() {
@@ -109,7 +97,7 @@ package() {
     local d
     for d in $(find . -mindepth 1 -maxdepth 1 -type d | grep -v "exefiles" | grep -v "[.]dir$" | grep -v "ImDiskNet")
     do
-        cp "${d}"/* "${a}"
+        cp -R "${d}"/* "${a}"
     done
     cp "exefiles"/* "${a}"
     cp "exefiles64"/* "${a}"
@@ -118,5 +106,5 @@ package() {
     cp -R "ImDiskNet" "${a}/imdisk/dotnet"
     cp -R "zerodrv.dir" "${a}/zerodrv"
     rm "${a}/imdisk/runwaitw.exe" "${a}/zerodrv/run64.exe"
-    rm -R "${a}/imdisk"/{awealloc,cli,cpl,cplcore,svc,sys}/{ARM,ARM64,i386,ia64} "${a}/zerodrv"/{i386,ia64}
+    rm -R "${a}"/{imdisk,zerodrv}/*/{ARM,ARM64,i386,ia64} "${a}/zerodrv"/{win2k,winnet}
 }

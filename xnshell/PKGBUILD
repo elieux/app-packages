@@ -34,7 +34,7 @@ _realname=xnshell
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.12.0
+pkgver=4.15.0
 pkgrel=1
 pkgdesc="A powerful shell extension with image preview and transforms"
 url="https://www.xnview.com/en/xnshell/"
@@ -44,8 +44,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("XnShellEx64.zip::https@subdir://download.xnview.com/XnShellEx64.zip"
         "XnShellEx.zip::https://download.xnview.com/XnShellEx.zip")
-sha512sums=('9e9e2b618509255ec386280c60cf517189cf0716d7a718aff9e550562ce764383c91755cbb02e4200b64f5b5771158a038118db8b25306c06bae63fcfc811324'
-            '04c09455176f9bf2b85ab15f515853fc58e4a992e85f6d9074013600951ec21bc5c7b1986cfb07c4a055f7827d1e807913b3214d9c8a13d71c554a11f2243cde')
+sha512sums=('a141acb5322ff98ec285df1aed53a0cb06ab219b9a668aac1b097fbe12d7be3b7155994e40e01ff6b2c046d0437b196bf71ef8652bc605182515c268f352ab36'
+            '1c91a574433d15f7927f49201f7aacc4a7f7c5ba61b32bf1c2f12ad050f570f14ac70f8a630d352b8b512be8c327e73785534690acb6d9641d1c3e88c11f84b5')
 
 _eqver() {
     local r v

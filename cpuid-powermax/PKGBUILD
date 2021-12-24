@@ -1,0 +1,70 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=powermax
+_dirname=cpuid
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.00
+pkgrel=1
+pkgdesc="CPU and GPU burn-in test (CPUID)"
+url="https://www.cpuid.com/softwares/powermax.html"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("powermax.zip::http@subdir://download.cpuid.com/powermax/powermax_${pkgver}.zip")
+sha512sums=('7695fcf3173acab4776608adddf51bebf0beab6291383ea89362565150ee9d2c937308ed4d9f6482309642683cbc83fc8eb292b04dbc0dd261841ef1d070156a')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}"
+    cp "powermax"/* "${a}"
+    rm "${a}/powerMAX_x32.exe"
+    mv "${a}/powerMAX_x64.exe" "${a}/powerMAX.exe"
+    _lc "${a}"/*
+}

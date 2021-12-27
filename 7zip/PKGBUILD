@@ -1,5 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # choco version format: 21.7
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9])$/\1.0\2/'
+}
+
 _extract_subdir() {
     local _file="$(get_filename "${1}")"
     local _dir="${_file%.*}"
@@ -34,7 +39,7 @@ _choconame=7zip
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=21.06
+pkgver=21.07
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="https://www.7-zip.org/"
@@ -45,7 +50,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("7z-x64.exe::https://7-zip.org/a/7z${pkgver//./}-x64.exe")
-sha512sums=('8d7e74bd78f52cf50cca96e3d84fbb8757f122802064ecbe4284993fb54c09c5f445ae415740c5dcdecb7ed53001054c110030d6666b77a2b1648e0e8b801d2a')
+sha512sums=('4d406ddd257a28ab1521e0e28c20699a764d7a3d3c3651e9b080cbdb6dae2f7c348452b2946a1e16b00424f67b769fe44c54a9b94e9124fa219bbe2a544ee82b')
 
 _lc() {
     local d f n

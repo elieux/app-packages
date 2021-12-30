@@ -5,7 +5,7 @@ _choconame=telegram
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.3.0
+pkgver=3.4.0
 pkgrel=1
 pkgdesc="Desktop Telegram client"
 url="https://desktop.telegram.org/"
@@ -15,7 +15,7 @@ provides=("${pkgbase}")
 replaces=("app-x86_64-${_realname}")
 options=(!strip)
 source=("tportable.zip::https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tportable.${pkgver}.zip")
-sha512sums=('e0204157917d4958c1610beea3ab4bef452ef34a12cf709a9a924a24a6dcaa2ab6c40670acb4551bf161dd8e31323d3ec60fb0e06c76766a0960efd75b19618c')
+sha512sums=('d3c69f6892f891170c401eee3be3df79e984d46f1faf3864f2b5d82868a71c72442290e42a057738287364a789ed48a7b6fb68734ed59d65ea199a3baf7dc036')
 
 _lc() {
     local d f n

@@ -10,7 +10,7 @@ _choconame=Temurinjre
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=17.0.1.12
+pkgver=17.0.2.8
 pkgrel=1
 pkgdesc="Open Java Development Kit"
 url="https://adoptium.net/"
@@ -20,7 +20,7 @@ replaces=("app-i686-jdk" "app-x86_64-jdk")
 provides=("${pkgbase}")
 options=(!strip)
 source=("OpenJDK-jdk_x64_windows_hotspot.zip::https://github.com/adoptium/temurin${pkgver%%.*}-binaries/releases/download/jdk-$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/%2B\1/')/OpenJDK${pkgver%%.*}$(echo "${pkgver}" | grep -qE '*.0.0.*' || echo 'U')-jdk_x64_windows_hotspot_$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/_\1/').zip")
-sha512sums=('fa533c646cfb06eb30b32da1ac22e02bd3f8684a1cf20e3f6e221c97bf2db0e13340e8f2945b324b7685b04eb9e680bbe5c886c11804ee9db031022f73728308')
+sha512sums=('b3aed5183fb7c81347cf16b8900d3471c8102d78d8685e89fd530f620a22fd214bfc7394064bcec4c4d5d3d54aab73c968a3defe8f01218709c6b0ff5e63dd55')
 
 _rmmsdll() {
     local ms

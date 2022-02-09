@@ -5,7 +5,7 @@ _choconame=TortoiseGit
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.13.0.0
+pkgver=2.13.0.1
 pkgrel=1
 pkgdesc="Git client implemented as a Windows shell extension"
 url="https://tortoisegit.org"
@@ -51,7 +51,7 @@ source=("TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${pkgver%.
         "TortoiseGit-LanguagePack-64bit-tr.msi::https://download.tortoisegit.org/tgit/${pkgver%.*}.0/TortoiseGit-LanguagePack-${pkgver%.*}.0-64bit-tr.msi"
         "TortoiseGit-LanguagePack-64bit-uk.msi::https://download.tortoisegit.org/tgit/${pkgver%.*}.0/TortoiseGit-LanguagePack-${pkgver%.*}.0-64bit-uk.msi"
         "TortoiseGit-LanguagePack-64bit-vi.msi::https://download.tortoisegit.org/tgit/${pkgver%.*}.0/TortoiseGit-LanguagePack-${pkgver%.*}.0-64bit-vi.msi")
-sha512sums=('8436f28b652657dadd3b14fc6ff341b7e5ff3983e97795d344b0f7d3857e1fb13f214ff81152c42463434dad5fc2f135e9cbb6f4aec22795f5d6a9cb28c64b9e'
+sha512sums=('3fb33fa7121da51e25d4130eef614984e4e72ab06741f60617f78367bb5c940369b3364428978eabfa7f68ed3943d10fd567a9d0a7ea9aa19375f754e8135bed'
             '2656acbb541a71bcab75230aebaf347d527d7f417fcc7104561d2fb47f237c6c43888a4b733cf7de853433c3a1138939e04a3c1d2aa4b2d808b2b6f578e02996'
             'dd0dc99cb0f883bf8be01817777f8cad1eeaf97a64dabb98383a62ad12e904109b4bcf3569e587aead4c35d45f13cad0b002f8eb82ed76a744dca1addae1edde'
             '7139244eac548075f8e53f87541cfc343807c686c45db84af3f1a29710da9acc6dae53fc3e708b0384158a54412d337deaf98183a7827ccc28b18b609ff8bc1a'

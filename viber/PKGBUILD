@@ -5,7 +5,7 @@ _choconame=viber
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=16.9.0.0
+pkgver=17.0.0.0
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
 url="https://www.viber.com/download/"
@@ -15,7 +15,7 @@ makedepends=("app-lessmsi" "app-wix")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ViberSetup.exe::https://download.cdn.viber.com/desktop/windows/ViberSetup.exe")
-sha512sums=('9f9c3f68831d6b52be66d7130a2ccb6070523f5c5ee94781785353a4847b85ff862817a7bb711a866704017c4fa2499e9147f4e38baf247a331c19be7f31759b')
+sha512sums=('4d8da076df327ab816f0641c35ec9c5a2fcfd672b72101f771020ed04dd54130a77e309794d43f1f453f32b08525fa848e03d4f105522a8402c910b591b32d97')
 
 _lc() {
     local d f n

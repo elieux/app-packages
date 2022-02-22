@@ -34,7 +34,7 @@ _choconame=php
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.1.2
+pkgver=8.1.3
 pkgrel=1
 pkgdesc="A general-purpose scripting language that is especially suited to web development"
 url="https://windows.php.net/"
@@ -43,7 +43,7 @@ license=('PHP')
 provides=("${pkgbase}")
 options=(!strip)
 source=("php-nts-Win32-vs16-x64.zip::https@subdir://windows.php.net/downloads/releases/php-${pkgver}-nts-Win32-vs16-x64.zip")
-sha512sums=('cd352a350add18a139240c131b430f8980bf1874650496e40a33517c746db505965c1f8844d0004f2ac76f1e362166b7fcd23af3c6e65aac57fe8288eb5fe1b4')
+sha512sums=('93989d8ea637e2f694ebfd791414580fce622908ccc88689f332607ff87347edc428b72aa7c4b09e7e3a1dcd9798dffb29188fb0fbd57c080da0ab051ca5e052')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

@@ -1,39 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_chocover() {
-    # choco version format: 3.54.3529.0458
-    echo "${1}" | sed -r -e 's/[.]0+([1-9])/.\1/'
-}
-
 _realname=google-drive
-_choconame=google-backup-and-sync
+_choconame=google-drive
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.56.3802.7766
+pkgver=55.0.3.0
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
 url="https://www.google.com/drive/"
 arch=('any')
 license=('custom')
-makedepends=("app-lessmsi")
+replaces=("app-i686-${_realname}")
+makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("gsync_enterprise.msi::https://dl.google.com/drive/gsync_enterprise.msi")
-sha512sums=('188d9db337a2667f1b7ee908f6870f5c86a25c7121b89fc8161dab167b84b2ef28e3749a8817b96f399796425e763d07bb3150cebae22967c32f4fcc53565237')
+source=("GoogleDriveSetup.exe::https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe")
+sha512sums=('9b20529171353e3d7b588cfaddd501197ea810807b860c5e8476d122c3970be7bf56179fcb12b97326fe7e8986b28498d272ce489bff5da16d61f6d0a481495e')
 
 prepare() {
-    rm -fR "gsync_enterprise"
-    /apps/lessmsi/lessmsi x "gsync_enterprise.msi"
+    7z x -y -bd "GoogleDriveSetup.exe" -o"GoogleDriveSetup.dir" > /dev/null
+    7z x -y -bd "GoogleDriveSetup.dir/.rsrc/0/RCDATA/101" -o"101" > /dev/null
 }
 
 pkgver() {
-    powershell -command '(Get-Item "gsync_enterprise/SourceDir/Google/Drive/googledrivesync.exe").VersionInfo.FileVersionRaw.ToString()'
+    powershell -command '(Get-Item "101/GoogleDriveFS.exe").VersionInfo.FileVersionRaw.ToString()'
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "gsync_enterprise/SourceDir/Google/Drive"/* "${a}"
-    rm -fR "${a}"/Microsoft.VC90.{ATL,CRT,MFC}
+    cp -R "101"/* "${a}"
 }

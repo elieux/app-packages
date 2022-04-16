@@ -5,7 +5,7 @@ _choconame=mumble
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.3.4
+pkgver=1.4.230
 pkgrel=1
 pkgdesc="Open Source, Low Latency, High Quality Voice Chat"
 url="https://www.mumble.info/"
@@ -14,8 +14,10 @@ license=('BSD')
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("mumble.winx64.msi::https://github.com/mumble-voip/mumble/releases/download/${pkgver}/mumble-${pkgver}.winx64.msi")
-sha512sums=('3c2e478109542d0e217a92089b965e5c1a63b11587d35ad74d4a891631856a995b1ab35518b609c0f62114ce139d4bce8dacc3643cf7caf4465073692720fb74')
+source=("mumble_client.x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_client-${pkgver}.x64.msi"
+        "mumble_server.x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_server-${pkgver}.x64.msi")
+sha512sums=('18531ae5035fff76b989dd3ec29e4373a28fb0223145dddc7b2b57a374868aa83c29a239f603011740cc8b9fecd9f3ab7d071fd9f3c3073e805395639da5030d'
+            '38967144d215c2a13b306c3f4c6d42080200edd7fe28e0a46d3d092b7ec427356c39e0975e14f3cd914ca599b8f194f5e71f0e162ca5cb3c3fb689a829d55bb7')
 
 _lc() {
     local d f n
@@ -47,14 +49,17 @@ _rmmsdll() {
 }
 
 prepare() {
-    rm -fR "mumble.winx64"
-    /apps/lessmsi/lessmsi x "mumble.winx64.msi" > /dev/null
+    rm -fR "mumble_client.x64"
+    /apps/lessmsi/lessmsi x "mumble_client.x64.msi" > /dev/null
+    rm -fR "mumble_server.x64"
+    /apps/lessmsi/lessmsi x "mumble_server.x64.msi" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "mumble.winx64/SourceDir/Mumble"/* "${a}"
+    cp -R "mumble_client.x64/SourceDir/ProgramFiles64Folder/Mumble/client"/* "${a}"
+    cp -R "mumble_server.x64/SourceDir/ProgramFiles64Folder/Mumble/server"/* "${a}"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

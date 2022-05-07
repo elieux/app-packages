@@ -5,7 +5,7 @@ _choconame=WhatsApp
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.2212.8
+pkgver=2.2214.12
 pkgrel=1
 pkgdesc="Desktop WhatsApp client"
 url="https://www.whatsapp.com/download"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("WhatsAppSetup.exe::https://web.whatsapp.com/desktop/windows/release/x64/WhatsAppSetup.exe")
-sha512sums=('93251be4279eff45d628d1e150df008e877d78c414b2fa8e1b257d4b07c4d560a7d47bdc087e2f6cbafde2a11ad4dd6cf0d205bb40102512fe9b996f29905b85')
+sha512sums=('49e3fa80da9eb5a67c469be1569a859fccc2e99efe9af1c3c2a920de08dc67311164da656a4d7ab28d2b12e46108a645aef10737f7fe0ade058e80cb0102ac50')
 
 _lc() {
     local d f n

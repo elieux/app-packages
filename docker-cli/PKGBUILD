@@ -1,7 +1,7 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=docker-cli
-_realver=77141
+_realver=77678
 _choconame=docker-cli
 _dirname=docker
 pkgbase="app-${_realname}"
@@ -19,7 +19,7 @@ replaces=("app-x86_64-docker")
 conflicts=("app-x86_64-docker")
 options=(!strip)
 source=("DockerDesktopInstaller.exe::https://desktop.docker.com/win/main/amd64/${_realver}/Docker%20Desktop%20Installer.exe")
-sha512sums=('0656bb8734cbcfb4b31ffed08a5832b93406e4fc3cadb901ad404ced040f4e850823cb5c339a2c25a461391aa09b3697bf9a28c89ddfc1f3eff64247afacc905')
+sha512sums=('93ac62c55aec40443d1bf48d4359834d2f2c3e682dc948904cf2fc9d3a64bf766a591d20fc40085df2f2e8617c5e384633586831a3dc5391a4db5f977b49df0f')
 
 prepare() {
     7z x -y -bd "DockerDesktopInstaller.exe" -o"DockerDesktopInstaller.dir" > /dev/null

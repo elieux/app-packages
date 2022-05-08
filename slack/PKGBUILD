@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SlackSetup64.exe::https://slack.com/ssb/download-win64")
+source=("SlackSetup.exe::https://downloads.slack-edge.com/releases/windows/${pkgver}/prod/x64/SlackSetup.exe")
 sha512sums=('facfe552b261832da823a2a7ce3dbc6292ba96d86625a55b0ba38ac1dfcb1aec6638555367f5bc610ab2a4c998b56492f6ccd12f958d42c4abd66e9cf1ec28a6')
 
 _lc() {
@@ -48,13 +48,9 @@ _rmmsdll() {
 }
 
 prepare() {
-    rm -fR "SlackSetup64.dir"
-    7z x -y -bd "SlackSetup64.exe" -o"SlackSetup64.dir" > /dev/null
-    unzip -q -o "SlackSetup64.dir/slack"-*-"full.nupkg" -d "slack-full"
-}
-
-pkgver() {
-    powershell -command '(Get-Item "SlackSetup64.exe").VersionInfo.ProductVersion'
+    rm -fR "SlackSetup.dir"
+    7z x -y -bd "SlackSetup.exe" -o"SlackSetup.dir" > /dev/null
+    unzip -q -o "SlackSetup.dir/slack"-*-"full.nupkg" -d "slack-full"
 }
 
 package() {

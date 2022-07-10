@@ -6,7 +6,7 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.5.8.1
+pkgver=1.5.9
 pkgrel=1
 pkgdesc="A KeePass plugin that calculates TOTP codes"
 url="https://github.com/tiuub/KeeOtp2"
@@ -15,7 +15,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeOtp2.plgx::https://github.com/tiuub/KeeOtp2/releases/download/v${pkgver}/KeeOtp2.plgx")
-sha512sums=('eb2295050cd5f5b7b0327499c53e241899ec18d80f8708c350830f968817ff64b088d02f305cb73e8735b96bf52533cb82ca00d803d3e8be2e711a88e6e7d9ca')
+sha512sums=('9c0247c009770fbe5d8ce2837fee3efcfd3bb224cbea928acb44179b7d441e4f55b37d460eb060b6036270de1f257f45159caa1facd986d98157ab7d3b01669b')
 
 package() {
     depends=("app-keepass")

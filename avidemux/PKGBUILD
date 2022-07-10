@@ -5,7 +5,7 @@ _choconame=avidemux
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.7.8
+pkgver=2.8.1r220620
 pkgrel=1
 pkgdesc="Graphical tool to edit video (filter/re-encode/split)"
 url="http://www.avidemux.org/"
@@ -14,17 +14,17 @@ license=('GPL2')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("avidemux__win64.exe::https://downloads.sourceforge.net/avidemux/avidemux_${pkgver}__win64.exe")
-sha512sums=('b647b4684bf4b5808c7fd27fc4897b9e16defcb193ebc62dae7d545c217d55c06ea746c7b39e7533d7343254797f2fc15ea12913f9dbc1fff1bb2b89f9c89439')
+source=("avidemux_win64.exe::http://www.avidemux.org/nightly/win64/avidemux_${pkgver%r*}%20r${pkgver#*r}_win64.exe")
+sha512sums=('b3acbd2e6f2630352d0f5c49e98996e07fa7aab478876976b52ca2e14305bd96f104d4921ec0710e1c31d9deb6ab4c5ac31e0bc755a29556af9281362a464437')
 
 prepare() {
-    rm -fR "avidemux__win64.dir"
-    echo u | 7z x -bd "avidemux__win64.exe" -o"avidemux__win64.dir" > /dev/null
+    rm -fR "avidemux_win64.dir"
+    echo u | 7z x -bd "avidemux_win64.exe" -o"avidemux_win64.dir" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "avidemux__win64.dir"/* "${a}"
-    rm -R "${a}"/'$PLUGINSDIR' "${a}/uninstall.exe"
+    cp -R "avidemux_win64.dir"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR'
 }

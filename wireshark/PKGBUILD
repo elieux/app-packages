@@ -5,7 +5,7 @@ _choconame=wireshark
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.7.0
+pkgver=3.7.1
 pkgrel=1
 pkgdesc="A free network protocol analyzer"
 url="https://www.wireshark.org/"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Wireshark-win64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-win64-${pkgver}.exe")
-sha512sums=('0ad1c92edc442ae1ce37951408e77bd15d49edebf0e2a114c4918d5db09a250d0ff8759396e7cf3fb3b248255a4733777e3e5b14855e6fcca673c886edf63ac3')
+sha512sums=('3031bba99163d84f5416d819fb985ba5c94f3d976e50061934b46e52ec827292764b2dca8b356c83654595e99281f065ed8f7e673cf17ca92fdc5b6ee44a9c4b')
 
 _lc() {
     local d f n
@@ -41,6 +41,6 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "Wireshark-win64.dir"/* "${a}"
-    rm -R "${a}"/npcap-*.exe "${a}"/USBPcapSetup-*.exe "${a}/vc_redist.x64.exe" "${a}/uninstall.exe" "${a}"/'$PLUGINSDIR'
+    rm -R "${a}"/npcap-*.exe "${a}"/USBPcapSetup-*.exe "${a}/vc_redist.x64.exe" "${a}/uninstall-wireshark.exe" "${a}"/'$PLUGINSDIR'
     _lc "${a}"/*
 }

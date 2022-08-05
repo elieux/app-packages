@@ -33,7 +33,7 @@ _realname=ltrdata
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2021.11.25
+pkgver=2022.06.12
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
 url="http://www.ltr-data.se/opencode.html"
@@ -55,13 +55,16 @@ source=(
         # others
         "exefiles.zip::http@subdir://www.ltr-data.se/files/exefiles.zip"
         "exefiles64.zip::http@subdir://www.ltr-data.se/files/win64/exefiles.zip"
-        "DotNetFileTools.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/DotNetFileTools.zip"
-        "MathTools.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/MathTools.zip"
-        "SystemTools.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/SystemTools.zip"
-        "MailTools.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/MailTools.zip"
-        "HyperV.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/HyperV.zip"
-        "xmlvalidate.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/xmlvalidate.zip"
-        "QuickBrowser.zip::http@subdir://www.ltr-data.se/files/netcoreapp3.1/QuickBrowser.zip"
+        "DotNetFileTools.zip::http@subdir://www.ltr-data.se/files/net6.0/DotNetFileTools.zip"
+        "DotNetFileTools-windows.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/DotNetFileTools.zip"
+        "MathTools.zip::http@subdir://www.ltr-data.se/files/net6.0/MathTools.zip"
+        "MathTools-windows.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/MathTools.zip"
+        "SystemTools.zip::http@subdir://www.ltr-data.se/files/net6.0/SystemTools.zip"
+        "SystemTools-windows.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/SystemTools.zip"
+        "MailTools.zip::http@subdir://www.ltr-data.se/files/net6.0/MailTools.zip"
+        "HyperV.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/HyperV.zip"
+        "xmlvalidate.zip::http@subdir://www.ltr-data.se/files/net6.0/xmlvalidate.zip"
+        "QuickBrowser.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/QuickBrowser.zip"
 
         # secret
         "scripts.zip::http@subdir://www.ltr-data.se/files/scripts.zip"
@@ -72,13 +75,16 @@ sha512sums=('5e6a38df7cc8abdc54a7bf17b286cb14ae52c402592ba659a3458a461f5bdfa1bea
             '846acc5130f99dfb63d5a7d03f3f0628b327e1846907f87825a9e954cb3a9bd72681e9072dd07171ac06556cfeacc7be5a4172cbb8052fc45b45e5c0d31b2635'
             '97926b1a9fc8ad1cfad24fb367a213afa96f7e4129ffd4b0e52b6f9be167b06fb62296688312c9d075e3748adf9ae82e8812999971fc89ff3aa3aa2aa116e90b'
             '257e7eb32205706f05c13f36d5007901af14d28055f6925a1156b1a4a2fcda31c16b584328e52b46c9c30fa9d389cb893eca3267f1205ceac9c2ac775d8fa45c'
-            'd228a63f0ea911603bc54015684730399f1381228f872f90be5046fc38e44270881e8f09d5d104b3da9188f77af9ee067f7c824397d5f4793ef7ffef77ffd54f'
-            'a80a43915db3b4e66609b84e7ddc7891fbc6894e6d87ec445ea018070226ac1ec1ae7b0c33bc720048972a88a4f55d75fcbed1c80e567c7bc21cef844d7216dd'
-            '9e50ac421909568305c9eeead7d0a9b7a8bed2226e18f0a2c016532b51a82a65d1fa696bf1e692cfd11f0797575343bbafcd5e930a17b90bf299713d42567898'
-            '3553c501bd8f43da3530b241f7cf52e41f4648de136bab96e13f962f70bba6c011f2e47e9588490bc423b91a81ae628e8b454c269cbcd209499e315ae8341670'
-            'cefaf78d68cdb220e5a01d1cdca70152d90b3083ae13907dffe26df05688b3c99ea84996b856dcb38263c534404e0b740732bebba8103b92895c4c8b7de1c529'
-            '42e774f146bef0285a667094f8887cc3d773f9be3c2fbae3ad593bcb5bb61a5b8731ac96158e72791ab9683d9f61a11b5debab190f8e291ce9d027fb52cebfbe'
-            '21b71877593ee77d4273f0d98862294d43e8981b30b427b08678eba70b8e1e1e3de439783a0b4f5e0d6b47996dc93ef85e8c3597b62a99b6392a569f3045fab8'
+            'd784c6d54caab5a482784d05dcd6c48e786fe671a4ccdca0076d0d5474967f56133a5f2f7fe46381cd7289b8393b446b6152127aed5cf5a339d61440f2b9bfc3'
+            'ff540b42097318674d794f415e1dc43684bcbdccf6926e0d942ce0c536a951911eab8aa9e16eec5de88915c3b9c946ddec91440119ff5fa1dd3198d13f6f92a3'
+            'dd6f4eec9e63e2e6f6f18e66b9149ec44dc70cf220d7ef9c2538ef435799d09e040a50d37782be169b9dc9c0454c2323b4c5b57c757563e0de1d71debeda02b0'
+            '4885414c2b146c9dc9b4dbd90b34fa33924672d939a2e5230c32837ff0617bed23d37f0120e85a595c301a8c94d4096c44d39cc0e7e8f6e098e39ec5229ee103'
+            '2e4a5ef6ea80266268e44d5b577d7ae38c6c7cd3e3a1b84a94f0c6551fc5a1a59d9b31a981f8719592d5cf6e997ef9a5807ea226db0f10234b8771f09b20a34c'
+            '9126241e49ff9ce3639757ec265058c659d1a3582b36f4b0f07fdabe67b5574936ee89ef1b73653fbc6f0ee1f052f332179dc404a06c1ffafd94c059d0a818ac'
+            '23c32f1537eb6bce718da2381877c6ad8032850a3ad56355ce32f472c376d79b6c4d8774b866d6f13b417c3a2b5879c9503127dcbd43c1b8d72322c921f05eb8'
+            'dc1214729794094c27f6e78df686275ddc22ec9088550a1d8a92234f65289cd23b509eb2d7469d3516f1fa2808ea5162550e1db9b3f59c88c87b6d2e1d2d1e60'
+            'fcb2af1d5b14f2238ed1857365cc225f4beeac422c31956458c74b7c9b69736e48b5123a017a4cb79d090e083778b5ee68169b059b8f55de0660c3f5cc9ec89b'
+            '0e496e39253d94ef359d3b8674ec763db7d4f0289227cf586e23e68ed27bef89503686880994f3db40065bed9adf060dbdb0aaae2582f43b7aeff58de90e6379'
             '2f7c7011871898829ad1392a85c537ee6dfb2ea8f2eaa0619db1be4fbd0cf4c7239762d6d3c34772311e2e3440246fc6e6fe6116e92a358b340598eb05e0bdde')
 
 prepare() {

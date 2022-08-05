@@ -4,7 +4,7 @@ _realname=abwsx1
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.16.1.9
+pkgver=2.16.4.0
 pkgrel=1
 pkgdesc="A compact multi-platform web server"
 url="https://aprelium.com/abyssws/"
@@ -44,7 +44,7 @@ source=("abwsx1.exe::https://aprelium.com/data/abwsx1.exe"
         "tr.lng::https://aprelium.com/abyssws/languages/a/tr.lng"
         "zh-cn-b.lng::https://aprelium.com/abyssws/languages/b/zh-cn.lng"
         "zh-tw.lng::https://aprelium.com/abyssws/languages/a/zh-tw.lng")
-sha512sums=('22b46a081e846c0a84873c3072847572af6ffd29e0585ccfeedcf3c12699ce38486d962f7d6aaa9f316e47a008e3011dc09fbe4547c24c2d614e5140195e0794'
+sha512sums=('737edb9d9d37d4f9953827ec82d8b031e98be0581ab00fb1235c50ae13944670abbbaeace50e34b26b7764dbba7d1574f10a9e1826fb6435cbe38dadc736e744'
             '151e7f9c9807c0e6f98223cf80c90ba2b8f62f5a4ccdfdc6cc424b418a0202300b63bc9bb87d6df2fa6b657a76d263df68b367ad3efec48823cba8848abdc423'
             '9776fb8747d6eceee444ba9316410fd9bf44cce6d53894da7bbab6c152c87bb1f7ce21ad116ca1fc600528dc34d96a88db90f9716e50219c13f9c8f4162c0393'
             '963be72bc348984105cd556b745ef653ff34a5deb2b7ab980ab61ea033792a156f4b144f9e86ad8981e6faa938175f4f3bc0510489c03db82ae417864271fdb3'
@@ -96,7 +96,7 @@ prepare() {
 }
 
 pkgver() {
-    powershell -command '(Get-Item "abwsx1.dir/abyssws.exe").VersionInfo.ProductVersionRaw.ToString()'
+    powershell -command '(Get-Item "abwsx1.exe").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {

@@ -33,7 +33,7 @@ _realname=xenu
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.3.9
+pkgver=1.3.9.beta2022.06.08
 pkgrel=1
 pkgdesc="Find broken links on web sites"
 url="http://home.snafu.de/tilman/xenulink.html"
@@ -44,7 +44,7 @@ options=(!strip)
 source=("Xenu64.zip::http@subdir://home.snafu.de/tilman/tmp/Xenu64.zip"
         "xenubeta.zip::http@subdir://home.snafu.de/tilman/tmp/xenubeta.zip")
 sha512sums=('1dd7db4c2f0f71a8bcb3b65dad3afaac7d8413fdd08f313abc9af37c525526ef3a431e2278c0f502a7db16b5ac7ea1341a9e76e2390b1e92434fb7ab096021be'
-            '4d9d8613b09a7e16cb54c269dbf387c7974b7c870579a8e5f2df663ec702c6d7b109c044c7b98e6621ff49cd52a2e8123f88de06cc6c53940848bf439dfe2327')
+            'a28427011297b15125b295803ba99015e863ad5b4eb36e8fdb86db77e0eb7fd3ccee15d98fde7694b6bbad257d6412d0639e2c07511db23a525534ce3d2b7204')
 
 _lc() {
     local d f n
@@ -66,7 +66,9 @@ prepare() {
 }
 
 pkgver() {
-    powershell -command '(Get-Item "Xenu64/Xenu.exe").VersionInfo.ProductVersionRaw.ToString()' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+    local _version="$(powershell -command '(Get-Item "Xenu64/Xenu.exe").VersionInfo.ProductVersionRaw.ToString()' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/')"
+    local _date="$(cat Setup.dir/whatsnew.txt | grep -o -P '[0-9]{1,2}[.][0-9]{1,2}[.][0-9]{4}' | sed -r -e 's/([0-9]{1,2})[.]([0-9]{1,2})[.]([0-9]{4})/\3.\2.\1/' -e 's/[.]([0-9])\b/.0\1/g' | sort | grep -v '3007.03.25' | tail -1)"
+    echo "${_version}.beta${_date}"
 }
 
 package() {

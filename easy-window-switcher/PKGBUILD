@@ -1,10 +1,22 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+extract_https@custom() {
+    extract_file "${@}"
+}
+
+download_https@custom() {
+    local _cookies="cookie.jar"
+    local _token="$(curl -c "${_cookies}" -d "id=26" https://neosmart.net/Download/Register | grep __RequestVerificationToken | sed -r 's/^.*value="(.+)".*$/\1/')"
+    local _url="$(curl -b "${_cookies}" -d "productId=26&__RequestVerificationToken=${_token}&name=&email=" https://neosmart.net/Download/ThankYou | grep cfcdn.neosmart.net | grep href | sed -r 's/^.*href="(.+)".*$/\1/' | sed 's/&amp;/\&/g')"
+    download_file "$(get_filename "${1}")::${_url}"
+    rm "${_cookies}"
+}
+
 _realname=easy-window-switcher
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.2.2
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="Tabbing between windows of the same program"
 arch=('any')
@@ -13,8 +25,8 @@ license=('custom')
 makedepends=("curl")
 provides=("${pkgbase}")
 options=(!strip)
-source=()
-sha512sums=()
+source=("Easy-Window-Switcher.exe::https@custom://")
+sha512sums=('65b5b62213c533c25f0c0716247fd4759767ee3f3248d6b98d58d6ae46a2a915dfa8bbe9730e4008371163ea5ba5f8559d4bf445593f18cec37d895e44dad12b')
 
 _lc() {
     local d f n
@@ -29,21 +41,6 @@ _lc() {
             mv "${d}/${f}" "${d}/${n}"
         fi
     done
-}
-
-_dl() {
-    (
-        cd "${SRCDEST}"
-        download_file "${1}"
-    )
-}
-
-prepare() {
-    local _token="$(curl -c cookie.jar -d "id=26" https://neosmart.net/Download/Register | grep __RequestVerificationToken | sed -r 's/^.*value="(.+)".*$/\1/')"
-    local _url="$(curl -b cookie.jar -d "productId=26&__RequestVerificationToken=${_token}&name=&email=" https://neosmart.net/Download/ThankYou | grep cfcdn.neosmart.net | grep href | sed -r 's/^.*href="(.+)".*$/\1/' | sed 's/&amp;/\&/g')"
-    _dl "Easy-Window-Switcher.exe::${_url}"
-    source+=("Easy-Window-Switcher.exe")
-    extract_sources
 }
 
 pkgver() {

@@ -1,0 +1,86 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_http@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_http@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=pc-wizard
+_dirname=cpuid
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=2014.02.13
+pkgrel=3
+pkgdesc="Analyzes and benchmarks your computer system (CPUID)"
+url="http://www.cpuid.com/softwares/pc-wizard.html"
+arch=('any')
+license=('custom')
+makedepends=("unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("pc-wizard.zip::http@subdir://web.archive.org/web/20150912223438/http://download.cpuid.com/pc-wizard/pc-wizard_${pkgver/.0/.}.zip")
+sha512sums=('07d462b3f96416576ecf1e41c2ec6e165c640e687215a09ac308ab71f75fe21ae49ec3de052a952541fcb7eddd63f63f54f502c81f3f072c1b415fddacce37c9')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+package() {
+    local a="${pkgdir}/apps/${_dirname}/${_realname}"
+    mkdir -p "${a}"
+    cp -R "pc-wizard"/* "${a}"
+    mv "${a}/PC Wizard.exe" "${a}/pcwizard.exe"
+    rm -R "${a}/Web"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
+}

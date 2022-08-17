@@ -5,7 +5,7 @@ _choconame=winmerge
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.16.16
+pkgver=2.16.22
 pkgrel=1
 pkgdesc="A differencing and merging tool"
 url="https://winmerge.org/"
@@ -15,10 +15,10 @@ replaces=("app-i686-${_realname}" "app-i686-winmerge-plugin-7z")
 makedepends=("app-innounp")
 provides=("${pkgbase}" "app-winmerge-plugin-7z" "app-x86_64-winmerge-plugin-7z")
 options=(!strip)
-source=("WinMerge-Setup.exe::https://downloads.sourceforge.net/winmerge/WinMerge-${pkgver}-Setup.exe"
-        "winmerge-x64-exe.zip::https://downloads.sourceforge.net/winmerge/winmerge-${pkgver}-x64-exe.zip")
-sha512sums=('42bdbb115b7233cc9b0b8e72b83a739dd46d6c0808768d80c359988311ac0ba9c24b02a96e7a6a350aabae11f13530125e236f1bcba72f816652911ae8c9c158'
-            '0725a981924f2e6cc3b02488cbacbec19797c8a3bf649b22e5f68f25b7d5df6b39527d1a6a3330912e71f325f258d8836d2f08c7373b029735b6b5625a3996ba')
+source=("WinMerge-Setup.exe::https://github.com/WinMerge/winmerge/releases/download/v${pkgver}/WinMerge-${pkgver}-Setup.exe"
+        "winmerge-x64-exe.zip::https://github.com/WinMerge/winmerge/releases/download/v${pkgver}/winmerge-${pkgver}-x64-exe.zip")
+sha512sums=('45680003b762cc642a1ad6771fd2458b598dd744ae73544d949316f0f053b7e7d26284353341466befde0d2001ff3dbaee35dedd92217582deec3ca194cb67da'
+            '627363ccb9af3b7a7e4173e2094269b31c6f414e2c4679df870327385f8ab425db96caf8450cf0c4baef99a895eee3ff9de0329ce2028a36c7a164a0ab821ffa')
 
 _lc() {
     local d f n

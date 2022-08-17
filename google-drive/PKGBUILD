@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=google-drive
-_choconame=google-drive
+_choconame=googledrive
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=61.0.3.0
+pkgver=62.0.1.0
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
 url="https://www.google.com/drive/"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("GoogleDriveSetup.exe::https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe")
-sha512sums=('4eca0d6ac138dbf90ea33d830e83b9c8c9341731d39b523253db0be4d67d68e8cd4b0cc37a11e2ae9758218cc6bfc62b77c5883acf9ed2be239364b8a81728ae')
+sha512sums=('4ba882bc8ca71c4862a65ad8548071e1124465a550debe7f151621eb7e4692cb3fb7140f56247135f60e2e7aeb72311f8982c1f7f1a536f31d234ea8172793ba')
 
 prepare() {
     7z x -y -bd "GoogleDriveSetup.exe" -o"GoogleDriveSetup.dir" > /dev/null

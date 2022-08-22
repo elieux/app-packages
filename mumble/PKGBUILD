@@ -5,7 +5,7 @@ _choconame=mumble
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.4.230
+pkgver=1.4.274
 pkgrel=1
 pkgdesc="Open Source, Low Latency, High Quality Voice Chat"
 url="https://www.mumble.info/"
@@ -14,10 +14,10 @@ license=('BSD')
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("mumble_client.x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_client-${pkgver}.x64.msi"
-        "mumble_server.x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_server-${pkgver}.x64.msi")
-sha512sums=('18531ae5035fff76b989dd3ec29e4373a28fb0223145dddc7b2b57a374868aa83c29a239f603011740cc8b9fecd9f3ab7d071fd9f3c3073e805395639da5030d'
-            '38967144d215c2a13b306c3f4c6d42080200edd7fe28e0a46d3d092b7ec427356c39e0975e14f3cd914ca599b8f194f5e71f0e162ca5cb3c3fb689a829d55bb7')
+source=("mumble_client-x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_client-${pkgver}-x64.msi"
+        "mumble_server-x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_server-${pkgver}-x64.msi")
+sha512sums=('f0af6e785911dddf5829ef891bb69305a5c02826aacfae59452d80de8889c62d6038fe2f1052a3ac905e8cc7262e2b658cb59d1b87413c7db547a313f908e8fb'
+            '010ba5afe58969f80cab70269b216874d9b61b7fee0bf26642fe1d16764780f1761e1da0ea2e148c4e9ff1b5703d7edea5a0e5cb715938c0e932dc519b40694c')
 
 _lc() {
     local d f n
@@ -49,17 +49,17 @@ _rmmsdll() {
 }
 
 prepare() {
-    rm -fR "mumble_client.x64"
-    /apps/lessmsi/lessmsi x "mumble_client.x64.msi" > /dev/null
-    rm -fR "mumble_server.x64"
-    /apps/lessmsi/lessmsi x "mumble_server.x64.msi" > /dev/null
+    rm -fR "mumble_client-x64"
+    /apps/lessmsi/lessmsi x "mumble_client-x64.msi" > /dev/null
+    rm -fR "mumble_server-x64"
+    /apps/lessmsi/lessmsi x "mumble_server-x64.msi" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "mumble_client.x64/SourceDir/ProgramFiles64Folder/Mumble/client"/* "${a}"
-    cp -R "mumble_server.x64/SourceDir/ProgramFiles64Folder/Mumble/server"/* "${a}"
+    cp -R "mumble_client-x64/SourceDir/ProgramFiles64Folder/Mumble/client"/* "${a}"
+    cp -R "mumble_server-x64/SourceDir/ProgramFiles64Folder/Mumble/server"/* "${a}"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

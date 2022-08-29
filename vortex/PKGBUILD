@@ -34,7 +34,7 @@ _choconame=vortex
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.6.7
+pkgver=1.6.8
 pkgrel=1
 pkgdesc="The elegant, powerful, and open-source mod manager from Nexus Mods"
 url="https://www.nexusmods.com/about/vortex/"
@@ -44,7 +44,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("vortex-setup.exe::https@subdir://github.com/Nexus-Mods/Vortex/releases/download/v${pkgver}/vortex-setup-${pkgver}.exe")
-sha512sums=('ee468f3680ad7068118fd8bf885e4db14c99690835c1de363ebea7d47ca3738045ca8799e89626faa4947882e6f35399429af366548d07a625cf804d167ec017')
+sha512sums=('2d7e31b79c03b6c139a4c90de12d2795a87d1d100e72ff2a123701dbca33cd4fb471a1151ea259cb0ab5931f5970ea8adde7177038db40f17c6f56672ad61c82')
 
 _lc() {
     local d f n

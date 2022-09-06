@@ -14,16 +14,6 @@
 typedef void WINAPI COM_ERROR_HANDLER(HRESULT, IErrorInfo *);
 static COM_ERROR_HANDLER *com_error_handler;
 
-void WINAPI _com_raise_error(HRESULT hr, IErrorInfo *perrinfo)
-{
-    throw _com_error(hr, perrinfo);
-}
-
-void WINAPI _set_com_error_handler(COM_ERROR_HANDLER *phandler)
-{
-    com_error_handler = phandler;
-}
-
 void WINAPI _com_issue_errorex(HRESULT hr, IUnknown *punk, REFIID riid)
 {
     void *pv;

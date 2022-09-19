@@ -5,7 +5,7 @@ _choconame=avidemux
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.8.1r220620
+pkgver=2.8.1r220917
 pkgrel=1
 pkgdesc="Graphical tool to edit video (filter/re-encode/split)"
 url="http://www.avidemux.org/"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("avidemux_win64.exe::http://www.avidemux.org/nightly/win64/avidemux_${pkgver%r*}%20r${pkgver#*r}_win64.exe")
-sha512sums=('b3acbd2e6f2630352d0f5c49e98996e07fa7aab478876976b52ca2e14305bd96f104d4921ec0710e1c31d9deb6ab4c5ac31e0bc755a29556af9281362a464437')
+sha512sums=('150946c108847770e6b6fcc7be4c305cad6df60ba995fa145d231aaece9feea404dc8b2f793a7ac2885a3c303ed5a868d4de0f95c4f7997b34656d05b90ac727')
 
 prepare() {
     rm -fR "avidemux_win64.dir"

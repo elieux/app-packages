@@ -5,7 +5,7 @@ _choconame=autoit
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.3.16.0
+pkgver=3.3.16.1
 pkgrel=1
 pkgdesc="A free BASIC-like scripting language for automating Windows GUIs"
 url="https://www.autoitscript.com/"
@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("autoit.zip::https://www.autoitscript.com/files/autoit${pkgver%%.*}/autoit-v${pkgver%%.*}.zip")
-sha512sums=('4001d05c799d2fa895b0dde06a74b91e9da68c89dbd96f833d3768adb655bf4902f71ff829352107062f4b71f92434765a1c1ce58fa8dfcece7c01db1bbe5a60')
+sha512sums=('0c1678fbf26cacff13b00ddc1a6f5e8eb77336f79770931212de9de20f46b2fb62ee2b42fd5d9b1ea0a3b53ec6c55b0506ea689c72285eb7e8538df2507ac4b7')
 
 _lc() {
     local d f n

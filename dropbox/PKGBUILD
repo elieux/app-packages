@@ -5,7 +5,7 @@ _choconame=dropbox
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=156.4.4908
+pkgver=157.4.4808
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="https://www.dropbox.com/"
@@ -16,7 +16,7 @@ provides=("${pkgbase}")
 options=(!strip)
 install="dropbox.install"
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
-sha512sums=('f39950bb5e919b335a8254213addf5c666d9e855090793e1d6f7d9835a1c7ea426a1e41a18971cf1369204abc03b0bda096eaf457c71aeacb86223c7ce67f2f3')
+sha512sums=('af5663297314c3d89f4fb92a0dc8f62a0d8657c8dcdedc332076b4d5f5c87d3d8a1d7020d6b6ff72a5465cd2174c8345f1f1e2505ef551fb29d61268f8d5073c')
 
 _lc() {
     local d f n

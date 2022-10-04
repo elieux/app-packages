@@ -5,7 +5,7 @@ _choconame=vagrant
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.2.19
+pkgver=2.3.1
 pkgrel=1
 pkgdesc="Building and distributing development environments"
 url="https://www.vagrantup.com/"
@@ -14,18 +14,18 @@ license=('MIT')
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("vagrant_x86_64.msi::https://releases.hashicorp.com/vagrant/${pkgver}/vagrant_${pkgver}_x86_64.msi")
-sha512sums=('59e59f35b2000928d55f842cdc1b5ffcdf5b07befe0a0d10d29b9f5ce027a729c2e7bbbafd788568127e0b0217eb24e9b80cbc4afd50b7938ba8e129e55ed2e4')
+source=("vagrant_windows_amd64.msi::https://releases.hashicorp.com/vagrant/${pkgver}/vagrant_${pkgver}_windows_amd64.msi")
+sha512sums=('fe39d582bd44c7298b3711e3c5012bdfa8548d6325c6b1412dc940c3874fa2d88c898de0c08f7a9d4301177646ab76b25a4e32ae0b7c1ff201b87d508f0e3b3d')
 
 prepare() {
-    rm -fR "vagrant_x86_64"
-    /apps/lessmsi/lessmsi x "vagrant_x86_64.msi" > /dev/null
+    rm -fR "vagrant_windows_amd64"
+    /apps/lessmsi/lessmsi x "vagrant_windows_amd64.msi" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "vagrant_x86_64/SourceDir/HashiCorp/Vagrant"/* "${a}"
+    cp -R "vagrant_windows_amd64/SourceDir/HashiCorp/Vagrant"/* "${a}"
     rm -f "${a}/embedded/bin/vcruntime140.dll"
 
     # remove some of the largest MSYS2 left-overs

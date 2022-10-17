@@ -5,7 +5,7 @@ _choconame=wire
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.28.4253
+pkgver=3.29.4330
 pkgrel=1
 pkgdesc="Desktop Wire client"
 url="https://www.wire.com/"
@@ -15,7 +15,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Wire-Setup.exe::https://wire-app.wire.com/win/prod/Wire-Setup.exe")
-sha512sums=('9c9041a8f5784fcf1199144c023289f85f4643488225f0536f8fa9b26e23411d04859c29c7bcd29d159551f89a253ffbc428cb268f610a8631eac2d86dc51ec5')
+sha512sums=('be1b50890edb4734577f32a8d44eab8cafc13bb6510c00a434239ec14486ee688dce33a6770006ea490b4a8483d3f776002a827a37a57cbc93ed52c2312df2c8')
 
 _lc() {
     local d f n

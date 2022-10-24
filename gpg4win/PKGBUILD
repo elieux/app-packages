@@ -5,7 +5,7 @@ _choconame=Gpg4win
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.0.3
+pkgver=4.0.4
 pkgrel=1
 pkgdesc="A secure solution for file and email encryption"
 url="https://www.gpg4win.org/index.html"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gpg4win.exe::https://files.gpg4win.org/gpg4win-${pkgver}.exe")
-sha512sums=('f8817b8e673e010941faa8db59d45775af2ae650d2f50a9f91430dfaacdd0cc250571536f566f242aacd2fc0cef8d4189514b67eb005814cb495698185d7ff23')
+sha512sums=('cc41753a1e250fbd4805e8fcc113751d16bd99bb7022d9b920fe6a56c3a883486d036ab8636c082cbd646fe60d258e0f61951d015a53389e132ccf0a6f12cd65')
 
 _lc() {
     local d f n
@@ -41,7 +41,7 @@ package() {
     mkdir -p "${a}"
     cp -R "gpg4win.dir"/* "${a}"
     find "${a}" -iname '*.tmp' -delete
-    rm -R "${a}"/'$PLUGINSDIR' "${a}"/'$TEMP'  "${a}/gpg4win-uninstall.exe.nsis"
+    rm -R "${a}"/'$PLUGINSDIR' "${a}"/'$TEMP'
     rm "${a}/bin/pinentry.exe"
     cp "${a}/bin/pinentry-w32.exe" "${a}/bin/pinentry.exe"
     _lc "${a}"/*

@@ -5,7 +5,7 @@ _choconame=thunderbird
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=102.5.0
+pkgver=102.5.1
 pkgrel=1
 pkgdesc="Standalone, easy to customize mail/news reader"
 url="https://www.thunderbird.net/"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ThunderbirdSetup.exe::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/en-US/Thunderbird%20Setup%20${pkgver}.exe")
-sha512sums=('7192e9240263fa21ed9f1fe10b2b3d86c652c8766db026e42dc1f03915f51cbb87b70c4ad57b575ca5aca7da7fdbf2c5155372acc3b0bbcffc4fa3277f166756')
+sha512sums=('39af632f2fc08ecdeaff5ccdbc296ad79d3b8aea3de18a54dedd73c44a749c04516dc97980a9195ec7e9ed7f6677282a47835acc102ca7480d190e1f4c4b6f72')
 
 _lc() {
     local d f n

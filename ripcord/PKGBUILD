@@ -1,0 +1,68 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=ripcord
+_choconame=ripcord
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.4.29
+pkgrel=1
+pkgdesc="Alternative desktop chat client for Slack and Discord"
+arch=('any')
+url="https://cancel.fm/ripcord/"
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("Ripcord_Win.zip::https@subdir://cancel.fm/dl/Ripcord_Win_${pkgver}.zip")
+sha512sums=('d4d6a9434d3c38022d03ee5147b8cda93ad8bfcecf60168b34ace505512bd451f28c8c1986af3434609a1a8317cc1f8011f536bb392e0c07a5e2ea242675743f')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "Ripcord_Win"/* "${a}"
+    _lc "${a}"/*
+}

@@ -5,7 +5,7 @@ _dirname=php
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.1.6
+pkgver=3.2.0
 pkgrel=1
 pkgdesc="PHP debugging extension"
 url="https://xdebug.org/"
@@ -13,13 +13,13 @@ arch=('any')
 license=('GPL')
 provides=("${pkgbase}")
 options=(!strip)
-source=("php_xdebug-8.1-vc16-nts-x86_64.dll::https://xdebug.org/files/php_xdebug-${pkgver}-8.1-vs16-nts-x86_64.dll")
-sha512sums=('1294b205b1de604ab7931da552f55ca14be80eb6ec12fee2ed93ea2f8b5382135e66c96e331f4cbaaa522b6fd1f2d02b5cd755706d65c3e7ff3888d30bfa5727')
+source=("php_xdebug-8.2-vc16-nts-x86_64.dll::https://xdebug.org/files/php_xdebug-${pkgver}-8.2-vs16-nts-x86_64.dll")
+sha512sums=('b959fff320c800a8a5ae232e1284d42381695cf418102789539d0ab5fe7ac7c8a06d24d9478b5f39ed404550028d948bc52b2ac46e8048d0e5b87b84d046a8ca')
 
 package() {
-    depends=("app-x86_64-php>=1~8.1.0" "app-x86_64-php<1~8.2.0")
+    depends=("app-x86_64-php>=1~8.2.0" "app-x86_64-php<1~8.3.0")
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/ext"
-    cp "php_xdebug-8.1-vc16-nts-x86_64.dll" "${a}/ext/php_xdebug.dll"
+    cp "php_xdebug-8.2-vc16-nts-x86_64.dll" "${a}/ext/php_xdebug.dll"
 }

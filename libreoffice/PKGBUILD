@@ -5,7 +5,7 @@ _choconame=libreoffice-fresh
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.4.3
+pkgver=7.4.4
 pkgrel=1
 pkgdesc="The free office suite"
 url="https://www.libreoffice.org/"
@@ -16,7 +16,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("LibreOffice_Win_x64.msi::https://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86_64/LibreOffice_${pkgver}_Win_x64.msi")
-sha512sums=('fb8d1983b17386d79198c3b79c7bf07dfac6d30ba2cc88e437b8e981a95aac3acfc39efdf141efb758698a07b0f474cf4f0b27cda9bee10ef0533d08be4baa74')
+sha512sums=('e770db51add8d4833b7828503938850317af736c51388e5a68a2af10f76230c08de1bcd25160c0e7d3b4996fcf589ba5f154f432c6408be33000315ea3e5fc76')
 
 prepare() {
     rm -fR "LibreOffice_Win_x64"

@@ -6,7 +6,7 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.6.2
+pkgver=1.6.3
 pkgrel=1
 pkgdesc="OTP support for KeePass"
 url="https://github.com/Rookiestyle/KeePassOTP"
@@ -15,7 +15,7 @@ license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeePassOTP.plgx::https://github.com/Rookiestyle/KeePassOTP/releases/download/v${pkgver}/KeePassOTP.plgx")
-sha512sums=('97c947000d540eb01760bc806d46db8064073a02eff54cd2814319f2899536ac14719c6c6c31d097c52443bbf1bb53c548076f372ef64676c967d2ab89dfa06d')
+sha512sums=('780372338761617be4a2855604af2bb1ac6f4c649ebb09e58052617cea5c5c604083fd4d162020e2d65ddf90a5eb02dfbf5a5815685bd6830a2d9b3c5a668700')
 
 package() {
     depends=("app-keepass")

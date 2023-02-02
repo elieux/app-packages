@@ -35,7 +35,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=5.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A zero-conf git repository hub"
 url="https://github.com/awaescher/RepoZ"
 arch=('any')
@@ -45,6 +45,20 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("RepoZ.Setup.exe::https://github.com/awaescher/RepoZ/releases/download/v${pkgver}/RepoZ.${pkgver}.Setup.exe")
 sha512sums=('9cdec304da164f3ec042be8641ed20e69524bda45622b93331db1cafa993ead72f776b5c246ddfa9d22c3d83ec069d5c477651a6247992726de523e02b86ea9b')
+
+_dotnet() {
+    local runtimetarget="$(cat "${1}.deps.json" | /mingw64/bin/jq -r '.runtimeTarget.name')"
+    local netcore="$(cat "${1}.deps.json" | /mingw64/bin/jq --arg runtimetarget "${runtimetarget}" -r '.targets[$runtimetarget] | keys | .[] | select(test("^runtimepack[.]Microsoft[.]NETCore[.]App[.][Rr]untime[.]win-x64/"))')"
+    local windowsdesktop="$(cat "${1}.deps.json" | /mingw64/bin/jq --arg runtimetarget "${runtimetarget}" -r '.targets[$runtimetarget] | keys | .[] | select(test("^runtimepack[.]Microsoft[.]WindowsDesktop[.]App[.][Rr]untime[.]win-x64/"))')"
+
+    cat "${1}.deps.json" | /mingw64/bin/jq -r --arg runtimetarget "${runtimetarget}" --arg netcore "${netcore}" --arg windowsdesktop "${windowsdesktop}" '.targets[$runtimetarget] | (.[$netcore], .[$windowsdesktop]) | (.runtime, .native) | select(.) | keys | .[]' | dos2unix | sort | uniq | (cd "$(dirname "${1}")" && xargs rm -f)
+
+    cat "${1}.deps.json" | /mingw64/bin/jq -r --arg runtimetarget "${runtimetarget}" --arg netcore "${netcore}" --arg windowsdesktop "${windowsdesktop}" 'del(.targets[$runtimetarget][$netcore]) | del(.targets[$runtimetarget][$windowsdesktop])' > "${1}.deps.json.tmp"
+    mv -f "${1}.deps.json.tmp" "${1}.deps.json"
+
+    cat "${1}.runtimeconfig.json" | /mingw64/bin/jq '.runtimeOptions |= (.framework = .includedFrameworks[-1] | del(.includedFrameworks))' > "${1}.runtimeconfig.json.tmp"
+    mv -f "${1}.runtimeconfig.json.tmp" "${1}.runtimeconfig.json"
+}
 
 _rmmsdll() {
     local ms
@@ -68,17 +82,9 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "RepoZ.Setup.exe.dir"/* "${a}"
-
-    find "${a}/lib" -mindepth 1 -maxdepth 1 -not -name "win32" -exec rm -R {} ';'
-    local f
-    for f in "grr" "grrui"
-    do
-        cat "RepoZ.Setup.exe.dir/${f}.deps.json" | /mingw64/bin/jq --arg f "${f}" '(.targets[".NETCoreApp,Version=v3.1/win-x64"] | to_entries | .[] | select(.key | match("^" + $f + "/")) | .key) as $grrver | (.targets[".NETCoreApp,Version=v3.1/win-x64"][$grrver].dependencies["runtimepack.Microsoft.NETCore.App.Runtime.win-x64"]) as $runtimever | del(.targets[]["runtimepack.Microsoft.NETCore.App.Runtime.win-x64/" + $runtimever])' > "${a}/${f}.deps.json"
-        cat "RepoZ.Setup.exe.dir/${f}.runtimeconfig.json" | /mingw64/bin/jq '.runtimeOptions |= (.framework = .includedFrameworks[0] | del(.includedFrameworks))' > "${a}/${f}.runtimeconfig.json"
-    done
-    rm "${a}/System".*.dll "${a}/Microsoft".*.dll "${a}"/{clrcompression,clretwrc,clrjit,coreclr,dbgshim,hostfxr,hostpolicy,mscordaccore,mscordaccore_amd64_amd64_*,mscordbi,mscorlib,mscorrc.debug,mscorrc,netstandard,WindowsBase}.dll
-    cp "RepoZ.Setup.exe.dir"/{Microsoft.Extensions.DependencyInjection.Abstractions,System.Net.Http.WinHttpHandler,System.ServiceModel.Primitives}.dll "${a}"
-    _rmmsdll "${a}"
-
     rm -R "${a}"/'$PLUGINSDIR' "${a}/Uninstall.exe"
+    find "${a}/lib" -mindepth 1 -maxdepth 1 -not -name "win32" -exec rm -R {} ';'
+    _dotnet "${a}/grr"
+    _dotnet "${a}/grrui"
+    _rmmsdll "${a}"
 }

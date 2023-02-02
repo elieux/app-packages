@@ -35,35 +35,34 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=7.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A cross-platform automation and configuration tool/framework"
 url="https://github.com/PowerShell/PowerShell"
 arch=('any')
 license=('MIT')
+makedepends=("mingw-w64-x86_64-jq")
 provides=("${pkgbase}")
 options=(!strip)
 source=("PowerShell-win-x64.zip::https@subdir://github.com/PowerShell/PowerShell/releases/download/v${pkgver}/PowerShell-${pkgver}-win-x64.zip")
 sha512sums=('7aa5db120f688e8b728b5b7a8545ac2c4ac02811bb26555080e0024718f1c4601c1219f2ebfb837f0452b153f43aee6d6a6e092a5383e58cafc274d16540f7ac')
 
-_rmmsdll() {
-    local ms
+_dotnet() {
+    local runtimetarget="$(cat "${1}.deps.json" | /mingw64/bin/jq -r '.runtimeTarget.name')"
+    local netcore="$(cat "${1}.deps.json" | /mingw64/bin/jq --arg runtimetarget "${runtimetarget}" -r '.targets[$runtimetarget] | keys | .[] | select(test("^runtimepack[.]Microsoft[.]NETCore[.]App[.][Rr]untime[.]win-x64/"))')"
+    local windowsdesktop="$(cat "${1}.deps.json" | /mingw64/bin/jq --arg runtimetarget "${runtimetarget}" -r '.targets[$runtimetarget] | keys | .[] | select(test("^runtimepack[.]Microsoft[.]WindowsDesktop[.]App[.][Rr]untime[.]win-x64/"))')"
 
-    ms=("msvbvm[0-9]+"
-        "ucrtbase"
-        "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
-        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
-        "concrt[0-9]+"
-        "pgort[0-9]+"
-        "api-ms-win-[0-9a-z-]+")
-    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+    cat "${1}.deps.json" | /mingw64/bin/jq -r --arg runtimetarget "${runtimetarget}" --arg netcore "${netcore}" --arg windowsdesktop "${windowsdesktop}" '.targets[$runtimetarget] | (.[$netcore], .[$windowsdesktop]) | (.runtime, .native) | select(.) | keys | .[]' | dos2unix | sort | uniq | (cd "$(dirname "${1}")" && xargs rm -f)
+
+    cat "${1}.deps.json" | /mingw64/bin/jq -r --arg runtimetarget "${runtimetarget}" --arg netcore "${netcore}" --arg windowsdesktop "${windowsdesktop}" 'del(.targets[$runtimetarget][$netcore]) | del(.targets[$runtimetarget][$windowsdesktop])' > "${1}.deps.json.tmp"
+    mv -f "${1}.deps.json.tmp" "${1}.deps.json"
+
+    cat "${1}.runtimeconfig.json" | /mingw64/bin/jq '.runtimeOptions |= (.framework = .includedFrameworks[-1] | del(.includedFrameworks))' > "${1}.runtimeconfig.json.tmp"
+    mv -f "${1}.runtimeconfig.json.tmp" "${1}.runtimeconfig.json"
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "PowerShell-win-x64"/* "${a}"
-
-    cat "PowerShell-win-x64/pwsh.deps.json" | sed -r '/(api-ms-win|API-MS-Win|ucrtbase)/,/[}]/d' | sed -r '/[}],/{ N; s/[}],(\n +[}])/}\1/ }' | unix2dos > "${a}/pwsh.deps.json"
-    _rmmsdll "${a}"
+    _dotnet "${a}/pwsh"
 }

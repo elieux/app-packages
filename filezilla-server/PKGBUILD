@@ -5,7 +5,7 @@ _choconame=filezilla.server
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.6.5
+pkgver=1.6.6
 pkgrel=1
 pkgdesc="A popular FTP server"
 url="https://filezilla-project.org/"
@@ -16,7 +16,7 @@ provides=("${pkgbase}")
 replaces=("app-i686-${_realname}")
 options=(!strip)
 source=("FileZilla_Server_win64-setup.exe::https://download.filezilla-project.org/server/FileZilla_Server_${pkgver}_win64-setup.exe")
-sha512sums=('610a363aca3f5b756109f25444ba0be7044db2902693ea98cd7cba9d7e8ae51d3c9fd9ffabae097b971da1533481246e936229c4a71103a03795c71cc7c391d6')
+sha512sums=('a1547119436936f592ffc84c57ec9d82df889d2eb3d8532c7acbf151b2a87eec2bb0a2607b4b165fa3d5c45500e09afe26294094bc3893fecf92e19da7a8346b')
 
 prepare() {
     7z x -y -bd "FileZilla_Server_win64-setup.exe" -o"FileZilla_Server_win64-setup.dir" > /dev/null

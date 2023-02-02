@@ -5,7 +5,7 @@ _choconame=traystatus
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.5
+pkgver=4.6
 pkgrel=1
 pkgdesc="Show status of Caps Lock, Num Lock, Scroll Lock, and more in system tray"
 url="https://www.traystatus.com/"
@@ -14,27 +14,10 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("TrayStatus.zip::https://binaryfortressdownloads.com/Download/BFSFiles/114/TrayStatus-${pkgver}.zip")
-sha512sums=('4564565e7118599d7a57ba38098714814d65b0f59a32d0323918f701310ef993b71f3b2d9d37c99c14fd62c7fe42cb3a98838e01b9b4a2adb462823a56c88b6d')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+sha512sums=('c91af2ace34a89b6f4ba7425066a4ebe297132083e3022bed123d1c58c0061dbec47020f36f7ac2dcb4f8b09ee5830c6fc7dd27289f0b280773f2b264e100ac9')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "TrayStatus"/* "${a}"
-    rm "${a}"/System.*.dll
-    _lc "${a}"/*
 }

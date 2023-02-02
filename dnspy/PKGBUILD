@@ -34,16 +34,16 @@ _choconame=dnspy
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.1.7
+pkgver=6.1.8
 pkgrel=1
 pkgdesc=".NET debugger and assembly editor"
 url="https://github.com/0xd4d/dnSpy"
 arch=('any')
-license=('custom')
+license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("dnSpy-net472.zip::https@subdir://github.com/0xd4d/dnSpy/releases/download/v${pkgver}/dnSpy-net472.zip")
-sha512sums=('ac94151a6c7afa63654c7c2a578f7a80ad3b0924a71c9733a27ebdd0cd1e54570e1d11491359b5aba38e1436cd41f022c5ff90503e71387f01dc3dbe26214e15')
+source=("dnSpy-netframework.zip::https@subdir://github.com/0xd4d/dnSpy/releases/download/v${pkgver}/dnSpy-netframework.zip")
+sha512sums=('586148b152d7f692929294a1fb2bf942e989c757a9fe596e90b4c97f79ac000e4a404d628f0f4eccf916ea30e4471c86e0d558b1a0dc7f0052be38b9aff3cb9d')
 
 _lc() {
     local d f n
@@ -63,6 +63,6 @@ _lc() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "dnSpy-net472"/* "${a}"
+    cp -R "dnSpy-netframework"/* "${a}"
     _lc "${a}"/*
 }

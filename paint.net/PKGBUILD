@@ -1,72 +1,62 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
-#
-# How to create patches:
-# 0. get a CIL decompiler that can point to the actual bytes, e.g. dnSpy
-# 1. in PaintDotNet.SystemLayer.dll, open PaintDotNet.SystemLayer.AssemblyServices::Initialize() and nop[1] out these calls:
-#    - AssemblyServices.LoadUniversalCrt(nativeRootDirPath)
-#    - AssemblyServices.LoadVisualCppRuntime(nativeRootDirPath)
-#    - AssemblyServices.LoadOpenMP(nativeRootDirPath)
-# 2. save and run xdelta3 -e -s PaintDotNet.SystemLayer.dll.orig PaintDotNet.SystemLayer.dll paintdotnet.systemlayer.dll.xd3
-# 3. in PaintDotNet.exe, open PaintDotNet.Program::InspectForDefectsAndPerformRepairsPart1() and invert[2] this condition:
-#    - if (AppInfoService.Instance.InstallType != AppInstallType.Classic)
-# 4. save and run xdelta3 -e -s PaintDotNet.exe.orig PaintDotNet.exe paintdotnet.exe.xd3
-#
-# [1] 0x00
-# [2] 0x2C brfalse.s -> 0x2D brtrue.s
 
 _realname=paint.net
 _choconame=paint.net
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.2.16
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("p7zip" "xdelta3" "app-lessmsi")
+makedepends=("p7zip" "mingw-w64-x86_64-jq")
 provides=("${pkgbase}")
 options=(!strip)
-source=("paint.net.install.zip::https://www.dotpdn.com/files/paint.net.${pkgver}.install.zip"
-        "paintdotnet.systemlayer.dll.xd3"
-        "paintdotnet.exe.xd3")
-sha512sums=('97c518a8feb2666c6aa3672dd22479aad85eaedda5df7698e17f5a08929410faeb8295e7026de8b29127958dd47e0fe1e1bb5e6de7f91a561a0cae29b090365d'
-            'fc11a5265360a2dcb70d8d995c4df3371eb7e3f9b9cb050a0e4a6780a9d4b98ef3ff257e2c2d8baf33b1c40cf23204f0744e97d31f8fd29debbb7fef29af5579'
-            'bce7850c8f502536d019b4e09dcafdb62777f0cf1283839a5e4a6878c3044c1ff5ca26374c7b19c707a923afc87b1c2687a11d2c02e11ab5b83f982d5b5d4399')
+source=("paint.net.install.x64.zip::https://github.com/paintdotnet/release/releases/download/v${pkgver}/paint.net.${pkgver}.install.x64.zip")
+sha512sums=('83aaf3dcd9b75273d334b1a727e0f3c19fd8164c4090f4f03ad161334c964ca90fa35867881ac806026dca8da14e310a1a5c427d1e535bca872ca8be219875ff')
 
-_lc() {
-    local d f n
+_dotnet() {
+    local runtimetarget="$(cat "${1}.deps.json" | /mingw64/bin/jq -r '.runtimeTarget.name')"
+    local netcore="$(cat "${1}.deps.json" | /mingw64/bin/jq --arg runtimetarget "${runtimetarget}" -r '.targets[$runtimetarget] | keys | .[] | select(test("^runtimepack[.]Microsoft[.]NETCore[.]App[.][Rr]untime[.]win-x64/"))')"
+    local windowsdesktop="$(cat "${1}.deps.json" | /mingw64/bin/jq --arg runtimetarget "${runtimetarget}" -r '.targets[$runtimetarget] | keys | .[] | select(test("^runtimepack[.]Microsoft[.]WindowsDesktop[.]App[.][Rr]untime[.]win-x64/"))')"
 
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
+    cat "${1}.deps.json" | /mingw64/bin/jq -r --arg runtimetarget "${runtimetarget}" --arg netcore "${netcore}" --arg windowsdesktop "${windowsdesktop}" '.targets[$runtimetarget] | (.[$netcore], .[$windowsdesktop]) | (.runtime, .native) | select(.) | keys | .[]' | dos2unix | sort | uniq | (cd "$(dirname "${1}")" && xargs rm -f)
+
+    cat "${1}.deps.json" | /mingw64/bin/jq -r --arg runtimetarget "${runtimetarget}" --arg netcore "${netcore}" --arg windowsdesktop "${windowsdesktop}" 'del(.targets[$runtimetarget][$netcore]) | del(.targets[$runtimetarget][$windowsdesktop])' > "${1}.deps.json.tmp"
+    mv -f "${1}.deps.json.tmp" "${1}.deps.json"
+
+    cat "${1}.runtimeconfig.json" | /mingw64/bin/jq '.runtimeOptions |= (.framework = .includedFrameworks[-1] | del(.includedFrameworks))' > "${1}.runtimeconfig.json.tmp"
+    mv -f "${1}.runtimeconfig.json.tmp" "${1}.runtimeconfig.json"
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/(${m})[.]dll$"; done) | xargs -r rm
 }
 
 prepare() {
-    7z x -y -bd "paint.net.${pkgver}.install.exe" -o"paint.net.install.dir" > /dev/null
-    rm -fR "PaintDotNet_x64"
-    /apps/lessmsi/lessmsi x "paint.net.install.dir\\PaintDotNet_x64.msi" > /dev/null
+    7z x -y -bd "paint.net.${pkgver}.install.x64.exe" -o"paint.net.install.x64.dir" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "PaintDotNet_x64/SourceDir"/* "${a}"
+    cp -R "paint.net.install.x64.dir/x64"/* "${a}"
     mkdir "${a}"/{Effects,FileTypes,Shapes}
-
-    # remove system DLLs
-    xdelta3 -f -d -s "PaintDotNet_x64/SourceDir/PaintDotNet.SystemLayer.dll" "PaintDotNet.SystemLayer.dll.xd3" "${a}/PaintDotNet.SystemLayer.dll"
-    xdelta3 -f -d -s "PaintDotNet_x64/SourceDir/PaintDotNet.exe" "PaintDotNet.exe.xd3" "${a}/PaintDotNet.exe"
-    rm -R "${a}/Native" "${a}"/*.pdb
-
-    _lc "${a}"/*
+    rm -R "${a}/SetupDownloader" "${a}"/SetupFrontEnd.* "${a}/PaintDotNet_x64.msi"
+    rm "${a}"/*.pdb
+    _rmmsdll "${a}"
+    _dotnet "${a}/paintdotnet"
 }

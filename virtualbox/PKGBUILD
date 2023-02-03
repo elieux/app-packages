@@ -4,7 +4,7 @@ _realname=virtualbox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.1.38.153438
+pkgver=7.0.6.155176
 pkgrel=1
 pkgdesc="Powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use"
 url="https://www.virtualbox.org/"
@@ -17,17 +17,14 @@ source=("VirtualBox-Win.exe::https://download.virtualbox.org/virtualbox/${pkgver
         "VirtualBox.tar.bz2::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBox-${pkgver%.*}.tar.bz2"
         "VirtualBoxSDK.zip::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBoxSDK-${pkgver%.*}-${pkgver##*.}.zip"
         "comsupp.cpp"
-        "0002-add-missing-uuidof.patch"
-        "0003-fix-conversions.patch"
         "0004-remove-__function__.patch"
-)
-sha512sums=('ca9e2ef9bbd15c4a549458cee73df24c8f13924c6002249a9cb3678435500d119af51fb9829957943eb5ee3c6fb07038e4bde342f720b0399124d4e483860c26'
-            '7a4f2dc80e3251b1da6d29d3c6f6b802527decc70497b1a1d1008c0ab3109c2039d131c587d6ec4786aea619546757655337c2ec3456243336ca13c6f6748116'
-            'db7741442431e8d2533b4ac136dfaead0266fbbae414aa6a7be46377c7c1015df8f75d08de2a06265c400c612404a747d0f12d6121110989970dba91a3bf6f1e'
+        "0005-remove-__try-__except.patch")
+sha512sums=('c787271617785e94719e2bc5ec9a9f70455b61e6408f5f69e0bdaf2718d0d7e00fa8b7f044bbe78b98abbc474c6b25767520efb4c5baf80cd1f91369126e5688'
+            'f9db7a154e392f550f50abe774fc6263eb0b6f86dccc069f2c5012fedbe2debbf5b8ba62cca44ea0d5d5475652188176bfb888266f69197677b22854f02b64a0'
+            '5b27804063906654f56bc0cf586e3112b7530a1d2840e33b102dc7edd05379d62a6448277d1a5ded4047e4446327db3b696d486194b3f737f5821a2ff250191e'
             '32173292f6c7644604ca624bb8e822ccb360726b3681d70cc469468d9c954ff971382a3decbce2461b530c9856467f49ef555f7444f8aa34a652f7674f51d873'
-            'aad91163f57f9dbca8242c9bb5ea0fe99ccad82ce9141f551195d8029a94b604a224b842c3223220daa778d08d7e37933bca4a5700fc231f9bea62f78e858806'
-            '8ad2952c5a9f1c6d24ddac16cfddb518a6b5a867b26b72bbcd5bf422028803339f8a96e31706d2600a0a1f4a1c81acf15eca6af8ce99b38528e9a2d25d7fd123'
-            '89afaee2ce60e579083c72596e6f5fbc8389d360649c36a14eaada1ac50168d1d1056e2ffea550a062d3ae20249040b84ae817b03dbd642725b28f40b7ececb3')
+            '55faec07873c96a8b2e1e0a90a4c0529b2d40ead18ab972c2477d8eaaaf314603772dab8dbbdf0bf1e5312756dad784e749c5a954f85123d8607855bfc890a85'
+            'efc61d88568526a9b1b4d12526a44ffe8b810052e02962b40cfe4ae85a44265e953d74c55be687b3d5a892c29d967a5a3dcc3fc35b20c88882e2b343f8d614eb')
 
 _lc() {
     local d f n
@@ -51,34 +48,42 @@ prepare() {
     cp -R "VirtualBox-${pkgver%.*}/include" "build"
     mkdir -p "build/src/VBox"
     cp -R "VirtualBox-${pkgver%.*}/src/VBox/HostDrivers" "build/src/VBox"
+    cp -R "VirtualBox-${pkgver%.*}/src/VBox/Runtime" "build/src/VBox"
+    mkdir -p "build/src/VBox/Main"
+    cp -R "VirtualBox-${pkgver%.*}/src/VBox/Main/glue" "build/src/VBox/Main"
 
     cd "build"
-    patch -p1 -i "${srcdir}/0002-add-missing-uuidof.patch"
-    patch -p1 -i "${srcdir}/0003-fix-conversions.patch"
     patch -p1 -i "${srcdir}/0004-remove-__function__.patch"
+    patch -p1 -i "${srcdir}/0005-remove-__try-__except.patch"
 }
 
 cxx() {
-    PATH="/mingw64/bin:$PATH" g++ -Wall -Wextra -Wno-unknown-pragmas -Wno-dangling-else -std=c++11 "-I${srcdir}/build/include" -DIN_RING3 "${@}" -lole32 -loleaut32 -lsetupapi -liphlpapi -lnewdev -lws2_32 -luuid -lwbemuuid
+    PATH="/mingw64/bin:$PATH" g++ -Wall -Wextra -Wno-unknown-pragmas -Wno-missing-field-initializers -Wno-dangling-else -fpermissive -std=c++11 "-I${srcdir}/build/include" "-I${srcdir}/build/src/VBox/Runtime/include" -DVBOX_COM_NO_ATL -DIN_RING3 "${@}"
+}
+
+link() {
+    cxx "${@}" "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o" "string.o" "ministring.o" "${srcdir}/VirtualBox-Win.dir/file_VBoxRT.dll" -lole32 -loleaut32 -lsetupapi -liphlpapi -lnewdev -lws2_32 -luuid -lwbemuuid
 }
 
 build() {
     cd "build"
-    cxx "../comsupp.cpp"                                         -municode -D_UNICODE -c -o "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp" -municode -D_UNICODE -c -o "VBoxNetCfg.o"
-    cxx "src/VBox/HostDrivers/win/cfg/VBoxDrvCfg.cpp"            -municode -D_UNICODE -c -o "VBoxDrvCfg.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"   -o "NetAdp6Install.exe"   "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o" -DNDIS60=1
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp" -o "NetAdp6Uninstall.exe" "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o" -DNDIS60=1
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"   -o "NetAdpInstall.exe"    "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp" -o "NetAdpUninstall.exe"  "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltInstall.cpp"   -o "NetFltInstall.exe"    "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltUninstall.cpp" -o "NetFltUninstall.exe"  "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfInstall.cpp"   -o "NetLwfInstall.exe"    "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfUninstall.cpp" -o "NetLwfUninstall.exe"  "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxUSB/win/install/USBInstall.cpp"           -o "USBInstall.exe"       "VBoxDrvCfg.o" "../VirtualBox-Win.dir/file_VBoxRT.dll"
-    cxx "src/VBox/HostDrivers/VBoxUSB/win/install/USBUninstall.cpp"         -o "USBUninstall.exe"     "VBoxDrvCfg.o" "../VirtualBox-Win.dir/file_VBoxRT.dll"
-    cxx "src/VBox/HostDrivers/Support/testcase/SUPInstall.cpp"              -o "SUPInstall.exe"                      "../VirtualBox-Win.dir/file_VBoxRT.dll"
-    cxx "src/VBox/HostDrivers/Support/testcase/SUPUninstall.cpp"            -o "SUPUninstall.exe"                    "../VirtualBox-Win.dir/file_VBoxRT.dll"
+    cxx -c -municode -D_UNICODE -o "comsupp.o" "../comsupp.cpp"
+    cxx -c -municode -D_UNICODE -o "string.o" "src/VBox/Main/glue/string.cpp"
+    cxx -c -municode -D_UNICODE -o "ministring.o" "src/VBox/Runtime/common/string/ministring.cpp"
+    cxx -c -municode -D_UNICODE -o "VBoxNetCfg.o" "src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp"
+    cxx -c -municode -D_UNICODE -o "VBoxDrvCfg.o" "src/VBox/HostDrivers/win/cfg/VBoxDrvCfg.cpp"
+    link -o "NetAdp6Install.exe"   "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"   -DNDIS60=1
+    link -o "NetAdp6Uninstall.exe" "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp" -DNDIS60=1
+    link -o "NetAdpInstall.exe"    "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"
+    link -o "NetAdpUninstall.exe"  "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp"
+    link -o "NetFltInstall.exe"    "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltInstall.cpp"
+    link -o "NetFltUninstall.exe"  "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltUninstall.cpp"
+    link -o "NetLwfInstall.exe"    "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfInstall.cpp"
+    link -o "NetLwfUninstall.exe"  "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfUninstall.cpp"
+    link -o "USBInstall.exe"       "src/VBox/HostDrivers/VBoxUSB/win/install/USBInstall.cpp"
+    link -o "USBUninstall.exe"     "src/VBox/HostDrivers/VBoxUSB/win/install/USBUninstall.cpp"
+    link -o "SUPInstall.exe"       "src/VBox/HostDrivers/Support/testcase/SUPInstall.cpp"
+    link -o "SUPUninstall.exe"     "src/VBox/HostDrivers/Support/testcase/SUPUninstall.cpp"
 }
 
 package() {
@@ -125,12 +130,17 @@ package() {
     mkdir -p "${d}"
     mv "${a}"/VBoxUSBMon*.{cat,inf,sys} "${d}"
     cp "${d}/VBoxUSBMon_W10.cat" "${d}/VBoxUSBMon.cat"
-    cp "build"/USB{In,Unin}stall.exe "${d}"
 
     local d="${a}/drivers/USB/device"
     mkdir -p "${d}"
     mv "${a}"/VBoxUSB*.{cat,inf,sys} "${d}"
     cp "${d}/VBoxUSB_W10.cat" "${d}/VBoxUSB.cat"
+
+    local d="${a}/drivers/USB/install"
+    mkdir -p "${d}"
+    cp "build"/USB{In,Unin}stall.exe "${d}"
+    ln "${a}/drivers/USB/device"/* "${d}"
+    ln "${a}/drivers/USB/filter"/* "${d}"
 
     local d="${a}/drivers/vboxsup"
     mkdir -p "${d}"
@@ -178,9 +188,18 @@ package() {
     mkdir -p "${d}"
     mv "${a}"/q{minimal,offscreen,windows}.dll "${d}"
 
+    local d="${a}/sqldrivers"
+    mkdir -p "${d}"
+    mv "${a}"/qsql*.dll "${d}"
+
+    local d="${a}/styles"
+    mkdir -p "${d}"
+    mv "${a}"/q*style.dll "${d}"
+
     local d="${a}/UnattendedTemplates"
     mkdir -p "${d}"
-    mv "${a}"/*_*.{sh,cfg,sif,xml,cmd} "${d}"
+    mv "${a}"/*_*.{sh,cfg,rsp,sif,xml,cmd} "${d}"
+    mv "${a}/os2_util.exe" "${d}"
 
     local d="${a}/x86"
     mkdir -p "${d}"
@@ -200,10 +219,13 @@ package() {
     mv "${a}/VBoxSDS.dll" "${a}/VBoxSDS.exe"
     mv "${a}/VBoxSVC.dll" "${a}/VBoxSVC.exe"
     mv "${a}/vbox_img.exe" "${a}/vbox-img.exe"
-    rm "${a}"/msvc[pr]100* "${a}/x86"/msvc[pr]100-x86.dll
     rm "${a}"/*.py
 
     _lc "${a}"/*
+    ln "${a}/vboxrt.dll" "${a}/drivers/network/netadp6/vboxrt.dll"
+    ln "${a}/vboxrt.dll" "${a}/drivers/network/netadp/vboxrt.dll"
+    ln "${a}/vboxrt.dll" "${a}/drivers/network/netflt/vboxrt.dll"
+    ln "${a}/vboxrt.dll" "${a}/drivers/network/netlwf/vboxrt.dll"
+    ln "${a}/vboxrt.dll" "${a}/drivers/USB/install/vboxrt.dll"
     ln "${a}/vboxrt.dll" "${a}/drivers/vboxsup/vboxrt.dll"
-    ln "${a}/vboxrt.dll" "${a}/drivers/USB/filter/vboxrt.dll"
 }

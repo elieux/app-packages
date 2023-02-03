@@ -1,0 +1,22 @@
+__try/__except is a MSVC-only feature.
+
+--- a/src/VBox/HostDrivers/win/cfg/VBoxDrvCfg.cpp	2023-02-03 13:47:08.211114200 +0100
++++ b/src/VBox/HostDrivers/win/cfg/VBoxDrvCfg.cpp	2023-02-03 13:47:22.882061700 +0100
+@@ -520,7 +520,7 @@
+              *
+              * BUGBUG
+              */
+-#if 0
++#if 1
+             if (!SetupUninstallOEMInfW(pwszFileName, pContext->fFlags, /* could be SUOI_FORCEDELETE */ NULL /* Reserved */))
+ #else /* Just in case the API doesn't catch it itself (seems it does on w10/19044).  */
+             BOOL  fRc = TRUE;
+@@ -650,7 +650,7 @@
+          *    SETUPAPI!SpSignVerifyInfFile+0x246:
+          *    00007ffa`83e3ee3e 663907          cmp     word ptr [rdi],ax ds:00000000`00000000=????
+           */
+-#if 0
++#if 1
+         if (SetupDiBuildDriverInfoList(hDevInfo, NULL /*DeviceInfoData*/, SPDIT_CLASSDRIVER))
+ #else   /* Just in case the API doesn't catch it itself (seems it does on w10/19044).  */
+         BOOL fRc = FALSE;

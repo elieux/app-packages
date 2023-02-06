@@ -35,7 +35,7 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=0.13.3
+pkgver=0.13.4
 pkgrel=1
 pkgdesc="A KeePass plugin that acts as a SSH authentication agent"
 url="https://lechnology.com/software/keeagent/"
@@ -44,7 +44,7 @@ license=('unknown')
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeeAgent.zip::https@subdir://github.com/dlech/KeeAgent/releases/download/v${pkgver}/KeeAgent_v${pkgver}.zip")
-sha512sums=('c771fe58d0e65626ca97a72132fa1020ab0b63d276dcbb884934824eec11ebacd3bf890f0b4c1430a2dcb751e52d27805e98b0e89ad4e896fcc0c867dfcc179c')
+sha512sums=('fab30917f4c9702f4e8314516bb832c9dad44d33ebf37622a9981402559967d2089aa34580ee925cc7e907797a1b16774b1f03ff88617dffb70e1e9c792d3fd2')
 
 package() {
     depends=("app-keepass")

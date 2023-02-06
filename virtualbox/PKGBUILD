@@ -42,12 +42,14 @@ _lc() {
 }
 
 prepare() {
-#    7z x -y -bd "VirtualBox-Win.exe" -o"VirtualBox-Win.dir" > /dev/null
-#
-#    mkdir -p "build"
-#    cp -R "VirtualBox-${pkgver%.*}/include" "build"
-#    mkdir -p "build/src/VBox"
-#    cp -R "VirtualBox-${pkgver%.*}/src/VBox/HostDrivers" "build/src/VBox"
+    7z x -y -bd "VirtualBox-Win.exe" -o"VirtualBox-Win.dir" > /dev/null
+
+    mkdir -p "build"
+    cp -R "VirtualBox-${pkgver%.*}/include" "build"
+    mkdir -p "build/src/VBox"
+    cp -R "VirtualBox-${pkgver%.*}/src/VBox/HostDrivers" "build/src/VBox"
+    mkdir -p "build/src/VBox/Main"
+    cp -R "VirtualBox-${pkgver%.*}/src/VBox/Main/glue" "build/src/VBox/Main"
 
     cd "build"
     patch -p1 -i "${srcdir}/0004-remove-__function__.patch"
@@ -55,26 +57,31 @@ prepare() {
 }
 
 cxx() {
-    PATH="/mingw64/bin:$PATH" g++ -Wall -Wextra -Wno-unknown-pragmas -Wno-missing-field-initializers -Wno-dangling-else -fpermissive -std=c++11 "-I${srcdir}/build/include" -DVBOX_COM_NO_ATL -DIN_RING3 "${@}" -lole32 -loleaut32 -lsetupapi -liphlpapi -lnewdev -lws2_32 -luuid -lwbemuuid
+    PATH="/mingw64/bin:$PATH" g++ -Wall -Wextra -Wno-unknown-pragmas -Wno-missing-field-initializers -Wno-dangling-else -fpermissive -std=c++11 -municode -D_UNICODE "-I${srcdir}/build/include" -DVBOX_COM_NO_ATL -DIN_RING3 "${@}"
+}
+
+link() {
+    cxx "${@}" "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o" "string.o" "${srcdir}/VirtualBox-Win.dir/file_VBoxRT.dll" -lole32 -loleaut32 -lsetupapi -liphlpapi -lnewdev -lws2_32 -luuid -lwbemuuid
 }
 
 build() {
     cd "build"
-    cxx "../comsupp.cpp"                                         -municode -D_UNICODE -c -o "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp" -municode -D_UNICODE -c -o "VBoxNetCfg.o"
-    cxx "src/VBox/HostDrivers/win/cfg/VBoxDrvCfg.cpp"            -municode -D_UNICODE -c -o "VBoxDrvCfg.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"   -o "NetAdp6Install.exe"   "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o" -DNDIS60=1 "../VirtualBox-Win.dir/file_VBoxRT.dll"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp" -o "NetAdp6Uninstall.exe" "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o" -DNDIS60=1
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"   -o "NetAdpInstall.exe"    "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp" -o "NetAdpUninstall.exe"  "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltInstall.cpp"   -o "NetFltInstall.exe"    "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltUninstall.cpp" -o "NetFltUninstall.exe"  "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfInstall.cpp"   -o "NetLwfInstall.exe"    "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfUninstall.cpp" -o "NetLwfUninstall.exe"  "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o"
-    cxx "src/VBox/HostDrivers/VBoxUSB/win/install/USBInstall.cpp"           -o "USBInstall.exe"       "VBoxDrvCfg.o" "../VirtualBox-Win.dir/file_VBoxRT.dll"
-    cxx "src/VBox/HostDrivers/VBoxUSB/win/install/USBUninstall.cpp"         -o "USBUninstall.exe"     "VBoxDrvCfg.o" "../VirtualBox-Win.dir/file_VBoxRT.dll"
-    cxx "src/VBox/HostDrivers/Support/testcase/SUPInstall.cpp"              -o "SUPInstall.exe"                      "../VirtualBox-Win.dir/file_VBoxRT.dll"
-    cxx "src/VBox/HostDrivers/Support/testcase/SUPUninstall.cpp"            -o "SUPUninstall.exe"                    "../VirtualBox-Win.dir/file_VBoxRT.dll"
+    cxx -c -o "comsupp.o" "../comsupp.cpp"
+    cxx -c -o "string.o" "src/VBox/Main/glue/string.cpp"
+    cxx -c -o "VBoxNetCfg.o" "src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp"
+    cxx -c -o "VBoxDrvCfg.o" "src/VBox/HostDrivers/win/cfg/VBoxDrvCfg.cpp"
+    link -o "NetAdp6Install.exe"   "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"   -DNDIS60=1
+    link -o "NetAdp6Uninstall.exe" "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp" -DNDIS60=1
+    link -o "NetAdpInstall.exe"    "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"
+    link -o "NetAdpUninstall.exe"  "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp"
+    link -o "NetFltInstall.exe"    "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltInstall.cpp"
+    link -o "NetFltUninstall.exe"  "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltUninstall.cpp"
+    link -o "NetLwfInstall.exe"    "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfInstall.cpp"
+    link -o "NetLwfUninstall.exe"  "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfUninstall.cpp"
+    link -o "USBInstall.exe"       "src/VBox/HostDrivers/VBoxUSB/win/install/USBInstall.cpp"
+    link -o "USBUninstall.exe"     "src/VBox/HostDrivers/VBoxUSB/win/install/USBUninstall.cpp"
+    link -o "SUPInstall.exe"       "src/VBox/HostDrivers/Support/testcase/SUPInstall.cpp"
+    link -o "SUPUninstall.exe"     "src/VBox/HostDrivers/Support/testcase/SUPUninstall.cpp"
 }
 
 package() {

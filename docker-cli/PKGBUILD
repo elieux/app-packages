@@ -1,13 +1,13 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=docker-cli
-_realver=96739
+_realver=99724
 _choconame=docker-cli
 _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=20.10.22
+pkgver=20.10.23
 pkgrel=1
 pkgdesc="Pack, ship and run any application as a lightweight container"
 url="https://docs.docker.com/engine/reference/commandline/cli/"
@@ -19,7 +19,7 @@ replaces=("app-x86_64-docker")
 conflicts=("app-x86_64-docker")
 options=(!strip)
 source=("DockerDesktopInstaller.exe::https://desktop.docker.com/win/main/amd64/${_realver}/Docker%20Desktop%20Installer.exe")
-sha512sums=('cfd95346fc6e4cfaf00955439ee40e747c3c439e451fc323f0cae0354aa362bae6d290ed2c0a8725654ca1389d62270a64a8e1e8dd5f324d9db3644346486d47')
+sha512sums=('6b66ff37a8506eea2a43fec9d34e3d54025eacf92cfc963ae7d8a04ba97259be2a23cf793bfa9ffc95f1b40ae990a3e21a272d15f3b7e10961bb372c86e6042f')
 
 prepare() {
     7z x -y -bd "DockerDesktopInstaller.exe" -o"DockerDesktopInstaller.dir" > /dev/null
@@ -33,4 +33,5 @@ package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
     cp "DockerDesktopInstaller.dir/resources/bin/com.docker.cli.exe" "${a}/docker.exe"
+    cp -R "DockerDesktopInstaller.dir/resources/cli-plugins" "${a}/"
 }

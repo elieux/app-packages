@@ -34,7 +34,7 @@ _choconame=unison
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.53.0
+pkgver=2.53.2
 pkgrel=1
 pkgdesc="Two-way file synchronizer"
 url="https://www.cis.upenn.edu/~bcpierce/unison/"
@@ -43,14 +43,14 @@ license=('GPL')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("unison+ocaml-4.08.1+x86_64.windows.zip::https@subdir://github.com/bcpierce00/unison/releases/download/v${pkgver}/unison-v${pkgver}+ocaml-4.08.1+x86_64.windows.zip")
-sha512sums=('7727bd293a5d010070343a972fa783556086a289250ffa5e8ee734a6d600340e661ec6c23f26c0810838f4d795a4508b55e7c94d0452c371ab62639af7a7e952')
+source=("unison+ocaml-4.14.0+mingw64c+x86_64.windows.zip::https@subdir://github.com/bcpierce00/unison/releases/download/v${pkgver}/unison-v${pkgver}%2Bocaml-4.14.0%2Bmingw64c%2Bx86_64.windows.zip")
+sha512sums=('cd46ad06905530a4389ac9f8288b65df94a594a2ec443eeed7518c36b797f1a6762c443dedc720fd6957c493dd5be94c101d00bdaa36e4af338855930d445a82')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
 
-    cp -R "unison+ocaml-4.08.1+x86_64.windows"/* "${a}"
+    cp -R "unison+ocaml-4.14.0+mingw64c+x86_64.windows"/* "${a}"
     mv "${a}/bin/unison"* "${a}"
     rm -R "${a}"/{bin,etc,lib,share}
 }

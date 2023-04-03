@@ -36,7 +36,7 @@ _choconame=nirlauncher
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=2
-pkgver=1.23.69
+pkgver=1.23.71
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer"
 url="https://www.nirsoft.net/"
@@ -47,7 +47,7 @@ makedepends=("unzip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("nirsoft_package_enc.zip::https://download.nirsoft.net/nirsoft_package_enc_${pkgver}.zip")
-sha512sums=('30563f014870e0a1a237ea6d85fa96e0597b3c812427b9f722926bfbf87403e7c03bb5626dd58f96573766f7ce6ae4177176e1ece9376404142693106ec287b0')
+sha512sums=('d5333493b5d8e6fe9797fd5f71c68a813113af3df93e8f26c783642e8495623fdcb42e1bef4ec0f52e606c28db938b7bcd934fa262a16d9aa9b2137f485c27aa')
 noextract=("nirsoft_package_enc.zip")
 
 _lc() {

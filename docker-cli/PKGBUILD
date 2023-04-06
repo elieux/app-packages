@@ -1,37 +1,26 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=docker-cli
-_realver=101757
 _choconame=docker-cli
 _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=20.10.23
+pkgver=23.0.3
 pkgrel=1
 pkgdesc="Pack, ship and run any application as a lightweight container"
 url="https://docs.docker.com/engine/reference/commandline/cli/"
 arch=('any')
 license=('Apache')
-makedepends=("p7zip")
 provides=("${pkgbase}")
 replaces=("app-x86_64-docker")
 conflicts=("app-x86_64-docker")
 options=(!strip)
-source=("DockerDesktopInstaller.exe::https://desktop.docker.com/win/main/amd64/${_realver}/Docker%20Desktop%20Installer.exe")
-sha512sums=('614acb2934c9ca682b442a903868a3799e530fff16548a0cea97a2b045219a0d9d3164b7652273966f105cd460b8e3f717abba555e0d579a0a2004c8d315f586')
-
-prepare() {
-    7z x -y -bd "DockerDesktopInstaller.exe" -o"DockerDesktopInstaller.dir" > /dev/null
-}
-
-pkgver() {
-    powershell -command '(Get-Item "DockerDesktopInstaller.dir/resources/bin/com.docker.cli.exe").VersionInfo.ProductVersion'
-}
+source=("docker.zip::https://download.docker.com/win/static/stable/x86_64/docker-${pkgver}.zip")
+sha512sums=('4146f176250154306b8d886b6e3e14ec000a6347b8989b26d242f27739de33634803b7d006741e4e0cbe0966697321f0dc936d1156bae95fec1e4d65dd2f2bb0')
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "DockerDesktopInstaller.dir/resources/bin/com.docker.cli.exe" "${a}/docker.exe"
-    cp -R "DockerDesktopInstaller.dir/resources/cli-plugins" "${a}/"
+    cp "docker/docker.exe" "${a}/"
 }

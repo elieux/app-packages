@@ -1,0 +1,25 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=docker-plugin-scan
+_dirname=docker
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.25.0
+pkgrel=1
+pkgdesc="Vulnerability detection on your Dockerfiles and Docker images using Snyk"
+url="https://docs.docker.com/engine/scan/"
+arch=('any')
+license=('Apache')
+provides=("${pkgbase}")
+options=(!strip)
+source=("docker-scan_windows_amd64.exe::https://github.com/docker/scan-cli-plugin/releases/download/v${pkgver}/docker-scan_windows_amd64.exe")
+sha512sums=('ea976708cc305c1aa0b8e547779737ed4c54a241247aeb888662b588639492fcb9741d275db21dfc7b7fdbef515d56d9d5153b1f23c0f89d1ccf8ca8d4fbf54d')
+
+package() {
+    depends=("app-docker-cli")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/cli-plugins"
+    cp "docker-scan_windows_amd64.exe" "${a}/cli-plugins/docker-scan.exe"
+}

@@ -1,0 +1,25 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=docker-plugin-buildx
+_dirname=docker
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.10.4
+pkgrel=1
+pkgdesc="Extended build capabilities with BuildKit"
+url="https://docs.docker.com/build/"
+arch=('any')
+license=('Apache')
+provides=("${pkgbase}")
+options=(!strip)
+source=("buildx.windows-amd64.exe::https://github.com/docker/buildx/releases/download/v${pkgver}/buildx-v${pkgver}.windows-amd64.exe")
+sha512sums=('8e54b86a56f2e40b0aff7020ca5171469598f2ab0e23f601c7d95f3cd44ac17eece272cdaaef751eab85fbfe253f94910842f1c84d0a991b60a28869f549153d')
+
+package() {
+    depends=("app-docker-cli")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/cli-plugins"
+    cp "buildx.windows-amd64.exe" "${a}/cli-plugins/docker-buildx.exe"
+}

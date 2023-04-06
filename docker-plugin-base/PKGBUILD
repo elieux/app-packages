@@ -1,0 +1,55 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=docker-plugin-base
+_dirname=docker
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="Detect base images"
+url="https://github.com/docker/base-cli-plugin"
+arch=('any')
+license=('Apache')
+provides=("${pkgbase}")
+options=(!strip)
+source=("base-cli-plugin_windows_amd64.zip::https@subdir://github.com/docker/base-cli-plugin/releases/download/v${pkgver}/base-cli-plugin_${pkgver}_windows_amd64.zip")
+sha512sums=('30104cbbd3ce77afbdbf7a02a3a64ea3948deb3913a6da029e00d0b4a597e78b3c1b7f394e124fdcc33e369ed1975e893b1742cee6a5fc22b393974f796140f0')
+
+package() {
+    depends=("app-docker-cli")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/cli-plugins" "${a}/cli-plugins/base"
+    cp "base-cli-plugin_windows_amd64"/* "${a}/cli-plugins/base/"
+    mv "${a}/cli-plugins/base/docker-base.exe" "${a}/cli-plugins/"
+}

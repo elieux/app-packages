@@ -1,0 +1,55 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=docker-plugin-index
+_dirname=docker
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.0.35
+pkgrel=1
+pkgdesc="Create image SBOMs and analyze packages for known vulnerabilities using the Atomist data plane"
+url="https://github.com/docker/index-cli-plugin"
+arch=('any')
+license=('Apache')
+provides=("${pkgbase}")
+options=(!strip)
+source=("docker-index_windows_amd64.zip::https@subdir://github.com/docker/index-cli-plugin/releases/download/v${pkgver}/docker-index_${pkgver}_windows_amd64.zip")
+sha512sums=('c0bb835e97aa55b94458e3657343c71acff78d23211ff444e96045a1940ca1b48e8d2379d09ad20707bcee05558cebb89e7382104e357dd79a4b92a66eb7d0f8')
+
+package() {
+    depends=("app-docker-cli")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/cli-plugins" "${a}/cli-plugins/index"
+    cp "docker-index_windows_amd64"/* "${a}/cli-plugins/index/"
+    mv "${a}/cli-plugins/index/docker-index.exe" "${a}/cli-plugins/"
+}

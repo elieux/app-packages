@@ -34,7 +34,7 @@ _choconame=vscode
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.77.0
+pkgver=1.77.1
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 arch=('any')
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("VSCode-win32-x64.zip::https@subdir://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive")
-sha512sums=('175a28a148d8caa2dd96a85c830d7ff9a5615d832b48bb1b0b36cd7ae7af98f9365c082e00e51c9f76d3f3e22d48f5bcbbf5d5ce470f3f9aec5fbc06a167026c')
+sha512sums=('a13baef76220af452a16851fb7a872e6b21e6ac519a1aef40a969b532ee274cdc92e86e2fe9c77c2e55ea6a54e5774bce8304198764a2a2e5c0f9e7a5f25844b')
 
 _lc() {
     local d f n
@@ -83,6 +83,7 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "VSCode-win32-x64"/* "${a}"
+    rm "${a}/debug.log"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

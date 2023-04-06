@@ -1,0 +1,26 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=docker-plugin-compose
+_choconame=docker-compose
+_dirname=docker
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2.17.2
+pkgrel=1
+pkgdesc="Define and run multi-container applications with Docker"
+url="https://docs.docker.com/compose/"
+arch=('any')
+license=('Apache')
+provides=("${pkgbase}")
+options=(!strip)
+source=("docker-compose-windows-x86_64.exe::https://github.com/docker/compose/releases/download/v${pkgver}/docker-compose-windows-x86_64.exe")
+sha512sums=('262567c9bdd30c9043b29868b7ad80dbc00ecb2b3047986b8ec7f0e3d49ced1cfd110686af58ce90461e5fd86918c99828108014a5d2fb0a4ac72fbbf8a0e28c')
+
+package() {
+    depends=("app-docker-cli")
+
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}/cli-plugins"
+    cp "docker-compose-windows-x86_64.exe" "${a}/cli-plugins/docker-compose.exe"
+}

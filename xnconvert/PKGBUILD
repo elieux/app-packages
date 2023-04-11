@@ -5,7 +5,7 @@ _choconame=xnconvert
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.96.0
+pkgver=1.98.0
 pkgrel=1
 pkgdesc="A bulk image converter"
 url="https://www.xnview.com/en/xnconvert/"
@@ -14,7 +14,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("XnConvert-win-x64.zip::https://download.xnview.com/XnConvert-win-x64.zip")
-sha512sums=('b34ccf1f64e3a857a567ea85ee7f2a5f6fd0a2a74969ee79aca8300970c88b013c058e4434dba1198fc7dcc2fc8551b824cdc600dda449593a0f4074f5a7e380')
+sha512sums=('bdee8abe87fe0fc10c47e69f2011657a1df56d7b859065830e5764ccbc3f2f1724ca9c3a58926920b280b2cd19ff4e285af7a757bba9f70a7d5c933e5cbbe86a')
 
 _lc() {
     local d f n

@@ -6,7 +6,7 @@ _realver=1109224
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=112.0.5615.50
+pkgver=112.0.5615.121
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="https://www.chromium.org/Home"
@@ -16,7 +16,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("chrome.sync.7z::https://github.com/Hibbiki/chromium-win64/releases/download/v${pkgver}-r${_realver}/chrome.sync.7z")
-sha512sums=('c2f08816ed852be03ab0177f32ad6e113d19901b8ebbcc15677923eba0ed97d85d11971669fe66d056a7020fad8937f97845810ea04199f7d186009bc3147cc4')
+sha512sums=('eb613e56ce007e76d91aa95069a3ec90150f95147800c572e732910dcbf4ec907cb1cd378ac02e314f6dc32027d226a70b20ca0fa2db87027545ddf7a4341717')
 
 _lc() {
     local d f n

@@ -5,7 +5,7 @@ _choconame=vagrant
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.3.4
+pkgver=2.3.6
 pkgrel=1
 pkgdesc="Building and distributing development environments"
 url="https://www.vagrantup.com/"
@@ -15,7 +15,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("vagrant_windows_amd64.msi::https://releases.hashicorp.com/vagrant/${pkgver}/vagrant_${pkgver}_windows_amd64.msi")
-sha512sums=('351c9bd2c2e3476edadf78b8f5a9921fd382a305e3c7484cc66450845fcea3a0a0be85a1cdffccb8a33796dd5f9d7066643e051b4f3e3f505efa4456104829c2')
+sha512sums=('a45f00efaad2a98f33ca28c4a360ee9cde01d1981d774c2bc5a0056dd5bb59d364ae37d3d7d90f51162536757d8bda47ebbb089c1826166d5f6caf1d67e3a657')
 
 prepare() {
     rm -fR "vagrant_windows_amd64"
@@ -29,5 +29,5 @@ package() {
     rm -f "${a}/embedded/bin/vcruntime140.dll"
 
     # remove some of the largest MSYS2 left-overs
-    rm -R "${a}/embedded"/{var/*,lib,include,usr/{lib/*.a,include},mingw64/{x86_64-w64-mingw32,lib/gcc,lib/*.a,include}}
+    rm -R "${a}/embedded"/{usr/{lib/*.a,include},mingw64/{x86_64-w64-mingw32,lib/gcc,lib/*.a,include}}
 }

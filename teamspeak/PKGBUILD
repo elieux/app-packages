@@ -5,7 +5,7 @@ _choconame=teamspeak
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.5.6
+pkgver=3.6.0
 pkgrel=1
 pkgdesc="Quality voice communication via the Internet"
 url="https://www.teamspeak.com/"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TeamSpeak3-Client-win64.exe::https://files.teamspeak-services.com/releases/client/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe")
-sha512sums=('fa52f3f13bfac036539e7bc68776a67e2b44d6bed655ac64bbec3baede3e2c35585e31b982316dc022ce803fdc7f96c752bc06134ae10ce17e3c2c1eaaca26b1')
+sha512sums=('2b7f909f5771f22b996b3256bba5ea399009d28b0af62b15617800fe1578dccf209793049973433c5c5f4ef661fb5281e3f53af02b1672db2256f7a955900ed6')
 
 _lc() {
     local d f n
@@ -47,7 +47,7 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "TeamSpeak3-Client-win64.dir"/* "${a}"
-    rm -R "${a}/update.exe" "${a}/Uninstall.exe.nsis" "${a}"/'$PLUGINSDIR'
+    rm -R "${a}/update.exe" "${a}"/'$PLUGINSDIR'
     local f
     for f in "${a}/ts3client_win64".*
     do

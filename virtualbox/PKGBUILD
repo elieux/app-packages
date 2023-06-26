@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=7.0.8.156879
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use"
 url="https://www.virtualbox.org/"
 arch=('any')
@@ -87,6 +87,8 @@ build() {
 }
 
 package() {
+    depends=("mingw-w64-x86_64-gcc-libs")
+
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "VirtualBox-Win.dir"/* "${a}"

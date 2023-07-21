@@ -34,7 +34,7 @@ _choconame=gsudo
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.1.0
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="A Sudo for Windows"
 url="https://github.com/gerardog/gsudo"
@@ -43,7 +43,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("gsudo.portable.zip::https@subdir://github.com/gerardog/gsudo/releases/download/v${pkgver}/gsudo.portable.zip")
-sha512sums=('692ddc65ef1a0b63f7945a8907ae671234746825eac8fce4688848397b1d10e28c89ed2ea36d20ba0f7a23619f58c58eb84f6f98ca5d7c24f8764859b1edd3ce')
+sha512sums=('4b209c089fa2de1486dae6291c037876431cc9a677ce0c6f3d8e89d2546a6e6ad581ee088823ff2c5ebe9b496dd95eefc7b6d052d9b33d05cd9fcdc061c4afa6')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

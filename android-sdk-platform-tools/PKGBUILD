@@ -5,7 +5,7 @@ _realname=android-sdk-platform-tools
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=33.0.2
+pkgver=34.0.4
 pkgrel=1
 pkgdesc="Platform-Tools for Google Android SDK (adb and fastboot)"
 url="https://developer.android.com/studio/releases/platform-tools.html"
@@ -14,7 +14,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("platform-tools-latest-windows.zip::https://dl.google.com/android/repository/platform-tools-latest-windows.zip")
-sha512sums=('5a766de247c8041e682f2fb5269080b4519ccca5dfafdaaea8e1af35e144ef09461f843875c92a199f79c42feaa9cf48d0293e0ea562d22fae0a8a72d29a39ab')
+sha512sums=('e273559a67783ddc9076a640ce4b1cca30073881a7dc9df1d958cc43ece01232912e90dddb8c21520e232f8a5fe22c698283714e8e94af71a383fbaf237895ad')
 
 _lc() {
     local d f n

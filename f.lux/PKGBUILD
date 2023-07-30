@@ -5,7 +5,7 @@ _choconame=f.lux
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.120
+pkgver=4.124
 pkgrel=1
 pkgdesc="Changes the display color temperature according to the time of the day"
 url="https://justgetflux.com/"
@@ -16,7 +16,7 @@ provides=("${pkgbase}")
 replaces=("app-i686-f-lux")
 options=(!strip)
 source=("flux-setup.exe::https://justgetflux.com/flux-setup.exe")
-sha512sums=('63ca2946efb48a281f583eab29dcf9fe177eae4c05157d314842504ae7ab5c94dcbf263fd5a6037a3cdbfda29b3475115b765b77bbb5f9955567eab4dae83d9a')
+sha512sums=('179e692a73d74cc7ff0610969987bc07056ac68f11f47b706778526d19c3aca3fb55a8f517a579719cd7a298507b2a8cb3668e14b819840f688698240fd99b40')
 
 prepare() {
     7z x -y -bd "flux-setup.exe" -o"flux-setup.dir" > /dev/null

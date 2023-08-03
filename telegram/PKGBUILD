@@ -1,11 +1,16 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # choco version format: 4.8.10.230802
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]{6})$/\1.\2.\3/'
+}
+
 _realname=telegram
 _choconame=telegram
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.8.9
+pkgver=4.8.10
 pkgrel=1
 pkgdesc="Desktop Telegram client"
 url="https://desktop.telegram.org/"
@@ -15,7 +20,7 @@ provides=("${pkgbase}")
 replaces=("app-x86_64-${_realname}")
 options=(!strip)
 source=("tportable.zip::https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/tportable.${pkgver}.zip")
-sha512sums=('a94071f6b6da5f35e12fabbf0a913ec161e682ab58a7adc7865441001be5e6c1e7f0d22f59f44612a61a18c14f1353291c57e5f26abed9f0216b4b8b8b196eba')
+sha512sums=('4eb75d8a5591c7ce1b50c05c291b1a1093271a0d1af34a524fad7d138548b06052d33b380109524a72aa952a2e8c108bc4ac756ca230978af694d05460df5600')
 
 _lc() {
     local d f n

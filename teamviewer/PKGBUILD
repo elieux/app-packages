@@ -34,7 +34,7 @@ _choconame=teamviewer
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=15.44.5
+pkgver=15.44.6
 pkgrel=1
 pkgdesc="All-in-one software for remote support and online meetings"
 url="https://www.teamviewer.com/"
@@ -43,7 +43,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("TeamViewerPortable.zip::https@subdir://download.teamviewer.com/download/TeamViewerPortable.zip")
-sha512sums=('a444bfd1ec95b32d0d3dfcd4549f5c4d9f7a15a1de7c3d19d8c36a07bf3906fa55d51732d773272ab48443e2c9010a10eb681d222f9377972197868076eda71e')
+sha512sums=('fa9395e513e2fc1a174c7e11ae71e3a3230b61a7062ab801a034882cefa03e9801e2470b07964879e38c87d648dbfa387096808f4f57559604832d9e2893a398')
 
 _lc() {
     local d f n

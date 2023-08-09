@@ -39,7 +39,7 @@ _choconame=Firefox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=116.0.1
+pkgver=116.0.2
 pkgrel=1
 pkgdesc="An interactive JavaScript shell from the SpiderMonkey distribution"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Introduction_to_the_JavaScript_shell"
@@ -48,7 +48,7 @@ license=('MPL')
 provides=("${pkgbase}")
 options=(!strip)
 source=("jsshell-win64.zip::https@subdir://ftp.mozilla.org/pub/firefox/releases/${pkgver}/jsshell/jsshell-win64.zip")
-sha512sums=('a1fa4c7ca2a6305e78b1cfee29f75de0f65cf39868e8d23552532d7052a0b22f49496862e6f7d4a1e31e58e11d7c73f17b7be218ad0dd878f7578a72f54ee4ff')
+sha512sums=('e40bf511bccd76104040d06a75e8a68600bf2309cd63ec0b3942c72e47613f8d5f8ad3063a4e59f96e6f7c078499cda2c0dd3b6a2da1baa42afde5546a786ba1')
 
 _rmmsdll() {
     local ms
@@ -57,7 +57,7 @@ _rmmsdll() {
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
         "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
-        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")

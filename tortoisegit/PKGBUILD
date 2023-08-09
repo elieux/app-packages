@@ -110,7 +110,7 @@ _rmmsdll() {
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
         "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
-        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")

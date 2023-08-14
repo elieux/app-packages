@@ -5,7 +5,7 @@ _choconame=nmm
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=0.84.8
+pkgver=0.84.9
 pkgrel=1
 pkgdesc="Game modifications manager originally from Nexus Mods"
 url="https://www.nexusmods.com/site/mods/4"
@@ -15,7 +15,7 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("NMM.exe::https://github.com/Nexus-Mods/Nexus-Mod-Manager/releases/download/${pkgver}/NMM-${pkgver}.exe")
-sha512sums=('2ac379b4b0ca6f642bf038affe963e8ef2169b47cf517b49cc80e1ebe3e58c16f6443bd0b8f97448a479bdfc4055372b82c497b44cec33ebba6df8a1eed4960d')
+sha512sums=('fd6a131d20a09a3a502154125bd7415a0b5a4a5bf6d18d0fedf565e9332e4b863d9d762a5b819c13a2d11a397929573a0e722451bcc98a4cb6e26eee0cab3175')
 
 _lc() {
     local d f n

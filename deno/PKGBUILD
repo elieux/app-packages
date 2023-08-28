@@ -5,7 +5,7 @@ _choconame=deno
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.36.2
+pkgver=1.36.3
 pkgrel=1
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 url="https://deno.land/"
@@ -14,7 +14,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("deno-x86_64-pc-windows-msvc.zip::https://github.com/denoland/deno/releases/download/v${pkgver}/deno-x86_64-pc-windows-msvc.zip")
-sha512sums=('13ccee7f86be02072b8d1c777a5c142d400ef98f476eb57cb6a5e7f036fd39f88dacfe98d70f701b11afefc1d79655e6f94518d7080eb4826dd765878a5cb884')
+sha512sums=('ba4d918fbfff0e974e92c45651e38bb7a72de71d52725ebeef7c8e309d23552cf54549ab41b915c6afa3c1054b4775ad9c6566db3ce3b4d6768e431f2ab04356')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

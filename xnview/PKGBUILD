@@ -5,7 +5,7 @@ _choconame=XnView
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.51.2
+pkgver=2.51.4
 pkgrel=1
 pkgdesc="An efficient multimedia viewer, browser and converter"
 url="https://www.xnview.com/en/xnview/"
@@ -14,7 +14,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("XnView-win-full.zip::https://download3.xnview.com/XnView-win-full.zip")
-sha512sums=('96e00a8c49d00ffacab27668673081afdc7246f88031d1d17742092e94250b05377886e4d131e8d140c28221458e503054d19de20d2f7dbb023d3820e34c62fb')
+sha512sums=('8ce350a06d333f408847ddae32a84a84fd0b70772dbce11555567cc804561d1186519cb5cbc8605797d769400bb07b947c583f0195e83524af7a563317650e67')
 
 _lc() {
     local d f n
@@ -29,6 +29,20 @@ _lc() {
             mv "${d}/${f}" "${d}/${n}"
         fi
     done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
 pkgver() {
@@ -49,5 +63,6 @@ package() {
     # the separate app-nconvert package contains newer versions
     rm -R "${a}/nconvert.exe" "${a}"/{Formats,license,Plugins,ReadMe,Usage,WhatsNew}.txt
 
+    _rmmsdll "${a}"
     _lc "${a}"/*
 }

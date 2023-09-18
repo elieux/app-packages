@@ -5,7 +5,7 @@ _choconame=franz
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=5.9.2
+pkgver=5.10.0
 pkgrel=1
 pkgdesc="Franz is a free messaging app and combines chat & messaging services into one application"
 url="https://meetfranz.com/"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("franz-setup.exe::https://github.com/meetfranz/franz/releases/download/v${pkgver}/franz-setup-${pkgver}.exe")
-sha512sums=('08c9744353ea424c71f25fdbcebb164e85472d4d7ddeaab3a664ae6be604e5b91e22d4a666db71f22b94cccac47423f7625f3795751b2689c93eed6cfabeeac1')
+sha512sums=('cb77cb0f64f8be2e8caad2c34399090cd13b392b9d9acb3359d3b38b4840ecfc74ff29b2309422825c9d80ecc8e265062901b67dfbdd4f4be7082f45c74cfe74')
 
 _lc() {
     local d f n

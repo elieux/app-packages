@@ -32,17 +32,18 @@ download_https@subdir() {
 _realname=pspad
 _choconame=pspad
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=5.0.6.589
+pkgver=5.0.7
 pkgrel=1
 pkgdesc="Freeware programmer's editor"
 arch=('any')
 url="https://www.pspad.com/en/"
 license=('custom')
+replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("pspaden.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1\2\3/')en.zip"
+source=("pspaden_x64.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1\2\3/')en_x64.zip"
         "en_dic.cab::https://www.pspad.com/files/dic/en_dic.cab"
         "bp_dic.cab::https://www.pspad.com/files/dic/bp_dic.cab"
         "bg_dic.cab::https://www.pspad.com/files/dic/bg_dic.cab"
@@ -63,7 +64,7 @@ source=("pspaden.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pk
         "sv_dic.cab::https://www.pspad.com/files/dic/sv_dic.cab"
         "es_dic.cab::https://www.pspad.com/files/dic/es_dic.cab"
         "tr_dic.cab::https://www.pspad.com/files/dic/tr_dic.cab")
-sha512sums=('305a73bc4c73d13fcd313f218b40fc619c2722c92466837f13c94387ef56e58f93fe38e371877bd9e84d1f7565f042c39756d4dbb6c58f5c86e694ba1bf1f85e'
+sha512sums=('db129bbbb0a3ded7b6a83c44de30d0279e88b1c72bb1748cf8df63560e7d65ad72bbe057d4be8832fef1c6d1bbae64ad526bf7fc6ab99eaa6700d8673306e660'
             '96d0392307db5d107896fdbbb412769a4721da6c54b695019ab52055c9ba5ce2b5b74312e2f721d162df18053c6ff84ffa3136c972ad22e4f6f62aeb38af3deb'
             '6bb8e11f5393a6134940bd93a20068b6398dbc76f404a75ff6dd3f22c4b75639d584a758a21d5264242394c215a71b1b940bcacfe3ac71f759ef5bc06c4bac55'
             'deeeec196bf229973170d85b12af13964e09cf072a21bd486919a158fb2d708c1cd9529c8226a704f1263fb0b22d66080511577a07443cbd1d015182bb7ab53c'
@@ -71,7 +72,7 @@ sha512sums=('305a73bc4c73d13fcd313f218b40fc619c2722c92466837f13c94387ef56e58f93f
             '56019cfd1c0c8e494702177d6ae55c723c2b98d7aaab731555644efc4bd1d91ad0a0f717e41326940dcba8b550374c78baf895703973fb0bfbc67224cc0c4a34'
             '47b8ed29756698d1bd57eaa154da56455cc3fc6e882e82531d23ed5e5308866adde84fb6ba8d301d265c1bd7544414f46772a733348c8acd532fec6619f3bab4'
             '922d217b26641fe2177ef8d0c3e750314865379d4fdb8821249f36303ccbad9aa38ef49885fa2fb16dffc5a40a7cbd486d6f38d9f813611559132bc4f80dc232'
-            '3318bf0804b5e3aea6565b0fa9729b4e69961da291fe50ad6d75e63f5ab6f7406a9ede31528acf66f07fdabfed546ea3e52af2dcff90397c883837ed51d3967b'
+            '840957805843bd1228a3945563b6e1f2b0ba02ead71e06d8278494a1dc0728ce6dfe828fe9df91ecefccb05a936454648aaba9c171949e98c9c6bddaa2b713cb'
             'a163e1a881ebe67bcc8c493858f08b9cdde2044da8500d749112f6b8cc0e9af434abcc5ac4a972702889b5cc455b8acd4c184664022d81470900377111979f3c'
             '7377e1b57a59f49b029ab2b664229452e13cf3a069525c1f37c5f5a16d9cada5d99c6d9e55949a37875d849825bb4fc794cb6a85abe3554e236e854d4a150eb6'
             'fe03debd14e109f3ae7089dc47d1dee5e76c47736cda8520cf8755987a8e7eed8fd23f45ed7cfb3f4fe098b1bb0fe2e8569d78397c332612260c275ff84f8d14'
@@ -103,7 +104,8 @@ _lc() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "pspaden"/* "${a}"
+    cp -R "pspaden_x64"/* "${a}"
     cp *.dic "${a}/Spell"
+    rm -R "${a}/Updater"
     _lc "${a}"/*
 }

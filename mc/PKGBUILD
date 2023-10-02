@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=mc
-_realver=227
+_realver=228
 _choconame=mc
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.8.28.227
+pkgver=4.8.29.228
 pkgrel=1
 pkgdesc="GNU terminal two-pane file manager"
 url="https://sourceforge.net/projects/mcwin32/"
@@ -16,7 +16,7 @@ provides=("${pkgbase}")
 makedepends=("app-innounp")
 options=(!strip)
 source=("mcwin32-build-setup.exe::https://downloads.sourceforge.net/mcwin32/mcwin32-build${_realver}-setup.exe")
-sha512sums=('34f67d910ca2b24229fedf2451deb670a7a56adb9bf10729ee14f2df9449699953a525dcbb976c6fd0b88e150269edc393e4c505d4cd66605ffdfe9b0c47f7ee')
+sha512sums=('72b5ac92bb7306c9b7995377e3607b96a9223203376b574a2404580a499602bbc74fe85da5fee9961db178358cde1f87a2a5a593263455e24128bdc81479c462')
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "mcwin32-build-setup.exe" -d"mcwin32-build-setup.dir"

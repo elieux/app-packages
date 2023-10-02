@@ -40,7 +40,7 @@ _dirname=cpuid
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.06
+pkgver=2.08
 pkgrel=1
 pkgdesc="Gathers information on some of the main devices of your system (CPUID)"
 url="https://www.cpuid.com/softwares/cpu-z.html"
@@ -50,7 +50,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("cpu-z-en.zip::http@subdir://download.cpuid.com/cpu-z/cpu-z_${pkgver}-en.zip")
-sha512sums=('5ea45c55382eede48a6b558c6e97da6ddcc89cce55570ee13d6abbd90c1ae11730a09ea0c83504854fb465f6d8e6a84cc61b14bc3a3c7aa706c8fc42bac13b89')
+sha512sums=('8fe7b415f2f7d485509cce55d58188037cd18cc41b8ce85230a2cbcd31f23e8913f41a6afa7ad8b99585b05aa1c9679e794a838c7eb35fb84071b40ca8c85786')
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"

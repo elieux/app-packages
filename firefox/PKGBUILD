@@ -11,7 +11,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=119.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone, easy to customize web browser"
 url="https://www.mozilla.org/firefox/"
 arch=('any')
@@ -267,7 +267,7 @@ package() {
 
     # remove system DLLs
     _rmmsdll "${a}"
-    sed -r -e '/(VCRUNTIME|MSVCP)140.dll/d' -e '/api-ms-win-[0-9a-z-]+.dll/d' -i "${a}/dependentlibs.list"
+    sed -r -e '/(vcruntime|msvcp)140(_1)?[.]dll/d' -i "${a}/dependentlibs.list"
 
     mkdir "${a}/browser/extensions"
     local f

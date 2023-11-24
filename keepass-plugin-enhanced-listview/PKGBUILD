@@ -1,13 +1,13 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=keepass-plugin-enhanced-listview
-_realver=2017-01-29T15:56:27Z
+_realver=2023-01-11T23:31:21Z
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=1.0.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A KeePass plugin that extends the listview"
 url="https://kpenhancedlistview.blogspot.com/"
 url="https://github.com/betonme/kpenhancedlistview/"
@@ -16,7 +16,7 @@ license=('GPL2')
 provides=("${pkgbase}")
 options=(!strip)
 source=("KPEnhancedListview.plgx::https://github.com/betonme/kpenhancedlistview/raw/master/KPEnhancedListview/Build/Release/KPEnhancedListview.plgx")
-sha512sums=('06cbcb092ea0e41d18062ec656fe44b56213b45cd8f86e49bb5e96d3c6dfe72c5eb511906f395ea5973b45f22c221918b193cb3b5b679815bd090bcca915b858')
+sha512sums=('ac61d5020291a4d9353ea3426a8d155e8c1e268b8790c1c53fab8d657c1cda0622ee5b5ddfc7822fc98350f3315f7423fb7e22f19d4f0165b3ca92ae50ca8fe3')
 
 pkgver() {
     local v="$(dd if="KPEnhancedListview.plgx" bs=1 skip=64 count=20 status=none)"

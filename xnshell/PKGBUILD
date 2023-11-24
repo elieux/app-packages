@@ -34,7 +34,7 @@ _realname=xnshell
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.16.0
+pkgver=4.1.10
 pkgrel=1
 pkgdesc="A powerful shell extension with image preview and transforms"
 url="https://www.xnview.com/en/xnshell/"
@@ -42,24 +42,10 @@ arch=('any')
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("XnShellEx64.zip::https@subdir://download.xnview.com/XnShellEx64.zip"
-        "XnShellEx.zip::https://download.xnview.com/XnShellEx.zip")
-sha512sums=('00dae0ca11aad9f947f880ec476857a7cf318f01bafac12b727b7d9c5211ef0d8c24b5ec138bb00e3ddde3c39c6b1b96486d3e628458e7e1030c38d0aa1f2570'
-            '823e2ea41a131c24d7a28a0d4c6c0041a0452880d8bbb89e44898775c50b50bcdaee2f63ac17fb152ab2d881517abc6bb97cf0d01a56016d9687059b83fc99c3')
-
-_eqver() {
-    local r v
-
-    for v in "${@}"
-    do
-        if [ -n "${r}" -a "${r}" != "${v}" ]
-        then
-            echo "Version mismatch between ${r} and ${v}."
-        fi
-        r="${v}"
-    done
-    echo "${r}"
-}
+source=("XnShellEx64.zip::https@subdir://download.xnview.com/old_versions/XnShellEx/XnShellEx64-${pkgver}.zip"
+        "XnShellEx.zip::https://download.xnview.com/old_versions/XnShellEx/XnShellEx-${pkgver}.zip")
+sha512sums=('78dccafefc830d2ed33b30839e24a1d2616e835a573e01f89c03e0a0273e379e8dd510ceee93043bd9fc6abc485d41fe0125fa29fbc43d56b034e47ec24e5633'
+            '6f0bbfde35f3cbd4943d1282c0572713a8639c5d8d5e8b56b960021d85b569064bd7d411167466c08a80a70aebdf77d016bbd975e15452a900d5ff474356d13a')
 
 _lc() {
     local d f n
@@ -88,12 +74,6 @@ _rmmsdll() {
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
-}
-
-pkgver() {
-    local _ver64="$(powershell -command '(Get-Item "XnShellEx64/XnShellEx/XnViewShellExt64.dll").VersionInfo.ProductVersionRaw.ToString()')"
-    local _ver32="$(powershell -command '(Get-Item "XnShellEx/XnViewShellExt.dll").VersionInfo.ProductVersionRaw.ToString()')"
-    _eqver "${_ver64}" "${_ver32}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1.\2\3.\4/'
 }
 
 package() {

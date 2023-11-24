@@ -33,7 +33,7 @@ _realname=ltrdata
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2022.06.12
+pkgver=2023.10.25
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
 url="http://www.ltr-data.se/opencode.html"
@@ -52,19 +52,93 @@ source=(
         # Zero and Random device driver
         "zerodrv.exe::http://www.ltr-data.se/files/zerodrv.exe"
 
-        # others
+        # Small native Windows command line utilities
         "exefiles.zip::http@subdir://www.ltr-data.se/files/exefiles.zip"
         "exefiles64.zip::http@subdir://www.ltr-data.se/files/win64/exefiles.zip"
-        "DotNetFileTools.zip::http@subdir://www.ltr-data.se/files/net6.0/DotNetFileTools.zip"
-        "DotNetFileTools-windows.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/DotNetFileTools.zip"
-        "MathTools.zip::http@subdir://www.ltr-data.se/files/net6.0/MathTools.zip"
-        "MathTools-windows.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/MathTools.zip"
-        "SystemTools.zip::http@subdir://www.ltr-data.se/files/net6.0/SystemTools.zip"
-        "SystemTools-windows.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/SystemTools.zip"
-        "MailTools.zip::http@subdir://www.ltr-data.se/files/net6.0/MailTools.zip"
-        "HyperV.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/HyperV.zip"
-        "xmlvalidate.zip::http@subdir://www.ltr-data.se/files/net6.0/xmlvalidate.zip"
-        "QuickBrowser.zip::http@subdir://www.ltr-data.se/files/net6.0-windows/QuickBrowser.zip"
+        "calldll64.zip::http@subdir://static.ltr-data.se/files/win64/calldll64.zip"
+        "chsize3264.zip::http@subdir://static.ltr-data.se/files/win64/chsize3264.zip"
+        "copyacls64.zip::http@subdir://static.ltr-data.se/files/win64/copyacls64.zip"
+        "cut64.zip::http@subdir://static.ltr-data.se/files/win64/cut64.zip"
+        "devioctl64.zip::http@subdir://static.ltr-data.se/files/win64/devioctl64.zip"
+        "dosdev64.zip::http@subdir://static.ltr-data.se/files/win64/dosdev64.zip"
+        "enumproto.zip::http@subdir://static.ltr-data.se/files/enumproto.zip"
+        "enumps64.zip::http@subdir://static.ltr-data.se/files/win64/enumps64.zip"
+        "exelist64.zip::http@subdir://static.ltr-data.se/files/win64/exelist64.zip"
+        "fdf64.zip::http@subdir://static.ltr-data.se/files/win64/fdf64.zip"
+        "fileinfo64.zip::http@subdir://static.ltr-data.se/files/win64/fileinfo64.zip"
+        "fsplit3264.zip::http@subdir://static.ltr-data.se/files/win64/fsplit3264.zip"
+        "finger.zip::http@subdir://static.ltr-data.se/files/finger.zip"
+        "getcp.zip::http@subdir://static.ltr-data.se/files/getcp.zip"
+        "geteltorito64.zip::http@subdir://static.ltr-data.se/files/win64/geteltorito64.zip"
+        "gethost64.zip::http@subdir://static.ltr-data.se/files/win64/gethost64.zip"
+        "getkey64.zip::http@subdir://static.ltr-data.se/files/win64/getkey64.zip"
+        "joindomain.zip::http@subdir://static.ltr-data.se/files/joindomain.zip"
+        "junc64.zip::http@subdir://static.ltr-data.se/files/win64/junc64.zip"
+        "killwin64.zip::http@subdir://static.ltr-data.se/files/win64/killwin64.zip"
+        "movent64.zip::http@subdir://static.ltr-data.se/files/win64/movent64.zip"
+        "popdump.zip::http@subdir://static.ltr-data.se/files/popdump.zip"
+        "popman.zip::http@subdir://static.ltr-data.se/files/popman.zip"
+        "psmod64.zip::http@subdir://static.ltr-data.se/files/win64/psmod64.zip"
+        "rawcopy64.zip::http@subdir://static.ltr-data.se/files/win64/rawcopy64.zip"
+        "reptxt3264.zip::http@subdir://static.ltr-data.se/files/win64/reptxt3264.zip"
+        "scrub64.zip::http@subdir://static.ltr-data.se/files/win64/scrub64.zip"
+        "setprio64.zip::http@subdir://static.ltr-data.se/files/win64/setprio64.zip"
+        "shortren64.zip::http@subdir://static.ltr-data.se/files/win64/shortren64.zip"
+        "sizdir3264.zip::http@subdir://static.ltr-data.se/files/win64/sizdir3264.zip"
+        "sizeof64.zip::http@subdir://static.ltr-data.se/files/win64/sizeof64.zip"
+        "strarc64.zip::http@subdir://static.ltr-data.se/files/win64/strarc64.zip"
+        "swapadd64.zip::http@subdir://static.ltr-data.se/files/win64/swapadd64.zip"
+        "tickcount64.zip::http@subdir://static.ltr-data.se/files/win64/tickcount64.zip"
+        "txtcnv3264.zip::http@subdir://static.ltr-data.se/files/win64/txtcnv3264.zip"
+        "w32ver64.zip::http@subdir://static.ltr-data.se/files/win64/w32ver64.zip"
+        "whois64.zip::http@subdir://static.ltr-data.se/files/win64/whois64.zip"
+        "xcopynt.zip::http@subdir://static.ltr-data.se/files/xcopynt.zip"
+
+        # Small native Windows utilities with graphical user interface (or with no user interface at all)
+        "enumwinw.zip::http@subdir://static.ltr-data.se/files/enumwinw.zip"
+        "fsplitw64.zip::http@subdir://static.ltr-data.se/files/win64/fsplitw64.zip"
+        "gethostw64.zip::http@subdir://static.ltr-data.se/files/win64/gethostw64.zip"
+        "logonwrap64.zip::http@subdir://static.ltr-data.se/files/win64/logonwrap64.zip"
+        "logout64.zip::http@subdir://static.ltr-data.se/files/win64/logout64.zip"
+        "regrepl64.zip::http@subdir://static.ltr-data.se/files/win64/regrepl64.zip"
+        "tickcntw64.zip::http@subdir://static.ltr-data.se/files/win64/tickcntw64.zip"
+        "w32ver64.zip::http@subdir://static.ltr-data.se/files/win64/w32ver64.zip"
+        "winlogoncfg64.zip::http@subdir://static.ltr-data.se/files/win64/winlogoncfg64.zip"
+
+        # Small .NET command line utilities (cross platform)
+        "base64.zip::http@subdir://static.ltr-data.se/files/net6.0/base64.zip"
+        "checksum.zip::http@subdir://static.ltr-data.se/files/net6.0/checksum.zip"
+        "coordtool.zip::http@subdir://static.ltr-data.se/files/net6.0/coordtool.zip"
+        "DiscUtilsFs.zip::http@subdir://static.ltr-data.se/files/net7.0/DiscUtilsFs.zip"
+        "DiskVolumes.zip::http@subdir://static.ltr-data.se/files/net6.0/DiskVolumes.zip"
+        "dnsreport.zip::http@subdir://static.ltr-data.se/files/net6.0/dnsreport.zip"
+        "dssearch.zip::http@subdir://static.ltr-data.se/files/net6.0/dssearch.zip"
+        "emlextr.zip::http@subdir://static.ltr-data.se/files/net6.0/emlextr.zip"
+        "ExtractExeNetStrings.zip::http@subdir://static.ltr-data.se/files/net6.0/ExtractExeNetStrings.zip"
+        "GetProductKey.zip::http@subdir://static.ltr-data.se/files/net6.0/GetProductKey.zip"
+        "hexdump.zip::http@subdir://static.ltr-data.se/files/net6.0/hexdump.zip"
+        "hvcmd.zip::http@subdir://static.ltr-data.se/files/net6.0-windows/hvcmd.zip"
+        "ImageMBR2GPT.zip::http@subdir://static.ltr-data.se/files/net6.0/ImageMBR2GPT.zip"
+        "ipcalc.zip::http@subdir://static.ltr-data.se/files/net6.0/ipcalc.zip"
+        "jsonvalidate.zip::http@subdir://static.ltr-data.se/files/net6.0/jsonvalidate.zip"
+        "luhn.zip::http@subdir://static.ltr-data.se/files/net6.0/luhn.zip"
+        "netcheck.zip::http@subdir://static.ltr-data.se/files/net7.0/netcheck.zip"
+        "NetCompress.zip::http@subdir://static.ltr-data.se/files/net6.0/NetCompress.zip"
+        "netexpr.zip::http@subdir://static.ltr-data.se/files/net6.0/netexpr.zip"
+        "pop3mgr.zip::http@subdir://static.ltr-data.se/files/net6.0/pop3mgr.zip"
+        "pop3recv.zip::http@subdir://static.ltr-data.se/files/net6.0/pop3recv.zip"
+        "smtpsend.zip::http@subdir://static.ltr-data.se/files/net6.0/smtpsend.zip"
+        "splitbystr.zip::http@subdir://static.ltr-data.se/files/net6.0/splitbystr.zip"
+        "telnets.zip::http@subdir://static.ltr-data.se/files/net6.0/telnets.zip"
+        "TestAssembly.zip::http@subdir://static.ltr-data.se/files/net6.0/TestAssembly.zip"
+        "xmlvalidate.zip::http@subdir://static.ltr-data.se/files/net6.0/xmlvalidate.zip"
+        "ZipIO.zip::http@subdir://static.ltr-data.se/files/net6.0/ZipIO.zip"
+
+        # Small .NET tools with graphical user interface (Windows only)
+        "Dataviewer.zip::http@subdir://static.ltr-data.se/files/net6.0-windows/Dataviewer.zip"
+        "GraphViewer.zip::http@subdir://static.ltr-data.se/files/net6.0-windows/GraphViewer.zip"
+        "PictureOnMap.zip::http@subdir://static.ltr-data.se/files/net6.0-windows/PictureOnMap.zip"
+        "QuickBrowser.zip::http@subdir://static.ltr-data.se/files/net6.0-windows/QuickBrowser.zip"
 
         # secret
         "scripts.zip::http@subdir://www.ltr-data.se/files/scripts.zip"
@@ -73,18 +147,86 @@ sha512sums=('5e6a38df7cc8abdc54a7bf17b286cb14ae52c402592ba659a3458a461f5bdfa1bea
             '156b163fdc038bb9924b2dde4ed1b2416fd09d2c0f0b8fd85a0f9a0d6b740be7daa0510ec4e7bded5573eda7d59510b859e33efe7b3d7b0dc2ce45bb95936bd0'
             '2ffbc129febee2667c54c068d04dff97aa6b6dcdcd828b0b8c3770d0133fd3e7390e067c16c86dfbcffc2a21c874622d415e04a8aa220bdd02665088c4f98929'
             '846acc5130f99dfb63d5a7d03f3f0628b327e1846907f87825a9e954cb3a9bd72681e9072dd07171ac06556cfeacc7be5a4172cbb8052fc45b45e5c0d31b2635'
-            '97926b1a9fc8ad1cfad24fb367a213afa96f7e4129ffd4b0e52b6f9be167b06fb62296688312c9d075e3748adf9ae82e8812999971fc89ff3aa3aa2aa116e90b'
-            '257e7eb32205706f05c13f36d5007901af14d28055f6925a1156b1a4a2fcda31c16b584328e52b46c9c30fa9d389cb893eca3267f1205ceac9c2ac775d8fa45c'
-            'd784c6d54caab5a482784d05dcd6c48e786fe671a4ccdca0076d0d5474967f56133a5f2f7fe46381cd7289b8393b446b6152127aed5cf5a339d61440f2b9bfc3'
-            'ff540b42097318674d794f415e1dc43684bcbdccf6926e0d942ce0c536a951911eab8aa9e16eec5de88915c3b9c946ddec91440119ff5fa1dd3198d13f6f92a3'
-            'dd6f4eec9e63e2e6f6f18e66b9149ec44dc70cf220d7ef9c2538ef435799d09e040a50d37782be169b9dc9c0454c2323b4c5b57c757563e0de1d71debeda02b0'
-            '4885414c2b146c9dc9b4dbd90b34fa33924672d939a2e5230c32837ff0617bed23d37f0120e85a595c301a8c94d4096c44d39cc0e7e8f6e098e39ec5229ee103'
-            '2e4a5ef6ea80266268e44d5b577d7ae38c6c7cd3e3a1b84a94f0c6551fc5a1a59d9b31a981f8719592d5cf6e997ef9a5807ea226db0f10234b8771f09b20a34c'
-            '9126241e49ff9ce3639757ec265058c659d1a3582b36f4b0f07fdabe67b5574936ee89ef1b73653fbc6f0ee1f052f332179dc404a06c1ffafd94c059d0a818ac'
-            '23c32f1537eb6bce718da2381877c6ad8032850a3ad56355ce32f472c376d79b6c4d8774b866d6f13b417c3a2b5879c9503127dcbd43c1b8d72322c921f05eb8'
-            'dc1214729794094c27f6e78df686275ddc22ec9088550a1d8a92234f65289cd23b509eb2d7469d3516f1fa2808ea5162550e1db9b3f59c88c87b6d2e1d2d1e60'
-            'fcb2af1d5b14f2238ed1857365cc225f4beeac422c31956458c74b7c9b69736e48b5123a017a4cb79d090e083778b5ee68169b059b8f55de0660c3f5cc9ec89b'
-            '0e496e39253d94ef359d3b8674ec763db7d4f0289227cf586e23e68ed27bef89503686880994f3db40065bed9adf060dbdb0aaae2582f43b7aeff58de90e6379'
+            '1048287b4da047a81cf3db0b218a8ed789691562d7fd527b6629f6e8067d0d5bbd0114411514189535d1a40a4173887027ddd4ad9c3461e5f5f305548ab70b87'
+            'bd7a2cbdbb3005dbda443f80b3722e4d030c0ff37655c60c48784acb23197de8571cc82687db0ecfc714027e6b6718dc81c719e17e7649482eb5e4b88d49d045'
+            '280401bf92a1e804cd170ca3afb7084fef8089fdb4892cdea15ac13eabf1b271ad5267186177972687604a392d48d0c4e316bfdae2ce6e9f2997423d239877cd'
+            'a0e11fd908480e2587a282ab6ff72b2ba4f903cf865378ab8d18b0179655e17665f61e783cc1e6eb22e208109264df64feff3668a45582c53e3631f325a1d933'
+            '7f917c9b85988a785c15077d9f70eae2a965793762d8f9134743f7356dc67b189d09fdce0978495941d3156585f2b5d2cfa74ab4632be4de349ba1b5f0b574c0'
+            '6a306b5210f69a4be978f25f14c3816fe8b071796c726a87ae9f368aaeac7608cd0dcc49c9f447afa6ad9bb704f5314a4686b9f4bb54a6ad4d991497861b9265'
+            'a2ae9cb151332aae6e8dfb66edb364afd5ae8358adc0fa4f72e8b2af08c781e98b22fd50b1c1362e413da27b1766e5b8ce8a08ee1820e26fbf6ecea6080818d1'
+            '91bb5fc931dc560606fc62dcef4f04d848212e21c777a35d3f90c263509909f23313e1eeeab972f058b12c55ec3298647ce6ef90876c2575e5dee1a5dad2c109'
+            '22a51e1eeeaba3dde4023524072e7af83907eb792ebfca82989e5b6065c8f2a245b3536c62f2bd0d5b3527c9eccba7fd410726ee23618c7472a48ef89bbe5a23'
+            'ee51cc3a01bf750acfbf778f6fb35e18a6efb313087c37353d9ef16a2f8a468eda0a2df15ad97b3ff916f8d300e7d2062db96e2c16fd7580367dd089ab66b05b'
+            '42168e7e31518445d5f19a7e8a41859ec7de8ea9fb0ef2c75e40712c515fb6b41688ca4f4954f948adc24c73a6efc56d38cba526227a7e0164ded80c7237be0a'
+            '5853441adbfeca9d10e8863116a07d79298f4f9e16be6bc27f9841881bb28b734abcd811319413bb2a2404b7497867a80dfa99aa77caa1d3e26511fdbcf27ca6'
+            '22f03e71d253f2ec47c929905791de1dd21cb5206bd35400e55c9c9cf50da6d0e862aa356d6452ab19f5723608fdfe6ae6a81123df2b63d86a5a7bc63d70733c'
+            '831c0f4248e26daf17e3c6a25d64da1c8f700826a59b2a38a73f3b3cc334007ca205a97856583b242b813caea9de69329252452e2a2225a61026870379607af7'
+            '6c8c33770ed434aabb6818ecb7d3ad3ba7568f3dea2f8d75cc1f7bf6e001ff4630b991b6d1f99142247e29cca65bdcef228d8cfc50b6232e42cfa647d2caab2b'
+            '831ced905c2ce1c62c8288e117fa6a9b884b28ef9b8b542a83e591d21586805f6813467de5d55914b7195d8eb2775272dd3fe5f8000d4d2f16f53b7e9c35771b'
+            '8f139dcfd1aad6f50407b0aa9ebe653d38d555a6aaed3afc8f430570d231970ca98953464b2cc50c12f606ba71590f4eda212945f81290bd99e4c8d7117a3961'
+            'e0383e9ba12511b95298edf9862e998ce56df8a2176f46dc718479ea8dfac58759dde5d4805771ea9bbe99d783b8cb082a965fff6dfd9d0fa59107b6c3102960'
+            '7f428cc9311e61250a2fdd85f9374329ea0136ae92d7d712f4e299f703e4f19d13eff7ee4a48a7435a8da413c1d7c20550262d35d63958a2d6d3a096bf75da19'
+            '637c49236a03bcf8c156e33c87761fa947e328007115d4329659918534911622bf5ecf065c0da05d26462ad8ee931a3225930340af41cfd00d573dd7984575f8'
+            '2a270afe0e9d13584cb3d13647d73e7de18d764c3577cb46275deeee9df40f02efd0e3fb4458fe0da255529f300c2afb03ac445be85da28b29009045ab059e08'
+            '14868d8a4201caa1e1940a1dd43b7a31d58dfd54f55f5f00769a5a282b20be488f0aab18adf43cdd37ec2633681c2b573924dbdb7e6880933cfe6a84b481fdc1'
+            'f6ce90ae8065cdb3b121dc36fb259ae6b57749157211f8c34a2cb7392287ec0ab4a69818c64c29c707ee68865c69a7524d897a47cf5eaba0fb5be8515d895250'
+            '36cdf78cb46d15ced37783a2d7c44895653da3d92340b04dc4cc94697e256fa6253672d1f6daa28a67173654a27340750603976179ef5fba96d64fbd0cd273d4'
+            '3d47f86ed99993984a0690bd5f8bed7c4e36019782d0e49e64026a80bbc2eab1aeb9a4c5d805c074d58954eecae8f654a291a95b8949f15604097961b41643f5'
+            'c93ec9a3c0664e88e0d0d9d0d7f3f2bf3cff32d9bf0324f2cd45f5bbc5c9b90a8727a3ebc6212abbc57988b1e5514512f28341664dfce2f72ada19132dea594b'
+            'd49134a18e2285fc8ff7374c80828dbd5e815e035dba946e748bcf93a9c5aa3546a46de769db8ecaa14d56aec99a74a54a939e0d49c62365aedc2b678a9f9859'
+            '00c4486d88c72ee946dbf33c297f0b5eb90d893140280409ab0784f9f029165923916a22744a177b51403b79486310cf87e9f9ef8275cab0b0d44732b69696c0'
+            '71819390acffddc1995090e69f69d9c22a8ca5b8174ae91e37e2501a8a33450dd3052e519aa6c8f7b2724fb5b92e7a6f3d3a88030871b9808df0e8905a38d086'
+            '0c25aa47d43f7578dd328f935210b2818aaaf2c096a0d002f18ddf9aca405aee29dc8c35349517b910d2e8a9929fb9f6a39ffa24d6e0f407bd69407d7faad49e'
+            'd459f80e71c09b78a55860491cec62b52baa7ef7eb2c157d50f53fb7a1d6be40909159750f62f088ff003ecc2fa2530ac2064daa2215f5230efaa9b7477f4f6c'
+            'b35b3b99b89877d6b6d4515d6405ff14380940c45f1267db60a5ffd7817e2bc165be4daf8af5e7eb4fb55ecc30ee19f422f7f7e4b8d7941b6ad9405eecf4e8f4'
+            '4613d7e868cd2498b306923c515ee411d1e4c93d6b4cb603db581249ff768732a6a5bff03a71c12c33a37f6dd49817145f2b86ba3e16861ddb8bf64c08476eec'
+            '6f2ccb261f03d1338fe8e69c1775df1951914ea2f8504ad12fe5c9bd7722c6949545123102cbf0ac7a51d411540c3c159544992c3665e4bcb067e17f297ee165'
+            '4962df643b76fc00003cd2a61c882a4241b87f106278c7c6732897a57abf77ece603c39f2349b98247cb96f274fff3a7b7dcfca4f5a674603a8c5a80bb805e73'
+            '95cb30f64c85071587c1359e95e9ffe552c6ab7a4c3412b4a51c1fa942e8ee002917ee6e9dcacd32de974b5f27561b933b2c987e3572a63d0abfb9cb416f8fb2'
+            '5f8cc701e64193064b49c6e76fd1dcfd9561e3f91b32bfc6d47ebee0c18de21a813521f7839184715dcd0d7fc132c41fa224281fef9e8622a2d5c9dcbf2956a8'
+            'ec53b7599be386ea1e4637709c18a79bfb03bd7c53b37690220b3ab32b2c2384a04d69e2b1d7990eb5e0e5479d1ea18acb26d26795832d85182ab08c7019849f'
+            'd427950f1adf2f4cd293acfc710121fd3b6ac58a2e388464ed89fc544c0c0a59f9c7c0d4716688057cc0b2ec9716e444f0529cd6b259265e84ca0fb9673e153e'
+            '570567bb62ea05e8d99441d069fa9bf0627b9979344a45f94e77005603f32a53fb836253edb33e91f2957d22588fe84c49d7374b2925ae69420a19e1b10ee75b'
+            'b45c334fdc7bd2c95b4611f2d6c40ec06d4688044ee6cdaa1bb17e512aed8f3121b20568df3ee3e0276540d7f3a3e9ebe6084433351dda28a17aed6bd67b2546'
+            'aaa288a87d55ef558af0b4013a46228c7c29fec35301634656b67a1668bccc10a100eb796b80cafb93f67908a8c14e4a34b7231957ca4c7f2a5240a4da51e0d4'
+            '1111b2c20fcd3397c01795475702c924509c725d701446104208e471229e8f82d2dcf2f8500c6368f800b7d1779d5f7fbd36b5318d8b853f5161455418364fd3'
+            'f7e9044edfa60b3b078895781250f9ee630ca731885077f0faf445d9fba042af57e6c1e648c0d0c05d2e0116fa6f57cd9d8b9b4a2afe48813f6ac68a65783345'
+            'ad32ed1348e22fd6409a3fb3481f65934f8e2e544066ef8d52b19dc1475db6f207809ca6b6b3dc3bf84bb0131dbca2e48c587fe24a38ef2e0e462c252e537c38'
+            '345b2c715254dc7603aa0833a5097b5c9920013945109b6e6889703700f61430805e106ff007b03e4d988e4a0a80808da6cb97cf7ffc892eafbc29134e5cbe07'
+            '89dac93576f9a243944bcefc78e07b00cec90c52ab8714318a741728d363d2d767f83e19f2f7f27a714b2abb42c23f22d0fa803da6996154697995d3d54d5ea3'
+            'ec53b7599be386ea1e4637709c18a79bfb03bd7c53b37690220b3ab32b2c2384a04d69e2b1d7990eb5e0e5479d1ea18acb26d26795832d85182ab08c7019849f'
+            '99ccc9df7a6f847d5f8dc11d0f3d345a4f58f7c6748a5396a5d569f11ad07e44ab57ed010c63dde3d1da896e8ed24cce6ea3fb5ec40395249740a4d9e96f34c1'
+            'e81aaa285d3d199cb0e080437c92c4aedccae81c06b090639c7657e1351ff484d6fa6d54788904528203e34cd5e26f284b1eebda6560fad317572f8bf9f64084'
+            '08aac94b8149f757cccb7e0ddbef2b06e864d9fb1c8ae918e6205710b538cf1b53678ed1b56c4e90e3fe96a76049b354a8d70cf3c118a1bc1325dd58a55e44fc'
+            'cdb36abc47815fee96c7440d59ae4d136e9a8a4c5aefba2df685e5605060fa56c21380fbf75e3659b036ac614e76004987d4d775c46f38669c9ee20be54f4093'
+            'cb9ebe9212eeb4035e84f2c80eee4bb9e2618592162505afd9532a50c9c18c9a9c614f7d10c123f2ed6105932ed662ea6227eccc754d66fb1e3a920f54286900'
+            'fba58b84c5b3be4ee30bfa66edebdcd921a90b0e59ab6f0f879eba7054a7132bc62bae8bf4f796185b066111a7088e22b43c5b7124233c2c843db8ace439a975'
+            'e319fb002bcc38decc888a97b43de00ced8c21fc269af9092e1adf204ae3d01e2c6e310de603b3cf9408900822839f473b22cf3fc550d3a6b32ebfebfaedc034'
+            '6f6b1d93c6450a56f92beda722b8a5202c2a915c825fef30209d9b9bf301f5606bcba02cd28df1ddcecd12fd0b50b43abdbd08fb255066e433f36f5f99fd48c4'
+            'afdacc6ace6ce02c15da4096cbd9416bddfcc5b88e0c0aa19926d852bc204614328dc58bdd8fb6ae9f250e12cbbf8e1243436b6d0a345c98af08ea4f1409e627'
+            '3af7f91a35c8664a13158ee2f364f5371635bae69e36de69037041c25947c51bb9cf182a14e88e46796bdcb01bc18dd49047570574501ebc30a9d3600b028f5d'
+            'ebf4de695017af8b6be9dc15a1a0121c66a682474ae7990aae2b67f9d2ac5078450728c201f1cefd197e499ac79ef28eca0fa9840a5d771b67fe328b0cbc9af4'
+            '38f795852061ff013b6a1d25e30f044f7df3c1185cd40318ccf6188dd661dbe7244b19519092b54f1adef957d431d68aaeab2b674a191f6e877278d3a439fc4e'
+            '10d497b3eb27f70d3bc94d249be64de11eed32c661c738631264823c3eda6f3655e6b98d8047fb463160f29ce4f19f112bdc9cacf194a911921f579b038f16d5'
+            '600d452c22bcbbb0efa3043be25755906781d0eabca2df021ba16e52fe885440d72ab1e97a08b516d2e84b9292e011f7db8298523b693f0a8530cd66cfd1bb0a'
+            '8c8a126cfdbf076a709a7a5c72f69487b62253798f42e27b7e256b5236d953235e3eadf38e6de0c4eff992c7cea7bb4d71608262c8f8dcbf32ea9816c2de8dc6'
+            '59331b22ac120853ce79efbc8a41ba5c6e7a10d425fef0b0bfc25a84f3b38a7faa4f7127ea22dc1f7a10e20646615b2e34b776f5fc0bbc21cd77b9e8f3d91eb6'
+            '53486ba0fc61ca8510b60925b14f306f2d0f11288441c635da311ba3987658591e570ab5082c1e76330008f4f10ebdcb91cc8e60cefa876768d1b966773f1c3a'
+            '8dbd18c8404bd45996d185ad76edc10da3676345d12fc99c3e54283d4c4380be54fffc0e0ce40589918677df2f01738462957dff50b763499096a8ba8b92b761'
+            '741de9d46f63796c183719c35888cdca278069914f92c6c2b38c268dc83f21aaedeae1a0a32a427b62991e2826b163c57a9721df5bfa4982d9600163f2de92fc'
+            '252ca6cb17c790c9dcefa81a2c73baf9bfdd9151c569ec44fe7b65bfd84e6ea809c53ca603395ea5f577323fdad28ddeee98e35a794d84d1b61d11f9837eb372'
+            'b5edb809c366d2185eab5cb9dc893ffd1f7e4c725c413b3842a01b0b25a1a2efe0c8551710fb8817505087754b606956c5a8462722b358a5c701921884f219e4'
+            '19f1e989abf8531eabfe8dfa7c6618e31afb6eb6ff09ab4c97e53ad85d59d7e38c6a3dbd9ff1998667b1b9fb11e5f6366b8a90673f5ef19c2c1a2245412364f0'
+            'a6589ea03a59a0a9e3edec1c8fc20813ec03ac959832af082bec6bb26f0371ed1a14e4e8bf8ceffaac3496aa1fde627b27ac2419fbc511ff2a3894169f8bcf97'
+            'f3a6df996f504d6e5329c422365629d8c07f4a442b33ece57efa31f5c8ad2ba066e81aa1692e4b2e635ceaa15233cdb3bc79e1c3337c77db8063e76460fc0a2c'
+            'f633225ae07e72f206e04797b38b33d2dc3ecccb6f6046335b162907f59cb40d6862a9f05e1d98d7a561c802ba986ce391fd820b11a7e63d0c7620e61f9943b7'
+            'f598360454dcb7e70479efaec074fbe3ac187a7469071fe5e5ca8c71a9c8f381302c4e6cea7078546bb59384298780e596fb648a4de39f5b488f8702ebcb6098'
+            '896c6c03b8516cc3e34adefd10a43e36a05fecd9416decf0263581a4a8b2fea22ee6182ba397108cd810ac92195a1247822875fcd6291bfa1f0afd7ceac7d0f6'
+            '711a4b2d853c0f9c0bd582efa7081dc4e8ea0760561f4958014639859cfadd38db2b958b96f91088f087d328e37c54eebb653e66943d72b772948718e9db3b3a'
+            '9022f6314dd780b73231b843204741bf39cccd11d282ebb2c40694b774beb252e02145b6f9149d56c3d2b05b2062bcfece461dc60ef5bea495542d7427434a55'
+            'd4bc71b01088b45306694ecda78448aa310555d4395007db601b97359c05495d29f76e7f1148974906ad160ba66df0954bbfadbab04c7ad3822e93746de5531d'
+            '4eb02b31ada7d127f3cd0e1e1c0cf4d2c4cf384967f160a0c11a810aab95aa67e605c2cf238683d00b71ae5cc54be2e4837f2cd012bcfdb32964ea5ebdd3b6dc'
+            '5740d96a2c21c4b3cb25ac00ac2b1d9aa845b77a93d09a2998947acb1793f03a4df79617bae13c795c766be4fabf22beb2ed7105aff56411c919198ec7e0546a'
             '2f7c7011871898829ad1392a85c537ee6dfb2ea8f2eaa0619db1be4fbd0cf4c7239762d6d3c34772311e2e3440246fc6e6fe6116e92a358b340598eb05e0bdde')
 
 prepare() {

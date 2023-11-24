@@ -50,18 +50,18 @@ pkgver() {
 }
 
 package() {
-    depends=("app-nconvert" "app-xnshell")
+    depends=("app-xnshell")
 
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "XnView"/* "${a}"
     rm -R "${a}/AddOn/Microsoft.VC90.CRT"
 
-    # the separate app-xnshell package contains newer versions as well as a 64-bit version
+    # the separate app-xnshell package usually contains newer versions as well as a 64-bit version
     rm -R "${a}/ShellEx"
 
-    # the separate app-nconvert package contains newer versions
-    rm -R "${a}/nconvert.exe" "${a}"/{Formats,license,Plugins,ReadMe,Usage,WhatsNew}.txt
+    # the separate app-nconvert package usually contains a newer version
+    rm "${a}/nconvert.exe"
 
     _rmmsdll "${a}"
     _lc "${a}"/*

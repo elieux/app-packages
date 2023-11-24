@@ -5,7 +5,7 @@ _choconame=wireshark
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.0.10
+pkgver=4.2.0
 pkgrel=1
 pkgdesc="A free network protocol analyzer"
 url="https://www.wireshark.org/"
@@ -15,8 +15,8 @@ replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Wireshark-win64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-win64-${pkgver}.exe")
-sha512sums=('836c4a5d3d056d229265801c2e6248cf20ff783c05434830e02fc71f4bec3b625150ee3df47eaab7b88d83d3c27b183ae2bba64c0bb7f53aef017a48ee0db588')
+source=("Wireshark-x64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-${pkgver}-x64.exe")
+sha512sums=('700fbe7c47d4317a5c5e6a489ec6cf2784f1a3e2de5faf81cf547a1729f16c02423b581a7bee27a070e474125be9073eec7f68042cd8fae316544d00c1168c8d')
 
 _lc() {
     local d f n
@@ -34,13 +34,13 @@ _lc() {
 }
 
 prepare() {
-    7z x -y -bd "Wireshark-win64.exe" -o"Wireshark-win64.dir" > /dev/null
+    7z x -y -bd "Wireshark-x64.exe" -o"Wireshark-x64.dir" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "Wireshark-win64.dir"/* "${a}"
-    rm -R "${a}"/npcap-*.exe "${a}"/USBPcapSetup-*.exe "${a}/vc_redist.x64.exe" "${a}/uninstall-wireshark.exe" "${a}"/'$PLUGINSDIR'
+    cp -R "Wireshark-x64.dir"/* "${a}"
+    rm -R "${a}"/npcap-*.exe "${a}"/USBPcapSetup-*.exe "${a}/vc_redist.x64.exe" "${a}"/'$PLUGINSDIR'
     _lc "${a}"/*
 }

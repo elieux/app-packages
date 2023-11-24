@@ -5,7 +5,7 @@ _choconame=xnconvert
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.98.0
+pkgver=1.99.0
 pkgrel=1
 pkgdesc="A bulk image converter"
 url="https://www.xnview.com/en/xnconvert/"
@@ -13,8 +13,8 @@ arch=('any')
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("XnConvert-win-x64.zip::https://download.xnview.com/XnConvert-win-x64.zip")
-sha512sums=('bdee8abe87fe0fc10c47e69f2011657a1df56d7b859065830e5764ccbc3f2f1724ca9c3a58926920b280b2cd19ff4e285af7a757bba9f70a7d5c933e5cbbe86a')
+source=("XnConvert-win-x64.zip::https://download.xnview.com/old_versions/XnConvert/XnConvert-${pkgver}-win-x64.zip")
+sha512sums=('a5ae486ec3e6240bfffbb6bcf7e84d56130b30dc7fa2cebdadb60e8b9119f6e712e8cd15f69aad9e7ae188463fe09a05edff724c20537e7bb69ee6b884dfad3f')
 
 _lc() {
     local d f n
@@ -43,10 +43,6 @@ _rmmsdll() {
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
-}
-
-pkgver() {
-    powershell -command '(Get-Item "XnConvert/xnconvert.exe").VersionInfo.ProductVersion'
 }
 
 package() {

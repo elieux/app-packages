@@ -5,7 +5,7 @@ _choconame=XnView
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.51.4
+pkgver=2.51.5
 pkgrel=1
 pkgdesc="An efficient multimedia viewer, browser and converter"
 url="https://www.xnview.com/en/xnview/"
@@ -14,7 +14,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("XnView-win-full.zip::https://download3.xnview.com/XnView-win-full.zip")
-sha512sums=('8ce350a06d333f408847ddae32a84a84fd0b70772dbce11555567cc804561d1186519cb5cbc8605797d769400bb07b947c583f0195e83524af7a563317650e67')
+sha512sums=('9f2f964a509f83d7a52f3e8be8d647143da2cd74b2696b30f5ae33bc944f14ac58fa0b0bcbf5aacf540db50b3f4aa32f32b7af704d2ee96a0607270e1ba6af19')
 
 _lc() {
     local d f n

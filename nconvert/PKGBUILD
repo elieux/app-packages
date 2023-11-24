@@ -1,11 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=nconvert
-_dirname=xnview
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.110
+pkgver=7.163
 pkgrel=1
 pkgdesc="A powerful command line multi-platform batch image processor"
 arch=('any')
@@ -14,8 +13,8 @@ license=('custom')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("NConvert-win64.zip::https://download.xnview.com/NConvert-win64.zip")
-sha512sums=('33fef2e19f1bfff5ca6ccfae9b28bc70f284f6b0d7b54c64fae237e1e5be4b198d78c11256add421ce7c7c97983a08022c0b67304e1d6fb5d733c4b2d0652cc4')
+source=("NConvert-win64-unicode.zip::https://download.xnview.com/old_versions/NConvert/NConvert-${pkgver}-win64-unicode.zip")
+sha512sums=('aa5f15aa12e7cb94507fdd7d1e649e9ce3bed289d5ddce42769e5d5a53a6ddf44dd317ca7a09b5324c02a73bdaf17ee6e361e3104bb6eae7f19f23956a36662c')
 
 _lc() {
     local d f n
@@ -39,21 +38,17 @@ _rmmsdll() {
         "ucrtbase"
         "mfcm?[0-9]+[a-z]+"
         "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
-        "vc([ao]mp|corlib|runtime)[0-9]+(_[0-9])?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
         "concrt[0-9]+"
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-pkgver() {
-    cat "NConvert/ReadMe.txt" | head -1 | sed -r 's/^.*Nconvert v([0-9.]+).*$/\1/'
-}
-
 package() {
-    local a="${pkgdir}/apps/${_dirname}"
+    local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp "NConvert"/* "${a}"
+    cp -R "NConvert"/* "${a}"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

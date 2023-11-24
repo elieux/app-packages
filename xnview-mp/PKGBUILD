@@ -5,7 +5,7 @@ _choconame=XnViewMP
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.6.0
+pkgver=1.6.2
 pkgrel=1
 pkgdesc="A multi-platform photo and picture viewer"
 url="https://www.xnview.com/en/xnviewmp/"
@@ -13,8 +13,8 @@ arch=('any')
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("XnViewMP-win-x64.zip::https://download.xnview.com/XnViewMP-win-x64.zip")
-sha512sums=('706a0216f919191592ca706366b9af87a7c12ee74d2dd72926d1ccde8a20fbb2d22e6df35e1e9bb98ab9bc71fa4c0d402dc10ebb8dcc3e5af0049460b0fafe33')
+source=("XnView_MP-win-x64.zip::https://download.xnview.com/old_versions/XnView_MP/XnView_MP-${pkgver}-win-x64.zip")
+sha512sums=('69bcdc579044f372416e00de6709d0e43859abb34817c2ba34119af274e493dcc6805cfdc732e44d40429ed6f6135d130834b1305b1c1310278241f00659058c')
 
 _lc() {
     local d f n
@@ -43,10 +43,6 @@ _rmmsdll() {
         "pgort[0-9]+"
         "api-ms-win-[0-9a-z-]+")
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
-}
-
-pkgver() {
-    cat "XnViewMP/WhatsNew.txt" | head -1 | sed -r 's/^Changelog ([0-9.]+):$/\1/' | sed -r 's/^([0-9]+[.][0-9+])$/\1.0/'
 }
 
 package() {

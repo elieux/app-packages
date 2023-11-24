@@ -5,7 +5,7 @@ _choconame=th-ch-youtube-music
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.0.1
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="Unofficial YouTube Music Desktop App with built-in ad blocker and downloader"
 url="https://th-ch.github.io/youtube-music/"
@@ -14,8 +14,8 @@ license=('MIT')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("YouTube-Music-Setup.exe::https://github.com/th-ch/youtube-music/releases/download/v${pkgver}/YouTube-Music-Setup-${pkgver}.exe")
-sha512sums=('b2bcd0cbd310dee2d1d462a2cfbdf5756880414341d27eb6fb6063d6619dbf163897fa93d9f6c8ba3ecae6a903f732aaf5cf69a8e094a60da57238f3baa7b17e')
+source=("YouTube-Music.exe::https://github.com/th-ch/youtube-music/releases/download/v${pkgver}/YouTube-Music-${pkgver}.exe")
+sha512sums=('b95e1f9b06551638d9d81f88b8840d9e52b2255f80db8c05523a4461ad84ab323636a629e4baf25de98b91e7ed950bc894e368576acaca7edc7e0367bc2f6e88')
 
 _lc() {
     local d f n
@@ -33,8 +33,8 @@ _lc() {
 }
 
 prepare() {
-    7z x -bd "YouTube-Music-Setup.exe" -o"YouTube-Music-Setup" > /dev/null
-    7z x -bd "YouTube-Music-Setup"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
+    7z x -bd "YouTube-Music.exe" -o"YouTube-Music" > /dev/null
+    7z x -bd "YouTube-Music"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
 }
 
 package() {

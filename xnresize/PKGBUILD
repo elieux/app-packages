@@ -4,7 +4,7 @@ _realname=xnresize
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.10
+pkgver=1.11.0
 pkgrel=1
 pkgdesc="Fast, powerful and free cross-platform image resizer"
 url="https://www.xnview.com/en/xnresize/"
@@ -12,8 +12,8 @@ arch=('any')
 license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("XnResize-win-x64.zip::https://download.xnview.com/XnResize-win-x64.zip")
-sha512sums=('fec3d2ef032693a9ee6df5941ea9b6b3d2c969491317bd4bf3e67609c0c68f1bb82ab68870b17ef70843b03277f0a2a4fea2ce551719913ff6bb1ff665a2c571')
+source=("XnResize-win-x64.zip::https://download.xnview.com/old_versions/XnResize/XnResize-${pkgver}-win-x64.zip")
+sha512sums=('be03ad7f375433f9a3e662cb59be6734250e89f1c5424a31075391bf84fa2c37dabebdcb76ec9d900fc31782d611a83c59b8bca39c33c15df78a5e6bfb294214')
 
 _lc() {
     local d f n
@@ -44,15 +44,11 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-pkgver() {
-    powershell -command '(Get-Item "XnResize/XnResize.exe").VersionInfo.ProductVersion'
-}
-
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "XnResize"/* "${a}"
     _rmmsdll "${a}"
-    rm "${a}/The latest supported Visual C++ downloads.website"
+    rm "${a}/The latest supported Visual C++ downloads.URL"
     _lc "${a}"/*
 }

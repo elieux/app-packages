@@ -5,7 +5,7 @@ _choconame=calibre
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.29.0
+pkgver=7.2.0
 pkgrel=1
 pkgdesc="Ebook management application"
 url="https://calibre-ebook.com/"
@@ -16,7 +16,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("calibre-64bit.msi::https://download.calibre-ebook.com/${pkgver}/calibre-64bit-${pkgver}.msi")
-sha512sums=('f6974d7fc040735dca999167096874ab1f59ad2dc21f2733b2001b98bb6971ef6d07c93c7aa98f86aa1aa8a2e176afac446e1a974d667e61616534c9334e473e')
+sha512sums=('d83f2ae065254e1e30e476ff5abba06a31663a8b64981cccf05d3e7b83084bb1177e8efa6a91ac836531045ba17d85d01ba26c794bf2c6eab742cb3abea18ee1')
 
 _rmmsdll() {
     local ms
@@ -40,6 +40,6 @@ prepare() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "calibre-64bit/SourceDir/PFiles/Calibre2"/* "${a}"
+    cp -R "calibre-64bit/SourceDir/PFiles64/Calibre2"/* "${a}"
     _rmmsdll "${a}"
 }

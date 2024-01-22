@@ -1,0 +1,29 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=wireguard
+_choconame=wireguard
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.5.3
+pkgrel=1
+pkgdesc="Extremely simple yet fast and modern VPN"
+url="https://www.wireguard.com/"
+arch=('any')
+license=('GPL2')
+makedepends=("app-lessmsi")
+provides=("${pkgbase}")
+options=(!strip)
+source=("wireguard-amd64.msi::https://download.wireguard.com/windows-client/wireguard-amd64-0.5.3.msi")
+sha512sums=('fdb8a2fbe22f80331114db09b297fcb19d870bfbed2d49cc567b3df8d179d5b47774cc915bed7cf78d8b5a716645ca11ecd019126f35e10839da631c6af0ec77')
+
+prepare() {
+    rm -fR "wireguard-amd64"
+    /apps/lessmsi/lessmsi x "wireguard-amd64.msi" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "wireguard-amd64/SourceDir/WireGuard"/* "${a}"
+}

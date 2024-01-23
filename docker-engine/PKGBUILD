@@ -6,7 +6,7 @@ _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=24.0.7
+pkgver=25.0.0
 pkgrel=1
 pkgdesc="Pack, ship and run any application as a lightweight container"
 url="https://docs.docker.com/engine/"
@@ -15,7 +15,7 @@ license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
 source=("docker.zip::https://download.docker.com/win/static/stable/x86_64/docker-${pkgver}.zip")
-sha512sums=('c89ed24df57fadf16febcf4374b82d7250c88e2cd8c484a505c9b20a382a7e9787106a098143bebe344b7475c49c59c8ef2b48e638a7b6f02da13c3c07976e79')
+sha512sums=('37a56eb0ac8a533a25e0e664406fef11faf0033bad2240c6e5a11d4be374459e55b623dceb1e3bc52e2484ae941f4c887719660abe2e1a5d8e7291545229481a')
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"

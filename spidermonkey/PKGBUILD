@@ -1,7 +1,8 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _chocover() {
-    # choco version format: 93.0.0
+    # 93.0.0 -> 93.0
+    # 93.0.1 -> 93.0.1
     echo "${1}" | sed -r 's/^([0-9]+)[.]0[.]0$/\1.0/'
 }
 
@@ -39,7 +40,7 @@ _choconame=Firefox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=121.0.1
+pkgver=122.0
 pkgrel=1
 pkgdesc="An interactive JavaScript shell from the SpiderMonkey distribution"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Introduction_to_the_JavaScript_shell"
@@ -48,7 +49,7 @@ license=('MPL')
 provides=("${pkgbase}")
 options=(!strip)
 source=("jsshell-win64.zip::https@subdir://ftp.mozilla.org/pub/firefox/releases/${pkgver}/jsshell/jsshell-win64.zip")
-sha512sums=('b5b560b1d66d80300627fe616e0c4c3837adbc05c3087a9f2f011d66a0e3a03462db1bbce727949e9f7f766ecdb0faba676523274eeb959eb1d7c3cc24a17183')
+sha512sums=('a5596f77d3ee8881ebad4317a8fe40b74da8b96b9d1009a02bea0a9600517a9e1d4bd5048fa4f1c20d908c5895eca8a965c08755408b8c0b55585e6019fdbaf2')
 
 _rmmsdll() {
     local ms

@@ -1,8 +1,8 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _chocover() {
-    # choco version format: 1.1.37
-    # choco version format: 1.1.37.1
+    # 1.1.37 -> 1.1.37.00
+    # 1.1.37.1 -> 1.1.37.01
     echo "${1}" | sed -r -e 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1.\2.\3.00/' -e 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9])$/\1.\2.\3.0\4/'
 }
 

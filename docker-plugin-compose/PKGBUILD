@@ -6,7 +6,7 @@ _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.24.2
+pkgver=2.24.3
 pkgrel=1
 pkgdesc="Define and run multi-container applications with Docker"
 url="https://docs.docker.com/compose/"
@@ -15,7 +15,7 @@ license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
 source=("docker-compose-windows-x86_64.exe::https://github.com/docker/compose/releases/download/v${pkgver}/docker-compose-windows-x86_64.exe")
-sha512sums=('28c82ec0e760248c945cea10b392418d8c8b337620d78612956adaf6f7b0cae66cd9656a7bda8731d8de704187f5a99f3a1b7378fff49c18bbb5731d98aee0ea')
+sha512sums=('89f26e60c559708f295317ae68943436b8d75c5fd155bd916c419ebba2c007561b68a9b84fec710823ab484d55408dcf68c1b515fa3d2afb5429a9ff53fbbc0e')
 
 package() {
     depends=("app-docker-cli")

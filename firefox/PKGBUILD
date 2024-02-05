@@ -12,7 +12,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=122.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone, easy to customize web browser"
 url="https://www.mozilla.org/firefox/"
 arch=('any')
@@ -99,6 +99,7 @@ source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver
         "rm.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/rm.xpi"
         "ro.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ro.xpi"
         "ru.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ru.xpi"
+        "sat.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sat.xpi"
         "sc.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sc.xpi"
         "sco.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sco.xpi"
         "si.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/si.xpi"
@@ -201,6 +202,7 @@ sha512sums=('8c13bf6a01211ee5d5794a3dfa9f3d418edc12b5150e6b779f47fe4deb2f522147a
             'c2ea283c4c9ea43e5ed253ae0fe2853ee19536239bc58b06f8321a747d165ba063b4d145ad376632cac830460c4538960dd2372db261eda4b304b67d7b6e57ba'
             '823c4ce9f12bf4556adf6b7be3f4af25978d7afdfec4fd20183a7f0216f9740d0db3e56d7be67eab362db42c8a4ec3b57cc97e8d7e996cf0d72a161d3a58afd1'
             'aacb9f6666efaf7a902c0207dbd476dd74f27fa16074091b174c5730ea87b09e7b3c685367003981713dd6fa54054f2bdf3d57f7406ec876d0aa9a6843217854'
+            'cf603d544b6eb5da8e2cd318f258f0ced570779262514aba5c258e8e130cbb394ead8f59c645b9252ec574a22d5d18ae7bae2626bbe290164d405479b87de8b2'
             'd58c9d9c72e32178431d70a7e95666aad25607e6bdb153ebb2891c3eceed5760a708a2bffb3ee2e7ea3de46428f318033442f3c4a46e1e96af103876534ebed3'
             '14be60d187929dea1fa659a70e680291b0e7753ecbbe28fd652b7d3704dace75d776e6799b270b708a2f5c26086cdae53669cefb45818b68aa44d6e3329e8181'
             '58ea7c68b1714c825ee22f8beebef09bdee7068ec5287b0ed47dccd9c80bd460d77118689b923c44e079a6c23e762dcb38c2b323a8e0c3153456887f8787e25c'

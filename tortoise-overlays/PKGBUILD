@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=tortoise-overlays
-_realver=2.0.0.0
+_realver=1.14.6.29673
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.1.4.26626
+pkgver=1.1.5.29440
 pkgrel=1
 pkgdesc="Overlays component for Tortoise tools"
 url="https://tortoisesvn.net"
@@ -15,8 +15,8 @@ replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("TortoiseGit-64bit.msi::https://download.tortoisegit.org/tgit/${_realver}/TortoiseGit-${_realver}-64bit.msi")
-sha512sums=('0073ceb7c08fbc0e3c1506abb6c00ba925b6069807eb9a7d7bc4626cec6c0097ace4ebafb24dd0e5ffb47bb76b87aed03014933faf05777ba02ccb808b3cbdd5')
+source=("TortoiseSVN-x64.msi::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-${_realver}-x64-svn-1.14.3.msi")
+sha512sums=('a7165d3668dd63023957162ad2dd1e20573c033e3b17fd7116b57b24f7be0bcdc5db95e1a56c334ef02161911de206d09ae439fdec09f8de0cce5a6687b9595c')
 
 _lc() {
     local d f n
@@ -34,18 +34,18 @@ _lc() {
 }
 
 prepare() {
-    rm -fR "TortoiseGit-64bit"
-    /apps/lessmsi/lessmsi x "TortoiseGit-64bit.msi" > /dev/null
+    rm -fR "TortoiseSVN-x64"
+    /apps/lessmsi/lessmsi x "TortoiseSVN-x64.msi" > /dev/null
 }
 
 pkgver() {
-    powershell -command '(Get-Item "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays/tortoiseoverlays.dll").VersionInfo.ProductVersionRaw.ToString()'
+    powershell -command '(Get-Item "TortoiseSVN-x64/SourceDir/Program Files/TortoiseSVN/Common/TortoiseOverlays/TortoiseOverlays.dll").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "TortoiseGit-64bit/SourceDir/Program Files/TortoiseGit/Common/TortoiseOverlays"/* "${a}"
+    cp -R "TortoiseSVN-x64/SourceDir/Program Files/TortoiseSVN/Common/TortoiseOverlays"/* "${a}"
 
     local d f n
     for f in "${a}"/TortoiseOverlays.dll*

@@ -36,7 +36,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=0.13.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A KeePass plugin that acts as a SSH authentication agent"
 url="https://lechnology.com/software/keeagent/"
 arch=('any')
@@ -52,5 +52,7 @@ package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/Plugins" "${a}/Plugins/keeagent"
     cp -R "KeeAgent"/* "${a}/Plugins/keeagent"
-    mv "${a}/Plugins/keeagent"/*.{dll,plgx} "${a}/Plugins"
+    mv "${a}/Plugins/keeagent"/*.plgx "${a}/Plugins"
+    # .dll will get loaded as a (duplicate) plugin
+    mv "${a}/Plugins/keeagent/KeeAgent.dll" "${a}/Plugins/keeagent/KeeAgent.dllx"
 }

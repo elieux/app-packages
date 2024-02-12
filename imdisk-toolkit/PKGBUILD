@@ -10,7 +10,7 @@ _choconame=ImDisk-Toolkit
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2024.01.13
+pkgver=2024.02.10
 pkgrel=1
 pkgdesc="Ramdisk for Windows and mounting of image files"
 arch=('any')
@@ -20,7 +20,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ImDiskTk-x64.zip::https://downloads.sourceforge.net/imdisk-toolkit/${pkgver//./}/ImDiskTk-x64.zip")
-sha512sums=('7330b0e05f61a35f5e6cdf286c052df4b1bf7a78c9ee4240dfd4e8c99f683f1560db033aee8f2d15ad84d9f66d18fc8b6e889db02f5a62a5777257961fb00b4d')
+sha512sums=('9af6a1265e4a92d5dbb193daece0c51e6cad55c86bd9ccf52f76b09396bac35b1a6b4542ac0fd6259014ac29012d467e4ed630f75a863687255d5053d2a423f5')
 
 _lc() {
     local d f n

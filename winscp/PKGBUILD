@@ -1,11 +1,17 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # 6.3.0 -> 6.3
+    # 6.3.1 -> 6.3.1
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0$/\1.\2/'
+}
+
 _realname=winscp
 _choconame=winscp
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=6.1.1
+pkgver=6.3
 pkgrel=1
 pkgdesc="An open source two-pane SFTP/FTP/WebDAV/SCP client"
 url="https://winscp.net/"
@@ -15,7 +21,7 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("WinSCP-Setup.exe::https://download.sourceforge.net/winscp/WinSCP-${pkgver}-Setup.exe")
-sha512sums=('949f6c48714ef0ed86a48347035bc8c97daec98ce0c5f777c3009f9947383dd234041832780c2ae59dcc754c716541d94ea5ea8cf1ae5eb2cf84ec234c935b15')
+sha512sums=('5eb96cb94016383c6cbd4fbc00ddd0abdc45ee2b698bd4c0dd273a3edaecd00c31cee9864833b621ec845a107d5316131958a0534fe06c24001c997c1770d427')
 
 _lc() {
     local d f n

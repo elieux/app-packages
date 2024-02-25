@@ -34,7 +34,7 @@ _choconame=unison
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.53.3
+pkgver=2.53.4
 pkgrel=1
 pkgdesc="Two-way file synchronizer"
 url="https://www.cis.upenn.edu/~bcpierce/unison/"
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("unison-windows-x86_64.zip::https@subdir://github.com/bcpierce00/unison/releases/download/v${pkgver}/unison-${pkgver}-windows-x86_64.zip")
-sha512sums=('3f4c223a1c707dd69e25c3aff3d74b91c2edeb02299d398505231e7f70d86412b23ac0ca7474cbfa58be9020c307303a7fa2993be9ea28f8030c11f46a49ac45')
+sha512sums=('3923e4d99788d0ad37b8b036ec61f0a820ca8171562481fa7a6c23ba18fc10d9cc2064a4270add128865532349d3eb9ea3372b02e4bcf08e0aa0077a6fed7041')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

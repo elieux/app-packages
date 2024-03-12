@@ -5,7 +5,7 @@ _choconame=Gpg4win
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=4.3.0
+pkgver=4.3.1
 pkgrel=1
 pkgdesc="A secure solution for file and email encryption"
 url="https://www.gpg4win.org/index.html"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gpg4win.exe::https://files.gpg4win.org/gpg4win-${pkgver}.exe")
-sha512sums=('16f3522bd4fd86fb32773b7e644e5f666a57a524036cbd9b3dad174b5cf5834a3bad2e7c5eb8f8c943e6226b2e41ae44a0e5f0a4342452685c60923384c7e6ae')
+sha512sums=('6db824e5da2a9c0af492e78f06fd18fc864eefeb3de4861b09eee6e9da7db2b4a5c181061262deb530dedd56640c314647cac4b49c9b7bb65f7b6020f79f4e10')
 
 _lc() {
     local d f n

@@ -1,5 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # 2.7.0 -> 2.7
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0$/\1.\2/'
+}
+
 _extract_subdir() {
     local _file="$(get_filename "${1}")"
     local _dir="${_file%.*}"
@@ -35,8 +40,8 @@ _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.6
-pkgrel=2
+pkgver=2.7
+pkgrel=1
 pkgdesc="A KeePass plugin that allows using OTP codes for master key"
 url="https://keepass.info/plugins.html#otpkeyprov"
 arch=('any')
@@ -44,7 +49,7 @@ license=('unknown')
 provides=("${pkgbase}")
 options=(!strip)
 source=("OtpKeyProv.zip::https@subdir://keepass.info/extensions/v2/otpkeyprov/OtpKeyProv-${pkgver}.zip")
-sha512sums=('0eace308bf07e2da3ac5c3d26ce13acd840b2a8a82fd55c74f9956881fc62bb7424e2ce847ffd5e0cd44e3be2f35bf6fe276cc546fbd19734aeb56b1f8f89b24')
+sha512sums=('dfb5306fb40a98c0dc06c01e834d6e0b0a1ac5b5d7f290b17fc06a10286bd2f305af490029ae2a887ff32276317dae3ea1f47382f8fb23d26654588a31577d0a')
 
 package() {
     depends=("app-keepass")
@@ -52,5 +57,5 @@ package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/Plugins" "${a}/Plugins/otpkeyprov"
     cp "OtpKeyProv"/* "${a}/Plugins/otpkeyprov"
-    mv "${a}/Plugins/otpkeyprov"/*.plgx "${a}/Plugins"
+    mv "${a}/Plugins/otpkeyprov"/*.{dll,plgx} "${a}/Plugins"
 }

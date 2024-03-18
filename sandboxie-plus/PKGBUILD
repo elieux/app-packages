@@ -5,7 +5,7 @@ _choconame=sandboxie-plus
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.12.9
+pkgver=1.13.3
 pkgrel=1
 pkgdesc="Sandbox-based isolation software for Windows"
 url="https://sandboxie-plus.com/"
@@ -15,7 +15,7 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Sandboxie-Plus-x64.exe::https://github.com/sandboxie-plus/Sandboxie/releases/download/v${pkgver}/Sandboxie-Plus-x64-v$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)\b.*$/\1.\2.\3/').exe")
-sha512sums=('fc7e85166a9278edcecdf6981a5cfb984fa8af3b588e057b830d82d18381691d71cdb530908194e82672367dd9fc8a0e3858a9865f2947003cc0591d5b05d8f6')
+sha512sums=('7484ffdaace7a9a5cd6a27b2ae3133abf9fdadba5e62240c2efb92337c0d9d135c5e2a016dd62216427614c6721aa97a1bb14f8f6bcab09c26532c0d239fc29f')
 
 _lc() {
     local d f n

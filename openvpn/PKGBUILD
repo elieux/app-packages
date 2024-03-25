@@ -5,7 +5,7 @@ _choconame=openvpn
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.6.9.001
+pkgver=2.6.10.001
 pkgrel=1
 pkgdesc="A full-featured SSL VPN solution"
 url="https://openvpn.net/community/"
@@ -15,7 +15,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("OpenVPN-amd64.msi::https://swupdate.openvpn.org/community/releases/OpenVPN-${pkgver%.*}-I${pkgver##*.}-amd64.msi")
-sha512sums=('5fb950faa81d429583a54cdf09b72f4e75bb20f923bea0f2cec173c1fb5fb247c171b0625613633d07a32bf95e251c1dea4d54b35aa16283521bbc8705825a94')
+sha512sums=('49f1d24ae8631cdd0f0a931e66da99a8e15d23265d9f230982bce5e862655aa2b596149a6d064668469f03469dbc604e06f392f192f6363157ab4d836840232e')
 
 _rmmsdll() {
     local ms

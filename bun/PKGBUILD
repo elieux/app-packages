@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An all-in-one toolkit for JavaScript and TypeScript apps"
 url="https://bun.sh/"
 arch=('any')
@@ -19,4 +19,5 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp "bun-windows-x64"/* "${a}"
+    ln "${a}/bun.exe" "${a}/bunx.exe"
 }

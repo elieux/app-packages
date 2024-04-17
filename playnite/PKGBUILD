@@ -1,5 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # 10.33.0 -> 10.33
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0$/\1.\2/'
+}
+
 _extract_subdir() {
     local _file="$(get_filename "${1}")"
     local _dir="${_file%.*}"
@@ -34,7 +39,7 @@ _choconame=playnite
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=10.32
+pkgver=10.33
 pkgrel=1
 pkgdesc="Video game library manager"
 url="https://playnite.link/"
@@ -43,7 +48,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("Playnite.zip::https@subdir://github.com/JosefNemec/Playnite/releases/download/${pkgver}/Playnite${pkgver/./}.zip")
-sha512sums=('5989929999ea34511cfb57b12b1c3f6b9115327f65509d169639e106581e2a2d5bc3a616a9bc8d1e41cd61cd2c836b0b296f2e588c136bcf94954d0126f86cd8')
+sha512sums=('5a0f01ed997283fd616ad795bb57da69e6bdf3ec09c5ff14587866efe14d59450bb4557ecdb38eeb827580e7d40124bc76011b24358525191147d8e10dcdb0fc')
 
 _rmmsdll() {
     local ms

@@ -1,0 +1,52 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=obs-studio
+_choconame=obs-studio
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=30.1.2
+pkgrel=1
+pkgdesc="Free, open source software for live streaming and recording"
+url="https://obsproject.com"
+arch=('any')
+license=('GPL2')
+provides=("${pkgbase}")
+options=(!strip)
+source=("OBS-Studio.zip::https@subdir://github.com/obsproject/obs-studio/releases/download/${pkgver}/OBS-Studio-${pkgver}.zip")
+sha512sums=('a6c913ac17f17c2fd797532110c79bc5105113453fc2c070eb8e8c00090308013e45ae31f17c0ba7d12262d4b1d489c76b52172bbbdb631a4cf4b62cd8a975a4')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "OBS-Studio"/* "${a}"
+}

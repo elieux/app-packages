@@ -1,0 +1,57 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_chocover() {
+    # 1.4.11024 -> 1.4.1.1024
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9])([0-9]+)$/\1.\2.\3.\4/'
+}
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=everything
+_choconame=Everything
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.4.1.1024
+pkgrel=1
+pkgdesc="Locate files and folders by name instantly"
+url="https://www.voidtools.com/"
+arch=('any')
+license=('custom')
+provides=("${pkgbase}")
+options=(!strip)
+source=("Everything.x64.zip::https@subdir://www.voidtools.com/Everything-${pkgver}.x64.zip")
+sha512sums=('f7ad58191450bca59953f27aa19f99f18592e62a75a9003a9be2b52fb1980bebdb84f9699624b919ff09a09243d7cbc6d1439758718cb9b7b2f363d65acc9d6b')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "Everything.x64"/* "${a}"
+}

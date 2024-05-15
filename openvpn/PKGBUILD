@@ -1,11 +1,16 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # 2.6.10.2 -> 2.6.10.002
+    echo "${1}" | sed -r -e 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9])$/\1.\2.\3.00\4/'
+}
+
 _realname=openvpn
 _choconame=openvpn
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.6.10.001
+pkgver=2.6.10.002
 pkgrel=1
 pkgdesc="A full-featured SSL VPN solution"
 url="https://openvpn.net/community/"
@@ -15,7 +20,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("OpenVPN-amd64.msi::https://swupdate.openvpn.org/community/releases/OpenVPN-${pkgver%.*}-I${pkgver##*.}-amd64.msi")
-sha512sums=('49f1d24ae8631cdd0f0a931e66da99a8e15d23265d9f230982bce5e862655aa2b596149a6d064668469f03469dbc604e06f392f192f6363157ab4d836840232e')
+sha512sums=('1ee34d2774220506d71d86dd958053a6ef21f67a0b55bc4611f48b3fc57e62b11f340df3afd34d8c887d8d5599306ce2f31d0b236e806cebd253dec2c714abe5')
 
 _rmmsdll() {
     local ms

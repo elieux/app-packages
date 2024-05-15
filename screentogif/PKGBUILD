@@ -11,7 +11,7 @@ _choconame=screentogif
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.40.1
+pkgver=2.41
 pkgrel=1
 pkgdesc="Screen, webcam and sketchboard recorder with an integrated editor"
 url="https://www.screentogif.com/"
@@ -21,7 +21,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ScreenToGif.Portable.x64.zip::https://github.com/NickeManarin/ScreenToGif/releases/download/${pkgver}/ScreenToGif.${pkgver}.Portable.x64.zip")
-sha512sums=('b90a497adab8eec33aff3b7123dfcec93db7319cacc8d0d5a0369ed25d5c36be59b7f98338b04ad0d6743cceaed01636e8050b279978465a92021fa8944f648b')
+sha512sums=('feb0e68c467b9eee0f3a04f11000e5a7ed5d0db7911640540505bb2613adec6bef708839d2c31c2d2854be22ca906cfb1ec75e73049a959eb15702222e9af305')
 
 _lc() {
     local d f n

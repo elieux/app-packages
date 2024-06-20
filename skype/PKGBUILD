@@ -5,7 +5,7 @@ _choconame=skype
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=8.120.0.207
+pkgver=8.122.0.205
 pkgrel=1
 pkgdesc="P2P software for high-quality voice communication"
 url="https://www.skype.com/"
@@ -15,7 +15,7 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Skype.exe::https://download.skype.com/s4l/download/win/Skype-${pkgver}.exe")
-sha512sums=('6cc09543c4fb1a96a2a7ee86d48d674ed595d7f46b1dbc9c3083483d960c1361c3d6da281dca504e724d7e5c79461509cce5d11e8bf80934c6ff5d4f05d06791')
+sha512sums=('924b84253a22eb9a8927a1c765e9e463000aa32b3a1725dd3a89b1c5e793226509bcafc386c06807ef47cb90927ff3e8bac4cbb91ab5ff28c7b2894e9cf48544')
 
 _lc() {
     local d f n

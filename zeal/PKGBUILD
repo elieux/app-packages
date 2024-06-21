@@ -5,7 +5,7 @@ _choconame=zeal
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.6.1
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="An offline documentation browser for software developers"
 url="https://zealdocs.org/"
@@ -15,8 +15,8 @@ replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("zeal-windows-x64.msi::https://dl.bintray.com/zealdocs/windows/zeal-${pkgver}-windows-x64.msi")
-sha512sums=('b05f39c2838eb245654919b4f9bfb3e6f9cbe5aedd49b80dbe0fb1e0e3db0526cc3dc0327be17fc84ec57809a48525acb06c91867948ec6915530358faf2aead')
+source=("zeal-windows-x64.msi::https://github.com/zealdocs/zeal/releases/download/v${pkgver}/zeal-${pkgver}-windows-x64.msi")
+sha512sums=('e87d1b10d4f6d869cf4956d019db0cd3067ab68f5ae53f47e7d5fa58c2aac0821718bf6ad72944a3d892a8f20576497ba8c22afb8c32160ef0aa0287bf802380')
 
 _lc() {
     local d f n

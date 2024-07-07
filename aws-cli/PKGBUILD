@@ -5,7 +5,7 @@ _choconame=awscli
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.17.7
+pkgver=2.17.9
 pkgrel=1
 pkgdesc="Universal Command Line Interface for Amazon Web Services"
 url="https://aws.amazon.com/cli/"
@@ -15,7 +15,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("AWSCLIV2.msi::https://awscli.amazonaws.com/AWSCLIV2.msi")
-sha512sums=('cd77fded926e0a08a03089329c3e1750edb544e01c03d00de6516407f7dd9a1948dba523c00e7124f114cda941b4eb970bbc86a1e95b3f3519cce4e35562d48d')
+sha512sums=('b302b31b85dd7dee702ceb644f9ce216c32dd86b4b7b9e93a6412a99f46910bb78def0fe522eaa95aba4b100447c42119340bdc8d660f54d271f549b2b9d013a')
 
 _rmmsdll() {
     local ms

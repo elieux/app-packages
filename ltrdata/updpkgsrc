@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+// no error handling yet
+// not perfect, needs manual revision
+
+$list = file_get_contents('http://www.ltr-data.se/opencode.html/');
+preg_match_all('~"//static.ltr-data.se/files/([^"]+)"~', $list, $links);
+
+$programs = [];
+
+foreach ($links[1] as $link) {
+	$program = basename($link);
+	if (strpos($link, 'winarm') === 0) {
+		continue;
+	}
+	if (strpos($program, '.txt') === strlen($program) - 4) {
+		continue;
+	}
+	if (strpos($program, '.gif') === strlen($program) - 4) {
+		continue;
+	}
+	$programs[$program] = $link;
+	// last wins
+}
+
+$srclist = [];
+
+foreach ($programs as $program => $link) {
+	echo "Found: {$link}\n";
+	$srclist[] = "{$program}::http@subdir://static.ltr-data.se/files/{$link}";
+}
+
+$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+$pkgbuild = file_get_contents('PKGBUILD');
+$pkgbuild = preg_replace("~^source=[(].*?^[)]~sm", "source=({$srclist})", $pkgbuild);
+rename('PKGBUILD', 'PKGBUILD.old');
+file_put_contents('PKGBUILD', $pkgbuild);

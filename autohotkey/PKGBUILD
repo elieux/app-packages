@@ -6,22 +6,50 @@ _chocover() {
     echo "${1}" | sed -r -e 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1.\2.\3.00/' -e 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9])$/\1.\2.\3.0\4/'
 }
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=autohotkey
-_choconame=autohotkey
+_choconame=autohotkey.portable
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.1.37.02
+pkgver=2.0.18
 pkgrel=1
 pkgdesc="Macro-creation and automation-oriented scripting utility for Windows"
 url="https://www.autohotkey.com/"
 arch=('any')
 license=('GPL2')
 provides=("${pkgbase}")
-makedepends=("p7zip")
 options=(!strip)
-source=("AutoHotkey_setup.exe::https://github.com/AutoHotkey/AutoHotkey/releases/download/v${pkgver}/AutoHotkey_${pkgver}_setup.exe")
-sha512sums=('c9a5ea57842f69223bd32a9b9e4aaad44d422f56e362469299f56d8b34b5e8bbf2b51d4e64d2bebe6c95d6d8545a8a88e6107b9b0a813e469f613e1353aad7a4')
+source=("AutoHotkey.zip::https@subdir://github.com/AutoHotkey/AutoHotkey/releases/download/v${pkgver}/AutoHotkey_${pkgver}.zip")
+sha512sums=('ae47717baee50b1aa2e35776165bda0b7d786ddbb4c93bc6113f53ba7929c1cc117239c4d64ca69851aad63acd9e493031f0bde97eeeab3f6da15b8852d20823')
 
 _lc() {
     local d f n
@@ -38,15 +66,9 @@ _lc() {
     done
 }
 
-prepare() {
-    7z x -y -bd "AutoHotkey_setup.exe" -o"AutoHotkey_setup.dir" > /dev/null
-}
-
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "AutoHotkey_setup.dir"/* "${a}"
-    mv "${a}/Compiler"/* "${a}"
-    rm -R "${a}/Compiler" "${a}/setup.exe" "${a}/Installer.ahk"
+    cp -R "AutoHotkey"/* "${a}"
     _lc "${a}"/*
 }

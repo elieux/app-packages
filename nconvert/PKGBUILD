@@ -4,7 +4,7 @@ _realname=nconvert
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.163
+pkgver=7.172
 pkgrel=1
 pkgdesc="A powerful command line multi-platform batch image processor"
 arch=('any')
@@ -14,7 +14,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("NConvert-win64-unicode.zip::https://download.xnview.com/old_versions/NConvert/NConvert-${pkgver}-win64-unicode.zip")
-sha512sums=('aa5f15aa12e7cb94507fdd7d1e649e9ce3bed289d5ddce42769e5d5a53a6ddf44dd317ca7a09b5324c02a73bdaf17ee6e361e3104bb6eae7f19f23956a36662c')
+sha512sums=('42bc371f138f2eee17538bb40f8167542253448f2016dd8c6281d03048760e4819cc31ff520e3d01d234a8d7002be85786c4e0725a80196a4b5c5104077540a4')
 
 _lc() {
     local d f n

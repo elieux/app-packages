@@ -5,7 +5,7 @@ _choconame=musescore
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.2.1.240230937
+pkgver=4.3.2.241630831
 pkgrel=1
 pkgdesc="Create, play and print beautiful sheet music"
 url="https://musescore.org/"
@@ -15,8 +15,8 @@ replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("MuseScore-x86_64.msi::https://github.com/musescore/MuseScore/releases/download/v${pkgver%.*}/MuseScore-${pkgver}-x86_64.msi")
-sha512sums=('476063cbea0576a2a57ca7554d6a1df92d9290b3bb963484c750f284ed633a6d6e82f9d70db119a9c54a3f76fe6ae182988e9bb399a89b5e555bf48a50ca5ff6')
+source=("MuseScore-Studio-x86_64.msi::https://github.com/musescore/MuseScore/releases/download/v${pkgver%.*}/MuseScore-Studio-${pkgver}-x86_64.msi")
+sha512sums=('d4224fce7a11db7a382e23400b72fc7f339edbccfa9905378c0139ee46550023b2cd7734f9317c525946383ce8d5c00c04a5e6f48b7b91e02f7ddb82672e5368')
 
 _rmmsdll() {
     local ms
@@ -33,13 +33,13 @@ _rmmsdll() {
 }
 
 prepare() {
-    rm -fR "MuseScore-x86_64"
-    /apps/lessmsi/lessmsi x "MuseScore-x86_64.msi" > /dev/null
+    rm -fR "MuseScore-Studio-x86_64"
+    /apps/lessmsi/lessmsi x "MuseScore-Studio-x86_64.msi" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "MuseScore-x86_64/SourceDir/MuseScore ${pkgver%%.*}"/* "${a}"
+    cp -R "MuseScore-Studio-x86_64/SourceDir/MuseScore ${pkgver%%.*}"/* "${a}"
     _rmmsdll "${a}"
 }

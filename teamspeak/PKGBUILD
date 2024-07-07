@@ -5,7 +5,7 @@ _choconame=teamspeak
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.6.1
+pkgver=3.6.2
 pkgrel=1
 pkgdesc="Quality voice communication via the Internet"
 url="https://www.teamspeak.com/"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("TeamSpeak3-Client-win64.exe::https://files.teamspeak-services.com/releases/client/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe")
-sha512sums=('282f8208afdcaf887b3cb6e7adccb8a0e283cd448629407f2d841e228950c8ecdedc263b9de279b169d4ddfb747dec1dbfe6516a97f54b38a5e68ef6c336b1c6')
+sha512sums=('54d48fd972ed79200201c14d0d1cff26aa1a1aca306ae7730d42f708d589d9339b53ffb16fbd85fd35f09d86094d711fc305d91c9bd3ada0b9ee9b862a8dcf32')
 
 _lc() {
     local d f n

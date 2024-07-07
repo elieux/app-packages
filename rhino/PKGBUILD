@@ -4,7 +4,7 @@ _realname=rhino
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.7.13
+pkgver=1.7.15
 pkgrel=1
 pkgdesc="Open-source implementation of JavaScript written in Java"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino"
@@ -15,7 +15,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("rhino.zip::https://github.com/mozilla/rhino/releases/download/Rhino${pkgver//./_}_Release/rhino-${pkgver}.zip"
         "rhino.cmd")
-sha512sums=('9ad8edc364cdf99fe366e5a9c2fa3e859c1f7e4dd7ff5dabfd9f43d780a152c4c786ca5b29a7290a14c01a796d93d6b4398f0ff4264bc20ddc2b63230fceecc5'
+sha512sums=('a6a51aa9cdba57272a5da4f9193704be16e19ef2843fe2b93068e2b5321d9bc6bbd8e6715d093a9cba66013c46c6d9edf961f4ceaa51f66601b802099ba40a1a'
             '915a4d8f097381c574a481ed85c6b509c112d8520d840668a0c1fd5c611226ffe9f96ffc5d67944a5611a2c96fa52c12bf9747e52c202e00925d105920fc53a3')
 
 package() {

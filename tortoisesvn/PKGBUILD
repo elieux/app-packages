@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=1.14.7.29687
-pkgrel=1
+pkgrel=2
 pkgdesc="Subversion client implemented as a Windows shell extension"
 url="https://tortoisesvn.net"
 arch=('any')
@@ -57,40 +57,8 @@ source=("TortoiseSVN-x64.msi::https://downloads.sourceforge.net/tortoisesvn/Tort
         "LanguagePack-x64-tr.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-tr.msi"
         "LanguagePack-x64-uk.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-uk.msi"
         "LanguagePack-x64-vi.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-vi.msi"
-        "TortoiseSVN-zh_CN.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-zh_CN.pdf"
-        "TortoiseMerge-zh_CN.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-zh_CN.pdf"
-        "TortoiseSVN-cs.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-cs.pdf"
-        "TortoiseMerge-cs.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-cs.pdf"
-        "TortoiseSVN-nl.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-nl.pdf"
-        "TortoiseMerge-nl.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-nl.pdf"
-        "TortoiseSVN-fi.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-fi.pdf"
-        "TortoiseMerge-fi.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-fi.pdf"
-        "TortoiseSVN-fr.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-fr.pdf"
-        "TortoiseMerge-fr.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-fr.pdf"
-        "TortoiseSVN-de.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-de.pdf"
-        "TortoiseMerge-de.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-de.pdf"
-        "TortoiseSVN-id.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-id.pdf"
-        "TortoiseMerge-id.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-id.pdf"
-        "TortoiseSVN-ja.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-ja.pdf"
-        "TortoiseMerge-ja.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-ja.pdf"
-        "TortoiseSVN-pl.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-pl.pdf"
-        "TortoiseMerge-pl.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-pl.pdf"
-        "TortoiseSVN-pt_BR.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-pt_BR.pdf"
-        "TortoiseMerge-pt_BR.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-pt_BR.pdf"
-        "TortoiseSVN-pt.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-pt.pdf"
-        "TortoiseMerge-pt.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-pt.pdf"
-        "TortoiseSVN-ru.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-ru.pdf"
-        "TortoiseMerge-ru.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-ru.pdf"
-        "TortoiseSVN-sr.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-sr.pdf"
-        "TortoiseMerge-sr.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-sr.pdf"
-        "TortoiseSVN-sk.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-sk.pdf"
-        "TortoiseMerge-sk.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-sk.pdf"
-        "TortoiseSVN-sl.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-sl.pdf"
-        "TortoiseMerge-sl.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-sl.pdf"
-        "TortoiseSVN-es.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-es.pdf"
-        "TortoiseMerge-es.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-es.pdf"
-        "TortoiseSVN-vi.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-1.14.4-vi.pdf"
-        "TortoiseMerge-vi.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-1.14.4-vi.pdf")
+        "TortoiseSVN-en.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-${pkgver%.*}-en.pdf"
+        "TortoiseMerge-en.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-${pkgver%.*}-en.pdf")
 sha512sums=('26aa62191f119dbc9af866024c4386dc445642288b32f3423fa23347c2a0157f204252c2e160f659600ec670bca2f3f68ac5bf74ffaac834e85ca4751cfbf9bd'
             '1d66ecd8e9def19e7253ec9639320fed07f6bf643426088030591383a048df61fc7b352b37c18a6479ffd98663a52a2b91e393d12b7bbd516ac2c4e57fdc90f4'
             '7345ee7f1226051eace23834e8b5fadb019dc9c0762c9a986a3ac24e61609223f381746e7f4fd77397168bcc1df64dacd0652011af5ce254d71a98aa767c65f8'
@@ -134,40 +102,8 @@ sha512sums=('26aa62191f119dbc9af866024c4386dc445642288b32f3423fa23347c2a0157f204
             '3107b52b6bf02d34562a69d0db6226a8326ba7a26c083e3d60de5624e32c63a6e96a53b556feae95656ad12cbe2be37ac9d68a43d8c370ae9763a6c9d4845bbe'
             '28f72e961cfac5d68051e5ae3d4af5a6063c9c5527e63df0f08739904c66c64a239f0c0ccaff2dd44ec702d11779c08759c7926b43458da5fbcb6aa2c92f05cc'
             '0978770f8d2204405cd91e109181b55fb32e91808ed544aa14012bee4662e976f38025c7db8472764c06fc610639b57adc976250903c1d8d45e810637bfa0e55'
-            'eac94bd0b11ba217166a9c81aa96b13ef042dc8e6c78dd86be019eff9d67cd51db20096d1e33db974a03998add62f9659e8c4c71530e8a1aa51e83c93bb347ba'
-            '411c197f888fc35144bbbc3df7cc726579af7a1916aef57fbd95456acd8208f5dc5b92233c520f3d7ae72e58ff220fde52f4404a294efa19837e488c6fb4ae2a'
-            '037fba21ec0ffbdd20315e88992475cc66696b3daca052ddcc9c3a0740101164bf35dc618ca72162b666a5a1379df59a4d302cf76fc0ac7e12fe560e2dd51670'
-            '320071010dede1fd301e83fa25ecceb68ea1c1e2f923d10fa2e747bde27b49173050d4e560dfcc22143e527083746ddce69433e774550a00f953e8b5f01d74e6'
-            'c06b3d3cb82fbabb68c6761d85e5c5165edb8d7f1d7e1bbaff6c29d9d14636d68ec202ad51e541eb4d7a52ca22c323a9450771e94943eef36a21ee7f72c07a7b'
-            '54e6fd3038f39eb3655ed228a77b0d79c315e1c35c3e82147a6e60bfcdc0be386c62867523619a069eb911e66b392082b62dadb954f30eb5e0b9913a9a4e8980'
-            'e36ed7f16d92cb7efe9e1ea14202f2201f70d3355fd5afa98e7c2da1f923e3b122ae6b8103ee48d4136b9330c7e7a3940d06c9dce84afa6512fdf9232435e986'
-            '3bac40cbded974bfde15fca14ce9f86a6200b56a5ccd5bf4a34094dcff1f06b01f5edf810f2690547177a016c42d34a73c72690b4786ae0fa02b236a60a58ba2'
-            '4ac979f9547ee1ade8bca6900139b519e630ee3f853b015d82dc8a1f806cf705f5db8c518c16bdfa5593e3446e7d03cd5bcd3565d03c87e22131e4deee5e64d4'
-            '4bff1c985f3814340b20eb8b6218fa168f4869c21b1260a623efbaaa6ec641df07bcf7352caa5f9d115a4cba10384c448687144ac5acbb76eea87730a10cdcaa'
-            '026179497df2d4af9dfab50ada7a491307197523abf2f8bcfc4d268c703343def9a74b0d5b0fcbe31b317962ecd5e6ceafa2b704e579f58817b5ddde84e394a8'
-            '64e796ede7a67d278f6a66679e90bec38cc98f748385db1d610d875c9eda6853d82ef3124774baa41e96f717aa7d0b6f5b997f2402e6bca0a6d3b44fdf323986'
-            '3e97a1832b27c9788e73b572dfd20678683d27b9479d58380f9f10a712248f58ed0a7d48158a1e4526e5aeda4e764101dfadd6910b5b80d4ba8371294875b855'
-            '47303a049237a8a16b2bd746a5e5fb5b3ea12d4fdb6e9088b3ccbb96d71b984118aaa0e48625e28cd8f630de2b71c92feb0f7b940cb76d629c4f3b4eb1f9e011'
-            'b8289f3df13cf39fd378535407196e1477390950ff8f4b8f0abc2c8c6f260ec01e4c3dbd160f36605d27af3f715e2079b5d15a4884930b6f11289a317c04a859'
-            '7f0a4862cb18feb714d27b2326fd438e5ef7f8c6070c73defbcb42bc4d0ae5d6e275979afc78a211dc1bb30b9725142ddcf9a4c36c6d5004a649d0a302cc8695'
-            'b84426605193c90ae70fac138b6436a08a4cb88b0a5e7089863eec5567112d817ed0e620590655b485cdc75eec841d209f90ff2959cfa5b7bd5f22491aa7a972'
-            '51b1ac5cb89631e47d4492fed8b954bd798d4a0fe32e850d9daece5ce22b8fa68d40c7267eeadc0a833a308dab08799b7a725b49acb67d6a5003381d8c2312cc'
-            '6fd1b5a87c8ecb53ea48087aa700d4bed8d9f29ce5a9769a2bd35fbd478308e98ba62ecbb03e86d327c56702317f1f93442abd164e29cf78d36ed248e3263686'
-            'a5f1193d698219cd0be883125a97c323bee0ffc09fcc2fbb4c7bb9d9a2d964d46dc53129dd7da8b5a2fa06dec41e874a56c06bb69764b8a5d03c7724fa5e6dc4'
-            '32de3966666a8fae1062bd55860afde97b162680ebb22edbd4a2e610c873818a32969f224997062911fc34ea9a593d79d38afc3841a5295ccd3b3aa88653ccdb'
-            'abbd5903e98878d1a4ead59200336dc5bc016353aadf9da388686b01cd93f007c13e1f61e6bdb30ce236dab41413d0ba2374742154c3e7e0bbd7b8c4becdbb1a'
-            '6d480f8c414346365ef579675a39dbf16da4ef6e93245be285b46cc55eb7e4b97bd1069d34598c47b040120bbbd0a0bec573295eeb1d4777fa54c1de667a4a50'
-            '37d591cbba570cad7bf046db579cf7d42decccdaad7935444b57363408bb31a003abd763c654a19b93b82f5f8e38d5e0480f957f2755125a3a99c213a88f9fe5'
-            '4a63e276d63d507e8b5f17b323bf628937a7ef88b5fc30569772d6208aa4f8993c30268d341c49d2bcd55411e982add210d67ce9003602c97d162b101a2d19e5'
-            'ce54c5c867b438b47b884cdb325ee492a52d80d300e12d0c639904b00540798e0eb80b25145986c813c31c9248031dfb235806c6cf55a7b6acd2d871ed888880'
-            '40fdac4e48b7820f623d63c5aa174b7108c543ec751f886a7f234fd7f7d12ae7055ab7889827265c8c3139954c59196a63533d242f5ed4bdde3dfdd1b2f82652'
-            '3bd3d693cccbe223345d632a30b240fca6d3ce8979ee535553c45328bd5586d9f9944c6e90f72a3084f428bbb02463f739b410deb7afe6dcd1707908df4c08a7'
-            'f48922aa9f683145ec4ecc4416f9ebfad4f3e92662bc53396093af81948db8f0326cc8eb346ea39d028cff2bbf2c2ffd7dcadae3d71a45cae516cd0a62d1779d'
-            'af051b8f08048bad4834cec1ff40243f2c4b04ea55b88ecca95ee8e0da86af632778ffc6c4ecea3437f24b1029459a2671d511bdb57096431e7b984c0df90919'
-            'c6674603a90089f20dfb4d17d6bd33a5b97020e596e96c7588930203548946f91b1e2b9cfdd085034c12cce47c9f3121dd87a06bb517cf87416fbb766bc20008'
-            'e88ad2bfed2e8fde9339d0c13a4bdbbcbc2f6def7f1b547a3716406da6c42617169276dacab233a9e9d228ed9492d07d23be1676ccb754d6ea1220642aa274dd'
-            '04668f74e7b6185b02fe7f1d61b5c60c532eb442dda4e813d97186f9a5d3b027838428ebab14f1e6af81f06a9bb828cef23a5e087a42826c933a733fd74e0df9'
-            '764805e7afa8a5c63bb1a6a1eca3bd516b741690ab6ca089be3257efcc3bef81e1efd0dc569a8527dec937fe322a28ca7849e08d9318ba2ff40eb99044424de7')
+            '4ce540a1afd6ef4cb1312af4c663a9d28a7c25cae3383175c1731dfd82257798e5b93f1c6da9acf3ec18afeffc2152b1aa1fece7d56259838264a211e2cd0a24'
+            '20ef28e5b4875a19cd4d936f1fdd41e313ed2251d5c89ccd2e546efbb1914c462984d1e4f7f2ad8997ac4c0746cde5825d87a7ca3a3bd64bdb39fd956f85c567')
 
 _lc() {
     local d f n

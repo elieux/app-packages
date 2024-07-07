@@ -11,7 +11,7 @@ _choconame=autohotkey
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.1.37.01
+pkgver=1.1.37.02
 pkgrel=1
 pkgdesc="Macro-creation and automation-oriented scripting utility for Windows"
 url="https://www.autohotkey.com/"
@@ -21,7 +21,7 @@ provides=("${pkgbase}")
 makedepends=("p7zip")
 options=(!strip)
 source=("AutoHotkey_setup.exe::https://github.com/AutoHotkey/AutoHotkey/releases/download/v${pkgver}/AutoHotkey_${pkgver}_setup.exe")
-sha512sums=('5fc75ae915ce44a69411c81c9b852475acc6a954fd20d3a2f4850dda7b938e921b8a9ebd79ac3987c2a6c7ec9969b5905c73ecc5341e243ce451d625c9bb2626')
+sha512sums=('c9a5ea57842f69223bd32a9b9e4aaad44d422f56e362469299f56d8b34b5e8bbf2b51d4e64d2bebe6c95d6d8545a8a88e6107b9b0a813e469f613e1353aad7a4')
 
 _lc() {
     local d f n

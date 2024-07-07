@@ -5,7 +5,7 @@ _realname=xdebug-dbgp-proxy
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.3 # determined by running the .exe
+pkgver=0.6.1 # determined by running the .exe
 pkgrel=1
 pkgdesc="DBGp proxy from Xdebug"
 url="https://xdebug.org/docs/dbgpProxy"
@@ -15,7 +15,7 @@ provides=("${pkgbase}")
 conflicts=("xdebug-dbgp-tools")
 options=(!strip)
 source=("dbgpProxy.exe::https://xdebug.org/files/binaries/dbgpProxy.exe")
-sha512sums=('c07bea4670effd0ba43e6a214aec2ddc8e99a190c068984dbb3eebd3d039f99bf5e29bcabb6269a0bf73fbcea9aa842d766e3bd03022d7263074da2c9d5de2e3')
+sha512sums=('2d8331d8f7b4abd7926a0e07d43d7dc286df5ffdc5bcb3af976e2106218086bddec2e05a6e5d65941126afc3443c5e2095113ca155b45fff05797eae20cb102b')
 
 _lc() {
     local d f n

@@ -5,7 +5,7 @@ _realname=xdebug-dbgp-client
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.5.0 # determined by running the .exe
+pkgver=0.6.1 # determined by running the .exe
 pkgrel=1
 pkgdesc="DBGp client from Xdebug"
 url="https://xdebug.org/docs/dbgpClient"
@@ -15,7 +15,7 @@ provides=("${pkgbase}")
 conflicts=("xdebug-dbgp-tools")
 options=(!strip)
 source=("dbgpClient.exe::https://xdebug.org/files/binaries/dbgpClient.exe")
-sha512sums=('f76f04743dce9b0ad098eadbfd95ce464473e47674ea8ffd1162b615186cbd0c6718d8840a2fe572e28125979b17b11c256d217874118488ac9cf66ee297e4cd')
+sha512sums=('821ad9c662fbadc4116c2418abae0ef97013d6ffe31edbc382ea39002242655df8987135ead14960da8459cacb68e4405918be299d03ba5323655e16cf8f2b32')
 
 _lc() {
     local d f n

@@ -5,7 +5,7 @@ _choconame=ferdi
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=5.8.0
+pkgver=5.8.1
 pkgrel=1
 pkgdesc="Combine your favourite messaging services into one application, community fork of Franz"
 url="https://getferdi.com/"
@@ -14,8 +14,8 @@ license=('Apache2')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Ferdi-Setup.exe::https://github.com/getferdi/ferdi/releases/download/v${pkgver}/Ferdi-Setup-${pkgver}.exe")
-sha512sums=('f5f1d644d4a7399b6d53de7b56bfed918e38ef6776e3386be45a967f12925c51d22141b3c56d1bd099924b7760ca69a98e4f1585934fa2532e57ddcced15542f')
+source=("Ferdi-Setup.exe::https://downloads.sourceforge.net/ferdi.mirror/v${pkgver}/Ferdi-Setup-${pkgver}.exe")
+sha512sums=('5b684e2d4eda8e495d14784e119083e1bf913116ee1ed66d0cb3928cdce4cc593dc1ef4083af22a7d4568e46239168f69202b97c3e589395c27f29e5ba38e3f5')
 
 _lc() {
     local d f n

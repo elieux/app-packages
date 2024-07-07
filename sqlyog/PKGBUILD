@@ -5,7 +5,7 @@ _choconame=sqlyog
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=13.2.0
+pkgver=13.2.1
 pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://github.com/webyog/sqlyog-community"
@@ -16,7 +16,7 @@ makedepends=("p7zip" "curl")
 provides=("${pkgbase}")
 options=(!strip)
 source=("SQLyog.x64Community.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
-sha512sums=('37f20b93d1c9722d2b8c9fe95ffe679a457b80d553d46f1502717600ad590e43a01e2f7d04134b5bad3fba07a3f5f42aed28427051b57a380dc155aef830170b')
+sha512sums=('25e6b8d7c2721bcb13a0f6072c395b319aa743731c199b6afac8e0702713afeace014b7760b171ee3ee0adf1f1d65bb95be56e076595653699f548baabf97f9a')
 
 _lc() {
     local d f n

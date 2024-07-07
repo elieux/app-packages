@@ -7,21 +7,22 @@ _chocover() {
 }
 
 _realname=openjdk
+_realver=c7ec1332f7bb44aeba2eb341ae18aca4
 _choconame=Temurinjre
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=21.0.3.9
+pkgver=22.0.1
 pkgrel=1
 pkgdesc="Open Java Development Kit"
-url="https://adoptium.net/"
+url="https://openjdk.org/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-jdk" "app-x86_64-jdk")
 provides=("${pkgbase}")
 options=(!strip)
-source=("OpenJDK-jdk_x64_windows_hotspot.zip::https://github.com/adoptium/temurin${pkgver%%.*}-binaries/releases/download/jdk-$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/%2B\1/')/OpenJDK${pkgver%%.*}U-jdk_x64_windows_hotspot_$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/_\1/').zip")
-sha512sums=('47aa9d2d2a28acce777b677419b593eb4c3edcfbd38bedb938fd5086c02702f4e236f0849d2e4e75224cb1bf77eb9d4e05f9a1630820e70494d9b27da2003a5c')
+source=("openjdk_windows-x64_bin.zip::https://download.java.net/java/GA/jdk${pkgver}/${_realver}/8/GPL/openjdk-${pkgver}_windows-x64_bin.zip")
+sha512sums=('d2bf99302a30845a99fb0a40448ac0af8880ab3d0e8d3119531af46c087c7e75c32c57608b73bd72abe5d74864f68dcb744543180e208fb312cead8296e46134')
 
 _rmmsdll() {
     local ms
@@ -40,6 +41,6 @@ _rmmsdll() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "jdk-$(echo "${pkgver}" | sed -r -e 's/([.]0)+[.]([0-9]+)$/.\2/' -e 's/[.]([0-9]+)$/+\1/')"/* "${a}"
+    cp -R "jdk-${pkgver}"/* "${a}"
     _rmmsdll "${a}"
 }

@@ -5,7 +5,7 @@ _choconame=atubecatcher
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=3.8.0.9991
+pkgver=10.8.7.0
 pkgrel=1
 pkgdesc="Downloads videos from the Internet"
 url="https://www.atube.me/"
@@ -15,7 +15,7 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("aTube_Catcher.exe::http://files.dsnetwb.com/aTube_Catcher.exe")
-sha512sums=('0ceabe9034c87149148d47e5302a1ee2a33b0739c897d6c51a7ea865db7fdbcf23ce0599f7155820a92948f7522e2c4a7acff0a9b4e7fe48d4e0eeeda427ef94')
+sha512sums=('7246c5a7f61d63c4c3f33e86646eb599d118577731c8f92222b52b24919be27825ad13f0ac74ea6d45ff4fb362ffff42c768c541dc8258414b53f68117b8602f')
 
 _lc() {
     local d f n
@@ -37,12 +37,14 @@ prepare() {
 }
 
 pkgver() {
-    powershell -command '(Get-Item "aTube_Catcher.dir/{app}/yct.exe").VersionInfo.ProductVersionRaw.ToString()'
+    powershell -command '(Get-Item "aTube_Catcher.dir/{app}/aTubeCatcher,1.exe").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "aTube_Catcher.dir/{app}"/* "${a}"
+    rm "${a}/aTubeCatcher,2.exe"
+    mv "${a}/aTubeCatcher,1.exe" "${a}/aTubeCatcher.exe"
     _lc "${a}"/*
 }

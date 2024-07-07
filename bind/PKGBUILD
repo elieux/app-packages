@@ -34,7 +34,7 @@ _choconame=bind-toolsonly
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=2
-pkgver=9.16.28
+pkgver=9.16.50
 pkgrel=1
 pkgdesc="The ISC BIND nameserver"
 url="https://www.isc.org/downloads/bind/"
@@ -44,7 +44,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("BIND.x64.zip::https@subdir://downloads.isc.org/isc/bind${pkgver%%.*}/${pkgver}/BIND${pkgver}.x64.zip")
-sha512sums=('a4e16dbc90496e2b10c5cec1f31c9ee0ed56380ae8145b8e346fccdd741ae98c3bca1057566520269f42e2329916c0ef7cdf0c4c40209a655f3b7e09c292c4ea')
+sha512sums=('08310f4447002f902e4e7868094f06ede7dc73bca6842a1c62f48a9e6b8db1deac405f040549dee9fb51a3d1521cc7e4b34ae5021ddabd7d1a356f67188ff390')
 
 _lc() {
     local d f n

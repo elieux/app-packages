@@ -1,18 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_chocover() {
-    # 16.0.0.3600 -> 16.0.0.36
-    # 20.0.2.900 -> 20.0.2.9
-    echo "${1}" | sed -r -e 's/00$//'
-}
-
 _realname=openjdk
-_realver=c7ec1332f7bb44aeba2eb341ae18aca4
-_choconame=Temurinjre
+_realver=c9ecb94cd31b495da20a27d4581645e8/9
+_choconame=openjdk
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=22.0.1
+pkgver=22.0.2
 pkgrel=1
 pkgdesc="Open Java Development Kit"
 url="https://openjdk.org/"
@@ -21,8 +15,8 @@ license=('custom')
 replaces=("app-i686-jdk" "app-x86_64-jdk")
 provides=("${pkgbase}")
 options=(!strip)
-source=("openjdk_windows-x64_bin.zip::https://download.java.net/java/GA/jdk${pkgver}/${_realver}/8/GPL/openjdk-${pkgver}_windows-x64_bin.zip")
-sha512sums=('d2bf99302a30845a99fb0a40448ac0af8880ab3d0e8d3119531af46c087c7e75c32c57608b73bd72abe5d74864f68dcb744543180e208fb312cead8296e46134')
+source=("openjdk_windows-x64_bin.zip::https://download.java.net/java/GA/jdk${pkgver}/${_realver}/GPL/openjdk-${pkgver}_windows-x64_bin.zip")
+sha512sums=('8a8e8b2755e5543c40ce90e6b5ad616901666bf2ce2de9ff36276914743337892c6fd646fa6f622b8140b8686704b84b5cf291682ffbae1632391264e6d8587d')
 
 _rmmsdll() {
     local ms

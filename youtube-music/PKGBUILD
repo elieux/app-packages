@@ -5,7 +5,7 @@ _choconame=th-ch-youtube-music
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.4.1
+pkgver=3.5.0
 pkgrel=1
 pkgdesc="Unofficial YouTube Music Desktop App with built-in ad blocker and downloader"
 url="https://th-ch.github.io/youtube-music/"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("YouTube-Music.exe::https://github.com/th-ch/youtube-music/releases/download/v${pkgver}/YouTube-Music-${pkgver}.exe")
-sha512sums=('8e44929fc821520e1bcf0cafebedc663eeb050fd2241c03f0819646857619780d8dfeb72bf3cdf192e4a5f7825b0e0bf69920f79950cb4cd45756c1b5505e1bd')
+sha512sums=('b35b47dc6c3e7520d2faec425b9711e9cb492607888d7ffdf9f74ced396dd097366ee8a61540cc163dee9d31d4f7ca0e709042dcadfc6f7be695614b9ab1d1a1')
 
 _lc() {
     local d f n

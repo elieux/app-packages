@@ -40,7 +40,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.57
-pkgrel=2
+pkgrel=3
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
 arch=('any')
@@ -56,7 +56,7 @@ source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%
         "KeePass2-Bulgarian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.57-Bulgarian.zip"
         "KeePass2-Burmese.zip::https://downloads.sourceforge.net/keepass/Burmese-2.19.zip"
         "KeePass2-Catalan.zip::https://downloads.sourceforge.net/keepass/KeePass-2.57-Catalan.zip"
-        "KeePass2-Chinese_Simplified.zip::https://downloads.sourceforge.net/keepass/KeePass-2.56-Chinese_Simplified.zip"
+        "KeePass2-Chinese_Simplified.zip::https://downloads.sourceforge.net/keepass/KeePass-2.57-Chinese_Simplified.zip"
         "KeePass2-Chinese_Traditional.zip::https://downloads.sourceforge.net/keepass/KeePass-2.57-Chinese_Traditional.zip"
         "KeePass2-Croatian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.29-Croatian.zip"
         "KeePass2-Czech.zip::https://downloads.sourceforge.net/keepass/KeePass-2.57-Czech.zip"
@@ -104,7 +104,7 @@ sha512sums=('66c968cb081f2efccbe1166eb717c2c2a9ef1f91807bb92c06f593cb9440042cf92
             '51941e3fc084193d4549a3f87167a74d65f9cfa24a208d0464c0cd2aef9a4dcf3c4dc6b31f2108f7c0d1282aeba659038da43e77804d4094224b835238e2dec6'
             '8548df07918d101548e828e038bda9c593f909f17cd11cb568c987094b19ed66306f79e3e58d3128a3aeef20deb7061f9c1f1fc001e28aef355b42ec75a519d2'
             '1ab55d8ca3697f03727562c1d5fc0fa4c98e277ce362b729c15e273da356e66a651ffbb18e1095f48d72c3d849c3a9a40fb0829681f8eae7c1bc3aa861c81003'
-            'f8335a31a6db9c1af080fa44223b900774ed34e58b6d53633d413944fdb6f80684aae8ee970767235b362b9c0064be1d2c4ef5faed3c511ebbed957fe9a00863'
+            '3da4ba0837ba33f79ae86c8ab92f57693c59b5b716bed5475fdd550645d756279576430f9f2bae43cdcaaf4a4f0dc7f18f473482413799f18ce8f00a24503ded'
             'ce865194d88cba2beb132794de076926da913ee585afbde546b45f586620f876ad7ecd52125071d09a8d1f1aabe22002f0e617b14c9124852a55bb7fde12809b'
             'a3584859709ef51bbf68f1703eb82178686d1694bdbf1a8ad992f6023bcfe67269313e1279e75c5450b59e693037dd93ab87285c8f43cb60e2dcd75bfc216020'
             'cfaffc5bd05c5db6cf511bf817ac2dd921bbea8dd06c3cca8a2f8e49cdbb9dcd790ee05ddc0914ba1706e8ef7f0145de799fbbf11bbfe67d9ae63dbb3b7f0e96'

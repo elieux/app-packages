@@ -39,7 +39,7 @@ _choconame=Everything
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.4.1.1024
+pkgver=1.4.1.1026
 pkgrel=1
 pkgdesc="Locate files and folders by name instantly"
 url="https://www.voidtools.com/"
@@ -48,7 +48,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("Everything.x64.zip::https@subdir://www.voidtools.com/Everything-${pkgver}.x64.zip")
-sha512sums=('f7ad58191450bca59953f27aa19f99f18592e62a75a9003a9be2b52fb1980bebdb84f9699624b919ff09a09243d7cbc6d1439758718cb9b7b2f363d65acc9d6b')
+sha512sums=('5dfd324eede56060647aae176d26c912a8005cb5a150ca69536eefa9b527fbeae5e065e9800d775a95dd0a2c702b42d54241470ccd3b261dad5847049fb9f17b')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

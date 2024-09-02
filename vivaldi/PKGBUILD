@@ -5,7 +5,7 @@ _choconame=Vivaldi
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.8.3381.55
+pkgver=6.9.3447.37
 pkgrel=1
 pkgdesc="A new browser for our friends"
 url="https://vivaldi.com/"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Vivaldi.x64.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.x64.exe")
-sha512sums=('ae520efd11478d5003ae44085b011465b36b0b89bee81a05ddfbd18df5573c0d91c23b372132834027061893abc893b2ea6bcfa9e6d5a992ffe55fbf8b9e5dc8')
+sha512sums=('5ad8953331d003ebe64b9034803d273c17665244c8e3f398af0f9e32a4e66ae5064e074b87670deddd55736ee25a1f4c99bba88d5de91ce6e58fcf4b51332360')
 noextract=("Vivaldi.x64.exe") # bsdtar detects and extracts a setup.exe
 
 _lc() {

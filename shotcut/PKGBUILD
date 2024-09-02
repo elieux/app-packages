@@ -1,11 +1,19 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # 2021.1.9 -> 2021.01.09
+    # 2021.1.19 -> 2021.01.19
+    # 2021.11.9 -> 2021.11.09
+    # 2021.11.11 -> 2021.11.11
+    echo "${1}" | sed -r -e 's/[.]([0-9])[.]/.0\1./' -e 's/[.]([0-9])$/.0\1/'
+}
+
 _realname=shotcut
 _choconame=Shotcut
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=24.06.26
+pkgver=24.08.29
 pkgrel=1
 pkgdesc="Cross-platform, open-source video editor"
 url="https://shotcut.org/"
@@ -14,7 +22,7 @@ license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
 source=("shotcut-win64.zip::https://github.com/mltframework/shotcut/releases/download/v${pkgver}/shotcut-win64-${pkgver//./}.zip")
-sha512sums=('24fbd1fd0848453719dbb8c0def01b6fb7b1359a47516395f46b7da2d2c32df43bdbb454430dc0bce03cd6c18bc91b29618890333ffc039842af1895d624808b')
+sha512sums=('d123b4fd829dc8aafe7f5e132e8ac113147e060621c96065f88db525062a693504440506826f2c0d0b67f0ed242f7dd67bc9d0a1b60dcfc11d924b51ec694bb2')
 
 _lc() {
     local d f n

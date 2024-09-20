@@ -4,7 +4,7 @@ _realname=composer
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.7.7
+pkgver=2.7.9
 pkgrel=1
 pkgdesc="A dependency manager for PHP"
 url="https://getcomposer.org/"
@@ -13,7 +13,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("composer.phar::https://github.com/composer/composer/releases/download/${pkgver}/composer.phar")
-sha512sums=('2b76e13024472108f806e7a806c25d6a6b2c3fcb33d040f2ea32ebfb0dd07cce9eef2d6997ef36e2bd7a6e225d6a8c8eae1ec99f485963f83a8edbd9ebdf4c1e')
+sha512sums=('6057d18a868152b1d190c5e5dc581d03236b61d21a3f8398ffd5c06cc306b2dacef2511df193ac068ffa36a983d6617b19d83cf70cdc2a263d89d6590b80c16d')
 
 package() {
     depends=("app-php")

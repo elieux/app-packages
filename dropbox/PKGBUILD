@@ -17,6 +17,7 @@ options=(!strip)
 install="dropbox.install"
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
 sha512sums=('73255fbf665d6642d87f2de5aa4b96c1904b636a14ad7e72e34ba336914fb234cb29cd0e952dc2fc00aed90ccbbf77e89af60d1a5dbc1f95a585cbd525ce8fc6')
+noextract=("DropboxOfflineInstaller.exe")
 
 _lc() {
     local d f n

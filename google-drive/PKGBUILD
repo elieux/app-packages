@@ -22,6 +22,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("GoogleDriveSetup.exe::https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe")
 sha512sums=('3c6a3bd37a46076a806f864c008fe280605a30bbcb4acdeb736d7b85afbbe45f625472292bd88c19063bb2426b98d44e8c15056566cb26b6ff960ec9315b1866')
+noextract=("GoogleDriveSetup.exe")
 
 prepare() {
     7z x -y -bd "GoogleDriveSetup.exe" -o"GoogleDriveSetup.dir" > /dev/null

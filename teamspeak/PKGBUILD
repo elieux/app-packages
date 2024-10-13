@@ -17,6 +17,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("TeamSpeak3-Client-win64.exe::https://files.teamspeak-services.com/releases/client/${pkgver}/TeamSpeak3-Client-win64-${pkgver}.exe")
 sha512sums=('54d48fd972ed79200201c14d0d1cff26aa1a1aca306ae7730d42f708d589d9339b53ffb16fbd85fd35f09d86094d711fc305d91c9bd3ada0b9ee9b862a8dcf32')
+noextract=("TeamSpeak3-Client-win64.exe")
 
 _lc() {
     local d f n

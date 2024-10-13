@@ -17,6 +17,7 @@ replaces=("app-i686-${_realname}")
 options=(!strip)
 source=("FileZilla_Server_win64-setup.exe::https://download.filezilla-project.org/server/FileZilla_Server_${pkgver}_win64-setup.exe")
 sha512sums=('0004fcb1485f3ac3f065efee7be82dd4bf47a1c33dd6cd9f260228714bf00993aad14f2ee023d12f9fd5a2da456488564755afb1196c9dd82d8ab5561260485e')
+noextract=("FileZilla_Server_win64-setup.exe")
 
 prepare() {
     7z x -y -bd "FileZilla_Server_win64-setup.exe" -o"FileZilla_Server_win64-setup.dir" > /dev/null

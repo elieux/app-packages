@@ -49,6 +49,7 @@ source=("asx64.exe::ftp://ftp.altap.cz/pub/altap/salamand/as${pkgver/./}x64.exe"
 sha512sums=('d119f06e29de6ca082a2688588729a69b0d141e6b55268466ccd476684c52f8e7e2e381c5459196c1c4f7b59a188cc92395658d9c7e11b64ecac73389e6acbf3'
             '48f2c7d5d481704fe1e61251097fd78a0cceb4dba4270933e5d79f31c06716f4c01890522494dcffa7824e154fc6d91bf25d74574dd846539ecb6dcd6e914ac0'
             'd6be80ebe38279bbd2d9aadc672e437bc1c35ee2ca40cb4d93f5a533031512d83caea3eebdbe95da229f56ee24635e9eef88f6f58b2bdd685d496c5e12665cca')
+noextract=("asx64.exe")
 
 _rmmsdll() {
     local ms

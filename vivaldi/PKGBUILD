@@ -17,7 +17,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Vivaldi.x64.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.x64.exe")
 sha512sums=('ad518d3d98e4e43bda475a5378a2542720a1ff4ba5ec0d2144ac183a371c90ea86d2d22eb7376099ac263d1c3c58fb469b96136d16a512667a130f68c5893f75')
-noextract=("Vivaldi.x64.exe") # bsdtar detects and extracts a setup.exe
+noextract=("Vivaldi.x64.exe")
 
 _lc() {
     local d f n

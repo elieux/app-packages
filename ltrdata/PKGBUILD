@@ -238,6 +238,8 @@ sha512sums=('5e6a38df7cc8abdc54a7bf17b286cb14ae52c402592ba659a3458a461f5bdfa1bea
             '4eb02b31ada7d127f3cd0e1e1c0cf4d2c4cf384967f160a0c11a810aab95aa67e605c2cf238683d00b71ae5cc54be2e4837f2cd012bcfdb32964ea5ebdd3b6dc'
             '5740d96a2c21c4b3cb25ac00ac2b1d9aa845b77a93d09a2998947acb1793f03a4df79617bae13c795c766be4fabf22beb2ed7105aff56411c919198ec7e0546a'
             '2f7c7011871898829ad1392a85c537ee6dfb2ea8f2eaa0619db1be4fbd0cf4c7239762d6d3c34772311e2e3440246fc6e6fe6116e92a358b340598eb05e0bdde')
+noextract=("imdiskinst.exe"
+           "zerodrv.exe")
 
 prepare() {
     7z x -y -bd "imdiskinst.exe" -o"imdiskinst.dir" > /dev/null

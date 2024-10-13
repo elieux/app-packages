@@ -16,6 +16,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("avidemux_win64.exe::http://www.avidemux.org/nightly/win64/avidemux_${pkgver%r*}%20r${pkgver#*r}_win64.exe")
 sha512sums=('6566e1514b4ac8fe16b2d8ae19598dd1621c5e214511297f3edd4de0ec6f700695a29d4955dd0b465dac7bdf764c8140ea2970b4fbd90554e3c3e75d165213c5')
+noextract=("avidemux_win64.exe")
 
 prepare() {
     rm -fR "avidemux_win64.dir"

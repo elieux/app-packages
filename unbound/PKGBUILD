@@ -16,6 +16,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("unbound_setup.exe::https://nlnetlabs.nl/downloads/unbound/unbound_setup_${pkgver}.exe")
 sha512sums=('2eee4498db63d72f289dee1c9e973ac6d0b21c56763e31310463137b475dfbb5fe3f177d7ed039a8a92502c5ed0490dcf26f6fb2cd0d48f9a3a6dfc3e91d14d1')
+noextract=("unbound_setup.exe")
 
 _lc() {
     local d f n

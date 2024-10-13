@@ -17,6 +17,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("SQLyog.x64Community.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
 sha512sums=('25e6b8d7c2721bcb13a0f6072c395b319aa743731c199b6afac8e0702713afeace014b7760b171ee3ee0adf1f1d65bb95be56e076595653699f548baabf97f9a')
+noextract=("SQLyog.x64Community.exe")
 
 _lc() {
     local d f n

@@ -17,6 +17,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("gnupg-w32.exe::https://www.gnupg.org/ftp/gcrypt/binary/gnupg-w32-${pkgver}_${_realver}.exe")
 sha512sums=('2f08e850d00c951139ea2993c92915a884c9a49c64a547a186cd310eb43c5b9c9b59c46931eb38f241a5c66f76aa81fb85533db01ac848532cec9ab180b60b8b')
+noextract=("gnupg-w32.exe")
 
 prepare() {
     7z x -y -bd "gnupg-w32.exe" -o"gnupg-w32.dir" > /dev/null

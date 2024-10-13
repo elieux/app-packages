@@ -16,6 +16,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Ferdi-Setup.exe::https://downloads.sourceforge.net/ferdi.mirror/v${pkgver}/Ferdi-Setup-${pkgver}.exe")
 sha512sums=('5b684e2d4eda8e495d14784e119083e1bf913116ee1ed66d0cb3928cdce4cc593dc1ef4083af22a7d4568e46239168f69202b97c3e589395c27f29e5ba38e3f5')
+noextract=("Ferdi-Setup.exe")
 
 _lc() {
     local d f n

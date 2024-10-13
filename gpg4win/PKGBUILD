@@ -16,6 +16,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("gpg4win.exe::https://files.gpg4win.org/gpg4win-${pkgver}.exe")
 sha512sums=('6db824e5da2a9c0af492e78f06fd18fc864eefeb3de4861b09eee6e9da7db2b4a5c181061262deb530dedd56640c314647cac4b49c9b7bb65f7b6020f79f4e10')
+noextract=("gpg4win.exe")
 
 _lc() {
     local d f n

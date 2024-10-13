@@ -16,6 +16,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Postman-win64-Setup.exe::https://dl.pstmn.io/download/latest/win64")
 sha512sums=('c77a05862e378ada5d47137fe5d95454c8015eb2783d92f004ab03983147fc630135c7155eee5d217781071ff1e57bbf21e9f3000f8618f74326082f23a19fe3')
+noextract=("Postman-win64-Setup.exe")
 
 _lc() {
     local d f n

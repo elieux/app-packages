@@ -16,6 +16,7 @@ makedepends=("p7zip")
 options=(!strip)
 source=("claws-mail-64bit.exe::https://www.claws-mail.org/win32/claws-mail-${pkgver}-1-64bit.exe")
 sha512sums=('8c30541f96c4c3db502aa9e09a2f6727aa7398ce4cc3d17ce8be813708f1dc82ffd18c2b8c83f3741b652add8923aad51222ae8bf922423547a1d4ff8a814d02')
+noextract=("claws-mail-64bit.exe")
 
 prepare() {
     7z x -y -bd "claws-mail-64bit.exe" -o"claws-mail-64bit.dir" > /dev/null

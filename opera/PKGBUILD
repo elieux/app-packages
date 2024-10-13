@@ -17,6 +17,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("Opera_Setup_x64.exe::https://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup_x64.exe")
 sha512sums=('41846ed72d534fcb61ccb990ad99c351e83e30189e24ce7565d697be3e4f5e2ce1fd4bae28f13064c2f48360422d173fe319509706d76da9e6a30569e26cf736')
+noextract=("Opera_Setup_x64.exe")
 
 _lc() {
     local d f n

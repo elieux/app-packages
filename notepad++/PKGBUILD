@@ -48,6 +48,7 @@ source=("npp.portable.x64.zip::https@subdir://github.com/notepad-plus-plus/notep
         "npp.Installer.x64.exe::https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v${pkgver%.0}/npp.${pkgver}.Installer.x64.exe")
 sha512sums=('bc1956575f9b8f76f4523bc245fc0a1c42414602eb58bfded23c4f9cd2d6b5cb6ae5ef63871ba0339b8027f9ab4f320e1c8a6f257dfe42da5257dcf6bbae35bf'
             '69788652683e7de01c9da3901754deb5222d5e2d82aacaebd5dbce10531a2c6a0e38c23984a3f13167b073a42eb27c6aaee8674d2db0d5a57dc71a175d1b1633')
+noextract=("npp.Installer.x64.exe")
 
 _lc() {
     local d f n

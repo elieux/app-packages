@@ -22,6 +22,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("mp3tag-x64-setup.exe::https://download.mp3tag.de/mp3tagv${pkgver//./}-x64-setup.exe")
 sha512sums=('2187ef0707399096c939e877e8259c2974b50b130c148cfa62047a0e3051371d3639d96c0d0768bf97025fb37c0e8bd67377da8927bc34cfce97929e11235c22')
+noextract=("mp3tag-x64-setup.exe")
 
 _lc() {
     local d f n

@@ -45,6 +45,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("signal-desktop-win.exe::https@subdir://updates.signal.org/desktop/signal-desktop-win-${pkgver}.exe")
 sha512sums=('a994ed5bd3a9d48d4457b72018cd6325526a76f329d5546e5decef4b60760d75c5475a5a7a54117d6f3312ea0714a95fb20f614a091f9e955b3ae56ef548ea09')
+noextract=("signal-desktop-win.exe")
 
 _lc() {
     local d f n

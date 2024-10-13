@@ -49,6 +49,7 @@ Guidelines for recipes
 - Do not include copies of Microsoft re-distributable libraries, e.g. `msvc*.dll`, `mfc*.dll`, `atl*.dll`. `msvb*.dll`.
 - If the URL in `$source` doesn't use `$pkgver`, create a `pkgver()` function. If the URL in `$source` is dependent on version, but unpredictable, use a `$_realver`.
 - `prepare()` is for extracting and various file manipulations; anything complex like silent installs go into `build()`.
+- If you're extracting a downloaded file in `prepare()`, put it into `$noextract`.
 - Declare runtime dependencies inside `package()`. This way makepkg doesn't consider them as build dependencies.
 - Extract everything into subdirectories. Suppress verbose output, but not errors.
 - Know that the working directory is set to `$srcdir` and don't change it much.

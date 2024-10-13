@@ -45,6 +45,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("RepoZ.Setup.exe::https://github.com/awaescher/RepoZ/releases/download/v${pkgver}/RepoZ.${pkgver}.Setup.exe")
 sha512sums=('9cdec304da164f3ec042be8641ed20e69524bda45622b93331db1cafa993ead72f776b5c246ddfa9d22c3d83ec069d5c477651a6247992726de523e02b86ea9b')
+noextract=("RepoZ.Setup.exe")
 
 _dotnet() {
     local runtimetarget="$(cat "${1}.deps.json" | /mingw64/bin/jq -r '.runtimeTarget.name')"

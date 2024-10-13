@@ -45,6 +45,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("vortex-setup.exe::https@subdir://github.com/Nexus-Mods/Vortex/releases/download/v${pkgver}/vortex-setup-${pkgver}.exe")
 sha512sums=('bd9559e4c630aa5dd9d36e49cc12ebed570b3b9b71048c3777d3258969c8e7a45bf2dfc43d95840df281f5930722fd9be5bad61ad2d4c483af7fc28b76da04b3')
+noextract=("vortex-setup.exe")
 
 _lc() {
     local d f n

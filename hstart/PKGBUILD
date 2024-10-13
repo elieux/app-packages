@@ -15,6 +15,7 @@ makedepends=("p7zip")
 options=(!strip)
 source=("Hstart-setup.exe::https://hstart.s3.amazonaws.com/Hstart_${pkgver}-setup.exe")
 sha512sums=('f5f3cd3fc7d5c8924a72715309c50b4f324bc58f25ef6c0424dc4a1692c138722b98ee7596dba32e957cbc58c25a6717fb459d21a392094176eecdfeacd8b2cd')
+noextract=("Hstart-setup.exe")
 
 _lc() {
     local d f n

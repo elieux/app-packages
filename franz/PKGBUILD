@@ -17,6 +17,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("franz-setup.exe::https://github.com/meetfranz/franz/releases/download/v${pkgver}/franz-setup-${pkgver}.exe")
 sha512sums=('cb77cb0f64f8be2e8caad2c34399090cd13b392b9d9acb3359d3b38b4840ecfc74ff29b2309422825c9d80ecc8e265062901b67dfbdd4f4be7082f45c74cfe74')
+noextract=("franz-setup.exe")
 
 _lc() {
     local d f n

@@ -1,0 +1,61 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=station
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=3.1.0
+pkgrel=1
+pkgdesc="First open-source smart browser for busy people. A single place for all of your web applications."
+url="https://getstation.com/"
+arch=('any')
+license=('Apache-2.0')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Station-Setup.exe::https://github.com/getstation/desktop-app/releases/download/v${pkgver}/Station-Setup.exe")
+sha512sums=('a0656341e49401d495d726d5e6e7cd860c509e185bab4fdf7fb87e3263eafa240f336d6fbc9bbb55b8aaf4f72e66cd3a6b61d46759c6277a0b1313c69d30ea84')
+noextract=("Station-Setup.exe")
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    rm -fR "Station-Setup.dir"
+    7z x -y -bd "Station-Setup.exe" -o"Station-Setup.dir" > /dev/null
+    7z x -y -bd "Station-Setup.dir"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "app-64"/* "${a}"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
+}

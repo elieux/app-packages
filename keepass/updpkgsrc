@@ -3,9 +3,9 @@
 // no error handling yet
 
 $list = file_get_contents("https://keepass.info/translations.html");
-preg_match("~download/v2_trlutil_2/TrlUtil-(2[.][0-9]+)[.]zip~", $list, $trlutil);
+preg_match("~download/v2_trlutil_2/TrlUtil-(2[.][0-9]+(?:[.][0-9]+)?)[.]zip~", $list, $trlutil);
 echo "Found: TrlUtil.zip\n";
-preg_match_all("~https://downloads[.]sourceforge[.]net/keepass/((?:KeePass-)?(?:2[.][0-9]+-)?([A-Za-z0-9_-]+?)(?:-2[.][0-9]+)?)[.]zip~", $list, $packs, PREG_SET_ORDER);
+preg_match_all("~https://downloads[.]sourceforge[.]net/keepass/((?:KeePass-)?(?:2[.][0-9]+(?:[.][0-9]+)?-)?([A-Za-z0-9_-]+?)(?:-2[.][0-9]+)?)[.]zip~", $list, $packs, PREG_SET_ORDER);
 
 $srclist = [];
 $srclist[] = 'KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip';

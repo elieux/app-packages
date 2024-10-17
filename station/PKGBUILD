@@ -4,7 +4,7 @@ _realname=station
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.1.0
+pkgver=3.2.0
 pkgrel=1
 pkgdesc="First open-source smart browser for busy people. A single place for all of your web applications."
 url="https://getstation.com/"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Station-Setup.exe::https://github.com/getstation/desktop-app/releases/download/v${pkgver}/Station-Setup.exe")
-sha512sums=('a0656341e49401d495d726d5e6e7cd860c509e185bab4fdf7fb87e3263eafa240f336d6fbc9bbb55b8aaf4f72e66cd3a6b61d46759c6277a0b1313c69d30ea84')
+sha512sums=('5cf612192c74b9c283bf7b91dadab2a39cc18aa9e4625a99535c9e53dd6239ae4823d939285c927d2acf51c1e3650b63f5d120fb73f3f0cf90ce4e31d6122535')
 noextract=("Station-Setup.exe")
 
 _lc() {

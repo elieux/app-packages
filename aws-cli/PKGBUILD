@@ -14,7 +14,7 @@ license=('Apache')
 makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("AWSCLIV2.msi::https://awscli.amazonaws.com/AWSCLIV2.msi")
+source=("AWSCLIV2.msi::https://awscli.amazonaws.com/AWSCLIV2-${pkgver}.msi")
 sha512sums=('208ab6483b8766e36ae289eb65c7f8276392d9338725ca96ed4844a7a34d1b9bbeceb98b0ba849c687736784e52b9ea253fd6399ac9d62cb6df52a1744263b06')
 
 _rmmsdll() {
@@ -34,10 +34,6 @@ _rmmsdll() {
 prepare() {
     rm -fR "AWSCLIV2"
     /apps/lessmsi/lessmsi x "AWSCLIV2.msi" > /dev/null
-}
-
-pkgver() {
-    /apps/lessmsi/lessmsi v "AWSCLIV2.msi" | sed -r 's/[.]0$//'
 }
 
 package() {

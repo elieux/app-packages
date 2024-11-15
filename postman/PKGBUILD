@@ -5,7 +5,7 @@ _choconame=postman
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=11.13.0
+pkgver=11.19.0
 pkgrel=1
 pkgdesc="A platform for building and using APIs"
 url="https://www.postman.com/"
@@ -15,7 +15,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Postman-win64-Setup.exe::https://dl.pstmn.io/download/latest/win64")
-sha512sums=('c77a05862e378ada5d47137fe5d95454c8015eb2783d92f004ab03983147fc630135c7155eee5d217781071ff1e57bbf21e9f3000f8618f74326082f23a19fe3')
+sha512sums=('7b30830039b25adba5860ab32e246af5b9b9f4e8fc7f63433c11d0d0d8a10f628773b8400a0271bd21c7e5413cba1678a15f143ced1a02e22a5ce3c0da4243cb')
 noextract=("Postman-win64-Setup.exe")
 
 _lc() {

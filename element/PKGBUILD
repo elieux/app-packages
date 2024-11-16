@@ -1,0 +1,47 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=element
+_choconame=element-desktop
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.11.85
+pkgrel=1
+pkgdesc="A glossy Matrix collaboration client for desktop"
+url="https://element.io/download"
+arch=('any')
+license=('Apache')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Element_Setup.exe::https://packages.element.io/desktop/install/win32/x64/Element%20Setup%20${pkgver}.exe")
+sha512sums=('963777f1f0e95ed6f9e405914f0bc6cd91f92edcc3f481a5c0c18910820d9bdc2c62fa9058f9edbe725e7a2b877be0af39a14df07ef156521ea79b7dea1de89f')
+noextract=("Element_Setup.exe")
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+
+prepare() {
+    7z x -y -bd "Element_Setup.exe" -o"Element_Setup.dir" > /dev/null
+    unzip -q -o "Element_Setup.dir/element-desktop-${pkgver}-full.nupkg" -d "element-desktop-full"
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "element-desktop-full/lib/net45"/* "${a}"
+    _lc "${a}"/*
+}

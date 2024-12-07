@@ -5,7 +5,7 @@ _choconame=Opera
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=114.0.5282.222
+pkgver=115.0.5322.77
 pkgrel=1
 pkgdesc="A fast and free Blink-based web browser"
 url="https://www.opera.com/computer"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Opera_Setup_x64.exe::https://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup_x64.exe")
-sha512sums=('ec13ffd032ec15ccc5c9cc006a283fb2a03dc33bc0725f0fb812e38c8f61b73e28b0a5af48f7470d47bf8bbb1ce08fd0b5c7b18af656a1be408086ff4e009bfc')
+sha512sums=('61ed861d5958cf24a0a2e06b9f8c26677f579cb0fc2ec05769e4d06307b5baf102c818fa9754d0246db3fff0c05717d0a349f695da296130012a6a9e19b27840')
 noextract=("Opera_Setup_x64.exe")
 
 _lc() {
@@ -56,7 +56,7 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "Opera_Setup_x64.dir"/* "${a}"
-    rm -R "${a}"/{assets,root_files_list,files_list,launcher.exe,launcher.visualelementsmanifest.xml,resources.pri} "${a}"/{installer.exe,installer_helper_64.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
+    rm -R "${a}"/{assets,root_files_list,files_list,resources.pri} "${a}"/{installer.exe,installer_helper_64.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

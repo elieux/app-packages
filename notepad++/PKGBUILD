@@ -34,7 +34,7 @@ _choconame=notepadplusplus
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.7.1
+pkgver=8.7.4
 pkgrel=1
 pkgdesc="A free Scintilla-based editor with plugin support"
 url="https://notepad-plus-plus.org/"
@@ -46,8 +46,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("npp.portable.x64.zip::https@subdir://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v${pkgver%.0}/npp.${pkgver}.portable.x64.zip"
         "npp.Installer.x64.exe::https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v${pkgver%.0}/npp.${pkgver}.Installer.x64.exe")
-sha512sums=('e7c2d3156ff3a857788b0910226bda30fcc41e6a33b9f28e84da98c4014f23f8d3330b20d769db16bf03dd4aa6d986653bf73d42cf3d497fad35915b513f5968'
-            'e3ff13f400e095b091e1fae184b9a83416c17c1033558b1512f765e19d866a776414db964d5e7a713eaa0ac0e07a98524540a0dba88294f137c0eaacdaa62e20')
+sha512sums=('7af2153f4fbf7813ade8d24d08e500b04925efe59dc7914ddda2b2331a35ebce11995b22f496662b76ad37a00a4c46a9d82550446da2964fe54846a60afe50b1'
+            'c91131e0d6252c851d644d4cb34ea5c679c3b3a008b689915fcbe828999bb683c0547549d716adb1fa94572c09e21a5bfaa95b0e0fa0ba0fd340c9031f3f8fa6')
 noextract=("npp.Installer.x64.exe")
 
 _lc() {

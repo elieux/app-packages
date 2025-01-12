@@ -5,7 +5,7 @@ _choconame=mumble
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.5.634
+pkgver=1.5.735
 pkgrel=1
 pkgdesc="Open Source, Low Latency, High Quality Voice Chat"
 url="https://www.mumble.info/"
@@ -16,8 +16,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("mumble_client.x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_client-${pkgver}.x64.msi"
         "mumble_server.x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_server-${pkgver}.x64.msi")
-sha512sums=('bcdf0988df86df8f5e810e7d0954b8fa9745c8c633a0e8760947a2e96ba40245532aaf2863f17b8204a66f9d945aa79256ccf1290a06aa89b45b556178361be1'
-            '3d2368ee986f27c617f5f0dd08aa2f5ed6bf289bde25d2a8a8ba03034a48542659db493257ae247c636b0faaebc03a9d7f17a6b3e9395804f385196bc0392325')
+sha512sums=('920a72aa424b103bf6e83944018298333338fb341b1f10788d34ce03c2464aa15a2155cb70e887ca8a129944a6fd6e36a08b3b0e1a4be1b023e38eec2bd5670b'
+            '34b6f0f9e6e37cfd6e04e39dadea9f24837d611ba34c55dbd7a8804a348c179263ac4a767ff37694bf622629e7f14ca7184d6da4bee38b97b16f6666126c845c')
 
 _lc() {
     local d f n

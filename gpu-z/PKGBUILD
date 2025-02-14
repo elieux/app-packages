@@ -1,15 +1,15 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_realver=2670
+_realver=2793
 
-DLAGENTS=("https::/usr/bin/curl -qb '' -fLC - -d id=${_realver}&server_id=8 -o %o %u")
+DLAGENTS=("https::/usr/bin/curl -qb '' -fLC - -d id=${_realver}&server_id=25 -o %o %u")
 
 _realname=gpu-z
 _choconame=gpu-z
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.60.0
+pkgver=2.62.0
 pkgrel=1
 pkgdesc="Lightweight utility providing GPU and graphics card information"
 arch=('any')
@@ -18,7 +18,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("GPU-Z.exe::https://www.techpowerup.com/download/techpowerup-gpu-z/")
-sha512sums=('b668acf14931c8b931e692dd54e0b9f71b901e1442168a10d0309e21e1c1aeea6590cdbd2b5e05217c3438f9f59061da557ebfc32c21def37f4d205fd79fa05e')
+sha512sums=('1fdee2cc566f45ad739039db20ca2bc027a4b7dd92263564681bedf7c453af44dd440ebab55b6953e6e749ab3f8cf474ad583049c65e52589d13d69ede874612')
 
 pkgver() {
     powershell -command '(Get-Item "GPU-Z.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.][0-9]+$/\1/'

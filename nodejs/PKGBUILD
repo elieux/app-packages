@@ -5,7 +5,7 @@ _choconame=nodejs
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=23.6.0
+pkgver=23.8.0
 pkgrel=1
 pkgdesc="Evented I/O for V8 javascript"
 url="https://nodejs.org/"
@@ -14,7 +14,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("node-win-x64.zip::https://nodejs.org/dist/v${pkgver}/node-v${pkgver}-win-x64.zip")
-sha512sums=('105e8c64c8821806fdab9b0246d9c4b037cec8ad98043b0554ac36eff89ae39ac1d76ef6f3e09bf6c7eb990060fd152455b1b69b4ea3d8092e242f06695b70b9')
+sha512sums=('ad1dbda8b99a79870f9e3be3e8bc763eb1fe7200a1461e20583ad2daf5a1bfc0d84255dcf852713b237752ce1cc07e7081390ef2a9c751ecbcc29a794ad91688')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

@@ -34,7 +34,7 @@ _choconame=autohotkey.portable
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.0.18
+pkgver=2.0.19
 pkgrel=1
 pkgdesc="Macro-creation and automation-oriented scripting utility for Windows"
 url="https://www.autohotkey.com/"
@@ -43,7 +43,7 @@ license=('GPL2')
 provides=("${pkgbase}")
 options=(!strip)
 source=("AutoHotkey.zip::https@subdir://github.com/AutoHotkey/AutoHotkey/releases/download/v${pkgver}/AutoHotkey_${pkgver}.zip")
-sha512sums=('ae47717baee50b1aa2e35776165bda0b7d786ddbb4c93bc6113f53ba7929c1cc117239c4d64ca69851aad63acd9e493031f0bde97eeeab3f6da15b8852d20823')
+sha512sums=('1aa759fc118b4e1d8571fbeed575cf77fe572cb867aa0af36891a4c8a4e76e9e759fb11a43d66462c44ae561daac153f64c0503f0eb20ccd47fdeaadb78d6e1d')
 
 _lc() {
     local d f n

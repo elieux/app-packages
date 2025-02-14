@@ -34,7 +34,7 @@ _choconame=pspad
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=5.0.7
+pkgver=5.5.1.825
 pkgrel=1
 pkgdesc="Freeware programmer's editor"
 arch=('any')
@@ -43,7 +43,7 @@ license=('custom')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("pspaden_x64.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1\2\3/')en_x64.zip"
+source=("pspaden_x64.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1\2\3/')en_x64.zip"
         "en_dic.cab::https://www.pspad.com/files/dic/en_dic.cab"
         "bp_dic.cab::https://www.pspad.com/files/dic/bp_dic.cab"
         "bg_dic.cab::https://www.pspad.com/files/dic/bg_dic.cab"
@@ -64,7 +64,7 @@ source=("pspaden_x64.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "
         "sv_dic.cab::https://www.pspad.com/files/dic/sv_dic.cab"
         "es_dic.cab::https://www.pspad.com/files/dic/es_dic.cab"
         "tr_dic.cab::https://www.pspad.com/files/dic/tr_dic.cab")
-sha512sums=('db129bbbb0a3ded7b6a83c44de30d0279e88b1c72bb1748cf8df63560e7d65ad72bbe057d4be8832fef1c6d1bbae64ad526bf7fc6ab99eaa6700d8673306e660'
+sha512sums=('884017e513e1286fe15707434e6c20aeaaf0b4bafd77eec3600edfd81cbb7ab35ca2015dc0c0349932aaee131dedfc156d234a14e0cb5e6faf4c149ca63c5ab3'
             '96d0392307db5d107896fdbbb412769a4721da6c54b695019ab52055c9ba5ce2b5b74312e2f721d162df18053c6ff84ffa3136c972ad22e4f6f62aeb38af3deb'
             '6bb8e11f5393a6134940bd93a20068b6398dbc76f404a75ff6dd3f22c4b75639d584a758a21d5264242394c215a71b1b940bcacfe3ac71f759ef5bc06c4bac55'
             'deeeec196bf229973170d85b12af13964e09cf072a21bd486919a158fb2d708c1cd9529c8226a704f1263fb0b22d66080511577a07443cbd1d015182bb7ab53c'

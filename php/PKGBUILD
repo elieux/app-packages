@@ -34,7 +34,7 @@ _choconame=php
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.3.14
+pkgver=8.4.4
 pkgrel=1
 pkgdesc="A general-purpose scripting language that is especially suited to web development"
 url="https://windows.php.net/"
@@ -42,11 +42,11 @@ arch=('any')
 license=('PHP')
 provides=("${pkgbase}")
 options=(!strip)
-source=("php-nts-Win32-vs16-x64.zip::https@subdir://windows.php.net/downloads/releases/php-${pkgver}-nts-Win32-vs16-x64.zip")
-sha512sums=('f8b6d3a8b96247b35bdbcb209d2496f327e99a6c20f4771d062a4941f0e76f7ac99ecce2208c350d11de68c31b841eb6c3d715b5c93d3eb06e75999937c30607')
+source=("php-nts-Win32-vs17-x64.zip::https@subdir://windows.php.net/downloads/releases/php-${pkgver}-nts-Win32-vs17-x64.zip")
+sha512sums=('75c82d669617a14d460e5db3fe1a48d712a727cd7dcb3e8a5872be1cbb5c96a1b53fd9600630f0a2a97bb58bf3add35f8a59a05007ad3a409ccde9426b532e0d')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "php-nts-Win32-vs16-x64"/* "${a}"
+    cp -R "php-nts-Win32-vs17-x64"/* "${a}"
 }

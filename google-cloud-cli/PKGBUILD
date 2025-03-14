@@ -34,7 +34,7 @@ _choconame=gcloudsdk
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=510.0.0
+pkgver=514.0.0
 pkgrel=1
 pkgdesc="A set of command-line tools for the Google Cloud Platform"
 url="https://cloud.google.com/cli/"
@@ -43,7 +43,7 @@ license=('Apache-2.0')
 provides=("${pkgbase}")
 options=(!strip)
 source=("google-cloud-cli-windows-x86_64.zip::https://storage.googleapis.com/cloud-sdk-release/google-cloud-cli-${pkgver}-windows-x86_64.zip")
-sha512sums=('ec993663a8b9ed9db6044afff3fe4d293727cec4cb0ace17f4d681783f940b05e226c718fee0fc6afb3658092ada5ebc10f84dcdfbc1002982bd7e7c9ae072b2')
+sha512sums=('6591530950b8b49596c30bfe75f876f2d8c7f032fd2261c587042ecbf8a5a036ba4493a8518596f6366aefffc8dbf875b21fb6945250677b679faa97fdd632fa')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

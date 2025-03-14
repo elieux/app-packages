@@ -34,7 +34,7 @@ _choconame=reshack
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=5.2.7.427
+pkgver=5.2.8.448
 pkgrel=1
 pkgdesc="Freeware resource compiler & decompiler for Windows applications"
 url="http://www.angusj.com/resourcehacker/"
@@ -43,7 +43,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("resource_hacker.zip::http@subdir://www.angusj.com/resourcehacker/resource_hacker.zip")
-sha512sums=('4f73f384ce2e8643ba02308ca1f12fd63b49b681cb176001fff0d6d1de1523878a032d127f33ca2eafd1c5e447d2080e674523d44e9e2c8af8713b74afd6d0b1')
+sha512sums=('e92d7be0b6d1dab7117c3f7a4d34b0fa15c28f3cf7e7a0513441c66ed164bd722520d4169ff323e51090c8503a9f8fa76392e138cce751a22651d96b676741aa')
 
 _lc() {
     local d f n

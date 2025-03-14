@@ -30,12 +30,12 @@ extract_https@subdir() {
 }
 
 _realname=dotnet-sdk
-_realver=6f8a9285-8627-419c-a2f9-3f9463b06bf3/6d0c9057e0f61f8a6e5708fb9261ff1e
+_realver=5f4264b2-7499-46c4-88a6-cfe5d988cdeb/0e0243c0bfd628b99b38b8e30cadbfca
 _choconame=dotnet-sdk
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=9.0.200
+pkgver=9.0.201
 pkgrel=1
 pkgdesc="The .NET SDK"
 url="https://github.com/dotnet/core"
@@ -44,7 +44,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("dotnet-sdk-win-x64.zip::https@subdir://download.visualstudio.microsoft.com/download/pr/${_realver}/dotnet-sdk-${pkgver}-win-x64.zip")
-sha512sums=('e274e0e8a0d926c58a2199e020fc5b2c2867689772f51673f655ee853a50a9ca0e435ae5682bb4ae146d1fbc9a40f6d4a7ecff14d5fea24db8a3f67d0dcbf2a9')
+sha512sums=('5a6d8eadb389e0ab4984bf36cd2950583ee5e3f3a20e8fc1c5a526a197029988052616e1be1662c4b9e13020b572685423d664d0b68a009b4b98661f65bf1a73')
 
 _lc() {
     local d f n

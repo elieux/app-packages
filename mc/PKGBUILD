@@ -1,33 +1,34 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=mc
-_realver=230
+_realver=232
 _choconame=mc
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.8.31.230
+pkgver=4.8.33.232
 pkgrel=1
 pkgdesc="GNU terminal two-pane file manager"
 url="https://sourceforge.net/projects/mcwin32/"
 arch=('any')
 license=('GPL3')
 provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
 makedepends=("app-innounp")
 options=(!strip)
-source=("mcwin32-build-setup.exe::https://downloads.sourceforge.net/mcwin32/mcwin32-build${_realver}-setup.exe")
-sha512sums=('af17a4d99e9d11fad1af94d98fab4feac726fb4fd5bfc2152fc93a7c600cde077701943d44ed6513323eeba9812763bfd39a48595f12d51d29d4cb844843476d')
+source=("mcwin32-build-x64-setup.exe::https://downloads.sourceforge.net/mcwin32/mcwin32-build${_realver}-x64-setup.exe")
+sha512sums=('4a99561cc10f5fe8d0e10981f869649f30d4252cd54156627a646841eb3e7d5feacee87b30251b6b9db39903765d5ab3dc4eebaa01538eaadc1d7872a7a38ad8')
 
 prepare() {
-    /apps/innounp/innounp -x -q -m -a -y "mcwin32-build-setup.exe" -d"mcwin32-build-setup.dir"
+    /apps/innounp/innounp -x -q -m -a -y "mcwin32-build-x64-setup.exe" -d"mcwin32-build-x64-setup.dir"
 }
 
 pkgver() {
-    powershell -command '(Get-Item "mcwin32-build-setup.exe").VersionInfo.ProductVersion.ToString()' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+) [(]build: [0-9]{8}-([0-9]+)[)] *$/\1.\2/'
+    powershell -command '(Get-Item "mcwin32-build-x64-setup.exe").VersionInfo.ProductVersion.ToString()' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+) [(]build: [0-9]{8}-([0-9]+)[)] *$/\1.\2/'
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "mcwin32-build-setup.dir/{app}"/* "${a}"
+    cp -R "mcwin32-build-x64-setup.dir/{app}"/* "${a}"
 }

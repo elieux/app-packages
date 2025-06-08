@@ -10,7 +10,7 @@ _choconame=mp3tag
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.28
+pkgver=3.30
 pkgrel=1
 pkgdesc="Powerful audio metadata editor"
 arch=('any')
@@ -21,7 +21,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("mp3tag-x64-setup.exe::https://download.mp3tag.de/mp3tagv${pkgver//./}-x64-setup.exe")
-sha512sums=('15f345254a2d3eeb6741257303ab0bfac29bf2acce70649d27d32a70c21c17245c6252511d50c4e64443a438a3e30a56800fd285ed1b28204672e5ae7d6fd96c')
+sha512sums=('6c16ec8c303cf2483a8c96417c207204e750d6ff37d5eab8eb02dc7031e93462ecc024b60a5191cb290e459a79a9b22aec0d441c422ab2a9ec4a5fbb17de24cd')
 noextract=("mp3tag-x64-setup.exe")
 
 _lc() {

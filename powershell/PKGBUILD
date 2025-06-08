@@ -34,7 +34,7 @@ _choconame=powershell-core
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.5.0
+pkgver=7.5.1
 pkgrel=1
 pkgdesc="A cross-platform automation and configuration tool/framework"
 url="https://github.com/PowerShell/PowerShell"
@@ -44,7 +44,7 @@ makedepends=("mingw-w64-x86_64-jq")
 provides=("${pkgbase}")
 options=(!strip)
 source=("PowerShell-win-x64.zip::https@subdir://github.com/PowerShell/PowerShell/releases/download/v${pkgver}/PowerShell-${pkgver}-win-x64.zip")
-sha512sums=('aa04ffc30dca4eca6c6cd39a499a14eb2978e22bb255dca8ecec296915c250a882409b5e1da376f613aa3bf2faaedaf1e39130466d8349a5842b4b2e37f24e80')
+sha512sums=('742d52de3a134d965f7050e057419d80c4aaa24f1769e545b08dbe60056fc3f1c5fe40d6ede3008e2f798ebad2263bc35f51b311142e5a61fe78baa5a0fcc074')
 
 _dotnet() {
     local runtimetarget="$(cat "${1}.deps.json" | /mingw64/bin/jq -r '.runtimeTarget.name')"

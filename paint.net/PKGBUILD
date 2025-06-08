@@ -34,8 +34,8 @@ _choconame=paint.net
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=5.1.6
-pkgrel=2
+pkgver=5.1.8
+pkgrel=1
 pkgdesc="A free image and photo editing software"
 url="https://www.getpaint.net"
 arch=('any')
@@ -45,7 +45,7 @@ makedepends=("mingw-w64-x86_64-jq")
 provides=("${pkgbase}")
 options=(!strip)
 source=("paint.net.portable.x64.zip::https@subdir://github.com/paintdotnet/release/releases/download/v${pkgver}/paint.net.${pkgver}.portable.x64.zip")
-sha512sums=('9cb0069d62026fb5e8ad541aa3addf92837e7d413343e8343a0b999b3f5834e44b60a54feec4cb6e5863c624cff4db15bd42e777dd5bfa92075e9f2b154bdcb8')
+sha512sums=('a97a8232456b9ae1ddfb0760dbce914451956d6ece2602d2cf2cdad8de72e5473a87fddfbb4717803c7ade86f8214b8afef919f6b7e2392f23951888b309d707')
 
 _dotnet() {
     local runtimetarget="$(cat "${1}.deps.json" | /mingw64/bin/jq -r '.runtimeTarget.name')"

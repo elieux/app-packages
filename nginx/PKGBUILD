@@ -5,7 +5,7 @@ _choconame=nginx
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.28.0
+pkgver=1.29.0
 pkgrel=1
 pkgdesc="Lightweight HTTP server and IMAP/POP3 proxy server"
 url="https://nginx.org/"
@@ -14,7 +14,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("nginx.zip::https://nginx.org/download/nginx-${pkgver}.zip")
-sha512sums=('b593ad92953bbfe97ed21e76f4b9fbea0067e1dd6e1cb78b52912e91c98a4f3b0650d511d5b8b11a748d44e0dfef55935604bdaa846e5942ba6bfd6128d5228f')
+sha512sums=('c3b7e02645f7412f551b7202d228f27c6777d762cabd9957545d176e0fdd6deeed5860f74057b4e2c0f8d98430340c13800d1c94b6ceb9989def07d309f0f78e')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

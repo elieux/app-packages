@@ -12,8 +12,8 @@ pkgdesc="A KeePass plugin that adds TOTP to tray menu, entry list and Auto-Type"
 url="https://github.com/KeeTrayTOTP/KeeTrayTOTP"
 arch=('any')
 license=('GPL3')
-provides=("${pkgbase}")
 replaces=("app-i686-keepass-plugin-tray-totp")
+provides=("${pkgbase}")
 options=(!strip)
 source=("KeeTrayTotp.plgx::https://github.com/KeeTrayTOTP/KeeTrayTOTP/releases/download/v${pkgver}/KeeTrayTOTP.plgx"
         "KeeTrayTOTP.zip::https://github.com/KeeTrayTOTP/KeeTrayTOTP/archive/v${pkgver}.zip")

@@ -6,7 +6,7 @@ $list = file_get_contents("https://www.pspad.com/cz/download.php");
 preg_match_all("~/files/dic/([a-z]+)_dic.cab~", $list, $packs, PREG_SET_ORDER);
 
 $srclist = [];
-$srclist[] = 'pspaden_x64.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pkgver}" | sed -r \'s/^([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\\1\\2\\3/\')en_x64.zip';
+$srclist[] = 'pspaden_x64.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pkgver}" | sed -r \'s/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\\1\\2\\3/\')en_x64.zip';
 
 foreach ($packs as $pack) {
 	list($lang) = array_slice($pack, 1);

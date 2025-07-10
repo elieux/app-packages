@@ -12,7 +12,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=140.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone, easy to customize web browser"
 url="https://www.mozilla.org/firefox/"
 arch=('any')
@@ -104,6 +104,7 @@ source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver
         "sco.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sco.xpi"
         "si.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/si.xpi"
         "sk.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sk.xpi"
+        "skr.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/skr.xpi"
         "sl.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sl.xpi"
         "son.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/son.xpi"
         "sq.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sq.xpi"
@@ -207,6 +208,7 @@ sha512sums=('2bb75bb58ab8a3a7321ad8bd7818167bc9ca410fa770ba7b402d25f967f477fb5e8
             'da03b16559a0cdf63663c35cdb476dbe22931f3b57dc0fa88efe1f11c6d660aec7ba1026dda4d253720cf95e1f1098c4d4debaad4b0d31f8bd1f8edcb83efafa'
             '1e937fa044aebe682a2282bbe9f77ed0a445715f4af2aa45a46d079f31e676ec9defb88fdd8a77041bd776790a5e4745e94abc2e981a0393f2c42af5bfa5717f'
             'de4c47a27a836fb792a771128945d0fabe25be4318b4a8295a57f0db25ee4e40f20ea0231f60c943bb7d7fdd6cec641bb6da28669ea6eee084a4ea8b95ae6a39'
+            '5407d288f6a79649e40f8433693525734ae4e9fbab6fa1cf61cff227ae2d3e061fa8e95787513c3a8e15a38182eed623fa790dc69e537c83edef4aa3ea3b9a98'
             '4c8327cd88015d03b9b220984fef925d9cae303b2c4e84187dd59c310d5676e7d5e6936586b815949fd6ae4a504aaf62f4d0eea452f819528f73b8f9b7ecd31c'
             '8cfaf90ac0383ae54d68ff484eb0d1ab86609cf30910667a9af3db4ad4fa974ded5dd61effeb8b9d3f21f25883ada960be08b7a2397d5e772facb1fd6a843d93'
             '88fcfa4631c651cdbf53a2adfb4fa08fb425c32730807a3dd4ca6d482ab76a20a767bbaa6b34511660cc2ecc11ecf3843f9511d7788bdc866325b3a14f2e1afd'

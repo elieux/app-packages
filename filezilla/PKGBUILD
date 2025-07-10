@@ -1,21 +1,61 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -A "Chrome" -e "https://filezilla-project.org/" -o %o %u')
+
 _realname=filezilla
 _choconame=filezilla
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.67.0
+pkgver=3.69.1
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client"
 url="https://filezilla-project.org/"
 arch=('any')
 license=('GPL')
+makedepends=("openssl")
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("FileZilla_win64.zip::https://download.filezilla-project.org/client/FileZilla_${pkgver}_win64.zip")
-sha512sums=('17a965a43883c1428546460d5071a6d52bb7117ee6b321f4a3d9093e0f17c2ff4eef3ffbc057547de06bfb8a1d09904d1842375324ac20c4a0a0c079bd8f176f')
+source=()
+sha512sums=()
+_sha512sum='d1669e3f20d2b617c7466e55f801820d8954371d4fcc6540411cf0f60cccabbe9b97ebd6644c91c13575659431fd8098df182d91ca92323764fff8b574d9e913'
+
+_dl() {
+    (
+        cd "${SRCDEST}"
+        download_file "${1}"
+    )
+}
+
+_dlread() {
+    local tmp
+
+    tmp=".tmp"
+    rm -f "${SRCDEST}/${tmp}"
+    _dl "${tmp}::${1}" &> /dev/null
+    cat "${SRCDEST}/${tmp}"
+    rm "${SRCDEST}/${tmp}"
+}
+
+prepare() {
+    local localname remotename contentwrapper cipher iv rawkey a plain link remotename
+    localname="FileZilla_win64.zip"
+    remotename="FileZilla_${pkgver}_win64.zip"
+    contentwrapper="$(_dlread "https://filezilla-project.org/download.php?show_all=1" | grep 'id="contentwrapper"')"
+    cipher="$(<<< "${contentwrapper}" sed -r 's/^.*>([^<]+)<.*$/\1/')"
+    iv="$(<<< "${contentwrapper}" sed -r 's/^.*v1="([^"]+)".*$/\1/' | openssl base64 -d -A | hexdump -e '16/1 "%02x"')"
+    rawkey="$(<<< "${contentwrapper}" sed -r 's/^.*v2="([^"]+)".*$/\1/' | openssl base64 -d -A | hexdump -e '16/1 "%02x"')"
+    a="$(<<< "${contentwrapper}" sed -r 's/^.*v3="([^"]+)".*$/\1/' | openssl base64 -d -A)"
+    test "${a}" = "AES-CBC"
+    plain="$(<<< "${cipher}" openssl aes-256-cbc -d -a -A -K "${rawkey}" -iv "${iv}")"
+    link="$(<<< "${plain}" grep -F "/${remotename}?" | sed -r 's/^.*href="([^"]+)".*$/\1/')"
+    _dl "${localname}::${link}"
+    source+=("${localname}")
+    sha512sums+=("${_sha512sum}")
+    check_checksums
+    extract_sources
+}
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=openjdk
-_realver=c9ecb94cd31b495da20a27d4581645e8/9
+_realver=24a58e0e276943138bf3e963e6291ac2/9
 _choconame=openjdk
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=22.0.2
+pkgver=24.0.1
 pkgrel=1
 pkgdesc="Open Java Development Kit"
 url="https://openjdk.org/"
@@ -16,7 +16,7 @@ replaces=("app-i686-jdk" "app-x86_64-jdk")
 provides=("${pkgbase}")
 options=(!strip)
 source=("openjdk_windows-x64_bin.zip::https://download.java.net/java/GA/jdk${pkgver}/${_realver}/GPL/openjdk-${pkgver}_windows-x64_bin.zip")
-sha512sums=('8a8e8b2755e5543c40ce90e6b5ad616901666bf2ce2de9ff36276914743337892c6fd646fa6f622b8140b8686704b84b5cf291682ffbae1632391264e6d8587d')
+sha512sums=('e249c846080e3ad0db71ae7b88314996afd6d7acc2e07345599d584f179b2df22380a1468bd01b499fa16d24512990b8c1f022b67134eb1752c33ec2ade4e296')
 
 _rmmsdll() {
     local ms

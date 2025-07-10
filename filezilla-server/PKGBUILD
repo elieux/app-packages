@@ -1,25 +1,62 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -A "Chrome" -e "https://filezilla-project.org/" -o %o %u')
+
 _realname=filezilla-server
 _choconame=filezilla.server
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.8.2
+pkgver=1.10.3
 pkgrel=1
 pkgdesc="A popular FTP server"
 url="https://filezilla-project.org/"
 arch=('any')
 license=('GPL')
-makedepends=("p7zip")
-provides=("${pkgbase}")
+makedepends=("openssl" "p7zip")
 replaces=("app-i686-${_realname}")
+provides=("${pkgbase}")
 options=(!strip)
-source=("FileZilla_Server_win64-setup.exe::https://download.filezilla-project.org/server/FileZilla_Server_${pkgver}_win64-setup.exe")
-sha512sums=('0004fcb1485f3ac3f065efee7be82dd4bf47a1c33dd6cd9f260228714bf00993aad14f2ee023d12f9fd5a2da456488564755afb1196c9dd82d8ab5561260485e')
+source=()
+sha512sums=()
+_sha512sum='d3e2955876816047dccf35b143226f5614e66a9bb2b8cca97c2033c4ff0b7f76c525488dff80895cca47707677cab177d7d631eb8d5b06e784d8e04f0e7228fb'
 noextract=("FileZilla_Server_win64-setup.exe")
 
+_dl() {
+    (
+        cd "${SRCDEST}"
+        download_file "${1}"
+    )
+}
+
+_dlread() {
+    local tmp
+
+    tmp=".tmp"
+    rm -f "${SRCDEST}/${tmp}"
+    _dl "${tmp}::${1}" &> /dev/null
+    cat "${SRCDEST}/${tmp}"
+    rm "${SRCDEST}/${tmp}"
+}
+
 prepare() {
+    local localname remotename contentwrapper cipher iv rawkey a plain link remotename
+    localname="FileZilla_Server_win64-setup.exe"
+    remotename="FileZilla_Server_${pkgver}_win64-setup.exe"
+    contentwrapper="$(_dlread "https://filezilla-project.org/download.php?show_all=1&type=server" | grep 'id="contentwrapper"')"
+    cipher="$(<<< "${contentwrapper}" sed -r 's/^.*>([^<]+)<.*$/\1/')"
+    iv="$(<<< "${contentwrapper}" sed -r 's/^.*v1="([^"]+)".*$/\1/' | openssl base64 -d -A | hexdump -e '16/1 "%02x"')"
+    rawkey="$(<<< "${contentwrapper}" sed -r 's/^.*v2="([^"]+)".*$/\1/' | openssl base64 -d -A | hexdump -e '16/1 "%02x"')"
+    a="$(<<< "${contentwrapper}" sed -r 's/^.*v3="([^"]+)".*$/\1/' | openssl base64 -d -A)"
+    test "${a}" = "AES-CBC"
+    plain="$(<<< "${cipher}" openssl aes-256-cbc -d -a -A -K "${rawkey}" -iv "${iv}")"
+    link="$(<<< "${plain}" grep -F "/${remotename}?" | sed -r 's/^.*href="([^"]+)".*$/\1/')"
+    _dl "${localname}::${link}"
+    source+=("${localname}")
+    sha512sums+=("${_sha512sum}")
+    check_checksums
+    extract_sources
+
     7z x -y -bd "FileZilla_Server_win64-setup.exe" -o"FileZilla_Server_win64-setup.dir" > /dev/null
 }
 
@@ -27,5 +64,5 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "FileZilla_Server_win64-setup.dir"/* "${a}"
-    rm -R "${a}"/'$PLUGINSDIR' "${a}/Uninstall.exe.nsis"
+    rm -R "${a}"/'$PLUGINSDIR'
 }

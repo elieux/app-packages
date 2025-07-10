@@ -16,6 +16,8 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=()
+sha512sums=()
+_sha512sum='2393598013e1d1d6439082395e3ee1c7aef161d7da33007f56d30feccc14ee557ef9a5da1ecf55a4d12ee7eb23acf12a6516cc019bb1b4560dec3622ed907fad'
 
 _lc() {
     local d f n
@@ -56,7 +58,9 @@ prepare() {
     h="$(_dlread "https://www.cheater.cz/download/get-link.php?soubor=${n}" | sed -r 's/.*hash=([a-z0-9]+).*/\1/')"
     _dl "${f}::https://www.cheater.cz/download/download-file.php?hash=${h}"
     source+=("${f}")
+    sha512sums+=("${_sha512sum}")
     noextract+=("${f}")
+    check_checksums
     extract_sources
 
     /apps/innounp/innounp -x -q -m -a -y "WinCheater2_setup.exe" -d"WinCheater2_setup.dir"

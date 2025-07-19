@@ -34,12 +34,13 @@ download_https@subdir() {
     download_file "${1/@subdir:/:}"
 }
 
+_realver=2025-07-04_16-03
 _realname=x64dbg
 _choconame=x64dbg.portable
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2024.06.03.21.20
+pkgver=2025.06.30
 pkgrel=1
 pkgdesc="An open-source x64/x32 debugger for Windows"
 arch=('any')
@@ -47,8 +48,22 @@ url="https://x64dbg.com/"
 license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("snapshot.zip::https@subdir://github.com/x64dbg/x64dbg/releases/download/snapshot/snapshot_$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1-\2-\3_\4-\5/').zip")
-sha512sums=('df1d23aa3b606da4f4dca97988cb0566c4d29ced96ebff7d3ec667cd54741d3aa1bc3d3aceadf81439a288effc5645c5e7334a14ec5a68c6875b29a7a5d94b79')
+source=("snapshot.zip::https@subdir://github.com/x64dbg/x64dbg/releases/download/${pkgver}/snapshot_${_realver}.zip")
+sha512sums=('0fba5e246a2b616b426b0a7cf2ee9c62892e8f193a2e9682e1f9dc109a6524ed3ee5c9b66410ca37d9962bb3fdcf37a679ae8f7747c6434f64998327146255fa')
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
@@ -56,4 +71,5 @@ package() {
     cp -R "snapshot"/* "${a}"
     mv "${a}/release"/* "${a}"
     rm -R "${a}/release"
+    _rmmsdll "${a}"
 }

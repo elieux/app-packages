@@ -34,7 +34,7 @@ _choconame=obs-studio
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=31.1.0
+pkgver=31.1.1
 pkgrel=1
 pkgdesc="Free, open source software for live streaming and recording"
 url="https://obsproject.com"
@@ -43,7 +43,7 @@ license=('GPL2')
 provides=("${pkgbase}")
 options=(!strip)
 source=("OBS-Studio-Windows-x64.zip::https@subdir://github.com/obsproject/obs-studio/releases/download/${pkgver}/OBS-Studio-${pkgver}-Windows-x64.zip")
-sha512sums=('e6476e4d380205cc1291f58662c3cec743b9761615c30c74dfa081da4cef8ee8a38fd56d327d4c105b8f9d7aadad4f1785ce441e2cfa2747f0159b255d653047')
+sha512sums=('78dc8329a6e314cc305306cd186fbb0b591ceae6bf805496b71061bcacaf8f6e7dd48d7166d4e456806b7204c09dc5be3a97c102a51bfc285cd47e7d6fa69f80')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

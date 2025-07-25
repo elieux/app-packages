@@ -11,7 +11,7 @@ _choconame=thunderbird
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=140.0.1
+pkgver=141.0
 pkgrel=1
 pkgdesc="Standalone, easy to customize mail/news reader"
 url="https://www.thunderbird.net/"
@@ -21,9 +21,9 @@ replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("Thunderbird_Setup_esr.exe::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}esr/win64/en-US/Thunderbird%20Setup%20${pkgver}esr.exe")
-sha512sums=('c93cb0e2acd0b44895461b8da76e2f0f59f21fec6df09b987ad0f7a718ff4f38f8e259f4dae8ca4c01d05497c3f98cb653636ffbfed82f8252b00f1132aa8942')
-noextract=("ThunderbirdSetup.exe")
+source=("Thunderbird_Setup.exe::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/en-US/Thunderbird%20Setup%20${pkgver}.exe")
+sha512sums=('580931871073579efe1bb48a3a5fd933b3bcb0234bfa7427381e03295f8f2ac2f40e18faa39ad0d179e1cb625d4c054f350a51706b370ff1b0ba3829d7919bd9')
+noextract=("Thunderbird_Setup.exe")
 
 _lc() {
     local d f n
@@ -55,13 +55,13 @@ _rmmsdll() {
 }
 
 prepare() {
-    7z x -y -bd "Thunderbird_Setup_esr.exe" -o"Thunderbird_Setup_esr.dir" > /dev/null
+    7z x -y -bd "Thunderbird_Setup.exe" -o"Thunderbird_Setup.dir" > /dev/null
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "Thunderbird_Setup_esr.dir/core"/* "${a}"
+    cp -R "Thunderbird_Setup.dir/core"/* "${a}"
     rm "${a}"/maintenanceservice{,_installer}.exe
 
     # remove system DLLs

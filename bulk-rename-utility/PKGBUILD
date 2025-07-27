@@ -35,7 +35,7 @@ _dirname=bulk-rename
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.0.0.8
+pkgver=4.0.1.0
 pkgrel=1
 pkgdesc="File renaming software"
 arch=('any')
@@ -45,7 +45,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("BRU_NoInstall.zip::https@subdir://www.bulkrenameutility.co.uk/Downloads/BRU_NoInstall.zip")
-sha512sums=('d10e4d6574678681a711add892175fc4c6b042aa6efa6f956df03140e6cf76f37395fc3fed10382959f99baf7b79a68641e7abf3683c1695d37cd986a711522b')
+sha512sums=('a15e0d2c529f6580e372e9afbb2495e115d413a630a63477a69cd4b63f3d08f9da9f90c8d63f952802886a01e82478fc15a0a2ecb12fa182910ad0d0fe234f03')
 
 _lc() {
     local d f n

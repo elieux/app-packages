@@ -30,13 +30,13 @@ download_https@subdir() {
 }
 
 _realname=tor
-_realver=14.5.4
+_realver=14.5.5
 _choconame=tor
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.4.8.16
-pkgrel=2
+pkgver=0.4.8.17
+pkgrel=1
 pkgdesc="Anonymizing overlay network"
 url="https://www.torproject.org/"
 arch=('any')
@@ -46,7 +46,7 @@ makedepends=("binutils")
 provides=("${pkgbase}")
 options=(!strip)
 source=("tor-expert-bundle-windows-x86_64.tgz::https@subdir://dist.torproject.org/torbrowser/${_realver}/tor-expert-bundle-windows-x86_64-${_realver}.tar.gz")
-sha512sums=('221487c31e1179e467f0fd557bc1adbcb6dbbb820dbacd8a341cee745ca5153f84ff6eca9639bb3f8091274f5d6dd1ccd86164d1582f77575f0cce4b99b5e555')
+sha512sums=('1092ec3e3135a0b483966c96db36aae045faa131ce395a339424d6048749913629be30675ec07d3d1dee534c50db70569246d53dd0f15700908c7af09f6cba6c')
 
 pkgver() {
     strings -d "tor-expert-bundle-windows-x86_64/tor/tor.exe" | grep -Fx -A1 VERSION | tail -1

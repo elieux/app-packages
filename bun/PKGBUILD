@@ -5,7 +5,7 @@ _choconame=bun
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.2.19
+pkgver=1.2.20
 pkgrel=1
 pkgdesc="An all-in-one toolkit for JavaScript and TypeScript apps"
 url="https://bun.sh/"
@@ -14,7 +14,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("bun-windows-x64.zip::https://github.com/oven-sh/bun/releases/download/bun-v${pkgver}/bun-windows-x64.zip")
-sha512sums=('0e9ba3e3aa3dedff3c011e9336e674625f78942b96acf37601293e7b83ac800dc8a56e303f258d1de6655fd0dc6e423f94e052cd66a980bf632f5c10fba01fa4')
+sha512sums=('e91a92a50d00268749d856e8f9f1e478bdd1d6187b6f679a4ca73eca552a82e0b98da3e30b0ce706bd09e56ca96935c5c1d443872679424d1cc5dbd378a28d8e')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

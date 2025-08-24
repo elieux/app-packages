@@ -40,7 +40,7 @@ _choconame=Firefox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=141.0.3
+pkgver=142.0
 pkgrel=1
 pkgdesc="An interactive JavaScript shell from the SpiderMonkey distribution"
 url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey/Introduction_to_the_JavaScript_shell"
@@ -49,7 +49,7 @@ license=('MPL')
 provides=("${pkgbase}")
 options=(!strip)
 source=("jsshell-win64.zip::https@subdir://ftp.mozilla.org/pub/firefox/releases/${pkgver}/jsshell/jsshell-win64.zip")
-sha512sums=('dea57fa07b84310f76af36f8a14ba433c47b498d32b188390008d91caa2ac2d3c145aafb77048be94313f3a850b56df33302cd2ab3002fa30846f06243323a14')
+sha512sums=('0e075382e2d62a7e84e1fb17bd940c42c55dd53436927535d1ee04ef9f5f1492fbc6727d79fee14592a94725662a31ce4d6626876d6d98f43147586787a67056')
 
 _rmmsdll() {
     local ms

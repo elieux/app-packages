@@ -1,34 +1,5 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_extract_subdir() {
-    local _file="$(get_filename "${1}")"
-    local _dir="${_file%.*}"
-    if type bsdtar | head -1 | grep -q 'is a function'
-    then
-        local _original_bsdtar="$(type bsdtar | tail +2)"
-    fi
-    bsdtar() {
-        local _extra_args=()
-        if [ "${1}" = "-xf" ]
-        then
-            mkdir -p "${_dir}"
-            _extra_args=(-C "${_dir}")
-        fi
-        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
-    }
-    extract_file "${_file}"
-    unset -f bsdtar
-    eval "${_original_bsdtar}"
-}
-
-extract_https@subdir() {
-    _extract_subdir "${@}"
-}
-
-download_https@subdir() {
-    download_file "${1/@subdir:/:}"
-}
-
 _realname=repoz
 _choconame=repoz
 pkgbase="app-${_realname}"

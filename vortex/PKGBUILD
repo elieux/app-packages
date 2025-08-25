@@ -1,34 +1,5 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_extract_subdir() {
-    local _file="$(get_filename "${1}")"
-    local _dir="${_file%.*}"
-    if type bsdtar | head -1 | grep -q 'is a function'
-    then
-        local _original_bsdtar="$(type bsdtar | tail +2)"
-    fi
-    bsdtar() {
-        local _extra_args=()
-        if [ "${1}" = "-xf" ]
-        then
-            mkdir -p "${_dir}"
-            _extra_args=(-C "${_dir}")
-        fi
-        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
-    }
-    extract_file "${_file}"
-    unset -f bsdtar
-    eval "${_original_bsdtar}"
-}
-
-extract_https@subdir() {
-    _extract_subdir "${@}"
-}
-
-download_https@subdir() {
-    download_file "${1/@subdir:/:}"
-}
-
 _realname=vortex
 _choconame=vortex
 pkgbase="app-${_realname}"
@@ -43,7 +14,7 @@ license=('GPL3')
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("vortex-setup.exe::https@subdir://github.com/Nexus-Mods/Vortex/releases/download/v${pkgver}/vortex-setup-${pkgver}.exe")
+source=("vortex-setup.exe::https://github.com/Nexus-Mods/Vortex/releases/download/v${pkgver}/vortex-setup-${pkgver}.exe")
 sha512sums=('82432d820cd46310844a2f6a8a0f5159171b4eb8a0b0613bd0267927d0f35f76ca149c5dc3303a2a8fbf6d5920e3da15097be5e3370c00a0bbd823788c4772cd')
 noextract=("vortex-setup.exe")
 

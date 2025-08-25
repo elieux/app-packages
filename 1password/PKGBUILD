@@ -1,0 +1,51 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=1password
+_choconame=1password
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=8.11.6.27
+pkgrel=1
+pkgdesc="Password manager and secure wallet"
+url="https://1password.com/downloads"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("1PasswordSetup-latest.exe::https://downloads.1password.com/win/1PasswordSetup-latest.exe")
+sha512sums=('31f487d5d8d4fa2cefe4d1f2169e737a5892fe0d9e1be133c9323bac02af0aecbabeed350b4e94b3b0f2f473fc545e7d36523f8f3da76447169a41204bfc009b')
+noextract=("1PasswordSetup-latest.exe")
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    rm -fR "1PasswordSetup-latest.dir"
+    7z x -y -bd "1PasswordSetup-latest.exe" -o"1PasswordSetup-latest.dir" > /dev/null
+    7z x -y -bd "1PasswordSetup-latest.dir/.rdata" -o"rdata" > /dev/null
+}
+
+pkgver() {
+    powershell -command '(Get-Item "1PasswordSetup-latest.exe").VersionInfo.ProductVersionRaw.ToString()'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "rdata"/* "${a}"
+    _lc "${a}"/*
+}

@@ -5,7 +5,7 @@ _choconame=vagrant
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.4.8
+pkgver=2.4.9
 pkgrel=1
 pkgdesc="Building and distributing development environments"
 url="https://www.vagrantup.com/"
@@ -15,7 +15,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("vagrant_windows_amd64.msi::https://releases.hashicorp.com/vagrant/${pkgver}/vagrant_${pkgver}_windows_amd64.msi")
-sha512sums=('4f4c232de0332b95afa30860efe89db886e222bc99698df21793cdf68609e77bfdf5e09c48e6eab1c49fb7c005103aeb1db02b1a9832089179e22e53ed4990c1')
+sha512sums=('99a4c4ced5d05edeecef37cc5a34b0a09f2c996e38a2a7b108bd01051c7249c8466ce8663a64f251df509cadf2f2d3af8c8802d6e0b70feb43a02f02748169f7')
 
 prepare() {
     rm -fR "vagrant_windows_amd64"

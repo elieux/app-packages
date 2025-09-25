@@ -1,29 +1,55 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=innounp
-_choconame=innounp
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=0.50
+pkgver=2.65.2.0
 pkgrel=1
 pkgdesc="Inno Setup unpacker"
-url="http://innounp.sourceforge.net/"
+url="https://www.rathlev-home.de/index-e.html?tools/prog-e.html#unpack"
 arch=('any')
-license=('GPL')
-makedepends=("unrar")
+license=('MIT' 'GPL')
 provides=("${pkgbase}")
 options=(!strip)
-source=("innounp.rar::https://downloads.sourceforge.net/innounp/innounp/innounp%20${pkgver}/innounp${pkgver//./}.rar")
-sha512sums=('dbbc809308267a866db9d6b751fdeda6d179e1a65d8ddb14bb51984431ae91493f9a76105e1789b245732043a2c696c869ed10964b48cf59f81e55bd52f85330')
-noextract=("innounp.rar") # "Parsing filters is unsupported"
+source=("innounpacker.zip::https@subdir://www.rathlev-home.de/tools/download/innounpacker.zip")
+sha512sums=('00c77aa9570dbe4e7491d76093210bec5c67097e933ab5f31fbb2d666b749bdf95482c2252dede68813640fa7a68d052a2554a73f4913dba88d7cae81e2d80c1')
 
-prepare() {
-    unrar x -idq -tsm -o+ "innounp.rar" "innounp/"
+pkgver() {
+    powershell -command '(Get-Item "innounpacker/innounp.exe").VersionInfo.ProductVersionRaw.ToString()'
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp "innounp"/* "${a}"
+    cp "innounpacker"/* "${a}"
 }

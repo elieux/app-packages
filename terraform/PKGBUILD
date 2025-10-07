@@ -1,0 +1,52 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=terraform
+_choconame=terraform
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.13.3
+pkgrel=1
+pkgdesc="Automate infrastructure on any cloud"
+url="https://developer.hashicorp.com/terraform"
+arch=('any')
+license=('BUSL-1.1')
+provides=("${pkgbase}")
+options=(!strip)
+source=("terraform_windows_amd64.zip::https@subdir://releases.hashicorp.com/terraform/${pkgver}/terraform_${pkgver}_windows_amd64.zip")
+sha512sums=('ab4b9bfdb8613c8510a6eec68b5495d192a37194a708bbedbfe28658e31cf448b634e868c34ce9405c1df66a20b118ef6843736f38ea96a64a27bd0823c237ea')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "terraform_windows_amd64"/* "${a}"
+}

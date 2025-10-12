@@ -1,54 +1,25 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_extract_subdir() {
-    local _file="$(get_filename "${1}")"
-    local _dir="${_file%.*}"
-    if type bsdtar | head -1 | grep -q 'is a function'
-    then
-        local _original_bsdtar="$(type bsdtar | tail +2)"
-    fi
-    bsdtar() {
-        local _extra_args=()
-        if [ "${1}" = "-xf" ]
-        then
-            mkdir -p "${_dir}"
-            _extra_args=(-C "${_dir}")
-        fi
-        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
-    }
-    extract_file "${_file}"
-    unset -f bsdtar
-    eval "${_original_bsdtar}"
-}
-
-extract_https@subdir() {
-    _extract_subdir "${@}"
-}
-
-download_https@subdir() {
-    download_file "${1/@subdir:/:}"
-}
-
 _realname=tap-windows
 _choconame=tapwindows
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=9.24.7
+pkgver=9.27.0
 pkgrel=1
 pkgdesc="NDIS 6 TAP adapter driver"
-url="https://community.openvpn.net/openvpn#Tap-windowssubproject"
+url="https://community.openvpn.net/Pages/Getting%20tap-windows"
 arch=('any')
 license=('GPL2' 'custom')
 provides=("${pkgbase}")
 options=(!strip)
-source=("tap-windows.zip::https@subdir://build.openvpn.net/downloads/releases/tap-windows-${pkgver}.zip")
-sha512sums=('3996e36249f993cc4d91e7a3e4d1d93323c68ef4633eaf0229f651b1ba32553152aef1fedf8f63d857c104f2a2b94fdb8b98073e4cc6ee6d1ff4c5f64370db23')
+source=("tap-windows.zip::https://github.com/OpenVPN/tap-windows6/releases/download/${pkgver}/dist.win10.zip")
+sha512sums=('1f82967cc075d5325b1bc986b747614a8e7e33b220d5f1f022bed64f6347e64f332659f5a05ac5b9f42f7a346e62c7870236d9f9756188841b04041a7d11bf64')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "tap-windows"/* "${a}"
+    cp -R "dist.win10"/* "${a}"
     mv "${a}/amd64"/* "${a}"
-    rm -R "${a}"/{amd64,arm64,i386,win10}
+    rm -R "${a}"/{amd64,arm64,i386,devcon.exe}
 }

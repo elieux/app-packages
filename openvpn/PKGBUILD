@@ -11,7 +11,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=2.6.15.001
-pkgrel=1
+pkgrel=2
 pkgdesc="A full-featured SSL VPN solution"
 url="https://openvpn.net/community/"
 arch=('any')
@@ -45,6 +45,6 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "OpenVPN-amd64/SourceDir/OpenVPN"/* "${a}"
-    rm -R "${a}"/{easy-rsa,include,config,config-auto,log}
+    rm -R "${a}"/{"Common Files",easy-rsa,include,config,config-auto,log}
     _rmmsdll "${a}"
 }

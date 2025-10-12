@@ -1,0 +1,22 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=openvpn-dco-win
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.3.3
+pkgrel=1
+pkgdesc="OpenVPN Data Channel Offload driver for Windows"
+url="https://github.com/OpenVPN/ovpn-dco-win"
+arch=('any')
+license=('MIT')
+provides=("${pkgbase}")
+options=(!strip)
+source=("ovpn-dco-win-amd64.zip::https://github.com/OpenVPN/ovpn-dco-win/releases/download/${pkgver}/ovpn-dco-win-${pkgver}-amd64.zip")
+sha512sums=('7459c39fd8c2803bf2929da76b4dd218f2184f7ab909a37c6ba5e89a12fc0801e461a7e6b1578d18dc58dcd447150590e5b9b3e4bdc8717271f9aeff0a7764fc')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "win11"/* "${a}"
+}

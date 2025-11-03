@@ -34,7 +34,7 @@ _choconame=davmail
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=6.4.0.3755
+pkgver=6.5.1.3873
 pkgrel=1
 pkgdesc="A gateway allowing usage of any mail/calendar client with an Exchange server"
 url="http://davmail.sourceforge.net/"
@@ -43,13 +43,15 @@ license=('GPL2')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("davmail-windows-noinstall.zip::https@subdir://downloads.sourceforge.net/davmail/davmail/${pkgver%.*}/davmail-$(echo "${pkgver}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1.\2.\3-\4/')-windows-noinstall.zip")
-sha512sums=('afb9703e38ebb99ffb2e6e59a1e232b47a91adfa1b971715c8309a6e9d5fa74788536ef0d4aba1d7a027dcbe1f4711ceb1c179d9435052901bcfca903f88e60b')
+source=("davmail-windows-standalone.zip::https@subdir://downloads.sourceforge.net/davmail/davmail/${pkgver%.*}/davmail-$(echo "${pkgver}" | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)/\1.\2.\3-\4/')-windows-standalone.zip")
+sha512sums=('4185e1f0a2e803316c2f32a471ed93db8998ddfd1e3e9b5a8bcd1632333c02f97df0546cb32cb8171a8ef8f8be554a1dfb3d05833eae67796cde4b4e2cadb441')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "davmail-windows-noinstall"/* "${a}"
+    cp -R "davmail-windows-standalone"/* "${a}"
     mv -f "${a}/davmail64.exe" "${a}/davmail.exe"
     mv -f "${a}/davmailservice64.exe" "${a}/davmailservice.exe"
+    rm "${a}/davmail64.ini" "${a}/davmailservice64.ini"
+    rm -R "${a}/jre"
 }

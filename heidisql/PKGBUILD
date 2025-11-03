@@ -39,7 +39,7 @@ _choconame=HeidiSQL
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=12.12
+pkgver=12.13
 pkgrel=1
 pkgdesc="Free relational database graphical client"
 url="https://www.heidisql.com/"
@@ -48,7 +48,7 @@ license=('GPL2')
 provides=("${pkgbase}")
 options=(!strip)
 source=("HeidiSQL_64_Portable.zip::https@subdir://www.heidisql.com/downloads/releases/HeidiSQL_${pkgver}_64_Portable.zip")
-sha512sums=('794129321f21dfcac5fe8ff4126d524d799e8a58ab0b876c9be278250ec1bdb51b0e65320016b61923ddc66ec37f4735302a876bec166db369f5ad2124f03088')
+sha512sums=('151e8d6387ce6ea720693d3689bafa618afacaafaff4f47b17ee3c58de003c497b4d33634ad86efa41e080a584f3ae8b4ffa2d96a74d240e52f5e527a30e6496')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

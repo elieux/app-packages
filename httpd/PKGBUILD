@@ -33,12 +33,12 @@ download_https@subdir() {
 }
 
 _realname=httpd
-_realver=250710
+_realver=250724
 _choconame=apache-httpd
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.4.64
+pkgver=2.4.65
 pkgrel=1
 pkgdesc="A high performance Unix-based HTTP server"
 url="https://httpd.apache.org/"
@@ -47,7 +47,7 @@ license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
 source=("httpd-win64-VS17.zip::https@subdir://www.apachelounge.com/download/VS17/binaries/httpd-${pkgver}-${_realver}-win64-VS17.zip")
-sha512sums=('5f361047f618c674ae7ffccf6ea4575d7c0f925ef2b8b1d70d7f760bcac5a9e7d4f44dc37955f40be32dde3639e16a858d5f282c218e5d7a7c94ebc4dc16dbfe')
+sha512sums=('a644237404a63308823553df969437bea140794ce57dec04ace98de3322fd3a21c9e173907039ab5d68f2d58aab775e18ddbe7f1a473ea5444a04a869a9a5c91')
 
 _lc() {
     local d f n

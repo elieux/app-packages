@@ -1,0 +1,47 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=obsidian
+_choconame=obsidian
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.9.14
+pkgrel=1
+pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
+url="https://obsidian.md/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("Obsidian.exe::https://github.com/obsidianmd/obsidian-releases/releases/download/v${pkgver}/Obsidian-${pkgver}.exe")
+sha512sums=('cfde10f3f391aad8ea6720daf9504ccbe8c56a06d58caed542535266850c83f431ae36aaa8a9ba530199675578de236b75f1142729305e82da7914e690501fe0')
+noextract=("Obsidian.exe")
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    rm -fR "Obsidian.dir"
+    7z x -y -bd "Obsidian.exe" -o"Obsidian.dir" > /dev/null
+    7z x -y -bd "Obsidian.dir"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "app-64"/* "${a}"
+    _lc "${a}"/*
+}

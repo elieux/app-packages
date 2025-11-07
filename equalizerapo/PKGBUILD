@@ -1,0 +1,62 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=equalizerapo
+_choconame=equalizerapo
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.4.2
+pkgrel=1
+pkgdesc="A system-wide equalizer"
+url="https://sourceforge.net/projects/equalizerapo/"
+arch=('any')
+license=('GPL2')
+makedepends=("p7zip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("EqualizerAPO-x64.exe::https://downloads.sourceforge.net/equalizerapo/EqualizerAPO-x64-${pkgver}.exe")
+sha512sums=('85c31ae500384e168e15c8f1089cb9570d7e72df7f8b2d22e76de171399550cfd775f1bfb539654e287340cf2b3638bb442c3f804c5aaa81b44272e44f05e244')
+noextract=("EqualizerAPO-x64.exe")
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    rm -fR "EqualizerAPO-x64.dir"
+    7z x -y -bd "EqualizerAPO-x64.exe" -o"EqualizerAPO-x64.dir" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "EqualizerAPO-x64.dir"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR' "${a}/UpdateChecker.exe"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
+}

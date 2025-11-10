@@ -6,16 +6,16 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=8.11.16.35
-pkgrel=1
+pkgrel=2
 pkgdesc="Password manager and secure wallet"
 url="https://1password.com/downloads"
 arch=('any')
 license=('custom')
-makedepends=("p7zip")
+makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
-source=("1PasswordSetup-latest.exe::https://downloads.1password.com/win/1PasswordSetup-latest.exe")
-sha512sums=('050cea25412e2e39a63654fc46a63f3bcc84826da5c24fd53f1bcbf089efcfcd8136aa3f308761b7815164983f6000c9e6ed60597499ed1fddaa6cdb1647418e')
+source=("1PasswordSetup-latest.msi::https://downloads.1password.com/win/1PasswordSetup-latest.msi")
+sha512sums=('99655b8d8fe9639d1ffd2c6adc28d1412d0d83351dbd96bd4db7211508149a9243b1185131e761a83a0e815abd77ed9bd5559051b18678ca7e8e98760005e920')
 noextract=("1PasswordSetup-latest.exe")
 
 _lc() {
@@ -34,18 +34,17 @@ _lc() {
 }
 
 prepare() {
-    rm -fR "1PasswordSetup-latest.dir"
-    7z x -y -bd "1PasswordSetup-latest.exe" -o"1PasswordSetup-latest.dir" > /dev/null
-    7z x -y -bd "1PasswordSetup-latest.dir/.rdata" -o"rdata" > /dev/null
+    rm -fR "1PasswordSetup-latest"
+    /apps/lessmsi/lessmsi x "1PasswordSetup-latest.msi" > /dev/null
 }
 
 pkgver() {
-    powershell -command '(Get-Item "1PasswordSetup-latest.exe").VersionInfo.ProductVersionRaw.ToString()'
+    powershell -command '(Get-Item "1PasswordSetup-latest/SourceDir/ProgramFiles64Folder/1Password/app/8/1Password.exe").VersionInfo.FileVersion'
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "rdata"/* "${a}"
+    cp -R "1PasswordSetup-latest/SourceDir/ProgramFiles64Folder/1Password/app/8"/* "${a}"
     _lc "${a}"/*
 }

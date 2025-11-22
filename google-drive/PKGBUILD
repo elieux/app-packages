@@ -10,30 +10,42 @@ _choconame=googledrive
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=116.0.6.0
+pkgver=117.0.0.0
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
 url="https://www.google.com/drive/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("p7zip")
+makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("GoogleDriveSetup.exe::https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe")
-sha512sums=('24429aa8683d69736e596574b84d81168942a11ea32e27e74c94836cea1345cb34f1a4d9b0ebd1b30534791c6352c6552a4a0000c9eda117c441164ba71d0cf7')
+sha512sums=('bcf2201356e9820870b900c4dec8870f038c979817403ff3e7cb94bda0c87e4ee428e2321ab9409cbc65dcac8ded0c6df8a47ccc3ca69eb05c649a40f8edaa27')
 noextract=("GoogleDriveSetup.exe")
 
 prepare() {
     7z x -y -bd "GoogleDriveSetup.exe" -o"GoogleDriveSetup.dir" > /dev/null
+    for zip in "GoogleDriveSetup.dir/.rsrc/RCDATA"/*
+    do
+        unzip -q -o "${zip}" -d "${zip}.dir"
+    done
 }
 
 pkgver() {
-    powershell -command '(Get-Item "GoogleDriveSetup.dir/GoogleDriveFS.exe").VersionInfo.FileVersionRaw.ToString()'
+    powershell -command '(Get-Item "GoogleDriveSetup.exe").VersionInfo.FileVersionRaw.ToString()'
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "GoogleDriveSetup.dir"/* "${a}"
+    cp -R "GoogleDriveSetup.dir/.rsrc/RCDATA"/*.dir "${a}"
+    # remove ARM version
+    rm -R "${a}"/{104,232}.dir
+    # remove uninstaller, updater and Edge bootstrap
+    rm -R "${a}"/{102,103,251}.dir
+    # take app and driver
+    mv "${a}/101.dir"/* "${a}"
+    mv "${a}/231.dir"/* "${a}"
+    rm -R "${a}"/{101,231}.dir
 }

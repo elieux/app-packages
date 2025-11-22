@@ -1,40 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_extract_subdir() {
-    local _file="$(get_filename "${1}")"
-    local _dir="${_file%.*}"
-    if type bsdtar | head -1 | grep -q 'is a function'
-    then
-        local _original_bsdtar="$(type bsdtar | tail +2)"
-    fi
-    bsdtar() {
-        local _extra_args=()
-        if [ "${1}" = "-xf" ]
-        then
-            mkdir -p "${_dir}"
-            _extra_args=(-C "${_dir}")
-        fi
-        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
-    }
-    extract_file "${_file}"
-    unset -f bsdtar
-    eval "${_original_bsdtar}"
-}
-
-extract_https@subdir() {
-    _extract_subdir "${@}"
-}
-
-download_https@subdir() {
-    download_file "${1/@subdir:/:}"
-}
-
 _realname=unison
 _choconame=unison
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.53.7
+pkgver=2.53.8
 pkgrel=1
 pkgdesc="Two-way file synchronizer"
 url="https://www.cis.upenn.edu/~bcpierce/unison/"
@@ -43,14 +14,14 @@ license=('GPL')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("unison-windows-x86_64.zip::https@subdir://github.com/bcpierce00/unison/releases/download/v${pkgver}/unison-${pkgver}-windows-x86_64.zip")
-sha512sums=('c8ad42b5dccc446b7eb7c2f75ec1957bf24e8a5d31b1c3e5300c519c40f16d39ba193547b4a7ef79520c9e9f0ab3854c4bce77b7e351832c8b634992ebeff986')
+source=("unison-windows-x86_64.zip::https://github.com/bcpierce00/unison/releases/download/v${pkgver}/unison-${pkgver}-windows-x86_64.zip")
+sha512sums=('c1ea4a68b8f2bc70101bfc3d54a5c6e6d792a55962595f958c1a6170581647921a3f11cb652bbf545c53758245a9153c43410df60dd2e5f2ff1818e371faccdd')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
 
-    cp -R "unison-windows-x86_64"/* "${a}"
+    cp -R "unison-${pkgver}-windows-x86_64"/* "${a}"
     mv "${a}/bin/unison"* "${a}"
     rm -R "${a}"/{bin,etc,lib,share}
 }

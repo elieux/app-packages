@@ -7,7 +7,7 @@ _choconame=filezilla.server
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.11.1
+pkgver=1.12.0
 pkgrel=1
 pkgdesc="A popular FTP server"
 url="https://filezilla-project.org/"
@@ -19,7 +19,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=()
 sha512sums=()
-_sha512sum='c2fa30195526c0cdb88e1dcaa1beaba26e2a3e4140bb75c8b5784f6c5954ed2bcfbea2a97df6c4b290412a1674570b6bb5bf2f26c6cbc70f99a5b30451f7d6b5'
+_sha512sum='b216ffaac8fd320f44f4970fdd6638f1f682ecddc249474e51fdb6d7fce37a53de805d7992eb60138146a15173b0cd7864cd607dc7cdd3441bfbcfe1815b1f40'
 noextract=("FileZilla_Server_win64-setup.exe")
 
 _dl() {

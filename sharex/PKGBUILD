@@ -34,16 +34,17 @@ _choconame=sharex
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=17.1.0
+pkgver=18.0.1
 pkgrel=1
 pkgdesc="Screen capture, file sharing and productivity tool"
 url="https://getsharex.com/"
 arch=('any')
 license=('GPL3')
+makedepends=("mingw-w64-x86_64-jq")
 provides=("${pkgbase}")
 options=(!strip)
 source=("ShareX-portable.zip::https@subdir://github.com/ShareX/ShareX/releases/download/v${pkgver}/ShareX-${pkgver}-portable.zip")
-sha512sums=('8794ab63979ad224da1f71e3c4d47785b64b5db9feb768a5d541e18b83064937388219abb0d7313d40c8d5c901c677b8d9bc4b83bd522c40b7433bee0fb6d7d5')
+sha512sums=('353eb530bce96da54660efcf6fa6307be6e1820eeddc7c4c3d769bca4d2474395c9fb7404f7462e20a86a4807bae4ba244495acfb0c7faf478a19ba7eb756b1e')
 
 _lc() {
     local d f n
@@ -60,10 +61,24 @@ _lc() {
     done
 }
 
+_dotnet() {
+    local runtimetarget="$(cat "${1}.deps.json" | /mingw64/bin/jq -r '.runtimeTarget.name')"
+    local netcore="$(cat "${1}.deps.json" | /mingw64/bin/jq --arg runtimetarget "${runtimetarget}" -r '.targets[$runtimetarget] | keys | .[] | select(test("^runtimepack[.]Microsoft[.]NETCore[.]App[.][Rr]untime[.]win-x64/"))')"
+    local windowsdesktop="$(cat "${1}.deps.json" | /mingw64/bin/jq --arg runtimetarget "${runtimetarget}" -r '.targets[$runtimetarget] | keys | .[] | select(test("^runtimepack[.]Microsoft[.]WindowsDesktop[.]App[.][Rr]untime[.]win-x64/"))')"
+
+    cat "${1}.deps.json" | /mingw64/bin/jq -r --arg runtimetarget "${runtimetarget}" --arg netcore "${netcore}" --arg windowsdesktop "${windowsdesktop}" '.targets[$runtimetarget] | (.[$netcore], .[$windowsdesktop]) | (.runtime, .native) | select(.) | keys | .[]' | dos2unix | sort | uniq | (cd "$(dirname "${1}")" && xargs rm -f)
+
+    cat "${1}.deps.json" | /mingw64/bin/jq -r --arg runtimetarget "${runtimetarget}" --arg netcore "${netcore}" --arg windowsdesktop "${windowsdesktop}" 'del(.targets[$runtimetarget][$netcore]) | del(.targets[$runtimetarget][$windowsdesktop])' > "${1}.deps.json.tmp"
+    mv -f "${1}.deps.json.tmp" "${1}.deps.json"
+
+    cat "${1}.runtimeconfig.json" | /mingw64/bin/jq '.runtimeOptions |= (.framework = .includedFrameworks[-1] | del(.includedFrameworks))' > "${1}.runtimeconfig.json.tmp"
+    mv -f "${1}.runtimeconfig.json.tmp" "${1}.runtimeconfig.json"
+}
+
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "ShareX-portable"/* "${a}"
     rm "${a}/Portable"
-    _lc "${a}"/*
+    _dotnet "${a}/sharex"
 }

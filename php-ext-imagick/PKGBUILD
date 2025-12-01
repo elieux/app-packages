@@ -34,8 +34,8 @@ _dirname=php
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.8.0
-pkgrel=2
+pkgver=3.8.1
+pkgrel=1
 pkgdesc="PHP extension to create and modify images using the ImageMagick library"
 url="https://pecl.php.net/package/imagick"
 arch=('any')
@@ -43,7 +43,7 @@ license=('PHP')
 provides=("${pkgbase}")
 options=(!strip)
 source=("php_imagick-8.5-nts-vs17-x64.zip::https@subdir://downloads.php.net/~windows/pecl/releases/imagick/${pkgver}/php_imagick-${pkgver}-8.5-nts-vs17-x64.zip")
-sha512sums=('2f01a36c0f6efc82b5a57ed9e27be9bddcb6d9c44c57e9647f5b746a6e2d97746bc55cc23cf93f51534e167f74093de53d6ac656ad7ba26ee2bcb825209b673e')
+sha512sums=('721783ddbc1135b5287693fa1ce1f486d59f26b173139443c26b0ab17d6b98d6d6f8534da2427f4d857245d7fbe7581755ed56fa88754ac886d2b956c7e64592')
 
 package() {
     depends=("app-x86_64-php>=1~8.5.0" "app-x86_64-php<1~8.6.0")

@@ -5,7 +5,7 @@ _dirname=php
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.4.7
+pkgver=3.5.0
 pkgrel=1
 pkgdesc="PHP debugging extension"
 url="https://xdebug.org/"
@@ -13,13 +13,13 @@ arch=('any')
 license=('GPL')
 provides=("${pkgbase}")
 options=(!strip)
-source=("php_xdebug-8.4-nts-vs17-x86_64.dll::https://xdebug.org/files/php_xdebug-${pkgver}-8.4-nts-vs17-x86_64.dll")
-sha512sums=('335acff3a7b811ea5e6d10da1c3729f70dfc9ba37d8b72004d14c414a759566c7f4016d0cfe81ab7d209819170438212d8aed6cb3d47d269dbeb50e1f27b7812')
+source=("php_xdebug-8.5-nts-vs17-x86_64.dll::https://xdebug.org/files/php_xdebug-${pkgver}-8.5-nts-vs17-x86_64.dll")
+sha512sums=('9e480fe45d4555af6a8b1be89156fda3b25daaa2d9c20b6ddb74fd79762974e335da48b731f21fa37da3c8c2987dfadfc1e0a2f94d20dba422af2dd5d2eed9b1')
 
 package() {
-    depends=("app-x86_64-php>=1~8.4.0" "app-x86_64-php<1~8.5.0")
+    depends=("app-x86_64-php>=1~8.5.0" "app-x86_64-php<1~8.6.0")
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/ext"
-    cp "php_xdebug-8.4-nts-vs17-x86_64.dll" "${a}/ext/php_xdebug.dll"
+    cp "php_xdebug-8.5-nts-vs17-x86_64.dll" "${a}/ext/php_xdebug.dll"
 }

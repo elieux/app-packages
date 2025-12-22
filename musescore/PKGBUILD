@@ -5,7 +5,7 @@ _choconame=musescore
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.6.4.253351238
+pkgver=4.6.5.253511702
 pkgrel=1
 pkgdesc="Create, play and print beautiful sheet music"
 url="https://musescore.org/"
@@ -16,7 +16,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("MuseScore-Studio-x86_64.msi::https://github.com/musescore/MuseScore/releases/download/v${pkgver%.*}/MuseScore-Studio-${pkgver}-x86_64.msi")
-sha512sums=('f2d72f9776e7543ccf3cf623f3edf781ffb2c69282958707bbc2eec75250c8ae9397866100174b3c81cf48c0a5ba38214c7dd1279a1dfa207a882f2e73712a35')
+sha512sums=('ccc83e9e15a10c278753ec2ad335b3bd3731d8805527de0ab3c71c7c098af6c43b862a29cf4c8c466983bd10df215a46859e57d4f9e03918fe4d674002f5f93d')
 
 _rmmsdll() {
     local ms

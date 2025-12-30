@@ -34,7 +34,7 @@ _choconame=lessmsi
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.11.0
+pkgver=2.11.3
 pkgrel=1
 pkgdesc="A tool to view and extract the contents of a Windows Installer (.msi) file"
 arch=('any')
@@ -43,7 +43,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("lessmsi.zip::https@subdir://github.com/activescott/lessmsi/releases/download/v${pkgver}/lessmsi-v${pkgver}.zip")
-sha512sums=('1bc3445be094276d6aa49ff6c96618ac4d494c44a764eda9cc50e58ce0e2a68d3597007b93abe43f6d12ab32526e4ad30403cb791b232699a61647766c200498')
+sha512sums=('60cdd23b4c732fb305a3073a93314a14adf1fb208e73ee60b407be5ac9ca756100b23eb4d365e34d5f3bfa4e17e28288db7f1d2f128d20252075a34a4f2f7d50')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

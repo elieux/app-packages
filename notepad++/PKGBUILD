@@ -1,5 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # 8.9.0 -> 8.9
+    # 8.8.9 -> 8.8.9
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0$/\1.\2/'
+}
+
 _extract_subdir() {
     local _file="$(get_filename "${1}")"
     local _dir="${_file%.*}"
@@ -34,7 +40,7 @@ _choconame=notepadplusplus
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.8.9
+pkgver=8.9
 pkgrel=1
 pkgdesc="A free Scintilla-based editor with plugin support"
 url="https://notepad-plus-plus.org/"
@@ -46,8 +52,8 @@ provides=("${pkgbase}")
 options=(!strip)
 source=("npp.portable.x64.zip::https@subdir://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v${pkgver%.0}/npp.${pkgver}.portable.x64.zip"
         "npp.Installer.x64.exe::https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v${pkgver%.0}/npp.${pkgver}.Installer.x64.exe")
-sha512sums=('4b0e52682001a1ba7bd70a2922cc06730b900ed945a6de4078fc4b0841d5025eab3eac50fb7c1e538ad66bd17bee885d1b097a219c7b4a40ba31acbc57f87819'
-            '5b1d210f81c128bce7dadb27e16784f8f98f0eec438f6db1fbc7b7bf32ae1973bea7979020b1eb8cc34efbed0853f17ffb72746249f3456b57212eae6976360f')
+sha512sums=('1022c0fe83bcc965a3d13509705efd42f933571b241115ca5a7f85587626a75a86a01dfcdc83453aada5d0dd57f38b971886d50cf63554dfa558c5a48c33d66d'
+            'd2219365b60f58a19c11dd8399fb49eb62207f6e0a3136f95ce54693c6743dc03272a6e29a7e01a7ae5f6929d8127aa6e740acc596b74edca9752c888aba9c2b')
 noextract=("npp.Installer.x64.exe")
 
 _lc() {

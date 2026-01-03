@@ -1,0 +1,54 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=audacity
+_choconame=audacity
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=3.7.7
+pkgrel=1
+pkgdesc="Audio editor"
+url="https://www.audacityteam.org/"
+arch=('any')
+license=('GPL3')
+provides=("${pkgbase}")
+options=(!strip)
+source=("audacity-win-64bit.zip::https://github.com/audacity/audacity/releases/download/Audacity-${pkgver}/audacity-win-${pkgver}-64bit.zip")
+sha512sums=('d816201a300b90e338b6432749ebbbadaffc6c6056b4925d6804ce4f88234d1279c5ba0510097eea6b7b232f97f1a457c47907bf2e3dbe482a091c87212ed7a5')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "audacity-win-${pkgver}-64bit"/* "${a}"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
+}

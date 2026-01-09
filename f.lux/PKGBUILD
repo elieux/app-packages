@@ -1,5 +1,10 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # 4.134.0 -> 4.134
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0$/\1.\2/'
+}
+
 _realname=f.lux
 _choconame=f.lux
 pkgbase="app-${_realname}"

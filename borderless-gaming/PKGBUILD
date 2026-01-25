@@ -1,0 +1,45 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=borderless-gaming
+_choconame=borderlessgaming
+pkgbase="app-${_realname}"
+pkgname=("app-i686-${_realname}")
+epoch=1
+pkgver=9.6.0
+pkgrel=1
+pkgdesc="Turn your windowed video games into 'fullscreen' applications without all of the negative side effects"
+url="https://legacy.borderlessgam.ing/"
+arch=('any')
+license=('GPL2')
+makedepends=("app-innounp")
+provides=("${pkgbase}")
+options=(!strip)
+source=("BorderlessGaming_admin_setup.exe::https://legacy.borderlessgam.ing/BorderlessGaming${pkgver%.0}_admin_setup.exe")
+sha512sums=('e5f7352a7ddbb1588263a9c03012d402f490be74f1ece32553570244451b32c3efde2539c5f473682dfb8f692c52e8ccfb50cfbb8d0915c3406c3a8c82670d46')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+prepare() {
+    /apps/innounp/innounp -x -q -m -a -y "BorderlessGaming_admin_setup.exe" -d"BorderlessGaming_admin_setup.dir"
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "BorderlessGaming_admin_setup.dir/{app}"/* "${a}"
+    rm "${a}/uninstall.ico"
+    _lc "${a}"/*
+}

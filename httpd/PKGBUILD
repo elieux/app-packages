@@ -33,12 +33,12 @@ download_https@subdir() {
 }
 
 _realname=httpd
-_realver=250724
+_realver=260131
 _choconame=apache-httpd
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.4.65
+pkgver=2.4.66
 pkgrel=1
 pkgdesc="A high performance Unix-based HTTP server"
 url="https://httpd.apache.org/"
@@ -46,8 +46,8 @@ arch=('any')
 license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
-source=("httpd-win64-VS17.zip::https@subdir://www.apachelounge.com/download/VS17/binaries/httpd-${pkgver}-${_realver}-win64-VS17.zip")
-sha512sums=('a644237404a63308823553df969437bea140794ce57dec04ace98de3322fd3a21c9e173907039ab5d68f2d58aab775e18ddbe7f1a473ea5444a04a869a9a5c91')
+source=("httpd-win64-VS18.zip::https@subdir://www.apachelounge.com/download/VS18/binaries/httpd-${pkgver}-${_realver}-win64-VS18.zip")
+sha512sums=('efb386c327f103d7540d4d69d226fea552e887c58d5757f9ad8320f5f23370f368c5cfc96030d009878617a15379b6878cca870c69bc0806e33c8514558268bc')
 
 _lc() {
     local d f n
@@ -67,9 +67,9 @@ _lc() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "httpd-win64-VS17"/* "${a}"
+    cp -R "httpd-win64-VS18"/* "${a}"
     mv "${a}/ReadMe.txt" "${a}/ReadMe_ApacheLounge.txt"
-    rm "${a}/-- Win64 VS17  --"
+    rm "${a}/-- Win64 VS18  --"
     mv "${a}/Apache24"/* "${a}"
     rm -R "${a}/Apache24" "${a}/conf/original" "${a}/logs"
     _lc "${a}"/*

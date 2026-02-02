@@ -38,15 +38,15 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=2.3.10
-pkgrel=2
+pkgrel=3
 pkgdesc="A FastCGI module for Apache HTTP Server"
 url="https://httpd.apache.org/mod_fcgid/"
 arch=('any')
 license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
-source=("mod_fcgid-win64-VS17.zip::https@subdir://www.apachelounge.com/download/VS17/modules/mod_fcgid-${pkgver}-win64-VS17.zip")
-sha512sums=('8eba07118f2abd4edbaca5d80ee70ecd93bda4d936050e51a6cb40175747b30299834ae5a22a680e5c70d81e7565bc2f24ab99f85eaef82fcf9a428c3c82c8cb')
+source=("mod_fcgid-win64-VS18.zip::https@subdir://www.apachelounge.com/download/VS18/modules/mod_fcgid-${pkgver}-win64-VS18.zip")
+sha512sums=('3acde9d7d23f1672fb130c57e169f6894d62911d8b67b94e2e812ee315e97480e1d8213f85f191687611ee03f8e6a1f8e7b65d66e0f31950972df00b7c0da141')
 
 _lc() {
     local d f n
@@ -68,9 +68,9 @@ package() {
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/modules"
-    cp -R "mod_fcgid-win64-VS17"/* "${a}"
+    cp -R "mod_fcgid-win64-VS18"/* "${a}"
     mv "${a}/ReadMe.txt" "${a}/ReadMe_ApacheLounge_mod_fcgid.txt"
-    rm "${a}/-- Win64 VS17 --"
+    rm "${a}/-- Win64 VS18 --"
     mv "${a}"/*.so "${a}/modules"
     mv "${a}/mod_fcgid-${pkgver}"/* "${a}"
     rm -R "${a}/mod_fcgid-${pkgver}"

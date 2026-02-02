@@ -2,13 +2,24 @@
 <?php
 // no error handling yet
 
-$list = file_get_contents("https://addons.thunderbird.net/en-US/thunderbird/language-tools/");
+function fetch($url) {
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_3);
+	curl_setopt($ch, CURLOPT_USERAGENT, 'mozilla');
+	curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'accept: text/html' ]);
+	$data = curl_exec($ch);
+	return $data;
+}
+
+$list = fetch('https://addons.thunderbird.net/en-US/thunderbird/language-tools/');
 preg_match_all("~<a href=\"/en-US/thunderbird/addon/(.*?)/\">Download Dictionary</a>~", $list, $matches);
 
 $srclist = [];
 foreach ($matches[1] as $addonname) {
-	$detail = file_get_contents("https://addons.thunderbird.net/en-US/thunderbird/addon/{$addonname}/");
-	preg_match("~data-addon=\"([0-9]+)\"~", $detail, $match);
+	$addonname = urldecode($addonname);
+	$detail = fetch("https://addons.thunderbird.net/en-US/thunderbird/addon/" . urlencode($addonname) . "/");
+	preg_match("~data-addonid=\"([0-9]+)\"~", $detail, $match);
 	$addonid = $match[1];
 	$addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', urldecode($addonname)), '-_');
 	echo "Found: {$addonname}-{$addonid}.xpi\n";

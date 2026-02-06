@@ -5,7 +5,7 @@ _choconame=obsidian
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.11.5
+pkgver=1.11.7
 pkgrel=1
 pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
 url="https://obsidian.md/"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Obsidian.exe::https://github.com/obsidianmd/obsidian-releases/releases/download/v${pkgver}/Obsidian-${pkgver}.exe")
-sha512sums=('0535ced1dc70f9da566d280c107b0846d985bf4ea51e2e4b6327b6c65b420c1b23724a15f668fa169adc5304aa288090b1d138b2b0b0c0c4fcc23281169515f5')
+sha512sums=('6598adb1a9b77281f3d92d79765829643dcbf1e3b1f11f3e82390a8f74fdd9be6147a8f12891170154f1c7848b342524af0d4687a83cadf55753f5d771032473')
 noextract=("Obsidian.exe")
 
 _lc() {

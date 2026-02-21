@@ -10,7 +10,7 @@ _choconame=googledrive
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=120.0.1.0
+pkgver=121.0.1.0
 pkgrel=1
 pkgdesc="The Google Drive synchronization tool"
 url="https://www.google.com/drive/"
@@ -21,7 +21,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("GoogleDriveSetup.exe::https://dl.google.com/drive-file-stream/GoogleDriveSetup.exe")
-sha512sums=('13af0fa0371b5670acb34c47e0edb8cb861bbde65ecef9f11cccda640879e7e0cc633800b9bcc8712d0fbc7eb437b100ad6a592d4a42c6dad467d8568e2f3235')
+sha512sums=('434cf209d23d560e22dc2889b708ac84db8b269d753f5934cb4ec2f6f3732cf23bec67ebb2b374221749d7f30c7921824d89e0120673246b37a171bfaa095dda')
 noextract=("GoogleDriveSetup.exe")
 
 prepare() {

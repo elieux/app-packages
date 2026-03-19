@@ -5,7 +5,7 @@ _choconame=claws-mail
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.3.1
+pkgver=4.4.0
 pkgrel=1
 pkgdesc="User-friendly, lightweight, and fast email client"
 url="https://www.claws-mail.org/"
@@ -15,7 +15,7 @@ provides=("${pkgbase}")
 makedepends=("p7zip")
 options=(!strip)
 source=("claws-mail-64bit.exe::https://www.claws-mail.org/win32/claws-mail-${pkgver}-1-64bit.exe")
-sha512sums=('57662501ab5a6f227d31256972dfec1e80d336ae3b792779f4b289403bf13f743dda99471452fd3f018bb284300ef8169c1ec4285980bdcc216af312d9c2f589')
+sha512sums=('bd4a23e4571bc5d1d60d68afb8613c4c91fd4f07108f1deb91aa507b90c6c278b20ee53b58db91c4c9a8c377d45bc1b1b5fbbad53d04b8f454bb72f901ed0d6d')
 noextract=("claws-mail-64bit.exe")
 
 prepare() {

@@ -11,7 +11,7 @@ _choconame=winscp
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=6.5.5
+pkgver=6.5.6
 pkgrel=1
 pkgdesc="An open source two-pane SFTP/FTP/WebDAV/SCP client"
 url="https://winscp.net/"
@@ -21,7 +21,7 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("WinSCP-Setup.exe::https://download.sourceforge.net/winscp/WinSCP-${pkgver}-Setup.exe")
-sha512sums=('5f4e0bf63390eb8f36a825deac54c96c5acb2f61c4da90e8007dde2159376f27bdc8fd406903af170b475fc8e1061b355fbf877b13e847a9df54d1a32574b4f2')
+sha512sums=('ef6574df8de446fc66eeb29994cac67b32a780b2da38d6fc15cfa5b479d37b62b5995c492a8491c237f4086f6ef91f4784b2f44d1857e175c5f32295242ec801')
 
 _lc() {
     local d f n

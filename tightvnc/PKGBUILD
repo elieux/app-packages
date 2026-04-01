@@ -5,7 +5,7 @@ _choconame=tightvnc
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.8.85
+pkgver=2.8.87
 pkgrel=1
 pkgdesc="Light weight VNC implementation"
 url="https://www.tightvnc.com/"
@@ -16,7 +16,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("tightvnc-gpl-setup-64bit.msi::https://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-gpl-setup-64bit.msi")
-sha512sums=('a4f97d830e7d8348d12cdb0e36a35d982f46085b5526b432fe2a89062d0fd45116aaab8e9970fddabc56e9b3d982c09c707e8ea2871184a03f302b5a96a5c9db')
+sha512sums=('fe58630d2d94d95b801a1e8b0692486b3e4e884adca5b159beab5690804aa2cf6f1c7b362be7f96c5999a4b170fe1260f1f592f7ddcfbda074937fd45ed6a469')
 
 build() {
     rm -fR "tightvnc-gpl-setup-64bit"

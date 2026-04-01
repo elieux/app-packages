@@ -1,12 +1,17 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_chocover() {
+    # 1.12.0 -> 1.12
+    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0$/\1.\2/'
+}
+
 _realname=keepass-plugin-otp
 _choconame=keepass-plugin-keepassotp
 _dirname=keepass
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.11
+pkgver=1.12
 pkgrel=1
 pkgdesc="OTP support for KeePass"
 url="https://github.com/Rookiestyle/KeePassOTP"
@@ -15,7 +20,7 @@ license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
 source=("KeePassOTP.plgx::https://github.com/Rookiestyle/KeePassOTP/releases/download/v${pkgver}/KeePassOTP.plgx")
-sha512sums=('1d95d387ff69e208954f3652aebbe32fe27842129d0dd7e7cb4201fd856443540a3a4586cd5b75bfd82c2eb49f454761182fe8c9b80e21cdfe70e0c38ac35f53')
+sha512sums=('5967ab3028ad6486ed223a17fee0b0043d163498b3644bd3dbc80098c4ab57bd93cd52d76366074cbb650c923d9c5c5d48e0b63ccd1c7673c66b9881599d125b')
 
 package() {
     depends=("app-keepass")

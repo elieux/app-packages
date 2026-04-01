@@ -30,7 +30,7 @@ download_https@subdir() {
 }
 
 _realname=tor
-_realver=15.0.7
+_realver=15.0.8
 _choconame=tor
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
@@ -46,7 +46,7 @@ makedepends=("binutils")
 provides=("${pkgbase}")
 options=(!strip)
 source=("tor-expert-bundle-windows-x86_64.tgz::https@subdir://dist.torproject.org/torbrowser/${_realver}/tor-expert-bundle-windows-x86_64-${_realver}.tar.gz")
-sha512sums=('ebc9a7aeb57738dd4325db19606f6ea80fee269de5d033757183605aae9112797d1b4e4d7b54d5d5ef1a2dc8711889d0c2b7f0f5d717944a4f0555c40cc4a648')
+sha512sums=('d0415f5d5f7a356e7daa7d767ebcf39e155fa0a3292eebe8744adb461b9da90c7565676cad38f3af6c0cca7f3903fd764490318ea95aca35dfaf76bbbbdf4980')
 
 pkgver() {
     strings -d "tor-expert-bundle-windows-x86_64/tor/tor.exe" | grep -Fx -A1 VERSION | tail -1

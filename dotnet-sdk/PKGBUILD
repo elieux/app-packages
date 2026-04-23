@@ -34,7 +34,7 @@ _choconame=dotnet-sdk
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=10.0.202
+pkgver=10.0.203
 pkgrel=1
 pkgdesc="The .NET SDK"
 url="https://github.com/dotnet/core"
@@ -43,7 +43,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("dotnet-sdk-win-x64.zip::https@subdir://builds.dotnet.microsoft.com/dotnet/Sdk/${pkgver}/dotnet-sdk-${pkgver}-win-x64.zip")
-sha512sums=('39af90d170fb089fc1b07cf7cbc1afc46a4ae2af9d7a68ad72f917e7ec68cdde8c71e9139949c109e84533a5230aa1d1716bb911df4325634a018f9a0addda8c')
+sha512sums=('41486bb422746154171e0ede7c1d0021605430728e71b83e94368184e8c97802f9cb5151be2cd1285936b11e452ddc0728ee3766db187d428e50531ac0c2161c')
 
 _lc() {
     local d f n

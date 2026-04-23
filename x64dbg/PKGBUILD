@@ -3,7 +3,7 @@
 _chocover() {
     # 20201112.0512.0 -> 2020.11.12.05.12
     # 20201112.0512 -> 2020.11.12.05.12
-    echo "${1}" | sed -r 's/^([0-9]{4})([0-9]{2})([0-9]{2})[.]([0-9]{2})([0-9]{2})(?:[.]0)?$/\1.\2.\3.\4.\5/'
+    echo "${1}" | sed -r 's/^([0-9]{4})([0-9]{2})([0-9]{2})[.]([0-9]{2})([0-9]{2})([.]0)?$/\1.\2.\3.\4.\5/'
 }
 
 _extract_subdir() {
@@ -35,13 +35,13 @@ download_https@subdir() {
     download_file "${1/@subdir:/:}"
 }
 
-_realver=2025-08-19_19-40
+_realver=2026-04-20_19-04
 _realname=x64dbg
 _choconame=x64dbg.portable
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2025.08.19
+pkgver=2026.04.20
 pkgrel=1
 pkgdesc="An open-source x64/x32 debugger for Windows"
 arch=('any')
@@ -50,7 +50,7 @@ license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
 source=("snapshot.zip::https@subdir://github.com/x64dbg/x64dbg/releases/download/${pkgver}/snapshot_${_realver}.zip")
-sha512sums=('15531d5dc84666e4dfcc60619dba31110bfb505245a5705707505340fe4e56079b6d7e59209df64689b6d3c0227d4a2db0f510541d0c9b7470e03c5deb697bea')
+sha512sums=('ac3966401367b6cb52c24381d8aad86066eb94d10b0e5553e54a7359c3a910a229e6917495fd4c2f147612a4e9838fa2970a9a58be5fb6918de3b2391fd6d027')
 
 _rmmsdll() {
     local ms

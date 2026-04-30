@@ -1,12 +1,12 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=gnupg
-_realver=20260224
+_realver=20260424
 _choconame=gnupg
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.5.18
+pkgver=2.5.19
 pkgrel=1
 pkgdesc="Complete and free implementation of the OpenPGP standard"
 url="https://www.gnupg.org/"
@@ -16,7 +16,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("gnupg-w32.exe::https://www.gnupg.org/ftp/gcrypt/binary/gnupg-w32-${pkgver}_${_realver}.exe")
-sha512sums=('1e6f94810a3609ac28e29b232d6d6953609df031c6891bb634ac66d5206a9356c5a6a5f812e086370a0edee079c2c27069ce9267fbc0db76fee6d1afc4ad5e3d')
+sha512sums=('41097a170e87048958b9bd0a7dacd66f56a51aeebdc8e2a9f45f7bac9deb2cbcc394e286abf14b0e145bcc5974db94b4a63a8356de3d4cc97643ba97e18c1926')
 noextract=("gnupg-w32.exe")
 
 prepare() {

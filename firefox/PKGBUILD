@@ -12,7 +12,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=150.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Standalone, easy to customize web browser"
 url="https://www.mozilla.org/firefox/"
 arch=('any')
@@ -31,11 +31,15 @@ source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver
         "be.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/be.xpi"
         "bg.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bg.xpi"
         "bn.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bn.xpi"
+        "bo.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bo.xpi"
+        "bqi.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bqi.xpi"
         "br.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/br.xpi"
+        "brx.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/brx.xpi"
         "bs.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/bs.xpi"
         "ca-valencia.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ca-valencia.xpi"
         "ca.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ca.xpi"
         "cak.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/cak.xpi"
+        "ckb.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ckb.xpi"
         "cs.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/cs.xpi"
         "cy.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/cy.xpi"
         "da.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/da.xpi"
@@ -69,6 +73,7 @@ source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver
         "hsb.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hsb.xpi"
         "hu.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hu.xpi"
         "hy-AM.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hy-AM.xpi"
+        "hye.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/hye.xpi"
         "ia.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ia.xpi"
         "id.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/id.xpi"
         "is.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/is.xpi"
@@ -81,9 +86,13 @@ source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver
         "kn.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/kn.xpi"
         "ko.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ko.xpi"
         "lij.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lij.xpi"
+        "lo.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lo.xpi"
         "lt.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lt.xpi"
+        "ltg.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ltg.xpi"
         "lv.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/lv.xpi"
+        "meh.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/meh.xpi"
         "mk.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/mk.xpi"
+        "ml.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ml.xpi"
         "mr.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/mr.xpi"
         "ms.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ms.xpi"
         "my.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/my.xpi"
@@ -101,6 +110,7 @@ source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver
         "ru.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ru.xpi"
         "sat.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sat.xpi"
         "sc.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sc.xpi"
+        "scn.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/scn.xpi"
         "sco.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sco.xpi"
         "si.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/si.xpi"
         "sk.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/sk.xpi"
@@ -122,6 +132,7 @@ source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver
         "ur.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ur.xpi"
         "uz.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/uz.xpi"
         "vi.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/vi.xpi"
+        "wo.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/wo.xpi"
         "xh.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/xh.xpi"
         "zh-CN.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/zh-CN.xpi"
         "zh-TW.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/zh-TW.xpi")
@@ -135,11 +146,15 @@ sha512sums=('3cf708c2b7ff7b35235f437606c0c472d3ce1a8769d454b732f1b2c9e1eca2bbfd5
             '5101e191f61e6b31ba9fbca1d1bd1698dd93c1f249e79f8fab046baff1ae6a654cabecf51fc8245e0f58e5a39a646956b59128015138c65ddc5c16d129e53e51'
             'cb943c77518b6783bf1bf384580e8235d1594bc9248f096bb4357a161305caa5a0895482af8172e81c99314c4c7bfe0f8113db1a30e72c202a39eafa27ad76ea'
             'bcc9943a9b24e74cdc7252ceb63af25832e59aed1c4dc84de929b3455b74bfb52e3d28900b52e6faea4abee3fce8f955b19696d7f8b675e07336d42b33f5c1c1'
+            '57f7dfa27469483f1acc6f85aeee552921edf44010588dfa56db20032f3596c869e68981b3c7acfbabe4d0e7a3b2b825cdc871db1cc86a0cbe115fa705cd311c'
+            'e18503d1296028248438a953dc004d6628c72dae154593d5912a4003361b138257ff05392bd20d974148130a57a12ad5062445f6a61c916b536b868fe396c42a'
             'e9c5a38eac61745f85e6bc471224bcf1e6f813a913227b0e21985b3153fec3f8fd35e3b27debc2050afb3fe55bd07e19e5bce9448955738d2769a9dca7851c7e'
+            '7ef56a60cea279ff1eb4f2e99d1b3d1e0d456400d0006777a285ac470a69424092636507a7697a262786b74225debaf6b57aed699af7f999bc682ddb6105d863'
             '20ab80c16a70f7f1b55e226064bbb0820cbc4e315e252af7242ce03cee15307c92fc3894f4af62bcb6fc41e791730e837e54984fccf8211c3995b55f94a319ba'
             '1b6ae3f6f76d0eb5c48f4ae43192b939772ca336e7bf299ca421bed3d68f554b4753d9d98748b04643439660cd59a81294411bbcc820a39958dbaa2f00028a77'
             'e27f350542175ca1228f3206eb90a692fab7f7c5f114eac49bcc76345ad16a01bcec8265740a302ece172fa92d0a31fadb9c75d622ea8e9f5429e2c2bc4f2541'
             'dc30a0e00c21d50311f39bcd85391dc8ee1b7dddb652ce65e02014542fe0df63993d096830d8fe5b58ecaad2e760277d3baa2c4cd47ee90e2d5bca4e39f34799'
+            'd144dfd57f76a5fbb3a55d1bb5e36783c126569fef8c100f3be324cd9a4ff0a9314539924ded2c7e402b15c286f043dbe542c7fe95f23ff215165b2ee80a6414'
             '00ffdd1539c7f27fabe45882eb160217928daa6f444a506941f198805902c3e56fc65c2d4d798ce8095c2be4c0ac8e3ceaf022f96ca4c9198338db3660cbbaed'
             'f888276a8283c528d3c05b449a49b3cd6edb8a0e6cc5a322be73576a6a2f9209998beb607068a5b4d223ec4e1b72583fc5c4ce533bb21999e3299e807aa60d12'
             '792ad8a1adbafabe1f67147451ad8dfbf619345912c67f352a49e8e8edc16c4dadb2993298e609e01060fe46a3b59363717ac992652253d57d0ff46f155b69be'
@@ -173,6 +188,7 @@ sha512sums=('3cf708c2b7ff7b35235f437606c0c472d3ce1a8769d454b732f1b2c9e1eca2bbfd5
             '0f949178805bca45fc2afb667f3fecef36452e32584b93b2c326a15d4f9c367e59d22381565b1aae5c67e7d76551993fc8c4cfeb98afdce4db90f9041ed68758'
             '27ee1a6887cc48ef2506a9dc9d2c0613cd30954ed2a35dd78eec7bca95382002ceb5449b90ba0ce6ddbd3a1b63ccdc0d2d6a6074aebde9ab0f27241f9772cdd0'
             'aeff64f04d78ef88b7268c7850a6d59aae2c20ca4d8aa67fe79383ccc93be67aff113ba4ab6286925a351968ec1f5d3357004072db055c8a20b884aabfed9bad'
+            '93b44376e237420ec995d4a7d27595006072e9e45b0781ab16717561c8aa2f81cd2e5f197403aa433151daa203e404c17f03eea5bfc7ffb13a8243a0b02073eb'
             'c59e525cc05136fb6568dff709a9925c22fab6ccfb9ae5a60694953262b9c31ea2e489d1894c72c2c1e2e38394ff7070d5dae8f7a1e362b3ba2b048100836988'
             '138d73624e1252634cdbaf0f1b31d63900a4055589adaa929b8dac0f54e59d98e03f47226f258db0d1cdf8c42014df70cb2cd0bdf7c1562661ce314733e17e3b'
             '27eac6702275ce4641a88617eba939541a1578a3d2835567f408dde2c3d32143791cf772aa825dedf1ebf490777ba2902307886300f471259b84977759e15cb5'
@@ -185,9 +201,13 @@ sha512sums=('3cf708c2b7ff7b35235f437606c0c472d3ce1a8769d454b732f1b2c9e1eca2bbfd5
             'f84b9d981e3babc7a732edd8831038495c67586a8cd112eee28e91388b7a331169a63b875164107c3c65cad2ed713db383b01a3c0b77b554aa77b3fe272884d4'
             '1fcb278353c55afa4a1c7cc695a7ccb5e62ab8339d869f4e3693bab53a4258d79f8ed3352657d9d356117392095864bf75d01f30a499507b92755714b08b8d5e'
             '213cbb97ae64910c69a08110b6f2b64598ae7285dc64e0a5effa98345d6b8ba45aee0952ec7de80b6b3d1d5584efe70663f24937cb1f300121b260069b868218'
+            'c4f99849332631733699a258f917b889697a76d615ff46d0175bb5b73734b41d9f96a0d6df6a85bb661b59990fad912837cf01ea54151ddebfd6f7711af96250'
             'dfb49d5c5ddf19d9bd995a269b7944fe737b76eb9979ab5f1a5b025db1d3516b444d418274f1c06e9e0ab3d0214456ab132bc49c0ed0c8e099c5d6c87fd15bcb'
+            'fc3c7ac04f4a0c264fb17dcd44d7f46013712712d6bb22e1d921ed2583ecbcfa1a6864905357313949e84944ef2d6a2f2c916ea36d7b2e0bf7028635df7affd2'
             '1b9d2c6d8342c125a69fd88a270bf3fe883c58f5f86d5862017cbc4aa4541f00231971ce61587f0a2bb5068ccf39d72e3684e89e32a733ec839f229bdaee253e'
+            '7269ec6830209a90759853ca0631018e8774c2c61b197b613a4397610d55e4fd0ccdca3a80e443a87920dfe7a73db23acc939fa1f6710100f6d3cfd600dd1f34'
             '82d02585528c13869780b5effee3dbfa5705b31dbfb38b87497b776056538a34ea75791174cdf71bbbf4eefb350422afe9768ff1598fbc283663065733a3a988'
+            '4739a06a136eddf69853493d521c79d6f02e54dbf3f79d30833551a7ad08b0225b64bc58443d964cc1288e7e617bc12f940ef3b80becc4d4a67ee031d8db1c19'
             '083700a8b685eee64b3cbdc648a46460d6957b7fc678dc594e35a716638444f42f5adfbb2becda30972d2008706ebc80183063870c36e03d0a5d549e8b35ee92'
             '238065d3ec7fe927544c2960f7615cf8447673492a18c6f4c3626bfed22a3225f9d7eab3d213f2875816c48a038d7a1cb4c1e930d11dc9662645443c4cb01ebf'
             '32b44a5dccda9567b5d513d9495eda6f351442c53a17d1ab323df77ea2c5d59f456b6c59893c47512149d83de6959096fe8a97798350a43a2d3c4a7d5d4d5baa'
@@ -205,6 +225,7 @@ sha512sums=('3cf708c2b7ff7b35235f437606c0c472d3ce1a8769d454b732f1b2c9e1eca2bbfd5
             '05c872b52f93a460c64a4f13fe80529e6390a94b2167c51debe4063e35a40b243b0e9a84a0cc48f21a2549297384b8f170106445594401b7abecd86dac8dbeb0'
             'ab95610a31ee125f836af16545b10d7ce83988e05197e0ee8eda0ee95c6ff6120359cfb75a08b66d07c90334aeee3ee5564f344595a9361fe9d45f8bcaf7840b'
             '20f9464bcf6a21cdbc83fa8b14e8cd5cc394a8adb193cb3b7ea75f3bd21e670eae45a3dbc5bef44616bdaaa3a0c06a1af407c9c3f571b427084213d3d3491b31'
+            '51350f7c8d1f392b7f5cd1c50d0b52a14c4178f8e91c0d7f71fe7f16afb9528f572c5be35ee2e10d0502f8fa2cacb188151798f893fda15c5f9914388654c206'
             '3e4bfa1f8bf1036afd9efad02aa36e7cdecf27b32d10b7ced25bf70d309398903e5d974cfec4bde2f4263c7b3d39c40918abd2091d195b4337170a2bb735e81b'
             '2566f6ad91f64d713c0bcb1975ef09211976f7bda29bd79a5a9cbd55fe33d59ae40d0ff06df406929f91f04d619e9dcf1fd5846b68a04e79b5c7c32e1c27c990'
             '5a163c3ba7a1196f2776d933dafe80dd0061522dc90a7905ee9f4d284bce67fd9a7f0ead5aa89ac111fe9b6a182dbea10a335a01701ce4094ed99c67d90aa6eb'
@@ -226,6 +247,7 @@ sha512sums=('3cf708c2b7ff7b35235f437606c0c472d3ce1a8769d454b732f1b2c9e1eca2bbfd5
             '306c7af16746c375be02e86f2c355d4fb30fd0093fbdd23eba84a4e0bc24c7cd9963a0af704befb4efda77f3909105c9d31cbfc369eb2307c1a39c8211bb699e'
             '0dca65300a93f06e0b18bf1064de79c811d75116d9c38438ff4884874d56e92349d4fcf93b80e6ea03053536b6c6b4eb0d42e5c2225b8b759ec5e370a2e1c799'
             '1623e5a1bf1f88b19c11c0bd563765e5afa22231a09c5c4fcd4b2d0aa33b6b2b85cfced1b554a3daebed09a07a2f6858cc945856d2cd42021808d52bfa306789'
+            '3c98253847940c095172c4f5217adec2967c2c313513436f66f2a462249aa0a4a0684f01e608e958ff07331c31f82be8f76b2b4c871fc4e93c0fad32264f302d'
             '952e25052cc94b7f353456e3ded6d6027f55d7af7ea0d54dbc50af2358c8ebb42bfcb962291f4e8554ba9d14f3232a03cc9b6aaa5d641d7bdb74b04e710d1ec4'
             'b09afeb3f610d9d16b65c6af2dd01d44290c8f5dd7dc5e1a26101b4bb5f69e3c7455024b2083b40712a16f2e6012c2f51a9a7c0f12cf4e1b5b0927be18186646'
             '0fed11eb758f0b04302eac783e99319196f3cb56fbe92ee1a5dd8055783200f8eb4b6bf8d0f1e6605066b544c2e6d9819c33d3daecbecdd1894786da056fd74e')

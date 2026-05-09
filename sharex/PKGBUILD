@@ -32,19 +32,20 @@ download_https@subdir() {
 _realname=sharex
 _choconame=sharex
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=19.0.2
+pkgver=20.1.0
 pkgrel=1
 pkgdesc="Screen capture, file sharing and productivity tool"
 url="https://getsharex.com/"
 arch=('any')
 license=('GPL3')
 makedepends=("mingw-w64-x86_64-jq")
+replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("ShareX-portable.zip::https@subdir://github.com/ShareX/ShareX/releases/download/v${pkgver}/ShareX-${pkgver}-portable.zip")
-sha512sums=('e067340544394306c16fe8af1cd8dd0477f1b99babf4cde8a69dbbfeaab89541f293955aa9a402783d4457fc0f3841b3b44ad0d9bc452b1a2b8422f0b959f127')
+source=("ShareX-portable.zip::https@subdir://github.com/ShareX/ShareX/releases/download/v${pkgver}/ShareX-${pkgver}-portable-x64.zip")
+sha512sums=('7428558817cf911c293a7076852a30978db39168a7f239d163a8591a3979e52190a1df18ac5d8d5e97a0ffcdaef1026bd1dc94afcabaa1774afcbc2735c87f96')
 
 _lc() {
     local d f n

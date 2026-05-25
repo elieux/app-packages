@@ -1,0 +1,44 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=xca
+_choconame=xca
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2.9.0
+pkgrel=1
+pkgdesc="Graphical user interface to OpenSSL, RSA/DSA public keys, certificates, signing requests and revokation lists"
+url="https://www.hohnstaedt.de/xca/"
+arch=('any')
+license=('BSD-3-Clause')
+makedepends=("app-lessmsi")
+provides=("${pkgbase}")
+options=(!strip)
+source=("xca-win64.msi::https://github.com/chris2511/xca/releases/download/RELEASE.${pkgver}/xca-${pkgver}-win64.msi")
+sha512sums=('5c2494a2f1595e630ea2a480460a98994dedfb9b8f585c2d022620ddfccdbdba8947debe3a8411d016ac6dd43def8e1895ec439b7737c311d16f4281d921c434')
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    rm -fR "xca-win64"
+    /apps/lessmsi/lessmsi x "xca-win64.msi" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "xca-win64/SourceDir/xca"/* "${a}"
+    _rmmsdll "${a}"
+}

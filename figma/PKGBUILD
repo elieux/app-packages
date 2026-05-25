@@ -1,0 +1,66 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=figma
+_choconame=figma
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=126.4.11
+pkgrel=1
+pkgdesc="Desktop version for Figma design tool/service"
+url="https://www.figma.com/downloads/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip" "unzip")
+provides=("${pkgbase}")
+options=(!strip)
+source=("FigmaSetup.exe::https://www.figma.com/download/desktop/win")
+sha512sums=('965b875227130abec16a94cafc8d6a839aff59954e59ee8eea3060f6dd4469b67c1d13d17aed745a3436c4f291e317d9099174b5c7313bafc988f0f8f60b48d8')
+noextract=("FigmaSetup.exe")
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
+prepare() {
+    rm -fR "FigmaSetup.dir"
+    7z x -y -bd "FigmaSetup.exe" -o"FigmaSetup.dir" > /dev/null
+    unzip -q -o "FigmaSetup.dir/Figma"-*-"full.nupkg" -d "Figma-full"
+}
+
+pkgver() {
+    powershell -command '(Get-Item "FigmaSetup.exe").VersionInfo.ProductVersion'
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "Figma-full/lib/net45"/* "${a}"
+    _rmmsdll "${a}"
+    _lc "${a}"/*
+}

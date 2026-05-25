@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+// no error handling yet
+
+$version = file_get_contents("https://downloads.claude.ai/claude-code-releases/latest");
+
+$pkgbuild = file_get_contents('PKGBUILD');
+$pkgbuild = preg_replace("~version=\(.*\)~s", "version={$version}", $pkgbuild);
+rename('PKGBUILD', 'PKGBUILD.old');
+file_put_contents('PKGBUILD', $pkgbuild);

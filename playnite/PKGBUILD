@@ -39,7 +39,7 @@ _choconame=playnite
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=10.55
+pkgver=10.56
 pkgrel=1
 pkgdesc="Video game library manager"
 url="https://playnite.link/"
@@ -48,7 +48,7 @@ license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
 source=("Playnite.7z::https@subdir://github.com/JosefNemec/Playnite/releases/download/${pkgver}/${pkgver}.7z")
-sha512sums=('cd5420f56f201fc8bc4ec2a1cae809c50b330c321daf1a7c7e46d46145ab7664046fcd8aebca0ab9cfcce5574251eabfbd5315ab1cae476f5a56c0110153d0ee')
+sha512sums=('613e107bcd403ff1c7e9fda6846a6c4d04f4e7b3fbaf00b112e2af5ae41f765c6e7dd5e5474ec98b54b450e56019d6da729681b7f010dc10628a5253e74c3dac')
 
 _rmmsdll() {
     local ms

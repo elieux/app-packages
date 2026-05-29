@@ -35,13 +35,12 @@ download_https@subdir() {
     download_file "${1/@subdir:/:}"
 }
 
-_realver=2026-04-20_19-04
 _realname=x64dbg
 _choconame=x64dbg.portable
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2026.04.20
+pkgver=2026.05.27.12.11
 pkgrel=1
 pkgdesc="An open-source x64/x32 debugger for Windows"
 arch=('any')
@@ -49,8 +48,8 @@ url="https://x64dbg.com/"
 license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("snapshot.zip::https@subdir://github.com/x64dbg/x64dbg/releases/download/${pkgver}/snapshot_${_realver}.zip")
-sha512sums=('ac3966401367b6cb52c24381d8aad86066eb94d10b0e5553e54a7359c3a910a229e6917495fd4c2f147612a4e9838fa2970a9a58be5fb6918de3b2391fd6d027')
+source=("snapshot.zip::https@subdir://github.com/x64dbg/x64dbg/releases/download/${pkgver%.*.*}/snapshot_$(echo "${pkgver%.*.*}" | tr '.' '-')_$(echo "${pkgver#*.*.*.}" | tr '.' '-').zip")
+sha512sums=('4acb68e66fd10d6a1a582e38bd92e13e8f30a21b717ea6b6225e691a959062500ccd78ade0c022106e75caf4c0f324c90d6d24bf9b80ac727758eb98385f15c2')
 
 _rmmsdll() {
     local ms

@@ -1,0 +1,39 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=coreutils
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2026.5.29
+pkgrel=1
+pkgdesc="UNIX-style core utilities for Windows"
+arch=('any')
+url="https://github.com/microsoft/coreutils"
+license=('MIT')
+makedepends=("app-innounp")
+provides=("${pkgbase}")
+options=(!strip)
+source=("coreutils-x64.exe::https://github.com/microsoft/coreutils/releases/download/v${pkgver}/coreutils-${pkgver}-x64.exe")
+sha512sums=('0f0e606d94f36f1b3e1b74d48a6f2a9bdefa1c91da1f20d851040c95e383d3467b4c20fe26e30b89394b64782a46827101e7e21a5c27f3382003ca125e90d810')
+noextract=("coreutils-x64.exe")
+
+prepare() {
+    /apps/innounp/innounp -x -q -m -a -y "coreutils-x64.exe" -d"coreutils-x64.dir"
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "coreutils-x64.dir/{app}"/* "${a}"
+    local -a cmds
+    cmds=($(cat "${a}/pwsh-install-template.ps1" | sed -nr '/__COREUTILS__ = /,/^[)]$/p' | tail -n+3 | head -n-3 | tr -d "\n,'"))
+    local cmd
+    for cmd in "${cmds[@]}"
+    do
+        if test "${cmd}" != "ln"
+        then
+            ln "${a}/coreutils.exe" "${a}/bin/${cmd}.exe"
+            ln "${a}/coreutils.exe" "${a}/cmd/${cmd}.cmd"
+        fi
+    done
+}

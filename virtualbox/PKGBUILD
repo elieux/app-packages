@@ -4,25 +4,23 @@ _realname=virtualbox
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.1.10.169112
+pkgver=7.2.8.173730
 pkgrel=1
 pkgdesc="Powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use"
 url="https://www.virtualbox.org/"
 arch=('any')
 license=('GPL2')
 provides=("${pkgbase}")
-makedepends=("p7zip" "mingw-w64-x86_64-gcc")
+makedepends=("p7zip" "mingw-w64-x86_64-gcc" "app-lessmsi")
 options=(!strip)
 source=("VirtualBox-Win.exe::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBox-${pkgver%.*}-${pkgver##*.}-Win.exe"
         "VirtualBox.tar.bz2::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBox-${pkgver%.*}.tar.bz2"
         "VirtualBoxSDK.zip::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBoxSDK-${pkgver%.*}-${pkgver##*.}.zip"
-        "comsupp.cpp"
         "0004-remove-__function__.patch"
         "0005-remove-__try-__except.patch")
-sha512sums=('e911ff4a6e4de3d3cfeee00bfd6ebb34d9453fff0092f9757202e4aa9c0ef37576f2755b324c2dc20a642ace3fc936e13869e5bd0a3b3a1261d311727a14f025'
-            '841c539b30c964eec0e3a5eddc354bcec530aeed882507928c2f0a8675756c27a650cb3094a130d4f609e83a10f1273b40e9a765228586c3c8c90bb74d7872ad'
-            'e6c698ff6f2820719d38c9c5199b5ea0f4b2953b78cabb3566f36d9670fdcf2804e577228b0b36bb3fd41f260cb0aae5e398f2ac7b45a80b8d30cac7517431cb'
-            '32173292f6c7644604ca624bb8e822ccb360726b3681d70cc469468d9c954ff971382a3decbce2461b530c9856467f49ef555f7444f8aa34a652f7674f51d873'
+sha512sums=('53d65c2b9e92622b2678727862bacf76634931c30252923ed10373766440a17b492247b95e849562b0c33d37d723dae1452bd7da94ee0f50e2a81a893d6eb59d'
+            'a67256506c870b7fcecb0ec8b1d5e75490ee02379b5e967aead44ed09e2b15c0a2c3fd2d1e021281609d8d1f98b161cd3aa0265938490a999a700a1e01a9013b'
+            'caece6b4d0ec5038bed3a90bae7bf3ebee554c9dc8ca6ecb2a3c3a2e114b970441cf4d7a0dc4bdcefc5eecaf51be129ba7d20f33360e50a74834ef0ceb561bf5'
             '55faec07873c96a8b2e1e0a90a4c0529b2d40ead18ab972c2477d8eaaaf314603772dab8dbbdf0bf1e5312756dad784e749c5a954f85123d8607855bfc890a85'
             'efc61d88568526a9b1b4d12526a44ffe8b810052e02962b40cfe4ae85a44265e953d74c55be687b3d5a892c29d967a5a3dcc3fc35b20c88882e2b343f8d614eb')
 noextract=("VirtualBox-Win.exe")
@@ -44,6 +42,11 @@ _lc() {
 
 prepare() {
     7z x -y -bd "VirtualBox-Win.exe" -o"VirtualBox-Win.dir" > /dev/null
+    cp "VirtualBox-Win.dir/.rsrc/RCDATA/BIN_00" "VirtualBox-MultiArch_amd64.msi"
+    cp "VirtualBox-Win.dir/.rsrc/RCDATA/BIN_02" "common.cab"
+
+    rm -fR "VirtualBox-MultiArch_amd64"
+    /apps/lessmsi/lessmsi x "VirtualBox-MultiArch_amd64.msi" > /dev/null
 
     mkdir -p "build"
     cp -R "VirtualBox-${pkgver%.*}/include" "build"
@@ -63,28 +66,23 @@ cxx() {
 }
 
 link() {
-    cxx "${@}" "VBoxDrvCfg.o" "VBoxNetCfg.o" "comsupp.o" "string.o" "ministring.o" "${srcdir}/VirtualBox-Win.dir/file_VBoxRT.dll" -lole32 -loleaut32 -lsetupapi -liphlpapi -lnewdev -lws2_32 -luuid -lwbemuuid
+    cxx "${@}" "VBoxDrvCfg.o" "VBoxNetCfg.o" "string.o" "ministring.o" "${srcdir}/VirtualBox-MultiArch_amd64/SourceDir/PFiles/Oracle/VirtualBox/VBoxRT.dll" -lole32 -loleaut32 -lsetupapi -liphlpapi -lnewdev -lws2_32 -luuid -lwbemuuid
 }
 
 build() {
     cd "build"
-    cxx -c -municode -D_UNICODE -o "comsupp.o" "../comsupp.cpp"
     cxx -c -municode -D_UNICODE -o "string.o" "src/VBox/Main/glue/string.cpp"
     cxx -c -municode -D_UNICODE -o "ministring.o" "src/VBox/Runtime/common/string/ministring.cpp"
     cxx -c -municode -D_UNICODE -o "VBoxNetCfg.o" "src/VBox/HostDrivers/VBoxNetFlt/win/cfg/VBoxNetCfg.cpp"
     cxx -c -municode -D_UNICODE -o "VBoxDrvCfg.o" "src/VBox/HostDrivers/win/cfg/VBoxDrvCfg.cpp"
     link -o "NetAdp6Install.exe"   "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"   -DNDIS60=1
     link -o "NetAdp6Uninstall.exe" "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp" -DNDIS60=1
-    link -o "NetAdpInstall.exe"    "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpInstall.cpp"
-    link -o "NetAdpUninstall.exe"  "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetAdpUninstall.cpp"
-    link -o "NetFltInstall.exe"    "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltInstall.cpp"
-    link -o "NetFltUninstall.exe"  "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetFltUninstall.cpp"
     link -o "NetLwfInstall.exe"    "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfInstall.cpp"
     link -o "NetLwfUninstall.exe"  "src/VBox/HostDrivers/VBoxNetFlt/win/tools/VBoxNetLwfUninstall.cpp"
-    link -o "USBInstall.exe"       "src/VBox/HostDrivers/VBoxUSB/win/install/USBInstall.cpp"
-    link -o "USBUninstall.exe"     "src/VBox/HostDrivers/VBoxUSB/win/install/USBUninstall.cpp"
     link -o "SUPInstall.exe"       "src/VBox/HostDrivers/Support/testcase/SUPInstall.cpp"
     link -o "SUPUninstall.exe"     "src/VBox/HostDrivers/Support/testcase/SUPUninstall.cpp"
+    link -o "USBInstall.exe"       "src/VBox/HostDrivers/VBoxUSB/win/install/USBInstall.cpp"
+    link -o "USBUninstall.exe"     "src/VBox/HostDrivers/VBoxUSB/win/install/USBUninstall.cpp"
 }
 
 package() {
@@ -92,52 +90,12 @@ package() {
 
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "VirtualBox-Win.dir"/* "${a}"
+    cp -R "VirtualBox-MultiArch_amd64/SourceDir/PFiles/Oracle/VirtualBox"/* "${a}"
     cp -R "sdk" "${a}"
 
-    local f
-    for f in "${a}"/file_*
-    do
-        f="$(basename "${f}")"
-        mv "${a}/${f}" "${a}/${f#file_}"
-    done
-
-    local d="${a}/doc"
-    mkdir -p "${d}"
-    mv "${a}/UserManual.pdf" "${d}"
-
-    local d="${a}/drivers/network/netadp6"
-    mkdir -p "${d}"
-    mv "${a}"/VBoxNetAdp6*.{cat,inf,sys} "${d}"
-    cp "${d}/VBoxNetAdp6_W10.cat" "${d}/VBoxNetAdp6.cat"
-    cp "build"/NetAdp6{In,Unin}stall.exe "${d}"
-
-    local d="${a}/drivers/network/netadp"
-    mkdir -p "${d}"
-    mv "${a}"/VBoxNetAdp*.{cat,inf,sys} "${d}"
-    cp "build"/NetAdp{In,Unin}stall.exe "${d}"
-
-    local d="${a}/drivers/network/netflt"
-    mkdir -p "${d}"
-    mv "${a}"/VBoxNetFlt*.{cat,inf,sys} "${d}"
-    mv "${d}/VBoxNetFltNobj.sys" "${d}/VBoxNetFltNobj.dll"
-    cp "build"/NetFlt{In,Unin}stall.exe "${d}"
-
-    local d="${a}/drivers/network/netlwf"
-    mkdir -p "${d}"
-    mv "${a}"/VBoxNetLwf*.{cat,inf,sys} "${d}"
-    cp "${d}/VBoxNetLwf_W10.cat" "${d}/VBoxNetLwf.cat"
-    cp "build"/NetLwf{In,Unin}stall.exe "${d}"
-
-    local d="${a}/drivers/USB/filter"
-    mkdir -p "${d}"
-    mv "${a}"/VBoxUSBMon*.{cat,inf,sys} "${d}"
-    cp "${d}/VBoxUSBMon_W10.cat" "${d}/VBoxUSBMon.cat"
-
-    local d="${a}/drivers/USB/device"
-    mkdir -p "${d}"
-    mv "${a}"/VBoxUSB*.{cat,inf,sys} "${d}"
-    cp "${d}/VBoxUSB_W10.cat" "${d}/VBoxUSB.cat"
+    cp "build"/NetAdp6{In,Unin}stall.exe "${a}/drivers/network/netadp6"
+    cp "build"/NetLwf{In,Unin}stall.exe "${a}/drivers/network/netlwf"
+    cp "build"/SUP{In,Unin}stall.exe "${a}/drivers/vboxsup"
 
     local d="${a}/drivers/USB/install"
     mkdir -p "${d}"
@@ -145,92 +103,9 @@ package() {
     ln "${a}/drivers/USB/device"/* "${d}"
     ln "${a}/drivers/USB/filter"/* "${d}"
 
-    local d="${a}/drivers/vboxsup"
-    mkdir -p "${d}"
-    mv "${a}"/VBoxSup*.{cat,inf,sys} "${d}"
-    cp "${d}/VBoxSup_PreW10.cat" "${d}/VBoxSup.cat"
-    cp "build"/SUP{In,Unin}stall.exe "${d}"
-
-    local d="${a}/dtrace/lib/amd64"
-    mkdir -p "${d}"
-    local f n
-    for f in "${a}"/dtrace_lib_arch_*.d
-    do
-        f="$(basename "${f}")"
-        n="${f#dtrace_lib_arch_}"
-        n="${n//_/-}"
-        mv "${a}/${f}" "${d}/${n}"
-    done
-
-    local d="${a}/dtrace/testcase/amd64"
-    mkdir -p "${d}"
-    local f n
-    for f in "${a}"/dtrace_testcase_arch_*.d
-    do
-        f="$(basename "${f}")"
-        n="${f#dtrace_testcase_arch_}"
-        n="${n//_/-}"
-        mv "${a}/${f}" "${d}/${n}"
-    done
-
-    local d="${a}/nls"
-    mkdir -p "${d}"
-    local f
-    for f in "${a}"/nlsgui*
-    do
-        f="$(basename "${f}")"
-        mv "${a}/${f}" "${d}/VirtualBox_${f#nlsgui}.qm"
-    done
-    for f in "${a}"/nlsqt*
-    do
-        f="$(basename "${f}")"
-        mv "${a}/${f}" "${d}/qt_${f#nlsqt}.qm"
-    done
-
-    local d="${a}/platforms"
-    mkdir -p "${d}"
-    mv "${a}"/q{minimal,offscreen,windows}VBox.dll "${d}"
-
-    local d="${a}/sqldrivers"
-    mkdir -p "${d}"
-    mv "${a}/qsqliteVBox.dll" "${d}"
-
-    local d="${a}/styles"
-    mkdir -p "${d}"
-    mv "${a}/qwindowsvistastyleVBox.dll" "${d}"
-
-    local d="${a}/UnattendedTemplates"
-    mkdir -p "${d}"
-    mv "${a}"/*_*.{sh,cfg,rsp,sif,xml,cmd} "${d}"
-    mv "${a}/os2_util.exe" "${d}"
-    mv "${a}"/ubuntu_autoinstall_{meta,user}_data "${d}"
-
-    local d="${a}/x86"
-    mkdir -p "${d}"
-    local f
-    for f in "${a}"/*_x86
-    do
-        f="$(basename "${f}")"
-        mv "${a}/${f}" "${d}/${f%_x86}-x86.dll"
-    done
-
-    local f
-    for f in $(find "${a}" -maxdepth 1 -type f -not -iname "*.*")
-    do
-        f="$(basename "${f}")"
-        mv "${a}/${f}" "${a}/${f}.dll"
-    done
-    mv "${a}/VBoxSDS.dll" "${a}/VBoxSDS.exe"
-    mv "${a}/VBoxSVC.dll" "${a}/VBoxSVC.exe"
-    mv "${a}/vbox_img.exe" "${a}/vbox-img.exe"
-    mv "${a}/vSqlVBox.dll" "${a}/Qt6SqlVBox.dll"
-    rm "${a}"/*.py "${a}/pyproject.toml"
-
     _lc "${a}"/*
     ln "${a}/vboxrt.dll" "${a}/drivers/network/netadp6/vboxrt.dll"
-    ln "${a}/vboxrt.dll" "${a}/drivers/network/netadp/vboxrt.dll"
-    ln "${a}/vboxrt.dll" "${a}/drivers/network/netflt/vboxrt.dll"
     ln "${a}/vboxrt.dll" "${a}/drivers/network/netlwf/vboxrt.dll"
-    ln "${a}/vboxrt.dll" "${a}/drivers/USB/install/vboxrt.dll"
     ln "${a}/vboxrt.dll" "${a}/drivers/vboxsup/vboxrt.dll"
+    ln "${a}/vboxrt.dll" "${a}/drivers/USB/install/vboxrt.dll"
 }

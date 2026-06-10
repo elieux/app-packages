@@ -7,7 +7,7 @@ _choconame=filezilla
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.70.5
+pkgver=3.70.6
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client"
 url="https://filezilla-project.org/"
@@ -19,7 +19,7 @@ provides=("${pkgbase}")
 options=(!strip)
 source=()
 sha512sums=()
-_sha512sum='3f238feb0ba0eeff4bc0117b1480982baae59d77583ed8030fb205edc56e19faf5d87bdfdfa8ea6a86c8b184883b4c25b0cd60eb85e2327b0902e44f600b94de'
+_sha512sum='a3985778d0e33618548518e867265b93c857da9b6506391e5ae805f3a312269ecc71b86bc35303405abc6b2f6ae02cbe3cb30b0440db1c9b2c0c44e5851a3834'
 
 _dl() {
     (

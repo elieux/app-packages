@@ -34,7 +34,7 @@ _dirname=thunderbird
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2026.01.23
+pkgver=2026.06.23
 pkgrel=1
 pkgdesc="Dictionaries for Thunderbird"
 url="https://addons.thunderbird.net/en-US/thunderbird/language-tools/"
@@ -84,8 +84,8 @@ source=("us-english-dictionary-677644.xpi::https@subdir://addons.thunderbird.net
         "canadian-english-dictionary-3653.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3653/addon-3653-latest.xpi"
         "new-zealand-english-444420.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/444420/addon-444420-latest.xpi"
         "enus-dede-bilingual-dictionary-988386.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/988386/addon-988386-latest.xpi"
-        "english-us-dictionary-988432.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/988432/addon-988432-latest.xpi"
         "us-english-dictionary-677644.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/677644/addon-677644-latest.xpi"
+        "english-us-dictionary-988432.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/988432/addon-988432-latest.xpi"
         "esperanta-vortaro-3684.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3684/addon-3684-latest.xpi"
         "eesti-keele-speller-4195.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/4195/addon-4195-latest.xpi"
         "eegbe-spelling-dictionary-14027.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/14027/addon-14027-latest.xpi"
@@ -102,6 +102,7 @@ source=("us-english-dictionary-677644.xpi::https@subdir://addons.thunderbird.net
         "dictionary-german-austria-3079.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3079/addon-3079-latest.xpi"
         "german-dictionary-de_de-for-sp-9361.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9361/addon-9361-latest.xpi"
         "deutsch-alte-rechtschreibung-360545.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/360545/addon-360545-latest.xpi"
+        "deutsches-woerterbuch-989818.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/989818/addon-989818-latest.xpi"
         "german-dictionary-de_ch-for-sp-9360.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/9360/addon-9360-latest.xpi"
         "dictionary-german-swiss-3049.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3049/addon-3049-latest.xpi"
         "greek-spellchecking-dictionary-3439.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/3439/addon-3439-latest.xpi"
@@ -204,9 +205,9 @@ source=("us-english-dictionary-677644.xpi::https@subdir://addons.thunderbird.net
         "xhosa-spell-checker-46599.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46599/addon-46599-latest.xpi"
         "yiddish-spell-checker-yivo-222538.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/222538/addon-222538-latest.xpi"
         "zulu-spell-checker-46490.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/46490/addon-46490-latest.xpi")
-sha512sums=('e4805cf9912de3211a4c34307d025c4de2043c37f08a11e8769079b99833f49e9891e77ab1e0d47800feac89e47b49025178563f431de9dd23d526f1c6c1d0c9'
+sha512sums=('14ae38f6678b9105c05fbcf8bc108fe2483113b539f74460c8242c5ded4afa9ec012338eb6890e42afccb920eebf704bc791b7e5d0491dc92d9d97f33e17039b'
             'ec024a4d69aceeb586ff835633e07193cb7b2bcc2199c0b468067cb9cbc67bbaa32890f37b79d9a525ccc26ac5c21acc3d2024c4570e22d4da36fdb3322f1cba'
-            '552c8fc90174182ab584ad409bcd8ca4314e45fcc1952d2526a233d1abe3577be51b376404e06019d66d530f5ca7caae55c0477d09524e8cb0d2afeda8da0563'
+            'b932c9c1aadf5612ff6cf40a02853639621cffb20118a32d6dd7e9cd67848730d32210c7c510e73ff8e2bcd438384660f267a6e74d43648da993bf0dc4042d2b'
             '53def81aaa659c6f1625711ce9ab200bbe7ba75cbdb9b79ab9a9b09fe7e6fea95ad50c94267075e7e96dc3e3d10d218d1a6b85bab9ff3a7b92c9ea8cbf0e6a3c'
             '28f752060ec2bfd600ccaf0b08fd257c7d0c51e4d7d9715be9ef33dcc3e2f9044135d32fe6e12fb09b4c7662be75fcdacc0f1e5c4fc8a44edea691056f133c16'
             'a0045440de6f82416658c3e13bcb2a0548c9f29ecb2c642e7f29acf8c475314ce8adbe555bb95becc5efa2fad5b3622760795a0c2ca36e5b8b77cfd779c8a7a1'
@@ -240,12 +241,12 @@ sha512sums=('e4805cf9912de3211a4c34307d025c4de2043c37f08a11e8769079b99833f49e989
             '7dfa6f948f8983f23d20a65b64875872ef017f701a4c672f144a5b59cb9a77010f2e3800a91fb9b626d39baef7f16478aed87173c68840673dc179a4a19a5cdd'
             'ba6b2b85bdef234a462c25ff80d057f34a98b4d0724412aa9126c39fbd33a40348346660e99c5ed27de4f555c89823ea4b1359a88d407943dfffa6ed807060b7'
             'fa61cd8ca320ea12d071dc2ef306844e6b5f35a4c30f3fb39a08c69d717081f25a4a31def661847d2aa0cd2ea95a26f776b59eec5d95f1ac75ce4f0f97529a74'
-            'd0ad885d21701c51f7648cbd84d66ce7f89e5e665958d01b2fe9a8a7d845e9047d5a6d6a4762f9ea003fe71201a060afdfd5c444e2f8c7b16d4c77991d4c11a1'
+            '611af9a75f9ea980d93fc4f446caebbc0923bbf41c113a906564c02d62de59d0643eb3516d941ecd64e870181dcf0324a6ad1e1ab2f1ca828c2a4de267b74edd'
             '035db94fd5330e59e57e4484a9ef1a766c9bfd8950854dc6c07addf74fe716b103d5798555a5e427c73b153d049603d50ddd477a7ebcc1e7bb5c76f12678f9b0'
             'a894d5d120e170959a4652ffc485eecfe36c470b39309d276479ce1fc3bb0d3b83ea9a753c091b2f1a702528cdcf66d27dbeef6eabd9d64df78825bfa7fea20d'
             'ec024a4d69aceeb586ff835633e07193cb7b2bcc2199c0b468067cb9cbc67bbaa32890f37b79d9a525ccc26ac5c21acc3d2024c4570e22d4da36fdb3322f1cba'
-            '552c8fc90174182ab584ad409bcd8ca4314e45fcc1952d2526a233d1abe3577be51b376404e06019d66d530f5ca7caae55c0477d09524e8cb0d2afeda8da0563'
-            'e4805cf9912de3211a4c34307d025c4de2043c37f08a11e8769079b99833f49e9891e77ab1e0d47800feac89e47b49025178563f431de9dd23d526f1c6c1d0c9'
+            '14ae38f6678b9105c05fbcf8bc108fe2483113b539f74460c8242c5ded4afa9ec012338eb6890e42afccb920eebf704bc791b7e5d0491dc92d9d97f33e17039b'
+            'b932c9c1aadf5612ff6cf40a02853639621cffb20118a32d6dd7e9cd67848730d32210c7c510e73ff8e2bcd438384660f267a6e74d43648da993bf0dc4042d2b'
             'bcab43f01c76caf5a9758d73edfa8293ab0fcab7399e782857dd46d968afa74213ce0879efdba54598a4f216522728d70b1885c64d1051816a5c4f280c3f5f77'
             'a4b59a108746be1d4530312615645414d2ad20a1eb8c0cb94539e361de19c6e77c79ae285e935399bb1d248d5ab1cf7267e0ad4c094f9650891e263a8fb12cd4'
             '6f701ae1d83d5ff794f88d440c89b487f8f391b9573900ee6af2ca8df9ac9433c6d019466297052300809cfc9138c8f46ce22c4829914cb4c787ba8d512020c3'
@@ -262,6 +263,7 @@ sha512sums=('e4805cf9912de3211a4c34307d025c4de2043c37f08a11e8769079b99833f49e989
             'f7019f4a22fe4916278795bf4bec8fdbdb96cab244cc12e59c3ac768bb7a0a2a56bdf9139bcc3a21531f9b447cb531969065d72b0c26989105922e7aac8e5e3d'
             '8a724f3eccb28e89f4964e29f3fe8919f0d424a3b2ca992897af827c1082a90cd32490ccb11a0649e68b0f3dafad8c72d5a0a722304c6d5152429407e171cf65'
             '3f8a1dc6f54dd9ad82706259fa2da9e075f39de37bd01c2a80b2523904b15e5959f496b7e2bbb8ddf319257f157d107e62834eea092c8393d6a59db4446ef311'
+            '011da6286acccbe8a3a609939ad0621aff5a6847831b39e6e280a7abe453ffc9893ac61eb8e0538f8e9c490a8e972509416d2c1de8f8c505d6bab888295d92f3'
             '63f8417bbdc09dbb6ffd8efc50b80c7414cc80dce9d13d827c6eb8c027c2630f1eb201fac686ebf69a102b9458a372300a42ad34f89bf9ef13d2fb9336cdeab3'
             '23ae65dea9752435fb390a84b49fd817a4dbbaa530249d7a7f2c1ffdf88b5d9f9354702686da6a3a439b1cccff6eee9d73830b74282f04cd29660f496f469989'
             'dfd6c131af1dc68af9494b89044af38320782a8f6b83a73e42d3cb0bd708e2649b6de578595b923ca863f65457e77a12ee0ec6e821d8a75839be152db19c8844'
@@ -279,7 +281,7 @@ sha512sums=('e4805cf9912de3211a4c34307d025c4de2043c37f08a11e8769079b99833f49e989
             '750f7e919fdf57fb2a6e9e9f62257b00ece929c06f4337b69d11b7455bb50eda517fdda1f78c4821f043471cec07b3d377348ea2889ddd6d56c6a7e8f7dc9cb1'
             '57787c725cdb15ac646c8028baf63800c0740cb5f2e1d24ec2f959f6786f1959131189c366554d1be53caadaef69e70a6181dcb2a1f9394e8ec2b7102645d391'
             'b24d10663729747cb13ecd8d1870a094177b256ff37ddc5be17304a17d13daeb0d17881da2fef3d322aba1aed67bb62e8afb09e537386f811933a2051dea4c4b'
-            '506a626b7a8a29feafcf69bd90cd9b9a4bfad3598c4bd04adf08b93dee5fb338555de42953fbada567337a2279dae10870c6c0e29d20879e7fb5f7d750ce944c'
+            '16406766eafdffc81be9d5e4a384daadf23260c35e6c1fe5c00d0b2b3249c2a8004e581b1359d792323c42fe128fef75b55d6cd963bc1f6311efee795385135e'
             '80fad656d887083675b448b81f458c8e8eb3a70c496012f3a9024f55ae8f859439f00633cd075f9c6cbf2581d92f139e696e3659fbe52b894103150b117c454d'
             'a7a93a0314729cb9d6feb4176260238b67789743ac33a9696916cc02286d1f77acf48c1a92411101504fb754192a78f4ab5fc650684d516fc05e6fff1671fbf7'
             'e5274b04904cb6ce4ca7e954a140c59aac8c883f7e91bf05b7a243c83263397e5c5a091c4ba61e0f5510c25ba33a586d6b7185288ff447057329c1028e26a5ed'
@@ -298,7 +300,7 @@ sha512sums=('e4805cf9912de3211a4c34307d025c4de2043c37f08a11e8769079b99833f49e989
             '430bd5483ca8fa391337552f349891e0b2ddd54819dd681f63c67ae1bcf9ccfc3f99249d4c1d72361d799f0d7d7ff34482a91ed94516b345fadf424d671c9e77'
             'ef1fed5c5e5f6aacdc0ec01e3760c3ff2f4f2f7ef7a3150ac81559bdf736fe137a7289da9b11d03e2aceca95743e88123c8188bcee18a084af7315fcc48cfe5f'
             '109d97b0bd39db4d26598ce2cf3463ac8d1bb3932a91c0ab5ef1a119ff939236e5352e662ec154715d8855f15ead1014d157efebd35a74097e0567aa2d2b07d2'
-            '292fe24f4d0623f4e2b9c0f052525dbf6f823511416a619e6f5acf8af101aa985460e8642c7b8c3bd05d288f60a735505a3547637436a5d1f70ce106f49b3f8d'
+            'c14a38edf4409185a597d723b96a1969ebde3a26bcaf2e646864eff9dfc02fc3361f1f995ded1e170e32f4536c1f59be2a69147e25624091510919d1301848f4'
             '7e440aa9a2c3cb02f3132cfe16b53274cb3594380963c292e1eae6d70ef1d637b130d5c7da0036c253649ef5abdbe6b0877f1666e03d92c39fb9bd91f8763840'
             '160fba8329ad75c353fbbf9ce9830b7e53888a21f73fb98ded1487aef93c738a2c8f191a42640688193cb5d3bafa401f699fd66671afa0edf8c7aca682a7c7cf'
             'c0c5ff4bdd858d7036d2c3c0836f09ac99895fa98ec6d3e8c6b523cca72ddb5a559934eb903568934d1147d369c8df8b979da12298a289be63bb8c6fba2706f1'
@@ -310,8 +312,8 @@ sha512sums=('e4805cf9912de3211a4c34307d025c4de2043c37f08a11e8769079b99833f49e989
             'd51a80b0ee94408c7d0efb9eddb3878f35fe4c5ad28a49a517abd803890308563b6cf6be3b62845f58e05449128a2368fa67a64b32181cf8f6d3ab8d1ef8302f'
             '72a9e9cf0ce5d77a00f9fbac1d3b74127e7aa0ca9ae3c23986b1ca309ee20efbe6399af88e357dc39a2a5d24813bc611c05c991c1a5810ebef3a5b2d31d9ee6c'
             '1936da6b46dad3c16e8f103dfb99e1298dff51b85b141687aab8314b3e8b548966919d22a0766258e2e979f0d2999d366cd82ce06f41d82f8838e35751bca8ef'
-            '98b58242e5f48a70b3b043ebcf8b8474ce38857e0cc216f6f51e28a7ae653b004a0bc3ce4e0368666b58897ad767c94d60a8790744dff0029a813a290d1cf4c6'
-            '1c79d62c4f499bc1db08db509bca517d34c9ec750d57eaef2021f70b7deadb52b6f1ca26ef87e54ea5e59c6d882ab7a5f97e64d2f16e2de5b28d43061999882f'
+            '212bfe3c4078c028ffe05e8b94bafce0958432a5bcea873d5143f7a0b306b80c550e78380dd1447b9b075f80f41509d6abc1f52aa9682939376f1b65e80d4358'
+            'f721130986f821c5da207b1ba078562713e97de6c840baa23017ad38492e607d9b56e3e782dc657dd27b8bcf458e06c704fde60c359493f3e24e3a5e950ff2cd'
             'e3ac9a0e33a45b9b944e6edefdd26c6429988186a829e9c82665a0f77a4793b02f9d4a093805f2a907196fe3a18b2ae735e4bc524c471704721706d5bb1ec6a4'
             '249fc5c60de17da12e4bc893b1c9bf0f64551eb8d9dcab83cdcdccf73f9e32ded351e1d34efd45437f1bbd9f231e36cbb117eb52193e68d604d677bdb535d4c9'
             'd118364a076e0a3909f47425582dbc980bcb4efc7f414c883d502bfe6b2d2b0058a95697477b3637c512b992c81d6e58c26502ae2e1e0ef12ba50db053df7821'

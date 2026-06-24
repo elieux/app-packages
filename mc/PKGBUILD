@@ -5,7 +5,7 @@ _choconame=mc
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.8.33.235
+pkgver=4.8.33.236
 pkgrel=1
 pkgdesc="GNU terminal two-pane file manager"
 url="https://github.com/adamyg/mcwin32"
@@ -16,7 +16,7 @@ provides=("${pkgbase}")
 makedepends=("app-innounp")
 options=(!strip)
 source=("mcwin32-build-x64-setup.exe::https://github.com/adamyg/mcwin32/releases/download/${pkgver}/mcwin32-build${pkgver##*.}-x64-setup.exe")
-sha512sums=('b973c851ecccc1fea65667b09ae81eeca7fe624d0d418a5867c6572d05eaaa7a1eda8be1b9582ca68a2dff4b225aa81c6b5769f06c6b6a923291cd510dd714e0')
+sha512sums=('107e2e332b0958b4f801460367df23cc874f322712188197d55ff394af857bf166412491000667f41ea7c220e067d050cf566ee06fcef9dadcf20a3c50d6f97d')
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "mcwin32-build-x64-setup.exe" -d"mcwin32-build-x64-setup.dir"

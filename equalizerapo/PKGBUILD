@@ -6,7 +6,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=1.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A system-wide equalizer"
 url="https://sourceforge.net/projects/equalizerapo/"
 arch=('any')
@@ -56,7 +56,8 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "EqualizerAPO-x64.dir"/* "${a}"
-    rm -R "${a}"/'$PLUGINSDIR' "${a}/UpdateChecker.exe"
+    mv "${a}/qt"/* "${a}"
+    rm -R "${a}"/'$PLUGINSDIR' "${a}/qt" "${a}/UpdateChecker.exe"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

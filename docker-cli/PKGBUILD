@@ -6,7 +6,7 @@ _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=29.6.0
+pkgver=29.6.1
 pkgrel=1
 pkgdesc="Pack, ship and run any application as a lightweight container"
 url="https://docs.docker.com/engine/reference/commandline/cli/"
@@ -17,7 +17,7 @@ conflicts=("app-x86_64-docker")
 provides=("${pkgbase}")
 options=(!strip)
 source=("docker.zip::https://download.docker.com/win/static/stable/x86_64/docker-${pkgver}.zip")
-sha512sums=('de990d1d7770be4cf2fa2d8184038ad04f2a64bbe81712fe742b2bb8d3ad14e3d2404f9958a9058bf0aaf5f6e4bcd05ebcfda68e0ccf957dd5cc93161ee4d737')
+sha512sums=('8ad44e952c61a95667e98aab919325d29c1adce09a7cfffed514a0c85e1057d1704f7266a2bdfe1143592aed3c767c186f4ae3837c092e616f2944aa8be5ed81')
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"

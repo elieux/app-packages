@@ -10,7 +10,7 @@ _choconame=7zip
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=26.01
+pkgver=26.02
 pkgrel=1
 pkgdesc="A free file archiver for extremely high compression"
 url="https://www.7-zip.org/"
@@ -21,7 +21,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("7z-x64.exe::https://7-zip.org/a/7z${pkgver//./}-x64.exe")
-sha512sums=('e52d5050c8fe4c0a09bd482d36eb1377cf342c4739060d94094c4acb5aab1e53fa3842f64dec7b5df3b3bdc7394a8bc9a9cd7a88808342c1136dd9ce9fe5a0a2')
+sha512sums=('85389eaef377aa9fef3155d2e3375c1fff77fc10e39d9312cab229f202f3aff78f6e807460cf6b04bc2a32f72f7853afbf475cf0dce6232a40c0a6f8ddcbe4da')
 noextract=("7z-x64.exe")
 
 _lc() {

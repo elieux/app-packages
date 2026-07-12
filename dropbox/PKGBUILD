@@ -5,18 +5,18 @@ _choconame=dropbox
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=256.4.3790
+pkgver=260.4.2926
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="https://www.dropbox.com/"
 arch=('any')
 license=('custom')
-makedepends=("p7zip" "curl" "python3")
+makedepends=("p7zip" "curl" "python3" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 install="dropbox.install"
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
-sha512sums=('03cba323b64986278f7530699f5d09f1038aa1be0297ddf596501608bed25c3b6d1795c1a57eacb22752713a60398a7151bf1a69ce8f1fe6e4f3e2a630654c72')
+sha512sums=('21749f07fcf6562d5d58f15f99abfa55bf37c6376df0b1da7bc499498c30c0c03192dfbac8475ecb212f70623ac31699b77e3c7789fff72e5b924b78b4d32d24')
 noextract=("DropboxOfflineInstaller.exe")
 
 _lc() {
@@ -50,17 +50,17 @@ _rmmsdll() {
 
 prepare() {
     7z x -y -bd "DropboxOfflineInstaller.exe" -o"DropboxOfflineInstaller.dir" > /dev/null
-    7z x -y -bd "DropboxOfflineInstaller.dir"/DropboxClientInstaller.exe.* -o"Installer" > /dev/null
+    7z x -y -bd "DropboxOfflineInstaller.dir"/Dropbox_app_*.x86.zip.* -o"Dropbox_app.x86" > /dev/null
 }
 
 pkgver() {
-    powershell -command '(Get-Item "Installer/\`$0/Dropbox.exe").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
+    powershell -command '(Get-Item "Dropbox_app.x86/app/Dropbox.exe").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "Installer"/'$0'/* "${a}"
+    cp -R "Dropbox_app.x86/app"/* "${a}"
     rm -R "${a}/DropboxUninstaller.exe"
 
     # remove system DLLs

@@ -5,7 +5,7 @@ _choconame=claude-code
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2.1.206
+pkgver=2.1.212
 pkgrel=1
 pkgdesc="AI-powered coding assistant"
 url="https://code.claude.com/docs/en/overview"
@@ -15,7 +15,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("claude.exe::https://downloads.claude.ai/claude-code-releases/${pkgver}/win32-x64/claude.exe")
-sha512sums=('ab93c6fa62d19fd608c55ebb9eb08715459da1cefa4435db350ee78a009524d88e48821430a1cfe58d4f341d0636ff1e31405b8e112a80e7d62668776185de88')
+sha512sums=('5283199653664103277b772a1d42feec2fa92379b7f80f97347b121a2856c524faf58fc417e641b3149c40ddfd49772c82ec38747b1980e619af4b233201af92')
 noextract=("claude.exe")
 
 package() {

@@ -40,7 +40,7 @@ _dirname=cpuid
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.65.1
+pkgver=1.66
 pkgrel=1
 pkgdesc="Reads PC systems main health sensors (CPUID)"
 url="https://www.cpuid.com/softwares/hwmonitor.html"
@@ -50,7 +50,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("hwmonitor.zip::http@subdir://download.cpuid.com/hwmonitor/hwmonitor_${pkgver}.zip")
-sha512sums=('d414022cac5172c9f5f13698a254eeab06fa65b9a9895dc8b720da2d75ab5a2927fc123e8b54af59e63ce4941f6e38d4afe4f8fdaa8d14e7efdebf1156f4a32d')
+sha512sums=('747da9336fd2eee327907a65fb1d8d4039455d9bb83bd67cf1c42699904c34acce4ee9622c22046cf308c2d24d01dfea9bc61a0064892cac16d8bc85fa0f7244')
 
 _lc() {
     local d f n

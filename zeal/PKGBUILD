@@ -5,7 +5,7 @@ _choconame=zeal
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.8.1
+pkgver=0.9.1
 pkgrel=1
 pkgdesc="An offline documentation browser for software developers"
 url="https://zealdocs.org/"
@@ -16,7 +16,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("zeal-windows-x64.msi::https://github.com/zealdocs/zeal/releases/download/v${pkgver}/zeal-${pkgver}-windows-x64.msi")
-sha512sums=('f50badcc6791a2d461902d04da7b90c735125abe2f9422e355c2ad24a6ad48fb5f75625eff4067fe6ea1ca4ad5dfd45ade23c2c68f98609948a1df79893bb8c0')
+sha512sums=('3b31fd98504d6fca13e66d51459c2d5c560c84cd376244c1a9caf702a58121e60ebd9554c5675d3e3070f2a068c33104502633cfe668d160022f7b9c95b864c0')
 
 _lc() {
     local d f n
@@ -33,6 +33,20 @@ _lc() {
     done
 }
 
+_rmmsdll() {
+    local ms
+
+    ms=("msvbvm[0-9]+"
+        "ucrtbase"
+        "mfcm?[0-9]+[a-z]+"
+        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
+        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
+        "concrt[0-9]+"
+        "pgort[0-9]+"
+        "api-ms-win-[0-9a-z-]+")
+    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
+}
+
 prepare() {
     rm -fR "zeal-windows-x64"
     /apps/lessmsi/lessmsi x "zeal-windows-x64.msi" > /dev/null
@@ -41,6 +55,7 @@ prepare() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "zeal-windows-x64/SourceDir/Zeal"/* "${a}"
+    cp -R "zeal-windows-x64/SourceDir/PFiles64/Zeal"/* "${a}"
+    _rmmsdll "${a}"
     _lc "${a}"/*
 }

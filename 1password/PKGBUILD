@@ -5,7 +5,7 @@ _choconame=1password
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.12.28.25
+pkgver=8.12.30.21
 pkgrel=1
 pkgdesc="Password manager and secure wallet"
 url="https://1password.com/downloads"
@@ -15,7 +15,7 @@ makedepends=("app-lessmsi")
 provides=("${pkgbase}")
 options=(!strip)
 source=("1PasswordSetup-latest.msi::https://downloads.1password.com/win/1PasswordSetup-latest.msi")
-sha512sums=('768e714f72dd45c06539cef21a88629f01e9cdd10afd23a4d9a5642184b52b5ca1fd9fcbb1e62bb95f41b12d73534dd85b7f23e6164ec4ae5f15c04998cb4397')
+sha512sums=('351b874b343f1251b651a5e9114d7e2b27ba74da0b7bd2f54fcaddc2095fe36991e40e2a698900ef5f1078fd14ee85ef42036f1f7f627f13bee1ee10cf394912')
 noextract=("1PasswordSetup-latest.exe")
 
 _lc() {

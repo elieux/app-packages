@@ -59,7 +59,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.61.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
 arch=('any')
@@ -114,6 +114,7 @@ source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%
         "KeePass2-Thai.zip::https://downloads.sourceforge.net/keepass/KeePass-2.61-Thai.zip"
         "KeePass2-Turkish.zip::https://downloads.sourceforge.net/keepass/KeePass-2.57-Turkish.zip"
         "KeePass2-Ukrainian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.59-Ukrainian.zip"
+        "KeePass2-Valencian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.61-Valencian.zip"
         "KeePass2-Vietnamese.zip::https://downloads.sourceforge.net/keepass/KeePass-2.57-Vietnamese.zip")
 sha512sums=('a081787d7b5dd71363a0768c0a81224a968f754c3b69e419fe69b89d310250530eeffec750c175bab45bce92d27b3a14257aafd44f8b6a616bbb792a17e1f1da'
             'b1c818596e1730021c6f7824d3f006ab998cf4951af9a59887cc194a384b856093a0151f3fde9aab3c4cc33b7a0c2f4a632912a4c0cb9570415eb1467ba8dd4b'
@@ -163,6 +164,7 @@ sha512sums=('a081787d7b5dd71363a0768c0a81224a968f754c3b69e419fe69b89d310250530ee
             '9bc64a054cc6837f34231fbd291b189ae8bea3a6c5552c08843c87803b2a052e85260e963fe5c9868e91db6254de9f6f7d0a7397f034d9c2a2b95962b93a50a6'
             '4553fc3ed4f69cabb7a2e306ebf623864e8331ce38a217a4525210fc8ebfdd785a49c6800021d7a339f9fc7b3631481c35f7ef7471efc88ab8572917cfe118c4'
             'd4793a34bc58c0944ddddcd39363dc44b106ab141197d5691cf8e30a9fad6d97efcd09a110af5fd6a0e037b11ce16b42a02581b6a6fabfe3f51000dbc7bd89be'
+            'd334974fb51a312df5897ab864a0f594f3ce49e5e6af586d80ebb6f88022b5f7f70ae9d0a86f21e6e3945baf29cce02661badac57d4147af1f3130f97095ebb2'
             'bacae55e9c081dd981505af2d638ecc4a32c25fd6780ec71d7a94f934efd5d78fff1b5b84a30798222fe543a63b0511a35879bff7dfc36f183fc355d6e0944ac')
 
 package() {

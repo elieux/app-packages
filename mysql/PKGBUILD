@@ -5,7 +5,7 @@ _choconame=mysql
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=9.7.2
+pkgver=26.7.0
 pkgrel=1
 pkgdesc="Fast SQL database server, community edition"
 url="https://www.mysql.com/products/community/"
@@ -15,7 +15,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("mysql-winx64.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-winx64.zip")
-sha512sums=('ae8365f275fbe70aaff84770e6fee8ae16431374b5c601d34daf5b1e34404490a104005387a8b999802b0cb0f2b46706bb5ee2dc046f82647b237aaa1700990c')
+sha512sums=('b7bf1d0976741a62b43440a2311b95372757deb9cf9ca2a333f6ffd4835ae0fab38269fd4b1e7102145c3d595cb0a3c1f9321b140da7a5436bf11b9e07aa0c1f')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

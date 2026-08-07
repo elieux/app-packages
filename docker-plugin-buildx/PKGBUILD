@@ -6,7 +6,7 @@ _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.36.0
+pkgver=0.36.1
 pkgrel=1
 pkgdesc="Extended build capabilities with BuildKit"
 url="https://docs.docker.com/build/"
@@ -15,7 +15,7 @@ license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
 source=("buildx.windows-amd64.exe::https://github.com/docker/buildx/releases/download/v${pkgver}/buildx-v${pkgver}.windows-amd64.exe")
-sha512sums=('29565664f01c4db2a23d9a374aa43b039d6b63b5a6add1c9edbcf99fd969dedbec68c31ad69ac1079919ae7bdfb8b524a8554852d0f6da91d7ae9b496077bdd8')
+sha512sums=('3acf869ab02c73b8599080d372d1887c137d17feae5bf0e0b4b2b6f0216df229694bb01675f8fa2f393fd5a2f41f2cad517e8d69464c43cbb377a0ca4f652a87')
 
 package() {
     depends=("app-docker-cli")

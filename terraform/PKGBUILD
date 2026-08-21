@@ -34,7 +34,7 @@ _choconame=terraform
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.15.8
+pkgver=1.15.9
 pkgrel=1
 pkgdesc="Automate infrastructure on any cloud"
 url="https://developer.hashicorp.com/terraform"
@@ -43,7 +43,7 @@ license=('BUSL-1.1')
 provides=("${pkgbase}")
 options=(!strip)
 source=("terraform_windows_amd64.zip::https@subdir://releases.hashicorp.com/terraform/${pkgver}/terraform_${pkgver}_windows_amd64.zip")
-sha512sums=('97a9f0ac477f4ef4fda1571334de8b111830467dae00824c0c3969e1b1ea18e3d0bd9a3ccf053a54e81c794718264af284a4d6fc0f245588f7c53d86b47f036e')
+sha512sums=('07c79ebe9ed399d46130aac8f38e2de8cbdc197202c150dc58ac1afc1cfb38c2ecf199e6a63275391124d87f6a25835c29053a2ca448e9135cf5ad30bfe5c0f9')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

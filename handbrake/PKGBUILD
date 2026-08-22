@@ -1,0 +1,55 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+_realname=handbrake
+_choconame=handbrake
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.11.2
+pkgrel=1
+pkgdesc="The open source video transcoder"
+url="https://handbrake.fr/"
+arch=('any')
+license=('GPL-2.0-or-later')
+provides=("${pkgbase}")
+options=(!strip)
+source=("HandBrake-x86_64-Win_GUI.zip::https://github.com/HandBrake/HandBrake/releases/download/${pkgver}/HandBrake-${pkgver}-x86_64-Win_GUI.zip"
+        "HandBrakeCLI-win-x86_64.zip::https@subdir://github.com/HandBrake/HandBrake/releases/download/${pkgver}/HandBrakeCLI-${pkgver}-win-x86_64.zip")
+sha512sums=('30c958607a9b0e59ce4f71c1e8aa904a359daeae325185e212ddd0b85d61bca604a6a0abb60fd70da5d890f61bd054cdf5107d277d2952e35090686fc1fe66dc'
+            '09b462d1fca4fee09e6a6cfc55906c79ea958efdfa3ffc1fc14e879a1d655fbdaa89894b607dc56bd798a5611af46783f69720a4fe4cd66d7843e7eca5f67f35')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "HandBrake"/* "${a}"
+    cp -R "HandBrakeCLI-win-x86_64"/* "${a}"
+}

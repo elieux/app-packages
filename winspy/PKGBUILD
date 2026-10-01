@@ -26,11 +26,11 @@ _extract_subdir() {
     eval "${_original_bsdtar}"
 }
 
-extract_http@subdir() {
+extract_https@subdir() {
     _extract_subdir "${@}"
 }
 
-download_http@subdir() {
+download_https@subdir() {
     download_file "${1/@subdir:/:}"
 }
 
@@ -39,16 +39,16 @@ _choconame=winspy
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.7
+pkgver=1.9.3
 pkgrel=1
 pkgdesc="Select and view the properties of any window in the system"
-url="http://www.catch22.net/software/winspy"
+url="https://www.catch22.net/projects/winspy/"
 arch=('any')
 license=('GPL')
 provides=("${pkgbase}")
 options=(!strip)
-source=("WinSpy.zip::http@subdir://www.catch22.net/assets/files/software/WinSpy${pkgver//./}.zip")
-sha512sums=('079f6a6a0328363851df16e4df9967bed9272e7e2dda873bcd548309c2aa3fb79235c2466adc9b05d91672894f7f9d3eace7f6443cdbf5c84f75988c8b6bf3c0')
+source=("WinSpy_Release_x64.zip::https@subdir://github.com/strobejb/winspy/releases/download/v${pkgver}/WinSpy_Release_x64.zip")
+sha512sums=('b4f30464de99c6431f6dd5807dc713b41e55d20ca008f66439c6a3a690cf4473822aa40f5990a4e6b20d6d83565ed25a734541404bbd30b704feafe270e026e4')
 
 _lc() {
     local d f n
@@ -68,6 +68,6 @@ _lc() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "WinSpy"/* "${a}"
+    cp -R "WinSpy_Release_x64"/* "${a}"
     _lc "${a}"/*
 }

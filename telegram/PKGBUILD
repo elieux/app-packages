@@ -8,19 +8,19 @@ _chocover() {
 _realname=telegram
 _choconame=telegram
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=7.2.9
+pkgver=7.3.1
 pkgrel=1
 pkgdesc="Desktop Telegram client"
 url="https://desktop.telegram.org/"
 arch=('any')
 license=('GPL3')
-replaces=("app-x86_64-${_realname}")
+replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("td-portable-win-x64.zip::https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/td-portable-win-x64-${pkgver}.zip")
-sha512sums=('062b99b02265ec86646f13446c3853c78fd3167a1a4e6be2f1241f36a213b3cca1417a14a9941d709f3300155b039000a46db0ff477d4be2a1a12e39d73fcf32')
+sha512sums=('67c0e3465f53981bac50d5fa5d7d11392b430a9440eb1f3a647bcd15784a6bb97b9bc0d7ad1bed42b79be1194c86cb8e9160e2ac38a799712a790f2ac061e809')
 
 _lc() {
     local d f n

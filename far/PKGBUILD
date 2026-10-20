@@ -31,11 +31,11 @@ extract_https@subdir() {
 
 _realname=far
 _choconame=Far
-_realver=20251124
+_realver=20260614
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.0.6600
+pkgver=3.0.6699
 pkgrel=1
 pkgdesc="Extensible text mode file manager"
 url="https://farmanager.com/index.php?l=en"
@@ -45,7 +45,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Far.x64.7z::https@subdir://farmanager.com/files/Far$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1\2b\3/').x64.${_realver}.7z")
-sha512sums=('e1b2af541c582cca18630053251403126a377d7efbe8f89fa4dfd96ba77ce5a7584dbbd712e47403e7251d2243b4a1e732e05cf60b3d66418baa3c587b87fdec')
+sha512sums=('bf79daa552e15f40dbeae31ccdaa8d9ecc16019abfca9f61f61e116cfb5860b6f675888869439ffdaa0a0d0affaeddc8415115691b3c7cfe3a4704811cd3910e')
 
 _lc() {
     local d f n

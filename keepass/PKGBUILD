@@ -59,7 +59,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
 pkgver=2.61.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
 arch=('any')
@@ -92,6 +92,7 @@ source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%
         "KeePass2-Indonesian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.23-Indonesian.zip"
         "KeePass2-Italian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.61-Italian.zip"
         "KeePass2-Japanese.zip::https://downloads.sourceforge.net/keepass/KeePass-2.61-Japanese.zip"
+        "KeePass2-Kazakh.zip::https://downloads.sourceforge.net/keepass/KeePass-2.61-Kazakh.zip"
         "KeePass2-Korean.zip::https://downloads.sourceforge.net/keepass/KeePass-2.61-Korean.zip"
         "KeePass2-Latin.zip::https://downloads.sourceforge.net/keepass/KeePass-2.29-Latin.zip"
         "KeePass2-Latvian.zip::https://downloads.sourceforge.net/keepass/KeePass-2.60-Latvian.zip"
@@ -142,6 +143,7 @@ sha512sums=('a081787d7b5dd71363a0768c0a81224a968f754c3b69e419fe69b89d310250530ee
             'fc4926c62a7fa7bed1394535b7245b7abe3ac33af5f3e06bb6358dbf62fcfb967e4528f85043351ee1e030960627abc74afb8f6b145c6bf3ce56f81691ba18fb'
             '402b92ad410b864c0de1d48eb627b5e7dd68187dccd6d063595e323627a4217967892d569d6121465fc07de173e152d53f52f3e5ed288c5880018f9d23140c79'
             '0cf987248ba731b379507c60582935beee4477ed3fb21bb8028cf0ca13bb6d38b3190cfb83f6f7fae60d283042e4f8fa694c64fa9d994b4cec9b7b01a7abf2e9'
+            '83757120237f154073f4cc80327a5b6d3db96284fe4bb5e158784f39ecc5a7a73190001d9455097d340bbf186f04ac285f809f18e53ae96e17c645ac7b0f4bf5'
             '284cd19b11d1e816dc7429c67fc70694d8fa0d95d0c9c0533967dcdb707539a4f94becdb08ecaff1d2340a71b13f6269775014de4855bf68f4cf35a52219941f'
             'af80a6a57248c14ef710fdfac05531d42fe937105e62c15de4ecf16185e998b2c8719b4b32e1eb4bf1fc0b7cb577f97565a94d20778efd5ab65b59c5baddb3c2'
             '5f69de4a8b6da69afc63bba0ce63eab3c34ada2ac7c8df357f3d64a0a3f5ba3d25cbed4832984e44e1b6f6a3d392f416932eed4ab197defb5b6023c67312456b'

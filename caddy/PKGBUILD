@@ -1,0 +1,52 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=caddy
+_choconame=caddy
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=2.11.7
+pkgrel=1
+pkgdesc="Fast web server with automatic HTTPS"
+url="https://caddyserver.com/"
+arch=('any')
+license=('Apache-2.0')
+provides=("${pkgbase}")
+options=(!strip)
+source=("caddy_windows_amd64.zip::https@subdir://github.com/caddyserver/caddy/releases/download/v${pkgver}/caddy_${pkgver}_windows_amd64.zip")
+sha512sums=('c308154504e53755958ffc62d8a2657ab17eefd6dd25c45dbb2c3d93d29519971f77ca652f7d0f2bcb7f980b9ba3822478865e29969d0272d7613550a43152b1')
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp "caddy_windows_amd64"/* "${a}"
+}

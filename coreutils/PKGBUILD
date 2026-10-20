@@ -4,7 +4,7 @@ _realname=coreutils
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=2026.5.29
+pkgver=2026.9.3
 pkgrel=1
 pkgdesc="UNIX-style core utilities for Windows"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=("app-innounp")
 provides=("${pkgbase}")
 options=(!strip)
 source=("coreutils-x64.exe::https://github.com/microsoft/coreutils/releases/download/v${pkgver}/coreutils-${pkgver}-x64.exe")
-sha512sums=('0f0e606d94f36f1b3e1b74d48a6f2a9bdefa1c91da1f20d851040c95e383d3467b4c20fe26e30b89394b64782a46827101e7e21a5c27f3382003ca125e90d810')
+sha512sums=('72a30de0623049b33d858b8350052de63047c49f7bc7316ad8bb78c594b306ff781aa65b75906bf3395966c5ff69016b9ed814c43caafd6a29d2b5907779816a')
 noextract=("coreutils-x64.exe")
 
 prepare() {

@@ -33,7 +33,7 @@ _realname=innounp
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=2.71.0.0
+pkgver=2.71.2.0
 pkgrel=1
 pkgdesc="Inno Setup unpacker"
 url="https://www.rathlev-home.de/index-e.html?tools/prog-e.html#unpack"
@@ -42,7 +42,7 @@ license=('MIT' 'GPL')
 provides=("${pkgbase}")
 options=(!strip)
 source=("innounpacker.zip::https@subdir://www.rathlev-home.de/tools/download/innounpacker.zip")
-sha512sums=('e41e6eae081d5546af19b4c337bf2ee4dc651ca51fa440a28af1a9794cd7b6e51d6cfad4b66cf4fe23ecf0d4417a7c6ca44c79a8d5374fd950e83b18cc8dc106')
+sha512sums=('2d9191eac668a1cf717f14ef1d1bfafac6bc25a1542143e1294758b2449bacb191861a27e0353e381b5d14c5df272fd8db1026035b885a94ee19845f6a2dc4bb')
 
 pkgver() {
     powershell -command '(Get-Item "innounpacker/innounp.exe").VersionInfo.ProductVersionRaw.ToString()'

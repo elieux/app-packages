@@ -5,7 +5,7 @@ _choconame=figma
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=126.9.10
+pkgver=126.10.11
 pkgrel=1
 pkgdesc="Desktop version for Figma design tool/service"
 url="https://www.figma.com/downloads/"
@@ -15,7 +15,7 @@ makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("FigmaSetup.exe::https://www.figma.com/download/desktop/win")
-sha512sums=('f256b3777cecf199f5e22edbfa9aad115e8fcb84f0d3094974994d32865aec85011231025f11ca2dfad1c0b68d4f334f3becb90f982048155e9b1665fdaa892e')
+sha512sums=('d3abf3d685ee9903a40cef65043b01f087d7d6a5fcc0cf419758be2669fdef422996eae8d177d9fab1b0c7a7a546d42fa249df0efd29fba1edc81e9ab8d88a28')
 noextract=("FigmaSetup.exe")
 
 _lc() {

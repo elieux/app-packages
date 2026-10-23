@@ -31,18 +31,19 @@ download_https@subdir() {
 
 _realname=hostsfileeditor
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.2.0
+pkgver=1.5.2
 pkgrel=1
 pkgdesc="Easily edit and manage the hosts file"
 url="https://hostsfileeditor.com/"
 arch=('any')
 license=('GPL3')
+replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("HostsFileEditor.zip::https@subdir://github.com/scottlerch/HostsFileEditor/releases/download/v${pkgver}/HostsFileEditor-${pkgver}.zip")
-sha512sums=('ffdc34f2f554d895af7cefe0a2dc767421758009148fa0cd45c64e52472dc22cd493b90691c8439d8fa07df037e8e60b36c8fed28739340d498ba4bb950448b1')
+source=("HostsFileEditor.zip::https@subdir://github.com/scottlerch/HostsFileEditor/releases/download/v${pkgver}/HostsFileEditor-${pkgver}-x64.zip")
+sha512sums=('a7cb61a7fa84a64103b2b06a347aeeaa54fd708599239a572b8944a4c13649aa66a185516a07da267fa0c818d9a63cc220bb6b150e1f24741b6a52a73907ada4')
 
 _lc() {
     local d f n

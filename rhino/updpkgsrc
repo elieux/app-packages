@@ -1,0 +1,30 @@
+#!/bin/bash
+
+_pkgver() {
+    # Rhino1_9_1_Release -> 1.9.1
+    echo "${1}" | sed -r 's/^Rhino([0-9]+)_([0-9]+)_([0-9]+)_Release$/\1.\2.\3/'
+}
+_realver() {
+    echo ""
+}
+
+set -euo pipefail
+
+url="$(. "PKGBUILD"; echo "${source[0]}")"
+url="https://github.com/${url#*github.com/}"
+url="${url%/download/*}/latest"
+ghver="$(curl -s -I "${url}" | grep -i "location: " | cut -d" " -f2-)"
+ghver="${ghver##*/}"
+ghver="${ghver#v}"
+newpkgver="$(_pkgver "${ghver}")"
+newrealver="$(_realver "${ghver}")"
+pkgver="$(. "PKGBUILD"; echo "${pkgver}")"
+realver="$(. "PKGBUILD"; echo "${_realver:-}")"
+if [ "${newpkgver}" != "${pkgver}" ] || [ "${newrealver}" != "${realver}" ]
+then
+    echo -e "\r\e[32m updated from v${pkgver} (${realver}) to v${newpkgver} (${newrealver})\e[0m"
+    cp "PKGBUILD" "PKGBUILD.old"
+    sed -i "PKGBUILD" -e "s/^pkgver=.*$/pkgver=${newpkgver}/" -e "s/^pkgrel=.*$/pkgrel=1/" -e "s/^_realver=.*$/_realver=${newrealver}/"
+else
+    echo -e "\r\e[33m up to date at v${newpkgver} (${newrealver})\e[0m"
+fi

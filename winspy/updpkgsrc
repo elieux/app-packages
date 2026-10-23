@@ -1,33 +1,29 @@
 #!/bin/bash
 
-_choconame=winspy
-_chocover() {
-    # 1.7.202103022 -> 1.7
-    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]{9})$/\1.\2/'
+_pkgver() {
+    echo "${1}"
+}
+_realver() {
+    echo ""
 }
 
-set -eu
+set -euo pipefail
 
-chocoxml=/tmp/apps-chocolatey.xml
-if test ! -f "${chocoxml}" || (( "$(date +%s)" - "$(stat -c %Y "${chocoxml}")" > 60 * 60 ))
+url="$(. "PKGBUILD"; echo "${source[0]}")"
+url="https://github.com/${url#*github.com/}"
+url="${url%/download/*}/latest"
+ghver="$(curl -s -I "${url}" | grep -i "location: " | cut -d" " -f2-)"
+ghver="${ghver##*/}"
+ghver="${ghver#v}"
+newpkgver="$(_pkgver "${ghver}")"
+newrealver="$(_realver "${ghver}")"
+pkgver="$(. "PKGBUILD"; echo "${pkgver}")"
+realver="$(. "PKGBUILD"; echo "${_realver:-}")"
+if [ "${newpkgver}" != "${pkgver}" ] || [ "${newrealver}" != "${realver}" ]
 then
-    curl -s "https://feeds.feedburner.com/chocolatey" -o "${chocoxml}"
+    echo -e "\r\e[32m updated from v${pkgver} (${realver}) to v${newpkgver} (${newrealver})\e[0m"
+    cp "PKGBUILD" "PKGBUILD.old"
+    sed -i "PKGBUILD" -e "s/^pkgver=.*$/pkgver=${newpkgver}/" -e "s/^pkgrel=.*$/pkgrel=1/" -e "s/^_realver=.*$/_realver=${newrealver}/"
+else
+    echo -e "\r\e[33m up to date at v${newpkgver} (${newrealver})\e[0m"
 fi
-
-cat "${chocoxml}" | dos2unix -c mac | grep "<title>" | sed -r 's/<[^>]+>//g' | sed -r 's/[()]//g' | grep -F "${_choconame} " | while read choconame chocover
-do
-    if [ "${_choconame}" = "${choconame}" ]
-    then
-        chocover="$(echo "${chocover}" | sed -r 's/^(.+)[.]([0-9]{8})$/\1/')"
-        chocover="$(_chocover "${chocover}")"
-        pkgver="$(. "PKGBUILD"; echo "${pkgver}")"
-        if [ "${pkgver}" != "${chocover}" ]
-        then
-            echo -e "\r\e[32m updated from v${pkgver} to v${chocover}\e[0m"
-            cp "PKGBUILD" "PKGBUILD.old"
-            sed -i "PKGBUILD" -e "s/^pkgver=.*$/pkgver=${pkgver}/" -e "s/^pkgrel=.*$/pkgrel=1/"
-        else
-            echo -e "\r\e[33m up to date at v${chocover}\e[0m"
-        fi
-    fi
-done

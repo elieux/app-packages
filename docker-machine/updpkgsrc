@@ -1,0 +1,32 @@
+#!/bin/bash
+
+_choconame=docker=machine
+_chocover() {
+    echo "${1}"
+}
+
+set -eu
+
+chocoxml=/tmp/apps-chocolatey.xml
+if test ! -f "${chocoxml}" || (( "$(date +%s)" - "$(stat -c %Y "${chocoxml}")" > 60 * 60 ))
+then
+    curl -s "https://feeds.feedburner.com/chocolatey" -o "${chocoxml}"
+fi
+
+cat "${chocoxml}" | dos2unix -c mac | grep "<title>" | sed -r 's/<[^>]+>//g' | sed -r 's/[()]//g' | grep -F "${_choconame} " | while read choconame chocover
+do
+    if [ "${_choconame}" = "${choconame}" ]
+    then
+        chocover="$(echo "${chocover}" | sed -r 's/^(.+)[.]([0-9]{8})$/\1/')"
+        chocover="$(_chocover "${chocover}")"
+        pkgver="$(. "PKGBUILD"; echo "${pkgver}")"
+        if [ "${pkgver}" != "${chocover}" ]
+        then
+            echo -e "\r\e[32m updated from v${pkgver} to v${chocover}\e[0m"
+            cp "PKGBUILD" "PKGBUILD.old"
+            sed -i "PKGBUILD" -e "s/^pkgver=.*$/pkgver=${pkgver}/" -e "s/^pkgrel=.*$/pkgrel=1/"
+        else
+            echo -e "\r\e[33m up to date at v${chocover}\e[0m"
+        fi
+    fi
+done

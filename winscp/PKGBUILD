@@ -1,13 +1,6 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-_chocover() {
-    # 6.3.0 -> 6.3
-    # 6.3.1 -> 6.3.1
-    echo "${1}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]0$/\1.\2/'
-}
-
 _realname=winscp
-_choconame=winscp
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1

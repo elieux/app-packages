@@ -29,7 +29,6 @@ download_https@subdir() {
     download_file "${1/@subdir:/:}"
 }
 
-_choconame=clink-maintained
 _realname=clink
 _realver=4e8ae4
 pkgbase="app-${_realname}"

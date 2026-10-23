@@ -3,13 +3,13 @@
 // no error handling yet
 
 function fetch($url) {
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_3);
-	curl_setopt($ch, CURLOPT_USERAGENT, 'mozilla');
-	curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'accept: text/html' ]);
-	$data = curl_exec($ch);
-	return $data;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_3);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'mozilla');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'accept: text/html' ]);
+    $data = curl_exec($ch);
+    return $data;
 }
 
 $list = fetch('https://addons.thunderbird.net/en-US/thunderbird/language-tools/');
@@ -17,13 +17,13 @@ preg_match_all("~<a href=\"/en-US/thunderbird/addon/(.*?)/\">Download Dictionary
 
 $srclist = [];
 foreach ($matches[1] as $addonname) {
-	$addonname = urldecode($addonname);
-	$detail = fetch("https://addons.thunderbird.net/en-US/thunderbird/addon/" . urlencode($addonname) . "/");
-	preg_match("~data-addonid=\"([0-9]+)\"~", $detail, $match);
-	$addonid = $match[1];
-	$addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', urldecode($addonname)), '-_');
-	echo "Found: {$addonname}-{$addonid}.xpi\n";
-	$srclist[] = "{$addonname}-{$addonid}.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
+    $addonname = urldecode($addonname);
+    $detail = fetch("https://addons.thunderbird.net/en-US/thunderbird/addon/" . urlencode($addonname) . "/");
+    preg_match("~data-addonid=\"([0-9]+)\"~", $detail, $match);
+    $addonid = $match[1];
+    $addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', urldecode($addonname)), '-_');
+    echo "Found: {$addonname}-{$addonid}.xpi\n";
+    $srclist[] = "{$addonname}-{$addonid}.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
 }
 
 $srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));

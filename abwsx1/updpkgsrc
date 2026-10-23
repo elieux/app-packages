@@ -9,10 +9,10 @@ $srclist = [];
 $srclist[] = 'abwsx1.exe::https://aprelium.com/data/abwsx1.exe';
 
 foreach ($packs as $pack) {
-	list($set, $lang) = array_slice($pack, 1);
-	$name = $set === 'a' ? $lang : "{$lang}-{$set}";
-	echo "Found: {$name}.lng\n";
-	$srclist[] = "{$name}.lng::https://aprelium.com/abyssws/languages/{$set}/{$lang}.lng";
+    list($set, $lang) = array_slice($pack, 1);
+    $name = $set === 'a' ? $lang : "{$lang}-{$set}";
+    echo "Found: {$name}.lng\n";
+    $srclist[] = "{$name}.lng::https://aprelium.com/abyssws/languages/{$set}/{$lang}.lng";
 }
 
 $srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));

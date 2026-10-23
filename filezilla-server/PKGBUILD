@@ -3,7 +3,6 @@
 DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -A "Chrome" -e "https://filezilla-project.org/" -o %o %u')
 
 _realname=filezilla-server
-_choconame=filezilla.server
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1

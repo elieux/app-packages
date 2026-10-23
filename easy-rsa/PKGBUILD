@@ -4,7 +4,7 @@ _realname=easy-rsa
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.2.0
+pkgver=3.2.7
 pkgrel=1
 pkgdesc="Simple shell based CA utility"
 url="https://community.openvpn.net/openvpn#Easy-rsasubproject"
@@ -14,7 +14,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("EasyRSA-win64.zip::https://github.com/OpenVPN/easy-rsa/releases/download/v${pkgver}/EasyRSA-${pkgver}-win64.zip")
-sha512sums=('b1eeef6484ae7fff3c334323b94c7a5a01b57e372f2c595fdfeeeee8de120e184e1652773be3f229be6c10f081e1e64db51af33596608324ec60e0e410beb261')
+sha512sums=('0ac8b6147c0a63d997b84a566da2248ce47030b560006b4b69b7db85e6368bfd21d093d8e160aa5c4daf0c69cd32ed78ffa281ba54cc063b70d8e83a99f66431')
 
 _lc() {
     local d f n

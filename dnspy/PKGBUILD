@@ -34,14 +34,14 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=6.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc=".NET debugger and assembly editor"
-url="https://github.com/0xd4d/dnSpy"
+url="https://github.com/dnSpy/dnSpy"
 arch=('any')
 license=('GPL3')
 provides=("${pkgbase}")
 options=(!strip)
-source=("dnSpy-netframework.zip::https@subdir://github.com/0xd4d/dnSpy/releases/download/v${pkgver}/dnSpy-netframework.zip")
+source=("dnSpy-netframework.zip::https@subdir://github.com/dnSpy/dnSpy/releases/download/v${pkgver}/dnSpy-netframework.zip")
 sha512sums=('586148b152d7f692929294a1fb2bf942e989c757a9fe596e90b4c97f79ac000e4a404d628f0f4eccf916ea30e4471c86e0d558b1a0dc7f0052be38b9aff3cb9d')
 
 _lc() {

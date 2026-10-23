@@ -5,7 +5,7 @@ _dirname=salamander
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.2
+pkgver=1.3
 pkgrel=1
 pkgdesc="Certificate viewer plugin for Altap Salamander"
 arch=('any')
@@ -14,12 +14,12 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("certview-x64.zip::https://github.com/lejcik/certviewer/releases/download/v${pkgver}/certview-x64.zip")
-sha512sums=('d1eb074c76d0b8b7a06349af5586652bd1a1a8f22710be10b8ddf004b2ada90888bdaeeeba6cd3601d212fadf535df6cbe1f3151065b11a59665142481d8b8d6')
+sha512sums=('d9f95ab2e89e8c658735a491279407f3a627bd0ec452df50cdf346d0fab0117749e5f2261c79ce401f508fb5837688338395e6c7228b6d32bba2aea3a2d0aef7')
 
 package() {
     depends=("app-salamander")
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/plugins/certview"
-    cp -R "certview"/* "${a}/plugins/certview"
+    cp -R "certview-x64"/* "${a}/plugins/certview"
 }

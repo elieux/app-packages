@@ -1,0 +1,24 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=gradle
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=9.8.2
+pkgrel=1
+pkgdesc="Powerful build system for the JVM"
+url="https://gradle.org/"
+arch=('any')
+license=('Apache')
+provides=("${pkgbase}")
+options=(!strip)
+source=("gradle-all.zip::https://services.gradle.org/distributions/gradle-${pkgver}-all.zip")
+sha512sums=('d5053902fee93ba46cf6c9951ab4af2fce04855cb89388362f704f37d8034bb4e198ef6aa32304449f52a39fbcab1ca3bc9bf15ae079fa66f2953e32746968ec')
+
+package() {
+    depends=("app-x86_64-openjdk>=1~21")
+
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "gradle-${pkgver}"/* "${a}"
+}

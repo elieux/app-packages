@@ -42,7 +42,7 @@ arch=('any')
 license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
-source=("docker-index_windows_amd64.zip::https@subdir://github.com/docker/index-cli-plugin/releases/download/v${pkgver}/docker-index_${pkgver}_windows_amd64.zip")
+source=("docker-index_windows_amd64.zip::https@subdir://github.com/docker-archive-public/docker.index-cli-plugin/releases/download/v${pkgver}/docker-index_${pkgver}_windows_amd64.zip")
 sha512sums=('c0bb835e97aa55b94458e3657343c71acff78d23211ff444e96045a1940ca1b48e8d2379d09ad20707bcee05558cebb89e7382104e357dd79a4b92a66eb7d0f8')
 
 package() {

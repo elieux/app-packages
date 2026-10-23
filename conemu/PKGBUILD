@@ -42,7 +42,7 @@ license=('BSD')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
-source=("ConEmuPack.7z::https@subdir://github.com/Maximus5/ConEmu/releases/download/v${pkgver}/ConEmuPack.${pkgver//./}.7z")
+source=("ConEmuPack.7z::https@subdir://github.com/ConEmu/ConEmu/releases/download/v${pkgver}/ConEmuPack.${pkgver//./}.7z")
 sha512sums=('90f0fa939877cce54131837bf972425a375c2de484c40e9f9a07fc31393b0aa5a2d8ce3514db8bbd824fe73535a1481d50392d1373fb3eab9b940967188fa766')
 
 _lc() {

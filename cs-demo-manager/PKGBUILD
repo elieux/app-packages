@@ -1,0 +1,30 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=cs-demo-manager
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=3.20.1
+pkgrel=1
+pkgdesc="Manage replays from the game Counter-Strike"
+url="https://cs-demo-manager.com/"
+arch=('any')
+license=('custom')
+makedepends=("p7zip")
+replaces=("app-i686-csgo-demos-manager")
+provides=("${pkgbase}")
+options=(!strip)
+source=("CS-Demo-Manager-Setup.exe::https://github.com/akiver/cs-demo-manager/releases/download/v${pkgver}/CS-Demo-Manager-Setup-${pkgver}.exe")
+sha512sums=('2085c1139c13738b0b61e9063d142fd732cbdf58d0d8202f65b37907eac06fea865f19b54f218fe516d3f09e7267da652e7c93190d61f5ec31c330f2e72ce647')
+noextract=("CS-Demo-Manager-Setup.exe")
+
+prepare() {
+    7z x -y -bd "CS-Demo-Manager-Setup.exe" -o"CS-Demo-Manager-Setup.dir" > /dev/null
+    7z x -y -bd "CS-Demo-Manager-Setup.dir"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "app-64"/* "${a}"
+}

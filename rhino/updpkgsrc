@@ -7,12 +7,10 @@ _pkgver() {
 _realver() {
     echo ""
 }
+url="https://github.com/mozilla/rhino/releases/latest"
 
 set -euo pipefail
 
-url="$(. "PKGBUILD"; echo "${source[0]}")"
-url="https://github.com/${url#*github.com/}"
-url="${url%/download/*}/latest"
 ghver="$(curl -s -I "${url}" | grep -i "location: " | cut -d" " -f2-)"
 ghver="${ghver##*/}"
 ghver="${ghver#v}"

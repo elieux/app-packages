@@ -34,7 +34,7 @@ _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.6.1
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="Support SBOM creation using Syft"
 url="https://docs.docker.com/engine/sbom/"
@@ -43,7 +43,7 @@ license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
 source=("sbom-cli-plugin_windows_amd64.zip::https@subdir://github.com/docker/sbom-cli-plugin/releases/download/v${pkgver}/sbom-cli-plugin_${pkgver}_windows_amd64.zip")
-sha512sums=('273d269f97b25c39d83efc375c7fd0d535a9d926e7acde625d9d858fa45de440695b446267dc5d347300d97a163f365c42e12af8b1dd93edd447d3af108a9ed8')
+sha512sums=('783afea568046d8fb930cf2ad577459e65f5403e8e2eb54f0f9c8d0b45dff1f71b3695f16bbe6e737bf17862d02f33b1ddc66d906eebb54ef102ed5edbcf831d')
 
 package() {
     depends=("app-docker-cli")

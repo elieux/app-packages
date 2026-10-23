@@ -5,7 +5,7 @@ _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=0.6.4
+pkgver=0.9.12
 pkgrel=1
 pkgdesc="Program to keep Docker login credentials safe by storing using the Windows Credential Manager"
 url="https://github.com/docker/docker-credential-helpers"
@@ -13,13 +13,13 @@ arch=('any')
 license=('MIT')
 provides=("${pkgbase}")
 options=(!strip)
-source=("docker-credential-wincred-amd64.zip::https://github.com/docker/docker-credential-helpers/releases/download/v${pkgver}/docker-credential-wincred-v${pkgver}-amd64.zip")
-sha512sums=('e59ec5a98626422146a03613eecd4bcd86d8fc415c8e8e0818c62622c9b90d8f7881ba86e80798e746ea45a87b39565f3c74e75054ab712aa7d57ee5ac116aff')
+source=("docker-credential-wincred.windows-amd64.exe::https://github.com/docker/docker-credential-helpers/releases/download/v${pkgver}/docker-credential-wincred-v${pkgver}.windows-amd64.exe")
+sha512sums=('00510b7b94e2185f60b2f9795cd02c46a06dc19cd4a1c67caec01d4c7f76f28612580cdd1b2e29f1c978169a2fbceea730a38c63ea4f7e86713bb0df5cf84392')
 
 package() {
     depends=("app-docker-cli")
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
-    cp "docker-credential-wincred.exe" "${a}/docker-credential-wincred.exe"
+    cp "docker-credential-wincred.windows-amd64.exe" "${a}/docker-credential-wincred.exe"
 }

@@ -13,7 +13,7 @@ arch=('any')
 license=('Apache')
 provides=("${pkgbase}")
 options=(!strip)
-source=("docker-machine-Windows-x86_64.exe::https://github.com/docker/machine/releases/download/v${pkgver}/docker-machine-Windows-x86_64.exe")
+source=("docker-machine-Windows-x86_64.exe::https://github.com/docker-archive-public/docker.machine/releases/download/v${pkgver}/docker-machine-Windows-x86_64.exe")
 sha512sums=('a87f8d69ca63b65c24baa59c16e3010810826110df8395afb95fcbf49a34a3153181879a8635189d686d8a49a7e2ee8c7dfb23a07ba6a5694908be74fb8eaa4f')
 
 package() {

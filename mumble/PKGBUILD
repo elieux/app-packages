@@ -4,19 +4,22 @@ _realname=mumble
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.5.735
+pkgver=1.5.939
 pkgrel=1
 pkgdesc="Open Source, Low Latency, High Quality Voice Chat"
 url="https://www.mumble.info/"
 arch=('any')
 license=('BSD')
-makedepends=("app-lessmsi")
+makedepends=("app-lessmsi" "app-wix")
 provides=("${pkgbase}")
 options=(!strip)
-source=("mumble_client.x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_client-${pkgver}.x64.msi"
-        "mumble_server.x64.msi::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_server-${pkgver}.x64.msi")
-sha512sums=('920a72aa424b103bf6e83944018298333338fb341b1f10788d34ce03c2464aa15a2155cb70e887ca8a129944a6fd6e36a08b3b0e1a4be1b023e38eec2bd5670b'
-            '34b6f0f9e6e37cfd6e04e39dadea9f24837d611ba34c55dbd7a8804a348c179263ac4a767ff37694bf622629e7f14ca7184d6da4bee38b97b16f6666126c845c')
+source=("mumble_client.x64.exe::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_client-${pkgver}.x64.exe"
+        "mumble_server.x64.exe::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_server-${pkgver}.x64.exe")
+sha512sums=('ed0ec2a887a057456b164bf4ba9cb005ec7bda72280f76bc82ba5f963aa9576f69de7377922bb094467e7110466a982ad876f91c5e659ea0f4831e49584c2a6d'
+            'e60e747d4814627af13235fe82c38f04c4be5e038119b228134ef1262cacfe50f03bff7c02e1d715e55ab07c581a95bcadb8fbb7e211b4313e6f740644c6337f')
+noextract=("mumble_client.x64.exe"
+           "mumble_server.x64.exe")
+
 
 _lc() {
     local d f n
@@ -48,17 +51,25 @@ _rmmsdll() {
 }
 
 prepare() {
-    rm -fR "mumble_client.x64"
-    /apps/lessmsi/lessmsi x "mumble_client.x64.msi" > /dev/null
-    rm -fR "mumble_server.x64"
-    /apps/lessmsi/lessmsi x "mumble_server.x64.msi" > /dev/null
+    /apps/wix/dark -x "mumble_client.x64.dir" "mumble_client.x64.exe"
+    pushd "mumble_client.x64.dir/AttachedContainer"
+    rm -fR "mumble_client-${pkgver}.x64"
+    /apps/lessmsi/lessmsi x "mumble_client-${pkgver}-x64.msi" > /dev/null
+    popd
+
+    /apps/wix/dark -x "mumble_server.x64.dir" "mumble_server.x64.exe"
+    pushd "mumble_server.x64.dir/AttachedContainer"
+    rm -fR "mumble_server-${pkgver}.x64"
+    /apps/lessmsi/lessmsi x "mumble_server-${pkgver}-x64.msi" > /dev/null
+    popd
+
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "mumble_client.x64/SourceDir/ProgramFiles64Folder/Mumble/client"/* "${a}"
-    cp -R "mumble_server.x64/SourceDir/ProgramFiles64Folder/Mumble/server"/* "${a}"
+    cp -R "mumble_client.x64.dir/AttachedContainer/mumble_client-${pkgver}-x64/SourceDir/ProgramFiles64Folder/Mumble/client"/* "${a}"
+    cp -R "mumble_server.x64.dir/AttachedContainer/mumble_server-${pkgver}-x64/SourceDir/ProgramFiles64Folder/Mumble/server"/* "${a}"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

@@ -4,7 +4,7 @@ _realname=franz
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=5.10.0
+pkgver=5.11.0
 pkgrel=1
 pkgdesc="Franz is a free messaging app and combines chat & messaging services into one application"
 url="https://meetfranz.com/"
@@ -15,7 +15,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("franz-setup.exe::https://github.com/meetfranz/franz/releases/download/v${pkgver}/franz-setup-${pkgver}.exe")
-sha512sums=('cb77cb0f64f8be2e8caad2c34399090cd13b392b9d9acb3359d3b38b4840ecfc74ff29b2309422825c9d80ecc8e265062901b67dfbdd4f4be7082f45c74cfe74')
+sha512sums=('cf9700e5acebd036b840fb97f0591f6709fb787d0fd2ea4a3ccf032b5cf5aba67935b9170eff71d03f6b880bf91918f969d5930c77046a7de411536a9bae5e82')
 noextract=("franz-setup.exe")
 
 _lc() {

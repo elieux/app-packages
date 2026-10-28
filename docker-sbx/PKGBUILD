@@ -1,0 +1,28 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=docker-sbx
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=0.50.0
+pkgrel=1
+pkgdesc="Run AI coding agents in isolated environments"
+url="https://docs.docker.com/ai/sandboxes/"
+arch=('any')
+license=('custom')
+makedepends=("app-lessmsi")
+provides=("${pkgbase}")
+options=(!strip)
+source=("DockerSandboxes.msi::https://github.com/docker/sbx-releases/releases/download/v${pkgver}/DockerSandboxes.msi")
+sha512sums=('04ad98a8bcb5c49df0c0884f5e4f43bbfb3096690a1374b6889df9af81824cfbfe01795d1ae538be67f0a18d90cbb29a1770783557788225c6b5a4ad3dfd6b6c')
+
+prepare() {
+    rm -fR "DockerSandboxes"
+    /apps/lessmsi/lessmsi x "DockerSandboxes.msi" > /dev/null
+}
+
+package() {
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp -R "DockerSandboxes/SourceDir/LocalApp/DockerSandboxes"/* "${a}"
+}

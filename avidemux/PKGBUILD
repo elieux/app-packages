@@ -3,28 +3,21 @@
 _realname=avidemux
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
-epoch=1
-pkgver=2.8.2r240531
+epoch=2
+pkgver=2.8.2nightly2026.10.18
 pkgrel=1
 pkgdesc="Graphical tool to edit video (filter/re-encode/split)"
 url="http://www.avidemux.org/"
 arch=('any')
 license=('GPL2')
-makedepends=("p7zip")
+makedepends=()
 provides=("${pkgbase}")
 options=(!strip)
-source=("avidemux_win64.exe::http://www.avidemux.org/nightly/win64/avidemux_${pkgver%r*}%20r${pkgver#*r}_win64.exe")
-sha512sums=('6566e1514b4ac8fe16b2d8ae19598dd1621c5e214511297f3edd4de0ec6f700695a29d4955dd0b465dac7bdf764c8140ea2970b4fbd90554e3c3e75d165213c5')
-noextract=("avidemux_win64.exe")
-
-prepare() {
-    rm -fR "avidemux_win64.dir"
-    echo u | 7z x -bd "avidemux_win64.exe" -o"avidemux_win64.dir" > /dev/null
-}
+source=("avidemux_mingw64.zip::http://www.avidemux.org/nightly/win64/avidemux_mingw64_$(echo "${pkgver}" | sed -r 's/^.*nightly([0-9]{4})[.]([0-9]{2})[.]([0-9]{2})$/\1\2\3/').zip")
+sha512sums=('2f6b57933c13f5b09677f747f217e647e4947ffef3df6d3d7f6a52eedeec42d34b5bad49c4de7770dc4c0c64e660abf29a2a54bc45b46dc6ef69f47c095d0bf8')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "avidemux_win64.dir"/* "${a}"
-    rm -R "${a}"/'$PLUGINSDIR'
+    cp -R "avidemux64"/* "${a}"
 }

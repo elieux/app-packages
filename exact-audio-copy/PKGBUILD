@@ -4,7 +4,7 @@ _realname=exact-audio-copy
 pkgbase="app-${_realname}"
 pkgname=("app-i686-${_realname}")
 epoch=1
-pkgver=1.6
+pkgver=1.8
 pkgrel=1
 pkgdesc="A very accurate CD audio grabber"
 url="http://www.exactaudiocopy.de/en/"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("eac.exe::http://www.exactaudiocopy.de/eac-${pkgver}.exe")
-sha512sums=('0274dee707a8bc3cc2cecd3f4564f2f56ab26066aae466b5bae1200531d7c4db04b842d10b0f8c59e939072400ff9ce9675db24b84ffbd4da6138b6d190c3660')
+sha512sums=('89822966d57f5f89d40cb8b4bf5c1e1e169983d5b4dfdfa4559dd2b69a49dc6234e3e336452ec9220530e5ed228f656a58c346950cd2ce84d8edc200e38bad4b')
 noextract=("eac.exe")
 
 _lc() {
@@ -40,6 +40,6 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "eac.dir"/* "${a}"
-    rm -R "${a}"/'$PLUGINSDIR' "${a}/Microsoft.VC80.CRT"
+    rm -R "${a}"/'$PLUGINSDIR' "${a}/Microsoft.VC80.CRT" "${a}/uninst.exe.nsis"
     _lc "${a}"/*
 }

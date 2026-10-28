@@ -1,11 +1,14 @@
 #!/bin/bash
 
 _choconame=Xming
-_chocover() {
+_pkgver() {
     echo "${1}"
 }
+_realver() {
+    echo ""
+}
 
-set -eu
+set -euo pipefail
 
 chocoxml=/tmp/apps-chocolatey.xml
 if test ! -f "${chocoxml}" || (( "$(date +%s)" - "$(stat -c %Y "${chocoxml}")" > 60 * 60 ))
@@ -13,20 +16,27 @@ then
     curl -s "https://feeds.feedburner.com/chocolatey" -o "${chocoxml}"
 fi
 
-cat "${chocoxml}" | dos2unix -c mac | grep "<title>" | sed -r 's/<[^>]+>//g' | sed -r 's/[()]//g' | grep -F "${_choconame} " | while read choconame chocover
-do
-    if [ "${_choconame}" = "${choconame}" ]
-    then
-        chocover="$(echo "${chocover}" | sed -r 's/^(.+)[.]([0-9]{8})$/\1/')"
-        chocover="$(_chocover "${chocover}")"
-        pkgver="$(. "PKGBUILD"; echo "${pkgver}")"
-        if [ "${pkgver}" != "${chocover}" ]
-        then
-            echo -e "\r\e[32m updated from v${pkgver} to v${chocover}\e[0m"
-            cp "PKGBUILD" "PKGBUILD.old"
-            sed -i "PKGBUILD" -e "s/^pkgver=.*$/pkgver=${pkgver}/" -e "s/^pkgrel=.*$/pkgrel=1/"
-        else
-            echo -e "\r\e[33m up to date at v${chocover}\e[0m"
-        fi
-    fi
-done
+chocover="$(cat "${chocoxml}" | dos2unix -c mac | { grep "<title>${_choconame} " || true; } | sed -r 's/ *<[^>]+> *//' | sed -r 's/^.*[(]([0-9._-]+)[)].*$/\1/')"
+
+if test -z "${chocover}"
+then
+    url="https://community.chocolatey.org/api/v2/package/${_choconame}"
+    chocover="$(curl -s -I "${url}" | grep -i "location: " | cut -d" " -f2-)"
+    chocover="${chocover##*/}"
+    chocover="${chocover#${_choconame}.}"
+    chocover="${chocover%.nupkg}"
+fi
+
+chocover="$(echo "${chocover}" | sed -r 's/^(.+)[.]([0-9]{8})$/\1/')"
+newpkgver="$(_pkgver "${chocover}")"
+newrealver="$(_realver "${chocover}")"
+pkgver="$(. "PKGBUILD"; echo "${pkgver}")"
+realver="$(. "PKGBUILD"; echo "${_realver:-}")"
+if (( "$(vercmp "${pkgver}" "${newpkgver}")" >= 0 ))
+then
+    echo -e "\r\e[33m skipping 'update' from v${pkgver} (${realver}) to v${newpkgver} (${newrealver})\e[0m"
+else
+    echo -e "\r\e[32m updated from v${pkgver} (${realver}) to v${newpkgver} (${newrealver})\e[0m"
+    cp "PKGBUILD" "PKGBUILD.old"
+    sed -i "PKGBUILD" -e "s/^pkgver=.*$/pkgver=${newpkgver}/" -e "s/^pkgrel=.*$/pkgrel=1/" -e "s/^_realver=.*$/_realver=${newrealver}/"
+fi

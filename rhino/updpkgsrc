@@ -18,11 +18,11 @@ newpkgver="$(_pkgver "${ghver}")"
 newrealver="$(_realver "${ghver}")"
 pkgver="$(. "PKGBUILD"; echo "${pkgver}")"
 realver="$(. "PKGBUILD"; echo "${_realver:-}")"
-if [ "${newpkgver}" != "${pkgver}" ] || [ "${newrealver}" != "${realver}" ]
+if (( "$(vercmp "${pkgver}" "${newpkgver}")" >= 0 ))
 then
+    echo -e "\r\e[33m skipping 'update' from v${pkgver} (${realver}) to v${newpkgver} (${newrealver})\e[0m"
+else
     echo -e "\r\e[32m updated from v${pkgver} (${realver}) to v${newpkgver} (${newrealver})\e[0m"
     cp "PKGBUILD" "PKGBUILD.old"
     sed -i "PKGBUILD" -e "s/^pkgver=.*$/pkgver=${newpkgver}/" -e "s/^pkgrel=.*$/pkgrel=1/" -e "s/^_realver=.*$/_realver=${newrealver}/"
-else
-    echo -e "\r\e[33m up to date at v${newpkgver} (${newrealver})\e[0m"
 fi

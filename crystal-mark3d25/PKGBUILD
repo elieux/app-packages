@@ -1,0 +1,69 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+_realname=crystalmark3d25
+_dirname=crystal
+pkgbase="app-${_realname}"
+pkgname=("app-x86_64-${_realname}")
+epoch=1
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="A 3D benchmarking software (Crystal Dew World)"
+url="https://crystalmark.info/en/software/crystalmark3d25/"
+arch=('any')
+license=('MIT')
+provides=("${pkgbase}")
+options=(!strip)
+source=("CrystalMark3D25.zip::https@subdir://downloads.sourceforge.net/crystalmark3d25/CrystalMark3D25_${pkgver//./_}.zip")
+sha512sums=('b2123cf3de9ee82444754b89ac6d061c827eb112e7607beebe8e4c34129786ba8eb58b839d12b711b5eeee1b596a33eb413b898a9d7f69b327e638272056646f')
+
+_lc() {
+    local d f n
+
+    for f in "${@}"
+    do
+        d="$(dirname "${f}")"
+        f="$(basename "${f}")"
+        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
+        if test "${f}" != "${n}"
+        then
+            mv "${d}/${f}" "${d}/${n}"
+        fi
+    done
+}
+
+package() {
+    local a="${pkgdir}/apps/${_dirname}"
+    mkdir -p "${a}"
+    cp -R "CrystalMark3D25"/* "${a}"
+    mv "${a}/ReadMe.txt" "${a}/ReadMeMark3D25.txt"
+    _lc "${a}"/*
+}

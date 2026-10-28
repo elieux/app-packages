@@ -4,7 +4,7 @@ _realname=xnview-mp
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.11.6
+pkgver=1.12.2
 pkgrel=1
 pkgdesc="A multi-platform photo and picture viewer"
 url="https://www.xnview.com/en/xnviewmp/"
@@ -13,7 +13,7 @@ license=('custom')
 provides=("${pkgbase}")
 options=(!strip)
 source=("XnView_MP-win-x64.zip::https://download.xnview.com/old_versions/XnView_MP/XnView_MP-${pkgver}-win-x64.zip")
-sha512sums=('23d11d74f142cfe5c3527fad6d896743781e63a6472e9a60e22e1761a63414b9c41e562ba2d63d252fcb66bb9bd61cd017dcf72922827511ce9a93d8bcc19dde')
+sha512sums=('2b7f5447a478d1fcbf6a6d910bd494ada6e31fd6c9b92d036fd1fbe321072faaaad21ef653c606e259ae16b418d8e7836270cee119c2b4a9c91a92a7a59c769b')
 
 _lc() {
     local d f n
@@ -48,7 +48,7 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "XnViewMP"/* "${a}"
-    rm "${a}/vc_redist.x64.exe" "${a}/Latest supported Visual C++ Redistributable downloads - Microsoft Learn.url"
+    rm "${a}/Latest supported Visual C++ Redistributable downloads - Microsoft Learn.url"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

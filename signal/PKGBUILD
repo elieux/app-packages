@@ -4,7 +4,7 @@ _realname=signal
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=8.31.0
+pkgver=8.32.0
 pkgrel=1
 pkgdesc="Desktop Signal client"
 url="https://www.signal.org/download/windows/"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("signal-desktop-win.exe::https://updates.signal.org/desktop/signal-desktop-win-${pkgver}.exe")
-sha512sums=('f9d5ceeb63157266f34bd8df412bae719ac88912d26740fd840ea6a92c5907e4ce7704b177bdfe2c8d2ca97c84cd1cc507a42b636e4461dfb01d8ace709c259f')
+sha512sums=('d42349b54b0bcb83b43731dd852892d96a72614adb32a764f420063c9fd0517cabbeb99984731a4b66256b41450d7cde09ef061de8fced42ad5e3551cc5fc00f')
 noextract=("signal-desktop-win.exe")
 
 _lc() {

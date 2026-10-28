@@ -4,7 +4,7 @@ _realname=teamspeak-server
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=3.13.7
+pkgver=3.13.8
 pkgrel=1
 pkgdesc="A proprietary VoIP conference software"
 url="https://www.teamspeak.com/"
@@ -14,7 +14,7 @@ replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
 source=("teamspeak3-server_win64.zip::https://files.teamspeak-services.com/releases/server/${pkgver}/teamspeak3-server_win64-${pkgver}.zip")
-sha512sums=('e9916831b3244dfd1f3b9d365b58b17cd99fe8a69fa92dec5fea56b1748b5b4b224ff00b786635fc52dca5094f9f4010f5a3984d0e44f4a9ca495823a108cfda')
+sha512sums=('17b86a2df0be022fd3453dfecba3aedf3431924f6915fe35272c6de34ed640383d14a8d4a2bed80e4746dedf6a79eddd92f4f9adab089362f3440cfc96c8c5f3')
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

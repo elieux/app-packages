@@ -1,10 +1,39 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=unbound
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.20.0
+pkgver=1.26.2
 pkgrel=1
 pkgdesc="Validating, recursive, and caching DNS resolver"
 arch=('any')
@@ -14,8 +43,10 @@ replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("unbound_setup.exe::https://nlnetlabs.nl/downloads/unbound/unbound_setup_${pkgver}.exe")
-sha512sums=('2eee4498db63d72f289dee1c9e973ac6d0b21c56763e31310463137b475dfbb5fe3f177d7ed039a8a92502c5ed0490dcf26f6fb2cd0d48f9a3a6dfc3e91d14d1')
+source=("unbound.zip::https@subdir://nlnetlabs.nl/downloads/unbound/unbound-${pkgver}.zip"
+        "unbound_setup.exe::https://nlnetlabs.nl/downloads/unbound/unbound_setup_${pkgver}.exe")
+sha512sums=('dbcba8e62efef04d6638a5a4967877ffbef4c625b8e2644f811691e5cfe0919c4685467dc7a4727c108301d256a899e869cc018a823e821a46938b2ce8ffe7ac'
+            '2f7eebfe960e727884ca7651c0ad7f4401f0d38761ac5e8c2782ff1e97dc960227726c889dd45be91a917b01456b1a63ce374dd424d3586cf792ec8aecb7d55b')
 noextract=("unbound_setup.exe")
 
 _lc() {
@@ -40,7 +71,7 @@ prepare() {
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "unbound_setup.dir"/* "${a}"
-    rm -R "${a}"/'$PLUGINSDIR'
+    cp -R "unbound"/* "${a}"
+    cp -R "unbound_setup.dir/anchor-update.exe" "${a}"
     _lc "${a}"/*
 }

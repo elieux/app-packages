@@ -4,7 +4,7 @@ _realname=element
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.12.32
+pkgver=1.12.33
 pkgrel=1
 pkgdesc="A glossy Matrix collaboration client for desktop"
 url="https://element.io/download"
@@ -14,7 +14,7 @@ makedepends=("p7zip")
 provides=("${pkgbase}")
 options=(!strip)
 source=("Element_Setup.exe::https://packages.element.io/desktop/install/win32/x64/Element%20Setup%20${pkgver}.exe")
-sha512sums=('f0f793e1951e80095c3fd745b8a801a3a4479ac97829010947d55ed5be2b4ea095075e7b0a25ddfd47029c40af7a1e5ae0668d296b01d8db7c60bd3d38dcfae2')
+sha512sums=('fda697cec9c9f988d1847db422d0ad32bfc2f4a83195e712654f6f7f4709cb9957eb545e5a1feda009e02e83675eef790078f2a61bc350974acfb982c88ab260')
 noextract=("Element_Setup.exe")
 
 _lc() {

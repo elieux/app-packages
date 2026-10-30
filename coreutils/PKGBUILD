@@ -5,7 +5,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
 pkgver=2026.9.3
-pkgrel=1
+pkgrel=2
 pkgdesc="UNIX-style core utilities for Windows"
 arch=('any')
 url="https://github.com/microsoft/coreutils"
@@ -26,14 +26,13 @@ package() {
     mkdir -p "${a}"
     cp -R "coreutils-x64.dir/{app}"/* "${a}"
     local -a cmds
-    cmds=($(cat "${a}/pwsh-install-template.ps1" | sed -nr '/__COREUTILS__ = /,/^[)]$/p' | tail -n+3 | head -n-3 | tr -d "\n,'"))
+    cmds=(arch b2sum base32 base64 basename basenc cat cksum comm cp csplit cut date df dirname du echo env expr factor false find fmt fold grep head hostname join link ln ls md5sum mkdir mktemp mv nl nproc numfmt od paste pathchk pr printenv printf ptx pwd readlink realpath rm rmdir seq sha1sum sha224sum sha256sum sha384sum sha512sum shuf sleep sort split stat sum tac tail tee test touch tr true truncate tsort unexpand uniq unlink uptime wc xargs yes)
     local cmd
     for cmd in "${cmds[@]}"
     do
-        if test "${cmd}" != "ln"
-        then
-            ln "${a}/coreutils.exe" "${a}/bin/${cmd}.exe"
-            ln "${a}/coreutils.exe" "${a}/cmd/${cmd}.cmd"
-        fi
+        ln "${a}/coreutils.exe" "${a}/bin/${cmd}.exe"
+        ln "${a}/coreutils.exe" "${a}/cmd/${cmd}.exe" # ln directly to .cmd creates a .cmd.exe
+        mv "${a}/cmd/${cmd}.exe" "${a}/cmd/${cmd}.cmd"
     done
+    ln "${a}/coreutils.exe" "${a}/bin/coreutils-manager.exe"
 }

@@ -2,29 +2,20 @@
 <?php
 // no error handling yet
 
-$list = file_get_contents("https://addons.mozilla.org/en-US/firefox/language-tools/");
-preg_match_all("~<a href=\"/en-US/firefox/addon/(.*?)/\">~", $list, $matches);
-
+$url = "https://addons.mozilla.org/api/v5/addons/search/?app=firefox&type=dictionary&page_size=50";
 $srclist = [];
-foreach ($matches[1] as $addonname) {
-	if (strpos($addonname, 'language-pack') !== false) {
-		continue;
+while ($url) {
+	$list = json_decode(file_get_contents($url));
+	$url = $list->next;
+	foreach ($list->results as $addon) {
+		$addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', transliterator_transliterate('Latin', $addon->slug)), '-_');
+		echo "Found: {$addonname}-{$addon->id}.xpi\n";
+		$srclist[] = "{$addonname}-{$addon->id}.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/{$addon->id}/addon-{$addon->id}-latest.xpi";
 	}
-	if (strpos($addonname, 'langpack') !== false) {
-		continue;
-	}
-	$detail = file_get_contents("https://addons.mozilla.org/en-US/firefox/addon/" . urlencode($addonname) . "/");
-	if (strpos($detail, 'this language pack') !== false) {
-		continue;
-	}
-	preg_match("~data-(?:addon|site-identifier)=\"([0-9]+)\"~", $detail, $match);
-	$addonid = $match[1];
-	$addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', transliterator_transliterate('Latin', urldecode($addonname))), '-_');
-	echo "Found: {$addonname}-{$addonid}.xpi\n";
-	$srclist[] = "{$addonname}-{$addonid}.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
 }
 
-$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+sort($srclist);
+$srclist = ltrim(implode("\n", array_map(function($src) { return strpos($src, 'marathi-dictionary-12797.xpi') === 0 ? "        # \"{$src}\" # broken XML" : "        \"{$src}\""; }, $srclist)));
 $pkgbuild = file_get_contents('PKGBUILD');
 $pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
 rename('PKGBUILD', 'PKGBUILD.old');

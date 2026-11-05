@@ -1,38 +1,85 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-# BROKEN:  The app wants to download its modules on startup, but that only kicks
-# in if the program is inside a directory called app-${pkgver}.  Still, it
-# modifies the program directory, which is not very nice.
-# We can download them too.  Problem is, they are encoded or encrypted.
-# 1. https://discord.com/api/updates/distributions/app/manifests/latest?channel=stable&platform=win&arch=x86
-# 2. parse the output and get links to the modules like:
-#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_utils/1/full.distro
-#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_voice/9/full.distro
-#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_desktop_core/3/full.distro
-#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_erlpack/1/full.distro
-#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_spellcheck/1/full.distro
-#    - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/discord_krisp/1/full.distro
-# 3. ???
-# 4. profit
-# The main app (same as the contents of the installer probably) seems to be here:
-# - https://dl.discordapp.net/distro/app/stable/win/x86/1.0.9002/full.distro
-
 _realname=discord
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=1.0.9046
+pkgver=1.0.9267
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers"
 url="https://www.discordapp.com/"
 arch=('any')
 license=('custom')
-makedepends=("p7zip" "unzip")
+makedepends=("brotli")
 provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
 options=(!strip)
-source=("DiscordSetup.exe::https://dl.discordapp.net/distro/app/stable/win/x86/${pkgver}/DiscordSetup.exe")
-sha512sums=('7fe885f69c0fa82e1795709a95e49eac2f9e7d45b94f44fcb3d38fa4ad0522ec668328e96bdd2182018585352339cd36dd9dd1ffc3ea52bb8562faf3b81dba9e')
-noextract=("DiscordSetup.exe")
+source=("discord.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/full.distro"
+        "discord_clips-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_clips/1/full.distro"
+        "discord_cloudsync-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_cloudsync/1/full.distro"
+        "discord_desktop_core-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_desktop_core/1/full.distro"
+        "discord_desktop_overlay-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_desktop_overlay/1/full.distro"
+        "discord_dispatch-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_dispatch/1/full.distro"
+        "discord_erlpack-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_erlpack/1/full.distro"
+        "discord_game_utils-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_game_utils/1/full.distro"
+        "discord_hook-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_hook/1/full.distro"
+        "discord_krisp-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_krisp/1/full.distro"
+        "discord_media-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_media/1/full.distro"
+        "discord_modules-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_modules/1/full.distro"
+        "discord_ndi-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_ndi/1/full.distro"
+        "discord_notifications-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_notifications/1/full.distro"
+        "discord_overlay2-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_overlay2/1/full.distro"
+        "discord_premap-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_premap/1/full.distro"
+        "discord_rpc-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_rpc/1/full.distro"
+        "discord_spellcheck-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_spellcheck/1/full.distro"
+        "discord_sysimg-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_sysimg/1/full.distro"
+        "discord_utils-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_utils/1/full.distro"
+        "discord_voice-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_voice/1/full.distro"
+        "discord_zstd-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_zstd/1/full.distro")
+sha512sums=('8e7ced3b085b4bc69a563f768e59a7a4b30fe07d58a1a89fa8820fab12aa8564efb5d18899cfe760370c4378e49a28824382975839d4c3136f29600f21738132'
+            '03a7f9c3e3b9052c53f95cd460d79753e0ac3533d4bdbc95cacf46ce849697913c366b257f8608a6f514e31fd4653e055ab970e06bbc5ed6d42e8ec3e6036ef5'
+            '46e927b0ffbf01c0523193a7db104d3e734f8e9c32e8216d74d23290e38b5f0ec090726b70c38c111f21c33d81dcc8f7647df0fae89e1599893e4a26954f3e50'
+            'ae2726b1bba8e7170163c8e2c6b7f34525185ccaf7a56ea0fa8113e2fc62a2a9bfbec4c80344b9201a60dfcb05f037d1c3c4d289628364ee9eccd0e0de82cf07'
+            '21f24b060b7ead935420895f297bf3e0ac84c9b0e755ff5c3929d27837f32b16e4be6930cd2f4cb576ee2b481878ce573e955a622439bbb65700f6665cacbf86'
+            '831d004519904e4eb897d37037eeafb35ae6882c9fb030c446ef16d93ea17169d13000b2a16c05a49e2a0c87781f43b3aa291f69dab90c073aef4e3fe4fea7d2'
+            '9dbb1da3e179d9668b546a25c5346ea32759bed1b89be7a7d5249db27acb9092a036f5de5d1a78ca2c23ab5325121ae6d2b2db852dd59234a7a81c87bd28c337'
+            '5cd9f796255049dbdb192c1abbc09121de857e85d19ed74d1f253bd64a12e9e06e2d4d9cca05b4cc841d5c03cdd6f66b972c340133068b236d5fa93c732fd599'
+            'e595648120a055d67f78392d3e40d13d54dcfc25febe0a4d93f56a5deb6d86e628fb796b332028e3792f547198596382eb15f0580d78db92ea22c8037ee595d9'
+            'f071b87ea0919ca86cf8d25c48ed54bc91430223136de9d6a693ffcabbc597b5f6b2958904194377f4fd6091a1e858c33b5ae99668c7a7b5874b166461249949'
+            'b386224db07df42f7748da9277693cc9f53f256eeaeb50217833384d1f2e658c3904d07ca123ac527c73238cf9650daa763b4f500ffada9b64f6e4d1f30a9c4d'
+            'bd6ffa8526be5706212c360451c8e4a3e0a777c28991146873ce3556dbca2706450dc1773506eb40559a822c93bd780ce49d57ca59897da2184e0db56959b325'
+            '561c6f8b0b4cbe2f3e917d0198c9a0cb06b0332e512e8f3101580a6e3c9aeb151c5f338212b2941c49b0c0b9752d3451e8ed769162bd68bdd384a636c7cba0c7'
+            '9ea8371e7539674fbc3ae006e04cc3415fb1ad5a3971ad9e407e9b4fee0568086f0e8d6d854db709cd4013c2b24051235f0174b5fe232bee831c9a49b61afb6f'
+            '8959947cdca069745ee27c2f01ce114d5e93bbe1252a4b808278de35d7ba9c4f923506cfb358030d5ce08372ff7574ae978a0daeb54e40f676eaa29cf8b03571'
+            '6563ef20377b8d95b4d2499355d945decdcb244cb55dedbac95832cdb59f5a159e34b81eb50fb795b623d5b0849af2049b4dc99d6567fadf2d3aedf12e6b4ee9'
+            '8ec2c765677797efcce722b6d869e8c97657156108fec27adf8751b17b0900fd77e599e618c32f0203572e3f83d61cc2a4d3c5a11dd6bb1f9865283d901a0344'
+            '56b4451e8a0806ba53f6cb1100476305bec55e161b788bbffa9a4301f5e4b1c196f4e66484c39157da6b43c62a9d411fb0cbd1b0ffacf4bcee0a54f730804f5f'
+            '9ec621f7aac6e18181822b43b3eb944091aa0a4a5cc72989a651d6186fca4e2803cef853302ca1419b39bdd0f8502f8942f3c7deb71e9a30686f947ee44d9881'
+            'd04c43130a13eac31467ab4cacb21f9c793c2f927374359ab011b07d95a6e652448cb1daffed39b60eb5b4efc48231217d93ef15cd33fc7681ba7f56be08c5b2'
+            'd02b8c8a1ce8972b54586e8740a0da57b812e66477ebf7738de2f3011e2a7c996a890124184f129843d562e588f88fc5e5697d8d28990a5b67430aadb1185534'
+            '4205f1bcc01610c0f8abf33372cdbc09ffac2e1eabc37f8dba6123401a50fa5b2a60e9e7e33635ab73a6f1e2d654001f68944c564d15965d7f026819d296060e')
+noextract=("discord.tar.br"
+           "discord_clips-1.tar.br"
+           "discord_cloudsync-1.tar.br"
+           "discord_desktop_core-1.tar.br"
+           "discord_desktop_overlay-1.tar.br"
+           "discord_dispatch-1.tar.br"
+           "discord_erlpack-1.tar.br"
+           "discord_game_utils-1.tar.br"
+           "discord_hook-1.tar.br"
+           "discord_krisp-1.tar.br"
+           "discord_media-1.tar.br"
+           "discord_modules-1.tar.br"
+           "discord_ndi-1.tar.br"
+           "discord_notifications-1.tar.br"
+           "discord_overlay2-1.tar.br"
+           "discord_premap-1.tar.br"
+           "discord_rpc-1.tar.br"
+           "discord_spellcheck-1.tar.br"
+           "discord_sysimg-1.tar.br"
+           "discord_utils-1.tar.br"
+           "discord_voice-1.tar.br"
+           "discord_zstd-1.tar.br")
 
 _lc() {
     local d f n
@@ -64,14 +111,32 @@ _rmmsdll() {
 }
 
 prepare() {
-    7z x -y -bd "DiscordSetup.exe" -o"DiscordSetup.dir" > /dev/null
-    unzip -q -o "DiscordSetup.dir/Discord"-*-"full.nupkg" -d"Discord-full"
+    local d
+    for d in *.tar.br
+    do
+        d="${d%.tar.br}"
+        brotli --decompress --force "${d}.tar.br"
+        mkdir -p "${d}"
+        pushd "${d}"
+        bsdtar -x -f "../${d}.tar"
+        popd
+    done
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "Discord-full/lib/net45"/* "${a}"
+    cp -R "discord/files"/* "${a}"
+    local d
+    for d in *.tar.br
+    do
+        d="${d%.tar.br}"
+        if test "${d}" != "discord"
+        then
+            mkdir -p "${a}/modules/${d}/${d%-*}"
+            cp -R "${d}/files"/* "${a}/modules/${d}/${d%-*}"
+        fi
+    done
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

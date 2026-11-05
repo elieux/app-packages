@@ -4,34 +4,17 @@ _realname=slack
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=4.38.127
+pkgver=4.53.280
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="https://www.slack.com/"
 arch=('any')
 license=('custom')
 replaces=("app-i686-${_realname}")
-makedepends=("p7zip" "unzip")
 provides=("${pkgbase}")
 options=(!strip)
-source=("SlackSetup.exe::https://downloads.slack-edge.com/releases/windows/${pkgver}/prod/x64/SlackSetup.exe")
-sha512sums=('303a468167bf44927c3efe01b0b77b652c1b4ddf0f627e5f238f9366c26ac5485fb277c75be7b7ee6819f3ff6b2eafba2bbf4b1050bda9c7de6106fec9d14110')
-noextract=("SlackSetup.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+source=("Slack.msix::https://downloads.slack-edge.com/desktop-releases/windows/x64/${pkgver}/Slack.msix")
+sha512sums=('364143532a07b1d876e879d89a897aa0f998770f3212222d6e5a93887ea4d90301533b485b122d23826c8860e040c37c66de05a617504789064e4bf208e4b9b8')
 
 _rmmsdll() {
     local ms
@@ -47,16 +30,9 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-prepare() {
-    rm -fR "SlackSetup.dir"
-    7z x -y -bd "SlackSetup.exe" -o"SlackSetup.dir" > /dev/null
-    unzip -q -o "SlackSetup.dir/slack"-*-"full.nupkg" -d "slack-full"
-}
-
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "slack-full/lib/net45"/* "${a}"
+    cp -R "app"/* "${a}"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

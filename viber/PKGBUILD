@@ -2,19 +2,19 @@
 
 _realname=viber
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
+pkgname=("app-x86_64-${_realname}")
 epoch=1
-pkgver=23.0.0.0
+pkgver=29.4.0.0
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
 url="https://www.viber.com/download/"
 arch=('any')
 license=('custom')
-makedepends=("app-lessmsi" "app-wix")
-provides=("${pkgbase}")
+makedepends=("app-lessmsi")
+replaces=("app-i686-${_realname}")
 options=(!strip)
-source=("ViberSetup.exe::https://download.cdn.viber.com/desktop/windows/ViberSetup.exe")
-sha512sums=('bda25c9d7fd3edd16d0587648b0c8a93817e5dba702c096ded9a79d8fc107bb3d9d0cb48d31b8fec1456826c37a98e72a03dbfa1fccd74903eb9e54188faf3b6')
+source=("ViberSetup.msi::https://download.cdn.viber.com/desktop/windows/${pkgver/.0.0/.0}/ViberSetup.msi")
+sha512sums=('daf0833d818e53d7d8cac351427fc6c390098557379d38e766895899fc905284592335adc2f8fdb71610348c18bc3ff627bb92325d10d8893b8b44a63b442f38')
 
 _lc() {
     local d f n
@@ -46,20 +46,13 @@ _rmmsdll() {
 }
 
 prepare() {
-    /apps/wix/dark -x "ViberSetup.dir" "ViberSetup.exe"
-    cd "ViberSetup.dir/AttachedContainer"
-    rm -fR "ViberSetup"
     /apps/lessmsi/lessmsi x "ViberSetup.msi" > /dev/null
-}
-
-pkgver() {
-    powershell -command '(Get-Item "ViberSetup.dir/AttachedContainer/ViberSetup/SourceDir/Viber/viber.exe").VersionInfo.FileVersionRaw.ToString()'
 }
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "ViberSetup.dir/AttachedContainer/ViberSetup/SourceDir/Viber"/* "${a}"
+    cp -R "ViberSetup/SourceDir/LocalApp/Viber"/* "${a}"
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

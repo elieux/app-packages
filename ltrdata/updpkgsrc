@@ -10,13 +10,10 @@ $programs = [];
 
 foreach ($links[1] as $link) {
 	$program = basename($link);
-	if (strpos($link, 'winarm') === 0) {
+	if (preg_match('~^winarm~', $link)) {
 		continue;
 	}
-	if (strpos($program, '.txt') === strlen($program) - 4) {
-		continue;
-	}
-	if (strpos($program, '.gif') === strlen($program) - 4) {
+	if (preg_match('~[.](gif|txt)$~', $program)) {
 		continue;
 	}
 	$programs[$program] = $link;
@@ -24,14 +21,16 @@ foreach ($links[1] as $link) {
 }
 
 $srclist = [];
-
 foreach ($programs as $program => $link) {
+	if (!empty($programs[str_replace('.', '64.', $program)])) {
+		continue;
+	}
 	echo "Found: {$link}\n";
 	$srclist[] = "{$program}::http@subdir://static.ltr-data.se/files/{$link}";
 }
 
-$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
 $pkgbuild = file_get_contents('PKGBUILD');
-$pkgbuild = preg_replace("~^source=[(].*?^[)]~sm", "source=({$srclist})", $pkgbuild);
+$source = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+$pkgbuild = preg_replace("~^source=[(].*?[)]~sm", "source=({$source})", $pkgbuild);
 rename('PKGBUILD', 'PKGBUILD.old');
 file_put_contents('PKGBUILD', $pkgbuild);

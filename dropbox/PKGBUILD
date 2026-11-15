@@ -2,36 +2,23 @@
 
 _realname=dropbox
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=276.4.5325
 pkgrel=1
 pkgdesc="The Dropbox synchronization tool"
 url="https://www.dropbox.com/"
 arch=('any')
 license=('custom')
-makedepends=("p7zip" "curl" "python3" "unzip")
-provides=("${pkgbase}")
+makedepends=("p7zip" "python")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 install="dropbox.install"
 source=("DropboxOfflineInstaller.exe::https://www.dropbox.com/download?full=1&plat=win")
 sha512sums=('cca939d748be054d9f8126d4b55744cfb468cadce23e0881782ad03d1a24cbb595c46886542cafc7ee692e9e8d9891382ce37a61f9de018a761fbcbfff0e3349')
 noextract=("DropboxOfflineInstaller.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 _rmmsdll() {
     local ms
@@ -67,7 +54,7 @@ package() {
     mv "${a}/${pkgver}"/* "${a}"
     rm -R "${a}/${pkgver}"
     rm "${a}/${pkgver}.manifest"
-    _pkgver="${pkgver}" _a="${a}" python3 -c '
+    _pkgver="${pkgver}" _a="${a}" python -c '
 import os
 
 to_remove = """<dependency><dependentAssembly><assemblyIdentity type="win32" name="{0}" version="901.520.64.112" language="*"></assemblyIdentity></dependentAssembly></dependency>""".format(os.environ["_pkgver"]).encode("ascii")
@@ -80,6 +67,4 @@ f.close()
     '
     # MSYS=winsymlinks:nativestrict ln -s . "${a}/${pkgver}" # Permission denied on msys2-runtime v3.0.7
     # ( cd "${a}" && MSYS2_ARG_CONV_EXCL=* cmd /c mklink /d "${pkgver}" . ) # Works, but doesn't package correctly
-
-    _lc "${a}"/*
 }

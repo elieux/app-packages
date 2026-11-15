@@ -31,37 +31,25 @@ extract_https@subdir() {
 
 _realname=dotnet-sdk
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=10.0.403
 pkgrel=1
 pkgdesc="The .NET SDK"
 url="https://github.com/dotnet/core"
 arch=('any')
 license=('MIT')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("dotnet-sdk-win-x64.zip::https@subdir://builds.dotnet.microsoft.com/dotnet/Sdk/${pkgver}/dotnet-sdk-${pkgver}-win-x64.zip")
 sha512sums=('7a114c318fa7f1d9822991b534b2814d0e78386ceda816b371f5141acefe741d87ccb606ede06cadac8f9ac5070e32b708a67bbd1619ff5e5a7858a27874ef48')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "dotnet-sdk-win-x64"/* "${a}"
-    _lc "${a}"/*
 }

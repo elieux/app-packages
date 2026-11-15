@@ -3,18 +3,22 @@
 _dirname=keepass
 _realname=keepass-plugin-natmsg-host
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=0.0.9
 pkgrel=1
 pkgdesc="Native messaging proxy for KeePassNatMsg"
 url="https://github.com/smorks/keepassnatmsg-proxy"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("keepassnatmsg-proxy.exe::https://github.com/smorks/keepassnatmsg-proxy/releases/download/v${pkgver}/keepassnatmsg-proxy.exe")
 sha512sums=('1559a9352c8eacd8636b1078f18e5f2e84dd131d45aa6ce9f6839dd47a768b99fdb64f2d8f89a9e5b9f6d704a93c0196300bc2427379a2702bbb82077b69e1fb')
+noextract=("keepassnatmsg-proxy.exe")
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"

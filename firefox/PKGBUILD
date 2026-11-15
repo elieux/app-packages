@@ -2,17 +2,18 @@
 
 _realname=firefox
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=159.0
 pkgrel=1
 pkgdesc="Standalone, easy to customize web browser"
 url="https://www.mozilla.org/firefox/"
 arch=('any')
 license=('GPL' 'LGPL' 'MPL')
-replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("FirefoxSetup.exe::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/en-US/Firefox%20Setup%20${pkgver}.exe"
         "ach.xpi::https://ftp.mozilla.org/pub/firefox/releases/${pkgver}/win64/xpi/ach.xpi"
@@ -222,22 +223,110 @@ sha512sums=('fabd5c7608aec3d6945c2a2038a32cc67b159bd36997598725c90cb042e86a2570a
             '16ab48d23486e0c471d9aab72fddf0b0c67a9c8fff89202e03aa196d1339eca6ef2279662c2fd11f9d712dc91eff514f4887cf90c361f18bd83db17258a0b860'
             'ece3c8944cf1af87d648e356876413b1489b3984f77e8323fcf5e442d9e16c05e44775c910696b84eb064632fa6c1ac4ede99fcc33ecba42c3acc044085891d8'
             '76c665a51d9d0ac84f91410bde0dc9106841825506263f836267d706381ee5625c77423d7951cd1f381186e0ec4b17646ea5dc6a6a540d251a3b88c561968096')
-noextract=("${source[@]%%::*}")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("FirefoxSetup.exe"
+           "ach.xpi"
+           "af.xpi"
+           "an.xpi"
+           "ar.xpi"
+           "ast.xpi"
+           "az.xpi"
+           "be.xpi"
+           "bg.xpi"
+           "bn.xpi"
+           "br.xpi"
+           "bs.xpi"
+           "ca-valencia.xpi"
+           "ca.xpi"
+           "cak.xpi"
+           "cs.xpi"
+           "cy.xpi"
+           "da.xpi"
+           "de.xpi"
+           "dsb.xpi"
+           "el.xpi"
+           "en-CA.xpi"
+           "en-GB.xpi"
+           "en-US.xpi"
+           "eo.xpi"
+           "es-AR.xpi"
+           "es-CL.xpi"
+           "es-ES.xpi"
+           "es-MX.xpi"
+           "et.xpi"
+           "eu.xpi"
+           "fa.xpi"
+           "ff.xpi"
+           "fi.xpi"
+           "fr.xpi"
+           "fur.xpi"
+           "fy-NL.xpi"
+           "ga-IE.xpi"
+           "gd.xpi"
+           "gl.xpi"
+           "gn.xpi"
+           "gu-IN.xpi"
+           "he.xpi"
+           "hi-IN.xpi"
+           "hr.xpi"
+           "hsb.xpi"
+           "hu.xpi"
+           "hy-AM.xpi"
+           "ia.xpi"
+           "id.xpi"
+           "is.xpi"
+           "it.xpi"
+           "ja.xpi"
+           "ka.xpi"
+           "kab.xpi"
+           "kk.xpi"
+           "km.xpi"
+           "kn.xpi"
+           "ko.xpi"
+           "lij.xpi"
+           "lt.xpi"
+           "lv.xpi"
+           "mk.xpi"
+           "mr.xpi"
+           "ms.xpi"
+           "my.xpi"
+           "nb-NO.xpi"
+           "ne-NP.xpi"
+           "nl.xpi"
+           "nn-NO.xpi"
+           "oc.xpi"
+           "pa-IN.xpi"
+           "pl.xpi"
+           "pt-BR.xpi"
+           "pt-PT.xpi"
+           "rm.xpi"
+           "ro.xpi"
+           "ru.xpi"
+           "sat.xpi"
+           "sc.xpi"
+           "sco.xpi"
+           "si.xpi"
+           "sk.xpi"
+           "skr.xpi"
+           "sl.xpi"
+           "son.xpi"
+           "sq.xpi"
+           "sr.xpi"
+           "sv-SE.xpi"
+           "szl.xpi"
+           "ta.xpi"
+           "te.xpi"
+           "tg.xpi"
+           "th.xpi"
+           "tl.xpi"
+           "tr.xpi"
+           "trs.xpi"
+           "uk.xpi"
+           "ur.xpi"
+           "uz.xpi"
+           "vi.xpi"
+           "xh.xpi"
+           "zh-CN.xpi"
+           "zh-TW.xpi")
 
 _rmmsdll() {
     local ms
@@ -274,5 +363,4 @@ package() {
         cp "${f}" "${a}/browser/extensions/langpack-${f%%.xpi}@firefox.mozilla.org.xpi"
     done
 
-    _lc "${a}"/*
 }

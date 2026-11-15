@@ -2,36 +2,22 @@
 
 _realname=mp3tag
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=3.36.1
 pkgrel=1
 pkgdesc="Powerful audio metadata editor"
-arch=('any')
 url="https://mp3tag.de/en/index.html"
+arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("mp3tag-x64-setup.exe::https://download.mp3tag.de/mp3tag-v${pkgver}-x64-setup.exe")
 sha512sums=('1615c12881b60a61e77a60fa1b12d52ab3a3c470e77c40606d663472fb4a4a4ea5323e9550f91cda30d368df97cd32ce0e378169db52c94080db67cdb25a696e')
 noextract=("mp3tag-x64-setup.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 prepare() {
     local w f
@@ -49,5 +35,4 @@ package() {
     cp -R "mp3tag-x64-setup.dir"/* "${a}"
     touch "${a}/help/helpmap.idx"
     rm -R "${a}"/'$PLUGINSDIR' "${a}"/'$R0' "${a}"/'$R2'
-    _lc "${a}"/*
 }

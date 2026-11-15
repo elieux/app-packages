@@ -32,34 +32,22 @@ extract_http@subdir() {
 _realname=hwmonitor
 _dirname=cpuid
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.68
 pkgrel=1
 pkgdesc="Reads PC systems main health sensors (CPUID)"
 url="https://www.cpuid.com/softwares/hwmonitor.html"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("hwmonitor.zip::http@subdir://download.cpuid.com/hwmonitor/hwmonitor_${pkgver}.zip")
 sha512sums=('bee11f66f31cd5cf7466c9575daac0be6ff16da92ea347c3122f5ddcf252ab78e74f69206b11f707647179e217c85e851599ce176ea39baa753b8da60015f67c')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"
@@ -67,5 +55,4 @@ package() {
     cp "hwmonitor"/* "${a}"
     rm "${a}/HWMonitor_x32.exe"
     mv "${a}/HWMonitor_x64.exe" "${a}/HWMonitor.exe"
-    _lc "${a}"/*
 }

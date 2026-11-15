@@ -4,22 +4,23 @@ DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -A "Chrome" -e "https://filezilla-
 
 _realname=filezilla-server
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.12.6
 pkgrel=1
 pkgdesc="A popular FTP server"
 url="https://filezilla-project.org/"
 arch=('any')
 license=('GPL')
-makedepends=("openssl" "p7zip")
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=("curl" "openssl" "p7zip")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=()
 sha512sums=()
 _sha512sum='1bd0a4dd7a02f7ad22831da5a2edf0635adf5b50ad86c932d3c3acae1a0b726e36523391c9ab936f056de30d6aeb34c080bda1702573402cbecbd485a70d3619'
-noextract=("FileZilla_Server_win64-setup.exe")
+noextract=()
 
 _dl() {
     (
@@ -53,6 +54,7 @@ prepare() {
     _dl "${localname}::${link}"
     source+=("${localname}")
     sha512sums+=("${_sha512sum}")
+    noextract+=("${localname}")
     check_checksums
     extract_sources
 

@@ -32,18 +32,22 @@ extract_https@subdir() {
 _realname=keepass-plugin-otpkeyprov
 _dirname=keepass
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.7
 pkgrel=1
 pkgdesc="A KeePass plugin that allows using OTP codes for master key"
 url="https://keepass.info/plugins.html#otpkeyprov"
 arch=('any')
 license=('unknown')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("OtpKeyProv.zip::https@subdir://keepass.info/extensions/v2/otpkeyprov/OtpKeyProv-${pkgver}.zip")
 sha512sums=('dfb5306fb40a98c0dc06c01e834d6e0b0a1ac5b5d7f290b17fc06a10286bd2f305af490029ae2a887ff32276317dae3ea1f47382f8fb23d26654588a31577d0a')
+noextract=()
 
 package() {
     depends=("app-keepass")

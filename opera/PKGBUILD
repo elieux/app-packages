@@ -2,36 +2,22 @@
 
 _realname=opera
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=139.0.6053.15
 pkgrel=1
 pkgdesc="A fast and free Blink-based web browser"
 url="https://www.opera.com/computer"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("Opera_Setup_x64.exe::https://ftp.opera.com/pub/opera/desktop/${pkgver}/win/Opera_${pkgver}_Setup_x64.exe")
 sha512sums=('dbdcff3fc231a9c479445af4e56e73e01e7b782d0f11b807f425631d9f4ffe8abdf23c811511cb0e4e5384142271708cdf6e8931fbb66948ed64ca1242185fb4')
 noextract=("Opera_Setup_x64.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 _rmmsdll() {
     local ms
@@ -57,5 +43,4 @@ package() {
     cp -R "Opera_Setup_x64.dir"/* "${a}"
     rm -R "${a}"/{assets,root_files_list,files_list,resources.pri} "${a}"/{installer.exe,installer_helper_64.exe,opera_autoupdate.exe,opera_autoupdate.licenses,opera_autoupdate.version}
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

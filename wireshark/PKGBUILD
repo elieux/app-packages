@@ -2,35 +2,22 @@
 
 _realname=wireshark
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=4.6.9
 pkgrel=1
 pkgdesc="A free network protocol analyzer"
 url="https://www.wireshark.org/"
 arch=('any')
 license=('GPL2')
-replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("Wireshark-x64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-${pkgver}-x64.exe")
 sha512sums=('2dfb6fd775acb53fe07c7af0a525265911e09e89dd808306f4f072a6fea1db16f1a1e90fa91e8b8bb770ba867324c0a42a7ec17bdf15151c30dea2219f94f0c5')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("Wireshark-x64.exe")
 
 prepare() {
     7z x -y -bd "Wireshark-x64.exe" -o"Wireshark-x64.dir" > /dev/null
@@ -41,5 +28,4 @@ package() {
     mkdir -p "${a}"
     cp -R "Wireshark-x64.dir"/* "${a}"
     rm -R "${a}"/npcap-*.exe "${a}"/USBPcapSetup-*.exe "${a}/vc_redist.x64.exe" "${a}"/'$PLUGINSDIR'
-    _lc "${a}"/*
 }

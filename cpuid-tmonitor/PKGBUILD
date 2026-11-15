@@ -32,34 +32,22 @@ extract_http@subdir() {
 _realname=tmonitor
 _dirname=cpuid
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.04
 pkgrel=1
 pkgdesc="Monitors processor performance and other values (CPUID)"
 url="https://www.cpuid.com/softwares/tmonitor.html"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("tmonitor.zip::http@subdir://download.cpuid.com/tmonitor/tmonitor_${pkgver}.zip")
 sha512sums=('58a0e7b7afd9dd810308c16a58eb13f79f3cdf8ec3e2f3be227d57a33c45a4554234f922dd17bd674c444cc949f3ca3d734e791145c9a8396d2e252c06392e25')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"
@@ -67,5 +55,4 @@ package() {
     cp "tmonitor"/* "${a}"
     rm "${a}/TMonitor_x32.exe"
     mv "${a}/TMonitor_x64.exe" "${a}/TMonitor.exe"
-    _lc "${a}"/*
 }

@@ -19,5 +19,6 @@ pre_remove() {
     oldver="${1%-*}"
     case "${oldver}" in
     1~*) rm "apps/dropbox/${oldver#*~}" ;;
+    2~*) rm "apps/dropbox/${oldver#*~}" ;;
     esac
 }

@@ -31,16 +31,18 @@ extract_http@subdir() {
 
 _realname=diamondcs
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2008.07.08
 pkgrel=1
 pkgdesc="Collection of utilities by DiamondCS"
 url="http://web.archive.org/web/20080518053439/http://www.diamondcs.com.au/software.php"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
 makedepends=("app-innounp")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=(
         # Main products
@@ -87,21 +89,9 @@ sha512sums=('0b794308064a7d12ac925153a4751fecf7321c17e75a839bf661c2fed8abaa16d56
             '993e9059100370d89058429f4ef2102cb6a447402e19d6e3d58c0210eb99646aab659adbf0a44e2d92ab965a7c1d8afc44f5c33cb9d6868ff87c5652022dc48a'
             '8a3d6fd2670d5af3f2122d7841419211aef2bbfe7ecf30260c29c2ff28641e10fbea7299dbfd54bf8bd8046bda5da0d3623e0af65d86eb634a8ac6a73887ccf9'
             '9d8c4a1d048d3fcf186ef25c4bd226ec77ec7fe0a827aada9090e622b9334c940b7c605420f41aef9f2e7434558245cf9e21d53cbb60b69af3d98f01bcc753b4')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("dsesetup.exe"
+           "pgsetup.exe"
+           "pesetup.exe")
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "dsesetup.exe" -d"dsesetup.dir"
@@ -148,5 +138,4 @@ package() {
     mv "${a}/procguard/drivers"/* "${a}/procguard"
     rm -R "${a}/procguard/drivers"
 
-    _lc "${a}"/*/* "${a}"/*
 }

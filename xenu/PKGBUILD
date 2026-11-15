@@ -31,35 +31,24 @@ download_http@subdir() {
 
 _realname=xenu
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.3.9.beta2022.06.08
 pkgrel=1
 pkgdesc="Find broken links on web sites"
 url="http://home.snafu.de/tilman/xenulink.html"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=("p7zip")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("Xenu64.zip::http@subdir://home.snafu.de/tilman/tmp/Xenu64.zip"
         "xenubeta.zip::http@subdir://home.snafu.de/tilman/tmp/xenubeta.zip")
 sha512sums=('1dd7db4c2f0f71a8bcb3b65dad3afaac7d8413fdd08f313abc9af37c525526ef3a431e2278c0f502a7db16b5ac7ea1341a9e76e2390b1e92434fb7ab096021be'
             'a28427011297b15125b295803ba99015e863ad5b4eb36e8fdb86db77e0eb7fd3ccee15d98fde7694b6bbad257d6412d0639e2c07511db23a525534ce3d2b7204')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 prepare() {
     7z x -y -bd "xenubeta/Setup.exe" -o"Setup.dir" > /dev/null
@@ -77,5 +66,4 @@ package() {
     cp -R "Setup.dir"/* "${a}"
     cp -R "Xenu64"/* "${a}"
     rm -R "${a}"/'$PLUGINSDIR' "${a}/uninst.exe"
-    _lc "${a}"/*
 }

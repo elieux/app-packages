@@ -31,16 +31,18 @@ download_https@subdir() {
 
 _realname=pspad
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=5.5.2.851
 pkgrel=1
 pkgdesc="Freeware programmer's editor"
-arch=('any')
 url="https://www.pspad.com/en/"
+arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("pspaden_x64.zip::https@subdir://www.pspad.com/files/pspad/pspad$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)[.]([0-9]+)$/\1\2\3/')en_x64.zip"
         "en_dic.cab::https://www.pspad.com/files/dic/en_dic.cab"
@@ -84,21 +86,7 @@ sha512sums=('fbbb779b1f3fa27f5b58705acae3e5d8d0b633572573ad503b22818ea7d0ba81cbc
             '5f0bdb89d9adef595a2f9dbf399e361060933d4528910431554ca002fa79aa2fc2dcebbcf04d3ad443c43bd818183b4842f6dc1e2f4f82280712d51119666892'
             '82b149931d9226d508e1ce7123ad91989fea0944d207825a13144c9ae51068cedbb1ac59fa56f118f0c0bd29b91d7e18e7e1e8d1d5aa6becb0f5f7a12cdea7a4'
             '33bbaa50d57973ddc280a464aae475f7ac6b896ac9e0db260d21c46ff66585ba9bf24dab8120af031371968c2ac0ce39d69eeb2202dec8d0c3c69bbcba25f3fb')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
@@ -106,5 +94,4 @@ package() {
     cp -R "pspaden_x64"/* "${a}"
     cp *.dic "${a}/Spell"
     rm -R "${a}/Updater"
-    _lc "${a}"/*
 }

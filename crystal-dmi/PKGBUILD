@@ -32,33 +32,22 @@ extract_https@subdir() {
 _realname=crystaldmi
 _dirname=crystal
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.06
 pkgrel=1
 pkgdesc="A DMI utility (Crystal Dew World)"
 url="https://crystalmark.info/software/CrystalDMI/index-e.html"
 arch=('any')
 license=('BSD')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("CrystalDMI.zip::https@subdir://crystalmark.info/download/archive/CrystalDMI/CrystalDMI.zip")
 sha512sums=('6f5de3bae8eb8d924f718a5bea90cd5f90439ec4cfaaadc4d1e92da5fd4eabdb4d970c66bf0d9a5211a6639b0f2b0869978537c5c208b186a22aafb288cea477')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 pkgver() {
     powershell -command '(Get-Item "CrystalDMI/CrystalDMI.exe").VersionInfo.ProductVersion' | sed -r 's/([0-9]+)[.]([0-9]+)[.]([0-9]+).0$/\1.\2\3/'
@@ -76,5 +65,4 @@ package() {
         mv "${t}" "${a}/DMI${f}"
     done
 
-    _lc "${a}"/*
 }

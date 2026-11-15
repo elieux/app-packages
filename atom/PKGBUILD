@@ -2,34 +2,22 @@
 
 _realname=atom
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.63.1
 pkgrel=1
 pkgdesc="A hackable text editor for the 21st Century"
-arch=('any')
 url="https://atom.io/"
+arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
-source=("atom-x64-windows.zip::https://github.com/atom/atom/releases/download/v${pkgver}/atom-x64-windows.zip")
+source=("atom-x64-windows.zip::https://web.archive.org/web/20230106063345/https://objects.githubusercontent.com/github-production-release-asset-2e65be/3228505/1d9055be-3561-48fd-a51c-808b3a25b416?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230106%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230106T063345Z&X-Amz-Expires=300&X-Amz-Signature=09bc35ca94dcc6b81bb10a5a08c7f309a88700353bf5595da932b482a890405e&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=3228505&response-content-disposition=attachment%3B%20filename%3Datom-x64-windows.zip&response-content-type=application%2Foctet-stream")
 sha512sums=('99b4a1f4ecbd3d8c60f23d5e6d0facc0ce0ca4cf743f241c6d42829f619b3a6f00e43fcecda4daa40ebd8faa2deec9c3f88835cd135b9f1c561f8b2104bc7464')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 _rmmsdll() {
     local ms
@@ -50,5 +38,4 @@ package() {
     mkdir -p "${a}"
     cp -R "Atom x64"/* "${a}"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

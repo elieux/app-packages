@@ -31,15 +31,18 @@ extract_http@subdir() {
 
 _realname=kliu
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2013.11.13
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Kai Liu"
 url="http://code.kliu.org/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=(
         # main
@@ -94,21 +97,9 @@ sha512sums=('9b457a172cfb80ee83e6d7057d6c08fe33f5f7e70108e9e816274a1b64361aa10ff
             '61d58ac5df3233ef799662cae538d5a1e894c3cb6617532198b6d0a94f74a98e6f0e737d35d5688001c943887cd2a0d456a7d57d12f2cc1dcae2366050b8a39a'
             'bd0d623d8eece86aaba4a9bbd181f9eb3ec0080f07d967a208ff6dbb2f9e4e72f5a1392086930359a1724aa95c6b3d4ade6e3fd8be455d31c70870b25e21d44a'
             '4174103468b9ccede3586f268991385bd7654a4416593559bbdb4ebbae762be5e8a7a7671f5a63f72722de122b6b212348bbe7fc9fd036a7be2f1cc4938f7cff')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("CmdOpenInstall-latest.exe"
+           "HashCheckInstall-latest.exe"
+           "fixiepng.htc")
 
 pkgver() {
     find . -mindepth 2 -type f -printf '%TY.%Tm.%Td\n' | sort | tail -1
@@ -145,5 +136,4 @@ package() {
     done
     rm -R "${a}/sha1_verification_utilities"
     rm "${a}"/*.{c,sha1,md5}
-    _lc "${a}"/*
 }

@@ -2,36 +2,22 @@
 
 _realname=vivaldi
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=8.2.4133.94
 pkgrel=1
 pkgdesc="A new browser for our friends"
 url="https://vivaldi.com/"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("Vivaldi.x64.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.x64.exe")
 sha512sums=('315b64852e093d76a26e828c00d7d0415bebd38c5b49b7866444a1da30668c14e67dc9e8562b1d469deccf4b426c68cc0c3802da7ea39e49c0e802ab62fcec89')
 noextract=("Vivaldi.x64.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 prepare() {
     7z x -y -bd "Vivaldi.x64.exe" -o"Vivaldi.x64.dir" > /dev/null
@@ -42,5 +28,4 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "Vivaldi-bin"/*.exe "Vivaldi-bin/${pkgver}"/* "${a}"
-    _lc "${a}"/*
 }

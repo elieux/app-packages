@@ -31,38 +31,25 @@ extract_https@subdir() {
 
 _realname=consolez
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.19.0.19104
 pkgrel=1
 pkgdesc="A console wrapper with tabs, easy copy-pasting and pretty visuals"
 url="https://github.com/cbucher/console"
 arch=('any')
 license=('GPL2')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("ConsoleZ.x64.zip::https@subdir://github.com/cbucher/console/releases/download/${pkgver%.*}/ConsoleZ.x64.${pkgver}.zip")
 sha512sums=('369f811bb6805e3b90010674cf3070cdcedeb37f1ca6c32fe6200aa6be3b0d2ccd350326c6263b0833ff09d66903955827b64a371c85e00b542afe026c069e87')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp "ConsoleZ.x64"/* "${a}"
-    _lc "${a}"/*
 }

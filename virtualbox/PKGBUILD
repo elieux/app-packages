@@ -2,16 +2,18 @@
 
 _realname=virtualbox
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=7.2.22.175245
 pkgrel=1
 pkgdesc="Powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use"
 url="https://www.virtualbox.org/"
 arch=('any')
 license=('GPL2')
-provides=("${pkgbase}")
-makedepends=("p7zip" "mingw-w64-x86_64-gcc" "app-lessmsi")
+makedepends=("p7zip" "mingw-w64-ucrt-x86_64-gcc" "app-lessmsi")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("VirtualBox-Win.exe::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBox-${pkgver%.*}-${pkgver##*.}-Win.exe"
         "VirtualBox.tar.bz2::https://download.virtualbox.org/virtualbox/${pkgver%.*}/VirtualBox-${pkgver%.*}.tar.bz2"
@@ -23,22 +25,9 @@ sha512sums=('5decead49287d4a004b833dc786a80f92b3d53171fdf3ef0fbff528a14a19a11a61
             'bc55be82cd89774d630dd881040f86e272549451cbeee7075847adf58c3dd2f9c2782591b3c2885ca9f4ff4ee47d369a7447cbc667e6b8e6120e806f07d15118'
             '55faec07873c96a8b2e1e0a90a4c0529b2d40ead18ab972c2477d8eaaaf314603772dab8dbbdf0bf1e5312756dad784e749c5a954f85123d8607855bfc890a85'
             'efc61d88568526a9b1b4d12526a44ffe8b810052e02962b40cfe4ae85a44265e953d74c55be687b3d5a892c29d967a5a3dcc3fc35b20c88882e2b343f8d614eb')
-noextract=("VirtualBox-Win.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("VirtualBox-Win.exe"
+           "0004-remove-__function__.patch"
+           "0005-remove-__try-__except.patch")
 
 prepare() {
     7z x -y -bd "VirtualBox-Win.exe" -o"VirtualBox-Win.dir" > /dev/null
@@ -62,7 +51,7 @@ prepare() {
 }
 
 cxx() {
-    PATH="/mingw64/bin:$PATH" g++ -Wall -Wextra -Wno-unknown-pragmas -Wno-missing-field-initializers -Wno-dangling-else -fpermissive -std=c++11 "-I${srcdir}/build/include" "-I${srcdir}/build/src/VBox/Runtime/include" -DVBOX_COM_NO_ATL -DIN_RING3 "${@}"
+    PATH="/ucrt64/bin:$PATH" g++ -Wall -Wextra -Wno-unknown-pragmas -Wno-missing-field-initializers -Wno-dangling-else -fpermissive -std=c++11 "-I${srcdir}/build/include" "-I${srcdir}/build/src/VBox/Runtime/include" -DVBOX_COM_NO_ATL -DIN_RING3 "${@}"
 }
 
 link() {
@@ -86,7 +75,7 @@ build() {
 }
 
 package() {
-    depends=("mingw-w64-x86_64-gcc-libs")
+    depends=("mingw-w64-ucrt-x86_64-gcc-libs")
 
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
@@ -103,7 +92,6 @@ package() {
     ln "${a}/drivers/USB/device"/* "${d}"
     ln "${a}/drivers/USB/filter"/* "${d}"
 
-    _lc "${a}"/*
     ln "${a}/vboxrt.dll" "${a}/drivers/network/netadp6/vboxrt.dll"
     ln "${a}/vboxrt.dll" "${a}/drivers/network/netlwf/vboxrt.dll"
     ln "${a}/vboxrt.dll" "${a}/drivers/vboxsup/vboxrt.dll"

@@ -3,19 +3,22 @@
 _realname=keepass-plugin-truecryptmount
 _dirname=keepass
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.3
 pkgrel=3
 pkgdesc="A KeePass plugin that makes it easier to mount TrueCrypt volumes"
 url="https://bitbucket.org/schalpat/keepasstruecryptmount"
 arch=('any')
 license=('GPL2')
-makedepends=("p7zip")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("KeepassTrueCryptMount.plgx.7z::https://bitbucket.org/schalpat/keepasstruecryptmount/downloads/KeepassTrueCryptMount_v${pkgver}.plgx.7z")
 sha512sums=('0642db647d2eabbff2e1845e2dc5a2d8657810a327c14da352961cb28a9ce649111e9a486d78fa612375233efbdb79080671ef38b66f8cbd85ba5cdcd0a62a00')
+noextract=()
 
 package() {
     depends=("app-keepass")

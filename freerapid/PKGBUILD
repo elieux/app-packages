@@ -2,37 +2,25 @@
 
 _realname=freerapid
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=0.9u4
 pkgrel=1
 pkgdesc="A Java-based download manager for Rapidshare and other file sharing archives"
-arch=('any')
 url="http://wordrider.net/freerapid/"
+arch=('any')
 license=('GPL')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
-source=("FreeRapid.zip::http://files.kral.hk/frd/FreeRapid-${pkgver}.zip")
+source=("FreeRapid.zip::https://web.archive.org/web/20150801232009/http://files.kral.hk/frd/FreeRapid-${pkgver}.zip")
 sha512sums=('dc770d55d79a72b10bba3b0612e4c6c3cb1dd79071a35c55028664c67340cdef4c067a18fa637f588cc4c37dd02f18638a872b99441762a8733c152c21275da9')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "FreeRapid-${pkgver}"/* "${a}"
-    _lc "${a}"/*
 }

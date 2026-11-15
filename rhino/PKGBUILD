@@ -2,23 +2,25 @@
 
 _realname=rhino
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.9.2
 pkgrel=1
 pkgdesc="Open-source implementation of JavaScript written in Java"
-url="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino"
+url="https://rhino.github.io/"
 arch=('any')
 license=('MPL2')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("rhino-all.jar::https://repo1.maven.org/maven2/org/mozilla/rhino-all/${pkgver}/rhino-all-${pkgver}.jar")
 sha512sums=('0ac68cd0e901197275631e9a71adaf3437fdcd64b432050907c5e8cc580051d237f6f596d35b635c155f71f14a745187c628d4da19da0d8c2c69e7ed1a3c374d')
 noextract=("rhino-all.jar")
 
 package() {
-    depends=("app-x86_64-openjdk")
+    depends=("app-openjdk>=2~11")
 
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"

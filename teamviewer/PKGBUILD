@@ -31,33 +31,22 @@ download_https@subdir() {
 
 _realname=teamviewer
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=15.83.3
 pkgrel=1
 pkgdesc="All-in-one software for remote support and online meetings"
 url="https://www.teamviewer.com/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("TeamViewerPortable.zip::https@subdir://download.teamviewer.com/download/TeamViewerPortable.zip")
 sha512sums=('adb5aeddbbfb009d935cc045ebd98cc401e1bfbfc4b12990907149598f6f054a2c054d09e0b4bdad14582ca0a9d7b777fc5b4483ff463ecc3251bd98f4828a76')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 pkgver() {
     powershell -Command '(Get-Item "TeamViewerPortable/TeamViewer.exe").VersionInfo.FileVersion' | sed -r 's/([0-9]+[.][0-9]+[.][0-9]+)[.]0$/\1/'
@@ -67,5 +56,4 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp "TeamViewerPortable"/* "${a}"
-    _lc "${a}"/*
 }

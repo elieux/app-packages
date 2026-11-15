@@ -31,18 +31,22 @@ download_http@subdir() {
 
 _realname=xmplay
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=3.8.5.0
 pkgrel=1
 pkgdesc="Light weight, pluggable audio player"
 url="https://www.un4seen.com/xmplay.html"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("xmplay.zip::http@subdir://us.un4seen.com/files/xmplay$(echo "${pkgver}" | sed -r 's/([0-9]+)[.]([0-9]+)[.][0-9.]+/\1\2/').zip")
 sha512sums=('f43661ffba9a5d54e53f95ffa87164c4513b6821c482afdabd213157cbb42ee63b0121567c5bbf0455f22e7075077127e2fdb463fc7772ec3ebef66a7073312c')
+noextract=()
 
 pkgver() {
     powershell -command '(Get-Item "xmplay/xmplay.exe").VersionInfo.ProductVersionRaw.ToString()'

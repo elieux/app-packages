@@ -50,15 +50,18 @@ extract_https() {
 
 _realname=keepass
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.61.1
 pkgrel=5
 pkgdesc="Light-weight and easy-to-use password manager"
 url="https://keepass.info/"
 arch=('any')
 license=('GPL2')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("KeePass2.zip::https@subdir://downloads.sourceforge.net/keepass/KeePass%202.x/${pkgver}/KeePass-${pkgver}.zip"
         "TrlUtil.zip::https@subdir://keepass.info/download/v2_trlutil_2/TrlUtil-2.62.zip"
@@ -162,6 +165,7 @@ sha512sums=('a081787d7b5dd71363a0768c0a81224a968f754c3b69e419fe69b89d310250530ee
             'd4793a34bc58c0944ddddcd39363dc44b106ab141197d5691cf8e30a9fad6d97efcd09a110af5fd6a0e037b11ce16b42a02581b6a6fabfe3f51000dbc7bd89be'
             'd334974fb51a312df5897ab864a0f594f3ce49e5e6af586d80ebb6f88022b5f7f70ae9d0a86f21e6e3945baf29cce02661badac57d4147af1f3130f97095ebb2'
             'bacae55e9c081dd981505af2d638ecc4a32c25fd6780ec71d7a94f934efd5d78fff1b5b84a30798222fe543a63b0511a35879bff7dfc36f183fc355d6e0944ac')
+noextract=("KeePass.config.xml")
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

@@ -32,37 +32,25 @@ download_https@subdir() {
 _realname=clink
 _realver=4e8ae4
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.9.34
 pkgrel=1
 pkgdesc="Powerful Bash-style command line editing for cmd.exe"
 url="https://chrisant996.github.io/clink/"
 arch=('any')
 license=('GPL3')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("clink.zip::https@subdir://github.com/chrisant996/clink/releases/download/v${pkgver%.0}/clink.${pkgver}.${_realver}.zip")
 sha512sums=('1392f44989732cb0b90e7e4140c22ec501178ddfd377050de44fe4a66a93b105e75c29607d19d8a216ecc3f8b8b61004ffaeeb9f8b6de1cf7515c90565091ba9')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "clink"/* "${a}"
-    _lc "${a}"/*
 }

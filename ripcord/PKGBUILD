@@ -31,37 +31,25 @@ download_https@subdir() {
 
 _realname=ripcord
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=0.4.29
 pkgrel=1
 pkgdesc="Alternative desktop chat client for Slack and Discord"
-arch=('any')
 url="https://cancel.fm/ripcord/"
+arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("Ripcord_Win.zip::https@subdir://cancel.fm/dl/Ripcord_Win_${pkgver}.zip")
 sha512sums=('d4d6a9434d3c38022d03ee5147b8cda93ad8bfcecf60168b34ace505512bd451f28c8c1986af3434609a1a8317cc1f8011f536bb392e0c07a5e2ea242675743f')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "Ripcord_Win"/* "${a}"
-    _lc "${a}"/*
 }

@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+import { glob, readFile } from "fs/promises";
+
+const correctFields = "pkgbase,pkgname,epoch,pkgver,pkgrel,pkgdesc,url,arch,license,makedepends,replaces,conflicts,provides,options,source,sha512sums,noextract";
+const skipFields = ["DLAGENTS", "_dirname", "_realname", "_realver", "install", "_sha512sum"];
+const commandsDepends = { upx: "upx", unrar: "unrar", dark: "app-wix", brotli: "brotli", lessmsi: "app-lessmsi", innounp: "app-innounp", curl: "curl", "7z": "p7zip", unzip: "unzip", openssl: "openssl", python: "python", jq: "mingw-w64-ucrt-x86_64-jq", "g++": "mingw-w64-ucrt-x86_64-gcc" };
+
+function check(file, text) {
+    if (!/\nepoch=2\n/.test(text)) {
+        console.log(file, "epoch is not 2");
+    }
+
+    const fields = [...text.matchAll(/\n(\w+)=/g)].map(([_, field]) => field).filter((field) => !skipFields.includes(field));
+    if (fields.join(",") !== correctFields) {
+        console.log(file, "field set or order doesn't match");
+    }
+
+    const source = (text.match(/\nsource=[(](.*?)[)](\n| #)/s)[1] || null)?.split("\n").filter((s) => !/^ +#/.test(s) && !/^ *$/.test(s)).map((s) => s.trim().replaceAll('"', "").split("::")[0]) ?? [];
+    const noextract = (text.match(/\nnoextract=[(](.*?)[)](\n| #)/s)[1] || null)?.split("\n").map((s) => s.trim().replaceAll('"', "")) ?? [];
+    for (const noex of noextract) {
+        if (!source.includes(noex)) {
+            console.log(file, `noextract's ${noex} missing in source`);
+        }
+    }
+    for (const so of source) {
+        if (!/[.](zip|7z|bz2|gz|cab|tgz)$/.test(so) && !noextract.includes(so)) {
+            console.log(file, `source's ${so} missing in noextract`);
+        }
+    }
+
+    const makedepends = (text.match(/\nmakedepends=[(](.*?)[)]\n/s)[1] || null)?.split(" ").filter((s) => s !== "").map((s) => s.replaceAll('"', "")) ?? [];
+    for (const [cmd, dep] of Object.entries(commandsDepends)) {
+        if (text.includes(`${cmd} `) && !makedepends.includes(dep)) {
+            console.log(file, `makedepends missing ${dep} for ${cmd}`);
+        }
+        if (!text.includes(`${cmd} `) && makedepends.includes(dep)) {
+            console.log(file, `makedepends contains ${dep} but no ${cmd} is present`);
+        }
+    }
+    for (const dep of makedepends) {
+        if (!Object.values(commandsDepends).includes(dep)) {
+            console.log(file, `unknown makedep ${dep}`);
+        }
+    }
+}
+
+for await (const file of glob("*/PKGBUILD")) {
+    const text = await readFile(file, "utf-8");
+    check(file, text);
+}

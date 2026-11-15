@@ -2,22 +2,24 @@
 
 _realname=tightvnc
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.8.90
 pkgrel=1
 pkgdesc="Light weight VNC implementation"
 url="https://www.tightvnc.com/"
 arch=('any')
 license=('GPL2')
-replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("tightvnc-gpl-setup-64bit.msi::https://www.tightvnc.com/download/${pkgver}/tightvnc-${pkgver}-gpl-setup-64bit.msi")
 sha512sums=('076831514366f32fe39220dc24b2a1f9bf94860f52660568e12ea33cfad6f0a822062fffb3cfc170f7ac8933f64237aa7058cd5897047a9fba636e9d9d20ce55')
+noextract=("tightvnc-gpl-setup-64bit.msi")
 
-build() {
+prepare() {
     rm -fR "tightvnc-gpl-setup-64bit"
     /apps/lessmsi/lessmsi x "tightvnc-gpl-setup-64bit.msi" > /dev/null
 }

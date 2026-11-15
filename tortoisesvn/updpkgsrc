@@ -57,8 +57,6 @@ preg_match_all("~Tortoise(SVN|Merge)-[0-9]+[.][0-9]+[.][0-9]+-([a-zA-Z_-]+)[.]pd
 $srclist = [];
 
 list($plat, $svn) = array_slice($app, 1);
-echo "Found: TortoiseSVN-x64.msi\n";
-$srclist[] = "TortoiseSVN-x64.msi::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-\${pkgver}-{$plat}-svn-{$svn}.msi";
 
 foreach ($packs as $pack) {
 	list($plat, $lang) = array_slice($pack, 1);
@@ -71,8 +69,13 @@ foreach ($pdfs as $pdf) {
 	$srclist[] = "Tortoise{$app}-{$lang}.pdf::https://downloads.sourceforge.net/tortoisesvn/Tortoise{$app}-\${pkgver%.*}-{$lang}.pdf";
 }
 
-$srclist = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+sort($srclist);
+array_unshift($srclist, "TortoiseSVN-x64.msi::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-\${pkgver}-{$plat}-svn-{$svn}.msi");
+
 $pkgbuild = file_get_contents('PKGBUILD');
-$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
+$source = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
+$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$source})", $pkgbuild);
+$noextract = ltrim(implode("\n", array_map(function($src) { return '           "' . explode('::', $src)[0] . '"'; }, $srclist)));
+$pkgbuild = preg_replace("~noextract=\(.*?\)~s", "noextract=({$noextract})", $pkgbuild);
 rename('PKGBUILD', 'PKGBUILD.old');
 file_put_contents('PKGBUILD', $pkgbuild);

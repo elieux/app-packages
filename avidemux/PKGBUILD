@@ -2,7 +2,7 @@
 
 _realname=avidemux
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
+pkgname=("app-${_realname}")
 epoch=2
 pkgver=2.8.2nightly2026.10.18
 pkgrel=1
@@ -11,10 +11,13 @@ url="http://www.avidemux.org/"
 arch=('any')
 license=('GPL2')
 makedepends=()
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("avidemux_mingw64.zip::http://www.avidemux.org/nightly/win64/avidemux_mingw64_$(echo "${pkgver}" | sed -r 's/^.*nightly([0-9]{4})[.]([0-9]{2})[.]([0-9]{2})$/\1\2\3/').zip")
 sha512sums=('2f6b57933c13f5b09677f747f217e647e4947ffef3df6d3d7f6a52eedeec42d34b5bad49c4de7770dc4c0c64e660abf29a2a54bc45b46dc6ef69f47c095d0bf8')
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

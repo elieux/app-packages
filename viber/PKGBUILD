@@ -2,8 +2,8 @@
 
 _realname=viber
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=29.4.0.0
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
@@ -11,25 +11,13 @@ url="https://www.viber.com/download/"
 arch=('any')
 license=('custom')
 makedepends=("app-lessmsi")
-replaces=("app-i686-${_realname}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("ViberSetup.msi::https://download.cdn.viber.com/desktop/windows/${pkgver/.0.0/.0}/ViberSetup.msi")
 sha512sums=('daf0833d818e53d7d8cac351427fc6c390098557379d38e766895899fc905284592335adc2f8fdb71610348c18bc3ff627bb92325d10d8893b8b44a63b442f38')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("ViberSetup.msi")
 
 _rmmsdll() {
     local ms
@@ -54,5 +42,4 @@ package() {
     mkdir -p "${a}"
     cp -R "ViberSetup/SourceDir/LocalApp/Viber"/* "${a}"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

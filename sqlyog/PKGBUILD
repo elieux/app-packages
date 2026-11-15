@@ -2,36 +2,22 @@
 
 _realname=sqlyog
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=13.2.1
 pkgrel=1
 pkgdesc="MySQL manager and admin tool"
 url="https://github.com/webyog/sqlyog-community"
 arch=('any')
 license=('GPL2')
-replaces=("app-i686-${_realname}")
-makedepends=("p7zip" "curl")
-provides=("${pkgbase}")
+makedepends=("p7zip")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("SQLyog.x64Community.exe::https://s3.amazonaws.com/SQLyog_Community/SQLyog+${pkgver}/SQLyog-${pkgver}-0.x64Community.exe")
 sha512sums=('25e6b8d7c2721bcb13a0f6072c395b319aa743731c199b6afac8e0702713afeace014b7760b171ee3ee0adf1f1d65bb95be56e076595653699f548baabf97f9a')
 noextract=("SQLyog.x64Community.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 _rmmsdll() {
     local ms
@@ -57,5 +43,4 @@ package() {
     cp -R "SQLyog.x64Community.dir"/* "${a}"
     rm -R "${a}/uninst.exe" "${a}"/'$PLUGINSDIR'
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

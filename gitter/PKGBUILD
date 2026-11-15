@@ -2,8 +2,8 @@
 
 _realname=gitter
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=5.0.1
 pkgrel=1
 pkgdesc="Client for the Gitter communication platform"
@@ -11,25 +11,13 @@ url="https://gitter.im/"
 arch=('any')
 license=('custom')
 makedepends=("app-innounp")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
-source=("GitterSetup.exe::https://update.gitter.im/win/GitterSetup-${pkgver}.exe")
+source=("GitterSetup.exe::https://web.archive.org/web/20221214002450/https://update.gitter.im/win/GitterSetup-${pkgver}.exe")
 sha512sums=('b2241a9f413da1cf3c2ad7bc36d385a4d3b2709169e45b288d1ef743b4c167137854bf07f017325c544c4ec65de81c6766264dc06b23d489f6b2df1b728ac47a')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("GitterSetup.exe")
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "GitterSetup.exe" -d"GitterSetup.dir"
@@ -44,5 +32,4 @@ package() {
     do
         mv -f "${f}" "${a}/Gitter.exe"
     done
-    _lc "${a}"/*
 }

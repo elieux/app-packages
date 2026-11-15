@@ -3,18 +3,22 @@
 _realname=docker-engine
 _dirname=docker
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=29.8.1
 pkgrel=1
 pkgdesc="Pack, ship and run any application as a lightweight container"
 url="https://docs.docker.com/engine/"
 arch=('any')
 license=('Apache')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("docker.zip::https://download.docker.com/win/static/stable/x86_64/docker-${pkgver}.zip")
 sha512sums=('a0aaca07b9ff7898012d182fca2724b65576815e20fada68ce42fbc4c2afa64bac5db32d90a72b4678aefbed0558b2940f1f5cc6a943955d9b15abf9893fd7fb')
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"

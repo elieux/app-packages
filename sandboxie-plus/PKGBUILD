@@ -2,8 +2,8 @@
 
 _realname=sandboxie-plus
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.18.8
 pkgrel=1
 pkgdesc="Sandbox-based isolation software for Windows"
@@ -11,25 +11,13 @@ url="https://sandboxie-plus.com/"
 arch=('any')
 license=('GPL3')
 makedepends=("app-innounp")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("Sandboxie-Plus-x64.exe::https://github.com/sandboxie-plus/Sandboxie/releases/download/v${pkgver}/Sandboxie-Plus-x64-v$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)\b.*$/\1.\2.\3/').exe")
 sha512sums=('18b67f4ecbf499d11e046469dc8ba0bebb9cc03e4f049b01c3750d8cff03b333ae7f8ac3fd0c4521dc0107daa1c52d643c69ab30b177dccddcb1d7e35bcf3657')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("Sandboxie-Plus-x64.exe")
 
 _rmmsdll() {
     local ms
@@ -55,5 +43,4 @@ package() {
     cp -R "Sandboxie-Plus-x64.dir/{app}"/* "${a}"
     rm "${a}"/Sandboxie{,-Plus}.ini
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

@@ -25,25 +25,29 @@ download_http@subdir() {
     download_file "${1/@subdir:/:}"
 }
 
-extract_https@subdir() {
+extract_http@subdir() {
     _extract_subdir "${@}"
 }
 
 _realname=keepass-plugin-twofish-cipher
 _dirname=keepass
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.4
 pkgrel=2
 pkgdesc="A KeePass plugin that enables to encrypt databases using the Twofish algorithm"
 url="http://gogogadgetscott.info/keepass/twofishcipher/"
 arch=('any')
 license=('GPL3')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("TwofishCipher.zip::http@subdir://gogogadgetscott.info/keepass/twofishcipher/TwofishCipher-${pkgver}.zip")
 sha512sums=('978a68edee1e3dd14f8eedfe0465f30a408f755e4394f8abb8913eaf930e3b32802ed88f80cc17a15ca4e0195ea34b650b0a4bde645aaf0cbc0ae048cd03bad0')
+noextract=()
 
 package() {
     depends=("app-keepass")

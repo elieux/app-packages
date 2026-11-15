@@ -31,18 +31,22 @@ download_https@subdir() {
 
 _realname=playnite
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=10.63
 pkgrel=1
 pkgdesc="Video game library manager"
 url="https://playnite.link/"
 arch=('any')
 license=('MIT')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("Playnite.7z::https@subdir://github.com/JosefNemec/Playnite/releases/download/${pkgver}/${pkgver}.7z")
 sha512sums=('ca0e2f1e9332803fad442c93bebf2adc4e735340abc32d3008f9cce86bf0fa293c5a06e0c60a25ce2b7529e671b0745d049df7624d9236c7df4a34fa5d0a206a')
+noextract=()
 
 _rmmsdll() {
     local ms

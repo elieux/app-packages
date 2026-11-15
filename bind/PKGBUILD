@@ -31,7 +31,7 @@ extract_https@subdir() {
 
 _realname=bind
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
+pkgname=("app-${_realname}")
 epoch=2
 pkgver=9.16.50
 pkgrel=1
@@ -39,31 +39,18 @@ pkgdesc="The ISC BIND nameserver"
 url="https://www.isc.org/downloads/bind/"
 arch=('any')
 license=('custom:ISC')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("BIND.x64.zip::https@subdir://downloads.isc.org/isc/bind${pkgver%%.*}/${pkgver}/BIND${pkgver}.x64.zip")
 sha512sums=('08310f4447002f902e4e7868094f06ede7dc73bca6842a1c62f48a9e6b8db1deac405f040549dee9fb51a3d1521cc7e4b34ae5021ddabd7d1a356f67188ff390')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp "BIND.x64"/* "${a}"
     rm "${a}"/vcredist*.exe "${a}/BINDInstall.exe"
-    _lc "${a}"/*
 }

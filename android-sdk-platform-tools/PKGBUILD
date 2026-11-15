@@ -3,33 +3,22 @@
 _dirname=android-sdk
 _realname=android-sdk-platform-tools
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=37.0.1
 pkgrel=1
 pkgdesc="Platform-Tools for Google Android SDK (adb and fastboot)"
 url="https://developer.android.com/studio/releases/platform-tools.html"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("platform-tools-latest-windows.zip::https://dl.google.com/android/repository/platform-tools-latest-windows.zip")
 sha512sums=('66636b3ddaf019b3891c93fa7954d0022877ffa9f595bc5afe7b3377e8bb8afdc0c4ddfafdcfa6ee60cc329394688f679ed032d165844b59a872eef61d6e3a8b')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 pkgver() {
     cat "platform-tools/source.properties" | grep "^Pkg.Revision" | cut -d= -f2
@@ -39,5 +28,4 @@ package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
     cp -R "platform-tools" "${a}"
-    _lc "${a}/platform-tools"/*
 }

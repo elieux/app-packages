@@ -3,18 +3,22 @@
 _realname=keepass-plugin-entry-templates
 _dirname=keepass
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=8.0
 pkgrel=2
 pkgdesc="A KeePass plugin that provides templating support"
 url="https://github.com/mitchcapper/KPEntryTemplates"
 arch=('any')
 license=('unknown')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("KPEntryTemplates.plgx::https://github.com/mitchcapper/KPEntryTemplates/releases/download/${pkgver}/KPEntryTemplates.plgx")
 sha512sums=('7526cea7775480b969ab5b2b78b968950a9dce64cb57650a6398eaf77defa0b6706fe6e4a1ae5c48b091e28c7e5f4fc1367753c1fab01a7f2873fce0b073cf8f')
+noextract=("KPEntryTemplates.plgx")
 
 package() {
     depends=("app-keepass")

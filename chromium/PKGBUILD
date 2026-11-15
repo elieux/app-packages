@@ -3,34 +3,22 @@
 _realname=chromium
 _realver=1706539
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=156.0.8078.48
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="https://www.chromium.org/Home"
 arch=('any')
 license=('BSD')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("chrome.7z::https://github.com/Hibbiki/chromium-win64/releases/download/v${pkgver}-r${_realver}/chrome.7z")
 sha512sums=('022df8e8d967e1e9d5fa92054d49e3df75f70ec37bb8d3f4c5d1fbbd6883d8dc00af92c3ffa67abd86ee0ba3c15562cef243d88565bab6e5195e61022f69471c')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
@@ -38,5 +26,4 @@ package() {
     cp -R "Chrome-bin"/* "${a}"
     mv "${a}/${pkgver}"/* "${a}"
     rm -R "${a}/${pkgver}"
-    _lc "${a}"/*
 }

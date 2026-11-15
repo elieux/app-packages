@@ -2,36 +2,22 @@
 
 _realname=opera-classic
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=12.18
 pkgrel=1
 pkgdesc="Fast and secure Presto-based web browser and Internet suite"
 url="https://ftp.opera.com/pub/opera/win/"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("Opera_int_Setup_x64.exe::https://ftp.opera.com/pub/opera/win/${pkgver/./}/int/Opera_${pkgver/./}_int_Setup_x64.exe")
 sha512sums=('450fcbff79a4777703b532bff21444b67ede88145e08ea9ad1a59b803a25f53d919c1b8beaa1e86c5f7ee616f43684379be0e60cb55994f98722a9c0f1112439')
 noextract=("Opera_int_Setup_x64.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 prepare() {
     7z x -y -bd "Opera_int_Setup_x64.exe" -o"Opera_int_Setup_x64.dir" > /dev/null
@@ -46,5 +32,4 @@ package() {
     mkdir -p "${a}"
     cp -R "Opera_int_Setup_x64.dir"/* "${a}"
     rm -R "${a}/updatechecker" "${a}"/files*
-    _lc "${a}"/*
 }

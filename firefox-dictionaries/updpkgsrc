@@ -15,8 +15,10 @@ while ($url) {
 }
 
 sort($srclist);
-$srclist = ltrim(implode("\n", array_map(function($src) { return strpos($src, 'marathi-dictionary-12797.xpi') === 0 ? "        # \"{$src}\" # broken XML" : "        \"{$src}\""; }, $srclist)));
 $pkgbuild = file_get_contents('PKGBUILD');
-$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$srclist})", $pkgbuild);
+$source = ltrim(implode("\n", array_map(function($src) { return strpos($src, 'marathi-dictionary-12797.xpi') === 0 ? "        # \"{$src}\" # broken XML" : "        \"{$src}\""; }, $srclist)));
+$pkgbuild = preg_replace("~source=\(.*?\)~s", "source=({$source})", $pkgbuild);
+$noextract = ltrim(implode("\n", array_map(function($src) { return '           "' . explode('::', $src)[0] . '"'; }, array_filter($srclist, function($src) { return strpos($src, 'marathi-dictionary-12797.xpi') === false; }))));
+$pkgbuild = preg_replace("~noextract=\(.*?\)~s", "noextract=({$noextract})", $pkgbuild);
 rename('PKGBUILD', 'PKGBUILD.old');
 file_put_contents('PKGBUILD', $pkgbuild);

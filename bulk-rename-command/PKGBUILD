@@ -32,34 +32,22 @@ extract_https@subdir() {
 _realname=bulk-rename-command
 _dirname=bulk-rename
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.3.3.0
 pkgrel=1
 pkgdesc="Command-line file renaming software"
-arch=('any')
 url="https://www.bulkrenameutility.co.uk/Command.php"
+arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("BRC_Unicode_64.zip::https@subdir://www.bulkrenameutility.co.uk/Downloads/BRC_Unicode_64.zip")
 sha512sums=('9f06ec09b04dc7f4582557201664d1280a71966c856a3c750289985805d280f58cb9d4406d27029e921db8b750bff971aa531ed15703b00e9f6b4054464c65d5')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 pkgver() {
     powershell -command '(Get-Item "BRC_Unicode_64/brc64.exe").VersionInfo.ProductVersionRaw.ToString()'
@@ -70,5 +58,4 @@ package() {
     mkdir -p "${a}"
     cp "BRC_Unicode_64"/* "${a}"
     mv "${a}/BRC64.exe" "${a}/BRC.exe"
-    _lc "${a}"/*
 }

@@ -32,34 +32,22 @@ extract_https@subdir() {
 _realname=crystalcpuid
 _dirname=crystal
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=4.1.5
 pkgrel=2
 pkgdesc="A CPU utility (Crystal Dew World)"
 url="https://crystalmark.info/software/CrystalCPUID/index-e.html"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("CrystalCPUIDx64.zip::https@subdir://crystalmark.info/download/archive/CrystalCPUID/CrystalCPUID${pkgver//./}x64.zip")
 sha512sums=('955a7f19b4ec651a7d07e5e800e2b40a1735056dfe2ed72d12ac93b75530d5b9973c707607a2015bc970c4904a34048d3f1c637c49599247a938d827fcf13d67')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     depends=("app-crystalsysinfo")
@@ -69,5 +57,4 @@ package() {
     cp -R "CrystalCPUIDx64"/* "${a}"
     mv "${a}/CrystalCPUIDx64.exe" "${a}/CrystalCPUID.exe"
     rm -R "${a}"/*SysInfo* "${a}/data"
-    _lc "${a}"/*
 }

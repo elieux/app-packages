@@ -2,8 +2,8 @@
 
 _realname=opera-mail
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.0.1044
 pkgrel=1
 pkgdesc="A lightweight, customizable mail client"
@@ -11,26 +11,13 @@ url="https://ftp.opera.com/pub/opera/mail/"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("Opera-Mail.i386.exe::https://ftp.opera.com/pub/opera/mail/${pkgver%.*}/win/Opera-Mail-${pkgver%.*}-${pkgver##*.}.i386.exe")
 sha512sums=('9048a51fecda9a8694bfc00936eda758d20cbd7fb342f43118f73be86920cf59da062cf00f23bef50382ba87841e6592051fca05b4fad55a855ef4ff02765e92')
 noextract=("Opera-Mail.i386.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 prepare() {
     7z x -y -bd "Opera-Mail.i386.exe" -o"Opera-Mail.i386.dir" > /dev/null
@@ -41,5 +28,4 @@ package() {
     mkdir -p "${a}"
     cp -R "Opera-Mail.i386.dir"/* "${a}"
     rm -R "${a}/updatechecker" "${a}"/files*
-    _lc "${a}"/*
 }

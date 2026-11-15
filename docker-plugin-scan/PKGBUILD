@@ -3,18 +3,22 @@
 _realname=docker-plugin-scan
 _dirname=docker
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=0.26.0
 pkgrel=1
 pkgdesc="Vulnerability detection on your Dockerfiles and Docker images using Snyk"
 url="https://docs.docker.com/engine/scan/"
 arch=('any')
 license=('Apache')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("docker-scan_windows_amd64.exe::https://github.com/docker-archive-public/docker.scan-cli-plugin/releases/download/v${pkgver}/docker-scan_windows_amd64.exe")
 sha512sums=('89980689a343dbf7a40292ed17d1c03768d2133d01f0853293dd089e216368a153c0718764a7852f20776f05ad2eda343bc0447d0910a8eb5a9a5b346bb0d31d')
+noextract=("docker-scan_windows_amd64.exe")
 
 package() {
     depends=("app-docker-cli")

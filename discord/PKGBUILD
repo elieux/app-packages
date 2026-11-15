@@ -2,8 +2,8 @@
 
 _realname=discord
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.0.9267
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers"
@@ -11,8 +11,9 @@ url="https://www.discordapp.com/"
 arch=('any')
 license=('custom')
 makedepends=("brotli")
-provides=("${pkgbase}")
-replaces=("app-i686-${_realname}")
+replaces=("app-i686-${_realname}" "app-x86_64-${_realname}")
+conflicts=("app-i686-${_realname}" "app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("discord.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/full.distro"
         "discord_clips-1.tar.br::https://stable.dl2.discordapp.net/distro/app/stable/win/x64/${pkgver}/discord_clips/1/full.distro"
@@ -81,21 +82,6 @@ noextract=("discord.tar.br"
            "discord_voice-1.tar.br"
            "discord_zstd-1.tar.br")
 
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
-
 _rmmsdll() {
     local ms
 
@@ -138,5 +124,4 @@ package() {
         fi
     done
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

@@ -2,8 +2,8 @@
 
 _realname=mumble
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.5.939
 pkgrel=1
 pkgdesc="Open Source, Low Latency, High Quality Voice Chat"
@@ -11,7 +11,9 @@ url="https://www.mumble.info/"
 arch=('any')
 license=('BSD')
 makedepends=("app-lessmsi" "app-wix")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("mumble_client.x64.exe::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_client-${pkgver}.x64.exe"
         "mumble_server.x64.exe::https://github.com/mumble-voip/mumble/releases/download/v${pkgver}/mumble_server-${pkgver}.x64.exe")
@@ -20,21 +22,6 @@ sha512sums=('ed0ec2a887a057456b164bf4ba9cb005ec7bda72280f76bc82ba5f963aa9576f69d
 noextract=("mumble_client.x64.exe"
            "mumble_server.x64.exe")
 
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 _rmmsdll() {
     local ms
@@ -71,5 +58,4 @@ package() {
     cp -R "mumble_client.x64.dir/AttachedContainer/mumble_client-${pkgver}-x64/SourceDir/ProgramFiles64Folder/Mumble/client"/* "${a}"
     cp -R "mumble_server.x64.dir/AttachedContainer/mumble_server-${pkgver}-x64/SourceDir/ProgramFiles64Folder/Mumble/server"/* "${a}"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

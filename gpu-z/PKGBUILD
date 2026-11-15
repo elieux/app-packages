@@ -7,19 +7,22 @@ DLAGENTS=("https::/usr/bin/curl -qb '' -fL -d id=${_realver}&server_id=25 -o %o 
 
 _realname=gpu-z
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.71.0
 pkgrel=1
 pkgdesc="Lightweight utility providing GPU and graphics card information"
-arch=('any')
 url="https://www.techpowerup.com/gpuz/"
+arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=("curl")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("GPU-Z.exe::https://www.techpowerup.com/download/techpowerup-gpu-z/")
 sha512sums=('afc92c505c2ae4fa3f68b0f26aaaec83ec813c5745b4ee668e9f726670a724c28eec2553f90e6d7c2d9a25f60ced61f33c2edc9a81ae2f1d70d269cf445e9023')
-noextract=()
+noextract=("GPU-Z.exe")
 
 pkgver() {
     powershell -command '(Get-Item "GPU-Z.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.][0-9]+$/\1/'

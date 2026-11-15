@@ -32,33 +32,22 @@ extract_https@subdir() {
 _realname=crystalmark
 _dirname=crystal
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2004R7
 pkgrel=1
 pkgdesc="A benchmarking software (Crystal Dew World)"
 url="https://crystalmark.info/software/CrystalMark/index-e.html"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("CrystalMark.zip::https@subdir://crystalmark.info/download/archive/CrystalMark/CrystalMark${pkgver}.zip")
 sha512sums=('2a1eb4ba35e3238dc67617db7e7af83089f5d26b542891ff02b11a44049b6c8bedc2256868cc605ee7953fece14020b79445c420524363c95b0c6d177696a894')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     depends=("app-crystalsysinfo")
@@ -67,5 +56,4 @@ package() {
     mkdir -p "${a}"
     cp -R "CrystalMark"/* "${a}"
     rm -R "${a}/data" "${a}"/*SysInfo*
-    _lc "${a}"/*
 }

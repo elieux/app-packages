@@ -31,18 +31,22 @@ download_https@subdir() {
 
 _realname=heidisql
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=12.22
 pkgrel=1
 pkgdesc="Free relational database graphical client"
 url="https://www.heidisql.com/"
 arch=('any')
 license=('GPL2')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("HeidiSQL_64_Portable.zip::https@subdir://github.com/HeidiSQL/HeidiSQL/releases/download/v${pkgver}/HeidiSQL_${pkgver}_64_Portable.zip")
 sha512sums=('781e934a94c16c4acc5187d55dfe9c5161d0550b4b0c7dc81e7ad737eca1260678337955a14efc370275507224f56ef07b677c2aa634c1a57b7732b8e28b6188')
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

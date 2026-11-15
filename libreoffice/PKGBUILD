@@ -2,20 +2,22 @@
 
 _realname=libreoffice
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=26.2.6
 pkgrel=1
 pkgdesc="The free office suite"
 url="https://www.libreoffice.org/"
 arch=('any')
 license=('LGPL3' 'custom:Apache')
-replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("LibreOffice_Win_x64.msi::https://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86_64/LibreOffice_${pkgver}_Win_x86-64.msi")
 sha512sums=('4e4027c07b45e73e24aaf07eaaa53d342cb27d78d2b39318c295dcb8457d6769c1ddef9eb406dfab4b0cc36839e59ab9b12722489ec59c6191838fd80bdca455')
+noextract=("LibreOffice_Win_x64.msi")
 
 prepare() {
     rm -fR "LibreOffice_Win_x64"

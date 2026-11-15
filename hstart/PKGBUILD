@@ -2,35 +2,22 @@
 
 _realname=hstart
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=5.2
 pkgrel=1
 pkgdesc="Bypass UAC, hide console windows, run apps in the background"
 url="https://www.ntwind.com/software/hstart.html"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
 makedepends=("p7zip")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("Hstart-setup.exe::https://hstart.s3.amazonaws.com/Hstart_${pkgver}-setup.exe")
 sha512sums=('5a714918fe411ed967196fd3d3dd3451d2f9413db568c8dbb28729637ca459060460473f1ddb323585908ba0d1af9d9d8e3a6356922d5677e5cf49c5a355f868')
 noextract=("Hstart-setup.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 prepare() {
     7z x -y -bd "Hstart-setup.exe" -o"Hstart-setup.dir" > /dev/null
@@ -41,5 +28,4 @@ package() {
     mkdir -p "${a}"
     cp -R "Hstart-setup.dir"/* "${a}"
     rm -R "${a}/uninst.exe" "${a}"/{'$PLUGINSDIR','$TEMP'}
-    _lc "${a}"/*
 }

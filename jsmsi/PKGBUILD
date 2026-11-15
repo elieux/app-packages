@@ -31,15 +31,18 @@ extract_https@subdir() {
 
 _realname=jsmsi
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2019.08.21
 pkgrel=2
 pkgdesc="MSI (Windows Installer) utilities from JSWare"
-arch=('any')
 url="https://jsware.net/jsware/msicode.php5"
+arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("jsmsix19.zip::https@subdir://www.jsware.net/jsware/zips/jsmsix19.zip"
         "msiext.zip::https://www.jsware.net/jsware/zips/msiext.zip"
@@ -63,21 +66,7 @@ sha512sums=('c602e266a31954f2dc260b2d0e72a11350fd98f8152a4ad10bb9514ce32ed05c681
             'aa9d1152bfbdc7e7c0fa632d5d8bd79d0a5db8261c7aeac5f380a0084d175e799c4c6f53d516bbeedab84fb968f23db7a93f5bb72bb8acd4ddeb128695d1d789'
             'f25cc0751f8a03119ce9023498cc38197b1a54e61c162dbfeeb71b61dc2f7535d0ca007949390f56260f82f503f89a0825226b335c7f61a72c2553010cab2090'
             'a95a7a68b231f4d880b3f9dc21924d113089bdf9bb91fc2e770a21286259f86c434735a52e7fa32acb4bcd93da8fe9255e4dacb96e8d257478a03f796a3ffa53')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 pkgver() {
     find . -mindepth 2 -type f -printf '%TY.%Tm.%Td\n' | sort | tail -1
@@ -90,5 +79,4 @@ package() {
     rm "${a}"/*.zip
     mv "${a}/jsmsix19"/* "${a}"
     rm -R "${a}/jsmsix19"
-    _lc "${a}"/*
 }

@@ -2,39 +2,26 @@
 
 _realname=<customize>
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=<customize>
 pkgrel=1
 pkgdesc="<customize>"
 url="<customize>"
 arch=('any')
 license=('<customize>')
-provides=("${pkgbase}")
+makedepends=()
+replaces=()
+conflicts=()
+provides=()
 options=(!strip)
 source=("<customize>::<customize>")
-md5sums=('<customize>')
+sha512sums=('<customize>')
+noextract=()
 
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 package() {
-    depends=("<customize>")
-
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "<customize>"/* "${a}"
-    _lc "${a}"/*
 }

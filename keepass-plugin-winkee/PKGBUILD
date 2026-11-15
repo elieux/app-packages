@@ -32,18 +32,22 @@ extract_https@subdir() {
 _realname=keepass-plugin-winkee
 _dirname=keepass
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.39.1
 pkgrel=2
 pkgdesc="A KeePass plugin that opens databases using Windows account credentials"
 url="https://keepass.info/plugins.html#winkee"
 arch=('any')
 license=('unknown')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("WinKee.zip::https@subdir://keepass.info/extensions/v2/winkee/WinKee-${pkgver}.zip")
 sha512sums=('3851963855b4c2bf4efaefbf5e06d76fe7165037dacd334bbfb4646fe151ee0d1488c9bf6c991c52ddd911aca7609dab886ead56856229852383f079dcf68eec')
+noextract=()
 
 package() {
     depends=("app-keepass")

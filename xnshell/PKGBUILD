@@ -32,35 +32,24 @@ download_https@subdir() {
 _dirname=xnview
 _realname=xnshell
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=4.2.5
 pkgrel=1
 pkgdesc="A powerful shell extension with image preview and transforms"
 url="https://www.xnview.com/en/xnshell/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("XnShellEx64.zip::https@subdir://download.xnview.com/old_versions/XnShellEx/XnShellEx64-${pkgver}.zip"
         "XnShellEx.zip::https://download.xnview.com/old_versions/XnShellEx/XnShellEx-${pkgver}.zip")
 sha512sums=('13b9a13248513fa47c4a8aa00962497da71566c264195152ef7dab663468b60446fdeb8ffb75d7878de29fee4cda51dd679434bd9a11e214350d9468a9dc6864'
             '483636cfebbb1f12f7987626fb8950ad414cd678b1b9f791eac1a5971f1e0cad74978c2bb4281562ddd65a43da24b1c32ddcfb4a1c7a9011b4a92bbfaea4bfb5')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 _rmmsdll() {
     local ms
@@ -82,5 +71,4 @@ package() {
     cp -R "XnShellEx64/XnShellEx"/* "${a}/ShellEx64"
     cp -R "XnShellEx"/* "${a}/ShellEx"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

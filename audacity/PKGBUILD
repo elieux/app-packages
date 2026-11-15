@@ -2,18 +2,22 @@
 
 _realname=audacity
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=4.0.1
 pkgrel=1
 pkgdesc="Audio editor"
 url="https://www.audacityteam.org/"
 arch=('any')
 license=('GPL3')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("audacity-win-x86_64.7z::https://github.com/audacity/audacity/releases/download/Audacity-${pkgver}/audacity-win-${pkgver}-x86_64.7z")
 sha512sums=('ef4b138cb456508f3d4b492296c10f64b20f4f0ae7e83634bd6d844ce0fdc15039d53a539e6459e55ec5e84dd5bb4e81b8921a4205c928a521302415231e93f1')
+noextract=()
 
 _rmmsdll() {
     local ms

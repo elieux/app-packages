@@ -3,8 +3,8 @@
 _realname=wincheater-skineditor
 _dirname=wincheater
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.02
 pkgrel=1
 pkgdesc="Skin designer for WinCheater"
@@ -12,25 +12,13 @@ url="https://www.cheater.cz/wincheater2/download-ostatni/"
 arch=('any')
 license=('custom')
 makedepends=("upx")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("SkinEditor2.exe::https://web.archive.org/web/20061218234805if_/http://www.cheater.cz:80/download/SkinEditor2.exe")
 sha512sums=('85c5537d596de07847697cd7a1592a473bbd86e5affe9a5272ac90bace26ed558d0cd2e05e57edd6bf8f16367f46e46f770d16972e520d6b0802e29fc5af80f3')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("SkinEditor2.exe")
 
 prepare() {
     upx -q -f -o "SkinEditor2.exe.unpx" -d "SkinEditor2.exe"
@@ -44,5 +32,4 @@ package() {
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
     cp "SkinEditor2.exe" "${a}"
-    _lc "${a}"/*
 }

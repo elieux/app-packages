@@ -2,8 +2,8 @@
 
 _realname=wire
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=3.44.5380
 pkgrel=1
 pkgdesc="Desktop Wire client"
@@ -11,25 +11,13 @@ url="https://www.wire.com/"
 arch=('any')
 license=('custom')
 makedepends=("p7zip" "unzip")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("Wire-Setup.exe::https://wire-app.wire.com/win/prod/Wire-Setup.exe")
 sha512sums=('b2137c4f6f63aa6cbed70517decafa0c57518d5dd4de84859fed20a6c7519424242b37a0050e72cfd0ee9c2342a040bcc3d76591eac8d4bd85c90eeecfe9b0ec')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("Wire-Setup.exe")
 
 _rmmsdll() {
     local ms
@@ -60,5 +48,4 @@ package() {
     mkdir -p "${a}"
     cp -R "wire-full/lib/net45"/* "${a}"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

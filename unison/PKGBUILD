@@ -2,19 +2,22 @@
 
 _realname=unison
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.54.0
 pkgrel=1
 pkgdesc="Two-way file synchronizer"
 url="https://www.cis.upenn.edu/~bcpierce/unison/"
 arch=('any')
 license=('GPL')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("unison-windows-x86_64.zip::https://github.com/bcpierce00/unison/releases/download/v${pkgver}/unison-${pkgver}-windows-x86_64.zip")
 sha512sums=('8cebbb7f1c3f450708bb3c3965ef4470100754df5f10edeec3961fe372f3d48d128907a0bfa2ee91e35bc2f179715482ff36548d54dc36d6a8f75ea2acadd6e6')
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

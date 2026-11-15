@@ -34,23 +34,31 @@ Building
   - If it complains about missing dependencies, install them with `pacman`.
 6. Enjoy. You can install the package by running `pacman -U <pkgfile>.pkg.tar.*`.
 
+Epochs
+------
+
+- Epoch 0 supported both i686 and x86_64 where possible and separated extra stuff like docs.
+- Epoch 1 targeted only x86_64 (and WoW64) but kept architecture in package names and put all files back together.
+- Epoch 2 (current) got rid of lowercasing file names and of the architecture infixes.
+
 Guidelines for recipes
 ----------------------
 
 - Follow MSYS2 and Arch Linux guidelines except where stated otherwise.
 - Follow the style set in existing recipes.
+- Keep recipes self-contained and compatible with Arch Linux as much as possible.
 - Use 64-bit builds where available.
 - Prefer HTTPS URLs.
 - De-duplication takes place only on the level of whole applications, e.g. every package includes its own OpenSSL library, if it needs one, but a TeX editor and a TeX distribution should be separate packages.
 - Include all available localizations.
 - User configuration goes into per-user directories.
-- Files and directories in the first level of the package should be lower-case. Main executables should be spaceless.
+- Main executables should be spaceless.
 - Do not include auto-updaters and uninstallers.
-- Do not include copies of Microsoft re-distributable libraries, e.g. `msvc*.dll`, `mfc*.dll`, `atl*.dll`. `msvb*.dll`.
+- Do not include copies of Microsoft's re-distributable libraries, e.g. `msvc*.dll`, `mfc*.dll`, `atl*.dll`. `msvb*.dll`.
 - If the URL in `$source` doesn't use `$pkgver`, create a `pkgver()` function. If the URL in `$source` is dependent on version, but unpredictable, use a `$_realver`.
 - `prepare()` is for extracting and various file manipulations; anything complex like silent installs go into `build()`.
 - If you're extracting a downloaded file in `prepare()`, put it into `$noextract`.
-- Declare runtime dependencies inside `package()`. This way makepkg doesn't consider them as build dependencies.
+- Declare runtime dependencies inside `package()`. This way makepkg doesn't require them as build dependencies.
 - Extract everything into subdirectories. Suppress verbose output, but not errors.
 - Know that the working directory is set to `$srcdir` and don't change it much.
 - Know that you can use the results of `prepare()` in `pkgver()`.
@@ -58,6 +66,7 @@ Guidelines for recipes
 - Indent code using 4 spaces.
 - Use aliases in `$source` and don't leave version numbers in them.
 - Try to copy everything in `package()` and then move or delete what's necessary. This way, if there's a new file upstream, it won't get overlooked.
+- Create an `updpkgsrc` script if possible to facilitate automatic updates. Ideally re-use one of the existing patterns from other recipes.
 
 References for recipes
 ----------------------

@@ -32,34 +32,22 @@ extract_https@subdir() {
 _realname=crystaldiskinfo
 _dirname=crystal
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=9.9.3
 pkgrel=1
 pkgdesc="A disk utility (Crystal Dew World)"
 url="https://crystalmark.info/software/CrystalDiskInfo/index-e.html"
 arch=('any')
 license=('MIT')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("CrystalDiskInfo.zip::https@subdir://downloads.sourceforge.net/crystaldiskinfo/CrystalDiskInfo${pkgver//./_}.zip")
 sha512sums=('81efa6d1fac2bb434b4e37579855ca42ce8088613d710e887654a943016a35fa24bb7e19e6b475b31466d092ef2ce87b89742b79e0bad8ee62ed8584f855914a')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"
@@ -69,5 +57,4 @@ package() {
     mv "${a}/DiskInfo64.exe" "${a}/CrystalDiskInfo.exe"
     mv "${a}/License" "${a}/CdiLicense"
     mv "${a}/ReadMe.txt" "${a}/CdiReadMe.txt"
-    _lc "${a}"/*
 }

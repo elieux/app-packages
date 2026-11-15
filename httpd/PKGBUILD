@@ -35,33 +35,22 @@ download_https@subdir() {
 _realname=httpd
 _realver=261002
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.4.69
 pkgrel=1
 pkgdesc="A high performance Unix-based HTTP server"
 url="https://httpd.apache.org/"
 arch=('any')
 license=('Apache')
-provides=("${pkgbase}")
+makedepends=("curl")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("httpd-win64-VS18.zip::https@subdir://www.apachelounge.com/download/VS18/binaries/httpd-${pkgver}-${_realver}-win64-VS18.zip")
 sha512sums=('b5198796e28fd985225df36cb3e65226a423bb48df5b111c91439c59d558fd9db1868f838c927e79b7a30b7b0c1c6fa0e4bea767a3908a5187745158e22e9269')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
@@ -71,5 +60,4 @@ package() {
     rm "${a}/-- Win64 VS18  --"
     mv "${a}/Apache24"/* "${a}"
     rm -R "${a}/Apache24" "${a}/conf/original" "${a}/logs"
-    _lc "${a}"/*
 }

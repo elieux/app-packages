@@ -2,16 +2,18 @@
 
 _realname=coreutils
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2026.9.3
 pkgrel=2
 pkgdesc="UNIX-style core utilities for Windows"
-arch=('any')
 url="https://github.com/microsoft/coreutils"
+arch=('any')
 license=('MIT')
 makedepends=("app-innounp")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("coreutils-x64.exe::https://github.com/microsoft/coreutils/releases/download/v${pkgver}/coreutils-${pkgver}-x64.exe")
 sha512sums=('72a30de0623049b33d858b8350052de63047c49f7bc7316ad8bb78c594b306ff781aa65b75906bf3395966c5ff69016b9ed814c43caafd6a29d2b5907779816a')

@@ -2,33 +2,22 @@
 
 _realname=xnview
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.52.7
 pkgrel=1
 pkgdesc="An efficient multimedia viewer, browser and converter"
 url="https://www.xnview.com/en/xnview/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("XnView-win-full.zip::https://download3.xnview.com/XnView-win-full.zip")
 sha512sums=('3daa7ebbdae178ac6f7a5448e2c8d446425b142c5a19bcc65767bbe0fee810f8a2071230ccf75f25f0e911a3b0df0bbf3a6eb6a46ff3dbab02036de86a802f8f')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 _rmmsdll() {
     local ms
@@ -63,5 +52,4 @@ package() {
     rm "${a}/nconvert.exe"
 
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

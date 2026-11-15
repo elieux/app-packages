@@ -2,8 +2,8 @@
 
 _realname=opera-mobile-emulator
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=12.10
 pkgrel=1
 pkgdesc="Mobile Opera Classic debugging on the desktop"
@@ -11,25 +11,13 @@ url="https://ftp.opera.com/pub/opera/sdlbream/"
 arch=('any')
 license=('custom')
 makedepends=("app-innounp")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("Opera_Mobile_Emulator_Windows.exe::https://ftp.opera.com/pub/opera/sdlbream/${pkgver/./}/Opera_Mobile_Emulator_${pkgver%0}_Windows.exe")
 sha512sums=('c64619a2b68bfc57f1da89d800a5ea3ca2a2df271d422720edfc424729407e1e1ebd53e1ab21e7367a8f3b903b799fbe2fbd501675320086333ca8faa7686302')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("Opera_Mobile_Emulator_Windows.exe")
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "Opera_Mobile_Emulator_Windows.exe" -d"Opera_Mobile_Emulator_Windows.dir"
@@ -39,5 +27,4 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "Opera_Mobile_Emulator_Windows.dir/{app}"/* "${a}"
-    _lc "${a}"/*
 }

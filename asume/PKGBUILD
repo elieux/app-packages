@@ -32,18 +32,22 @@ download_https@subdir() {
 _realname=asume
 _realver=73232
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=0.7.2
 pkgrel=1
 pkgdesc="Altap Salamander user menu editor"
 url="https://osdn.net/projects/asume/"
 arch=('any')
 license=('CC4-BY')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
-source=("asume_portable.7z::https@subdir://dotsrc.dl.osdn.net/osdn/asume/${_realver}/asume_portable_${pkgver}.7z")
+source=("asume_portable.7z::https@subdir://web.archive.org/web/20240124093917/https://dotsrc.dl.osdn.net/osdn/asume/${_realver}/asume_portable_${pkgver}.7z")
 sha512sums=('77bb8240b1ad7c1c8ec95f007c21b3a66b31c74099133c2371e97864f71a8a288a5258ca69aec2677b08850d8fef62e1347956298aa1800607896bb79efccd33')
+noextract=()
 
 package() {
     optdepends=("app-salamander")

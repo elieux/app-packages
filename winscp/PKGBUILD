@@ -2,8 +2,8 @@
 
 _realname=winscp
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=6.7
 pkgrel=1
 pkgdesc="An open source two-pane SFTP/FTP/WebDAV/SCP client"
@@ -11,25 +11,13 @@ url="https://winscp.net/"
 arch=('any')
 license=('custom')
 makedepends=("app-innounp")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("WinSCP-Setup.exe::https://download.sourceforge.net/winscp/WinSCP-${pkgver}-Setup.exe")
 sha512sums=('3a732adfd57a15cb2e74ea0a7fb0513162191b57b8144a46a528aa9a1df448175ebbbd7bddbfcccab9bf960f3e4d2d6cf8874b1eda18dd4ff3b4af5415fb6384')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("WinSCP-Setup.exe")
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "WinSCP-Setup.exe" -d"WinSCP-Setup.dir"
@@ -40,5 +28,4 @@ package() {
     mkdir -p "${a}"
     cp -R "WinSCP-Setup.dir/{app}"/* "${a}"
     rm -R "${a}/winscp.map" "${a}/putty"
-    _lc "${a}"/*
 }

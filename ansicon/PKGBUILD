@@ -31,33 +31,22 @@ download_https@subdir() {
 
 _realname=ansicon
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.89
 pkgrel=1
 pkgdesc="Process ANSI escape sequences for Windows console programs"
 url="http://adoxa.altervista.org/ansicon/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("ansicon-bin.zip::https@subdir://github.com/adoxa/ansicon/releases/download/v${pkgver}/ansi${pkgver/./}-bin.zip")
 sha512sums=('6a1f62bd8cf13487c16d62b17dbf03972da3f5162c14a47a1e765fa9212f5e02171cdc566eeb12745a82b819fedd3eff79330ba2bb9ed94d0c9a7f2ba93c248f')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
@@ -65,5 +54,4 @@ package() {
     cp -R "ansicon-bin"/* "${a}"
     mv "${a}/x64"/* "${a}"
     rm -R "${a}"/{x64,x86}
-    _lc "${a}"/*
 }

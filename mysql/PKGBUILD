@@ -2,19 +2,22 @@
 
 _realname=mysql
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=26.10.0
 pkgrel=1
 pkgdesc="Fast SQL database server, community edition"
 url="https://www.mysql.com/products/community/"
 arch=('any')
 license=('GPL')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("mysql-winx64.zip::https://dev.mysql.com/get/Downloads/MySQL-${pkgver%.*}/mysql-${pkgver}-winx64.zip")
 sha512sums=('c449c6074703b5ae0667214e37ab59c3c2112170494a769054b20eba3d48777a737a047715d9aad17bc31161137b04a601d9d30eade0bcf3ff025d945f351373')
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

@@ -32,18 +32,22 @@ extract_https@subdir() {
 _realname=keepass-plugin-pronounceable-password-generator
 _dirname=keepass
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.0.4b
 pkgrel=2
 pkgdesc="A KeePass plugin that generates pronounceable passwords"
 url="https://sourceforge.net/projects/pronouncepwgen/"
 arch=('any')
 license=('GPL3')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("PronouncePwGen.zip::https@subdir://downloads.sourceforge.net/pronouncepwgen/pronouncepwgen/${pkgver}/PronouncePwGen-${pkgver}.zip")
 sha512sums=('b746b3c6dff1452280d52a7fc0e10728e4f3745d4a52bf59815ff8910ad8188537fa4495a53c690024427bdf998772367c1a0b0c5c925d2d6789fb8f0608b62f')
+noextract=()
 
 package() {
     depends=("app-keepass")

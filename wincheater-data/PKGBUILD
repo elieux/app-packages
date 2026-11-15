@@ -4,33 +4,23 @@ DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -e "https://www.cheater.cz/" -o %o
 
 _dirname=wincheater
 pkgbase="app-wincheater-data"
-pkgname=("app-i686-wincheater-data-base"
-         "app-i686-wincheater-data-libs")
-epoch=1
+pkgname=("app-wincheater-data-base"
+         "app-wincheater-data-libs")
+epoch=2
 pkgver=2016.05.06
 pkgrel=3
+pkgdesc=""
 url="https://www.cheater.cz/wincheater2/download-knihovny/"
 arch=('any')
 license=('custom')
-makedepends=("unrar")
+makedepends=("curl" "unrar")
+replaces=()
+conflicts=()
+provides=()
 options=(!strip)
 source=("download-knihovny.html::${url}")
 sha512sums=('4aaa9da1499cf364e37ef6b61e9b488c4dbf2ef0b60b4309a7793fb248dfad0f672d2d4a5b760722212c9dc75a7057eeaa2c080565d0d4a54c0a7389109dfd82')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("download-knihovny.html")
 
 _despace() {
     local d f n
@@ -66,7 +56,6 @@ _dlread() {
 
 prepare() {
     source=()
-    noextract=()
 
     local n f h
     for n in $(cat "download-knihovny.html" | grep 'onclick="downloadx' | sed -r "s/.*downloadx\('(.*?)'\).*/\1/")
@@ -90,25 +79,28 @@ pkgver() {
     find . -name '*.sc2' -printf '%TY.%Tm.%Td\n' | sort | tail -1
 }
 
-package_app-i686-wincheater-data-base() {
+package_app-wincheater-data-base() {
     pkgdesc="Texts for WinCheater"
-    provides=("app-wincheater-data-base")
+    depends=()
+    replaces=("app-i686-wincheater-data-base")
+    conflicts=()
+    provides=()
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
     cp *.sct "${a}"
     _despace "${a}"/*
-    _lc "${a}"/*
 }
 
-package_app-i686-wincheater-data-libs() {
+package_app-wincheater-data-libs() {
     pkgdesc="Libraries for WinCheater"
-    provides=("app-wincheater-data-libs")
-    depends=("app-i686-wincheater")
+    depends=("app-wincheater")
+    replaces=("app-i686-wincheater-data-libs")
+    conflicts=()
+    provides=()
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}"
     cp *.sc2 "${a}"
     _despace "${a}"/*
-    _lc "${a}"/*
 }

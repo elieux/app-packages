@@ -32,34 +32,22 @@ extract_https@subdir() {
 _realname=crystaldiskmark
 _dirname=crystal
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=9.0.3
 pkgrel=1
 pkgdesc="A disk benchmarking software (Crystal Dew World)"
 url="https://crystalmark.info/software/CrystalDiskMark/index-e.html"
 arch=('any')
 license=('MIT')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("CrystalDiskMark.zip::https@subdir://downloads.sourceforge.net/crystaldiskmark/CrystalDiskMark${pkgver//./_}.zip")
 sha512sums=('c76b90ef6b8f676a5acffcf2716b5af397899c2c01ab66728ff89eaadd6343578f30fd0c9e01be9442e18f850eedfc867e004ad2fbfcf82c4258da78c06192e7')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"
@@ -71,5 +59,4 @@ package() {
     rm "${a}/CdmResource/DiskSpd"/DiskSpd32*.exe
     rm "${a}/CdmResource/DiskSpd"/DiskSpdA*.exe
     mv "${a}/ReadMe.txt" "${a}/CdmReadMe.txt"
-    _lc "${a}"/*
 }

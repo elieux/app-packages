@@ -2,19 +2,22 @@
 
 _realname=synctrayzor
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.2.0
 pkgrel=1
 pkgdesc="Tray utility / filesystem watcher / launcher for Syncthing"
 url="https://github.com/GermanCoding/SyncTrayzor"
 arch=('any')
 license=('MIT')
-makedepends=("mingw-w64-x86_64-jq")
-provides=("${pkgbase}")
+makedepends=("mingw-w64-ucrt-x86_64-jq")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("SyncTrayzorPortable-x64.zip::https://github.com/GermanCoding/SyncTrayzor/releases/download/v${pkgver}/SyncTrayzorPortable-x64.zip")
 sha512sums=('f2f9dc102da81d523cf0287fb8c9894fcba939edca254e9835161ff612ca47921dff59e470a2551ebbe2bfc5e266a4a80c70f41fdc2029d5cbc539fcc4024e12')
+noextract=()
 
 _dotnet() {
     local runtimetarget="$(cat "${1}.deps.json" | /ucrt64/bin/jq -r '.runtimeTarget.name')"
@@ -28,35 +31,6 @@ _dotnet() {
 
     cat "${1}.runtimeconfig.json" | /ucrt64/bin/jq '.runtimeOptions |= (.framework = .includedFrameworks[-1] | del(.includedFrameworks))' > "${1}.runtimeconfig.json.tmp"
     mv -f "${1}.runtimeconfig.json.tmp" "${1}.runtimeconfig.json"
-}
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
-
-_rmmsdll() {
-    local ms
-
-    ms=("msvbvm[0-9]+"
-        "ucrtbase"
-        "mfcm?[0-9]+[a-z]+"
-        "msvc[rp][0-9]+(_([0-9]|codecvt_ids|atomic_wait))?"
-        "vc([ao]mp|corlib|runtime)[0-9]+(_([0-9]|threads))?"
-        "concrt[0-9]+"
-        "pgort[0-9]+"
-        "api-ms-win-[0-9a-z-]+")
-    find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
 package() {
@@ -84,5 +58,4 @@ package() {
         -e 's~(<SyncthingDenyUpgrade>)false~\1true~' \
         -e 's~(<NotifyOfNewVersions>)true~\1false~'
 
-    _lc "${a}"/*
 }

@@ -31,37 +31,25 @@ extract_https@subdir() {
 
 _realname=colortool
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1904.29002
 pkgrel=1
 pkgdesc="Windows Console Colortool"
 url="https://github.com/microsoft/terminal/tree/master/src/tools/ColorTool"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("colortool.zip::https@subdir://github.com/microsoft/terminal/releases/download/${pkgver}/colortool.zip")
 sha512sums=('33fe16d675213fd09b80c5f0477471bc15b2f9cd3112fb5e78693ea9249e41beb52f3fddae6c168d1611d363df81a4683060cd4a61b3a266efada1b48b15c8c8')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "colortool"/* "${a}"
-    _lc "${a}"/*
 }

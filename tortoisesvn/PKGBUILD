@@ -2,122 +2,154 @@
 
 _realname=tortoisesvn
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.15.0.29830
 pkgrel=1
 pkgdesc="Subversion client implemented as a Windows shell extension"
 url="https://tortoisesvn.net"
 arch=('any')
 license=('GPL2')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}" "app-subversion" "app-x86_64-subversion")
+makedepends=("app-lessmsi")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=("app-subversion" "app-x86_64-subversion")
 options=(!strip)
 source=("TortoiseSVN-x64.msi::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-${pkgver}-x64-svn-1.15.0.msi"
-        "LanguagePack-x64-sq.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sq.msi"
         "LanguagePack-x64-ar.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ar.msi"
         "LanguagePack-x64-bg.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-bg.msi"
         "LanguagePack-x64-ca.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ca.msi"
-        "LanguagePack-x64-zh_CN.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-zh_CN.msi"
-        "LanguagePack-x64-zh_TW.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-zh_TW.msi"
-        "LanguagePack-x64-hr.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-hr.msi"
         "LanguagePack-x64-cs.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-cs.msi"
         "LanguagePack-x64-da.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-da.msi"
-        "LanguagePack-x64-nl.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-nl.msi"
-        "LanguagePack-x64-fi.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-fi.msi"
-        "LanguagePack-x64-fr.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-fr.msi"
-        "LanguagePack-x64-ka.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ka.msi"
         "LanguagePack-x64-de.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-de.msi"
         "LanguagePack-x64-el.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-el.msi"
+        "LanguagePack-x64-es.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-es.msi"
+        "LanguagePack-x64-fa.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-fa.msi"
+        "LanguagePack-x64-fi.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-fi.msi"
+        "LanguagePack-x64-fr.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-fr.msi"
+        "LanguagePack-x64-hr.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-hr.msi"
         "LanguagePack-x64-hu.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-hu.msi"
         "LanguagePack-x64-id.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-id.msi"
         "LanguagePack-x64-it.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-it.msi"
         "LanguagePack-x64-ja.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ja.msi"
+        "LanguagePack-x64-ka.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ka.msi"
         "LanguagePack-x64-ko.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ko.msi"
-        "LanguagePack-x64-lv.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-lv.msi"
         "LanguagePack-x64-lt.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-lt.msi"
+        "LanguagePack-x64-lv.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-lv.msi"
         "LanguagePack-x64-mk.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-mk.msi"
         "LanguagePack-x64-ml.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ml.msi"
         "LanguagePack-x64-nb.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-nb.msi"
+        "LanguagePack-x64-nl.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-nl.msi"
         "LanguagePack-x64-oc.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-oc.msi"
-        "LanguagePack-x64-fa.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-fa.msi"
         "LanguagePack-x64-pl.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-pl.msi"
-        "LanguagePack-x64-pt_BR.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-pt_BR.msi"
         "LanguagePack-x64-pt.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-pt.msi"
+        "LanguagePack-x64-pt_BR.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-pt_BR.msi"
         "LanguagePack-x64-ro.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ro.msi"
         "LanguagePack-x64-ru.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ru.msi"
-        "LanguagePack-x64-sr.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sr.msi"
         "LanguagePack-x64-sk.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sk.msi"
         "LanguagePack-x64-sl.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sl.msi"
-        "LanguagePack-x64-es.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-es.msi"
+        "LanguagePack-x64-sq.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sq.msi"
+        "LanguagePack-x64-sr.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sr.msi"
         "LanguagePack-x64-sv.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-sv.msi"
         "LanguagePack-x64-ta_IN.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-ta_IN.msi"
         "LanguagePack-x64-th.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-th.msi"
         "LanguagePack-x64-tr.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-tr.msi"
         "LanguagePack-x64-uk.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-uk.msi"
         "LanguagePack-x64-vi.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-vi.msi"
-        "TortoiseSVN-en.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-${pkgver%.*}-en.pdf"
-        "TortoiseMerge-en.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-${pkgver%.*}-en.pdf")
+        "LanguagePack-x64-zh_CN.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-zh_CN.msi"
+        "LanguagePack-x64-zh_TW.msi::https://downloads.sourceforge.net/tortoisesvn/LanguagePack_${pkgver}-x64-zh_TW.msi"
+        "TortoiseMerge-en.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseMerge-${pkgver%.*}-en.pdf"
+        "TortoiseSVN-en.pdf::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-${pkgver%.*}-en.pdf")
 sha512sums=('54742fe4bbd6b66725c550f044f39ee5d42696537be1516d3d5c0bfe487bde942f25f6f286d6daea3edf4158d554b33dd159f42adc87429aaf8a21e5e07f08e8'
-            '38493cfa50144ae097bf8141c36b0f86bde7605ab2034d96bfe10174375be39e552809a09c759de8c3feb3c3018f6dc54efc2baa2519b0d454fbb509096eb4d6'
             'd7fbd22f60e7b7752dc2cf58b2d25a69dc9e0f96907ae6e83eabdad809cd52ba610b73b49619906b6c639c2bc3ef60e686ff67ca8824425867af8b3ea7b030bc'
             'e1b1543d2c473b180cd415fe48e7456ce5ed0f6e192978ecbaa0cd64a685380bf1e2fd20a609459d213eab52f019f1e8022614fcdc9b0bb6d8d0b6d066ec6c70'
             'e8b451d1ff1623f4f3f8d856a306e41824dcb765e939c36c985c5ba7b1c7cbefa31725db75055e0b6db77b80fe41961aeb7f345b375b2733b72efbded50a99ef'
-            '3b4a1d20e60f471ab4372fac753ca583d64f92bd6c52b923c19ceda27e8b3cb2fcb3be97b292d1cf2513a63b278766302f335acf8746ae15e3dd4277edd9be09'
-            '856e054158be78f2297488af3e9ca28e43e2cfa151aeb13315c3a6d3f0533b8e9950df2674f1ce275bf1b6688f7e69955898d9b36270e673c3e1e6fb09c1b315'
-            '53229a3072142174b9d51e0b4d0e60fe25d2cff21e33ce9536e95f53518b394c6f43be29746f583355ab3e8750c046414b4b63b8dbd98bc95fe90473c8744c9a'
             'f7a87d92df4d666d63a069f2d6fded56bb2557ce68a93611b20b4262c88ae57fe0d974ce1e20d0045d2f2f854c81dcc92e70345389095d9ee5ac179e7a2a584a'
             '2e5b7fab6767e2db9195bc2c8408c511317c0aa54927f144e118aa70775b4cf893a4aa24b8f4ab6abb73393921283b667141711158fe5eb7cee367210dd4d6e7'
-            'ebe7b7acece368e0127059e4bb6da1858c3e0660d559c4fb31baf98f7c409752c605388bae82c326bc1c4d7039067bc58c70ac859d66ad7793192fa57849471e'
-            '625f5228ea532b7ec60a9f8ac6e8d96bed1352ed310d765dc9f77c3850a76a4829e9b67f09909745ba94d8c92dcf6b88f88128e0257b74909f1dddd1f15f323c'
-            '4b66539ea7fd99b25cc797e5d7410f7808fce70008f5f407ba8fff4ae4f6e576757b520b6c5bc5886f45b0f567d9c3c8702fe311f7858eefd914a210501eab5c'
-            '84467b29ac83a74b71555ab78dc917770b19907778585a11f6fce860f901be4a32a666ab8741a18524aa9780845d5781f6f565512f971a9ed2bc0efc86e08c86'
             'cbfa43987048be6c509a54fce4cb7f6872ee3e7af16da61ec2f58c2837259e3f3ce745c4ec4255bfbebb8920d7eb642581042bda47a7fa9614ca2f3a32217eb1'
             'bf7b4e882cabac446c69f29faf95ed486bcff3a7bfde06c285be33eb399e2d59016432c9ca2c86b71a2cc77f55c4b50a36f231e16e63e99f6ba160d2766835ae'
+            '9a1061b0c7341e30898fde3773b18eacd91d9a24818ebebd081eb9f1fc8cbd9010a22bee5b171e513708a5c58defd75f9b90733e0f8519d1a3f165dca72a50ce'
+            '93846a70c9fec0d03cb29d011b6419b9bb5eb10f81d71e4309959229c8ceaa643c5471e95373d73f85fc1f371dd8da2c1df36dad9a5715c2d3a9784e4f4e4c9b'
+            '625f5228ea532b7ec60a9f8ac6e8d96bed1352ed310d765dc9f77c3850a76a4829e9b67f09909745ba94d8c92dcf6b88f88128e0257b74909f1dddd1f15f323c'
+            '4b66539ea7fd99b25cc797e5d7410f7808fce70008f5f407ba8fff4ae4f6e576757b520b6c5bc5886f45b0f567d9c3c8702fe311f7858eefd914a210501eab5c'
+            '53229a3072142174b9d51e0b4d0e60fe25d2cff21e33ce9536e95f53518b394c6f43be29746f583355ab3e8750c046414b4b63b8dbd98bc95fe90473c8744c9a'
             '6e704bb4c77af72d99cc5d946049e7b2d5d3768f9ec56b927d92aba81a0d5bf0ccc240670a10f2af0d935d82777a1ac3700e3cf175af3a2e350b2f51e5bca911'
             '22ec5d33c3acb2fd1d1c8f082e3f779310ed1e2636374b3c90780fc2677adbb48f2098393f3a798f03bcb489f2bbf19dd0b16dbf40776911865a0abf999232a6'
             '0d3dad49ff097cba3cde138e20aed287505e293577868e5541a1d59ecd75fbd3e5f804802ba32b298fee3d7a850854570dcdad6af5385d05df587ab66d632463'
             '98a5c0223e44f5cdd2b6660bd89bc24be9a110b6475fa5ecf419913fad3b2d2ef7a4dc649e4b91ce08a1f4da781a6acc5a7876fe9a214d244c8604db1f21d2a3'
+            '84467b29ac83a74b71555ab78dc917770b19907778585a11f6fce860f901be4a32a666ab8741a18524aa9780845d5781f6f565512f971a9ed2bc0efc86e08c86'
             '2d149358986b07098e2658a50c6ecb3be0e8daef66f206c12fabd9c7ed4b298d367494865526e94229356497a1e570d65808325209e98e70efbbeec5c2e46891'
-            '157ebeda70690741dcfa0b0b7de728bf9e25cc5782033b2e09d18668a3a83939dd4aa4e287b13c7b8b8302f8b103c50d19f16c1bc3c97a18106cfd1bb1a72bc1'
             'fbb1fbe79b22c7fe2ad57cc49e2bcf123d5b70f46c389185a52265279464b1b1ab9799ef781a7c2642f6621a8efe626f5e33d8926ff7ff4b51de36ba665208b5'
+            '157ebeda70690741dcfa0b0b7de728bf9e25cc5782033b2e09d18668a3a83939dd4aa4e287b13c7b8b8302f8b103c50d19f16c1bc3c97a18106cfd1bb1a72bc1'
             '200956279d357fe2a2c1d3bd637743670991972e5dc2c304f2914f62772545af13198575a38ad87ab9224f7bab43ad4bcf5fd53757c515c8e4f8a6601a162cdf'
             '2c254e5c92159e1dfa81190aa7c062bb4a768d2b8cbe563ad0c385aaf6979da1ee50717244451d6a58dd96cdbae9d9890386205b720951e136551f79511e6f6e'
             'bdc7e4dfb157fdf6dbf6337e831f41d83779a5a3437368e1793a53c43a0d7ad45fa2db5e34419370263d05a19bc007bc4abe640017df7cb1757b5280050aa981'
+            'ebe7b7acece368e0127059e4bb6da1858c3e0660d559c4fb31baf98f7c409752c605388bae82c326bc1c4d7039067bc58c70ac859d66ad7793192fa57849471e'
             '5692715030236c17a24d00f2e6b261c7ee8b394349e2b24e507c87ca3bdf968f5aba72737f89daf859482722d60bc58304b3cf13e542e016e503ef27f7921791'
-            '93846a70c9fec0d03cb29d011b6419b9bb5eb10f81d71e4309959229c8ceaa643c5471e95373d73f85fc1f371dd8da2c1df36dad9a5715c2d3a9784e4f4e4c9b'
             '036535b705f9f6955a9101d59ec3e0f2bd7dda2d3059bd49a4b311ab68996bf2e672b3be227d45a97be409941e0e9ea33b9baf374d9642b6b3f1b8c98fa4cffe'
-            '269109cbe05acd784a1fecb8d0a568490957b41600e1b8e6caa76bbbf14e336eb57ca9123b524aaf96c44dd6e2b252f8c9c292db67abda5cf2ee9d81e2626b9d'
             '24f4a914484a816611d65d442c6d9bf8563d1512ce875d9ddf99b9e729369bf3c05d1570f700f2361e5976b165fd352fb6525416c86d141d0ae4a1ba0b9c45d8'
+            '269109cbe05acd784a1fecb8d0a568490957b41600e1b8e6caa76bbbf14e336eb57ca9123b524aaf96c44dd6e2b252f8c9c292db67abda5cf2ee9d81e2626b9d'
             'ca24d82e0f72c341087eeebdbabfbad9a06f54fca484cd97b500d4ce0b35fac5f45b0f2046cd61b3b5803ff3eb885788138445d483317f8ff93ce0ecd0c13013'
             '56a73888ca4263448c256077302e082d6c0d8e0969554f6f52a2bb9b9382784324e1c98c34b46bbd2e5fb99e9837813fb8afda5b3170dd65472a5822b4038c71'
-            'cf8535b429d9616270e94d28e93e33fd477eb1193403de4bbe3805c2ed64a8f137e92cbc4579b8cb159145bc222c48a94a684d0dd23cd5c03fe5fbbe16105e00'
             '475239826db81791bd798f621687724524fd54387ae28734fe839dece391694c973fc46fc07e6405753ca7acdbaee9d089f8abfe42e9433ef88dcb26c3c11457'
             'd2e42705b1eddf7578709c7e589a8d1ed8e5d398ba363f99eb92a9358b95d91d77f9a9dbc16b5520d4340290d07d49d7c1ce60db24ad25f1686701bfa9a4eb72'
-            '9a1061b0c7341e30898fde3773b18eacd91d9a24818ebebd081eb9f1fc8cbd9010a22bee5b171e513708a5c58defd75f9b90733e0f8519d1a3f165dca72a50ce'
+            '38493cfa50144ae097bf8141c36b0f86bde7605ab2034d96bfe10174375be39e552809a09c759de8c3feb3c3018f6dc54efc2baa2519b0d454fbb509096eb4d6'
+            'cf8535b429d9616270e94d28e93e33fd477eb1193403de4bbe3805c2ed64a8f137e92cbc4579b8cb159145bc222c48a94a684d0dd23cd5c03fe5fbbe16105e00'
             '01ac448f03eb095b57aad8251b5381a67bd6b6ec62d04d2b7b6ab469edd9ab3aeff3f24e70d8a62a1800c6b83d22b1b470c5231e25d731927f39840f42e61ce9'
             '9da24fa144b9a3d0eee46452b2d75168018fd1a4c56c84e4c44b6fe8da1083bca54e0d07244f65a2c2c6b9eb2d9a1a75fb1be5758fcbe3c20f2dd8d19fbfac63'
             'f8bc343fcf9e34c05386412b436863ca69918e3cbfcd5cbbcee8e2072adaa3e686eeb699de02a86e0a7a5eba9489a3f53aa82b89321dbad5deec78bf4c812fa0'
             '181ae0e644714623ebd36b8d79ada645bf8114aa310e6a43102ef18fbf650db5889c127f131beada4111814aff97e3733e77760a3886eb89fcd5ba8cf172d7da'
             '47f53bfba09de070277263e7b7e621e20ff0eca37f111bfa95cce5cf02355ca09863c03e6e6508b5353225c165d4f11b29a77f6cb8f899baa1850966f5f9b56c'
             'e24bab57d05be9f9b5d7a414f73a16502dfa83b047f8907260244c8a5811f59a4337166ae01056d39ce635b29953c6fff7f3319592c341490155b13f6a6c76c8'
-            'b08f7886e45673b0141484e0261c62728b0136b0d6f34a4204a413713d66d9c1beea33da1a1d207312888ac1e495ff71995378f934e8524f66f69f6b475c2a16'
-            '6c37697d3e1426db5c062d8feebff7d6a8ecd5122b133ab5325710c19926a178e3ea066316e4bd9777a20b3da3410e8ff262f69763a2916ac1b8bd6d45d37305')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+            '3b4a1d20e60f471ab4372fac753ca583d64f92bd6c52b923c19ceda27e8b3cb2fcb3be97b292d1cf2513a63b278766302f335acf8746ae15e3dd4277edd9be09'
+            '856e054158be78f2297488af3e9ca28e43e2cfa151aeb13315c3a6d3f0533b8e9950df2674f1ce275bf1b6688f7e69955898d9b36270e673c3e1e6fb09c1b315'
+            '6c37697d3e1426db5c062d8feebff7d6a8ecd5122b133ab5325710c19926a178e3ea066316e4bd9777a20b3da3410e8ff262f69763a2916ac1b8bd6d45d37305'
+            'b08f7886e45673b0141484e0261c62728b0136b0d6f34a4204a413713d66d9c1beea33da1a1d207312888ac1e495ff71995378f934e8524f66f69f6b475c2a16')
+noextract=("TortoiseSVN-x64.msi"
+           "LanguagePack-x64-ar.msi"
+           "LanguagePack-x64-bg.msi"
+           "LanguagePack-x64-ca.msi"
+           "LanguagePack-x64-cs.msi"
+           "LanguagePack-x64-da.msi"
+           "LanguagePack-x64-de.msi"
+           "LanguagePack-x64-el.msi"
+           "LanguagePack-x64-es.msi"
+           "LanguagePack-x64-fa.msi"
+           "LanguagePack-x64-fi.msi"
+           "LanguagePack-x64-fr.msi"
+           "LanguagePack-x64-hr.msi"
+           "LanguagePack-x64-hu.msi"
+           "LanguagePack-x64-id.msi"
+           "LanguagePack-x64-it.msi"
+           "LanguagePack-x64-ja.msi"
+           "LanguagePack-x64-ka.msi"
+           "LanguagePack-x64-ko.msi"
+           "LanguagePack-x64-lt.msi"
+           "LanguagePack-x64-lv.msi"
+           "LanguagePack-x64-mk.msi"
+           "LanguagePack-x64-ml.msi"
+           "LanguagePack-x64-nb.msi"
+           "LanguagePack-x64-nl.msi"
+           "LanguagePack-x64-oc.msi"
+           "LanguagePack-x64-pl.msi"
+           "LanguagePack-x64-pt.msi"
+           "LanguagePack-x64-pt_BR.msi"
+           "LanguagePack-x64-ro.msi"
+           "LanguagePack-x64-ru.msi"
+           "LanguagePack-x64-sk.msi"
+           "LanguagePack-x64-sl.msi"
+           "LanguagePack-x64-sq.msi"
+           "LanguagePack-x64-sr.msi"
+           "LanguagePack-x64-sv.msi"
+           "LanguagePack-x64-ta_IN.msi"
+           "LanguagePack-x64-th.msi"
+           "LanguagePack-x64-tr.msi"
+           "LanguagePack-x64-uk.msi"
+           "LanguagePack-x64-vi.msi"
+           "LanguagePack-x64-zh_CN.msi"
+           "LanguagePack-x64-zh_TW.msi"
+           "TortoiseMerge-en.pdf"
+           "TortoiseSVN-en.pdf")
 
 _rmmsdll() {
     local ms
@@ -140,7 +172,6 @@ prepare() {
         rm -fR "${f%.msi}"
         /apps/lessmsi/lessmsi x "${f}" > /dev/null
     done
-    _lc "TortoiseSVN-x64/SourceDir/Program Files/TortoiseSVN"/*
     rm "LanguagePack-x64-pt/SourceDir/PFiles/TortoiseSVN/Languages"/pt_BR.* # There's a separate language pack for pt_BR
 }
 

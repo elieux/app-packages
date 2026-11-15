@@ -1,7 +1,5 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
-#DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -e "https://www.nirsoft.net/" -o %o %u')
-
 _extract_subdir() {
     local _file="$(get_filename "${1}")"
     local _dir="${_file%.*}"
@@ -34,16 +32,18 @@ extract_https@subdir() {
 _realname=nirsoft-extra
 _dirname=nirsoft
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2018.09.01
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Nir Sofer (utilities not included with the launcher)"
 url="https://www.nirsoft.net/"
 arch=('any')
 license=('custom')
-makedepends=("unzip") #"curl")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("accesspv.zip::https@subdir://www.nirsoft.net/utils/accesspv.zip"
         "acm.zip::https@subdir://www.nirsoft.net/utils/acm.zip"
@@ -131,21 +131,7 @@ sha512sums=('4091bd243a84bb473a90025f822a949d3b6ed826fccb790a092a946b4e170c2ad24
             '8b382f1e6aaecb13f9af33d9bf411697851af26c2e3aaea367d36c89e288412f0a5ca03f5bc0eb71510c5804f64e9aa395a548a09fbe1d54ae2e47aa59d087c5'
             '46b74616c4750b61ccd99fec82b94a1ac5cfe356002fc7e45b6285ba8dbf0e2b804781e08d3f4c10946c333b4223069d9ee9ea05e3ef50388b00e9d8a254f80f'
             'f02e51b32e38b0dbf199f7631c3acc03c08be27b0ead3ce9d79e81db9f4bec5aa9a106191b84d72035e58de7fc7731887040d4a12f894b414269e68b4fdd5305')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 pkgver() {
     find . -name '*.exe' -printf '%TY.%Tm.%Td\n' | sort | tail -1
@@ -168,5 +154,4 @@ package() {
     done
     rm "${a}"/{mswinsck.ocx,regsvr32.exe,psapi.dll,vcsource.zip,main.cpp,main.manifest,resource.h,script1.aps,script1.rc}
 
-    _lc "${a}"/*
 }

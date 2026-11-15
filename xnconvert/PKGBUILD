@@ -2,33 +2,22 @@
 
 _realname=xnconvert
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.105.0
 pkgrel=1
 pkgdesc="A bulk image converter"
 url="https://www.xnview.com/en/xnconvert/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("XnConvert-win-x64.zip::https://download.xnview.com/old_versions/XnConvert/XnConvert-${pkgver}-win-x64.zip")
 sha512sums=('a7d6b5aa47d65bd2eff751e24937bf4804db5a5a4a6df108a39371d43bbc4c82cc4f83b615ff80f3c3abf41e2bd701178370f1eb251609837770e807f7353ffc')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 _rmmsdll() {
     local ms
@@ -50,5 +39,4 @@ package() {
     cp -R "XnConvert"/* "${a}"
     _rmmsdll "${a}"
     rm "${a}/Latest supported Visual C++ Redistributable downloads - Microsoft Learn.url"
-    _lc "${a}"/*
 }

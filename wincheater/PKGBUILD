@@ -4,35 +4,23 @@ DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -e "https://www.cheater.cz/" -o %o
 
 _realname=wincheater
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.07
 pkgrel=1
 pkgdesc="Video game cheats and guides database viewer"
 url="https://www.cheater.cz/wincheater2/info/"
 arch=('any')
 license=('custom')
-makedepends=("app-innounp")
-provides=("${pkgbase}")
+makedepends=("curl" "app-innounp")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=()
 sha512sums=()
+noextract=()
 _sha512sum='2393598013e1d1d6439082395e3ee1c7aef161d7da33007f56d30feccc14ee557ef9a5da1ecf55a4d12ee7eb23acf12a6516cc019bb1b4560dec3622ed907fad'
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 _dl() {
     (
@@ -71,12 +59,11 @@ pkgver() {
 }
 
 package() {
-    depends=("app-i686-wincheater-data-base")
-    optdepends=("app-i686-wincheater-data-libs: Databases")
+    depends=("app-wincheater-data-base")
+    optdepends=("app-wincheater-data-libs: Databases")
 
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "WinCheater2_setup.dir/{app}"/* "${a}"
     rm "${a}/texty.sct" "${a}"/*.sc2
-    _lc "${a}"/*
 }

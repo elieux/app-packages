@@ -14,34 +14,22 @@ download_https@custom() {
 
 _realname=easy-window-switcher
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.3.0
 pkgrel=1
 pkgdesc="Tabbing between windows of the same program"
-arch=('any')
 url="https://neosmart.net/EasySwitch/"
+arch=('any')
 license=('custom')
 makedepends=("curl")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("Easy-Window-Switcher.exe::https@custom://")
 sha512sums=('65b5b62213c533c25f0c0716247fd4759767ee3f3248d6b98d58d6ae46a2a915dfa8bbe9730e4008371163ea5ba5f8559d4bf445593f18cec37d895e44dad12b')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("Easy-Window-Switcher.exe")
 
 pkgver() {
     powershell -command '(Get-Item "Easy-Window-Switcher.exe").VersionInfo.ProductVersion' | sed -r 's/^([0-9]+[.][0-9]+[.][0-9]+)[.][0-9]+$/\1/'
@@ -51,5 +39,4 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp "Easy-Window-Switcher.exe" "${a}"
-    _lc "${a}"/*
 }

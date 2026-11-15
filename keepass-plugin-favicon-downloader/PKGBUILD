@@ -3,18 +3,22 @@
 _realname=keepass-plugin-favicon-downloader
 _dirname=keepass
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.9.0
 pkgrel=2
 pkgdesc="A KeePass plugin that downloads and stores favicons"
 url="https://sourceforge.net/projects/keepass-favicon/"
 arch=('any')
 license=('GPL2')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("KeePassFaviconDownloader.plgx::https://downloads.sourceforge.net/keepass-favicon/${pkgver}/KeePassFaviconDownloader.plgx")
 sha512sums=('9d1f01e5736d2d66c8c4616c59409b7b5f09b192309686299ae270e9db55a2c853c8ff273fe4f9c87510d9a20f3c06a869b3a0ce454695505beb75bac167f6bc')
+noextract=("KeePassFaviconDownloader.plgx")
 
 package() {
     depends=("app-keepass")

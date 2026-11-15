@@ -2,37 +2,24 @@
 
 _realname=winmerge
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.16.60
 pkgrel=1
 pkgdesc="A differencing and merging tool"
 url="https://winmerge.org/"
 arch=('any')
 license=('GPL')
-replaces=("app-i686-${_realname}" "app-i686-winmerge-plugin-7z")
 makedepends=("app-innounp")
-provides=("${pkgbase}" "app-winmerge-plugin-7z" "app-x86_64-winmerge-plugin-7z")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}" "app-i686-winmerge-plugin-7z")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}" "app-i686-winmerge-plugin-7z")
+provides=("app-winmerge-plugin-7z")
 options=(!strip)
 source=("WinMerge-Setup.exe::https://github.com/WinMerge/winmerge/releases/download/v${pkgver}/WinMerge-${pkgver}-Setup.exe"
         "winmerge-x64-exe.zip::https://github.com/WinMerge/winmerge/releases/download/v${pkgver}/winmerge-${pkgver}-x64-exe.zip")
 sha512sums=('304c9ae4a8367f21fc6801aa0e03dc90856f4d0159dcfb8a6734cdc858293c57e2b0ac3496a2173b4e092009f943c3dfc7a292e8e32681e646be17890beefb00'
             'd4845d896e8ab315f2cb1d4409b16832538dc67952f3f5e4c73650686b82ba23093e2219e11c7f914096d00f5166c75f15b164446d2299ae9e2cedf6fc61c3f2')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("WinMerge-Setup.exe")
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "WinMerge-Setup.exe" -d"WinMerge-Setup.dir"
@@ -44,5 +31,4 @@ package() {
     cp -R "WinMerge"/* "${a}"
     cp -R "WinMerge-Setup.dir/{app}/LogoImages" "WinMerge-Setup.dir/{app}/WinMergeU.VisualElementsManifest.xml" "${a}"
     rm "${a}/vcomp140.dll"
-    _lc "${a}"/*
 }

@@ -2,8 +2,8 @@
 
 _realname=vortex
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.9.1
 pkgrel=1
 pkgdesc="The elegant, powerful, and open-source mod manager from Nexus Mods"
@@ -11,26 +11,13 @@ url="https://www.nexusmods.com/about/vortex/"
 arch=('any')
 license=('GPL3')
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("vortex-setup.exe::https://github.com/Nexus-Mods/Vortex/releases/download/v${pkgver}/vortex-setup-${pkgver}.exe")
 sha512sums=('93049d127f8d71c43645c203a003d2b87ffcefaa3a74f2506c6852734f259415e02d0fc0d376e68f7a9e5eb7750e5c326d35a2c4e0ed77f911591087d9dcf7c3')
 noextract=("vortex-setup.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 _rmmsdll() {
     local ms
@@ -57,5 +44,4 @@ package() {
     cp -R "app-64"/* "${a}"
     rm -R "${a}/resources/temp"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

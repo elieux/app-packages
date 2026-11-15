@@ -2,8 +2,8 @@
 
 _realname=nexus-mod-manager
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=0.93.8
 pkgrel=1
 pkgdesc="Game modifications manager originally from Nexus Mods"
@@ -11,25 +11,13 @@ url="https://www.nexusmods.com/site/mods/4"
 arch=('any')
 license=('GPL2')
 makedepends=("app-innounp")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("NMM.exe::https://github.com/Nexus-Mods/Nexus-Mod-Manager/releases/download/${pkgver}/NMM-${pkgver}.exe")
 sha512sums=('f3e63176855eb3a3aadf8b1ca4806a66369bb75eb0bc1238abc85af14177a9f7c231d5cdfe952bdea9aabc3b819b60b29e5c5fda1ecf133f9186d9a05d49a819')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("NMM.exe")
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "NMM.exe" -d"NMM.dir"
@@ -39,5 +27,4 @@ package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -R "NMM.dir/{app}"/* "${a}"
-    _lc "${a}"/*
 }

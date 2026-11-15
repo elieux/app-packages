@@ -31,38 +31,24 @@ download_https@subdir() {
 
 _realname=unbound
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.26.2
 pkgrel=1
 pkgdesc="Validating, recursive, and caching DNS resolver"
-arch=('any')
 url="https://nlnetlabs.nl/projects/unbound/about/"
+arch=('any')
 license=('custom:BSD')
-replaces=("app-i686-${_realname}")
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("unbound.zip::https@subdir://nlnetlabs.nl/downloads/unbound/unbound-${pkgver}.zip"
         "unbound_setup.exe::https://nlnetlabs.nl/downloads/unbound/unbound_setup_${pkgver}.exe")
 sha512sums=('dbcba8e62efef04d6638a5a4967877ffbef4c625b8e2644f811691e5cfe0919c4685467dc7a4727c108301d256a899e869cc018a823e821a46938b2ce8ffe7ac'
             '2f7eebfe960e727884ca7651c0ad7f4401f0d38761ac5e8c2782ff1e97dc960227726c889dd45be91a917b01456b1a63ce374dd424d3586cf792ec8aecb7d55b')
 noextract=("unbound_setup.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 prepare() {
     7z x -bd "unbound_setup.exe" -o"unbound_setup.dir" > /dev/null
@@ -73,5 +59,4 @@ package() {
     mkdir -p "${a}"
     cp -R "unbound"/* "${a}"
     cp -R "unbound_setup.dir/anchor-update.exe" "${a}"
-    _lc "${a}"/*
 }

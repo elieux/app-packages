@@ -2,8 +2,8 @@
 
 _realname=atube-catcher
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=10.8.7.0
 pkgrel=1
 pkgdesc="Downloads videos from the Internet"
@@ -11,25 +11,13 @@ url="https://www.atube.me/"
 arch=('any')
 license=('custom')
 makedepends=("app-innounp")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("aTube_Catcher.exe::http://files.dsnetwb.com/aTube_Catcher.exe")
 sha512sums=('7246c5a7f61d63c4c3f33e86646eb599d118577731c8f92222b52b24919be27825ad13f0ac74ea6d45ff4fb362ffff42c768c541dc8258414b53f68117b8602f')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("aTube_Catcher.exe")
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "aTube_Catcher.exe" -d"aTube_Catcher.dir"
@@ -45,5 +33,4 @@ package() {
     cp -R "aTube_Catcher.dir/{app}"/* "${a}"
     rm "${a}/aTubeCatcher,2.exe"
     mv "${a}/aTubeCatcher,1.exe" "${a}/aTubeCatcher.exe"
-    _lc "${a}"/*
 }

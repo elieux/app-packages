@@ -2,8 +2,8 @@
 
 _realname=postman
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=12.34.2
 pkgrel=1
 pkgdesc="A platform for building and using APIs"
@@ -11,26 +11,13 @@ url="https://www.postman.com/"
 arch=('any')
 license=('custom')
 makedepends=("p7zip" "unzip")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("Postman-win64-Setup.exe::https://dl.pstmn.io/download/latest/win64")
 sha512sums=('5c0bc77f6f8b7d9f9701f5f0b46ced03d8b8598b74c48ce641a770f13339cecb9390aaa987b88acaef73926fdd29d5edcf6cda88a2a009c54b72d587174d2c2a')
 noextract=("Postman-win64-Setup.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 _rmmsdll() {
     local ms
@@ -61,5 +48,4 @@ package() {
     mkdir -p "${a}"
     cp -R "Postman-full/lib/net45"/* "${a}"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

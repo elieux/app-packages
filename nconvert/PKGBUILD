@@ -2,34 +2,22 @@
 
 _realname=nconvert
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=7.300
 pkgrel=1
 pkgdesc="A powerful command line multi-platform batch image processor"
-arch=('any')
 url="https://www.xnview.com/en/nconvert/"
+arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("NConvert-win64-unicode.zip::https://download.xnview.com/old_versions/NConvert/NConvert-${pkgver}-win64-unicode.zip")
 sha512sums=('2f4eec51e9c3726cf9e149bf02c7ecf2429b4cf6f00fd9de2979bd702fc406425c74da475768809642384ed3c49bca056ac1ce50e4dea0f1c5a75e05914e7ed4')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 _rmmsdll() {
     local ms
@@ -50,5 +38,4 @@ package() {
     mkdir -p "${a}"
     cp -R "NConvert"/* "${a}"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

@@ -3,21 +3,25 @@
 _realname=php-ext-xdebug
 _dirname=php
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=3.5.3
 pkgrel=1
 pkgdesc="PHP debugging extension"
 url="https://xdebug.org/"
 arch=('any')
 license=('GPL')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("php_xdebug-8.5-nts-vs17-x86_64.dll::https://xdebug.org/files/php_xdebug-${pkgver}-8.5-nts-vs17-x86_64.dll")
 sha512sums=('519fb2521bfdddb7fe2b3c60308423eb177fcf6c57ab2202311183e3b36c189a68f81ab9e59f3165ceeca32fe6473dcfdefc3e57cc0ecb37ec4a3c9a6ddaf116')
+noextract=("php_xdebug-8.5-nts-vs17-x86_64.dll")
 
 package() {
-    depends=("app-x86_64-php>=1~8.5.0" "app-x86_64-php<1~8.6.0")
+    depends=("app-php>=2~8.5.0" "app-php<2~8.6.0")
 
     local a="${pkgdir}/apps/${_dirname}"
     mkdir -p "${a}/ext"

@@ -4,18 +4,22 @@
 _realver=2.24-101-g897c7ad
 _realname=nssm
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver="${_realver//-/.}"
 pkgrel=1
 pkgdesc="The non-sucking service manager"
 url="https://nssm.cc/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("nssm.zip::https://nssm.cc/ci/nssm-${_realver%%-*}-${_realver#*-}.zip")
 sha512sums=('f25fcc7b37d64aa3bb44336182a343250bf7fe7df1d22795bc742ae1cce574d9bbbb22afe2ba4352df40676e54f8442ae2dc1516c58a7b42c6e5c464804cd342')
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

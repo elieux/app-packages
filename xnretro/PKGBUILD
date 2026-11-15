@@ -2,33 +2,22 @@
 
 _realname=xnretro
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.30
 pkgrel=1
 pkgdesc="Vintage camera effects on desktop"
 url="https://www.xnview.com/en/xnretro/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("XnRetro-win-x64.zip::https://download.xnview.com/old_versions/XnRetro/XnRetro-${pkgver}-win-x64.zip")
 sha512sums=('d82911c4c7ed88aca1858b9ca40e0a4adb6406a303362968f6ead21187d31a16a954abdde06317f5da93fb2f58831811e9df31545b7178cadf020fd9eeef4ba8')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 _rmmsdll() {
     local ms
@@ -50,5 +39,4 @@ package() {
     cp -R "XnRetro"/* "${a}"
     _rmmsdll "${a}"
     rm "${a}/The latest supported Visual C++ downloads.website"
-    _lc "${a}"/*
 }

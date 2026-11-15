@@ -2,35 +2,22 @@
 
 _realname=zeal
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=0.9.1
 pkgrel=1
 pkgdesc="An offline documentation browser for software developers"
 url="https://zealdocs.org/"
 arch=('any')
 license=('GPL3')
-replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("zeal-windows-x64.msi::https://github.com/zealdocs/zeal/releases/download/v${pkgver}/zeal-${pkgver}-windows-x64.msi")
 sha512sums=('3b31fd98504d6fca13e66d51459c2d5c560c84cd376244c1a9caf702a58121e60ebd9554c5675d3e3070f2a068c33104502633cfe668d160022f7b9c95b864c0')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("zeal-windows-x64.msi")
 
 _rmmsdll() {
     local ms
@@ -56,5 +43,4 @@ package() {
     mkdir -p "${a}"
     cp -R "zeal-windows-x64/SourceDir/PFiles64/Zeal"/* "${a}"
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

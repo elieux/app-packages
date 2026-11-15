@@ -3,35 +3,22 @@
 _realname=tortoise-overlays
 _realver=1.14.6.29673
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.1.5.29440
 pkgrel=1
 pkgdesc="Overlays component for Tortoise tools"
 url="https://tortoisesvn.net"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
 makedepends=("app-lessmsi")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("TortoiseSVN-x64.msi::https://downloads.sourceforge.net/tortoisesvn/TortoiseSVN-${_realver}-x64-svn-1.14.3.msi")
 sha512sums=('a7165d3668dd63023957162ad2dd1e20573c033e3b17fd7116b57b24f7be0bcdc5db95e1a56c334ef02161911de206d09ae439fdec09f8de0cce5a6687b9595c')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=("TortoiseSVN-x64.msi")
 
 prepare() {
     rm -fR "TortoiseSVN-x64"
@@ -55,10 +42,9 @@ package() {
         n="$(echo "${f}" | sed -r -e 's/_[0-9]+[.]/./' -e 's/[.]duplicate[0-9]+$//')"
         case "$(file "${d}/${f}")" in
         *x86-64*) mv -f "${d}/${f}" "${d}/${n}" ;;
-        *80386*) mv -f "${d}/${f}" "${d}/${n/./32.}" ;;
+        *i386*) mv -f "${d}/${f}" "${d}/${n/./32.}" ;;
         esac
     done
 
     find "${a}" -name "*.duplicate*" -delete
-    _lc "${a}"/*
 }

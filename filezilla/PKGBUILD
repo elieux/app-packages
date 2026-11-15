@@ -4,20 +4,22 @@ DLAGENTS=('https::/usr/bin/curl -qb "" -fLC - -A "Chrome" -e "https://filezilla-
 
 _realname=filezilla
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=3.71.1
 pkgrel=1
 pkgdesc="Fast and reliable FTP, FTPS and SFTP client"
 url="https://filezilla-project.org/"
 arch=('any')
 license=('GPL')
-makedepends=("openssl")
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=("curl" "openssl")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=()
 sha512sums=()
+noextract=()
 _sha512sum='b3e541526d11f42ea675d3f0eb016f914340743e680e2838d680d899e30e1aca083ab2b35f655e8d01907f48f4d078f194ebb02dbb82540cbdaed8dbe36b0138'
 
 _dl() {

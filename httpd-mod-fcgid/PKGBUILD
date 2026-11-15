@@ -35,33 +35,22 @@ download_https@subdir() {
 _realname=httpd-mod-fcgid
 _dirname=httpd
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.3.10
 pkgrel=3
 pkgdesc="A FastCGI module for Apache HTTP Server"
 url="https://httpd.apache.org/mod_fcgid/"
 arch=('any')
 license=('Apache')
-provides=("${pkgbase}")
+makedepends=("curl")
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("mod_fcgid-win64-VS18.zip::https@subdir://www.apachelounge.com/download/VS18/modules/mod_fcgid-${pkgver}-win64-VS18.zip")
 sha512sums=('3acde9d7d23f1672fb130c57e169f6894d62911d8b67b94e2e812ee315e97480e1d8213f85f191687611ee03f8e6a1f8e7b65d66e0f31950972df00b7c0da141')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     depends=("app-httpd")
@@ -74,5 +63,4 @@ package() {
     mv "${a}"/*.so "${a}/modules"
     mv "${a}/mod_fcgid-${pkgver}"/* "${a}"
     rm -R "${a}/mod_fcgid-${pkgver}"
-    _lc "${a}"/*
 }

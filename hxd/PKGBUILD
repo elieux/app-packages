@@ -2,35 +2,22 @@
 
 _realname=hxd
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.5.0.0
 pkgrel=1
 pkgdesc="Freeware hex editor and disk editor"
-arch=('any')
 url="https://mh-nexus.de/en/hxd/"
+arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
 makedepends=("app-innounp")
-provides=("${pkgbase}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("HxDSetup.zip::https://mh-nexus.de/downloads/HxDSetup.zip")
 sha512sums=('ea97d98877342d725adcbfa075d5d5770470cf4a1d79477d577d299b6298d62f9a7fec8903633f8adcda7d306bff848751f8c788b611cc2d1074624a9153bc49')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 prepare() {
     /apps/innounp/innounp -x -q -m -a -y "HxDSetup.exe" -d"HxDSetup.dir"
@@ -55,5 +42,4 @@ package() {
     rm "${a}"/HxD*.exe
     cp "HxDSetup.dir/{app}/${exe}" "${a}/HxD.exe"
 
-    _lc "${a}"/*
 }

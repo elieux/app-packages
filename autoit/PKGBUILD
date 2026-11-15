@@ -2,34 +2,22 @@
 
 _realname=autoit
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=3.3.18.0
 pkgrel=1
 pkgdesc="A free BASIC-like scripting language for automating Windows GUIs"
 url="https://www.autoitscript.com/"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("autoit.zip::https://www.autoitscript.com/files/autoit${pkgver%%.*}/autoit-v${pkgver%%.*}.zip")
 sha512sums=('bd7e59133d93a3d004c4044d6f104c6c213f84ec1bc24c72164e95b3bd9db1cbd827c8c46619daa0140bf584e91bacaad0ebe83845901f4d0cc718d96e164836')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 pkgver() {
     powershell -command '(Get-Item "install/Au3Check.exe").VersionInfo.ProductVersion'
@@ -47,5 +35,4 @@ package() {
     do
         mv -f "${f}" "${f/_x64/}"
     done
-    _lc "${a}"/*
 }

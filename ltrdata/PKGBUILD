@@ -31,8 +31,8 @@ extract_http@subdir() {
 
 _realname=ltrdata
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2026.09.17
 pkgrel=1
 pkgdesc="Collection of small and useful freeware utilities by Lagerkvist Teknisk Radgivnings"
@@ -40,7 +40,9 @@ url="http://www.ltr-data.se/opencode.html"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
-replaces=("app-i686-${_realname}")
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=(
         # ImDisk Virtual Disk Driver

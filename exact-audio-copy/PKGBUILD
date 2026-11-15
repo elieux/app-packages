@@ -2,8 +2,8 @@
 
 _realname=exact-audio-copy
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.8
 pkgrel=1
 pkgdesc="A very accurate CD audio grabber"
@@ -11,26 +11,13 @@ url="http://www.exactaudiocopy.de/en/"
 arch=('any')
 license=('custom')
 makedepends=("p7zip")
-provides=("${pkgbase}")
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("eac.exe::http://www.exactaudiocopy.de/eac-${pkgver}.exe")
 sha512sums=('89822966d57f5f89d40cb8b4bf5c1e1e169983d5b4dfdfa4559dd2b69a49dc6234e3e336452ec9220530e5ed228f656a58c346950cd2ce84d8edc200e38bad4b')
 noextract=("eac.exe")
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
 
 prepare() {
     7z x -y -bd "eac.exe" -o"eac.dir" > /dev/null
@@ -41,5 +28,4 @@ package() {
     mkdir -p "${a}"
     cp -R "eac.dir"/* "${a}"
     rm -R "${a}"/'$PLUGINSDIR' "${a}/Microsoft.VC80.CRT" "${a}/uninst.exe.nsis"
-    _lc "${a}"/*
 }

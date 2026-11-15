@@ -31,39 +31,26 @@ download_https@subdir() {
 
 _realname=processhacker
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.39
 pkgrel=1
 pkgdesc="Views and manages processes, services and more"
 url="https://processhacker.sourceforge.io/"
 arch=('any')
 license=('GPL2' 'GPL3')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("processhacker-bin.zip::https://downloads.sourceforge.net/processhacker/processhacker${pkgver%%.*}/processhacker-${pkgver}-bin.zip")
 sha512sums=('915b9f7c0b1374ce52fa9653ba1084741d15ff79dbb7c04d2a0f41eea8262b2f556d451bf9eefbd2d32831289908b6a1b39ce2cbcafbbfc4ae6e71d701b1aa81')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
     cp -r "x64"/* "${a}"
     cp -r *.txt "${a}"
-    _lc "${a}"/*
 }

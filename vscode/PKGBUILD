@@ -31,35 +31,23 @@ download_https@subdir() {
 
 _realname=vscode
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
+pkgname=("app-${_realname}")
 epoch=2
 pkgver=1.143.1
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
-arch=('any')
 url="https://code.visualstudio.com/"
+arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 install="vscode.install"
 source=("VSCode-win32-x64.zip::https@subdir://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive")
 sha512sums=('d92438bcd392d7c5ccaa81bcec26b7462f2cca3dffdeabade920c935677b50a3f15eed22a2eaa8a19bda98eb12ebe15cd6cf19f3b8afc464d5cb63caaff185cd')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 _rmmsdll() {
     local ms
@@ -96,5 +84,4 @@ package() {
     rm -R "${a}/${hash}"
 
     _rmmsdll "${a}"
-    _lc "${a}"/*
 }

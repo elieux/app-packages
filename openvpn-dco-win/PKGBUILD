@@ -2,18 +2,22 @@
 
 _realname=openvpn-dco-win
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.8.14
 pkgrel=1
 pkgdesc="OpenVPN Data Channel Offload driver for Windows"
 url="https://github.com/OpenVPN/ovpn-dco-win"
 arch=('any')
 license=('MIT')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("ovpn-dco-win-amd64.zip::https://github.com/OpenVPN/ovpn-dco-win/releases/download/${pkgver}/ovpn-dco-win-${pkgver}-amd64.zip")
 sha512sums=('3e1cb032867dbb9cd0df70c907a985ee58a22e0ddb2c188073bd743f6e76771ce4d50b6c05d9296fe6fae418809e03c6a8e9fa1fc95f7460ad23dd907fc052ab')
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

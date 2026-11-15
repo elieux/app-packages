@@ -31,18 +31,22 @@ download_https@subdir() {
 
 _realname=wix
 pkgbase="app-${_realname}"
-pkgname=("app-i686-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=3.14.1
 pkgrel=1
 pkgdesc="Builds Windows installation packages from XML source code"
 url="https://wixtoolset.org/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-i686-${_realname}")
+conflicts=("app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("wix-binaries.zip::https@subdir://github.com/wixtoolset/wix3/releases/download/wix${pkgver//./}rtm/wix$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.][0-9]+$/\1\2/')-binaries.zip")
 sha512sums=('ff58d224e545722eb794d413c541ad483ab834f9ce92e2528fe8aeb645717ab077db833ae783e1a31ad9e50803eb80fdc9efcda72535493a3f0faea4aa3ba36d')
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

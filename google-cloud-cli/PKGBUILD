@@ -31,18 +31,22 @@ download_https@subdir() {
 
 _realname=google-cloud-cli
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=590.0.1
 pkgrel=1
 pkgdesc="A set of command-line tools for the Google Cloud Platform"
 url="https://cloud.google.com/cli/"
 arch=('any')
 license=('Apache-2.0')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("google-cloud-cli-windows-x86_64.zip::https://storage.googleapis.com/cloud-sdk-release/google-cloud-cli-${pkgver}-windows-x86_64.zip")
 sha512sums=('9fdb590a5260ab9dd4e8c2c3d69bf2725586a864113da9b503a7de842392ba0167f2bdd3beda6fc597da1c59aa7d3560ce86b757c175060d753a7ec7faf45c3e')
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_realname}"

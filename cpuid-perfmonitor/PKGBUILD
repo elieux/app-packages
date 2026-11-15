@@ -32,34 +32,22 @@ extract_http@subdir() {
 _realname=perfmonitor
 _dirname=cpuid
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=2.04
 pkgrel=1
 pkgdesc="Monitors processor performance and other values (CPUID)"
 url="https://www.cpuid.com/softwares/perfmonitor-2.html"
 arch=('any')
 license=('custom')
-replaces=("app-i686-${_realname}")
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}" "app-i686-${_realname}")
+conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
+provides=()
 options=(!strip)
 source=("perfmonitor-2.zip::http@subdir://download.cpuid.com/perfmonitor-2/perfmonitor-2_${pkgver}.zip")
 sha512sums=('0688224b3ccf87ff3ef90ea5bc8dc615b581fec29ec9a2c8683ebf45f44a58207b29aa663d8f36edecb768d6a7f617265ad59de4466974fa89870f25bdee9630')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 package() {
     local a="${pkgdir}/apps/${_dirname}"
@@ -67,5 +55,4 @@ package() {
     cp "perfmonitor-2"/* "${a}"
     rm "${a}/PerfMonitor2_x32.exe"
     mv "${a}/PerfMonitor2_x64.exe" "${a}/PerfMonitor2.exe"
-    _lc "${a}"/*
 }

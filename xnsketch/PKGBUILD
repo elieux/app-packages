@@ -2,33 +2,22 @@
 
 _realname=xnsketch
 pkgbase="app-${_realname}"
-pkgname=("app-x86_64-${_realname}")
-epoch=1
+pkgname=("app-${_realname}")
+epoch=2
 pkgver=1.20
 pkgrel=1
 pkgdesc="Turn photos into cartoon or sketch images"
 url="https://www.xnview.com/en/xnsketch/"
 arch=('any')
 license=('custom')
-provides=("${pkgbase}")
+makedepends=()
+replaces=("app-x86_64-${_realname}")
+conflicts=("app-x86_64-${_realname}")
+provides=()
 options=(!strip)
 source=("XnSketch-win-x64.zip::https://download.xnview.com/old_versions/XnSketch/XnSketch-${pkgver}-win-x64.zip")
 sha512sums=('27d9652a863af0158f5da1361a2d93e798c2cf64013b7a43c1e9ce6782b51ceb92dd3b3151d1a38e7062fb4986f6104a67fccee517184bdbf5bf0eb7daf31647')
-
-_lc() {
-    local d f n
-
-    for f in "${@}"
-    do
-        d="$(dirname "${f}")"
-        f="$(basename "${f}")"
-        n="$(echo "${f}" | tr 'A-Z' 'a-z')"
-        if test "${f}" != "${n}"
-        then
-            mv "${d}/${f}" "${d}/${n}"
-        fi
-    done
-}
+noextract=()
 
 _rmmsdll() {
     local ms
@@ -50,5 +39,4 @@ package() {
     cp -R "XnSketch"/* "${a}"
     _rmmsdll "${a}"
     rm "${a}/The latest supported Visual C++ downloads.website"
-    _lc "${a}"/*
 }

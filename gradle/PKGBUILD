@@ -4,7 +4,7 @@ _realname=gradle
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=9.8.2
+pkgver=9.9.1
 pkgrel=1
 pkgdesc="Powerful build system for the JVM"
 url="https://gradle.org/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("gradle-all.zip::https://services.gradle.org/distributions/gradle-${pkgver}-all.zip")
-sha512sums=('d5053902fee93ba46cf6c9951ab4af2fce04855cb89388362f704f37d8034bb4e198ef6aa32304449f52a39fbcab1ca3bc9bf15ae079fa66f2953e32746968ec')
+sha512sums=('d7785ec8c82d75238ebf49125f2208c3751215ed017c91d3171099e775a0e4b39bf13bc92356803ab6354447442e16649d29e718202064ca74b3b2d0ee6dcf3e')
 noextract=()
 
 package() {

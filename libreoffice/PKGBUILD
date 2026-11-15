@@ -4,7 +4,7 @@ _realname=libreoffice
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=26.2.6
+pkgver=26.8.3
 pkgrel=1
 pkgdesc="The free office suite"
 url="https://www.libreoffice.org/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("LibreOffice_Win_x64.msi::https://download.documentfoundation.org/libreoffice/stable/${pkgver}/win/x86_64/LibreOffice_${pkgver}_Win_x86-64.msi")
-sha512sums=('4e4027c07b45e73e24aaf07eaaa53d342cb27d78d2b39318c295dcb8457d6769c1ddef9eb406dfab4b0cc36839e59ab9b12722489ec59c6191838fd80bdca455')
+sha512sums=('3cad1a5f97b641d5bd4e73b850fa93d427e6c5663cd92eab949c6287bf474a62f33cdeabfa0e25f646c51cdf2e1b4979e1a8f4f40211b428cd41dc5c4577cc84')
 noextract=("LibreOffice_Win_x64.msi")
 
 prepare() {

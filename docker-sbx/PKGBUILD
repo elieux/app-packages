@@ -4,7 +4,7 @@ _realname=docker-sbx
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=0.50.0
+pkgver=0.53.0
 pkgrel=1
 pkgdesc="Run AI coding agents in isolated environments"
 url="https://docs.docker.com/ai/sandboxes/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("DockerSandboxes.msi::https://github.com/docker/sbx-releases/releases/download/v${pkgver}/DockerSandboxes.msi")
-sha512sums=('04ad98a8bcb5c49df0c0884f5e4f43bbfb3096690a1374b6889df9af81824cfbfe01795d1ae538be67f0a18d90cbb29a1770783557788225c6b5a4ad3dfd6b6c')
+sha512sums=('37f08ae614818acbe887c4ed6f8113f82c528a07b7309b6c73ed5b7cfdbd6c0daf5a28cecae084bc4fec327480c39fbd633c11374955cc7cf54319ca2495566d')
 noextract=("DockerSandboxes.msi")
 
 prepare() {

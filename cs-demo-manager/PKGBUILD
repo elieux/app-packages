@@ -4,7 +4,7 @@ _realname=cs-demo-manager
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=3.20.1
+pkgver=3.21.0
 pkgrel=1
 pkgdesc="Manage replays from the game Counter-Strike"
 url="https://cs-demo-manager.com/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-csgo-demos-manager")
 provides=()
 options=(!strip)
 source=("CS-Demo-Manager-Setup.exe::https://github.com/akiver/cs-demo-manager/releases/download/v${pkgver}/CS-Demo-Manager-Setup-${pkgver}.exe")
-sha512sums=('2085c1139c13738b0b61e9063d142fd732cbdf58d0d8202f65b37907eac06fea865f19b54f218fe516d3f09e7267da652e7c93190d61f5ec31c330f2e72ce647')
+sha512sums=('1d723acd7c7b86c6fbf343d91db008edcc534aa5f86ad71f568871fc4c4f57f12362e1ad85c8ebedcd28e24ea3ff278c92d864351eaf9a5327f6da0e3c8c5dda')
 noextract=("CS-Demo-Manager-Setup.exe")
 
 prepare() {

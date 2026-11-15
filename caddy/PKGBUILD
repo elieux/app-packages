@@ -33,7 +33,7 @@ _realname=caddy
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=2.11.7
+pkgver=2.11.9
 pkgrel=1
 pkgdesc="Fast web server with automatic HTTPS"
 url="https://caddyserver.com/"
@@ -45,7 +45,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("caddy_windows_amd64.zip::https@subdir://github.com/caddyserver/caddy/releases/download/v${pkgver}/caddy_${pkgver}_windows_amd64.zip")
-sha512sums=('c308154504e53755958ffc62d8a2657ab17eefd6dd25c45dbb2c3d93d29519971f77ca652f7d0f2bcb7f980b9ba3822478865e29969d0272d7613550a43152b1')
+sha512sums=('98753d5d42650383d00619ac70917a217141f9e92314185bf6c1b8b439cfcfdf8393da0ebb4675c8cb3b23d29a19aabe99dc5aca64fa1bfc3a1ba22509b06871')
 noextract=()
 
 package() {

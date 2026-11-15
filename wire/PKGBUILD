@@ -4,7 +4,7 @@ _realname=wire
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=3.44.5380
+pkgver=3.46.5382
 pkgrel=1
 pkgdesc="Desktop Wire client"
 url="https://www.wire.com/"
@@ -16,7 +16,7 @@ conflicts=("app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("Wire-Setup.exe::https://wire-app.wire.com/win/prod/Wire-Setup.exe")
-sha512sums=('b2137c4f6f63aa6cbed70517decafa0c57518d5dd4de84859fed20a6c7519424242b37a0050e72cfd0ee9c2342a040bcc3d76591eac8d4bd85c90eeecfe9b0ec')
+sha512sums=('60a739c9612cba3d35c2efb121d93271d5093f5eeb70befe645b73d6c5665603373c38d3be4d82c8d423f3ea87d7e6072a7c363789be02000294635d2420b458')
 noextract=("Wire-Setup.exe")
 
 _rmmsdll() {

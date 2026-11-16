@@ -4,7 +4,7 @@ _realname=thunderbird
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=159.0
+pkgver=160.0
 pkgrel=1
 pkgdesc="Standalone, easy to customize mail/news reader"
 url="https://www.thunderbird.net/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("Thunderbird_Setup.exe::https://ftp.mozilla.org/pub/thunderbird/releases/${pkgver}/win64/en-US/Thunderbird%20Setup%20${pkgver}.exe")
-sha512sums=('8fcafe78dd2409de2aae3b9ce7f3eac3eac6ba3652dd3a6cf8b5c28734959be0628e5eb0f0e49a3b8212df993a27fdf52dda8e8103c6a1ac2ca3283c180b8a25')
+sha512sums=('9fd513d946cd1e49964d33542454bb1e0493cb1b7be8a6753f18130254db1d6c06d20ac1847e02076464dedf678cdc15e668c2c010cea16b07e06376b9ef6021')
 noextract=("Thunderbird_Setup.exe")
 
 _rmmsdll() {

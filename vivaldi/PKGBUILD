@@ -4,7 +4,7 @@ _realname=vivaldi
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=8.2.4133.94
+pkgver=8.3.4191.44
 pkgrel=1
 pkgdesc="A new browser for our friends"
 url="https://vivaldi.com/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("Vivaldi.x64.exe::https://downloads.vivaldi.com/stable/Vivaldi.${pkgver}.x64.exe")
-sha512sums=('315b64852e093d76a26e828c00d7d0415bebd38c5b49b7866444a1da30668c14e67dc9e8562b1d469deccf4b426c68cc0c3802da7ea39e49c0e802ab62fcec89')
+sha512sums=('33b08d0fbf24936123867695d35010a84a2f47ab8caf263a2345a33a533968e9f37c2a49f9187f6aa665f8164f93c8e77063edb3be2255550d5230a84fb9b0ed')
 noextract=("Vivaldi.x64.exe")
 
 prepare() {

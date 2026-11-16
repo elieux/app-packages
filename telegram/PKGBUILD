@@ -4,7 +4,7 @@ _realname=telegram
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=7.3.3
+pkgver=7.4.4
 pkgrel=1
 pkgdesc="Desktop Telegram client"
 url="https://desktop.telegram.org/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("td-portable-win-x64.zip::https://github.com/telegramdesktop/tdesktop/releases/download/v${pkgver}/td-portable-win-x64-${pkgver}.zip")
-sha512sums=('deb197ba5b59a413b5a907fe88af52f07ed221b3e6cdaa191a44e1d2f125fa3ea09c24a43551e34aa63ed083e9304b8739b024147e1b61043d96d44fc0e1c7b1')
+sha512sums=('455cdaf84d25f1d3c82fcc0b1e3c5105f54616e160ca86b2cf85fdb262ea449bd45cafda71ea0edad348e951616ae82ce5eaac9bea851019ff1db23bcb1dfef0')
 noextract=()
 
 package() {

@@ -1,23 +1,52 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
+_extract_subdir() {
+    local _file="$(get_filename "${1}")"
+    local _dir="${_file%.*}"
+    if type bsdtar | head -1 | grep -q 'is a function'
+    then
+        local _original_bsdtar="$(type bsdtar | tail +2)"
+    fi
+    bsdtar() {
+        local _extra_args=()
+        if [ "${1}" = "-xf" ]
+        then
+            mkdir -p "${_dir}"
+            _extra_args=(-C "${_dir}")
+        fi
+        /usr/bin/bsdtar "${_extra_args[@]}" "${@}"
+    }
+    extract_file "${_file}"
+    unset -f bsdtar
+    eval "${_original_bsdtar}"
+}
+
+extract_https@subdir() {
+    _extract_subdir "${@}"
+}
+
+download_https@subdir() {
+    download_file "${1/@subdir:/:}"
+}
+
 _realname=station
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=3.3.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="First open-source smart browser for busy people. A single place for all of your web applications."
 url="https://getstation.com/"
 arch=('any')
 license=('Apache-2.0')
-makedepends=("p7zip")
+makedepends=()
 replaces=("app-x86_64-${_realname}")
 conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
-source=("Station-Setup.exe::https://github.com/getstation/desktop-app/releases/download/v${pkgver}/Station-Setup.exe")
-sha512sums=('0f4618b5741b8b76a1104b0d312cd4562d2f5c74262cd82ba440d3fd9c115bf638a76d0804ebf5543a9bf32191745394598e3bcdd977ac999702d235b0219b87')
-noextract=("Station-Setup.exe")
+source=("Station-win-x64.zip::https@subdir://github.com/getstation/desktop-app/releases/download/v${pkgver}/Station-v${pkgver}-win-x64.zip")
+sha512sums=('56e1abd4dbe1a4fc50f5094cab68254f777eece3e2b1771ed4b7854da657a1adaa1177872ce7b9b288943de6b486d4d3745abfecbae91b8cdcdb2adf2de3e94f')
+noextract=()
 
 _rmmsdll() {
     local ms
@@ -33,15 +62,9 @@ _rmmsdll() {
     find "${1}" -iname '*.dll' | grep -Eif <(for m in "${ms[@]}"; do echo "/${m}[.]dll$"; done) | xargs -r rm
 }
 
-prepare() {
-    rm -fR "Station-Setup.dir"
-    7z x -y -bd "Station-Setup.exe" -o"Station-Setup.dir" > /dev/null
-    7z x -y -bd "Station-Setup.dir"/'$PLUGINSDIR'/"app-64.7z" -o"app-64" > /dev/null
-}
-
 package() {
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "app-64"/* "${a}"
+    cp -R "Station-win-x64"/* "${a}"
     _rmmsdll "${a}"
 }

@@ -33,7 +33,7 @@ _realname=pear-desktop
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=3.12.0
+pkgver=3.12.1
 pkgrel=1
 pkgdesc="Music app with extensions"
 url="https://th-ch.github.io/youtube-music/"
@@ -45,7 +45,7 @@ conflicts=("app-x86_64-${_realname}" 'app-x86_64-youtube-music')
 provides=()
 options=(!strip)
 source=("youtube-music-x64.nsis.7z::https@subdir://github.com/pear-devs/pear-desktop/releases/download/v${pkgver}/youtube-music-${pkgver}-x64.nsis.7z")
-sha512sums=('0a427561e06e431632db24aa1f49d192f0ac01f320400e98ce048006913e532e44b7204d522bd1b06883ea402285d79147f05fb420a1adfbeb405abe1b3d7eb1')
+sha512sums=('c1e40b6f2aa26262e46a28ac7ce1ce78448f34a362856b505cb866aca70f303b22b4e47d1ec90c8318ba0c64c6a532280cedaf8288a236d2d3c5eb75af9ebe03')
 noextract=()
 
 package() {

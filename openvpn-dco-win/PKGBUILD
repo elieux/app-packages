@@ -4,7 +4,7 @@ _realname=openvpn-dco-win
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=2.8.14
+pkgver=2.8.15
 pkgrel=1
 pkgdesc="OpenVPN Data Channel Offload driver for Windows"
 url="https://github.com/OpenVPN/ovpn-dco-win"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("ovpn-dco-win-amd64.zip::https://github.com/OpenVPN/ovpn-dco-win/releases/download/${pkgver}/ovpn-dco-win-${pkgver}-amd64.zip")
-sha512sums=('3e1cb032867dbb9cd0df70c907a985ee58a22e0ddb2c188073bd743f6e76771ce4d50b6c05d9296fe6fae418809e03c6a8e9fa1fc95f7460ad23dd907fc052ab')
+sha512sums=('8b5c8e8af158e7a829c32295302b44cec36ae09b908dda422527d5e714e76e9bf3835263937fe3526c8f8d93b5f9006204a737b3ba16801c81584d6b2bf587a3')
 noextract=()
 
 package() {

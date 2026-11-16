@@ -4,7 +4,7 @@ _realname=openvpn
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=2.7.8.002
+pkgver=2.7.9.002
 pkgrel=1
 pkgdesc="A full-featured SSL VPN solution"
 url="https://openvpn.net/community/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("OpenVPN-amd64.msi::https://swupdate.openvpn.org/community/releases/OpenVPN-${pkgver%.*}-I${pkgver##*.}-amd64.msi")
-sha512sums=('6c5519f0b1330386de7247eb3e143e9944db1c5df4b3541a3222f4be32541defd0ecda747acb1c12a7d8059a59361d20363de84b89f22aaae02a262218f3ddf6')
+sha512sums=('b4b83d427a02d2e6dbb6ed1fc40c5454914587be1edf51d17c19383142d32eebc12da502f96c27ac3ed701ed81e5e7769a8ecb37732d129ce9e308efa3ca639b')
 noextract=("OpenVPN-amd64.msi")
 
 _rmmsdll() {

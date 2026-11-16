@@ -4,7 +4,7 @@ _realname=viber
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=29.4.0.0
+pkgver=29.5.0.0
 pkgrel=1
 pkgdesc="Free messages and calls in any country"
 url="https://www.viber.com/download/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("ViberSetup.msi::https://download.cdn.viber.com/desktop/windows/${pkgver/.0.0/.0}/ViberSetup.msi")
-sha512sums=('daf0833d818e53d7d8cac351427fc6c390098557379d38e766895899fc905284592335adc2f8fdb71610348c18bc3ff627bb92325d10d8893b8b44a63b442f38')
+sha512sums=('6f7e17a78e80df16d899304de8bea9d1f55241c75bbdbfd4e841a7855301481c98756516c5cb133e7e1484505e3e22d575c5e2c6259fac5437c2b3758e68970d')
 noextract=("ViberSetup.msi")
 
 _rmmsdll() {

@@ -38,7 +38,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
 pkgver=2.4.69
-pkgrel=1
+pkgrel=2
 pkgdesc="A high performance Unix-based HTTP server"
 url="https://httpd.apache.org/"
 arch=('any')
@@ -49,7 +49,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("httpd-win64-VS18.zip::https@subdir://www.apachelounge.com/download/VS18/binaries/httpd-${pkgver}-${_realver}-win64-VS18.zip")
-sha512sums=('b5198796e28fd985225df36cb3e65226a423bb48df5b111c91439c59d558fd9db1868f838c927e79b7a30b7b0c1c6fa0e4bea767a3908a5187745158e22e9269')
+sha512sums=('2fad746a77cbb02966543926e6c1c6c433369e3123ed85b3ee7e8ab994ceaebe6b584bb2b766e5f46a396105d34024b659df1da1c6c5da07a9197744bab3faf4')
 noextract=()
 
 package() {

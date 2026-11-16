@@ -38,7 +38,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
 pkgver=2.3.10
-pkgrel=3
+pkgrel=4
 pkgdesc="A FastCGI module for Apache HTTP Server"
 url="https://httpd.apache.org/mod_fcgid/"
 arch=('any')
@@ -49,7 +49,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("mod_fcgid-win64-VS18.zip::https@subdir://www.apachelounge.com/download/VS18/modules/mod_fcgid-${pkgver}-win64-VS18.zip")
-sha512sums=('3acde9d7d23f1672fb130c57e169f6894d62911d8b67b94e2e812ee315e97480e1d8213f85f191687611ee03f8e6a1f8e7b65d66e0f31950972df00b7c0da141')
+sha512sums=('6abff725dfa7f0b0226346f89812fbc144603369431ac0d46c6c60018c110788efcce8633dbe730c0a5f77b697cfb9912ba529a813789bf2ce142b08fb9c7581')
 noextract=()
 
 package() {

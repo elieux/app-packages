@@ -4,7 +4,7 @@ _realname=vortex
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=2.9.1
+pkgver=2.10.1
 pkgrel=1
 pkgdesc="The elegant, powerful, and open-source mod manager from Nexus Mods"
 url="https://www.nexusmods.com/about/vortex/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("vortex-setup.exe::https://github.com/Nexus-Mods/Vortex/releases/download/v${pkgver}/vortex-setup-${pkgver}.exe")
-sha512sums=('93049d127f8d71c43645c203a003d2b87ffcefaa3a74f2506c6852734f259415e02d0fc0d376e68f7a9e5eb7750e5c326d35a2c4e0ed77f911591087d9dcf7c3')
+sha512sums=('b0a1d7a56b544682e31247340eae591aca915c0bc8740feb58ee6bd7ad10f341fb05fefa322085c950cd7c3c454afcad17130d1a1df9af8aea366ea82ff0ecbf')
 noextract=("vortex-setup.exe")
 
 _rmmsdll() {

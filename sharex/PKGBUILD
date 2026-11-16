@@ -33,7 +33,7 @@ _realname=sharex
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=21.0.0
+pkgver=22.4.0
 pkgrel=1
 pkgdesc="Screen capture, file sharing and productivity tool"
 url="https://getsharex.com/"
@@ -45,7 +45,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("ShareX-portable.zip::https@subdir://github.com/ShareX/ShareX/releases/download/v${pkgver}/ShareX-${pkgver}-portable-x64.zip")
-sha512sums=('286c2880575b1f43bd719aa0cbf5a611481ad39789e9c170f0fd69787d14a66f23508146f3a0050233c6fd59f6addaa6f55d760f0ba1f375b2f755611fa8e232')
+sha512sums=('d787fb75fc45a86ce7e098cedf9f0a9fa525310e5c697c2e7c48e0b34961a6c408aef8dfed7b11d7c1758eab901f988e0ca946e6f74cdcc8a9da2521a5416e21')
 noextract=()
 
 _dotnet() {

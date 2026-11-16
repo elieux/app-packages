@@ -34,7 +34,7 @@ pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
 pkgver=4.0
-pkgrel=12
+pkgrel=13
 pkgdesc="Powerful two panel file manager"
 url="https://www.altap.cz/"
 arch=('any')
@@ -47,12 +47,12 @@ options=(!strip)
 source=("asx64.exe::ftp://ftp.altap.cz/pub/altap/salamand/as${pkgver/./}x64.exe"
         "dbviewer.7z::https@subdir://forum.altap.cz/download/file.php?id=2331"
         "tar-plugin-x64.zip::https@subdir://github.com/user-attachments/files/22319444/tar-plugin-x64.zip"
-        "7z-extra.7z::https@subdir://github.com/ip7z/7zip/releases/download/26.05/7z2605-extra.7z"
+        "7z-extra.7z::https@subdir://github.com/ip7z/7zip/releases/download/26.06/7z2606-extra.7z"
         "unrardll.exe::https://www.rarlab.com/rar/unrardll-730b1.exe")
 sha512sums=('d119f06e29de6ca082a2688588729a69b0d141e6b55268466ccd476684c52f8e7e2e381c5459196c1c4f7b59a188cc92395658d9c7e11b64ecac73389e6acbf3'
             '48f2c7d5d481704fe1e61251097fd78a0cceb4dba4270933e5d79f31c06716f4c01890522494dcffa7824e154fc6d91bf25d74574dd846539ecb6dcd6e914ac0'
             '6c7849f3074126f3123361685ae08573a46ee135d252481dc02e6c95ea0a618562b2a4279860f3adc467f310a403881938d5131a11c805ca6521633ada9f37bd'
-            'e41fe948c0b5e94382c2a573d1694bec21760465ce86f700850d45365dc40b033b97a34e4151f37857a8eee4fa96ae9ea214d5e18250d56a526d317ee0f50594'
+            '58b8d67063f5b151b97768eb5f701ae7fc29351e731fab0de34278089d1caca40f976fe22b45d3a14e3bdd15532ae408d069417576853d96b1d4e55f89e9acb3'
             'b40186948c4f0a7beea76961f166479557d0c102199643244aa4f36481533168139ae9a25462a8d359b5c4d850daced8fd45a38043032a82b27cc7f7d64801ab')
 noextract=("asx64.exe"
            "unrardll.exe")

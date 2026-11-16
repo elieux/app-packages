@@ -33,7 +33,7 @@ _realname=vscode
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=1.144.0
+pkgver=1.146.0
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
 url="https://code.visualstudio.com/"
@@ -46,7 +46,7 @@ provides=()
 options=(!strip)
 install="vscode.install"
 source=("VSCode-win32-x64.zip::https@subdir://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive")
-sha512sums=('eb58e5aea1d6ce9e54599df9413e9b0708646a694a724ac58d4e26359a5db91110398740d9de782ab0a88fa5f96dcac30d1235e618a166899042f8a33457293c')
+sha512sums=('a11afacbace5b72d79f867c3984fe0e5602c7a840d8bdd160d761d4c580998ee59f513910709ff23c3e8c3e81384ae137c79d96b3ab497dc9b6ebf605cdf76fb')
 noextract=()
 
 _rmmsdll() {

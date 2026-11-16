@@ -4,7 +4,7 @@ _realname=slack
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=4.53.280
+pkgver=4.53.287
 pkgrel=1
 pkgdesc="Client for the Slack team communication platform"
 url="https://www.slack.com/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("Slack.msix::https://downloads.slack-edge.com/desktop-releases/windows/x64/${pkgver}/Slack.msix")
-sha512sums=('364143532a07b1d876e879d89a897aa0f998770f3212222d6e5a93887ea4d90301533b485b122d23826c8860e040c37c66de05a617504789064e4bf208e4b9b8')
+sha512sums=('6fd41c938aab32dfc84dca4106aa90207f9dd64b427e29b5ee23af443986c8284403c4c1be9bc318b2d9e03f751e8484da45b04ab14ee84196a93013c251fc80')
 noextract=("Slack.msix")
 
 _rmmsdll() {

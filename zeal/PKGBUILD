@@ -4,7 +4,7 @@ _realname=zeal
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=0.9.1
+pkgver=0.9.2
 pkgrel=1
 pkgdesc="An offline documentation browser for software developers"
 url="https://zealdocs.org/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("zeal-windows-x64.msi::https://github.com/zealdocs/zeal/releases/download/v${pkgver}/zeal-${pkgver}-windows-x64.msi")
-sha512sums=('3b31fd98504d6fca13e66d51459c2d5c560c84cd376244c1a9caf702a58121e60ebd9554c5675d3e3070f2a068c33104502633cfe668d160022f7b9c95b864c0')
+sha512sums=('7d92e03d2dce2d81ed7b9222d7d45f0f4b38b9cb506aa38760f79117ae7eb80665d4a84d8e17cf3e116f5362a97145f520eea2929e7849995d0621f17b239e13')
 noextract=("zeal-windows-x64.msi")
 
 _rmmsdll() {

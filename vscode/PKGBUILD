@@ -32,7 +32,7 @@ download_https@subdir() {
 _realname=vscode
 pkgbase="app-${_realname}"
 pkgname=("app-x86_64-${_realname}")
-epoch=1
+epoch=2
 pkgver=1.143.1
 pkgrel=1
 pkgdesc="Editor for building and debugging modern web and cloud applications"
@@ -42,6 +42,7 @@ license=('custom')
 replaces=("app-i686-${_realname}")
 provides=("${pkgbase}")
 options=(!strip)
+install="vscode.install"
 source=("VSCode-win32-x64.zip::https@subdir://code.visualstudio.com/sha/download?build=stable&os=win32-x64-archive")
 sha512sums=('d92438bcd392d7c5ccaa81bcec26b7462f2cca3dffdeabade920c935677b50a3f15eed22a2eaa8a19bda98eb12ebe15cd6cf19f3b8afc464d5cb63caaff185cd')
 
@@ -79,9 +80,21 @@ pkgver() {
 }
 
 package() {
+    depends=("coreutils" "grep")
+
     local a="${pkgdir}/apps/${_realname}"
     mkdir -p "${a}"
-    cp -R "VSCode-win32-x64"/* "${a}"
+
+    # cp can otherwise fail with "cannot create regular file" due to the runtime's extension magic
+    mkdir "${a}/bin" "${a}/bin/copilot-shim"
+    cp "VSCode-win32-x64/bin/code" "${a}/bin"
+    cp "VSCode-win32-x64/bin/copilot-shim/copilot" "${a}/bin/copilot-shim"
+    cp -nR "VSCode-win32-x64"/* "${a}"
+
+    local hash="$(grep "${a}/Code.VisualElementsManifest.xml" -P --only-matching -e '(?<=Logo=")[0-9a-f]{10}(?=\\)' | head -1)"
+    mv "${a}/${hash}"/* "${a}"
+    rm -R "${a}/${hash}"
+
     _rmmsdll "${a}"
     _lc "${a}"/*
 }

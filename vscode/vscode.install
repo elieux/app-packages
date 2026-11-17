@@ -1,0 +1,27 @@
+get_hash() {
+    grep "apps/vscode/Code.VisualElementsManifest.xml" -P --only-matching -e '(?<=Logo=")[0-9a-f]{10}(?=\\)' | head -1
+}
+
+post_install() {
+    local hash="$(get_hash)"
+    (
+        cd "apps/vscode"
+        # MSYS=winsymlinks:nativestrict ln -s . "${hash}" # Permission denied on msys2-runtime v3.0.7
+        MSYS2_ARG_CONV_EXCL=* cmd /c mklink /d "${hash}" .
+    )
+}
+
+pre_upgrade() {
+    pre_remove "${2}"
+}
+
+post_upgrade() {
+    post_install "${1}"
+}
+
+pre_remove() {
+    oldver="${1%-*}"
+    case "${oldver}" in
+    2~*) rm "apps/vscode/$(get_hash)" ;;
+    esac
+}

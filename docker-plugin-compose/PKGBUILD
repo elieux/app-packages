@@ -5,7 +5,7 @@ _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=5.7.1
+pkgver=5.8.0
 pkgrel=1
 pkgdesc="Define and run multi-container applications with Docker"
 url="https://docs.docker.com/compose/"
@@ -17,7 +17,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("docker-compose-windows-x86_64.exe::https://github.com/docker/compose/releases/download/v${pkgver}/docker-compose-windows-x86_64.exe")
-sha512sums=('528a74e0249663c241f54fd50badb36b8545d286a01a6db6434bcd2867be12d07f7a9b9309f18e18e3534336b9765c08b9c8a594eb73777ebfbbd8c198ac1cf9')
+sha512sums=('e76b3f036ab80e6c311541ee7a8d008ee39aee1c89332012c9d002d9e3202e39cf89a61afddfb1cad76e396ad3c028250c614f78dc933d118b5476b65543bd13')
 noextract=("docker-compose-windows-x86_64.exe")
 
 package() {

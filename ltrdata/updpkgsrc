@@ -31,6 +31,6 @@ foreach ($programs as $program => $link) {
 
 $pkgbuild = file_get_contents('PKGBUILD');
 $source = ltrim(implode("\n", array_map(function($src) { return "        \"{$src}\""; }, $srclist)));
-$pkgbuild = preg_replace("~^source=[(].*?[)]~sm", "source=({$source})", $pkgbuild);
+$pkgbuild = preg_replace("~^source=[(].*?\n[)]~sm", "source=(\n        {$source}\n)", $pkgbuild);
 rename('PKGBUILD', 'PKGBUILD.old');
 file_put_contents('PKGBUILD', $pkgbuild);

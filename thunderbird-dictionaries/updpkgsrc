@@ -2,28 +2,16 @@
 <?php
 // no error handling yet
 
-function fetch($url) {
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_3);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'mozilla');
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'accept: text/html' ]);
-    $data = curl_exec($ch);
-    return $data;
-}
-
-$list = fetch('https://addons.thunderbird.net/en-US/thunderbird/language-tools/');
-preg_match_all("~<a href=\"/en-US/thunderbird/addon/(.*?)/\">Download Dictionary</a>~", $list, $matches);
-
+$url = "https://addons.thunderbird.net/api/v3/addons/search/?app=firefox&type=dictionary&page_size=50";
 $srclist = [];
-foreach ($matches[1] as $addonname) {
-    $addonname = urldecode($addonname);
-    $detail = fetch("https://addons.thunderbird.net/en-US/thunderbird/addon/" . urlencode($addonname) . "/");
-    preg_match("~data-addonid=\"([0-9]+)\"~", $detail, $match);
-    $addonid = $match[1];
-    $addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', urldecode($addonname)), '-_');
-    echo "Found: {$addonname}-{$addonid}.xpi\n";
-    $srclist[] = "{$addonname}-{$addonid}.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/{$addonid}/addon-{$addonid}-latest.xpi";
+while ($url) {
+	$list = json_decode(file_get_contents($url));
+	$url = $list->next;
+	foreach ($list->results as $addon) {
+		$addonname = trim(preg_replace("~[^a-z0-9_-]~i", '', transliterator_transliterate('Latin', $addon->slug)), '-_');
+		echo "Found: {$addonname}-{$addon->id}.xpi\n";
+		$srclist[] = "{$addonname}-{$addon->id}.xpi::https@subdir://addons.thunderbird.net/thunderbird/downloads/latest/{$addon->id}/addon-{$addon->id}-latest.xpi";
+	}
 }
 
 sort($srclist);

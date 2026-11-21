@@ -5,7 +5,7 @@ _dirname=docker
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=0.39.0
+pkgver=0.39.1
 pkgrel=1
 pkgdesc="Extended build capabilities with BuildKit"
 url="https://docs.docker.com/build/"
@@ -17,7 +17,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("buildx.windows-amd64.exe::https://github.com/docker/buildx/releases/download/v${pkgver}/buildx-v${pkgver}.windows-amd64.exe")
-sha512sums=('8a8c2120d54ab506f7a36b0e5a6b022dc98becd40f5e8c0cb35be89e599fff272a4a60ce88211d5cf0a9d48b43b7e76c321dd712da87a52d6c21bab1a0812258')
+sha512sums=('103d6b837bcc629a71626da3df5d036889c6747cd3fbfc66f6afc04a2c46003c02588680668ebf3946e17da1ac8f55fee98603cced4ede17bf50eb4998b41d36')
 noextract=("buildx.windows-amd64.exe")
 
 package() {

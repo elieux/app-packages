@@ -4,7 +4,7 @@ _realname=wireshark
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=4.6.9
+pkgver=4.6.10
 pkgrel=1
 pkgdesc="A free network protocol analyzer"
 url="https://www.wireshark.org/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("Wireshark-x64.exe::https://1.eu.dl.wireshark.org/win64/Wireshark-${pkgver}-x64.exe")
-sha512sums=('2dfb6fd775acb53fe07c7af0a525265911e09e89dd808306f4f072a6fea1db16f1a1e90fa91e8b8bb770ba867324c0a42a7ec17bdf15151c30dea2219f94f0c5')
+sha512sums=('8640e9c5345bcf94dec48b4d23feea9764f3aa35f98f0695cbb5bac55df2aa684fdb7400aa91cfc83f053855df600b701ed1c82a756963a00ad105a393214db7')
 noextract=("Wireshark-x64.exe")
 
 prepare() {

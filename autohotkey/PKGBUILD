@@ -33,7 +33,7 @@ _realname=autohotkey
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=2.0.31
+pkgver=2.0.32
 pkgrel=1
 pkgdesc="Macro-creation and automation-oriented scripting utility for Windows"
 url="https://www.autohotkey.com/"
@@ -45,7 +45,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("AutoHotkey.zip::https@subdir://github.com/AutoHotkey/AutoHotkey/releases/download/v${pkgver}/AutoHotkey_${pkgver}.zip")
-sha512sums=('9b4d14d73ba181fae5cf10ff06688fec694ec6175c0254f641361da03f64932f69c250fe56cac752bc24f1b0d45328024cec8b967f17e4e785ec3985efaf7fd4')
+sha512sums=('83ade7ad0367390533b2a730fa1c91a717bd15ec652f2288b2888be9198489897e5d37cf0fa2ef5f4a6cda218eddc37704f687ef6c738a98b72ff5a5eec3dd24')
 noextract=()
 
 package() {

@@ -1,11 +1,11 @@
 # Maintainer: David Macek <david.macek.0@gmail.com>
 
 _realname=chromium
-_realver=1717349
+_realver=1727472
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=157.0.8103.79
+pkgver=158.0.8127.37
 pkgrel=1
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser"
 url="https://www.chromium.org/Home"
@@ -17,7 +17,7 @@ conflicts=("app-x86_64-${_realname}" "app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("chrome.7z::https://github.com/Hibbiki/chromium-win64/releases/download/v${pkgver}-r${_realver}/chrome.7z")
-sha512sums=('c24ff69e6acf8510bf4d7ba483224c7b8aa553196a89bd3b6c8ed06fe7aca90b60461e9a335e2f83a3d3e88e12c1da8111a02d78b79d3b07b643789ae8a9628b')
+sha512sums=('76846a2ef67fed6e0887f0a8d77658ae37f8b489a70ff4a6135af487a05a48664f65e5512aa9b1cedf1b175a4d798fbcfb89b9e1594ed5c333442999e23a6a90')
 noextract=()
 
 package() {

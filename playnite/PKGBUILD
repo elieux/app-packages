@@ -33,7 +33,7 @@ _realname=playnite
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=10.64
+pkgver=10.65
 pkgrel=1
 pkgdesc="Video game library manager"
 url="https://playnite.link/"
@@ -45,7 +45,7 @@ conflicts=("app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("Playnite.7z::https@subdir://github.com/JosefNemec/Playnite/releases/download/${pkgver}/${pkgver}.7z")
-sha512sums=('436b7d5063b2801427b7226e15b0f9b5d33a5a9a624c49789b47c0fb40619afcfe16300125946a7fbe2c95f507a0dd31a442948eea23a1be931f69328e9630ff')
+sha512sums=('72b08612f8e51eeafcd63fcb7943b9e5ef4ad84ba42bb11b9a799c8c26dc8c9a454b1ea99aef3726d10cd40cbcb6d254733b46be792e43dd63bcd85f8d75a0ba')
 noextract=()
 
 _rmmsdll() {

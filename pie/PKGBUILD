@@ -1,0 +1,31 @@
+# Maintainer: David Macek <david.macek.0@gmail.com>
+
+_realname=pie
+pkgbase="app-${_realname}"
+pkgname=("app-${_realname}")
+epoch=2
+pkgver=1.5.5
+pkgrel=1
+pkgdesc="The PHP Installer for Extensions"
+url="https://php.github.io/pie/"
+arch=('any')
+license=('BSD-3-Clause')
+makedepends=()
+replaces=()
+conflicts=()
+provides=()
+options=(!strip)
+source=("pie-Windows-X64.exe::https://github.com/php/pie/releases/download/${pkgver}/pie-Windows-X64.exe"
+        "pie.phar::https://github.com/php/pie/releases/download/${pkgver}/pie.phar")
+sha512sums=('0f7e23940de8c17a3ab4756bd0155b67179f65a787d80e0e291bcf0fc3a8545bab2827aa38ddd5264faab62b8ac0da7f77214d5b29940492a43eaa4b646c7bfa')
+noextract=("pie-Windows-X64.exe"
+           "pie.phar")
+
+package() {
+    depends=("app-php")
+
+    local a="${pkgdir}/apps/${_realname}"
+    mkdir -p "${a}"
+    cp "pie-Windows-X64.exe" "${a}/pie.exe"
+    cp "pie.phar" "${a}"
+}

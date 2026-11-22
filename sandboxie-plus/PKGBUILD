@@ -4,7 +4,7 @@ _realname=sandboxie-plus
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=1.18.8
+pkgver=1.19.1
 pkgrel=1
 pkgdesc="Sandbox-based isolation software for Windows"
 url="https://sandboxie-plus.com/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("Sandboxie-Plus-x64.exe::https://github.com/sandboxie-plus/Sandboxie/releases/download/v${pkgver}/Sandboxie-Plus-x64-v$(echo "${pkgver}" | sed -r 's/^([0-9]+)[.]([0-9]+)[.]([0-9]+)\b.*$/\1.\2.\3/').exe")
-sha512sums=('18b67f4ecbf499d11e046469dc8ba0bebb9cc03e4f049b01c3750d8cff03b333ae7f8ac3fd0c4521dc0107daa1c52d643c69ab30b177dccddcb1d7e35bcf3657')
+sha512sums=('cd0670d454b9d82b4890c24d6be258625988d6a1caaff1190eb9d926bdc6604de1c2915045d590f4a3ef10d45295c5a4571528ce640d44993b991786948e32e9')
 noextract=("Sandboxie-Plus-x64.exe")
 
 _rmmsdll() {

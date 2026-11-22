@@ -4,7 +4,7 @@ _realname=gpg4win
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=5.1.1
+pkgver=5.1.2
 pkgrel=1
 pkgdesc="A secure solution for file and email encryption"
 url="https://www.gpg4win.org/index.html"
@@ -16,7 +16,7 @@ conflicts=("app-i686-${_realname}")
 provides=()
 options=(!strip)
 source=("gpg4win.exe::https://files.gpg4win.org/gpg4win-${pkgver}.exe")
-sha512sums=('6be53b902247f8fc92e7c7ca2fd9b504314a9b37c2dfd99ba52a37a3488f64dc5f33ea81a41ab59d393000ea9eb7d6a63520a34224909ec4eb2cf8d13695b5a6')
+sha512sums=('99b36f417de1bfad20c3c9b3aec0c634f8fcd901c03a330640b6fb8acffaaeec4d00b7775000ca5b1f177bac711c3f22c1932b46bd1ad689fe2c010b512ff784')
 noextract=("gpg4win.exe")
 
 prepare() {

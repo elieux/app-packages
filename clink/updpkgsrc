@@ -1,6 +1,5 @@
 #!/bin/bash
 
-_choconame=clink-maintained
 _pkgver() {
     echo "${1}"
 }
@@ -10,26 +9,14 @@ _realver() {
 
 set -euo pipefail
 
-chocoxml=/tmp/apps-chocolatey.xml
-if test ! -f "${chocoxml}" || (( "$(date +%s)" - "$(stat -c %Y "${chocoxml}")" > 60 * 60 ))
-then
-    curl -s "https://feeds.feedburner.com/chocolatey" -o "${chocoxml}"
-fi
-
-chocover="$(cat "${chocoxml}" | dos2unix -c mac | { grep "<title>${_choconame} " || true; } | sed -r 's/ *<[^>]+> *//' | sed -r 's/^.*[(]([0-9._-]+)[)].*$/\1/')"
-
-if test -z "${chocover}"
-then
-    url="https://community.chocolatey.org/api/v2/package/${_choconame}"
-    chocover="$(curl -s -I "${url}" | grep -i "location: " | cut -d" " -f2-)"
-    chocover="${chocover##*/}"
-    chocover="${chocover#${_choconame}.}"
-    chocover="${chocover%.nupkg}"
-fi
-
-chocover="$(echo "${chocover}" | sed -r 's/^(.+)[.]([0-9]{8})$/\1/')"
-newpkgver="$(_pkgver "${chocover}")"
-newrealver="$(_realver "${chocover}")"
+url="$(. "PKGBUILD"; echo "${source[0]}")"
+url="https://github.com/${url#*github.com/}"
+url="${url%/download/*}/latest"
+ghver="$(curl -s -I "${url}" | grep -i "location: " | cut -d" " -f2-)"
+ghver="${ghver##*/}"
+ghver="${ghver#v}"
+newpkgver="$(_pkgver "${ghver}")"
+newrealver="$(_realver "${ghver}")"
 pkgver="$(. "PKGBUILD"; echo "${pkgver}")"
 realver="$(. "PKGBUILD"; echo "${_realver:-}")"
 if (( "$(vercmp "${pkgver}" "${newpkgver}")" >= 0 ))

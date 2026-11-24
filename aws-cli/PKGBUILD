@@ -4,7 +4,7 @@ _realname=aws-cli
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=2.42.1
+pkgver=2.42.2
 pkgrel=1
 pkgdesc="Universal Command Line Interface for Amazon Web Services"
 url="https://aws.amazon.com/cli/"
@@ -16,7 +16,7 @@ conflicts=("app-x86_64-${_realname}")
 provides=()
 options=(!strip)
 source=("AWSCLIV2.msi::https://awscli.amazonaws.com/AWSCLIV2-${pkgver}.msi")
-sha512sums=('ecadfe861a7606fa8aa585d2d1ca0ee2f941f7f38960cda1ec6d780e4a50bd4d36ab9b6c06077e6139cf0e12d63d3744b0dc4a38102d7dfe86c08633c41f91b7')
+sha512sums=('3967104d3ad22240e50365601ad58dd05c938ec50b3c974ca01c5f710536ade1c5a26fa15688dbd0eda199f3a5654248fcb4e314db67ee1a8975bff3ff0bf1d0')
 noextract=("AWSCLIV2.msi")
 
 _rmmsdll() {

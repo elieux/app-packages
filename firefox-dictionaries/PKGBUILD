@@ -34,7 +34,7 @@ _dirname=firefox
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=2026.11.17
+pkgver=2026.11.24
 pkgrel=1
 pkgdesc="Dictionaries for Firefox"
 url="https://addons.mozilla.org/en-US/firefox/language-tools/"
@@ -149,6 +149,7 @@ source=("afrikaans-spell-checker-5127.xpi::https@subdir://addons.mozilla.org/fir
         "greek-english-spell-dictionary-347081.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/347081/addon-347081-latest.xpi"
         "greek-spellchecker-673884.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/673884/addon-673884-latest.xpi"
         "greek-spellchecking-dictionary-3439.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3439/addon-3439-latest.xpi"
+        "gujarati-language-dictionary-3136559.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/3136559/addon-3136559-latest.xpi"
         "gujarati-spell-checker-india-222506.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/222506/addon-222506-latest.xpi"
         "gujarati-word-checker-626842.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/626842/addon-626842-latest.xpi"
         "haitian-creole-spell-checker-48577.xpi::https@subdir://addons.mozilla.org/firefox/downloads/latest/48577/addon-48577-latest.xpi"
@@ -334,7 +335,7 @@ sha512sums=('b236986bf6db395c5a51a6a84e20c22e84d72cb196442fa44fd0716969d42cd6e59
             'e272b046535f061ce5591b948d3d7300f1309d6b914cd95539da24562a024a1b0366f4408d342352f16c5d1b82557c7bd805d36f3a0927ef881d0ffa8dd06f69'
             '1b6ff61f1a0ace06a5d1a27d376e75c909ca31e30bcdcae8c4149040f61e4859bda94e2864f5a680e458118dc123c1baff6ad1c58ee22b62334489104efc211f'
             '5966b867b1a98ff66702ddb9e002e0b148a2e6ec4f9050ecd1b65220ca419937dd2a7fc3003e9b486a35167fc96286ad4023df441592568a793fad34f3fb50ad'
-            '9bf51865fb8e6615e098bebb4fa266b3d39fff52f9d92d732e87f2f4a666f8e93b77d7d8b861fb44955d9331449589c7f78088c2fdccedd3b69099b4576039ed'
+            '7d063e495aa158320770a7a78fbe6f650016c3d54f8ca35cd08aa1f7df8fd674d87e8ba4580dac38bc2fa05e7a1458ac066a98141afeef648563a1f55344323e'
             '5090a03c23f52318aa72c7ab10cb2d9d593298b54b618f8cba1cd483ba7b8faf109d658f6cdc82e68f9e821ed4fec44dfb9acddbf6713d22c1318d709f1627b5'
             'c3d819aef48ea6732141dcb80978af1d86b69989ae4ce332b1ade82809abebd5b9ce95d2e680391a32258d123b4d032fa74509330b956d73a7232365ef762785'
             'f4b9bf2958076480253b0be0e256de5dbb30df83e6338b2047dea769695980df4172ce0e7cfe992ed46370b22983155a8aaf3a538b208e9e73a2a4b8fbaad3a7'
@@ -405,6 +406,7 @@ sha512sums=('b236986bf6db395c5a51a6a84e20c22e84d72cb196442fa44fd0716969d42cd6e59
             '2a5393cd5bbeea72c151e982217b847d5a26eddd560a83c068bc94f9dc748ebddf2b4de48fc6939ff7d3326b4a0373e613bbe309cfedfc1d2fd3c45460ad5288'
             'f5e25a253eabfe509437f05e9cace35bbc00bb6d2faa0ec55fbb979bc6355af45d7e903ef08125fc136157e502911ca9afe70fbe59953fb7c386eddf3087fc11'
             '2e93f7c3b35849bfa1db2f1fb117ff31cd56cf14a7d099a4d1b39f59297537c1fc3cb3061503cd43301b1bd6c5728625dd789447d4b032acaf057a805fcc5b79'
+            'c961b7951ee9241d40c502306a43837bb03c35e1f4fd52d08847bd5a74d30b5defd51b403159c5a62075589400fbe31d06dc651b206e9178a77af2b3f309ce7d'
             '761f8f09825f06f7dbc9db6eb5c19241910f2fddebd3aeeab86103ec203d8e0971fd2472b644276befc693e270d43e6cd6eb1337489625fc70f2c6aab0c53c07'
             '3e4993916420207b077fbdb146361482d0b02eaaf2a05dc24407d0c686741d5e03dc129a28232a6eedf70c50b220ce3d86979159f9860a823cb113cc4a747d21'
             '47664a295468ca7bf2607b30f451acee52e60d33cc0f2c5cfeefe537de0f653f5558fd3cd3588c8f92f52acd935b6ee25bcf64c85a064a717a5cceb99d6a0fc1'
@@ -660,6 +662,7 @@ noextract=("afrikaans-spell-checker-5127.xpi"
            "greek-english-spell-dictionary-347081.xpi"
            "greek-spellchecker-673884.xpi"
            "greek-spellchecking-dictionary-3439.xpi"
+           "gujarati-language-dictionary-3136559.xpi"
            "gujarati-spell-checker-india-222506.xpi"
            "gujarati-word-checker-626842.xpi"
            "haitian-creole-spell-checker-48577.xpi"

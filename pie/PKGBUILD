@@ -4,7 +4,7 @@ _realname=pie
 pkgbase="app-${_realname}"
 pkgname=("app-${_realname}")
 epoch=2
-pkgver=1.5.5
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="The PHP Installer for Extensions"
 url="https://php.github.io/pie/"
@@ -17,7 +17,8 @@ provides=()
 options=(!strip)
 source=("pie-Windows-X64.exe::https://github.com/php/pie/releases/download/${pkgver}/pie-Windows-X64.exe"
         "pie.phar::https://github.com/php/pie/releases/download/${pkgver}/pie.phar")
-sha512sums=('0f7e23940de8c17a3ab4756bd0155b67179f65a787d80e0e291bcf0fc3a8545bab2827aa38ddd5264faab62b8ac0da7f77214d5b29940492a43eaa4b646c7bfa')
+sha512sums=('c4817c779c021cb4628c88b9cdef8b1b6aeb3a08f84bd978e071e605813509fd4b3d6146c7d45a646a5dd57edcdc807c8739df60b0dcae9ae5bd62716fcfc877'
+            '86a7f615df814aadae86ea850dd6221e489f168585e74dfdbc411d568650f29d5b86f4b326fbfe57ad5288649ba3b0b6a7fa930175fae276c65657a098ce0569')
 noextract=("pie-Windows-X64.exe"
            "pie.phar")
 
